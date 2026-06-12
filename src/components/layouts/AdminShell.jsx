@@ -24,6 +24,7 @@ import {
   UserCheck,
   Settings,
   Search,
+  Map,
   LogOut
 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -36,6 +37,7 @@ const navItems = [
   { label: 'KYC', route: ROUTES.kyc, icon: ShieldCheck },
   { label: 'Business', route: ROUTES.business, icon: Briefcase },
   { label: 'Branches', route: ROUTES.branches, icon: Network },
+  { label: 'Service Areas', route: ROUTES.serviceAreas, icon: Map },
   { label: 'Services', route: ROUTES.services, icon: Shapes },
   { label: 'Employees', route: ROUTES.employees, icon: Contact },
   { label: 'Bookings', route: ROUTES.bookings, icon: CalendarCheck },

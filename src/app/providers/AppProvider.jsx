@@ -24,6 +24,7 @@ export function AppProvider({ children }) {
   const [recovery, setRecovery] = useState({ identifier: '', otpSent: false, otpVerified: false, resetDone: false });
   const [theme, setTheme] = useState('light');
   const [currentPartnerId, setCurrentPartnerId] = useState(null);
+  const [currentBranchId, setCurrentBranchId] = useState('BR-90210');
 
   const navigate = (nextRoute) => {
     if (nextRoute === ROUTES.root) {
@@ -79,7 +80,21 @@ export function AppProvider({ children }) {
        nextRoute === ROUTES.reviews ||
        nextRoute === ROUTES.sos ||
        nextRoute === ROUTES.support ||
-       nextRoute === ROUTES.settings) &&
+       nextRoute === ROUTES.settings ||
+       nextRoute === ROUTES.performance ||
+       nextRoute === ROUTES.reports ||
+       nextRoute === ROUTES.attendance ||
+       nextRoute === ROUTES.leaveManagement ||
+       nextRoute === ROUTES.branchPerformance ||
+       nextRoute === ROUTES.branchApproval ||
+       nextRoute === ROUTES.branchAnalytics ||
+       nextRoute === ROUTES.branchSchedule ||
+       nextRoute === ROUTES.branchSuspend ||
+       nextRoute === ROUTES.branchCompliance ||
+       nextRoute === ROUTES.addBranch ||
+       nextRoute === ROUTES.branchProfile ||
+       nextRoute === ROUTES.branchManagerAssignment ||
+       nextRoute === ROUTES.serviceAreas) &&
       (!session.authenticated || !session.role)
     ) {
       setRoute(selectedRole ? ROUTES.login : ROUTES.roles);
@@ -150,9 +165,11 @@ export function AppProvider({ children }) {
       theme,
       setTheme,
       currentPartnerId,
-      setCurrentPartnerId
+      setCurrentPartnerId,
+      currentBranchId,
+      setCurrentBranchId
     }),
-    [route, selectedRole, session, recovery, theme, currentPartnerId]
+    [route, selectedRole, session, recovery, theme, currentPartnerId, currentBranchId]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

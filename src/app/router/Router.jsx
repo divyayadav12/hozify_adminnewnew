@@ -21,6 +21,15 @@ import Settlements from '../../pages/Settlements';
 import Analytics from '../../pages/Analytics';
 import Users from '../../pages/Users';
 import Placeholder from '../../pages/Placeholder';
+import Employees from '../../pages/Employees';
+import KycQueue from '../../pages/Employees/KycQueue';
+import Branches from '../../pages/Branches';
+import BranchSchedule from '../../pages/Branches/BranchSchedule';
+import BranchSuspend from '../../pages/Branches/BranchSuspend';
+import AddBranch from '../../pages/Branches/AddBranch';
+import BranchProfile from '../../pages/Branches/BranchProfile';
+import ManagerAssignment from '../../pages/Branches/ManagerAssignment';
+import ServiceAreas from '../../pages/ServiceAreas';
 
 export function Router() {
   const { route } = useApp();
@@ -64,15 +73,35 @@ export function Router() {
     case ROUTES.users:
       return <Users />;
     case ROUTES.kyc:
-      return <Placeholder title="KYC" activeTab="KYC" />;
+      return <KycQueue />;
     case ROUTES.business:
       return <Placeholder title="Business" activeTab="Business" />;
     case ROUTES.branches:
-      return <Placeholder title="Branches" activeTab="Branches" />;
+      return <Branches />;
+    case ROUTES.branchPerformance:
+      return <Branches defaultTab="Performance" />;
+    case ROUTES.branchApproval:
+      return <Branches defaultTab="ApprovalQueue" />;
+    case ROUTES.branchAnalytics:
+      return <Branches defaultTab="Analytics" />;
+    case ROUTES.branchSchedule:
+      return <BranchSchedule />;
+    case ROUTES.branchSuspend:
+      return <BranchSuspend />;
+    case ROUTES.branchCompliance:
+      return <Branches defaultTab="Compliance" />;
+    case ROUTES.addBranch:
+      return <AddBranch />;
+    case ROUTES.branchProfile:
+      return <BranchProfile />;
+    case ROUTES.branchManagerAssignment:
+      return <ManagerAssignment />;
+    case ROUTES.serviceAreas:
+      return <ServiceAreas />;
     case ROUTES.services:
       return <Placeholder title="Services" activeTab="Services" />;
     case ROUTES.employees:
-      return <Placeholder title="Employees" activeTab="Employees" />;
+      return <Employees />;
     case ROUTES.bookings:
       return <Placeholder title="Bookings" activeTab="Bookings" />;
     case ROUTES.liveTracking:
@@ -103,6 +132,14 @@ export function Router() {
       return <Placeholder title="Support" activeTab="Support" />;
     case ROUTES.settings:
       return <Placeholder title="Settings" activeTab="Settings" />;
+    case ROUTES.performance:
+      return <Employees />;
+    case ROUTES.reports:
+      return <Employees />;
+    case ROUTES.attendance:
+      return <Employees />;
+    case ROUTES.leaveManagement:
+      return <Employees />;
     default:
       return <RoleSelection />;
   }

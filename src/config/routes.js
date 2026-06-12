@@ -38,7 +38,21 @@ export const ROUTES = {
   reviews: '/reviews',
   sos: '/sos',
   support: '/support',
-  settings: '/settings'
+  settings: '/settings',
+  performance: '/performance',
+  reports: '/reports',
+  attendance: '/attendance',
+  leaveManagement: '/leave-management',
+  branchPerformance: '/branches/performance',
+  branchApproval: '/branches/approval',
+  branchAnalytics: '/branches/analytics',
+  branchSchedule: '/branches/schedule',
+  branchSuspend: '/branches/suspend',
+  branchCompliance: '/branches/compliance',
+  addBranch: '/branches/add',
+  branchProfile: '/branches/profile',
+  branchManagerAssignment: '/branches/assign-manager',
+  serviceAreas: '/service-areas'
 };
 
 
