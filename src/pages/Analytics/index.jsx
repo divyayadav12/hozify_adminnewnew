@@ -22,7 +22,12 @@ import {
   Sliders,
   TrendingUp,
   MapPin,
-  TrendingDown
+  TrendingDown,
+  Clock,
+  ShieldAlert,
+  Sparkles,
+  Globe,
+  Zap
 } from 'lucide-react';
 
 export default function Analytics() {
@@ -37,6 +42,8 @@ export default function Analytics() {
   const [regionFilter, setRegionFilter] = useState('North America');
   const [searchTableTerm, setSearchTableTerm] = useState('');
   const [statuses, setStatuses] = useState({ active: true, pending: true, inactive: false });
+  const [emailDigest, setEmailDigest] = useState(true);
+  const [s3Sync, setS3Sync] = useState(false);
 
   // Report Categories list (Screen 3 Left Panel)
   const reportCategories = [
@@ -467,260 +474,434 @@ export default function Analytics() {
             </div>
           </>
         ) : (
-          /* ================= REPORTS CONSOLE VIEW (SCREEN 3 TURN 2) ================= */
-          <div className="fraud-top-grid" style={{ gap: '20px', alignItems: 'stretch' }}>
+          /* ================= SERVICE REPORTS CONSOLE VIEW (SCREEN 4) ================= */
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
-            {/* Left Category & parameters panel */}
-            <div style={{ flex: 0.9, display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div className="panel" style={{ padding: '16px' }}>
-                <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 12px' }}>Report Categories</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  {reportCategories.map((cat) => {
-                    const isActive = activeCategory === cat.id;
-                    return (
-                      <button
-                        key={cat.id}
-                        onClick={() => setActiveCategory(cat.id)}
-                        style={{
-                          width: '100%',
-                          textAlign: 'left',
-                          padding: '10px 12px',
-                          background: isActive ? '#eff6ff' : 'transparent',
-                          border: 'none',
-                          color: isActive ? '#1e40af' : 'var(--text)',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          fontWeight: '700',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          outline: 'none'
-                        }}
-                        type="button"
-                      >
-                        {cat.label}
-                        {isActive && <ChevronDown size={14} style={{ transform: 'rotate(-90deg)' }} />}
-                      </button>
-                    );
-                  })}
-                </div>
+            {/* Page Header Area */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+              <div>
+                <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>OPERATIONAL INSIGHTS</span>
+                <h1 style={{ margin: '4px 0 0', fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>Service Reports</h1>
               </div>
 
-              <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: 0 }}>Parameters</h3>
-                
-                <div>
-                  <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Date Range</label>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', padding: '0 10px', height: '36px' }}>
-                    <Calendar size={14} style={{ color: 'var(--muted)' }} />
-                    <input
-                      type="text"
-                      style={{ border: 'none', background: 'transparent', width: '100%', fontSize: '11px', outline: 'none', fontWeight: '700' }}
-                      value={dateRange}
-                      onChange={(e) => setDateRange(e.target.value)}
-                      aria-label="Analytics date range selection input"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Business Tier</label>
-                  <select
-                    style={{ width: '100%', height: '36px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', padding: '0 10px', fontSize: '11px', fontWeight: '700', outline: 'none' }}
-                    value={businessTier}
-                    onChange={(e) => setBusinessTier(e.target.value)}
-                    aria-label="Report business tier selection dropdown"
-                  >
-                    <option value="All Tiers">All Tiers</option>
-                    <option value="Tier 1">Tier 1</option>
-                    <option value="Tier 2">Tier 2</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Region</label>
-                  <select
-                    style={{ width: '100%', height: '36px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', padding: '0 10px', fontSize: '11px', fontWeight: '700', outline: 'none' }}
-                    value={regionFilter}
-                    onChange={(e) => setRegionFilter(e.target.value)}
-                    aria-label="Report region selection dropdown"
-                  >
-                    <option value="North America">North America</option>
-                    <option value="EMEA">EMEA</option>
-                    <option value="APAC">APAC</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Status</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px', fontWeight: '700' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                      <input type="checkbox" checked={statuses.active} onChange={() => handleStatusChange('active')} style={{ accentColor: '#3b82f6' }} />
-                      Active
-                    </label>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                      <input type="checkbox" checked={statuses.pending} onChange={() => handleStatusChange('pending')} style={{ accentColor: '#3b82f6' }} />
-                      Pending
-                    </label>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                      <input type="checkbox" checked={statuses.inactive} onChange={() => handleStatusChange('inactive')} style={{ accentColor: '#3b82f6' }} />
-                      Inactive
-                    </label>
-                  </div>
-                </div>
-
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                 <button
-                  style={{ width: '100%', height: '38px', border: 'none', background: '#3b82f6', color: '#fff', fontSize: '12px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', marginTop: '6px' }}
-                  onClick={() => alert('Generating analytics reports...')}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    border: '1px solid var(--line)',
+                    background: '#fff',
+                    color: 'var(--text)',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    height: '34px',
+                    padding: '0 12px',
+                    borderRadius: '6px',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => alert('Selecting date range...')}
                   type="button"
                 >
-                  Generate Report
+                  <Calendar size={14} style={{ color: 'var(--muted)' }} />
+                  <span>Last 30 Days</span>
+                </button>
+                <button
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    border: 'none',
+                    background: '#0f172a',
+                    color: '#fff',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    height: '34px',
+                    padding: '0 12px',
+                    borderRadius: '6px',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => alert('Generating operational reports')}
+                  type="button"
+                >
+                  <Download size={14} />
+                  <span>Generate Report</span>
                 </button>
               </div>
             </div>
 
-            {/* Right Report detail panel */}
-            <div style={{ flex: 1.8, display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {activeCategory === 'Revenue' ? (
-                <>
-                  <div className="panel" style={{ padding: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '24px' }}>
-                      <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Monthly Revenue Trend</h2>
-                      <div style={{ display: 'flex', gap: '14px', fontSize: '11px', fontWeight: '700' }}>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text)' }}>
-                          <span style={{ height: '8px', width: '8px', background: '#3b82f6', borderRadius: '2px' }} />
-                          Current Period
-                        </span>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--muted)' }}>
-                          <span style={{ height: '8px', width: '8px', background: '#cbd5e1', borderRadius: '2px' }} />
-                          Prev Period
-                        </span>
-                      </div>
-                    </div>
+            {/* 3 KPI Summary Cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+              
+              {/* Card 1: Service Revenue */}
+              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Service Revenue</span>
+                  <span style={{ fontSize: '9px', fontWeight: '800', color: '#10b981', background: '#e6f4ea', padding: '2px 6px', borderRadius: '4px' }}>+12.4%</span>
+                </div>
+                <strong style={{ fontSize: '28px', color: 'var(--text)', margin: '8px 0 0', fontWeight: '800' }}>$842,910</strong>
+                
+                {/* Wavy blue sparkline SVG */}
+                <div style={{ height: '35px', marginTop: '10px' }}>
+                  <svg width="100%" height="100%" viewBox="0 0 200 40" preserveAspectRatio="none">
+                    <path d="M 0 30 Q 20 10, 40 25 T 80 15 T 120 32 T 160 12 T 200 22" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span style={{ fontSize: '10px', color: 'var(--muted)', marginTop: '8px', display: 'block' }}>vs $750k last mo.</span>
+              </div>
 
-                    <div style={{ height: '180px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '10px 10px 0', borderBottom: '1px solid #e2e8f0', position: 'relative' }}>
-                      {[
-                        { m: 'Jan', val1: 40, val2: 30 },
-                        { m: 'Feb', val1: 50, val2: 45 },
-                        { m: 'Mar', val1: 65, val2: 50 },
-                        { m: 'Apr', val1: 60, val2: 55 },
-                        { m: 'May', val1: 75, val2: 60 },
-                        { m: 'Jun', val1: 90, val2: 80 },
-                        { m: 'Jul', val1: 85, val2: 70 },
-                        { m: 'Aug', val1: 55, val2: 45 }
-                      ].map((col, idx) => (
-                        <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-                          <div style={{ display: 'flex', gap: '4px', alignItems: 'flex-end', height: '140px' }}>
-                            <div style={{ width: '12px', height: `${col.val1}%`, background: '#3b82f6', borderRadius: '2px 2px 0 0' }} />
-                            <div style={{ width: '12px', height: `${col.val2}%`, background: '#cbd5e1', borderRadius: '2px 2px 0 0' }} />
+              {/* Card 2: Customer Rating */}
+              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer Rating</span>
+                  <span style={{ fontSize: '9px', fontWeight: '800', color: '#10b981', background: '#e6f4ea', padding: '2px 6px', borderRadius: '4px' }}>+2.1%</span>
+                </div>
+                <strong style={{ fontSize: '28px', color: 'var(--text)', margin: '8px 0 0', fontWeight: '800' }}>4.82<span style={{ fontSize: '14px', fontWeight: 'normal', color: 'var(--muted)' }}>/5</span></strong>
+                
+                {/* Rising yellow sparkline SVG */}
+                <div style={{ height: '35px', marginTop: '10px' }}>
+                  <svg width="100%" height="100%" viewBox="0 0 200 40" preserveAspectRatio="none">
+                    <path d="M 0 35 Q 25 30, 50 15 T 100 22 T 150 10 T 200 5" fill="none" stroke="#eab308" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span style={{ fontSize: '10px', color: 'var(--muted)', marginTop: '8px', display: 'block' }}>2,491 reviews</span>
+              </div>
+
+              {/* Card 3: Risk Alerts */}
+              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Risk Alerts</span>
+                  <span style={{ fontSize: '9px', fontWeight: '800', color: '#ef4444', background: '#fce8e6', padding: '2px 6px', borderRadius: '4px' }}>-8%</span>
+                </div>
+                <strong style={{ fontSize: '28px', color: 'var(--text)', margin: '8px 0 0', fontWeight: '800' }}>14</strong>
+                
+                {/* Falling red sparkline SVG */}
+                <div style={{ height: '35px', marginTop: '10px' }}>
+                  <svg width="100%" height="100%" viewBox="0 0 200 40" preserveAspectRatio="none">
+                    <path d="M 0 10 Q 25 15, 50 35 T 100 20 T 150 38 T 200 40" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span style={{ fontSize: '10px', color: 'var(--muted)', marginTop: '8px', display: 'block' }}>6 high priority</span>
+              </div>
+
+            </div>
+
+            {/* Main Section: Consolidated Export Center & Auto-Scheduling */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '20px', alignItems: 'start' }}>
+              
+              {/* Consolidated Export Center (Left) */}
+              <div className="panel" style={{ padding: '20px', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <div>
+                    <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Consolidated Export Center</h2>
+                    <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Recent system-generated and custom reports.</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="Filter exports">
+                      <Sliders size={14} />
+                    </button>
+                    <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="Search exports">
+                      <Search size={14} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="table-wrap">
+                  <table className="approval-queue-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+                    <thead>
+                      <tr style={{ textAlign: 'left', borderBottom: '1px solid var(--line)' }}>
+                        <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Report Name</th>
+                        <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Type</th>
+                        <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Date</th>
+                        <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px 8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <FileText size={15} style={{ color: '#25108f' }} />
+                            <strong style={{ color: 'var(--text)' }}>Q3_Revenue_Analysis_Final</strong>
                           </div>
-                          <span style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '8px', fontWeight: '700' }}>{col.m}</span>
-                        </div>
-                      ))}
+                        </td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>Financial</td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>2023-10-24</td>
+                        <td style={{ padding: '12px 8px' }}>
+                          <span style={{ fontSize: '9px', fontWeight: '800', background: '#e6f4ea', color: '#137333', padding: '3px 8px', borderRadius: '4px' }}>VERIFIED</span>
+                        </td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px 8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Sliders size={15} style={{ color: '#25108f' }} />
+                            <strong style={{ color: 'var(--text)' }}>Resource_Allocation_Oct23</strong>
+                          </div>
+                        </td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>Operations</td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>2023-10-22</td>
+                        <td style={{ padding: '12px 8px' }}>
+                          <span style={{ fontSize: '9px', fontWeight: '800', background: '#fef7e0', color: '#b06000', padding: '3px 8px', borderRadius: '4px' }}>PENDING</span>
+                        </td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px 8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <FileText size={15} style={{ color: '#25108f' }} />
+                            <strong style={{ color: 'var(--text)' }}>Safety_Compliance_Audit_A1</strong>
+                          </div>
+                        </td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>Risk</td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>2023-10-20</td>
+                        <td style={{ padding: '12px 8px' }}>
+                          <span style={{ fontSize: '9px', fontWeight: '800', background: '#e6f4ea', color: '#137333', padding: '3px 8px', borderRadius: '4px' }}>VERIFIED</span>
+                        </td>
+                      </tr>
+                      <tr style={{ borderBottom: 'none' }}>
+                        <td style={{ padding: '12px 8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <ShieldAlert size={15} style={{ color: '#ef4444' }} />
+                            <strong style={{ color: 'var(--text)' }}>Risk_Incident_Log_2401</strong>
+                          </div>
+                        </td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>Risk</td>
+                        <td style={{ padding: '12px 8px', color: 'var(--muted)', fontWeight: '600' }}>2023-10-18</td>
+                        <td style={{ padding: '12px 8px' }}>
+                          <span style={{ fontSize: '9px', fontWeight: '800', background: '#fce8e6', color: '#ea4335', padding: '3px 8px', borderRadius: '4px' }}>HIGH RISK</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div style={{ borderTop: '1px solid var(--line)', textAlign: 'center', padding: '12px 0 0', marginTop: '12px' }}>
+                  <button
+                    onClick={() => alert('Viewing all 152 reports')}
+                    style={{ border: 'none', background: 'transparent', color: '#25108f', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
+                    type="button"
+                  >
+                    View All 152 Reports
+                  </button>
+                </div>
+              </div>
+
+              {/* Auto-Scheduling Card (Right) */}
+              <div style={{
+                background: 'linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)',
+                color: 'white',
+                borderRadius: '12px',
+                padding: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Clock size={16} style={{ color: '#a78bfa' }} />
+                  <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#a78bfa' }}>Auto-Scheduling</span>
+                </div>
+
+                <div>
+                  <span style={{ fontSize: '11px', color: '#94a3b8', display: 'block', marginBottom: '8px' }}>Next Scheduled Report</span>
+                  <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '12px' }}>
+                    <strong style={{ display: 'block', fontSize: '13px', color: 'white', marginBottom: '8px' }}>Executive Weekly Pulse</strong>
+                    <div style={{ display: 'flex', gap: '14px', fontSize: '11px', color: '#cbd5e1' }}>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Calendar size={12} />
+                        Every Monday
+                      </span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Clock size={12} />
+                        08:00 AM
+                      </span>
                     </div>
                   </div>
+                </div>
 
-                  <div className="panel" style={{ padding: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '12px' }}>
-                      <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Report Preview: Detailed Revenue Data</h2>
-                      <div className="input-wrap" style={{ minHeight: '34px', padding: '0 8px', maxWidth: '240px' }}>
-                        <Search size={14} />
-                        <input
-                          placeholder="Search rows..."
-                          value={searchTableTerm}
-                          onChange={(e) => setSearchTableTerm(e.target.value)}
-                          style={{ fontSize: '12px' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="table-wrap">
-                      <table className="approval-queue-table">
-                        <thead>
-                          <tr>
-                            <th>ENTITY NAME</th>
-                            <th>REGION</th>
-                            <th>REVENUE (USD)</th>
-                            <th>GROWTH</th>
-                            <th>STATUS</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {detailedRevenueData
-                            .filter(b => b.name.toLowerCase().includes(searchTableTerm.toLowerCase()))
-                            .map((row, idx) => (
-                              <tr key={idx} className="partner-row-clickable" onClick={() => navigate(ROUTES.businessDetails)} style={{ cursor: 'pointer' }}>
-                                <td>
-                                  <div>
-                                    <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>{row.name}</strong>
-                                    <span style={{ fontSize: '10px', color: 'var(--muted)' }}>ID: {row.id}</span>
-                                  </div>
-                                </td>
-                                <td style={{ fontSize: '13px', color: 'var(--muted)', fontWeight: '700' }}>{row.region}</td>
-                                <td style={{ fontSize: '13px', color: 'var(--text)', fontWeight: '800' }}>{row.revenue}</td>
-                                <td style={{ fontSize: '13px', color: row.growth.startsWith('+') ? '#10b981' : '#ef4444', fontWeight: '800' }}>{row.growth}</td>
-                                <td>
-                                  <span style={{ fontSize: '9px', fontWeight: '900', color: row.statusColor, background: row.statusBg, padding: '3px 8px', borderRadius: '4px' }}>
-                                    {row.status}
-                                  </span>
-                                </td>
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* Leaderboard Fallback view */
-                <section className="panel" style={{ padding: '20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Partner Growth & SLA Leaderboard</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px' }}>
+                  
+                  {/* Email Digest Toggle */}
+                  <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '600', color: '#cbd5e1' }}>Email Digest</span>
+                    <button
+                      onClick={() => setEmailDigest(!emailDigest)}
+                      style={{
+                        width: '34px',
+                        height: '20px',
+                        borderRadius: '10px',
+                        background: emailDigest ? '#10b981' : '#cbd5e1',
+                        border: 'none',
+                        position: 'relative',
+                        cursor: 'pointer',
+                        transition: 'background 0.2s'
+                      }}
+                      type="button"
+                      aria-label="Email digest toggle"
+                    >
+                      <div style={{
+                        width: '14px',
+                        height: '14px',
+                        borderRadius: '50%',
+                        background: 'white',
+                        position: 'absolute',
+                        top: '3px',
+                        left: emailDigest ? '17px' : '3px',
+                        transition: 'left 0.2s'
+                      }} />
+                    </button>
                   </div>
 
-                  <div className="table-wrap">
-                    <table className="approval-queue-table">
-                      <thead>
-                        <tr>
-                          <th>PARTNER NAME</th>
-                          <th>SERVICE TYPE</th>
-                          <th>TOTAL COMPLETED ORDERS</th>
-                          <th>GROSS REVENUE CONTRIBUTION</th>
-                          <th>AVG RATING</th>
-                          <th>SLA ADHERENCE RATE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {partnerMetrics.map((p, idx) => (
-                          <tr key={idx} className="partner-row-clickable" onClick={() => navigate(ROUTES.partnerDetails)} style={{ cursor: 'pointer' }}>
-                            <td><strong style={{ color: 'var(--text)' }}>{p.name}</strong></td>
-                            <td>
-                              <span style={{ background: '#f5f3ff', color: 'var(--primary-3)', fontSize: '10px', fontWeight: '800', padding: '2px 6px', borderRadius: '4px' }}>
-                                {p.category}
-                              </span>
-                            </td>
-                            <td><strong>{p.orders}</strong></td>
-                            <td><strong style={{ color: '#4f46e5' }}>{p.revenue}</strong></td>
-                            <td>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '700' }}>
-                                <Star size={13} fill="#f59e0b" color="#f59e0b" />
-                                <span>{p.rating}</span>
-                              </div>
-                            </td>
-                            <td>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '700' }}>
-                                <span className="priority-bullet-dot" style={{ background: '#10b981' }} />
-                                <span>{p.sla}</span>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  {/* S3 Cloud Sync Toggle */}
+                  <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '600', color: '#cbd5e1' }}>S3 Cloud Sync</span>
+                    <button
+                      onClick={() => setS3Sync(!s3Sync)}
+                      style={{
+                        width: '34px',
+                        height: '20px',
+                        borderRadius: '10px',
+                        background: s3Sync ? '#10b981' : '#475569',
+                        border: 'none',
+                        position: 'relative',
+                        cursor: 'pointer',
+                        transition: 'background 0.2s'
+                      }}
+                      type="button"
+                      aria-label="S3 sync toggle"
+                    >
+                      <div style={{
+                        width: '14px',
+                        height: '14px',
+                        borderRadius: '50%',
+                        background: 'white',
+                        position: 'absolute',
+                        top: '3px',
+                        left: s3Sync ? '17px' : '3px',
+                        transition: 'left 0.2s'
+                      }} />
+                    </button>
                   </div>
-                </section>
-              )}
+
+                </div>
+
+                <button
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '6px',
+                    border: 'none',
+                    background: '#25108f',
+                    color: 'white',
+                    fontWeight: '700',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    marginTop: '8px',
+                    textAlign: 'center',
+                    transition: 'all 0.2s'
+                  }}
+                  onClick={() => alert('Manage automation rules console')}
+                  type="button"
+                >
+                  Manage Automation Rules
+                </button>
+
+                {/* Footer Info Box */}
+                <div style={{
+                  display: 'flex',
+                  gap: '10px',
+                  background: 'rgba(245, 158, 11, 0.1)',
+                  border: '1px solid rgba(245, 158, 11, 0.2)',
+                  borderRadius: '6px',
+                  padding: '10px',
+                  fontSize: '11px',
+                  color: '#fbbf24',
+                  lineHeight: '1.4',
+                  marginTop: '4px'
+                }}>
+                  <AlertCircle size={16} style={{ flexShrink: 0 }} />
+                  <span>4 scheduled tasks are running today. Last successful run: 10:04 AM GMT.</span>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Bottom Section: Health Insights & Proactive monitoring */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '20px', alignItems: 'stretch' }}>
+              
+              {/* System Health (Left) */}
+              <div style={{
+                background: 'linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&h=180&q=80")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '12px',
+                padding: '24px',
+                color: 'white',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '180px'
+              }}>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'white', margin: 0 }}>System Health & Latency Insights</h3>
+                  <p style={{ fontSize: '12px', color: '#94a3b8', margin: '6px 0 0', lineHeight: '1.5', maxWidth: '480px' }}>
+                    Monitor real-time infrastructure performance across all service regions. Optimized for low-latency decision making.
+                  </p>
+                </div>
+
+                <div style={{ display: 'flex', gap: '16px', marginTop: '16px' }}>
+                  <div style={{ background: 'rgba(255,255,255,0.08)', padding: '10px 16px', borderRadius: '8px', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Uptime</span>
+                    <strong style={{ fontSize: '16px', color: '#10b981', fontWeight: '800' }}>99.98%</strong>
+                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.08)', padding: '10px 16px', borderRadius: '8px', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg Response</span>
+                    <strong style={{ fontSize: '16px', color: '#3b82f6', fontWeight: '800' }}>124ms</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Proactive Monitoring (Right) */}
+              <div className="panel" style={{ padding: '20px', background: 'white', border: '1px solid var(--line)', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '6px',
+                    background: '#eff6ff',
+                    color: '#2563eb',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '12px'
+                  }}>
+                    <Zap size={16} />
+                  </div>
+                  <strong style={{ display: 'block', fontSize: '14px', color: 'var(--text)', marginBottom: '4px' }}>
+                    Proactive Monitoring
+                  </strong>
+                  <p style={{ fontSize: '11px', color: 'var(--muted)', margin: 0, lineHeight: '1.4' }}>
+                    AI-powered threat detection and resource optimization at the edge.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => alert('Activating AI Insights...')}
+                  style={{
+                    border: 'none',
+                    background: 'transparent',
+                    color: '#25108f',
+                    fontWeight: '700',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    padding: 0,
+                    marginTop: '16px'
+                  }}
+                  type="button"
+                >
+                  Enable AI Insights
+                </button>
+              </div>
+
             </div>
 
           </div>

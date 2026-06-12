@@ -30,6 +30,7 @@ import AddBranch from '../../pages/Branches/AddBranch';
 import BranchProfile from '../../pages/Branches/BranchProfile';
 import ManagerAssignment from '../../pages/Branches/ManagerAssignment';
 import ServiceAreas from '../../pages/ServiceAreas';
+import Services from '../../pages/Services';
 import BusinessRegistry from '../../pages/Business';
 import BusinessDetails from '../../pages/Business/BusinessDetails';
 import BusinessReview from '../../pages/Business/BusinessReview';
@@ -125,7 +126,7 @@ export function Router() {
     case ROUTES.serviceAreas:
       return <ServiceAreas />;
     case ROUTES.services:
-      return <Placeholder title="Services" activeTab="Services" />;
+      return <Services />;
     case ROUTES.employees:
       return <Employees />;
     case ROUTES.bookings:
