@@ -94,7 +94,16 @@ export function AppProvider({ children }) {
        nextRoute === ROUTES.addBranch ||
        nextRoute === ROUTES.branchProfile ||
        nextRoute === ROUTES.branchManagerAssignment ||
-       nextRoute === ROUTES.serviceAreas) &&
+       nextRoute === ROUTES.serviceAreas ||
+       nextRoute === ROUTES.businessApproval ||
+       nextRoute === ROUTES.businessDetails ||
+       nextRoute === ROUTES.businessReview ||
+       nextRoute === ROUTES.businessVerify ||
+       nextRoute === ROUTES.businessSuspension ||
+       nextRoute === ROUTES.businessRisk ||
+       nextRoute === ROUTES.addBusiness ||
+       nextRoute === ROUTES.businessDocReview ||
+       nextRoute === ROUTES.businessTaxonomy) &&
       (!session.authenticated || !session.role)
     ) {
       setRoute(selectedRole ? ROUTES.login : ROUTES.roles);

@@ -25,7 +25,9 @@ import {
   Settings,
   Search,
   Map,
-  LogOut
+  LogOut,
+  BarChart3,
+  MessageSquare
 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
@@ -36,6 +38,7 @@ const navItems = [
   { label: 'Partners', route: ROUTES.partners, icon: Handshake },
   { label: 'KYC', route: ROUTES.kyc, icon: ShieldCheck },
   { label: 'Business', route: ROUTES.business, icon: Briefcase },
+  { label: 'Analytics', route: ROUTES.analytics, icon: BarChart3 },
   { label: 'Branches', route: ROUTES.branches, icon: Network },
   { label: 'Service Areas', route: ROUTES.serviceAreas, icon: Map },
   { label: 'Services', route: ROUTES.services, icon: Shapes },
@@ -48,7 +51,7 @@ const navItems = [
   { label: 'Banking', route: ROUTES.banking, icon: Landmark },
   { label: 'Revenue', route: ROUTES.revenue, icon: Banknote },
   { label: 'Referrals', route: ROUTES.referrals, icon: Network },
-  { label: 'Notifications', route: ROUTES.notifications, icon: Bell },
+  { label: 'Communications', route: ROUTES.communications, icon: MessageSquare },
   { label: 'Banners', route: ROUTES.banners, icon: MousePointerClick },
   { label: 'CMS', route: ROUTES.cms, icon: ClipboardList },
   { label: 'Reviews', route: ROUTES.reviews, icon: Star },
@@ -74,7 +77,8 @@ export default function AdminShell({
   showGridIcon = false,
   customProfileName = '',
   customProfileRole = '',
-  customProfileAvatar = ''
+  customProfileAvatar = '',
+  headerTabs = null
 }) {
   const { session, logout, navigate } = useApp();
   
@@ -114,6 +118,18 @@ export default function AdminShell({
                 activeTab === 'PartnerDetails' || 
                 activeTab === 'RegisterPartner' || 
                 activeTab === 'ApprovalQueue'
+              )) ||
+              (item.label === 'Business' && (
+                activeTab === 'Business' || 
+                activeTab === 'BusinessApproval' || 
+                activeTab === 'BusinessDetails' || 
+                activeTab === 'BusinessReview' || 
+                activeTab === 'BusinessVerify' || 
+                activeTab === 'BusinessSuspension' ||
+                activeTab === 'BusinessRisk' ||
+                activeTab === 'AddBusiness' ||
+                activeTab === 'BusinessDocReview' ||
+                activeTab === 'BusinessTaxonomy'
               )) ||
               (item.label === activeTab);
 
@@ -162,6 +178,7 @@ export default function AdminShell({
                 onChange={(e) => onSearchChange(e.target.value)}
               />
             </div>
+            {headerTabs && <div className="header-custom-tabs" style={{ display: 'flex', gap: '20px', marginLeft: '24px', alignSelf: 'stretch', alignItems: 'center' }}>{headerTabs}</div>}
           </div>
           <div className="dash-actions">
             <button className="support-header-btn" type="button">

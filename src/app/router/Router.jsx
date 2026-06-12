@@ -30,6 +30,15 @@ import AddBranch from '../../pages/Branches/AddBranch';
 import BranchProfile from '../../pages/Branches/BranchProfile';
 import ManagerAssignment from '../../pages/Branches/ManagerAssignment';
 import ServiceAreas from '../../pages/ServiceAreas';
+import BusinessRegistry from '../../pages/Business';
+import BusinessDetails from '../../pages/Business/BusinessDetails';
+import BusinessReview from '../../pages/Business/BusinessReview';
+import BusinessVerify from '../../pages/Business/BusinessVerify';
+import BusinessSuspension from '../../pages/Business/BusinessSuspension';
+import BusinessRisk from '../../pages/Business/BusinessRisk';
+import AddBusiness from '../../pages/Business/AddBusiness';
+import BusinessDocReview from '../../pages/Business/BusinessDocReview';
+import BusinessTaxonomy from '../../pages/Business/BusinessTaxonomy';
 
 export function Router() {
   const { route } = useApp();
@@ -75,7 +84,24 @@ export function Router() {
     case ROUTES.kyc:
       return <KycQueue />;
     case ROUTES.business:
-      return <Placeholder title="Business" activeTab="Business" />;
+    case ROUTES.businessApproval:
+      return <BusinessRegistry />;
+    case ROUTES.businessDetails:
+      return <BusinessDetails />;
+    case ROUTES.businessReview:
+      return <BusinessReview />;
+    case ROUTES.businessVerify:
+      return <BusinessVerify />;
+    case ROUTES.businessSuspension:
+      return <BusinessSuspension />;
+    case ROUTES.businessRisk:
+      return <BusinessRisk />;
+    case ROUTES.addBusiness:
+      return <AddBusiness />;
+    case ROUTES.businessDocReview:
+      return <BusinessDocReview />;
+    case ROUTES.businessTaxonomy:
+      return <BusinessTaxonomy />;
     case ROUTES.branches:
       return <Branches />;
     case ROUTES.branchPerformance:
