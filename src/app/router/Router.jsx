@@ -8,6 +8,24 @@ import OtpVerification from '../../pages/OtpVerification';
 import ResetPassword from '../../pages/ResetPassword';
 import PasswordResetSuccess from '../../pages/PasswordResetSuccess';
 import Dashboard from '../../pages/Dashboard';
+import MaterialRequests from '../../pages/MaterialRequests';
+import NewMaterialRequest from '../../pages/MaterialRequests/NewRequest';
+import MaterialRequestDetails from '../../pages/MaterialRequests/Details';
+import ApprovalPipeline from '../../pages/MaterialRequests/Approvals';
+import InventoryDashboard from '../../pages/MaterialRequests/InventoryDashboard';
+import InventoryListing from '../../pages/MaterialRequests/InventoryListing';
+import MaterialCategories from '../../pages/MaterialRequests/Categories';
+import Restocking from '../../pages/MaterialRequests/Restocking';
+import VendorRecommendation from '../../pages/MaterialRequests/VendorRecommendation';
+import ConsumptionTracking from '../../pages/MaterialRequests/ConsumptionTracking';
+import DeliveryTracking from '../../pages/MaterialRequests/DeliveryTracking';
+import PurchaseOrders from '../../pages/MaterialRequests/PurchaseOrders';
+import CostOptimization from '../../pages/MaterialRequests/CostOptimization';
+import SupplierComparison from '../../pages/MaterialRequests/SupplierComparison';
+import MaterialReports from '../../pages/MaterialRequests/MaterialReports';
+import DisputeCenter from '../../pages/MaterialRequests/DisputeCenter';
+import MaterialReturns from '../../pages/MaterialRequests/MaterialReturns';
+import MaterialAnalytics from '../../pages/MaterialRequests/MaterialAnalytics';
 import Partners from '../../pages/Partners';
 import PartnerDetails from '../../pages/PartnerDetails';
 import AddPartnerWizard from '../../pages/Partners/AddPartnerWizard';
@@ -15,6 +33,10 @@ import ApprovalQueue from '../../pages/ApprovalQueue';
 import FraudCenter from '../../pages/FraudCenter';
 import CommunicationsCenter from '../../pages/CommunicationsCenter';
 import Settlements from '../../pages/Settlements';
+import SupplierPerformance from '../../pages/MaterialRequests/SupplierPerformance';
+import ServiceCancellation from '../../pages/Bookings/ServiceCancellation';
+import SlaCompliance from '../../pages/Bookings/SlaCompliance';
+import OperationalReports from '../../pages/Analytics/OperationalReports';
 import Analytics from '../../pages/Analytics';
 import Users from '../../pages/Users';
 import BlockedUsersPage from '../../pages/Users/BlockedUsersPage';
@@ -415,35 +437,43 @@ export function Router() {
 
     // Material Management sub-routes
     case ROUTES.materialRequests:
-      return <Placeholder title="Material Requests" activeTab="Material Management" />;
+      return <MaterialRequests />;
     case ROUTES.materialCreate:
-      return <Placeholder title="Create Request" activeTab="Material Management" />;
+      return <NewMaterialRequest />;
+    case ROUTES.materialDetails:
+      return <MaterialRequestDetails />;
     case ROUTES.materialApprovals:
-      return <Placeholder title="Approval Queue" activeTab="Material Management" />;
+      return <ApprovalPipeline />;
     case ROUTES.materialInventory:
-      return <Placeholder title="Inventory Dashboard" activeTab="Material Management" />;
+      return <InventoryDashboard />;
     case ROUTES.materialListing:
-      return <Placeholder title="Inventory Listing" activeTab="Material Management" />;
+      return <InventoryListing />;
     case ROUTES.materialCategories:
-      return <Placeholder title="Material Categories" activeTab="Material Management" />;
+      return <MaterialCategories />;
     case ROUTES.materialRestocking:
-      return <Placeholder title="Restocking" activeTab="Material Management" />;
+      return <Restocking />;
     case ROUTES.materialVendors:
-      return <Placeholder title="Vendor Recommendations" activeTab="Material Management" />;
+      return <VendorRecommendation />;
     case ROUTES.materialSupplierComparison:
-      return <Placeholder title="Supplier Comparison" activeTab="Material Management" />;
+      return <SupplierComparison />;
     case ROUTES.materialPurchaseOrders:
-      return <Placeholder title="Purchase Orders" activeTab="Material Management" />;
+      return <PurchaseOrders />;
     case ROUTES.materialDelivery:
-      return <Placeholder title="Delivery Tracking" activeTab="Material Management" />;
+      return <DeliveryTracking />;
     case ROUTES.materialConsumption:
-      return <Placeholder title="Material Consumption" activeTab="Material Management" />;
+      return <ConsumptionTracking />;
     case ROUTES.materialReturns:
-      return <Placeholder title="Material Returns" activeTab="Material Management" />;
+      return <MaterialReturns />;
     case ROUTES.materialSupplierPerformance:
-      return <Placeholder title="Supplier Performance" activeTab="Material Management" />;
+      return <SupplierPerformance />;
     case ROUTES.materialAnalytics:
-      return <Placeholder title="Material Analytics" activeTab="Material Management" />;
+      return <MaterialAnalytics />;
+    case ROUTES.materialReports:
+      return <MaterialReports />;
+    case ROUTES.materialDisputes:
+      return <DisputeCenter />;
+    case ROUTES.materialCostOptimization:
+      return <CostOptimization />;
 
     // Quotation Management sub-routes
     case ROUTES.quotationSeller:
@@ -704,6 +734,7 @@ export function Router() {
 
     // Reports & Analytics landing and sub-routes
     case ROUTES.reportsOperational:
+      return <OperationalReports />;
     case ROUTES.reportsBooking:
     case ROUTES.reportsUser:
     case ROUTES.reportsPartner:
