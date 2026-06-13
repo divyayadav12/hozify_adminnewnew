@@ -2188,6 +2188,115 @@ td:first-child strong {
   margin-bottom: 18px;
 }
 
+.blocked-users-kpis {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  margin-bottom: 18px;
+}
+
+.blocked-users-toolbar {
+  border-bottom: 1px solid #e1dce8;
+  padding: 16px 18px;
+}
+
+.blocked-users-search {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  display: flex;
+  gap: 10px;
+  height: 42px;
+  max-width: 420px;
+  padding: 0 12px;
+}
+
+.blocked-users-search input {
+  border: 0;
+  color: var(--text);
+  flex: 1;
+  font-size: 13px;
+  min-width: 0;
+  outline: 0;
+}
+
+.blocked-users-table-wrap {
+  overflow-x: hidden;
+}
+
+.blocked-users-table {
+  min-width: 0 !important;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.blocked-users-table th,
+.blocked-users-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.blocked-users-table th:nth-child(1),
+.blocked-users-table td:nth-child(1) {
+  width: 15%;
+}
+
+.blocked-users-table th:nth-child(2),
+.blocked-users-table td:nth-child(2) {
+  width: 13%;
+}
+
+.blocked-users-table th:nth-child(3),
+.blocked-users-table td:nth-child(3) {
+  width: 17%;
+}
+
+.blocked-users-table th:nth-child(4),
+.blocked-users-table td:nth-child(4) {
+  width: 10%;
+}
+
+.blocked-users-table th:nth-child(5),
+.blocked-users-table td:nth-child(5) {
+  width: 11%;
+}
+
+.blocked-users-table th:nth-child(6),
+.blocked-users-table td:nth-child(6) {
+  width: 12%;
+}
+
+.blocked-users-table th:nth-child(7),
+.blocked-users-table td:nth-child(7) {
+  width: 10%;
+}
+
+.blocked-users-table th:nth-child(8),
+.blocked-users-table td:nth-child(8) {
+  width: 12%;
+}
+
+.blocked-users-actions {
+  flex-wrap: nowrap;
+  gap: 6px;
+  justify-content: flex-end;
+  max-width: 100%;
+  min-width: 0 !important;
+}
+
+.blocked-users-actions .user-management-action-btn {
+  height: 32px;
+  justify-content: center;
+  min-width: 32px;
+  padding: 0;
+  width: 32px;
+}
+
+.blocked-users-actions .user-management-action-btn span {
+  display: none;
+}
+
 .user-management-feedback {
   align-items: center;
   background: #ecfdf5;
@@ -3947,6 +4056,10 @@ td:first-child strong {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
+  .blocked-users-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
   .user-management-filter-bar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4008,6 +4121,7 @@ td:first-child strong {
 
   .user-management-filter-bar,
   .user-management-kpis,
+  .blocked-users-kpis,
   .user-management-mini-grid {
     grid-template-columns: 1fr !important;
   }
@@ -5146,6 +5260,12 @@ td:first-child strong {
 
 .kyc-flow-table.compact td {
   padding: 10px 0;
+}
+
+.kyc-empty-row {
+  color: var(--muted) !important;
+  padding: 28px !important;
+  text-align: center;
 }
 
 .kyc-person {

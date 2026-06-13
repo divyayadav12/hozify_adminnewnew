@@ -95,6 +95,7 @@ const navModules = [
   {
     label: 'KYC Management',
     icon: ShieldCheck,
+    route: ROUTES.kyc,
     children: [
       { label: 'Pending KYC', route: ROUTES.kycPending },
       { label: 'Approved KYC', route: ROUTES.kycApproved },
@@ -551,6 +552,7 @@ export default function AdminShell({
   // Sync expanded module on load or when route changes
   const [openModule, setOpenModule] = useState(() => {
     const activeModule = navModules.find(m => 
+      m.route === route ||
       m.label === activeTab || 
       m.children?.some(c => c.route === route)
     );
@@ -559,6 +561,7 @@ export default function AdminShell({
 
   useEffect(() => {
     const activeModule = navModules.find(m => 
+      m.route === route ||
       m.children?.some(c => c.route === route)
     );
     if (activeModule) {
@@ -573,11 +576,18 @@ export default function AdminShell({
   };
 
   const handleModuleClick = (module) => {
+    if (module.route) {
+      setOpenModule(module.label);
+      navigate(module.route);
+      return;
+    }
+
     setOpenModule(prev => prev === module.label ? null : module.label);
   };
 
   const isParentActive = (module) => {
     if (module.label === activeTab) return true;
+    if (module.route === route) return true;
     return module.children?.some(c => c.route === route || c.label === activeTab);
   };
 

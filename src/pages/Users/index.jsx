@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Ban,
   CheckCircle2,
@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 import KpiCard from '../../features/dashboard/KpiCard';
+import { ROUTES } from '../../config/routes';
+import { useApp } from '../../hooks/useApp';
 import { usersMockData } from './usersMockData';
 import UserAddPage from './UserAddPage';
 import UserDetailsPage from './UserDetailsPage';
@@ -42,6 +44,7 @@ function EmptyState() {
 }
 
 export default function Users() {
+  const { route, navigate } = useApp();
   const [users, setUsers] = useState(usersMockData);
   const [filters, setFilters] = useState({
     mobile: '',
@@ -53,6 +56,22 @@ export default function Users() {
   const [isAddingUser, setIsAddingUser] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [feedback, setFeedback] = useState('');
+
+  useEffect(() => {
+    setSelectedUserId(null);
+    setEditingUser(null);
+
+    if (route === ROUTES.addUser) {
+      setIsAddingUser(true);
+      return;
+    }
+
+    setIsAddingUser(false);
+    setFilters((current) => ({
+      ...current,
+      status: route === ROUTES.blockedUsers ? 'Blocked' : 'All'
+    }));
+  }, [route]);
 
   const summary = useMemo(() => ({
     total: users.length,
@@ -121,6 +140,7 @@ export default function Users() {
     showFeedback(`${newUser.name} created successfully.`);
     if (mode !== 'addMore') {
       setIsAddingUser(false);
+      navigate(ROUTES.users);
     }
   };
 
@@ -135,7 +155,7 @@ export default function Users() {
 
   return (
     <AdminShell
-      activeTab="Users"
+      activeTab="User Management"
       searchPlaceholder="Search bookings, users, or partners..."
     >
       {feedback && (
@@ -147,7 +167,7 @@ export default function Users() {
 
       {isAddingUser ? (
         <UserAddPage
-          onBack={() => setIsAddingUser(false)}
+          onBack={() => navigate(ROUTES.users)}
           onSave={saveNewUser}
         />
       ) : selectedUser ? (
@@ -165,7 +185,7 @@ export default function Users() {
               <p className="page-subtitle">Manage customer accounts, statuses, activity, wallet, and documents.</p>
             </div>
             <div className="partners-header-buttons">
-              <button className="primary-action-btn" type="button" onClick={() => setIsAddingUser(true)}>
+              <button className="primary-action-btn" type="button" onClick={() => navigate(ROUTES.addUser)}>
                 <Plus size={16} />
                 <span>Create User</span>
               </button>

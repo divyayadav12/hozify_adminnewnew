@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -24,9 +24,14 @@ import {
   X
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
+import { ROUTES } from '../../config/routes';
+import { useApp } from '../../hooks/useApp';
 
 const sections = [
   'Dashboard',
+  'Pending KYC',
+  'Approved KYC',
+  'Rejected KYC',
   'Queue',
   'Review',
   'Aadhaar',
@@ -41,10 +46,32 @@ const sections = [
   'Reuploads',
   'Risk Center',
   'Investigation',
+  'Analytics',
   'Audit Logs',
   'Reviewers',
   'Rejections'
 ];
+
+const routeSectionMap = {
+  [ROUTES.kyc]: 'Dashboard',
+  [ROUTES.kycPending]: 'Pending KYC',
+  [ROUTES.kycApproved]: 'Approved KYC',
+  [ROUTES.kycRejected]: 'Rejected KYC',
+  [ROUTES.kycReupload]: 'Reuploads',
+  [ROUTES.kycAadhaar]: 'Aadhaar',
+  [ROUTES.kycPan]: 'PAN',
+  [ROUTES.kycGst]: 'GST',
+  [ROUTES.kycDriving]: 'Driving License',
+  [ROUTES.kycVoter]: 'Voter ID',
+  [ROUTES.kycSelfie]: 'Selfie',
+  [ROUTES.kycFaceMatch]: 'Face Match',
+  [ROUTES.kycVideo]: 'Video KYC',
+  [ROUTES.kycRisk]: 'Risk Center',
+  [ROUTES.kycManual]: 'Investigation',
+  [ROUTES.kycAnalytics]: 'Analytics',
+  [ROUTES.kycAuditLogs]: 'Audit Logs',
+  [ROUTES.kycReviewers]: 'Reviewers'
+};
 
 const initialProfiles = [
   { id: 'KYC-92038', name: 'Johnathan Doe', type: 'User', doc: 'Aadhaar', date: '2023-10-24', city: 'Mumbai', risk: 12, status: 'Pending', reviewer: 'Meera S.', email: 'johnathan@example.com', mobile: '+91 98765 43210', avatar: 'JD' },
@@ -127,6 +154,7 @@ const Progress = ({ value, danger = false }) => (
 );
 
 export default function KycQueue() {
+  const { route } = useApp();
   const [activeSection, setActiveSection] = useState('Dashboard');
   const [profiles, setProfiles] = useState(initialProfiles);
   const [selectedIds, setSelectedIds] = useState(['KYC-92038', 'KYC-92031', 'KYC-92022', 'KYC-92013']);
@@ -135,6 +163,10 @@ export default function KycQueue() {
   const [note, setNote] = useState('');
 
   const selectedProfile = profiles[0];
+
+  useEffect(() => {
+    setActiveSection(routeSectionMap[route] || 'Dashboard');
+  }, [route]);
 
   const metrics = useMemo(() => ({
     pending: profiles.filter((item) => item.status === 'Pending').length,
@@ -167,8 +199,17 @@ export default function KycQueue() {
     return text.includes(query.toLowerCase());
   });
 
+  const getStatusProfiles = (status) =>
+    filteredProfiles.filter((item) => item.status === status);
+
   const renderSection = () => {
     switch (activeSection) {
+      case 'Pending KYC':
+        return <StatusKycSection title="Pending KYC Panel" status="Pending" profiles={getStatusProfiles('Pending')} query={query} setQuery={setQuery} setActiveSection={setActiveSection} updateProfileStatus={updateProfileStatus} />;
+      case 'Approved KYC':
+        return <StatusKycSection title="Approved KYC Panel" status="Approved" profiles={getStatusProfiles('Approved')} query={query} setQuery={setQuery} setActiveSection={setActiveSection} updateProfileStatus={updateProfileStatus} />;
+      case 'Rejected KYC':
+        return <StatusKycSection title="Rejected KYC Panel" status="Rejected" profiles={getStatusProfiles('Rejected')} query={query} setQuery={setQuery} setActiveSection={setActiveSection} updateProfileStatus={updateProfileStatus} />;
       case 'Queue':
         return <QueueSection profiles={filteredProfiles} query={query} setQuery={setQuery} setActiveSection={setActiveSection} updateProfileStatus={updateProfileStatus} />;
       case 'Review':
@@ -197,6 +238,8 @@ export default function KycQueue() {
         return <RiskSection showToast={showToast} />;
       case 'Investigation':
         return <InvestigationSection showToast={showToast} />;
+      case 'Analytics':
+        return <AnalyticsSection metrics={metrics} />;
       case 'Audit Logs':
         return <AuditSection />;
       case 'Reviewers':
@@ -210,7 +253,7 @@ export default function KycQueue() {
 
   return (
     <AdminShell
-      activeTab="KYC"
+      activeTab="KYC Management"
       headerTitle="KYC Management"
       searchPlaceholder="Search KYC profiles, documents, or risk flags..."
     >
@@ -310,6 +353,80 @@ function DashboardSection({ metrics, setActiveSection }) {
           </div>
         </Panel>
       </div>
+    </>
+  );
+}
+
+function StatusKycSection({ title, status, profiles, query, setQuery, setActiveSection, updateProfileStatus }) {
+  const tone = status === 'Approved' ? 'success' : status === 'Rejected' ? 'danger' : 'warning';
+  const highRiskCount = profiles.filter((item) => item.risk > 70).length;
+  const averageRisk = profiles.length
+    ? Math.round(profiles.reduce((total, item) => total + item.risk, 0) / profiles.length)
+    : 0;
+
+  return (
+    <>
+      <div className="kyc-flow-stats three">
+        <StatCard label={`${status} Profiles`} value={profiles.length} sub="Current filtered records" icon={status === 'Approved' ? ShieldCheck : status === 'Rejected' ? X : Clock} tone={tone} />
+        <StatCard label="High Risk Cases" value={highRiskCount} sub="Risk score above 70" icon={ShieldAlert} tone={highRiskCount > 0 ? 'danger' : 'success'} />
+        <StatCard label="Average Risk Score" value={averageRisk} sub="Across visible profiles" icon={Gauge} />
+      </div>
+
+      <Panel title={title} action={<Badge tone={tone}>{status}</Badge>}>
+        <div className="kyc-flow-filters">
+          <label><Search size={14} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by KYC ID, city, or user" /></label>
+          <button type="button" onClick={() => setQuery('')}>Clear Search</button>
+        </div>
+        <div className="table-wrap">
+          <table className="kyc-flow-table">
+            <thead>
+              <tr>
+                <th>KYC ID</th>
+                <th>User Name</th>
+                <th>User Type</th>
+                <th>Submitted Date</th>
+                <th>Verification Type</th>
+                <th>Risk Score</th>
+                <th>Status</th>
+                <th>Reviewer</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {profiles.length === 0 ? (
+                <tr>
+                  <td colSpan="9" className="kyc-empty-row">No {status.toLowerCase()} KYC profiles found.</td>
+                </tr>
+              ) : profiles.map((row) => (
+                <tr key={row.id}>
+                  <td>{row.id}</td>
+                  <td><span className="kyc-person"><i>{row.avatar}</i>{row.name}</span></td>
+                  <td>{row.type}</td>
+                  <td>{row.date}</td>
+                  <td><Badge>{row.doc}</Badge></td>
+                  <td><Progress value={row.risk} danger={row.risk > 70} /></td>
+                  <td><Badge tone={tone}>{row.status}</Badge></td>
+                  <td>{row.reviewer}</td>
+                  <td>
+                    <div className="kyc-row-actions">
+                      <button type="button" onClick={() => setActiveSection('Review')}><Eye size={14} />View</button>
+                      {status === 'Pending' && (
+                        <>
+                          <button type="button" onClick={() => updateProfileStatus(row.id, 'Approved')}><Check size={14} />Approve</button>
+                          <button type="button" onClick={() => updateProfileStatus(row.id, 'Rejected')}><X size={14} />Reject</button>
+                        </>
+                      )}
+                      {status === 'Rejected' && (
+                        <button type="button" onClick={() => updateProfileStatus(row.id, 'Pending')}><RefreshCcw size={14} />Reopen</button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Panel>
     </>
   );
 }
@@ -531,6 +648,42 @@ function InvestigationSection({ showToast }) {
       </Panel>
       <Panel title="Evidence Panel"><div className="kyc-network-map small"><i /><i /><strong>Entity relationship graph</strong></div><textarea placeholder="Add investigation findings..." /></Panel>
     </div>
+  );
+}
+
+function AnalyticsSection({ metrics }) {
+  const totalReviewed = metrics.approved + metrics.rejected;
+  const approvalRate = totalReviewed ? Math.round((metrics.approved / totalReviewed) * 100) : 0;
+
+  return (
+    <>
+      <div className="kyc-flow-stats four">
+        <StatCard label="Approval Rate" value={`${approvalRate}%`} sub="Approved vs reviewed" icon={ShieldCheck} tone="success" />
+        <StatCard label="Pending Workload" value={metrics.pending} sub="Profiles awaiting action" icon={Clock} />
+        <StatCard label="Rejected Profiles" value={metrics.rejected} sub="Requires reupload or review" icon={X} tone="danger" />
+        <StatCard label="High Risk Profiles" value={metrics.highRisk} sub="Risk score above 70" icon={ShieldAlert} tone={metrics.highRisk ? 'danger' : 'success'} />
+      </div>
+
+      <div className="kyc-flow-grid dashboard">
+        <Panel title="KYC Analytics">
+          <div className="kyc-bar-chart">
+            {[58, 72, 64, 86, 92, 76, 88, 69, 74, 81].map((height, index) => <i key={index} style={{ height: `${height}%` }} />)}
+          </div>
+          <div className="kyc-chart-labels"><span>Verification Volume</span><span>Weekly Trend</span></div>
+        </Panel>
+        <Panel title="Decision Mix">
+          <div className="kyc-meter"><strong>{approvalRate}%</strong><span>Approval rate across reviewed profiles</span></div>
+          <ul className="kyc-legend"><li>Pending {metrics.pending}</li><li>Approved {metrics.approved}</li><li>Rejected {metrics.rejected}</li></ul>
+        </Panel>
+        <Panel title="Risk Distribution">
+          <div className="kyc-status-stack">
+            <span><ShieldCheck size={15} /> Low Risk: {Math.max(metrics.approved, 1)} profiles</span>
+            <span><Gauge size={15} /> Medium Risk: {Math.max(metrics.pending - metrics.highRisk, 0)} profiles</span>
+            <span className={metrics.highRisk ? 'danger' : ''}><AlertTriangle size={15} /> High Risk: {metrics.highRisk} profiles</span>
+          </div>
+        </Panel>
+      </div>
+    </>
   );
 }
 
