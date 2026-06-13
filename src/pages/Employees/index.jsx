@@ -11,7 +11,6 @@ import PerformanceDashboard from './PerformanceDashboard';
 import EmployeeReports from './EmployeeReports';
 import AttendanceDashboard from './AttendanceDashboard';
 import LeaveManagement from './LeaveManagement';
-import KycQueue from './KycQueue';
 
 export default function Employees() {
   const { route } = useApp();
