@@ -88,6 +88,20 @@ import BusinessRisk from '../../pages/Business/BusinessRisk';
 import AddBusiness from '../../pages/Business/AddBusiness';
 import BusinessDocReview from '../../pages/Business/BusinessDocReview';
 import BusinessTaxonomy from '../../pages/Business/BusinessTaxonomy';
+import PushNotifications from '../../pages/NotificationCenter/PushNotifications';
+import WhatsAppCampaigns from '../../pages/NotificationCenter/WhatsAppCampaigns';
+import AutomationDashboard from '../../pages/NotificationCenter/AutomationDashboard';
+import InAppNotifications from '../../pages/NotificationCenter/InAppNotifications';
+import SmsCampaigns from '../../pages/NotificationCenter/SmsCampaigns';
+import DeliveryReports from '../../pages/NotificationCenter/DeliveryReports';
+import ChannelPerformance from '../../pages/Dashboard/ChannelPerformance';
+import ConversionAnalytics from '../../pages/Dashboard/ConversionAnalytics';
+import NotificationCostCenter from '../../pages/NotificationCenter/NotificationCostCenter';
+import NotificationApprovalQueue from '../../pages/NotificationCenter/NotificationApprovalQueue';
+import NotificationReports from '../../pages/NotificationCenter/NotificationReports';
+import GlobalNotificationSettings from '../../pages/NotificationCenter/GlobalNotificationSettings';
+import NotificationPreferenceManagement from '../../pages/NotificationCenter/NotificationPreferenceManagement';
+import CommunicationLogs from '../../pages/NotificationCenter/CommunicationLogs';
 
 export function Router() {
   const { route } = useApp();
@@ -252,6 +266,10 @@ export function Router() {
       return <ActivityCenter activeTab="Dashboard" />;
     case ROUTES.dashboardSystemHealth:
       return <SystemHealth activeTab="Dashboard" />;
+    case ROUTES.dashboardChannelPerformance:
+      return <ChannelPerformance activeTab="Dashboard" />;
+    case ROUTES.dashboardConversionAnalytics:
+      return <ConversionAnalytics activeTab="Dashboard" />;
 
     // User Management sub-routes
     case ROUTES.addUser:
@@ -656,11 +674,11 @@ export function Router() {
 
     // Notification Center sub-routes
     case ROUTES.notificationsPush:
-      return <Placeholder title="Push Notifications" activeTab="Notification Center" />;
+      return <PushNotifications activeTab="Notification Center" />;
     case ROUTES.notificationsSms:
-      return <Placeholder title="SMS Campaigns" activeTab="Notification Center" />;
+      return <SmsCampaigns activeTab="Notification Center" />;
     case ROUTES.notificationsWhatsapp:
-      return <Placeholder title="WhatsApp Campaigns" activeTab="Notification Center" />;
+      return <WhatsAppCampaigns activeTab="Notification Center" />;
     case ROUTES.notificationsEmail:
       return <Placeholder title="Email Campaigns" activeTab="Notification Center" />;
     case ROUTES.notificationsTemplates:
@@ -670,9 +688,23 @@ export function Router() {
     case ROUTES.notificationsScheduled:
       return <Placeholder title="Scheduled Campaigns" activeTab="Notification Center" />;
     case ROUTES.notificationsAutomation:
-      return <Placeholder title="Automation Rules" activeTab="Notification Center" />;
+      return <AutomationDashboard activeTab="Notification Center" />;
     case ROUTES.notificationsDelivery:
-      return <Placeholder title="Delivery Reports" activeTab="Notification Center" />;
+      return <DeliveryReports activeTab="Notification Center" />;
+    case ROUTES.notificationsInApp:
+      return <InAppNotifications activeTab="Notification Center" />;
+    case ROUTES.notificationsApprovalQueue:
+      return <NotificationApprovalQueue activeTab="Notification Center" />;
+    case ROUTES.notificationsReports:
+      return <NotificationReports activeTab="Notification Center" />;
+    case ROUTES.notificationsNotificationCostCenter:
+      return <NotificationCostCenter activeTab="Notification Center" />;
+    case ROUTES.notificationsGlobalNotifications:
+      return <GlobalNotificationSettings activeTab="Notification Center" />;
+    case ROUTES.notificationsNotificationPreferences:
+      return <NotificationPreferenceManagement activeTab="Notification Center" />;
+    case ROUTES.notificationsCommunicationLogs:
+      return <CommunicationLogs activeTab="Notification Center" />;
 
     // Banner Management sub-routes
     case ROUTES.bannersHomepage:

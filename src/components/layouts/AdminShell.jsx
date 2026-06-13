@@ -46,7 +46,9 @@ const navModules = [
       { label: 'Partner Analytics', route: ROUTES.dashboardPartners },
       { label: 'Approval Dashboard', route: ROUTES.dashboardApprovals },
       { label: 'Activity Center', route: ROUTES.dashboardActivity },
-      { label: 'System Health', route: ROUTES.dashboardSystemHealth }
+      { label: 'System Health', route: ROUTES.dashboardSystemHealth },
+      { label: 'Channel Performance & ROI', route: ROUTES.dashboardChannelPerformance },
+      { label: 'Conversion Analytics', route: ROUTES.dashboardConversionAnalytics }
     ]
   },
   {
@@ -389,7 +391,14 @@ const navModules = [
       { label: 'Audience Segments', route: ROUTES.notificationsAudience },
       { label: 'Scheduled Campaigns', route: ROUTES.notificationsScheduled },
       { label: 'Automation Rules', route: ROUTES.notificationsAutomation },
-      { label: 'Delivery Reports', route: ROUTES.notificationsDelivery }
+      { label: 'Delivery Reports', route: ROUTES.notificationsDelivery },
+      { label: 'In-App Notifications', route: ROUTES.notificationsInApp },
+      { label: 'Approval Queue', route: ROUTES.notificationsApprovalQueue },
+      { label: 'Reports & Export', route: ROUTES.notificationsReports },
+      { label: 'Notification Cost Center', route: ROUTES.notificationsNotificationCostCenter },
+      { label: 'Global Settings', route: ROUTES.notificationsGlobalNotifications },
+      { label: 'Preference Management', route: ROUTES.notificationsNotificationPreferences },
+      { label: 'Communication Logs', route: ROUTES.notificationsCommunicationLogs }
     ]
   },
   {

@@ -73,6 +73,8 @@ export const ROUTES = {
   dashboardApprovals: '/dashboard/approvals',
   dashboardActivity: '/dashboard/activity',
   dashboardSystemHealth: '/dashboard/system-health',
+  dashboardChannelPerformance: '/dashboard/channel-performance',
+  dashboardConversionAnalytics: '/dashboard/conversion-analytics',
 
   // User Management sub-routes
   addUser: '/users/add',
@@ -341,6 +343,8 @@ export const ROUTES = {
   notificationsScheduled: '/notifications/scheduled',
   notificationsAutomation: '/notifications/automation',
   notificationsDelivery: '/notifications/delivery-reports',
+  notificationsInApp: '/notifications/in-app',
+
 
   // Banner Management sub-routes
   bannersHomepage: '/banners/homepage',
@@ -440,5 +444,13 @@ export const ROUTES = {
   settingsSecurityAudit: '/settings/security/audit-logs',
   settingsSystemBackup: '/settings/system/backup',
   settingsSystemMaintenance: '/settings/system/maintenance',
-  settingsSystemLogs: '/settings/system/logs'
+  settingsSystemLogs: '/settings/system/logs',
+  
+  // Notification Center Phase 2 Reorganized Routes
+  notificationsApprovalQueue: '/notifications/approval-queue',
+  notificationsReports: '/notifications/reports-export',
+  notificationsGlobalNotifications: '/notifications/global-notifications',
+  notificationsNotificationPreferences: '/notifications/notification-preferences',
+  notificationsCommunicationLogs: '/notifications/communication-logs',
+  notificationsNotificationCostCenter: '/notifications/notification-cost-center'
 };
