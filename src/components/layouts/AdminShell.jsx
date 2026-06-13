@@ -200,8 +200,9 @@ const navModules = [
   {
     label: 'Booking Management',
     icon: CalendarCheck,
+    route: ROUTES.bookings,
     children: [
-      { label: 'All Bookings', route: ROUTES.bookings },
+      { label: 'All Bookings', route: ROUTES.bookingAll },
       { label: 'Create Booking', route: ROUTES.bookingCreate },
       { label: 'Pending Bookings', route: ROUTES.bookingPending },
       { label: 'Assigned Bookings', route: ROUTES.bookingAssigned },
@@ -224,6 +225,8 @@ const navModules = [
       { label: 'Refunds', route: ROUTES.bookingRefunds },
       { label: 'SLA Monitoring', route: ROUTES.bookingSla },
       { label: 'Booking Analytics', route: ROUTES.bookingAnalytics },
+      { label: 'Communication Center', route: ROUTES.bookingCommunications },
+      { label: 'Booking Reports', route: ROUTES.bookingReports },
       { label: 'Fraud Detection', route: ROUTES.bookingFraud },
       { label: 'Booking Archive', route: ROUTES.bookingArchive }
     ]

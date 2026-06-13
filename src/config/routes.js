@@ -198,6 +198,8 @@ export const ROUTES = {
   bookingRefunds: '/bookings/refunds',
   bookingSla: '/bookings/sla',
   bookingAnalytics: '/bookings/analytics',
+  bookingCommunications: '/bookings/communications',
+  bookingReports: '/bookings/reports',
   bookingFraud: '/bookings/fraud',
   bookingArchive: '/bookings/archive',
 
