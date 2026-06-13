@@ -40,6 +40,7 @@ import OperationalReports from '../../pages/Analytics/OperationalReports';
 import Analytics from '../../pages/Analytics';
 import Users from '../../pages/Users';
 import BlockedUsersPage from '../../pages/Users/BlockedUsersPage';
+import BookingManagement from '../../pages/BookingManagement';
 import Placeholder from '../../pages/Placeholder';
 import Employees from '../../pages/Employees';
 import KYCModule from '../../pages/KYC';
@@ -172,7 +173,7 @@ export function Router() {
     case ROUTES.employees:
       return <Employees />;
     case ROUTES.bookings:
-      return <Placeholder title="Bookings" activeTab="Bookings" />;
+      return <BookingManagement />;
     case ROUTES.liveTracking:
       return <Placeholder title="Live Tracking" activeTab="Live Tracking" />;
     case ROUTES.materials:
@@ -378,57 +379,33 @@ export function Router() {
 
     // Booking Management sub-routes
     case ROUTES.bookingAll:
-      return <Placeholder title="All Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingCreate:
-      return <Placeholder title="Create Booking" activeTab="Booking Management" />;
     case ROUTES.bookingPending:
-      return <Placeholder title="Pending Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingAssigned:
-      return <Placeholder title="Assigned Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingAccepted:
-      return <Placeholder title="Accepted Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingInProgress:
-      return <Placeholder title="In Progress Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingMaterialPending:
-      return <Placeholder title="Material Pending Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingQuotationPending:
-      return <Placeholder title="Quotation Pending Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingOtpPending:
-      return <Placeholder title="OTP Pending Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingCompleted:
-      return <Placeholder title="Completed Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingCancelled:
-      return <Placeholder title="Cancelled Bookings" activeTab="Booking Management" />;
-    case ROUTES.bookingCancellation:
-      return <ServiceCancellation />;
     case ROUTES.bookingRefunded:
-      return <Placeholder title="Refunded Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingEscalated:
-      return <Placeholder title="Escalated Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingDisputed:
-      return <Placeholder title="Disputed Bookings" activeTab="Booking Management" />;
     case ROUTES.bookingAssignmentCenter:
-      return <Placeholder title="Assignment Center" activeTab="Booking Management" />;
     case ROUTES.bookingOtpVerification:
-      return <Placeholder title="OTP Verification" activeTab="Booking Management" />;
     case ROUTES.bookingCalendar:
-      return <Placeholder title="Booking Calendar" activeTab="Booking Management" />;
     case ROUTES.bookingMap:
-      return <Placeholder title="Booking Map View" activeTab="Booking Management" />;
     case ROUTES.bookingPayments:
-      return <Placeholder title="Payments" activeTab="Booking Management" />;
     case ROUTES.bookingInvoices:
-      return <Placeholder title="Invoices" activeTab="Booking Management" />;
     case ROUTES.bookingRefunds:
-      return <Placeholder title="Refunds" activeTab="Booking Management" />;
     case ROUTES.bookingSla:
-      return <SlaCompliance />;
     case ROUTES.bookingAnalytics:
-      return <Placeholder title="Booking Analytics" activeTab="Booking Management" />;
+    case ROUTES.bookingCommunications:
+    case ROUTES.bookingReports:
     case ROUTES.bookingFraud:
-      return <Placeholder title="Fraud Detection" activeTab="Booking Management" />;
     case ROUTES.bookingArchive:
-      return <Placeholder title="Booking Archive" activeTab="Booking Management" />;
+      return <BookingManagement />;
 
     // Live Tracking sub-routes
     case ROUTES.liveDashboard:
