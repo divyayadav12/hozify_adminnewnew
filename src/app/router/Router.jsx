@@ -17,6 +17,7 @@ import CommunicationsCenter from '../../pages/CommunicationsCenter';
 import Settlements from '../../pages/Settlements';
 import Analytics from '../../pages/Analytics';
 import Users from '../../pages/Users';
+import BlockedUsersPage from '../../pages/Users/BlockedUsersPage';
 import Placeholder from '../../pages/Placeholder';
 import Employees from '../../pages/Employees';
 import KYCModule from '../../pages/KYC';
@@ -207,11 +208,11 @@ export function Router() {
 
     // User Management sub-routes
     case ROUTES.addUser:
-      return <Placeholder title="Add User" activeTab="User Management" />;
+      return <Users />;
     case ROUTES.userApprovals:
       return <Placeholder title="User Approvals" activeTab="User Management" />;
     case ROUTES.blockedUsers:
-      return <Placeholder title="Blocked Users" activeTab="User Management" />;
+      return <BlockedUsersPage />;
     case ROUTES.userWallets:
       return <Placeholder title="User Wallets" activeTab="User Management" />;
     case ROUTES.userReferrals:
