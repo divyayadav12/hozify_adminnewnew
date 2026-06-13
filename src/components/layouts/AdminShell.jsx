@@ -265,8 +265,16 @@ const navModules = [
       { label: 'Material Consumption', route: ROUTES.materialConsumption },
       { label: 'Material Returns', route: ROUTES.materialReturns },
       { label: 'Supplier Performance', route: ROUTES.materialSupplierPerformance },
-      { label: 'Material Analytics', route: ROUTES.materialAnalytics }
+      { label: 'Material Dispute Center', route: ROUTES.materialDisputes },
+      { label: 'Material Reports', route: ROUTES.materialReports },
+      { label: 'Material Analytics', route: ROUTES.materialAnalytics },
+      { label: 'Cost Optimization (Legacy)', route: ROUTES.materialCostOptimization }
     ]
+  },
+  {
+    label: 'Communications',
+    icon: MessageSquare,
+    route: ROUTES.communications
   },
   {
     label: 'Quotation Management',
@@ -538,7 +546,8 @@ export default function AdminShell({
   customProfileName = '',
   customProfileRole = '',
   customProfileAvatar = '',
-  headerTabs = null
+  headerTabs = null,
+  sidebarButton = null
 }) {
   const { session, logout, navigate, route } = useApp();
   
@@ -723,6 +732,12 @@ export default function AdminShell({
             })
           )}
         </nav>
+
+        {sidebarButton && (
+          <div style={{ padding: '0 16px 16px' }}>
+            {sidebarButton}
+          </div>
+        )}
 
         <div className="sidebar-bottom">
           {bottomNavItems.map((item) => {

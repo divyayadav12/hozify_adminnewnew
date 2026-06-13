@@ -186,6 +186,7 @@ export const ROUTES = {
   bookingOtpPending: '/bookings/otp-pending',
   bookingCompleted: '/bookings/completed',
   bookingCancelled: '/bookings/cancelled',
+  bookingCancellation: '/bookings/cancellation',
   bookingRefunded: '/bookings/refunded',
   bookingEscalated: '/bookings/escalated',
   bookingDisputed: '/bookings/disputed',
@@ -219,6 +220,7 @@ export const ROUTES = {
   // Material Management sub-routes
   materialRequests: '/materials/requests',
   materialCreate: '/materials/create',
+  materialDetails: '/materials/details',
   materialApprovals: '/materials/approvals',
   materialInventory: '/materials/inventory',
   materialListing: '/materials/listing',
@@ -232,6 +234,9 @@ export const ROUTES = {
   materialReturns: '/materials/returns',
   materialSupplierPerformance: '/materials/supplier-performance',
   materialAnalytics: '/materials/analytics',
+  materialReports: '/materials/reports',
+  materialDisputes: '/materials/disputes',
+  materialCostOptimization: '/materials/cost-optimization',
 
   // Quotation Management sub-routes
   quotationSeller: '/quotations/seller',

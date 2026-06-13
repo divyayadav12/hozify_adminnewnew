@@ -2,299 +2,328 @@ import React, { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
-import BusinessHeaderTabs from './BusinessHeaderTabs';
 import {
   ChevronRight,
+  ShieldAlert,
+  Calendar,
   AlertTriangle,
-  FileText,
-  Clock,
-  History,
+  MapPin,
+  TrendingUp,
+  X,
+  Check,
   Building,
-  CheckCircle,
-  ShieldCheck,
-  AlertCircle
+  DollarSign,
+  PieChart,
+  ClipboardList,
+  Settings,
+  LogOut
 } from 'lucide-react';
 
 export default function BusinessSuspension() {
   const { navigate } = useApp();
-  const [reason, setReason] = useState('');
-  const [duration, setDuration] = useState('Indefinite');
-  const [violationType, setViolationType] = useState('');
-  const [internalNotes, setInternalNotes] = useState('');
+  const [selectedReason, setSelectedReason] = useState('compliance');
+  const [strategy, setStrategy] = useState('temporary'); // 'temporary' or 'permanent'
+  const [releaseDate, setReleaseDate] = useState('12/31/2024');
+  const [adminNotes, setAdminNotes] = useState('');
 
-  const entityName = 'Global Logistics Partners Inc.';
-  const entityId = 'REG-8849-2210';
-
-  const handleConfirmSuspension = () => {
-    if (!reason) {
-      alert('Please provide a reason for suspension.');
-      return;
-    }
-    alert(`Status updated: Suspended. Reason: ${reason}`);
-    navigate(ROUTES.business);
-  };
-
-  const handleReactivate = () => {
-    alert(`Status updated: Reactivated.`);
-    navigate(ROUTES.business);
-  };
-
-  // Hardcoded audit logs (Image 4)
-  const auditLogs = [
-    { action: 'REACTIVATED', admin: 'Sarah Jenkins', date: '2024-03-12 14:22', color: '#10b981', bg: '#ecfdf5' },
-    { action: 'SUSPENDED', admin: 'System (Auto)', date: '2024-01-05 09:00', color: '#ef4444', bg: '#fee2e2' },
-    { action: 'VERIFIED', admin: 'Marcus Chen', date: '2023-11-20 16:45', color: '#3b82f6', bg: '#eff6ff' },
-    { action: 'CREATED', admin: 'Admin Port', date: '2021-10-14 11:12', color: '#10b981', bg: '#ecfdf5' }
+  // Sidebar navigation for Nexus Admin branding override
+  const sidebarItems = [
+    { label: 'Dashboard', route: ROUTES.dashboard, icon: Building },
+    { label: 'Businesses', route: ROUTES.business, icon: Building },
+    { label: 'Analytics', route: '#', icon: PieChart },
+    { label: 'Financials', route: '#', icon: DollarSign },
+    { label: 'Audit Log', route: '#', icon: ClipboardList },
+    { label: 'Settings', route: '#', icon: Settings }
   ];
+
+  const handleConfirm = () => {
+    alert(`Suspension confirmed for reason: ${selectedReason}. Strategy: ${strategy}. Notes: ${adminNotes}`);
+    navigate(ROUTES.business);
+  };
+
+  const handleCancel = () => {
+    navigate(ROUTES.business);
+  };
 
   return (
     <AdminShell
-      activeTab="Business"
+      activeTab="Business Management"
+      brandText="Nexus Admin"
+      brandSubText="Enterprise Control"
       headerTitle="Business Registry"
-      headerTabs={<BusinessHeaderTabs activeTab="Directory" />}
-      searchPlaceholder="Search entries..."
+      searchPlaceholder="Search entities..."
     >
-      <div className="business-suspension-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '16px 0' }}>
         
-        {/* Breadcrumbs (Image 4) */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
-            <span style={{ cursor: 'pointer' }} onClick={() => navigate(ROUTES.business)}>Businesses</span>
-            <ChevronRight size={14} />
-            <span style={{ cursor: 'pointer' }} onClick={() => navigate(ROUTES.business)}>Entity Management</span>
-            <ChevronRight size={14} />
-            <span style={{ color: '#0f172a' }}>Suspension & Reactivation</span>
-          </div>
-
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <button
-              style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '11px', fontWeight: '700', height: '34px', padding: '0 12px', borderRadius: '6px' }}
-              onClick={() => alert('Viewing public record...')}
-              type="button"
-            >
-              View Public Record
-            </button>
-            <button
-              style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '11px', fontWeight: '700', height: '34px', padding: '0 12px', borderRadius: '6px' }}
-              onClick={() => alert('Exporting case file...')}
-              type="button"
-            >
-              Export Case File
-            </button>
-          </div>
+        {/* Breadcrumbs */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
+          <span style={{ cursor: 'pointer' }} onClick={() => navigate(ROUTES.business)}>Entities</span>
+          <ChevronRight size={14} />
+          <span style={{ cursor: 'pointer' }} onClick={() => navigate(ROUTES.business)}>Global Tech Logistics</span>
+          <ChevronRight size={14} />
+          <span style={{ color: '#0f172a' }}>Entity suspension</span>
         </div>
 
-        {/* Title Section */}
-        <div>
-          <h1 className="page-title" style={{ margin: 0, fontSize: '22px', fontWeight: '800' }}>Compliance Management</h1>
-          <p className="page-subtitle" style={{ margin: '4px 0 0', color: 'var(--muted)', fontSize: '13px' }}>Modify operational status for global business entities.</p>
-        </div>
-
-        {/* Grid Container */}
-        <div className="fraud-top-grid" style={{ gap: '20px', alignItems: 'stretch' }}>
+        {/* Title bar with action buttons */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+          <div>
+            <h1 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
+              Suspend Entity
+            </h1>
+            <p style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '4px', margin: 0 }}>
+              You are initiating the formal suspension process for <strong>Global Tech Logistics (ID: ENT-88902)</strong>.
+            </p>
+          </div>
           
-          {/* Column 1: Entity Profile & Form (Left) */}
-          <div style={{ flex: 1.3, display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            
-            {/* Business Card Summary */}
-            <div className="panel" style={{ padding: '20px', display: 'flex', gap: '16px', alignItems: 'center' }}>
-              <div style={{ height: '48px', width: '48px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--muted)', flexShrink: 0 }}>
-                <Building size={24} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <strong style={{ fontSize: '16px', color: 'var(--text)' }}>{entityName}</strong>
-                  <span style={{ fontSize: '9px', fontWeight: '800', color: '#10b981', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    <span style={{ height: '5px', width: '5px', borderRadius: '50%', background: '#10b981' }} />
-                    Active
-                  </span>
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '6px', fontSize: '11px', fontWeight: '700', color: 'var(--muted)' }}>
-                  <span>Entity ID: <strong style={{ color: 'var(--text)' }}>{entityId}</strong></span>
-                  <span>REGISTRATION DATE: <strong style={{ color: 'var(--text)' }}>Oct 14, 2021</strong></span>
-                  <span>LAST AUDIT: <strong style={{ color: 'var(--text)' }}>12 Days Ago</strong></span>
-                </div>
-              </div>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button
+              onClick={handleCancel}
+              style={{ height: '36px', padding: '0 16px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleConfirm}
+              style={{ height: '36px', padding: '0 16px', border: 'none', background: '#991b1b', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+            >
+              <Check size={14} />
+              <span>Confirm suspension</span>
+            </button>
+          </div>
+        </div>
 
-              {/* Score visual right side */}
-              <div style={{ textAlign: 'right', borderLeft: '1px solid #f1f5f9', paddingLeft: '20px' }}>
-                <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Compliance Score</span>
-                <strong style={{ display: 'block', fontSize: '18px', color: '#10b981', textDecoration: 'underline', marginTop: '2px' }}>98/100</strong>
-                <span style={{ display: 'block', fontSize: '10px', color: 'var(--muted)', fontWeight: '600', marginTop: '2px' }}>Low (Tier 1)</span>
+        {/* Entity details summary card */}
+        <div className="panel" style={{ padding: '20px', display: 'flex', gap: '20px', alignItems: 'center' }}>
+          <img
+            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&h=100&q=80"
+            alt="Global Tech Logistics"
+            style={{ width: '100px', height: '64px', borderRadius: '6px', objectFit: 'cover' }}
+          />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', flex: 1 }}>
+            <div>
+              <span style={{ display: 'block', fontSize: '9px', fontWeight: '850', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Entity Name</span>
+              <strong style={{ display: 'block', fontSize: '15px', color: 'var(--text)', marginTop: '4px' }}>Global Tech Logistics</strong>
+            </div>
+            <div>
+              <span style={{ display: 'block', fontSize: '9px', fontWeight: '850', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Region</span>
+              <strong style={{ display: 'block', fontSize: '15px', color: 'var(--text)', marginTop: '4px' }}>North America (HQ)</strong>
+            </div>
+            <div>
+              <span style={{ display: 'block', fontSize: '9px', fontWeight: '850', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active Status</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '10px', fontWeight: '800', color: '#07956f', background: '#ecfdf5', padding: '2px 8px', borderRadius: '4px', marginTop: '4px' }}>
+                <span style={{ height: '5px', width: '5px', borderRadius: '50%', background: '#07956f' }} />
+                Verified
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* 3-Column main form grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 1fr', gap: '20px', alignItems: 'stretch' }}>
+          
+          {/* Column 1: Reasons & Administrative Context */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            {/* Primary Reason */}
+            <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Primary Reason</h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {[
+                  { id: 'compliance', title: 'Compliance Breach', desc: 'Violation of Section 4.2: Meta Privacy Protocols.' },
+                  { id: 'payment', title: 'Payment Default', desc: '3 utstanding balance exceeding 90-day threshold.' },
+                  { id: 'security', title: 'Security Threat', desc: 'Suspicious activity detected on API endpoints.' }
+                ].map((reason) => {
+                  const isActive = selectedReason === reason.id;
+                  return (
+                    <div
+                      key={reason.id}
+                      onClick={() => setSelectedReason(reason.id)}
+                      style={{
+                        padding: '16px 14px',
+                        border: isActive ? '2px solid #25108f' : '1px solid var(--line)',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        background: '#fff',
+                        position: 'relative'
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        checked={isActive}
+                        readOnly
+                        style={{ position: 'absolute', left: '14px', top: '22px', accentColor: '#25108f' }}
+                      />
+                      <div style={{ paddingLeft: '24px' }}>
+                        <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>{reason.title}</strong>
+                        <span style={{ display: 'block', fontSize: '10px', color: 'var(--muted)', marginTop: '4px', lineHeight: '1.3' }}>{reason.desc}</span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Request Form */}
+            {/* Administrative Context */}
             <div className="panel" style={{ padding: '20px' }}>
-              <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px' }}>Status Modification Request</h2>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                
-                {/* Reason for Action */}
-                <div>
-                  <label htmlFor="reason-textarea" style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Reason for Action</label>
-                  <textarea
-                    id="reason-textarea"
-                    style={{ width: '100%', height: '110px', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px', fontSize: '13px', outline: 'none', resize: 'none', background: '#f8fafc' }}
-                    placeholder="Detailed explanation for the status change..."
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                  />
-                </div>
-
-                {/* Duration & Violation row */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                  <div>
-                    <label htmlFor="duration-select" style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Suspension Duration</label>
-                    <select
-                      id="duration-select"
-                      style={{ width: '100%', height: '40px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
-                      value={duration}
-                      onChange={(e) => setDuration(e.target.value)}
-                    >
-                      <option value="Indefinite">Indefinite</option>
-                      <option value="30 Days">30 Days</option>
-                      <option value="90 Days">90 Days</option>
-                      <option value="Temporary Review">Temporary Review</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="violation-select" style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Primary Violation Type</label>
-                    <select
-                      id="violation-select"
-                      style={{ width: '100%', height: '40px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
-                      value={violationType}
-                      onChange={(e) => setViolationType(e.target.value)}
-                    >
-                      <option value="">Select Category...</option>
-                      <option value="Regulatory Breach">Regulatory Breach</option>
-                      <option value="Safety Auditing Failure">Safety Auditing Failure</option>
-                      <option value="Incomplete Documentation">Incomplete Documentation</option>
-                      <option value="Tax Misalignment">Tax Misalignment</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Internal Notes */}
-                <div>
-                  <label htmlFor="internal-notes-input" style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Internal Notes (Private)</label>
-                  <input
-                    id="internal-notes-input"
-                    type="text"
-                    style={{ width: '100%', height: '40px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none', background: '#f8fafc' }}
-                    placeholder="Visible only to administrators and audit teams"
-                    value={internalNotes}
-                    onChange={(e) => setInternalNotes(e.target.value)}
-                  />
-                </div>
-
-                {/* Yellow Action warning box (Image 4) */}
-                <div style={{ background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '6px', padding: '12px 14px', display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <AlertTriangle size={16} style={{ color: '#d97706', flexShrink: 0 }} />
-                  <span style={{ fontSize: '12px', fontWeight: '700', color: '#b45309' }}>
-                    Action will notify primary contacts immediately.
-                  </span>
-                </div>
-
-                {/* Buttons row */}
-                <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
-                  <button
-                    style={{ border: 'none', background: '#991b1b', color: '#fff', fontSize: '12px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '6px', cursor: 'pointer' }}
-                    onClick={handleConfirmSuspension}
-                    type="button"
-                  >
-                    Confirm Suspension
-                  </button>
-                  <button
-                    style={{ border: 'none', background: '#10b981', color: '#fff', fontSize: '12px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '6px', cursor: 'pointer' }}
-                    onClick={handleReactivate}
-                    type="button"
-                  >
-                    Reactivate Business
-                  </button>
-                </div>
-
-              </div>
-
+              <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: '0 0 12px' }}>Administrative Context</h2>
+              <textarea
+                value={adminNotes}
+                onChange={(e) => setAdminNotes(e.target.value)}
+                placeholder="Provide detailed reasoning for this action to be recorded in the audit log..."
+                style={{ width: '100%', height: '100px', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px', fontSize: '13px', outline: 'none', resize: 'none' }}
+              />
             </div>
 
           </div>
 
-          {/* Column 2: Lifecycle Log & Legal Assistance Card (Right) */}
-          <div style={{ flex: 0.8, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* Column 2: Duration Strategy */}
+          <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Duration Strategy</h2>
             
-            {/* Audit Log timeline */}
-            <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Lifecycle & Audit Log</h2>
-                <a href="#log" onClick={(e) => e.preventDefault()} style={{ color: '#4f46e5', fontWeight: '800', fontSize: '11px', textDecoration: 'none' }}>
-                  View Full Log
-                </a>
-              </div>
-
-              {/* Logs Table */}
-              <div className="table-wrap">
-                <table className="partner-table" style={{ border: 'none' }}>
-                  <thead>
-                    <tr>
-                      <th style={{ fontSize: '9px', color: 'var(--muted)', background: 'transparent', padding: '8px 4px' }}>ACTION</th>
-                      <th style={{ fontSize: '9px', color: 'var(--muted)', background: 'transparent', padding: '8px 4px' }}>ADMIN</th>
-                      <th style={{ fontSize: '9px', color: 'var(--muted)', background: 'transparent', padding: '8px 4px', textAlign: 'right' }}>TIMESTAMP</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {auditLogs.map((log, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                        <td style={{ padding: '12px 4px' }}>
-                          <span style={{ fontSize: '8px', fontWeight: '900', color: log.color, background: log.bg, padding: '2px 6px', borderRadius: '3px' }}>
-                            {log.action}
-                          </span>
-                        </td>
-                        <td style={{ padding: '12px 4px', fontSize: '11px', fontWeight: '700', color: 'var(--text)' }}>{log.admin}</td>
-                        <td style={{ padding: '12px 4px', fontSize: '10px', color: 'var(--muted)', textAlign: 'right' }}>{log.date}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Reactivation score bar */}
-              <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '16px', marginTop: '4px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', fontWeight: '700', marginBottom: '8px' }}>
-                  <span style={{ color: 'var(--muted)' }}>Average Reactivation Time</span>
-                  <span style={{ color: 'var(--text)' }}>4.2 Days</span>
-                </div>
-                <div style={{ height: '6px', background: '#f1f5f9', borderRadius: '3px', overflow: 'hidden' }}>
-                  <div style={{ width: '80%', height: '100%', background: '#4f46e5' }} />
-                </div>
-              </div>
-
+            {/* Strategy Toggles */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', background: '#f4eff8', padding: '4px', borderRadius: '6px' }}>
+              <button
+                onClick={() => setStrategy('temporary')}
+                style={{
+                  height: '34px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  background: strategy === 'temporary' ? '#fff' : 'transparent',
+                  color: strategy === 'temporary' ? '#25108f' : 'var(--muted)',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  boxShadow: strategy === 'temporary' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
+                }}
+              >
+                Temporary
+              </button>
+              <button
+                onClick={() => setStrategy('permanent')}
+                style={{
+                  height: '34px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  background: strategy === 'permanent' ? '#fff' : 'transparent',
+                  color: strategy === 'permanent' ? '#25108f' : 'var(--muted)',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  boxShadow: strategy === 'permanent' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
+                }}
+              >
+                Permanent
+              </button>
             </div>
 
-            {/* Need Legal Assistance dark card (Image 4) */}
-            <div className="panel" style={{ padding: '24px', background: '#0b1329', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', gap: '14px', position: 'relative', overflow: 'hidden' }}>
-              {/* Graphic background lines overlay */}
-              <div style={{ position: 'absolute', right: 0, bottom: 0, opacity: 0.1, pointerEvents: 'none' }}>
-                <svg width="100" height="100" viewBox="0 0 100 100">
-                  <line x1="0" y1="100" x2="100" y2="0" stroke="#fff" strokeWidth="12" />
-                  <line x1="20" y1="100" x2="100" y2="20" stroke="#fff" strokeWidth="12" />
-                  <line x1="40" y1="100" x2="100" y2="40" stroke="#fff" strokeWidth="12" />
+            {/* Datepicker field */}
+            {strategy === 'temporary' && (
+              <div>
+                <label htmlFor="release-date-cancellation" style={{ display: 'block', fontSize: '11px', fontWeight: '850', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Release Date</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', height: '40px', background: '#fff' }}>
+                  <Calendar size={14} style={{ color: 'var(--muted)' }} />
+                  <input
+                    id="release-date-cancellation"
+                    type="text"
+                    value={releaseDate}
+                    onChange={(e) => setReleaseDate(e.target.value)}
+                    style={{ border: 'none', background: 'transparent', width: '100%', fontSize: '13px', fontWeight: '700', outline: 'none' }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Warning yellow box */}
+            <div style={{ background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '6px', padding: '12px 14px', display: 'flex', gap: '8px', alignItems: 'flex-start', marginTop: 'auto' }}>
+              <AlertTriangle size={15} style={{ color: '#b45309', flexShrink: 0, marginTop: '2px' }} />
+              <span style={{ fontSize: '12px', color: '#b45309', fontWeight: '700', lineHeight: '1.4' }}>
+                <strong>Notice:</strong> Temporary suspension requires a manual review before reactivation on the selected date.
+              </span>
+            </div>
+
+          </div>
+
+          {/* Column 3: Impact Analysis */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            {/* Impact Analysis panel (navy) */}
+            <div className="panel" style={{ padding: '20px', background: '#0b1329', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Impact Analysis</span>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {/* Branches */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '20px' }}>14</strong>
+                    <span style={{ display: 'block', fontSize: '10px', color: 'rgba(255,255,255,0.6)' }}>Affected Branches</span>
+                  </div>
+                  <span style={{ fontSize: '9px', fontWeight: '900', background: '#fee2e2', color: '#b91c1c', padding: '2px 6px', borderRadius: '4px' }}>
+                    ⚠️ High Risk
+                  </span>
+                </div>
+
+                {/* Active Bookings */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '20px' }}>482</strong>
+                    <span style={{ display: 'block', fontSize: '10px', color: 'rgba(255,255,255,0.6)' }}>Active Bookings</span>
+                  </div>
+                  <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.6)', fontWeight: '700' }}>
+                    Requires Cancellation
+                  </span>
+                </div>
+
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px', marginTop: '4px' }}>
+                  <span style={{ display: 'block', fontSize: '10px', color: 'rgba(255,255,255,0.6)' }}>Revenue at Risk (30D)</span>
+                  <strong style={{ display: 'block', fontSize: '24px', marginTop: '4px' }}>$142,500.00</strong>
+                </div>
+              </div>
+            </div>
+
+            {/* Top Affected Nodes */}
+            <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)' }}>Top Affected Nodes</span>
+                <span style={{ fontSize: '11px', color: '#25108f', fontWeight: '800', cursor: 'pointer' }} onClick={() => alert('Viewing all affected nodes...')}>View All</span>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {[
+                  { name: 'Chicago Hub - 01', count: '86 Active' },
+                  { name: 'Toronto Express', count: '54 Active' },
+                  { name: 'London Gateway', count: '42 Active' }
+                ].map((node, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 10px', background: '#f8f4fc', borderRadius: '6px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--text)', fontWeight: '700' }}>
+                      <MapPin size={12} style={{ color: 'var(--muted)' }} />
+                      <span>{node.name}</span>
+                    </div>
+                    <span style={{ fontSize: '9px', fontWeight: '900', color: '#991b1b', background: '#fee2e2', padding: '2px 6px', borderRadius: '4px' }}>
+                      {node.count}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Traffic Disruption Forecast */}
+            <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Traffic Disruption Forecast</span>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <strong style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text)' }}>12.4%</strong>
+                  <p style={{ fontSize: '10px', color: 'var(--muted)', margin: '4px 0 0', lineHeight: '1.3' }}>
+                    Global network latency increase predicted upon deactivation.
+                  </p>
+                </div>
+                {/* SVG wave area graph */}
+                <svg width="80" height="42" viewBox="0 0 80 42" style={{ overflow: 'visible' }}>
+                  <path d="M 0,42 L 0,32 Q 20,22 40,30 T 80,10 L 80,42 Z" fill="rgba(165,180,252,0.3)" />
+                  <path d="M 0,32 Q 20,22 40,30 T 80,10" fill="none" stroke="#25108f" strokeWidth="2" />
                 </svg>
               </div>
-
-              <h3 style={{ fontSize: '14px', fontWeight: '800', margin: 0 }}>Need Legal Assistance?</h3>
-              <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.5', margin: 0 }}>
-                A suspension requires formal legal notice documentation. Download our standard templates to ensure compliance.
-              </p>
-              
-              <button
-                style={{ alignSelf: 'flex-start', border: 'none', background: '#fff', color: '#0b1329', fontSize: '11px', fontWeight: '800', height: '34px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px', zIndex: 2 }}
-                onClick={() => alert('Downloading templates...')}
-                type="button"
-              >
-                <FileText size={12} /> Template Library
-              </button>
             </div>
 
           </div>

@@ -25,6 +25,7 @@ export function AppProvider({ children }) {
   const [theme, setTheme] = useState('light');
   const [currentPartnerId, setCurrentPartnerId] = useState(null);
   const [currentBranchId, setCurrentBranchId] = useState('BR-90210');
+  const [selectedRequestId, setSelectedRequestId] = useState('REQ-2024-0892');
 
   const navigate = (nextRoute) => {
     if (nextRoute === ROUTES.root) {
@@ -127,9 +128,11 @@ export function AppProvider({ children }) {
       currentPartnerId,
       setCurrentPartnerId,
       currentBranchId,
-      setCurrentBranchId
+      setCurrentBranchId,
+      selectedRequestId,
+      setSelectedRequestId
     }),
-    [route, selectedRole, session, recovery, theme, currentPartnerId, currentBranchId]
+    [route, selectedRole, session, recovery, theme, currentPartnerId, currentBranchId, selectedRequestId]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
