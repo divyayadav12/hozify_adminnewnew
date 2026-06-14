@@ -46,7 +46,9 @@ const navModules = [
       { label: 'Partner Analytics', route: ROUTES.dashboardPartners },
       { label: 'Approval Dashboard', route: ROUTES.dashboardApprovals },
       { label: 'Activity Center', route: ROUTES.dashboardActivity },
-      { label: 'System Health', route: ROUTES.dashboardSystemHealth }
+      { label: 'System Health', route: ROUTES.dashboardSystemHealth },
+      { label: 'Channel Performance & ROI', route: ROUTES.dashboardChannelPerformance },
+      { label: 'Conversion Analytics', route: ROUTES.dashboardConversionAnalytics }
     ]
   },
   {
@@ -389,7 +391,14 @@ const navModules = [
       { label: 'Audience Segments', route: ROUTES.notificationsAudience },
       { label: 'Scheduled Campaigns', route: ROUTES.notificationsScheduled },
       { label: 'Automation Rules', route: ROUTES.notificationsAutomation },
-      { label: 'Delivery Reports', route: ROUTES.notificationsDelivery }
+      { label: 'Delivery Reports', route: ROUTES.notificationsDelivery },
+      { label: 'In-App Notifications', route: ROUTES.notificationsInApp },
+      { label: 'Approval Queue', route: ROUTES.notificationsApprovalQueue },
+      { label: 'Reports & Export', route: ROUTES.notificationsReports },
+      { label: 'Notification Cost Center', route: ROUTES.notificationsNotificationCostCenter },
+      { label: 'Global Settings', route: ROUTES.notificationsGlobalNotifications },
+      { label: 'Preference Management', route: ROUTES.notificationsNotificationPreferences },
+      { label: 'Communication Logs', route: ROUTES.notificationsCommunicationLogs }
     ]
   },
   {
@@ -454,8 +463,15 @@ const navModules = [
       { label: 'Wallet Issues', route: ROUTES.supportWalletIssues },
       { label: 'Technical Issues', route: ROUTES.supportTechnicalIssues },
       { label: 'KYC Issues', route: ROUTES.supportKycIssues },
+      { label: 'Operations Overview', route: ROUTES.supportOverview },
+      { label: 'Operations Dashboard', route: ROUTES.supportOpsDashboard },
+      { label: 'Agent Workspace', route: ROUTES.supportAgentWorkspace },
+      { label: 'Automation Rules', route: ROUTES.supportAutomation },
+      { label: 'Communication Center', route: ROUTES.supportCommunications },
       { label: 'SLA Monitoring', route: ROUTES.supportSla },
-      { label: 'Support Analytics', route: ROUTES.supportAnalytics }
+      { label: 'Support Analytics', route: ROUTES.supportAnalytics },
+      { label: 'Knowledge Base', route: ROUTES.supportKb },
+      { label: 'Financial Resolutions', route: ROUTES.supportFinancial }
     ]
   },
   {

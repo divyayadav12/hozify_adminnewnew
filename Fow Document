@@ -1,2146 +1,431 @@
-MODULE 04 — PARTNER MANAGEMENT 
-(ISP + BSP + Business Sellers) 
+MODULE 14 — WALLET MANAGEMENT 
 Purpose: 
-Manage all service partners, vendors, businesses, service providers, sellers, branches, 
-employees, KYC, banking, settlements, performance and approvals. 
-This is one of the biggest modules in HOZIFY. 
-Screen 1: Partner Listing 
-Header Actions: 
-● Add Partner 
-● Export 
-● Bulk Actions 
-● Refresh 
-Filters: 
-● Partner Type 
-● ISP 
-● BSP 
-● Business Seller 
-● City 
-● State 
-● KYC Status 
-● Account Status 
-● Verification Status 
-● Registration Date 
-KPI Cards: 
-● Total Partners 
-● Active Partners 
-● Pending Approvals 
-● Suspended Partners 
-● Top Rated Partners 
-● Settlement Pending 
-Table: 
-● Partner ID 
-● Business Name 
-● Owner Name 
-● Type 
-● City 
-● Rating 
-● Wallet Balance 
-● Status 
-● Actions 
-Actions: 
-● View 
-● Edit 
-● Approve 
-● Reject 
-● Suspend 
-Screen 2: Add Partner 
-Step Form 
-Step 1 
-Basic Information 
-● Business Name 
-● Owner Name 
-● Mobile 
-● Email 
-● Password 
-Step 2 
-Business Information 
-● GST Number 
-● PAN Number 
-● Registration Number 
-● Business Type 
-Step 3 
-Address Information 
-● Address 
-● State 
-● City 
-● Pincode 
-Step 4 
-Service Information 
-● Categories 
-● Subcategories 
-● Service Areas 
-Step 5 
-Bank Information 
-● Account Holder 
-● Account Number 
-● IFSC 
-● Bank Name 
-Buttons 
-● Save Draft 
-● Submit 
-Screen 3: Edit Partner 
-Everything from Add Partner 
-Additional: 
-● Change Status 
-● Edit Services 
-● Edit Coverage Area 
-● Update Documents 
-Screen 4: Partner Overview 
-Top Partner Card 
-Contains: 
-● Logo 
-● Business Name 
-● Partner ID 
-● Partner Type 
-● Status 
-● Registration Date 
-Quick Stats 
-● Total Bookings 
-● Revenue 
+This is the Financial Ledger System of HOZIFY. 
+Every money movement in the platform will be tracked here. 
+Connected With: 
+● Users 
+● Partners 
+● Sellers 
 ● Employees 
-● Branches 
-● Wallet Balance 
-● Rating 
-Partner Details Tabs 
-1. Overview 
-2. KYC 
-3. Services 
-4. Branches 
-5. Employees 
-6. Wallet 
-7. Banking 
-8. Revenue 
-9. Reviews 
-10. Documents 
-11. Timeline 
-12. Audit Logs 
-Tab 1: Overview 
-Business Information 
-Company Details 
-Address 
-Coverage Area 
-Google Map 
-Contact Information 
-Emergency Contact 
-Business Summary 
-Tab 2: KYC 
-Cards 
-GST Verification 
-PAN Verification 
-Business Registration 
-Cancelled Cheque 
-Owner Identity 
-Owner Selfie 
-Video Verification 
-Status: 
-● Pending 
-● Approved 
-● Rejected 
-Actions: 
-● Approve 
-● Reject 
-● Request Reupload 
-Tab 3: Services 
-Service Cards 
-● Service Name 
-● Category 
-● Pricing 
-● Status 
-Actions 
-● View 
-● Edit 
-● Approve 
-● Reject 
-Buttons 
-● Add Service 
-Tab 4: Branches 
-Cards 
-● Branch Name 
-● City 
-● Employees 
-● Revenue 
-● Rating 
-Actions 
-● View Branch 
-● Edit Branch 
-● Suspend Branch 
-Button 
-● Add Branch 
-Tab 5: Employees 
-Table 
-● Employee ID 
-● Name 
-● Role 
-● Status 
-● Rating 
 ● Bookings 
+● Refunds 
+● Penalties 
+● Settlements 
+● Revenue 
+WALLET FLOW 
+Booking Payment 
+↓ 
+Platform Receives Amount 
+↓ 
+Wallet Split Calculation 
+↓ 
+Partner Share 
+↓ 
+Employee Share 
+↓ 
+Platform Commission 
+↓ 
+Settlement Request 
+↓ 
+Wallet Debit 
+↓ 
+Bank Transfer 
+Screen 1: Wallet Dashboard 
+KPI Cards 
+● Total Wallet Balance 
+● Frozen Amount 
+● Pending Settlements 
+● Total Transactions 
+● Refund Amount 
+● Penalty Amount 
+Charts 
+● Wallet Growth 
+● Credit Trend 
+● Debit Trend 
+● Settlement Trend 
+Widgets 
+● Recent Transactions 
+● Suspicious Transactions 
+● Refund Requests 
+● Frozen Wallets 
+Screen 2: Wallet Listing 
+Filters 
+● Wallet Type 
+● User 
+● Partner 
+● Seller 
+● Employee 
+● Status 
+Table 
+● Wallet ID 
+● Owner 
+● Type 
+● Available Balance 
+● Frozen Balance 
+● Lifetime Earnings 
+● Status 
 Actions 
 ● View 
-● Edit 
-● Suspend 
-Button 
-● Add Employee 
-Tab 6: Wallet 
+● Freeze 
+● Adjust 
+Screen 3: Wallet Details 
+Top Summary 
+● Wallet ID 
+● Owner Name 
+● Wallet Type 
+● Current Balance 
+Wallet Tabs 
+1. Overview 
+2. Transactions 
+3. Settlements 
+4. Refunds 
+5. Penalties 
+6. Fraud Alerts 
+7. Timeline 
+8. Audit Logs 
+Tab 1: Overview 
 Cards 
 Current Balance 
-Frozen Amount 
-Penalty Amount 
-Pending Settlements 
+Frozen Balance 
+Pending Amount 
 Lifetime Earnings 
-Transactions Table 
-● Credit 
-● Debit 
-● Date 
-● Reference 
-● Status 
-Tab 7: Banking 
-Bank Accounts 
-Columns: 
-● Account Holder 
-● Bank 
-● Account Number 
-● IFSC 
-● Verification Status 
-Settlement History 
-Withdrawal History 
-Pending Requests 
-Tab 8: Revenue 
-Cards 
-Today Revenue 
-Weekly Revenue 
-Monthly Revenue 
-Yearly Revenue 
-Charts 
-Revenue Trend 
-Booking Trend 
-Commission Trend 
-Tab 9: Reviews 
-Cards 
-Average Rating 
-Total Reviews 
-Positive Reviews 
-Negative Reviews 
-Review Table 
-Customer 
-Booking 
-Rating 
-Comment 
-Date 
-Tab 10: Documents 
-Document Grid 
-GST 
-PAN 
-Registration 
-Cancelled Cheque 
-License 
-Insurance 
-Owner ID 
-Photos 
-Actions 
-View 
-Download 
-Verify 
-Tab 11: Timeline 
-Activity Feed 
-Partner Registered 
-KYC Submitted 
-KYC Approved 
-Service Added 
-Branch Added 
-Employee Added 
-Settlement Requested 
-Review Received 
-Tab 12: Audit Logs 
-Action History 
-● Action 
-● Admin 
-● Date 
-● IP Address 
-● Notes 
-Screen 5: Partner Approval Queue 
-Cards 
-Pending KYC 
-Pending Services 
-Pending Branches 
-Pending Documents 
-Pending Bank Verification 
+Lifetime Withdrawals 
+Risk Score 
+Tab 2: Transactions 
 Table 
-Partner 
+Transaction ID 
 Type 
-Pending Item 
-Submitted Date 
-Priority 
+Credit 
+Debit 
+Balance 
+Reference 
+Status 
+Date 
 Actions 
-Approve 
-Reject 
 View 
-Screen 6: Partner Approval Details 
-Left Panel 
-Partner Information 
-Center 
-Documents 
-Right Panel 
-Risk Analysis 
-Approval Notes 
-Buttons 
-Approve 
-Reject 
-Request Reupload 
-Screen 7: Partner Service Approval 
+Download Receipt 
+Tab 3: Settlements 
 Table 
-Service Name 
-Category 
-Pricing 
-Coverage Area 
-Status 
-Actions 
-Approve 
-Reject 
-Modify 
-Screen 8: Branch Approval 
-Branch Details 
-Manager 
-Address 
-Documents 
-Map Location 
-Actions 
-Approve 
-Reject 
-Screen 9: Bank Verification 
-Documents 
-Cancelled Cheque 
-Passbook 
-Bank Statement 
-Verification Status 
-Approve 
-Reject 
-Screen 10: Settlement Management 
-Cards 
-Pending Settlements 
-Approved Settlements 
-Rejected Settlements 
-Total Paid 
-Table 
-Partner 
+Settlement ID 
 Amount 
-Bank 
+Status 
 Request Date 
+Processed Date 
+Actions 
+View 
+Approve 
+Reject 
+Tab 4: Refunds 
+Table 
+Refund ID 
+Booking ID 
+Amount 
+Reason 
 Status 
 Actions 
 Approve 
 Reject 
-Hold 
-Screen 11: Penalty Management 
-Penalty Listing 
-Fields 
+Tab 5: Penalties 
+Table 
+Penalty ID 
 Reason 
 Amount 
 Applied By 
 Date 
 Status 
-Buttons 
-Add Penalty 
-Remove Penalty 
-Screen 12: Partner Fraud Center 
-Risk Dashboard 
-Indicators 
-Multiple Accounts 
-Fake KYC 
-Refund Abuse 
-Rating Manipulation 
-Wallet Abuse 
+Actions 
+Remove 
+View 
+Tab 6: Fraud Alerts 
+Cards 
+Multiple Refunds 
+Suspicious Credits 
+Fake Transactions 
+Chargeback Risks 
+Actions 
+Investigate 
+Freeze 
+Escalate 
+Tab 7: Timeline 
+Wallet Created 
+Credit Added 
+Debit Processed 
+Settlement Requested 
+Refund Issued 
+Penalty Applied 
+Wallet Frozen 
+Wallet Reactivated 
+Tab 8: Audit Logs 
+Action 
+Admin 
+Date 
+Remarks 
+Screen 4: Transaction Ledger 
+Purpose 
+Master Financial Ledger 
+Filters 
+● Date Range 
+● Transaction Type 
+● Wallet Type 
+● Status 
+Table 
+Transaction ID 
+Owner 
+Credit 
+Debit 
+Balance 
+Source 
+Reference 
+Status 
+Actions 
+View 
+Screen 5: Transaction Detail 
+Transaction Summary 
+Source Information 
+Destination Information 
+Reference Information 
+Attachments 
+Timeline 
+Screen 6: Wallet Adjustment Center 
+Purpose 
+Manual Credit/Debit 
+Fields 
+Wallet 
+Adjustment Type 
+Amount 
+Reason 
+Notes 
+Approval Required 
+Actions 
+Submit 
+Screen 7: Wallet Freeze Center 
+Purpose 
+Fraud Protection 
+Cards 
+Wallet Information 
+Fraud Indicators 
+Risk Score 
+Fields 
+Reason 
+Freeze Duration 
+Notes 
 Actions 
 Freeze Wallet 
-Suspend Partner 
-Escalate 
-Mark Safe 
-Screen 13: Partner Analytics 
-Cards 
-Top Revenue Partners 
-Top Rated Partners 
-Most Active Partners 
-Lowest Rated Partners 
-Charts 
-Revenue 
-Bookings 
-Customer Satisfaction 
-Screen 14: Partner Communication 
-Center 
-Send 
-Push Notification 
-SMS 
-WhatsApp 
-Email 
-Partner Groups 
-Single Partner 
-Bulk Partner Messaging 
-Screen 15: Export & Reports 
-Partner Report 
-Revenue Report 
-Settlement Report 
-Performance Report 
-Export 
-PDF 
-Excel 
-CSV 
-Partner Popups / Drawers 
-1. Add Partner Modal 
-2. Edit Partner Modal 
-3. Approve Partner Modal 
-4. Reject Partner Modal 
-5. Suspend Partner Modal 
-6. Activate Partner Modal 
-7. Add Service Modal 
-8. Add Branch Modal 
-9. Add Employee Modal 
-10. Wallet Adjustment Modal 
-11. Settlement Approval Modal 
-12. Settlement Rejection Modal 
-13. Penalty Modal 
-14. Send Notification Modal 
-15. Fraud Investigation Drawer 
-Empty States 
-No Partners Found 
-No Services Added 
-No Branches Available 
-No Employees Added 
-No Revenue Data 
-No Reviews Available 
-Success States 
-Partner Approved 
-Partner Rejected 
-Service Approved 
-Settlement Approved 
-Bank Verified 
-Employee Added 
-Branch Added 
-
-
-
-
-
-
-MODULE 06 — BUSINESS 
-MANAGEMENT 
-Purpose: 
-Manage all registered businesses, their approvals, ownership verification, legal documents, 
-branches, services, compliance, revenue, performance and lifecycle. 
-Business ≠ Partner 
-Business is the parent entity. 
-Under one business: 
-● Multiple Branches 
-● Multiple Employees 
-● Multiple Services 
-● Multiple Service Areas 
-● Multiple Bookings 
-can exist. 
-Screen 1: Business Listing 
-Header Actions 
-● Add Business 
-● Export 
-● Bulk Actions 
-● Refresh 
-Filters 
-● Business Type 
-● Category 
-● City 
-● State 
-● Approval Status 
-● GST Status 
-● Registration Status 
-● Revenue Range 
-KPI Cards 
-● Total Businesses 
-● Active Businesses 
-● Pending Approval 
-● Suspended Businesses 
-● Top Revenue Businesses 
-● New Registrations 
+Screen 8: Frozen Wallet Listing 
 Table 
-● Business ID 
-● Business Name 
-● Owner Name 
-● Category 
-● City 
-● GST Status 
-● Revenue 
-● Status 
-● Actions 
-Actions 
-● View 
-● Edit 
-● Approve 
-● Reject 
-● Suspend 
-Screen 2: Add Business 
-Step Wizard 
-Step 1 
-Business Information 
-● Business Name 
-● Category 
-● Sub Category 
-● Business Type 
-● Description 
-Step 2 
-Owner Information 
-● Owner Name 
-● Mobile 
-● Email 
-● Aadhaar 
-● PAN 
-Step 3 
-Business Address 
-● Address 
-● City 
-● State 
-● Pincode 
-● Google Map Location 
-Step 4 
-Documents 
-● GST Certificate 
-● PAN Card 
-● Registration Certificate 
-● Shop License 
-Step 5 
-Approval Submission 
-Review Information 
-Submit 
-Screen 3: Edit Business 
-Everything from Add Business 
-Additional: 
-● Change Status 
-● Modify Category 
-● Update Documents 
-● Ownership Change 
-Screen 4: Business Overview 
-Top Business Profile Card 
-Contains: 
-● Logo 
-● Business Name 
-● Business ID 
-● Category 
-● Status 
-● Registration Date 
-Quick Stats 
-● Branches 
-● Employees 
-● Services 
-● Bookings 
-● Revenue 
-● Rating 
-Business Detail Tabs 
-1. Overview 
-2. Owner Information 
-3. Documents 
-4. Branches 
-5. Services 
-6. Employees 
-7. Revenue 
-8. Reviews 
-9. Compliance 
-10. Timeline 
-11. Audit Logs 
-Tab 1: Overview 
-Business Summary 
-Cards 
-● Category 
-● Registration Date 
-● Business Type 
-● Active Status 
-Google Map 
-Coverage Areas 
-Contact Information 
-Emergency Contact 
-Tab 2: Owner Information 
-Owner Card 
-● Name 
-● Mobile 
-● Email 
-Verification 
-● Aadhaar Status 
-● PAN Status 
-● KYC Status 
-Actions 
-View Documents 
-Reverify 
-Tab 3: Documents 
-Document Grid 
-● GST Certificate 
-● PAN 
-● Registration Certificate 
-● Trade License 
-● Shop License 
-● Insurance 
-● Tax Documents 
-Actions 
-● View 
-● Download 
-● Verify 
-Status 
-● Pending 
-● Approved 
-● Rejected 
-Tab 4: Branches 
-Cards 
-● Branch Name 
-● City 
-● Revenue 
-● Employees 
-Actions 
-View Branch 
-Edit Branch 
-Suspend Branch 
-Add Branch 
-Tab 5: Services 
-Table 
-● Service Name 
-● Category 
-● Price 
-● Status 
-● Revenue Contribution 
-Actions 
-View 
-Edit 
-Approve 
-Disable 
-Tab 6: Employees 
-Table 
-● Employee ID 
-● Name 
-● Role 
-● Rating 
-● Bookings 
-● Status 
-Actions 
-View 
-Edit 
-Suspend 
-Tab 7: Revenue 
-Cards 
-● Today Revenue 
-● Weekly Revenue 
-● Monthly Revenue 
-● Lifetime Revenue 
-Charts 
-Revenue Trend 
-Booking Trend 
-Category Revenue 
-Branch Revenue 
-Tab 8: Reviews 
-Cards 
-Average Rating 
-Total Reviews 
-Positive Reviews 
-Negative Reviews 
-Table 
-Customer 
-Rating 
-Review 
-Date 
-Actions 
-Hide Review 
-Report Review 
-Tab 9: Compliance Center 
-Purpose 
-Legal Compliance Tracking 
-Cards 
-● GST Validity 
-● License Validity 
-● Insurance Validity 
-● Tax Filing Status 
-Alerts 
-Expiring Soon 
-Expired Documents 
-Pending Compliance 
-Tab 10: Timeline 
-Activity Feed 
-Business Registered 
-Owner Verified 
-GST Approved 
-Branch Added 
-Service Added 
-Employee Added 
-Review Received 
-Revenue Milestone 
-Tab 11: Audit Logs 
-Columns 
-● Action 
-● Performed By 
-● Timestamp 
-● IP Address 
-● Remarks 
-Screen 5: Business Approval Queue 
-Cards 
-● Pending Businesses 
-● Pending GST 
-● Pending Registration 
-● High Priority Cases 
-Table 
-Business 
+Wallet 
 Owner 
-Category 
-Submitted Date 
-Risk Level 
-Actions 
-Approve 
-Reject 
-View 
-Screen 6: Business Approval Details 
-Layout 
-Left Panel 
-Business Information 
-Center 
-Document Verification 
-Right Panel 
-Risk Assessment 
-Approval Notes 
-Buttons 
-Approve 
-Reject 
-Request Documents 
-Screen 7: GST Verification 
-Document Preview 
-GST Details 
-● GST Number 
-● Registration Date 
-● Business Name 
-Verification Result 
-Actions 
-Approve 
-Reject 
-Screen 8: PAN Verification 
-Document Preview 
-PAN Details 
-Verification Result 
-Actions 
-Approve 
-Reject 
-Screen 9: Registration Certificate 
-Verification 
-Document Preview 
-Certificate Information 
-Verification Status 
-Actions 
-Approve 
-Reject 
-Screen 10: Ownership Verification 
-Owner Information 
-KYC Details 
-Face Match 
-Identity Verification 
-Actions 
-Approve 
-Reject 
-Escalate 
-Screen 11: Business Suspension 
-Warning Panel 
+Freeze Date 
 Reason 
-Duration 
-Internal Notes 
-Buttons 
-Suspend 
-Cancel 
-Screen 12: Business Reactivation 
-Business Summary 
-Reason For Reactivation 
-Buttons 
-Reactivate 
-Cancel 
-Screen 13: Business Fraud Investigation 
-Risk Indicators 
-● Fake Documents 
-● Duplicate GST 
-● Duplicate Owner 
-● Suspicious Revenue 
-● Fake Reviews 
-Risk Meter 
-Actions 
-Freeze 
-Suspend 
-Escalate 
-Mark Safe 
-Screen 14: Business Performance 
-Dashboard 
-Cards 
-Top Performing Businesses 
-Lowest Performing Businesses 
-Most Bookings 
-Highest Revenue 
-Charts 
-Revenue 
-Bookings 
-Customer Ratings 
-Growth Trends 
-Screen 15: Business Communication 
-Center 
-Channels 
-● Push Notification 
-● SMS 
-● WhatsApp 
-● Email 
-Target 
-● Single Business 
-● Multiple Businesses 
-Campaign Scheduling 
-Screen 16: Business Reports 
-Reports 
-● Revenue Report 
-● Compliance Report 
-● Branch Report 
-● Employee Report 
-● Service Report 
-Export 
-PDF 
-Excel 
-CSV 
-Screen 17: Business Categories 
-Management 
-Category Listing 
-Add Category 
-Edit Category 
-Delete Category 
-Status Management 
-Screen 18: Business Tags Management 
-Examples 
-● Premium Partner 
-● Verified 
-● Top Rated 
-● High Revenue 
-Assign Tags 
-Remove Tags 
-Business Module Popups 
-1. Add Business Modal 
-2. Edit Business Modal 
-3. Approve Business Modal 
-4. Reject Business Modal 
-5. Suspend Business Modal 
-6. Reactivate Business Modal 
-7. Add Branch Modal 
-8. Add Service Modal 
-9. Compliance Alert Drawer 
-10. Fraud Investigation Drawer 
-11. Ownership Verification Modal 
-12. Export Report Modal 
-Empty States 
-● No Businesses Found 
-● No Revenue Data 
-● No Branches Available 
-● No Services Available 
-● No Reviews Available 
-● No Compliance Issues 
-Success States 
-● Business Approved 
-● GST Verified 
-● Business Suspended 
-● Business Reactivated 
-● Compliance Updated 
-● Report Generated 
-Micro Components Required 
-● Business Profile Widget 
-● Compliance Status Widget 
-● GST Verification Widget 
-● Revenue Analytics Widget 
-● Branch Summary Widget 
-● Service Performance Widget 
-● Risk Meter Widget 
-● Timeline Component 
-Total UI States: 
-25–30 Screens + Tabs + Modals + Drawers 
-
-
-
-
-MODULE 07 — BRANCH MANAGEMENT 
-Purpose: 
-Branch is the operational unit of a Business. 
-Every Business can have multiple Branches. 
-Branch controls: 
-● Employees 
-● Services 
-● Service Areas 
-● Bookings 
-● Revenue 
-● Availability 
-● Working Hours 
-This module will be heavily used by Operations Team. 
-Screen 1: Branch Listing 
-Header Actions 
-● Add Branch 
-● Export 
-● Bulk Actions 
-● Refresh 
-Filters 
-● Branch Status 
-● Business Name 
-● City 
-● State 
-● Revenue Range 
-● Rating 
-● Active Employees 
-KPI Cards 
-● Total Branches 
-● Active Branches 
-● Pending Approval 
-● Suspended Branches 
-● Top Performing Branches 
-● Low Performing Branches 
-Table 
-● Branch ID 
-● Branch Name 
-● Business Name 
-● City 
-● Employees 
-● Revenue 
-● Rating 
-● Status 
-● Actions 
-Actions 
-● View 
-● Edit 
-● Approve 
-● Suspend 
-Screen 2: Add Branch 
-Step 1 
-Basic Information 
-● Branch Name 
-● Branch Code 
-● Business Name 
-● Branch Manager 
-Step 2 
-Location 
-● Address 
-● City 
-● State 
-● Pincode 
-● Google Maps Pin 
-Step 3 
-Services 
-● Service Categories 
-● Service Subcategories 
-Step 4 
-Working Hours 
-● Monday-Sunday Timings 
-● Holidays 
-● Emergency Availability 
-Step 5 
-Documents 
-● Branch License 
-● Registration 
-● Photos 
-Screen 3: Edit Branch 
-Everything from Add Branch 
-Additional 
-● Change Manager 
-● Change Services 
-● Change Area Coverage 
-● Update Timings 
-Screen 4: Branch Overview 
-Top Profile Section 
-● Branch Logo/Image 
-● Branch Name 
-● Branch Code 
-● Business Name 
-● Status 
-Quick KPI Cards 
-● Total Employees 
-● Active Services 
-● Total Bookings 
-● Monthly Revenue 
-● Customer Rating 
-● Completion Rate 
-Branch Detail Tabs 
-1. Overview 
-2. Services 
-3. Employees 
-4. Bookings 
-5. Revenue 
-6. Service Areas 
-7. Availability 
-8. Reviews 
-9. Documents 
-10. Timeline 
-11. Audit Logs 
-Tab 1: Overview 
-Cards 
-Branch Information 
-Business Information 
-Manager Information 
-Contact Information 
-Location Information 
-Map Widget 
-Performance Summary 
-Tab 2: Services 
-Service Cards 
-● Service Name 
-● Category 
-● Price 
-● Rating 
-● Bookings 
-Actions 
-View 
-Edit 
-Disable 
-Add Service 
-Tab 3: Employees 
-Employee Table 
-● Employee ID 
-● Name 
-● Role 
-● Rating 
-● Availability 
-● Status 
-Actions 
-View 
-Edit 
-Assign Work 
-Suspend 
-Button 
-Add Employee 
-Tab 4: Bookings 
-Booking Table 
-● Booking ID 
-● Customer 
-● Service 
-● Amount 
-● Status 
-● Assigned Employee 
-Actions 
-View 
-Track 
-Invoice 
-Filters 
-Date 
-Status 
-Employee 
-Tab 5: Revenue 
-Cards 
-● Today Revenue 
-● Weekly Revenue 
-● Monthly Revenue 
-● Lifetime Revenue 
-Charts 
-Revenue Trend 
-Booking Trend 
-Service Revenue 
-Employee Revenue 
-Tab 6: Service Areas 
-Map-Based Layout 
-Features 
-● Polygon Drawing 
-● Radius Selection 
-● Area Labeling 
-● Coverage Statistics 
-Actions 
-Edit Area 
-Add Area 
-Remove Area 
-Tab 7: Availability 
-Calendar View 
-Time Slots 
-Working Days 
-Leave Days 
-Blocked Dates 
-Emergency Availability 
-Tab 8: Reviews 
-Cards 
-Average Rating 
-Total Reviews 
-Positive Reviews 
-Negative Reviews 
-Review Table 
-Customer 
-Rating 
-Review 
-Date 
-Actions 
-Hide 
-Report 
-Tab 9: Documents 
-Grid Layout 
-● Branch License 
-● Registration Certificate 
-● Insurance 
-● Location Photos 
-● Office Photos 
-Actions 
-View 
-Download 
-Verify 
-Tab 10: Timeline 
-Activity Feed 
-Branch Created 
-Service Added 
-Employee Added 
-Booking Completed 
-Revenue Milestone 
-Review Received 
-Area Updated 
-Tab 11: Audit Logs 
-Columns 
-● Action 
-● Admin 
-● Timestamp 
-● IP Address 
-● Notes 
-Screen 5: Branch Approval Queue 
-Cards 
-● Pending Branches 
-● Pending Documents 
-● Pending Services 
-● High Risk Cases 
-Table 
-Branch 
-Business 
-Manager 
-City 
-Submitted Date 
 Status 
 Actions 
-Approve 
+Unfreeze 
+View 
+Screen 9: Wallet Unfreeze Approval 
+Wallet Details 
+Investigation Notes 
+Resolution 
+Actions 
+Approve Unfreeze 
 Reject 
-View 
-Screen 6: Branch Approval Details 
-Left Panel 
-Branch Information 
-Center 
-Documents 
-Right Panel 
-Approval Notes 
-Risk Analysis 
-Buttons 
-Approve 
-Reject 
-Request Documents 
-Screen 7: Branch Manager Assignment 
-Manager Table 
-● Manager Name 
-● Experience 
-● Current Branches 
-● Rating 
-Actions 
-Assign 
-Replace 
-Remove 
-Screen 8: Service Area Mapping 
-Full Screen Google Maps 
-Tools 
-● Draw Polygon 
-● Draw Circle 
-● Draw Radius 
-● Add Landmark 
-Right Sidebar 
-Coverage Details 
-Area Statistics 
-Population Coverage 
-Service Coverage 
-Screen 9: Branch Calendar Management 
-Calendar Layout 
-Views 
-● Day 
-● Week 
-● Month 
-Manage 
-Working Hours 
-Leaves 
-Holidays 
-Emergency Closures 
-Screen 10: Branch Revenue Analytics 
-Charts 
-● Revenue Growth 
-● Service Revenue 
-● Employee Revenue 
-● Booking Trends 
-Filters 
-Date 
-Service 
-Employee 
-Screen 11: Branch Performance 
-Dashboard 
+Screen 10: Refund Dashboard 
 Cards 
-● Best Employees 
-● Best Services 
-● Revenue Rank 
-● Customer Satisfaction 
+Pending Refunds 
+Approved Refunds 
+Rejected Refunds 
+Refund Amount 
 Charts 
-Performance Score 
-Completion Rate 
-Booking Success Rate 
-Screen 12: Branch Compliance Center 
-Cards 
-License Status 
-Insurance Status 
-Registration Status 
-Verification Status 
-Alerts 
-Expiring Documents 
-Expired Documents 
-Pending Renewals 
-Screen 13: Branch Communication 
-Center 
-Send 
-● Push Notification 
-● SMS 
-● WhatsApp 
-● Email 
-Audience 
-All Employees 
-Branch Manager 
-Specific Team 
-Screen 14: Branch Suspension 
-Fields 
-Reason 
-Duration 
-Internal Notes 
-Buttons 
-Suspend 
-Cancel 
-Screen 15: Branch Reactivation 
-Reason 
-Approval Notes 
-Buttons 
-Reactivate 
-Cancel 
-Screen 16: Branch Reports 
-Reports 
-● Revenue Report 
-● Booking Report 
-● Employee Report 
-● Service Report 
-● Performance Report 
-Export 
-PDF 
-Excel 
-CSV 
-Branch Module Popups 
-1. Add Branch Modal 
-2. Edit Branch Modal 
-3. Approve Branch Modal 
-4. Reject Branch Modal 
-5. Suspend Branch Modal 
-6. Reactivate Branch Modal 
-7. Assign Manager Modal 
-8. Add Service Modal 
-9. Add Employee Modal 
-10. Edit Coverage Area Modal 
-11. Compliance Alert Drawer 
-12. Revenue Details Drawer 
-13. Export Report Modal 
-14. Branch Performance Drawer 
-Empty States 
-● No Branches Found 
-● No Employees Assigned 
-● No Services Available 
-● No Revenue Data 
-● No Reviews Available 
-● No Service Areas Configured 
-Success States 
-● Branch Created 
-● Branch Approved 
-● Manager Assigned 
-● Service Added 
-● Area Updated 
-● Revenue Report Generated 
-Micro Components Required 
-● Branch Profile Widget 
-● Manager Widget 
-● Revenue Widget 
-● Performance Score Widget 
-● Service Area Map Widget 
-● Employee Leaderboard 
-● Availability Calendar 
-● Compliance Widget 
-Total UI States: 
-30–35 Screens + Tabs + Modals + Drawers
-
-
-
-MODULE 08 — SERVICE MANAGEMENT 
-Purpose: 
-This is one of the most critical modules in HOZIFY. 
-Everything revolves around Services. 
-Business → Branch → Service → Booking → Revenue 
-All pricing, commissions, approvals and availability are controlled from this module. 
-Screen 1: Service Dashboard 
-Header Actions 
-● Add Service 
-● Add Category 
-● Export 
-● Refresh 
-KPI Cards 
-● Total Services 
-● Active Services 
-● Pending Approval 
-● Disabled Services 
-● Top Revenue Services 
-● Most Booked Services 
-Charts 
-● Service Revenue Trend 
-● Booking Trend 
-● Category Performance 
-● Service Popularity 
-Widgets 
-● Recently Added Services 
-● Pending Approvals 
-● Top Rated Services 
-Screen 2: Category Listing 
-Purpose 
-Master Service Categories 
-Examples 
-● Home Cleaning 
-● Plumbing 
-● Electrical 
-● Painting 
-● Relocation 
-● Appliance Repair 
+Refund Trend 
+Refund Categories 
+Screen 11: Refund Approval Queue 
 Table 
-● Category ID 
-● Category Name 
-● Total Services 
-● Active Services 
-● Revenue 
-● Status 
-Actions 
-● View 
-● Edit 
-● Delete 
-Buttons 
-● Add Category 
-Screen 3: Add Category 
-Fields 
-● Category Name 
-● Slug 
-● Description 
-● Category Icon 
-● Category Image 
-SEO Section 
-● Meta Title 
-● Meta Description 
-Status 
-Active 
-Inactive 
-Screen 4: Edit Category 
-Everything from Add Category 
-Additional 
-● Category Performance 
-● Category Revenue 
-● Service Count 
-Screen 5: Sub Category Listing 
-Table 
-● Sub Category ID 
-● Name 
-● Parent Category 
-● Total Services 
-● Revenue 
-Actions 
-View 
-Edit 
-Delete 
-Screen 6: Add Sub Category 
-Fields 
-● Parent Category 
-● Sub Category Name 
-● Description 
-● Icon 
-Status 
-Active 
-Inactive 
-Screen 7: Service Listing 
-Filters 
-● Category 
-● Subcategory 
-● City 
-● Approval Status 
-● Revenue 
-● Rating 
-Table 
-● Service ID 
-● Service Name 
-● Category 
-● Price 
-● Bookings 
-● Revenue 
-● Rating 
-● Status 
-Actions 
-View 
-Edit 
-Approve 
-Disable 
-Screen 8: Add Service 
-Step 1 
-Basic Details 
-● Service Name 
-● Category 
-● Sub Category 
-● Description 
-Step 2 
-Pricing 
-● Base Price 
-● GST 
-● Platform Fee 
-● Commission % 
-Step 3 
-Availability 
-● Cities 
-● Areas 
-● Branches 
-Step 4 
-Media 
-● Images 
-● Banner 
-● Icon 
-Step 5 
-Review & Publish 
-Screen 9: Edit Service 
-Everything from Add Service 
-Additional 
-● Status Management 
-● Price History 
-● Performance History 
-Screen 10: Service Details 
-Top Card 
-● Service Name 
-● Category 
-● Status 
-● Rating 
-● Revenue 
-KPI Cards 
-● Total Bookings 
-● Revenue 
-● Avg Rating 
-● Completion Rate 
-Service Detail Tabs 
-1. Overview 
-2. Pricing 
-3. Availability 
-4. Branches 
-5. Bookings 
-6. Reviews 
-7. Revenue 
-8. Documents 
-9. Timeline 
-10. Audit Logs 
-Tab 1: Overview 
-Service Summary 
-Description 
-Features 
-Included Items 
-Excluded Items 
-Requirements 
-Gallery 
-Tab 2: Pricing 
-Cards 
-● Base Price 
-● GST 
-● Platform Fee 
-● Commission 
-Price History Table 
-Effective Date 
-Old Price 
-New Price 
-Updated By 
-Tab 3: Availability 
-Coverage Map 
-Cities 
-Areas 
-Service Radius 
-Actions 
-Add Area 
-Remove Area 
-Tab 4: Branches 
-Branch Cards 
-● Branch Name 
-● City 
-● Rating 
-● Revenue 
-Actions 
-View Branch 
-Remove Branch 
-Assign Branch 
-Tab 5: Bookings 
-Table 
-Booking ID 
+Refund ID 
+Booking 
 Customer 
 Amount 
-Status 
-Date 
-Assigned Branch 
-Actions 
-View 
-Track 
-Invoice 
-Tab 6: Reviews 
-Cards 
-Average Rating 
-Total Reviews 
-Positive % 
-Negative % 
-Review Table 
-Customer 
-Review 
-Rating 
-Date 
-Actions 
-Hide 
-Report 
-Tab 7: Revenue 
-Charts 
-Revenue Trend 
-Booking Trend 
-Category Comparison 
-Branch Contribution 
-Cards 
-Today 
-Weekly 
-Monthly 
-Lifetime 
-Tab 8: Documents 
-Service Related Documents 
-● Certificates 
-● Licenses 
-● Safety Documents 
-Actions 
-View 
-Download 
-Verify 
-Tab 9: Timeline 
-Service Created 
-Price Changed 
-Area Updated 
-Branch Assigned 
-Review Added 
-Approval Granted 
-Tab 10: Audit Logs 
-Actions History 
-Admin 
-Timestamp 
-IP 
-Notes 
-Screen 11: Service Approval Queue 
-Cards 
-● Pending Services 
-● Rejected Services 
-● High Priority Reviews 
-Table 
-Service 
-Partner 
-Category 
-Price 
-Submitted Date 
+Reason 
 Status 
 Actions 
 Approve 
 Reject 
-Modify 
-Screen 12: Service Approval Detail 
-Left 
-Service Details 
-Center 
-Pricing & Documents 
-Right 
-Approval Notes 
-Risk Analysis 
-Buttons 
-Approve 
-Reject 
-Request Changes 
-Screen 13: Pricing Management 
-Purpose 
-Central Pricing Control 
+Screen 12: Penalty Management 
+Cards 
+Total Penalties 
+Active Penalties 
+Removed Penalties 
+Penalty Amount 
 Table 
-Service 
-Base Price 
-GST 
-Platform Fee 
-Commission 
-Final Price 
-Actions 
-Edit Price 
-Bulk Update 
-Screen 14: Commission Management 
-Cards 
-● Platform Commission 
-● Partner Share 
-● Seller Share 
-Rules Engine 
-Commission Rules 
-Category Rules 
-City Rules 
-Screen 15: Service Area Management 
-Map-Based Interface 
-Tools 
-● Draw Polygon 
-● Radius Coverage 
-● Pin Placement 
-Right Sidebar 
-Coverage Analytics 
-Area Count 
-Population Coverage 
-Branch Count 
-Screen 16: Service Performance 
-Dashboard 
-Cards 
-Top Services 
-Lowest Services 
-Most Revenue 
-Most Bookings 
-Charts 
-Revenue 
-Bookings 
-Ratings 
-Growth 
-Screen 17: Service Comparison 
-Compare Multiple Services 
-Columns 
-Service A 
-Service B 
-Service C 
-Rows 
-Price 
-Bookings 
-Revenue 
-Rating 
-Completion Rate 
-Screen 18: Featured Services 
-Management 
-Sections 
-Homepage Featured 
-Trending 
-Recommended 
-Seasonal 
+Owner 
+Reason 
+Amount 
+Status 
 Actions 
 Add 
 Remove 
-Reorder 
-Screen 19: Service Media Library 
-Manage 
-● Icons 
-● Images 
-● Banners 
-● Videos 
-Filters 
-Category 
-Date 
-Service 
-Screen 20: Service Reports 
-Reports 
-● Revenue Report 
-● Booking Report 
-● Rating Report 
-● Branch Report 
-● Category Report 
-Export 
-PDF 
-Excel 
-CSV 
-Screen 21: Service Analytics 
-Advanced Analytics 
-Charts 
-● Service Funnel 
-● Revenue Funnel 
-● Conversion Rate 
-● Customer Retention 
-Filters 
-Date 
-City 
-Category 
-Screen 22: Service Deactivation 
-Fields 
-Reason 
-Effective Date 
-Impact Analysis 
-Buttons 
-Deactivate 
-Cancel 
-Screen 23: Service Reactivation 
-Summary 
-Approval Notes 
-Buttons 
-Reactivate 
-Cancel 
-Service Module Popups 
-1. Add Category Modal 
-2. Edit Category Modal 
-3. Add Sub Category Modal 
-4. Add Service Modal 
-5. Edit Service Modal 
-6. Service Approval Modal 
-7. Service Rejection Modal 
-8. Pricing Update Modal 
-9. Commission Update Modal 
-10. Assign Branch Modal 
-11. Area Coverage Modal 
-12. Service Comparison Drawer 
-13. Revenue Detail Drawer 
-14. Export Report Modal 
-15. Media Upload Modal 
-Empty States 
-● No Services Available 
-● No Categories Found 
-● No Revenue Data 
-● No Reviews Found 
-● No Coverage Area Configured 
-Success States 
-● Service Created 
-● Service Approved 
-● Pricing Updated 
-● Commission Updated 
-● Area Added 
-● Report Generated 
-Micro Components Required 
-● Service Card 
-● Pricing Calculator Widget 
-● Commission Calculator Widget 
-● Service Performance Widget 
-● Service Coverage Map 
-● Revenue Widget 
-● Review Widget 
-● Analytics Widget 
-Total UI States: 
-35–40 Screens + Tabs + Modals + Drawers 
-
-
-MODULE 09 — EMPLOYEE 
-MANAGEMENT 
-Purpose: 
-Manage all workforce operations across HOZIFY. 
-Employees can be: 
-● Professional Workers 
-● Service Technicians 
-● Cleaners 
-● Packers & Movers 
-● Electricians 
-● Plumbers 
-● Branch Managers 
-● Field Executives 
-This module controls: 
-● Employee Lifecycle 
-● Assignments 
-● Availability 
-● Attendance 
-● Performance 
-● Ratings 
-● KYC 
-● Documents 
-● Earnings 
-Screen 1: Employee Dashboard 
-KPI Cards 
-● Total Employees 
-● Active Employees 
-● Available Employees 
-● Busy Employees 
-● On Leave 
-● Suspended Employees 
-Charts 
-● Employee Growth 
-● Attendance Trend 
-● Performance Trend 
-● Rating Distribution 
-Widgets 
-● New Joinings 
-● Top Performers 
-● Attendance Alerts 
-● KYC Pending 
-Screen 2: Employee Listing 
-Header Actions 
-● Add Employee 
-● Export 
-● Bulk Actions 
-Filters 
-● Branch 
-● City 
-● Employee Type 
-● Availability 
-● Rating 
-● KYC Status 
-● Status 
-Table 
-● Employee ID 
-● Name 
-● Mobile 
-● Branch 
-● Rating 
-● Bookings 
-● Availability 
-● Status 
+Screen 13: Penalty Detail 
+Penalty Summary 
+Evidence 
+Booking Reference 
 Actions 
-● View 
-● Edit 
-● Suspend 
-Screen 3: Add Employee 
-Step 1 
-Personal Information 
-● Full Name 
-● Mobile 
-● Email 
-● DOB 
-● Gender 
-Step 2 
-Professional Information 
-● Employee Type 
-● Skills 
-● Experience 
-● Certifications 
-Step 3 
-Branch Assignment 
-● Business 
-● Branch 
-● Reporting Manager 
-Step 4 
-Documents 
-● Aadhaar 
-● PAN 
-● Photo 
-● Bank Details 
-Step 5 
-Review & Submit 
-Screen 4: Edit Employee 
-Everything from Add Employee 
-Additional 
-● Change Branch 
-● Change Role 
-● Update Skills 
-● Update Documents 
-Screen 5: Employee Profile 
-Top Card 
-● Profile Photo 
-● Employee Name 
-● Employee ID 
-● Branch 
-● Status 
-● Joining Date 
-Quick Stats 
-● Total Bookings 
-● Revenue Generated 
-● Rating 
-● Completion Rate 
-● Attendance % 
-Employee Detail Tabs 
-1. Overview 
-2. Availability 
-3. Attendance 
-4. Bookings 
-5. Performance 
-6. Reviews 
-7. Documents 
-8. KYC 
-9. Earnings 
-10. Timeline 
-11. Audit Logs 
-Tab 1: Overview 
+Remove 
+Escalate 
+Screen 14: Settlement Dashboard 
 Cards 
-Personal Information 
-Professional Information 
-Skills 
-Certifications 
-Emergency Contact 
-Manager Information 
-Current Assignment 
-Tab 2: Availability 
-Current Status 
-● Available 
-● Busy 
-● Offline 
-● On Leave 
-Calendar 
-Working Schedule 
-Shift Information 
-Assigned Tasks 
-Upcoming Bookings 
-Tab 3: Attendance 
-Attendance Summary 
-Cards 
-● Present Days 
-● Absent Days 
-● Late Arrivals 
-● Working Hours 
+Pending Settlements 
+Approved Settlements 
+Rejected Settlements 
+Settlement Value 
+Charts 
+Settlement Trend 
+Processing Time 
+Screen 15: Settlement Request Queue 
 Table 
-Date 
-Check In 
-Check Out 
-Duration 
-Status 
-Tab 4: Bookings 
-Table 
-Booking ID 
-Service 
-Customer 
+Settlement ID 
+Partner 
 Amount 
+Bank Account 
 Status 
-Date 
-Actions 
-View Booking 
-Track Booking 
-Tab 5: Performance 
-Cards 
-Completion Rate 
-Customer Rating 
-Revenue Generated 
-Cancellation Rate 
-Charts 
-Monthly Performance 
-Service Performance 
-Revenue Performance 
-Tab 6: Reviews 
-Cards 
-Average Rating 
-Positive Reviews 
-Negative Reviews 
-Table 
-Customer 
-Booking 
-Rating 
-Comment 
-Date 
-Tab 7: Documents 
-Document Grid 
-● Aadhaar 
-● PAN 
-● Driving License 
-● Certificates 
-● Experience Letters 
-● Profile Photo 
-Actions 
-View 
-Download 
-Verify 
-Tab 8: KYC 
-Verification Status 
-Cards 
-● Aadhaar Status 
-● PAN Status 
-● Face Verification 
-● Video KYC 
 Actions 
 Approve 
 Reject 
-Request Reupload 
-Tab 9: Earnings 
+Hold 
+Screen 16: Settlement Detail 
+Settlement Summary 
+Wallet Information 
+Bank Information 
+Transaction History 
+Approval Chain 
+Screen 17: Fraud Monitoring Center 
+Purpose 
+Financial Risk Detection 
+Cards 
+High Risk Wallets 
+Chargebacks 
+Abnormal Activity 
+Fake Transactions 
+Charts 
+Fraud Trend 
+Risk Trend 
+Screen 18: Risk Investigation 
+Wallet Details 
+Related Transactions 
+Associated Accounts 
+Risk Analysis 
+Actions 
+Freeze 
+Escalate 
+Mark Safe 
+Screen 19: Chargeback Management 
+Cards 
+Active Chargebacks 
+Resolved Chargebacks 
+Chargeback Amount 
+Table 
+Transaction 
+Amount 
+Reason 
+Status 
+Actions 
+Resolve 
+Reject 
+Screen 20: Wallet Analytics 
+Charts 
+● Wallet Growth 
+● Revenue Distribution 
+● Credit/Debit Ratio 
+● Settlement Performance 
+● Refund Analysis 
+Screen 21: Earnings Dashboard 
+Purpose 
+Partner/Seller Earnings 
 Cards 
 Today's Earnings 
 Weekly Earnings 
 Monthly Earnings 
 Lifetime Earnings 
-Table 
-Booking 
-Amount 
-Commission 
-Net Earnings 
-Status 
-Tab 10: Timeline 
-Activity Feed 
-Employee Added 
-Document Uploaded 
-Booking Assigned 
-Booking Completed 
-Review Received 
-Branch Changed 
-Attendance Updated 
-Tab 11: Audit Logs 
-Columns 
-Action 
-Admin 
-Timestamp 
-IP Address 
-Notes 
-Screen 6: Employee Assignment Center 
-Purpose 
-Manage Work Allocation 
-Table 
-Employee 
-Branch 
-Current Load 
-Today's Bookings 
-Availability 
-Actions 
-Assign Job 
-Reassign Job 
-Remove Assignment 
-Screen 7: Employee Availability Board 
-Kanban Style Layout 
-Columns 
-Available 
-Busy 
-On Job 
-On Leave 
-Offline 
-Drag & Drop Assignment Support 
-Screen 8: Attendance Dashboard 
-Cards 
-Today's Attendance 
-Absent Employees 
-Late Employees 
-Total Working Hours 
 Charts 
-Attendance Trend 
-Branch Attendance 
-Screen 9: Attendance Detail 
-Table 
-Employee 
-Check In 
-Check Out 
-Location 
-Working Hours 
-Status 
-Actions 
-Edit 
-Approve 
-Reject 
-Screen 10: Leave Management 
-Leave Requests 
-Columns 
-Employee 
-Leave Type 
-Duration 
-Reason 
-Status 
-Actions 
-Approve 
-Reject 
-Screen 11: Employee Performance 
-Dashboard 
-Cards 
-Top Performers 
-Lowest Performers 
-Highest Revenue 
-Highest Rating 
-Charts 
-Performance Trends 
-Rating Trends 
-Revenue Trends 
-Screen 12: Rating Management 
-Cards 
-Average Rating 
-1 Star Reviews 
-2 Star Reviews 
-3 Star Reviews 
-4 Star Reviews 
-5 Star Reviews 
-Review Table 
-Actions 
-View 
-Hide 
-Investigate 
-Screen 13: KYC Approval Queue 
-Employee KYC Verification 
-Table 
-Employee 
-Branch 
-Document Type 
-Status 
-Actions 
-Approve 
-Reject 
-Screen 14: Employee Document Center 
-Central Repository 
-Filters 
-Branch 
-Document Type 
-Expiry Status 
-Document Table 
-Actions 
-View 
-Download 
-Verify 
-Screen 15: Branch Manager Management 
-Manager Listing 
-Cards 
-Managed Branches 
-Team Size 
-Revenue 
-Performance 
-Actions 
-Assign Branch 
-Replace Manager 
-Remove Manager 
-Screen 16: Employee Suspension 
-Fields 
-Reason 
-Duration 
-Notes 
-Buttons 
-Suspend 
-Cancel 
-Screen 17: Employee Reactivation 
-Summary 
-Reason 
-Buttons 
-Reactivate 
-Cancel 
-Screen 18: Employee Communication 
-Center 
-Send 
-● Push Notification 
-● SMS 
-● WhatsApp 
-● Email 
-Audience 
-All Employees 
-Branch Employees 
-Selected Employees 
-Screen 19: Employee Reports 
+Revenue Trend 
+Settlement Trend 
+Screen 22: Wallet Reports 
 Reports 
-● Attendance Report 
-● Performance Report 
-● Revenue Report 
-● Ratings Report 
-● Booking Report 
+● Wallet Report 
+● Transaction Report 
+● Settlement Report 
+● Refund Report 
+● Penalty Report 
+● Fraud Report 
 Export 
 PDF 
 Excel 
 CSV 
-Screen 20: Employee Analytics 
-Advanced Analytics 
-Charts 
-● Productivity Score 
-● Revenue Contribution 
-● Customer Satisfaction 
-● Completion Rate 
-● Attendance Score 
-Filters 
-Branch 
-Employee Type 
-Date 
-Employee Module Popups 
-1. Add Employee Modal 
-2. Edit Employee Modal 
-3. Assign Job Modal 
-4. Reassign Job Modal 
-5. Suspend Employee Modal 
-6. Reactivate Employee Modal 
-7. Attendance Correction Modal 
-8. Leave Approval Modal 
-9. Document Verification Modal 
-10. KYC Approval Modal 
-11. Earnings Detail Drawer 
-12. Performance Detail Drawer 
-13. Communication Modal 
-14. Export Report Modal 
-15. Employee Quick View Drawer 
+Screen 23: Financial Reconciliation 
+Purpose 
+Match Platform vs Wallet Records 
+Cards 
+Matched 
+Unmatched 
+Errors 
+Pending Review 
+Actions 
+Resolve 
+Export 
+Screen 24: Wallet Communication Center 
+Notifications 
+Settlement Approved 
+Refund Processed 
+Wallet Frozen 
+Penalty Applied 
+Channels 
+Email 
+SMS 
+WhatsApp 
+Push 
+Screen 25: Wallet Settings 
+Fields 
+Minimum Withdrawal 
+Maximum Withdrawal 
+Settlement Cycle 
+Penalty Rules 
+Auto Settlement Rules 
+Fraud Rules 
+Wallet Module Popups 
+1. Credit Wallet Modal 
+2. Debit Wallet Modal 
+3. Wallet Freeze Modal 
+4. Wallet Unfreeze Modal 
+5. Refund Approval Modal 
+6. Penalty Creation Modal 
+7. Settlement Approval Modal 
+8. Settlement Rejection Modal 
+9. Transaction Detail Drawer 
+10. Fraud Investigation Drawer 
+11. Chargeback Modal 
+12. Reconciliation Drawer 
+13. Export Report Modal 
+14. Wallet Quick View Drawer 
+15. Communication Modal 
 Empty States 
-● No Employees Found 
-● No Assignments Available 
-● No Attendance Data 
-● No Reviews Found 
-● No Earnings Available 
-● No Documents Uploaded 
+● No Transactions Found 
+● No Refund Requests 
+● No Penalties Applied 
+● No Frozen Wallets 
+● No Fraud Alerts 
 Success States 
-● Employee Added 
-● Employee Updated 
-● Assignment Created 
-● Leave Approved 
-● Attendance Updated 
-● KYC Approved 
-● Employee Reactivated 
+● Wallet Credited 
+● Wallet Debited 
+● Refund Approved 
+● Settlement Processed 
+● Wallet Frozen 
+● Wallet Unfrozen 
+● Fraud Case Closed 
 Micro Components Required 
-● Employee Profile Widget 
-● Attendance Widget 
-● Availability Board 
-● Performance Score Widget 
+● Wallet Summary Widget 
+● Transaction Ledger Widget 
+● Settlement Widget 
+● Refund Widget 
+● Penalty Widget 
+● Fraud Score Widget 
 ● Earnings Widget 
-● Rating Widget 
-● Assignment Tracker 
-● KYC Status Widget 
+● Reconciliation Widget 
 Total UI States: 
-30–35 Screens + Tabs + Modals + Drawers
+25–30 Screens + Tabs + Modals + Drawers

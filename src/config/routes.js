@@ -73,6 +73,8 @@ export const ROUTES = {
   dashboardApprovals: '/dashboard/approvals',
   dashboardActivity: '/dashboard/activity',
   dashboardSystemHealth: '/dashboard/system-health',
+  dashboardChannelPerformance: '/dashboard/channel-performance',
+  dashboardConversionAnalytics: '/dashboard/conversion-analytics',
 
   // User Management sub-routes
   addUser: '/users/add',
@@ -282,6 +284,20 @@ export const ROUTES = {
   walletAnalytics: '/wallet/analytics',
   walletReconciliation: '/wallet/reconciliation',
   walletEarnings: '/wallet/earnings',
+  walletDashboard: '/wallet/dashboard',
+  walletDetails: '/wallet/details/:id',
+  transactionDetail: '/wallet/transactions/:id',
+  walletAdjustment: '/wallet/adjustment',
+  walletFreezeCenter: '/wallet/freeze-center',
+  walletUnfreezeApproval: '/wallet/unfreeze-approval/:id',
+  refundDashboard: '/wallet/refunds/dashboard',
+  penaltyDetail: '/wallet/penalties/:id',
+  settlementDashboard: '/wallet/settlements/dashboard',
+  settlementDetail: '/wallet/settlements/:id',
+  riskInvestigation: '/wallet/risk-investigation/:id',
+  chargebackManagement: '/wallet/chargebacks',
+  walletReports: '/wallet/reports',
+  walletCommunication: '/wallet/communication',
 
   // Banking & Settlements sub-routes
   bankingDashboard: '/banking/dashboard',
@@ -354,6 +370,8 @@ export const ROUTES = {
   notificationsScheduled: '/notifications/scheduled',
   notificationsAutomation: '/notifications/automation',
   notificationsDelivery: '/notifications/delivery-reports',
+  notificationsInApp: '/notifications/in-app',
+
 
   // Banner Management sub-routes
   bannersHomepage: '/banners/homepage',
@@ -421,6 +439,16 @@ export const ROUTES = {
   supportKycIssues: '/support/kyc',
   supportSla: '/support/sla',
   supportAnalytics: '/support/analytics',
+  supportDetails: '/support/ticket/:id',
+  supportCreate: '/support/create',
+  supportKb: '/support/kb',
+  supportKbCreate: '/support/kb/create',
+  supportFinancial: '/support/financial',
+  supportOpsDashboard: '/support/ops-dashboard',
+  supportOverview: '/support/overview',
+  supportAutomation: '/support/automation',
+  supportAgentWorkspace: '/support/agent-workspace',
+  supportCommunications: '/support/communications',
 
   // Fraud Management sub-routes
   fraudDashboard: '/fraud/dashboard',
@@ -501,5 +529,13 @@ export const ROUTES = {
   settingsSecurityAudit: '/settings/security/audit-logs',
   settingsSystemBackup: '/settings/system/backup',
   settingsSystemMaintenance: '/settings/system/maintenance',
-  settingsSystemLogs: '/settings/system/logs'
+  settingsSystemLogs: '/settings/system/logs',
+  
+  // Notification Center Phase 2 Reorganized Routes
+  notificationsApprovalQueue: '/notifications/approval-queue',
+  notificationsReports: '/notifications/reports-export',
+  notificationsGlobalNotifications: '/notifications/global-notifications',
+  notificationsNotificationPreferences: '/notifications/notification-preferences',
+  notificationsCommunicationLogs: '/notifications/communication-logs',
+  notificationsNotificationCostCenter: '/notifications/notification-cost-center'
 };
