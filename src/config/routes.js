@@ -391,6 +391,16 @@ export const ROUTES = {
   supportKycIssues: '/support/kyc',
   supportSla: '/support/sla',
   supportAnalytics: '/support/analytics',
+  supportDetails: '/support/ticket/:id',
+  supportCreate: '/support/create',
+  supportKb: '/support/kb',
+  supportKbCreate: '/support/kb/create',
+  supportFinancial: '/support/financial',
+  supportOpsDashboard: '/support/ops-dashboard',
+  supportOverview: '/support/overview',
+  supportAutomation: '/support/automation',
+  supportAgentWorkspace: '/support/agent-workspace',
+  supportCommunications: '/support/communications',
 
   // Fraud Management sub-routes
   fraudDashboard: '/fraud/dashboard',

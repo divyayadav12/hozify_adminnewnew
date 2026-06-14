@@ -102,6 +102,21 @@ import NotificationReports from '../../pages/NotificationCenter/NotificationRepo
 import GlobalNotificationSettings from '../../pages/NotificationCenter/GlobalNotificationSettings';
 import NotificationPreferenceManagement from '../../pages/NotificationCenter/NotificationPreferenceManagement';
 import CommunicationLogs from '../../pages/NotificationCenter/CommunicationLogs';
+import SupportDashboard from '../../pages/SupportCenter/SupportDashboard';
+import SlaMonitoring from '../../pages/SupportCenter/SlaMonitoring';
+import EscalationCommandCenter from '../../pages/SupportCenter/EscalationCommandCenter';
+import CustomerSatisfaction from '../../pages/SupportCenter/CustomerSatisfaction';
+import SupportOperationsCenter from '../../pages/SupportCenter/SupportOperationsCenter';
+import SupportOperationsList from '../../pages/SupportCenter/SupportOperationsList';
+import SupportTicketDetails from '../../pages/SupportCenter/SupportTicketDetails';
+import SupportTicketCreate from '../../pages/SupportCenter/SupportTicketCreate';
+import SupportKnowledgeBaseList from '../../pages/SupportCenter/SupportKnowledgeBaseList';
+import SupportKbArticle from '../../pages/SupportCenter/SupportKbArticle';
+import SupportFinancialResolutions from '../../pages/SupportCenter/SupportFinancialResolutions';
+import SupportOperationsOverview from '../../pages/SupportCenter/SupportOperationsOverview';
+import SupportAgentWorkspace from '../../pages/SupportCenter/SupportAgentWorkspace';
+import SupportAutomationRules from '../../pages/SupportCenter/SupportAutomationRules';
+import SupportCommunicationsDashboard from '../../pages/SupportCenter/SupportCommunicationsDashboard';
 
 export function Router() {
   const { route } = useApp();
@@ -237,7 +252,7 @@ export function Router() {
     case ROUTES.sos:
       return <Placeholder title="SOS" activeTab="SOS" />;
     case ROUTES.support:
-      return <Placeholder title="Support" activeTab="Support" />;
+      return <SupportDashboard activeTab="Support Center" />;
     case ROUTES.settings:
       return <Placeholder title="Settings" activeTab="Settings" />;
     case ROUTES.performance:
@@ -764,29 +779,49 @@ export function Router() {
 
     // Support Center sub-routes
     case ROUTES.supportAll:
-      return <Placeholder title="All Tickets" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" />;
     case ROUTES.supportOpen:
-      return <Placeholder title="Open Tickets" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="open" />;
     case ROUTES.supportInProgress:
-      return <Placeholder title="In Progress Tickets" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="in-progress" />;
     case ROUTES.supportEscalated:
-      return <Placeholder title="Escalated Tickets" activeTab="Support Center" />;
+      return <EscalationCommandCenter activeTab="Support Center" />;
     case ROUTES.supportClosed:
-      return <Placeholder title="Closed Tickets" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="closed" />;
     case ROUTES.supportBookingIssues:
-      return <Placeholder title="Booking Issues" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="bookings" />;
     case ROUTES.supportPaymentIssues:
-      return <Placeholder title="Payment Issues" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="payments" />;
     case ROUTES.supportWalletIssues:
-      return <Placeholder title="Wallet Issues" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="wallet" />;
     case ROUTES.supportTechnicalIssues:
-      return <Placeholder title="Technical Issues" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="technical" />;
     case ROUTES.supportKycIssues:
-      return <Placeholder title="KYC Issues" activeTab="Support Center" />;
+      return <SupportOperationsList activeTab="Support Center" defaultFilter="kyc" />;
     case ROUTES.supportSla:
-      return <Placeholder title="SLA Monitoring" activeTab="Support Center" />;
+      return <SlaMonitoring activeTab="Support Center" />;
     case ROUTES.supportAnalytics:
-      return <Placeholder title="Support Analytics" activeTab="Support Center" />;
+      return <CustomerSatisfaction activeTab="Support Center" />;
+    case ROUTES.supportDetails:
+      return <SupportTicketDetails activeTab="Support Center" />;
+    case ROUTES.supportCreate:
+      return <SupportTicketCreate activeTab="Support Center" />;
+    case ROUTES.supportKb:
+      return <SupportKnowledgeBaseList activeTab="Support Center" />;
+    case ROUTES.supportKbCreate:
+      return <SupportKbArticle activeTab="Support Center" />;
+    case ROUTES.supportFinancial:
+      return <SupportFinancialResolutions activeTab="Support Center" />;
+    case ROUTES.supportOpsDashboard:
+      return <SupportOperationsCenter activeTab="Support Center" />;
+    case ROUTES.supportOverview:
+      return <SupportOperationsOverview activeTab="Support Center" />;
+    case ROUTES.supportAgentWorkspace:
+      return <SupportAgentWorkspace activeTab="Support Center" />;
+    case ROUTES.supportAutomation:
+      return <SupportAutomationRules activeTab="Support Center" />;
+    case ROUTES.supportCommunications:
+      return <SupportCommunicationsDashboard activeTab="Support Center" />;
 
     // Fraud Management routing cases
     case ROUTES.fraudDashboard:

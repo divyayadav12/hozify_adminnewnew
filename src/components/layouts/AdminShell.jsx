@@ -463,8 +463,15 @@ const navModules = [
       { label: 'Wallet Issues', route: ROUTES.supportWalletIssues },
       { label: 'Technical Issues', route: ROUTES.supportTechnicalIssues },
       { label: 'KYC Issues', route: ROUTES.supportKycIssues },
+      { label: 'Operations Overview', route: ROUTES.supportOverview },
+      { label: 'Operations Dashboard', route: ROUTES.supportOpsDashboard },
+      { label: 'Agent Workspace', route: ROUTES.supportAgentWorkspace },
+      { label: 'Automation Rules', route: ROUTES.supportAutomation },
+      { label: 'Communication Center', route: ROUTES.supportCommunications },
       { label: 'SLA Monitoring', route: ROUTES.supportSla },
-      { label: 'Support Analytics', route: ROUTES.supportAnalytics }
+      { label: 'Support Analytics', route: ROUTES.supportAnalytics },
+      { label: 'Knowledge Base', route: ROUTES.supportKb },
+      { label: 'Financial Resolutions', route: ROUTES.supportFinancial }
     ]
   },
   {
