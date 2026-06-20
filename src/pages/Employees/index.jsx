@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
@@ -12,10 +12,14 @@ import EmployeeReports from './EmployeeReports';
 import AttendanceDashboard from './AttendanceDashboard';
 import LeaveManagement from './LeaveManagement';
 
-export default function Employees() {
-  const { route } = useApp();
+export default function Employees({ defaultTab }) {
+  const { route, navigate } = useApp();
   
   const getDefaultTab = () => {
+    if (defaultTab) return defaultTab;
+    if (route === ROUTES.employeeAll) return 'Workforce';
+    if (route === ROUTES.employeeAdd) return 'AddEmployee';
+    if (route === ROUTES.employeeAvailability) return 'Availability';
     if (route === ROUTES.performance) return 'Performance';
     if (route === ROUTES.reports) return 'Reports';
     if (route === ROUTES.attendance) return 'Attendance';
@@ -26,13 +30,31 @@ export default function Employees() {
   const [activeTab, setActiveTab] = useState(getDefaultTab);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
+  useEffect(() => {
+    setActiveTab(getDefaultTab());
+  }, [route, defaultTab]);
+
   const handleSelectEmployee = (emp) => {
     setSelectedEmployee(emp);
     setActiveTab('Profile');
   };
 
   const handleOnboardingComplete = (newEmp) => {
-    setActiveTab('Workforce');
+    navigate(ROUTES.employeeAll);
+  };
+
+  const employeeTabRoutes = {
+    Overview: ROUTES.employees,
+    Workforce: ROUTES.employeeAll,
+    Availability: ROUTES.employeeAvailability,
+    Performance: ROUTES.performance,
+    Attendance: ROUTES.attendance,
+    LeaveManagement: ROUTES.leaveManagement,
+    Reports: ROUTES.reports
+  };
+
+  const handleTabClick = (tabId) => {
+    navigate(employeeTabRoutes[tabId] || ROUTES.employees);
   };
 
   const renderContent = () => {
@@ -40,27 +62,27 @@ export default function Employees() {
       case 'Overview':
         return (
           <EmployeeOverview
-            onNavigateToWorkforce={() => setActiveTab('Workforce')}
-            onNavigateToAddEmployee={() => setActiveTab('AddEmployee')}
+            onNavigateToWorkforce={() => navigate(ROUTES.employeeAll)}
+            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
       case 'Workforce':
         return (
           <EmployeeWorkforce
             onSelectEmployee={handleSelectEmployee}
-            onNavigateToAddEmployee={() => setActiveTab('AddEmployee')}
+            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
       case 'Availability':
         return (
           <AvailabilityBoard
-            onNavigateToAddEmployee={() => setActiveTab('AddEmployee')}
+            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
       case 'Performance':
         return (
           <PerformanceDashboard
-            onNavigateToAddEmployee={() => setActiveTab('AddEmployee')}
+            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
       case 'Attendance':
@@ -88,15 +110,15 @@ export default function Employees() {
       case 'AddEmployee':
         return (
           <AddEmployee
-            onBack={() => setActiveTab('Workforce')}
+            onBack={() => navigate(ROUTES.employeeAll)}
             onComplete={handleOnboardingComplete}
           />
         );
       default:
         return (
           <EmployeeOverview
-            onNavigateToWorkforce={() => setActiveTab('Workforce')}
-            onNavigateToAddEmployee={() => setActiveTab('AddEmployee')}
+            onNavigateToWorkforce={() => navigate(ROUTES.employeeAll)}
+            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
     }
@@ -132,7 +154,7 @@ export default function Employees() {
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleTabClick(tab.id)}
               type="button"
               style={{
                 background: 'transparent',

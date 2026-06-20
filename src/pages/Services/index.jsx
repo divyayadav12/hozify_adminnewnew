@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useApp } from '../../hooks/useApp';
+import { ROUTES } from '../../config/routes';
 import ServicesList from './ServicesList';
 import ServiceCategories from './ServiceCategories';
 import ZoneAnalysis from './ZoneAnalysis';
@@ -13,12 +15,34 @@ import FeaturedManagement from './FeaturedManagement';
 import ComparisonHub from './ComparisonHub';
 import MediaLibrary from './MediaLibrary';
 
-export default function Services() {
-  const [activeTab, setActiveTab] = useState('services'); 
+const routeTabMap = {
+  [ROUTES.services]: 'services',
+  [ROUTES.serviceAll]: 'services',
+  [ROUTES.serviceCategories]: 'categories',
+  [ROUTES.serviceSubCategories]: 'categories',
+  [ROUTES.serviceAdd]: 'wizard',
+  [ROUTES.serviceApprovals]: 'approvals',
+  [ROUTES.servicePricing]: 'pricing',
+  [ROUTES.serviceCommission]: 'pricing',
+  [ROUTES.serviceAreasList]: 'zones',
+  [ROUTES.servicePerformance]: 'dashboard',
+  [ROUTES.serviceAnalytics]: 'comparison',
+  [ROUTES.serviceFeatured]: 'featured',
+  [ROUTES.serviceMedia]: 'media'
+};
+
+export default function Services({ defaultTab }) {
+  const { route } = useApp();
+  const getTabFromRoute = () => defaultTab || routeTabMap[route] || 'services';
+  const [activeTab, setActiveTab] = useState(getTabFromRoute);
   // 'services' | 'categories' | 'zones' | 'dashboard' | 'pricing' | 'profile' | 'approvals' | 'approval-details' | 'wizard'
   
   const [wizardFromTab, setWizardFromTab] = useState('services');
   const [selectedApprovalId, setSelectedApprovalId] = useState(null);
+
+  useEffect(() => {
+    setActiveTab(getTabFromRoute());
+  }, [route, defaultTab]);
 
   const openWizard = (fromTab = 'services') => {
     setWizardFromTab(fromTab);

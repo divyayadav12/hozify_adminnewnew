@@ -2,7 +2,9 @@ import React from 'react';
 import { ShieldCheck, SlidersHorizontal, Search, Settings, Map, Compass, ShieldAlert, Award, AlertCircle, Edit, PlusCircle, VolumeX } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
-export default function ServiceAreas() {
+export default function ServiceAreas({ mode = 'areas' }) {
+  const isCoverage = mode === 'coverage';
+
   return (
     <AdminShell
       activeTab="Service Areas"
@@ -15,10 +17,14 @@ export default function ServiceAreas() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <h1 className="page-title" style={{ margin: 0 }}>Downtown Zone A</h1>
+              <h1 className="page-title" style={{ margin: 0 }}>
+                {isCoverage ? 'Branch Coverage Mapping' : 'Downtown Zone A'}
+              </h1>
               <span style={{ fontSize: '9px', fontWeight: '800', color: '#059669', background: '#ecfdf5', padding: '3px 8px', borderRadius: '4px' }}>VERIFIED</span>
             </div>
-            <p className="page-subtitle" style={{ marginTop: '2px' }}>Central Metropolitan Branch</p>
+            <p className="page-subtitle" style={{ marginTop: '2px' }}>
+              {isCoverage ? 'Branch service boundaries and dispatch coverage' : 'Central Metropolitan Branch'}
+            </p>
           </div>
 
           <div style={{ display: 'flex', gap: '8px', background: '#f1f5f9', padding: '4px', borderRadius: '6px', fontSize: '12px', fontWeight: '700' }}>

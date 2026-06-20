@@ -92,9 +92,58 @@ import QuotationManagement from '../../pages/QuotationManagement';
 import BankingSettlementManagement from '../../pages/BankingSettlementManagement';
 import SOSManagement from '../../pages/SOSManagement';
 
+// Dashboard sub-routes
+import ChannelPerformance from '../../pages/Dashboard/ChannelPerformance';
+import ConversionAnalytics from '../../pages/Dashboard/ConversionAnalytics';
+
+// Notification Center sub-routes
+import PushNotifications from '../../pages/NotificationCenter/PushNotifications';
+import SmsCampaigns from '../../pages/NotificationCenter/SmsCampaigns';
+import WhatsAppCampaigns from '../../pages/NotificationCenter/WhatsAppCampaigns';
+import AutomationDashboard from '../../pages/NotificationCenter/AutomationDashboard';
+import DeliveryReports from '../../pages/NotificationCenter/DeliveryReports';
+import InAppNotifications from '../../pages/NotificationCenter/InAppNotifications';
+import NotificationApprovalQueue from '../../pages/NotificationCenter/NotificationApprovalQueue';
+import NotificationReports from '../../pages/NotificationCenter/NotificationReports';
+import NotificationCostCenter from '../../pages/NotificationCenter/NotificationCostCenter';
+import GlobalNotificationSettings from '../../pages/NotificationCenter/GlobalNotificationSettings';
+import NotificationPreferenceManagement from '../../pages/NotificationCenter/NotificationPreferenceManagement';
+import CommunicationLogs from '../../pages/NotificationCenter/CommunicationLogs';
+
+// Support Center sub-routes
+import SupportDashboard from '../../pages/SupportCenter/SupportDashboard';
+import SupportOperationsList from '../../pages/SupportCenter/SupportOperationsList';
+import EscalationCommandCenter from '../../pages/SupportCenter/EscalationCommandCenter';
+import SlaMonitoring from '../../pages/SupportCenter/SlaMonitoring';
+import CustomerSatisfaction from '../../pages/SupportCenter/CustomerSatisfaction';
+import SupportTicketDetails from '../../pages/SupportCenter/SupportTicketDetails';
+import SupportTicketCreate from '../../pages/SupportCenter/SupportTicketCreate';
+import SupportKnowledgeBaseList from '../../pages/SupportCenter/SupportKnowledgeBaseList';
+import SupportKbArticle from '../../pages/SupportCenter/SupportKbArticle';
+import SupportFinancialResolutions from '../../pages/SupportCenter/SupportFinancialResolutions';
+import SupportOperationsCenter from '../../pages/SupportCenter/SupportOperationsCenter';
+import SupportOperationsOverview from '../../pages/SupportCenter/SupportOperationsOverview';
+import SupportAgentWorkspace from '../../pages/SupportCenter/SupportAgentWorkspace';
+import SupportAutomationRules from '../../pages/SupportCenter/SupportAutomationRules';
+import SupportCommunicationsDashboard from '../../pages/SupportCenter/SupportCommunicationsDashboard';
+
+const dynamicRoutePatterns = Object.values(ROUTES)
+  .filter((route) => typeof route === 'string' && route.includes(':'))
+  .map((route) => ({
+    route,
+    regex: new RegExp(`^${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/:id/g, '[^/]+')}$`)
+  }));
+
+function resolveCurrentRoute(route) {
+  return dynamicRoutePatterns.find((item) => item.regex.test(route))?.route || route;
+}
+
 export function Router() {
   const { route } = useApp();
-  switch (route) {
+  const currentRoute = resolveCurrentRoute(route);
+
+  switch (currentRoute) {
+    case ROUTES.root:
     case ROUTES.roles:
       return <RoleSelection />;
     case ROUTES.login:
@@ -191,11 +240,16 @@ export function Router() {
     case ROUTES.branchManagerAssignment:
       return <ManagerAssignment />;
     case ROUTES.serviceAreas:
+    case ROUTES.branchServiceAreas:
       return <ServiceAreas />;
+    case ROUTES.branchCoverage:
+      return <ServiceAreas mode="coverage" />;
       
     // Services module & service areas mapping
     case ROUTES.serviceAreaCoverage:
       return <ServiceAreaCoverage />;
+    case ROUTES.serviceAreasList:
+      return <Services defaultTab="zones" />;
     case ROUTES.services:
       return <Services />;
       
@@ -299,7 +353,7 @@ export function Router() {
       return <Placeholder title="Partner Approvals" activeTab="Partner Management" />;
     case ROUTES.kycApprovals:
       return <Placeholder title="KYC Approvals" activeTab="Partner Management" />;
-    case ROUTES.serviceApprovals:
+    case ROUTES.partnerServiceApprovals:
       return <Placeholder title="Service Approvals" activeTab="Partner Management" />;
     case ROUTES.branchApprovals:
       return <Placeholder title="Branch Approvals" activeTab="Partner Management" />;
@@ -366,33 +420,37 @@ export function Router() {
 
     // Service Management sub-routes
     case ROUTES.serviceCategories:
-      return <Placeholder title="Categories" activeTab="Service Management" />;
+      return <Services defaultTab="categories" />;
     case ROUTES.serviceSubCategories:
-      return <Placeholder title="Sub Categories" activeTab="Service Management" />;
+      return <Services defaultTab="categories" />;
     case ROUTES.serviceAll:
-      return <Placeholder title="All Services" activeTab="Service Management" />;
+      return <Services defaultTab="services" />;
     case ROUTES.serviceAdd:
-      return <Placeholder title="Add Service" activeTab="Service Management" />;
+      return <Services defaultTab="wizard" />;
     case ROUTES.serviceApprovals:
-      return <Placeholder title="Service Approvals" activeTab="Service Management" />;
+      return <Services defaultTab="approvals" />;
     case ROUTES.servicePricing:
-      return <Placeholder title="Pricing Management" activeTab="Service Management" />;
+      return <Services defaultTab="pricing" />;
     case ROUTES.serviceCommission:
-      return <Placeholder title="Commission Management" activeTab="Service Management" />;
+      return <Services defaultTab="pricing" />;
     case ROUTES.servicePerformance:
-      return <Placeholder title="Service Performance" activeTab="Service Management" />;
+      return <Services defaultTab="dashboard" />;
     case ROUTES.serviceAnalytics:
-      return <Placeholder title="Service Analytics" activeTab="Service Management" />;
+      return <Services defaultTab="comparison" />;
     case ROUTES.serviceFeatured:
-      return <Placeholder title="Featured Services" activeTab="Service Management" />;
+      return <Services defaultTab="featured" />;
     case ROUTES.serviceMedia:
-      return <Placeholder title="Media Library" activeTab="Service Management" />;
+      return <Services defaultTab="media" />;
     case ROUTES.serviceAuditLogs:
       return <Placeholder title="Audit Logs" activeTab="Service Management" />;
 
     // Employee Management sub-routes
     case ROUTES.employeeAll:
-      return <Placeholder title="All Employees" activeTab="Employee Management" />;
+      return <Employees defaultTab="Workforce" />;
+    case ROUTES.employeeAdd:
+      return <Employees defaultTab="AddEmployee" />;
+    case ROUTES.employeeAvailability:
+      return <Employees defaultTab="Availability" />;
     case ROUTES.branchManagers:
       return <Placeholder title="Branch Managers" activeTab="Employee Management" />;
     case ROUTES.employeeAssignments:
@@ -422,6 +480,7 @@ export function Router() {
     case ROUTES.bookingOtpPending:
     case ROUTES.bookingCompleted:
     case ROUTES.bookingCancelled:
+    case ROUTES.bookingCancellation:
     case ROUTES.bookingRefunded:
     case ROUTES.bookingEscalated:
     case ROUTES.bookingDisputed:
@@ -575,6 +634,23 @@ export function Router() {
       return <WalletAdjustmentCenter />;
     case ROUTES.walletFreezeCenter:
       return <WalletFreezeCenter />;
+    case ROUTES.walletUnfreezeApproval:
+      return <WalletFreezeCenter />;
+    case ROUTES.refundDashboard:
+      return <RefundApprovalQueue />;
+    case ROUTES.penaltyDetail:
+      return <PenaltyManagement />;
+    case ROUTES.walletSettlementDashboard:
+    case ROUTES.walletSettlementDetail:
+      return <SettlementRequestQueue />;
+    case ROUTES.riskInvestigation:
+      return <FraudMonitoringCenter />;
+    case ROUTES.chargebackManagement:
+      return <WalletAnalytics activeTab="Wallet Management" />;
+    case ROUTES.walletReports:
+      return <Placeholder title="Wallet Reports" activeTab="Wallet Management" />;
+    case ROUTES.walletCommunication:
+      return <Placeholder title="Wallet Communication Center" activeTab="Wallet Management" />;
 
     // Banking & Settlements sub-routes
     case ROUTES.bankingDashboard:
@@ -611,7 +687,13 @@ export function Router() {
     case ROUTES.revenueOverview:
       return <Placeholder title="Revenue Overview" activeTab="Revenue Management" />;
     case ROUTES.revenueDaily:
-      return <Placeholder title="Daily/Weekly/Monthly/Yearly Revenue" activeTab="Revenue Management" />;
+      return <Placeholder title="Daily Revenue" activeTab="Revenue Management" />;
+    case ROUTES.revenueWeekly:
+      return <Placeholder title="Weekly Revenue" activeTab="Revenue Management" />;
+    case ROUTES.revenueMonthly:
+      return <Placeholder title="Monthly Revenue" activeTab="Revenue Management" />;
+    case ROUTES.revenueYearly:
+      return <Placeholder title="Yearly Revenue" activeTab="Revenue Management" />;
     case ROUTES.revenuePartner:
       return <Placeholder title="Partner Revenue" activeTab="Revenue Management" />;
     case ROUTES.revenueSeller:
@@ -862,6 +944,7 @@ export function Router() {
     // Reports & Analytics landing and sub-routes
     case ROUTES.reportsOperational:
       return <OperationalReports />;
+    case ROUTES.analytics:
     case ROUTES.reportsBooking:
     case ROUTES.reportsUser:
     case ROUTES.reportsPartner:
@@ -874,6 +957,9 @@ export function Router() {
     case ROUTES.reportsReferral:
     case ROUTES.reportsCampaign:
     case ROUTES.exportCenter:
+    case ROUTES.pdfExports:
+    case ROUTES.excelExports:
+    case ROUTES.csvExports:
       return <Analytics />;
 
     // Role & Permission admin sub-routes

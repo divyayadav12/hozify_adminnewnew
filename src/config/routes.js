@@ -62,6 +62,8 @@ export const ROUTES = {
   branchProfile: '/branches/profile',
   branchManagerAssignment: '/branches/assign-manager',
   serviceAreas: '/service-areas',
+  branchServiceAreas: '/branches/service-areas',
+  branchCoverage: '/branches/coverage',
 
   // --- NEW MODULE SUB-ROUTES ---
 
@@ -96,7 +98,7 @@ export const ROUTES = {
   businessSellers: '/partners/business-sellers',
   partnerApprovals: '/partners/approvals',
   kycApprovals: '/partners/kyc-approvals',
-  serviceApprovals: '/partners/service-approvals',
+  partnerServiceApprovals: '/partners/service-approvals',
   branchApprovals: '/partners/branch-approvals',
   partnerWallets: '/partners/wallets',
   partnerBanking: '/partners/banking',
@@ -158,6 +160,7 @@ export const ROUTES = {
   serviceApprovals: '/services/approvals',
   servicePricing: '/services/pricing',
   serviceCommission: '/services/commission',
+  serviceAreasList: '/services/areas',
   serviceAreaCoverage: '/services/coverage',
   servicePerformance: '/services/performance',
   serviceAnalytics: '/services/analytics',
@@ -167,6 +170,8 @@ export const ROUTES = {
 
   // Employee Management sub-routes
   employeeAll: '/employees/all',
+  employeeAdd: '/employees/add',
+  employeeAvailability: '/employees/availability',
   branchManagers: '/employees/branch-managers',
   employeeAssignments: '/employees/assignments',
   employeeDocuments: '/employees/documents',
@@ -292,8 +297,8 @@ export const ROUTES = {
   walletUnfreezeApproval: '/wallet/unfreeze-approval/:id',
   refundDashboard: '/wallet/refunds/dashboard',
   penaltyDetail: '/wallet/penalties/:id',
-  settlementDashboard: '/wallet/settlements/dashboard',
-  settlementDetail: '/wallet/settlements/:id',
+  walletSettlementDashboard: '/wallet/settlements/dashboard',
+  walletSettlementDetail: '/wallet/settlements/:id',
   riskInvestigation: '/wallet/risk-investigation/:id',
   chargebackManagement: '/wallet/chargebacks',
   walletReports: '/wallet/reports',
@@ -331,6 +336,9 @@ export const ROUTES = {
   revenueDashboard: '/revenue/dashboard',
   revenueOverview: '/revenue/overview',
   revenueDaily: '/revenue/daily',
+  revenueWeekly: '/revenue/weekly',
+  revenueMonthly: '/revenue/monthly',
+  revenueYearly: '/revenue/yearly',
   revenuePartner: '/revenue/partner',
   revenueSeller: '/revenue/seller',
   revenueBranch: '/revenue/branch',
@@ -501,6 +509,9 @@ export const ROUTES = {
   reportsReferral: '/reports/referrals',
   reportsCampaign: '/reports/campaigns',
   exportCenter: '/reports/export',
+  pdfExports: '/reports/export/pdf',
+  excelExports: '/reports/export/excel',
+  csvExports: '/reports/export/csv',
 
   // Role & Permission sub-routes
   rolePermissions: '/roles/admin',
