@@ -52,7 +52,7 @@ export const sidebarNavigation = [
         label: 'Users',
         children: [
           { label: 'All Users', route: ROUTES.users },
-          { label: 'Add User', route: ROUTES.addUser },
+          // { label: 'Add User', route: ROUTES.addUser },
           { label: 'User Approvals', route: ROUTES.userApprovals },
           { label: 'Blocked Users', route: ROUTES.blockedUsers }
         ]
@@ -86,7 +86,7 @@ export const sidebarNavigation = [
         label: 'Partners',
         children: [
           { label: 'All Partners', route: ROUTES.partners },
-          { label: 'Add Partner', route: ROUTES.addPartner },
+          // { label: 'Add Partner', route: ROUTES.addPartner },
           { label: 'ISP Partners', route: ROUTES.ispPartners },
           { label: 'BSP Partners', route: ROUTES.bspPartners },
           { label: 'Business Sellers', route: ROUTES.businessSellers }
