@@ -17,10 +17,14 @@ import MediaLibrary from './MediaLibrary';
 import ServiceSubCategories from './ServiceSubCategories';
 import CommissionManagement from './CommissionManagement';
 import ServiceAuditLogs from './ServiceAuditLogs';
+import ServiceCreation from './ServiceCreation';
+import ServiceActivation from './ServiceActivation';
 
 const routeTabMap = {
   [ROUTES.services]: 'services',
   [ROUTES.serviceAll]: 'services',
+  [ROUTES.serviceCreation]: 'creation',
+  [ROUTES.serviceActivation]: 'activation',
   [ROUTES.serviceCategories]: 'categories',
   [ROUTES.serviceSubCategories]: 'subcategories',
   [ROUTES.serviceAdd]: 'wizard',
@@ -112,6 +116,10 @@ export default function Services({ defaultTab }) {
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'creation':
+        return <ServiceCreation />;
+      case 'activation':
+        return <ServiceActivation />;
       case 'services':
         return (
           <ServicesList
@@ -190,6 +198,8 @@ export default function Services({ defaultTab }) {
       >
         {[
           { id: 'services', label: 'Services Catalog' },
+          { id: 'creation', label: 'Service Creation' },
+          { id: 'activation', label: 'Service Activation' },
           { id: 'categories', label: 'Service Categories' },
           { id: 'subcategories', label: 'Sub Categories' },
           { id: 'zones', label: 'GIS Zone Analysis' },
