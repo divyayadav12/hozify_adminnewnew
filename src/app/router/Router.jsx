@@ -68,6 +68,14 @@ import Users from '../../pages/Users';
 import BlockedUsersPage from '../../pages/Users/BlockedUsersPage';
 import BookingManagement from '../../pages/BookingManagement';
 import Placeholder from '../../pages/Placeholder';
+import AboutUs from '../../pages/CMSManagement/AboutUs';
+import RefundPolicy from '../../pages/CMSManagement/RefundPolicy';
+import ContactUs from '../../pages/CMSManagement/ContactUs';
+import TermsAndConditions from '../../pages/CMSManagement/TermsAndConditions';
+import Faqs from '../../pages/CMSManagement/Faqs';
+import PrivacyPolicy from '../../pages/CMSManagement/PrivacyPolicy';
+import Blogs from '../../pages/CMSManagement/Blogs';
+import SeoSettings from '../../pages/CMSManagement/SeoSettings';
 import Employees from '../../pages/Employees';
 import KYCModule from '../../pages/KYC';
 import Branches from '../../pages/Branches';
@@ -76,6 +84,12 @@ import BranchSuspend from '../../pages/Branches/BranchSuspend';
 import AddBranch from '../../pages/Branches/AddBranch';
 import BranchProfile from '../../pages/Branches/BranchProfile';
 import ManagerAssignment from '../../pages/Branches/ManagerAssignment';
+import CoverageMapping from '../../pages/Branches/CoverageMapping';
+import BranchServices from '../../pages/Branches/BranchServices';
+import BranchEmployees from '../../pages/Branches/BranchEmployees';
+import BranchBookings from '../../pages/Branches/BranchBookings';
+import BranchReviews from '../../pages/Branches/BranchReviews';
+import BranchAuditLogs from '../../pages/Branches/BranchAuditLogs';
 import ServiceAreas from '../../pages/ServiceAreas';
 import ServiceAreaCoverage from '../../pages/Services/ServiceAreaCoverage';
 import Services from '../../pages/Services';
@@ -126,6 +140,29 @@ import SupportOperationsOverview from '../../pages/SupportCenter/SupportOperatio
 import SupportAgentWorkspace from '../../pages/SupportCenter/SupportAgentWorkspace';
 import SupportAutomationRules from '../../pages/SupportCenter/SupportAutomationRules';
 import SupportCommunicationsDashboard from '../../pages/SupportCenter/SupportCommunicationsDashboard';
+import GeneralSettings from '../../pages/Settings/GeneralSettings';
+import PlatformConfiguration from '../../pages/Settings/PlatformConfiguration';
+import CommissionSettings from '../../pages/Settings/CommissionSettings';
+import TaxSettings from '../../pages/Settings/TaxSettings';
+import SettlementSettings from '../../pages/Settings/SettlementSettings';
+import WalletSettings from '../../pages/Settings/WalletSettings';
+import PaymentGatewaySettings from '../../pages/Settings/PaymentGatewaySettings';
+import SmsGatewayManagement from '../../pages/Settings/SmsGatewayManagement';
+import WhatsAppApiIntegration from '../../pages/Settings/WhatsAppApiIntegration';
+import EmailSmtpIntegration from '../../pages/Settings/EmailSmtpIntegration';
+import GoogleMapsApiIntegration from '../../pages/Settings/GoogleMapsApiIntegration';
+import BackupManagement from '../../pages/Settings/BackupManagement';
+import MaintenanceMode from '../../pages/Settings/MaintenanceMode';
+import SystemLogs from '../../pages/Settings/SystemLogs';
+import SecuritySettings from '../../pages/Settings/SecuritySettings';
+import PasswordPolicies from '../../pages/Settings/PasswordPolicies';
+import SessionManagement from '../../pages/Settings/SessionManagement';
+import SystemAuditLogs from '../../pages/Settings/SystemAuditLogs';
+import BookingReports from '../../pages/Analytics/BookingReports';
+import MarketingReports from '../../pages/Analytics/MarketingReports';
+import PartnerReports from '../../pages/Analytics/PartnerReports';
+import EmployeeReports from '../../pages/Analytics/EmployeeReports';
+import RevenueReports from '../../pages/Analytics/RevenueReports';
 
 const dynamicRoutePatterns = Object.values(ROUTES)
   .filter((route) => typeof route === 'string' && route.includes(':'))
@@ -243,7 +280,7 @@ export function Router() {
     case ROUTES.branchServiceAreas:
       return <ServiceAreas />;
     case ROUTES.branchCoverage:
-      return <ServiceAreas mode="coverage" />;
+      return <CoverageMapping />;
       
     // Services module & service areas mapping
     case ROUTES.serviceAreaCoverage:
@@ -408,21 +445,25 @@ export function Router() {
     case ROUTES.branchAll:
       return <Placeholder title="All Branches" activeTab="Branch Management" />;
     case ROUTES.branchServices:
-      return <Placeholder title="Branch Services" activeTab="Branch Management" />;
+      return <BranchServices />;
     case ROUTES.branchEmployees:
-      return <Placeholder title="Branch Employees" activeTab="Branch Management" />;
+      return <BranchEmployees />;
     case ROUTES.branchBookings:
-      return <Placeholder title="Branch Bookings" activeTab="Branch Management" />;
+      return <BranchBookings />;
     case ROUTES.branchReviews:
-      return <Placeholder title="Branch Reviews" activeTab="Branch Management" />;
+      return <BranchReviews />;
     case ROUTES.branchAuditLogs:
-      return <Placeholder title="Audit Logs" activeTab="Branch Management" />;
+      return <BranchAuditLogs />;
 
     // Service Management sub-routes
+    case ROUTES.serviceCreation:
+      return <Services defaultTab="creation" />;
+    case ROUTES.serviceActivation:
+      return <Services defaultTab="activation" />;
     case ROUTES.serviceCategories:
       return <Services defaultTab="categories" />;
     case ROUTES.serviceSubCategories:
-      return <Services defaultTab="categories" />;
+      return <Services defaultTab="subcategories" />;
     case ROUTES.serviceAll:
       return <Services defaultTab="services" />;
     case ROUTES.serviceAdd:
@@ -432,7 +473,7 @@ export function Router() {
     case ROUTES.servicePricing:
       return <Services defaultTab="pricing" />;
     case ROUTES.serviceCommission:
-      return <Services defaultTab="pricing" />;
+      return <Services defaultTab="commission" />;
     case ROUTES.servicePerformance:
       return <Services defaultTab="dashboard" />;
     case ROUTES.serviceAnalytics:
@@ -442,7 +483,7 @@ export function Router() {
     case ROUTES.serviceMedia:
       return <Services defaultTab="media" />;
     case ROUTES.serviceAuditLogs:
-      return <Placeholder title="Audit Logs" activeTab="Service Management" />;
+      return <Services defaultTab="audit-logs" />;
 
     // Employee Management sub-routes
     case ROUTES.employeeAll:
@@ -452,21 +493,21 @@ export function Router() {
     case ROUTES.employeeAvailability:
       return <Employees defaultTab="Availability" />;
     case ROUTES.branchManagers:
-      return <Placeholder title="Branch Managers" activeTab="Employee Management" />;
+      return <Employees defaultTab="BranchManagers" />;
     case ROUTES.employeeAssignments:
-      return <Placeholder title="Assignments" activeTab="Employee Management" />;
+      return <Employees defaultTab="EmployeeAssignments" />;
     case ROUTES.employeeDocuments:
-      return <Placeholder title="Employee Documents" activeTab="Employee Management" />;
+      return <Employees defaultTab="EmployeeDocuments" />;
     case ROUTES.employeeEarnings:
-      return <Placeholder title="Earnings" activeTab="Employee Management" />;
+      return <Employees defaultTab="EmployeeEarnings" />;
     case ROUTES.employeeRatings:
-      return <Placeholder title="Ratings & Reviews" activeTab="Employee Management" />;
+      return <Employees defaultTab="EmployeeRatings" />;
     case ROUTES.employeeKyc:
-      return <Placeholder title="Employee KYC" activeTab="Employee Management" />;
+      return <Employees defaultTab="EmployeeKyc" />;
     case ROUTES.employeeAnalytics:
-      return <Placeholder title="Employee Analytics" activeTab="Employee Management" />;
+      return <Employees defaultTab="EmployeeAnalytics" />;
     case ROUTES.employeeAuditLogs:
-      return <Placeholder title="Audit Logs" activeTab="Employee Management" />;
+      return <Employees defaultTab="EmployeeAuditLogs" />;
 
     // Booking Management sub-routes
     case ROUTES.bookingAll:
@@ -799,21 +840,21 @@ export function Router() {
 
     // CMS Management sub-routes
     case ROUTES.cmsAboutUs:
-      return <Placeholder title="About Us" activeTab="CMS Management" />;
+      return <AboutUs />;
     case ROUTES.cmsTerms:
-      return <Placeholder title="Terms & Conditions" activeTab="CMS Management" />;
+      return <TermsAndConditions />;
     case ROUTES.cmsPrivacy:
-      return <Placeholder title="Privacy Policy" activeTab="CMS Management" />;
+      return <PrivacyPolicy />;
     case ROUTES.cmsRefund:
-      return <Placeholder title="Refund Policy" activeTab="CMS Management" />;
+      return <RefundPolicy />;
     case ROUTES.cmsContactUs:
-      return <Placeholder title="Contact Us" activeTab="CMS Management" />;
+      return <ContactUs />;
     case ROUTES.cmsFaqs:
-      return <Placeholder title="FAQs" activeTab="CMS Management" />;
+      return <Faqs />;
     case ROUTES.cmsBlogs:
-      return <Placeholder title="Blogs" activeTab="CMS Management" />;
+      return <Blogs />;
     case ROUTES.cmsSeo:
-      return <Placeholder title="SEO Settings" activeTab="CMS Management" />;
+      return <SeoSettings />;
 
     // Reviews & Ratings sub-routes
     case ROUTES.reviewsUser:
@@ -944,16 +985,24 @@ export function Router() {
     // Reports & Analytics landing and sub-routes
     case ROUTES.reportsOperational:
       return <OperationalReports />;
-    case ROUTES.analytics:
     case ROUTES.reportsBooking:
+      return <BookingReports />;
+    case ROUTES.analytics:
     case ROUTES.reportsUser:
+      return <Analytics />;
     case ROUTES.reportsPartner:
+      return <PartnerReports />;
     case ROUTES.reportsEmployee:
+      return <EmployeeReports />;
     case ROUTES.reportsFinancial:
+      return <Analytics />;
     case ROUTES.reportsRevenue:
+      return <RevenueReports />;
     case ROUTES.reportsWallet:
     case ROUTES.reportsSettlement:
+      return <Analytics />;
     case ROUTES.reportsMarketing:
+      return <MarketingReports />;
     case ROUTES.reportsReferral:
     case ROUTES.reportsCampaign:
     case ROUTES.exportCenter:
@@ -980,41 +1029,41 @@ export function Router() {
 
     // Settings sub-routes
     case ROUTES.settingsPlatformGeneral:
-      return <Placeholder title="Platform General Settings" activeTab="Settings" />;
+      return <GeneralSettings />;
     case ROUTES.settingsPlatformConfig:
-      return <Placeholder title="Platform Configuration" activeTab="Settings" />;
+      return <PlatformConfiguration />;
     case ROUTES.settingsFinancialCommission:
-      return <Placeholder title="Commission Settings" activeTab="Settings" />;
+      return <CommissionSettings />;
     case ROUTES.settingsFinancialTax:
-      return <Placeholder title="Tax Settings" activeTab="Settings" />;
+      return <TaxSettings />;
     case ROUTES.settingsFinancialWallet:
-      return <Placeholder title="Wallet Settings" activeTab="Settings" />;
+      return <WalletSettings />;
     case ROUTES.settingsFinancialSettlement:
-      return <Placeholder title="Settlement Settings" activeTab="Settings" />;
+      return <SettlementSettings />;
     case ROUTES.settingsIntegrationPayment:
-      return <Placeholder title="Payment Gateway Integration" activeTab="Settings" />;
+      return <PaymentGatewaySettings />;
     case ROUTES.settingsIntegrationSms:
-      return <Placeholder title="SMS Gateway Integration" activeTab="Settings" />;
+      return <SmsGatewayManagement />;
     case ROUTES.settingsIntegrationWhatsapp:
-      return <Placeholder title="WhatsApp API Integration" activeTab="Settings" />;
+      return <WhatsAppApiIntegration />;
     case ROUTES.settingsIntegrationEmail:
-      return <Placeholder title="Email SMTP Integration" activeTab="Settings" />;
+      return <EmailSmtpIntegration />;
     case ROUTES.settingsIntegrationGoogleMaps:
-      return <Placeholder title="Google Maps API Integration" activeTab="Settings" />;
+      return <GoogleMapsApiIntegration />;
     case ROUTES.settingsSecurityGeneral:
-      return <Placeholder title="Security Settings" activeTab="Settings" />;
+      return <SecuritySettings />;
     case ROUTES.settingsSecurityPassword:
-      return <Placeholder title="Password Policies" activeTab="Settings" />;
+      return <PasswordPolicies />;
     case ROUTES.settingsSecuritySession:
-      return <Placeholder title="Session Management" activeTab="Settings" />;
+      return <SessionManagement />;
     case ROUTES.settingsSecurityAudit:
-      return <Placeholder title="Audit Logs" activeTab="Settings" />;
+      return <SystemAuditLogs />;
     case ROUTES.settingsSystemBackup:
-      return <Placeholder title="Backup Management" activeTab="Settings" />;
+      return <BackupManagement />;
     case ROUTES.settingsSystemMaintenance:
-      return <Placeholder title="Maintenance Mode" activeTab="Settings" />;
+      return <MaintenanceMode />;
     case ROUTES.settingsSystemLogs:
-      return <Placeholder title="System Logs" activeTab="Settings" />;
+      return <SystemLogs />;
 
     default:
       return <RoleSelection />;

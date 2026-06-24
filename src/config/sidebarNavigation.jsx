@@ -172,7 +172,6 @@ export const sidebarNavigation = [
     icon: Network,
     children: [
       { label: 'All Branches', route: ROUTES.branches },
-      { label: 'Add Branch', route: ROUTES.addBranch },
       { label: 'Branch Approvals', route: ROUTES.branchApproval },
       { label: 'Branch Services', route: ROUTES.branchServices },
       { label: 'Branch Employees', route: ROUTES.branchEmployees },
@@ -194,7 +193,8 @@ export const sidebarNavigation = [
       { label: 'Categories', route: ROUTES.serviceCategories },
       { label: 'Sub Categories', route: ROUTES.serviceSubCategories },
       { label: 'All Services', route: ROUTES.services },
-      { label: 'Add Service', route: ROUTES.serviceAdd },
+      { label: 'Service Creation', route: ROUTES.serviceCreation },
+      { label: 'Service Activation', route: ROUTES.serviceActivation },
       { label: 'Service Approvals', route: ROUTES.serviceApprovals },
       { label: 'Pricing Management', route: ROUTES.servicePricing },
       { label: 'Commission Management', route: ROUTES.serviceCommission },
@@ -212,7 +212,6 @@ export const sidebarNavigation = [
     icon: Contact,
     children: [
       { label: 'All Employees', route: ROUTES.employeeAll },
-      { label: 'Add Employee', route: ROUTES.employeeAdd },
       { label: 'Branch Managers', route: ROUTES.branchManagers },
       { label: 'Assignments', route: ROUTES.employeeAssignments },
       { label: 'Availability Board', route: ROUTES.employeeAvailability },
@@ -525,7 +524,9 @@ export const sidebarNavigation = [
   {
     label: 'Reports & Analytics',
     icon: BarChart3,
-    children: [
+    children: 
+    
+    [
       { label: 'Operational Reports', route: ROUTES.reportsOperational },
       { label: 'Booking Reports', route: ROUTES.reportsBooking },
       { label: 'User Reports', route: ROUTES.reportsUser },

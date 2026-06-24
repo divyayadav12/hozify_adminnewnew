@@ -14,16 +14,24 @@ import PricingStrategy from './PricingStrategy';
 import FeaturedManagement from './FeaturedManagement';
 import ComparisonHub from './ComparisonHub';
 import MediaLibrary from './MediaLibrary';
+import ServiceSubCategories from './ServiceSubCategories';
+import CommissionManagement from './CommissionManagement';
+import ServiceAuditLogs from './ServiceAuditLogs';
+import ServiceCreation from './ServiceCreation';
+import ServiceActivation from './ServiceActivation';
 
 const routeTabMap = {
   [ROUTES.services]: 'services',
   [ROUTES.serviceAll]: 'services',
+  [ROUTES.serviceCreation]: 'creation',
+  [ROUTES.serviceActivation]: 'activation',
   [ROUTES.serviceCategories]: 'categories',
-  [ROUTES.serviceSubCategories]: 'categories',
+  [ROUTES.serviceSubCategories]: 'subcategories',
   [ROUTES.serviceAdd]: 'wizard',
   [ROUTES.serviceApprovals]: 'approvals',
   [ROUTES.servicePricing]: 'pricing',
-  [ROUTES.serviceCommission]: 'pricing',
+  [ROUTES.serviceCommission]: 'commission',
+  [ROUTES.serviceAuditLogs]: 'audit-logs',
   [ROUTES.serviceAreasList]: 'zones',
   [ROUTES.servicePerformance]: 'dashboard',
   [ROUTES.serviceAnalytics]: 'comparison',
@@ -108,6 +116,10 @@ export default function Services({ defaultTab }) {
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'creation':
+        return <ServiceCreation />;
+      case 'activation':
+        return <ServiceActivation />;
       case 'services':
         return (
           <ServicesList
@@ -118,12 +130,18 @@ export default function Services({ defaultTab }) {
         );
       case 'categories':
         return <ServiceCategories onAddCategory={() => openWizard('categories')} />;
+      case 'subcategories':
+        return <ServiceSubCategories onAddSubCategory={() => openWizard('subcategories')} />;
       case 'zones':
         return <ZoneAnalysis />;
       case 'dashboard':
         return <ServiceDashboard />;
       case 'pricing':
         return <PricingStrategy />;
+      case 'commission':
+        return <CommissionManagement />;
+      case 'audit-logs':
+        return <ServiceAuditLogs />;
       case 'featured':
         return <FeaturedManagement />;
       case 'comparison':
@@ -154,6 +172,10 @@ export default function Services({ defaultTab }) {
           ? 'Search performance charts...'
           : activeTab === 'pricing'
           ? 'Search pricing rules...'
+          : activeTab === 'commission'
+          ? 'Search commission rules...'
+          : activeTab === 'audit-logs'
+          ? 'Search audit logs...'
           : activeTab === 'featured'
           ? 'Search service registry...'
           : activeTab === 'comparison'
@@ -176,13 +198,18 @@ export default function Services({ defaultTab }) {
       >
         {[
           { id: 'services', label: 'Services Catalog' },
+          { id: 'creation', label: 'Service Creation' },
+          { id: 'activation', label: 'Service Activation' },
           { id: 'categories', label: 'Service Categories' },
+          { id: 'subcategories', label: 'Sub Categories' },
           { id: 'zones', label: 'GIS Zone Analysis' },
           { id: 'dashboard', label: 'Dashboard' },
           { id: 'pricing', label: 'Pricing Strategy' },
+          { id: 'commission', label: 'Commission Rules' },
           { id: 'featured', label: 'Featured Clusters' },
           { id: 'comparison', label: 'Comparison Hub' },
-          { id: 'media', label: 'Media Library' }
+          { id: 'media', label: 'Media Library' },
+          { id: 'audit-logs', label: 'Audit Logs' }
         ].map((tab) => (
           <button
             key={tab.id}
