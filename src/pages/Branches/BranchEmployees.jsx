@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, UserCircle, Briefcase, Mail, Phone, MapPin } from 'lucide-react';
+import { Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, UserCircle, Briefcase, Mail, Phone, MapPin } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import AdminShell from '../../components/layouts/AdminShell';
 
@@ -35,10 +35,6 @@ export default function BranchEmployees() {
             <p className="page-subtitle">Track workforce distribution, roles, and status across all branches.</p>
           </div>
           <div className="partners-header-buttons">
-            <button className="primary-action-btn font-bold" style={{ height: '36px' }}>
-              <Plus size={14} style={{ marginRight: '4px' }} />
-              <span>Add Employee</span>
-            </button>
             <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
               <Download size={14} style={{ marginRight: '4px' }} />
               <span>Export</span>

@@ -17,8 +17,6 @@ import MediaLibrary from './MediaLibrary';
 import ServiceSubCategories from './ServiceSubCategories';
 import CommissionManagement from './CommissionManagement';
 import ServiceAuditLogs from './ServiceAuditLogs';
-import ServiceCreation from './ServiceCreation';
-import ServiceActivation from './ServiceActivation';
 
 const routeTabMap = {
   [ROUTES.services]: 'services',

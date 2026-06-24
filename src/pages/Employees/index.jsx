@@ -6,7 +6,6 @@ import EmployeeOverview from './EmployeeOverview';
 import EmployeeWorkforce from './EmployeeWorkforce';
 import EmployeeProfile from './EmployeeProfile';
 import AvailabilityBoard from './AvailabilityBoard';
-import AddEmployee from './AddEmployee';
 import PerformanceDashboard from './PerformanceDashboard';
 import EmployeeReports from './EmployeeReports';
 import AttendanceDashboard from './AttendanceDashboard';
@@ -56,10 +55,6 @@ export default function Employees({ defaultTab }) {
     setActiveTab('Profile');
   };
 
-  const handleOnboardingComplete = (newEmp) => {
-    navigate(ROUTES.employeeAll);
-  };
-
   const employeeTabRoutes = {
     Overview: ROUTES.employees,
     Workforce: ROUTES.employeeAll,
@@ -88,14 +83,12 @@ export default function Employees({ defaultTab }) {
         return (
           <EmployeeOverview
             onNavigateToWorkforce={() => navigate(ROUTES.employeeAll)}
-            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
       case 'Workforce':
         return (
           <EmployeeWorkforce
             onSelectEmployee={handleSelectEmployee}
-            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
       case 'BranchManagers':
@@ -116,15 +109,11 @@ export default function Employees({ defaultTab }) {
         return <EmployeeAnalytics />;
       case 'Availability':
         return (
-          <AvailabilityBoard
-            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
-          />
+          <AvailabilityBoard />
         );
       case 'Performance':
         return (
-          <PerformanceDashboard
-            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
-          />
+          <PerformanceDashboard />
         );
       case 'Attendance':
         return (
@@ -148,18 +137,10 @@ export default function Employees({ defaultTab }) {
             }}
           />
         );
-      case 'AddEmployee':
-        return (
-          <AddEmployee
-            onBack={() => navigate(ROUTES.employeeAll)}
-            onComplete={handleOnboardingComplete}
-          />
-        );
       default:
         return (
           <EmployeeOverview
             onNavigateToWorkforce={() => navigate(ROUTES.employeeAll)}
-            onNavigateToAddEmployee={() => navigate(ROUTES.employeeAdd)}
           />
         );
     }

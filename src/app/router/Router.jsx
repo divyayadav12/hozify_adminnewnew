@@ -35,7 +35,7 @@ import MaterialReturns from '../../pages/MaterialRequests/MaterialReturns';
 import MaterialAnalytics from '../../pages/MaterialRequests/MaterialAnalytics';
 import Partners from '../../pages/Partners';
 import PartnerDetails from '../../pages/PartnerDetails';
-import AddPartnerWizard from '../../pages/Partners/AddPartnerWizard';
+
 import ApprovalQueue from '../../pages/ApprovalQueue';
 import FraudCenter from '../../pages/FraudCenter';
 import CommunicationsCenter from '../../pages/CommunicationsCenter';
@@ -81,7 +81,7 @@ import KYCModule from '../../pages/KYC';
 import Branches from '../../pages/Branches';
 import BranchSchedule from '../../pages/Branches/BranchSchedule';
 import BranchSuspend from '../../pages/Branches/BranchSuspend';
-import AddBranch from '../../pages/Branches/AddBranch';
+
 import BranchProfile from '../../pages/Branches/BranchProfile';
 import ManagerAssignment from '../../pages/Branches/ManagerAssignment';
 import CoverageMapping from '../../pages/Branches/CoverageMapping';
@@ -95,7 +95,10 @@ import ServiceAreaCoverage from '../../pages/Services/ServiceAreaCoverage';
 import Services from '../../pages/Services';
 import BusinessRegistry from '../../pages/Business';
 import BusinessDetails from '../../pages/Business/BusinessDetails';
-import BusinessReview from '../../pages/Business/BusinessReview';
+import BusinessRevenue from '../../pages/Business/BusinessRevenue';
+import BusinessEmployees from '../../pages/Business/BusinessEmployees';
+import ComplianceCenter from '../../pages/Business/ComplianceCenter';
+// import FraudInvestigation from '../../pages/Business/FraudInvestigation';
 import BusinessVerify from '../../pages/Business/BusinessVerify';
 import BusinessSuspension from '../../pages/Business/BusinessSuspension';
 import BusinessRisk from '../../pages/Business/BusinessRisk';
@@ -140,6 +143,52 @@ import SupportOperationsOverview from '../../pages/SupportCenter/SupportOperatio
 import SupportAgentWorkspace from '../../pages/SupportCenter/SupportAgentWorkspace';
 import SupportAutomationRules from '../../pages/SupportCenter/SupportAutomationRules';
 import SupportCommunicationsDashboard from '../../pages/SupportCenter/SupportCommunicationsDashboard';
+import RevenueOverview from '../../pages/RevenueManagement/RevenueOverview';
+import DailyRevenue from '../../pages/RevenueManagement/DailyRevenue';
+import WeeklyRevenue from '../../pages/RevenueManagement/WeeklyRevenue';
+import MonthlyRevenue from '../../pages/RevenueManagement/MonthyRevenue';
+import YearlyRevenue from '../../pages/RevenueManagement/YearlyRevenue';
+import PartnerRevenue from '../../pages/RevenueManagement/PartnerRevenue';
+import SellerRevenue from '../../pages/RevenueManagement/SellerRevenue';
+import BranchRevenue from '../../pages/RevenueManagement/BranchRevenue';
+import EmployeeRevenue from '../../pages/RevenueManagement/EmployeeRevenue';
+import ServiceRevenue from '../../pages/RevenueManagement/ServiceRevenue';
+import ProfitAndLossRevenue from '../../pages/RevenueManagement/Profit&LossRevenue';
+import Expenses from '../../pages/RevenueManagement/Expenses';
+import RevenueForecasting from '../../pages/RevenueManagement/RevenueForecasting';
+import Targets from '../../pages/RevenueManagement/Targets';
+import ExecutiveDashboard from '../../pages/RevenueManagement/ExecutiveDashboard';
+import BusinessIntelligence from '../../pages/RevenueManagement/BusinessIntelligence';
+import FinancialHealth from '../../pages/RevenueManagement/FinancialHealth';
+import LiveDashboard from '../../pages/LiveTracking/LiveDashboard';
+import OperationalMap from '../../pages/LiveTracking/OperationalMap';
+import ActiveJobs from '../../pages/LiveTracking/ActiveJobs';
+import EmployeeTracking from '../../pages/LiveTracking/EmployeeTracking';
+import RouteTracking from '../../pages/LiveTracking/RouteTracking';
+import ETAMonitoring from '../../pages/LiveTracking/ETAmonitoring';
+import DelayMonitoring from '../../pages/LiveTracking/DelayMonitoring';
+import GeofenceManagement from '../../pages/LiveTracking/GeofenceManagement';
+import GeofenceLogs from '../../pages/LiveTracking/GeofenceLogs';
+import MovementHistory from '../../pages/LiveTracking/MovementHistory';
+import Heatmaps from '../../pages/LiveTracking/Heatmaps';
+import TrackingAnalytics from '../../pages/LiveTracking/TrackingAnalytics';
+import SOStracking from '../../pages/LiveTracking/SOStracking';
+import AllRoles from '../../pages/RoleSelection/AllRoles';
+import CreateRole from '../../pages/RoleSelection/CreateRole';
+import PermissionMatrix from '../../pages/RoleSelection/PermissionMatrix';
+import ModuleAccess from '../../pages/RoleSelection/ModuleAccess';
+import ActionPermissions from '../../pages/RoleSelection/ActionPermission';
+import UserAccessLogs from '../../pages/RoleSelection/UserAccessLogs';
+import RoleAuditLogs from '../../pages/RoleSelection/RoleAuditLogs';
+import UserReviews from '../../pages/ReviewsandRatings/UserReviews';
+import PartnerReviews from '../../pages/ReviewsandRatings/PartnerReviews';
+import EmployeeReviews from '../../pages/ReviewsandRatings/EmployeeReviews';
+import ReviewModeration from '../../pages/ReviewsandRatings/ReviewModeration';
+import RatingAnalytics from '../../pages/ReviewsandRatings/RatingAnalytics';
+import BusinessHeaderTabs from '../../pages/Business/BusinessHeaderTabs';
+import BusinessReviews from '../../pages/Business/BusinessReviews';
+import BusinessServices from '../../pages/Business/BusinessServices';
+import FraudInvestigation from '../../pages/Business/FraudInvestigation';
 import UserReviewsPage from '../../pages/Users/UserReviewsPage';
 import UserComplaintpage from '../../pages/Users/UserComplaintPage';
 import UserReferralsPage from '../../pages/Users/UserReferralsPage';
@@ -245,12 +294,7 @@ export function Router() {
     case ROUTES.partnerDetails:
       return <PartnerDetails />;
     
-    // Consolidated onboarding flow routes
-    case ROUTES.addPartner:
-    case ROUTES.onboardingAddress:
-    case ROUTES.addServices:
-    case ROUTES.addBanking:
-      return <AddPartnerWizard />;
+
       
     case ROUTES.approvalQueue:
       return <ApprovalQueue />;
@@ -315,8 +359,7 @@ export function Router() {
       return <BranchSuspend />;
     case ROUTES.branchCompliance:
       return <Branches defaultTab="Compliance" />;
-    case ROUTES.addBranch:
-      return <AddBranch />;
+
     case ROUTES.branchProfile:
       return <BranchProfile />;
     case ROUTES.branchManagerAssignment:
@@ -351,6 +394,7 @@ export function Router() {
       return <BankingSettlementManagement />;
     case ROUTES.revenue:
       return <Placeholder title="Revenue" activeTab="Revenue" />;
+
     case ROUTES.referrals:
       return <Placeholder title="Referrals" activeTab="Referrals" />;
     case ROUTES.notifications:
@@ -399,6 +443,8 @@ export function Router() {
       return <ConversionAnalytics activeTab="Dashboard" />;
 
     // User Management sub-routes
+    case ROUTES.userApprovals:
+      return <Placeholder title="User Approvals" activeTab="User Management" />;
     case ROUTES.addUser:
       return <Users />;
     case ROUTES.userApprovals: 
@@ -479,17 +525,18 @@ export function Router() {
     case ROUTES.businessBranches:
       return <Placeholder title="Business Branches" activeTab="Business Management" />;
     case ROUTES.businessServices:
-      return <Placeholder title="Business Services" activeTab="Business Management" />;
+      return <BusinessServices/>
     case ROUTES.businessEmployees:
-      return <Placeholder title="Business Employees" activeTab="Business Management" />;
+      return <BusinessEmployees/>
     case ROUTES.businessRevenue:
-      return <Placeholder title="Business Revenue" activeTab="Business Management" />;
+      return <BusinessRevenue/>
+   
     case ROUTES.businessReviews:
-      return <Placeholder title="Business Reviews" activeTab="Business Management" />;
+      return <BusinessReviews/>
     case ROUTES.businessCompliance:
-      return <Placeholder title="Compliance Center" activeTab="Business Management" />;
+      return <ComplianceCenter/>
     case ROUTES.businessFraud:
-      return <Placeholder title="Fraud Investigation" activeTab="Business Management" />;
+      return <FraudInvestigation/>
     case ROUTES.businessAuditLogs:
       return <Placeholder title="Audit Logs" activeTab="Business Management" />;
 
@@ -540,8 +587,6 @@ export function Router() {
     // Employee Management sub-routes
     case ROUTES.employeeAll:
       return <Employees defaultTab="Workforce" />;
-    case ROUTES.employeeAdd:
-      return <Employees defaultTab="AddEmployee" />;
     case ROUTES.employeeAvailability:
       return <Employees defaultTab="Availability" />;
     case ROUTES.branchManagers:
@@ -563,7 +608,6 @@ export function Router() {
 
     // Booking Management sub-routes
     case ROUTES.bookingAll:
-    case ROUTES.bookingCreate:
     case ROUTES.bookingPending:
     case ROUTES.bookingAssigned:
     case ROUTES.bookingAccepted:
@@ -591,34 +635,35 @@ export function Router() {
     case ROUTES.bookingFraud:
     case ROUTES.bookingArchive:
       return <BookingManagement />;
-
+   
     // Live Tracking sub-routes
     case ROUTES.liveDashboard:
-      return <Placeholder title="Live Dashboard" activeTab="Live Tracking" />;
+      // return <Placeholder title="Live Dashboard" activeTab="Live Tracking" />;
+      return <LiveDashboard/>
     case ROUTES.liveOpsMap:
-      return <Placeholder title="Operations Map" activeTab="Live Tracking" />;
+     return <OperationalMap/>
     case ROUTES.liveActiveJobs:
-      return <Placeholder title="Active Jobs" activeTab="Live Tracking" />;
+    return <ActiveJobs/>
     case ROUTES.liveEmployeeTracking:
-      return <Placeholder title="Employee Tracking" activeTab="Live Tracking" />;
+      return <EmployeeTracking/>
     case ROUTES.liveRouteTracking:
-      return <Placeholder title="Route Tracking" activeTab="Live Tracking" />;
+      return <RouteTracking/>
     case ROUTES.liveEta:
-      return <Placeholder title="ETA Monitoring" activeTab="Live Tracking" />;
+      return <ETAMonitoring />;
     case ROUTES.liveDelay:
-      return <Placeholder title="Delay Monitoring" activeTab="Live Tracking" />;
+      return <DelayMonitoring/>
     case ROUTES.liveGeofence:
-      return <Placeholder title="Geofence Management" activeTab="Live Tracking" />;
+      return <GeofenceManagement/>
     case ROUTES.liveGeofenceLogs:
-      return <Placeholder title="Geofence Logs" activeTab="Live Tracking" />;
+      return <GeofenceLogs/>
     case ROUTES.liveHistory:
-      return <Placeholder title="Movement History" activeTab="Live Tracking" />;
+      return <MovementHistory/>
     case ROUTES.liveHeatmaps:
-      return <Placeholder title="Heatmaps" activeTab="Live Tracking" />;
+      return <Heatmaps/>;
     case ROUTES.liveSos:
-      return <Placeholder title="SOS Tracking" activeTab="Live Tracking" />;
+      return <SOStracking/>
     case ROUTES.liveAnalytics:
-      return <Placeholder title="Tracking Analytics" activeTab="Live Tracking" />;
+      return <TrackingAnalytics/>
 
     // Material Management sub-routes
     case ROUTES.materialRequests:
@@ -778,39 +823,46 @@ export function Router() {
     case ROUTES.revenueDashboard:
       return <RevenueDashboard activeTab="Revenue Management" />;
     case ROUTES.revenueOverview:
-      return <Placeholder title="Revenue Overview" activeTab="Revenue Management" />;
+      // return <Placeholder title="Revenue Overview" activeTab="Revenue Management" />;
+      return <RevenueOverview/>
     case ROUTES.revenueDaily:
-      return <Placeholder title="Daily Revenue" activeTab="Revenue Management" />;
+      // return <Placeholder title="Daily Revenue" activeTab="Revenue Management" />;
+      return <DailyRevenue/>
     case ROUTES.revenueWeekly:
-      return <Placeholder title="Weekly Revenue" activeTab="Revenue Management" />;
+      // return <Placeholder title="Weekly Revenue" activeTab="Revenue Management" />;
+      return <WeeklyRevenue/>
     case ROUTES.revenueMonthly:
-      return <Placeholder title="Monthly Revenue" activeTab="Revenue Management" />;
+      // return <Placeholder title="Monthly Revenue" activeTab="Revenue Management" />;
+      return <MonthlyRevenue/>
     case ROUTES.revenueYearly:
-      return <Placeholder title="Yearly Revenue" activeTab="Revenue Management" />;
+      // return <Placeholder title="Yearly Revenue" activeTab="Revenue Management" />;
+      return <YearlyRevenue/>
     case ROUTES.revenuePartner:
-      return <Placeholder title="Partner Revenue" activeTab="Revenue Management" />;
+      // return <Placeholder title="Partner Revenue" activeTab="Revenue Management" />;
+      return <PartnerRevenue/>
     case ROUTES.revenueSeller:
-      return <Placeholder title="Seller Revenue" activeTab="Revenue Management" />;
+      // return <Placeholder title="Seller Revenue" activeTab="Revenue Management" />;
+      return <SellerRevenue/>
     case ROUTES.revenueBranch:
-      return <Placeholder title="Branch Revenue" activeTab="Revenue Management" />;
+      return <BranchRevenue/>
     case ROUTES.revenueEmployee:
-      return <Placeholder title="Employee Revenue" activeTab="Revenue Management" />;
+      return <EmployeeRevenue/>
     case ROUTES.revenueService:
-      return <Placeholder title="Service Revenue" activeTab="Revenue Management" />;
+    return <ServiceRevenue/>
     case ROUTES.revenueProfitLoss:
-      return <Placeholder title="Profit & Loss" activeTab="Revenue Management" />;
+      return <ProfitAndLossRevenue/>
     case ROUTES.revenueExpenses:
-      return <Placeholder title="Expenses" activeTab="Revenue Management" />;
+     return <Expenses/>
     case ROUTES.revenueForecasting:
-      return <Placeholder title="Revenue Forecasting" activeTab="Revenue Management" />;
+     return <RevenueForecasting/>
     case ROUTES.revenueTargets:
-      return <Placeholder title="Targets" activeTab="Revenue Management" />;
+    return <Targets/>
     case ROUTES.revenueExecutive:
-      return <Placeholder title="Executive Dashboard" activeTab="Revenue Management" />;
+     return <ExecutiveDashboard/>
     case ROUTES.revenueBI:
-      return <Placeholder title="Business Intelligence Center" activeTab="Revenue Management" />;
+      return <BusinessIntelligence/>
     case ROUTES.revenueHealth:
-      return <Placeholder title="Financial Health" activeTab="Revenue Management" />;
+     return <FinancialHealth/>
 
     // Referral Management sub-routes
     case ROUTES.referralDashboard:
@@ -910,15 +962,15 @@ export function Router() {
 
     // Reviews & Ratings sub-routes
     case ROUTES.reviewsUser:
-      return <Placeholder title="User Reviews" activeTab="Reviews & Ratings" />;
+      return <UserReviews/>
     case ROUTES.reviewsPartner:
-      return <Placeholder title="Partner Reviews" activeTab="Reviews & Ratings" />;
+      return <PartnerReviews/>
     case ROUTES.reviewsEmployee:
-      return <Placeholder title="Employee Reviews" activeTab="Reviews & Ratings" />;
+      return <EmployeeReviews/>
     case ROUTES.reviewsModeration:
-      return <Placeholder title="Review Moderation" activeTab="Reviews & Ratings" />;
+      return <ReviewModeration/>
     case ROUTES.reviewsAnalytics:
-      return <Placeholder title="Rating Analytics" activeTab="Reviews & Ratings" />;
+      return <RatingAnalytics/>
 
     // SOS Management sub-routes
     case ROUTES.sosDashboard:
@@ -1085,19 +1137,19 @@ export function Router() {
 
     // Role & Permission admin sub-routes
     case ROUTES.rolePermissions:
-      return <Placeholder title="All Roles" activeTab="Role & Permission" />;
+      return <AllRoles/>;
     case ROUTES.createRole:
-      return <Placeholder title="Create Role" activeTab="Role & Permission" />;
+      return <CreateRole/>;
     case ROUTES.permissionMatrix:
-      return <Placeholder title="Permission Matrix" activeTab="Role & Permission" />;
+      return <PermissionMatrix/>
     case ROUTES.moduleAccess:
-      return <Placeholder title="Module Access" activeTab="Role & Permission" />;
+      return <ModuleAccess/>
     case ROUTES.actionPermissions:
-      return <Placeholder title="Action Permissions" activeTab="Role & Permission" />;
+      return <ActionPermissions/>
     case ROUTES.userAccessLogs:
-      return <Placeholder title="User Access Logs" activeTab="Role & Permission" />;
+      return <UserAccessLogs/>
     case ROUTES.roleAuditLogs:
-      return <Placeholder title="Role Audit Logs" activeTab="Role & Permission" />;
+      return <RoleAuditLogs/>
 
     // Settings sub-routes
     case ROUTES.settingsPlatformGeneral:

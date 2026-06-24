@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, Star, Map, ShieldCheck } from 'lucide-react';
+import { Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, Star, Map, ShieldCheck } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 
@@ -35,10 +35,7 @@ export default function BranchInventory() {
           <p className="page-subtitle">Track, analyze, and manage operational branch outlets.</p>
         </div>
         <div className="partners-header-buttons">
-          <button className="primary-action-btn font-bold" style={{ height: '36px' }} onClick={() => navigate(ROUTES.addBranch)}>
-            <Plus size={14} style={{ marginRight: '4px' }} />
-            <span>Add Branch</span>
-          </button>
+
           
           <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
             <Download size={14} style={{ marginRight: '4px' }} />

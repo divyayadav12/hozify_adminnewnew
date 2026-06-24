@@ -234,8 +234,7 @@ export const sidebarNavigation = [
       {
         label: 'Bookings',
         children: [
-          { label: 'All Bookings', route: ROUTES.bookingAll },
-          { label: 'Create Booking', route: ROUTES.bookingCreate }
+          { label: 'All Bookings', route: ROUTES.bookingAll }
         ]
       },
       {
