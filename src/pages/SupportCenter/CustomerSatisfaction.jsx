@@ -548,7 +548,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
             </div>
             <div>
               <strong style={{ fontSize: '15px', color: 'var(--text)', display: 'block' }}>
-                AI Recommendation: Automated Billing Override Rules
+                Smart Recommendation: Automated Billing Override Rules
               </strong>
               <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: '4px 0 0', lineHeight: '1.4', maxWidth: '650px' }}>
                 Activating this insight will deploy dynamic checkout webhooks override regulations. Based on ticket patterns, this will resolve <strong>12% of billing queries</strong> automatically, boosting CSAT score to 4.88.

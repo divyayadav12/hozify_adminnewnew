@@ -1,5 +1,7 @@
 import React from 'react';
 import { useApp } from '../../hooks/useApp';
+import { ShellProvider } from '../../components/layouts/ShellContext';
+import GlobalAdminShell from '../../components/layouts/GlobalAdminShell';
 import { ROUTES } from '../../config/routes';
 import RoleSelection from '../../pages/RoleSelection';
 import Login from '../../pages/Login';
@@ -299,7 +301,8 @@ export function Router() {
   const { route } = useApp();
   const currentRoute = resolveCurrentRoute(route);
 
-  switch (currentRoute) {
+  const renderPage = () => {
+    switch (currentRoute) {
     case ROUTES.root:
     case ROUTES.roles:
       return <RoleSelection />;
@@ -470,11 +473,8 @@ export function Router() {
 
     // User Management sub-routes
     case ROUTES.userApprovals:
-      return <Placeholder title="User Approvals" activeTab="User Management" />;
-    case ROUTES.addUser:
-      return <Users />;
-    case ROUTES.userApprovals: 
-      return <UserApprovalPage/>
+      return <UserApprovalPage/>;
+
     case ROUTES.blockedUsers:
       return <BlockedUsersPage />;
     case ROUTES.userWallets:
@@ -1128,19 +1128,7 @@ export function Router() {
     // case ROUTES.reportsFinancial:
     case ROUTES.reportsRevenue:
       return <RevenueReportspage/>
-    case ROUTES.reportsBooking:
-      return <BookingReports />;
-    case ROUTES.analytics:
-    case ROUTES.reportsUser:
-      return <Analytics />;
-    case ROUTES.reportsPartner:
-      return <PartnerReports />;
-    case ROUTES.reportsEmployee:
-      return <EmployeeReports />;
-    case ROUTES.reportsFinancial:
-      return <Analytics />;
-    case ROUTES.reportsRevenue:
-      return <RevenueReports />;
+
     case ROUTES.reportsWallet:
       return <WalletReportPage/>
     case ROUTES.reportsSettlement:
@@ -1217,5 +1205,29 @@ export function Router() {
 
     default:
       return <RoleSelection />;
+    }
+  };
+
+  const page = renderPage();
+  const isPublicRoute = [
+    ROUTES.root,
+    ROUTES.roles,
+    ROUTES.login,
+    ROUTES.forgotPassword,
+    ROUTES.otpVerification,
+    ROUTES.resetPassword,
+    ROUTES.passwordResetSuccess
+  ].includes(currentRoute) || currentRoute === undefined;
+
+  if (isPublicRoute) {
+    return page;
   }
+
+  return (
+    <ShellProvider>
+      <GlobalAdminShell>
+        {page}
+      </GlobalAdminShell>
+    </ShellProvider>
+  );
 }

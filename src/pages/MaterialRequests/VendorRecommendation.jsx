@@ -275,10 +275,10 @@ export default function VendorRecommendation() {
                 </div>
               </div>
 
-              {/* AI Insight Box */}
+              {/* Cost Optimization Tip */}
               <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '14px', borderLeft: '3px solid #25108f' }}>
                 <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.8)', margin: 0, lineHeight: '1.4' }}>
-                  <strong>AI Insight:</strong> Switching to "Precision Logistics" for the next 48h could save approximately <strong>$4.2k</strong> based on current volume trends.
+                  <strong>Cost Optimization:</strong> Switching to "Precision Logistics" for the next 48h could save approximately <strong>$4.2k</strong> based on current volume trends.
                 </p>
               </div>
             </div>

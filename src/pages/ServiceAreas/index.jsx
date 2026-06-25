@@ -208,10 +208,10 @@ export default function ServiceAreas({ mode = 'areas' }) {
               </div>
             </div>
 
-            {/* AI Growth Insight Card */}
+            {/* Growth Insight Card */}
             <div className="panel" style={{ padding: '20px', backgroundColor: '#0f172a', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 6px' }}>AI Growth Insight</h3>
+                <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 6px' }}>Growth Insight</h3>
                 <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.8)', margin: '0 0 16px', lineHeight: '1.4' }}>This area shows a 14% month-over-month increase in demand. Recommendation: Add 2 field agents.</p>
               </div>
               <button style={{ width: '100%', height: '34px', background: '#4f46e5', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }} type="button">

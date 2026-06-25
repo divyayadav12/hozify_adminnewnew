@@ -12,11 +12,12 @@ import {
   Plus, 
   Clock, 
   Smartphone, 
-  Sparkles,
+  Lightbulb,
   MoreVertical,
   X,
   Check
 } from 'lucide-react';
+
 import AdminShell from '../../components/layouts/AdminShell';
 
 export default function PushNotifications({ activeTab = 'Notification Center' }) {
@@ -372,9 +373,9 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                 display: 'flex',
                 gap: '8px'
               }}>
-                <Sparkles size={14} style={{ color: 'var(--primary)', flexShrink: 0, marginTop: '2px' }} />
+                <Lightbulb size={14} style={{ color: 'var(--primary)', flexShrink: 0, marginTop: '2px' }} />
                 <p style={{ fontSize: '11.5px', fontStyle: 'italic', color: 'var(--muted)', margin: 0, lineHeight: '1.4' }}>
-                  AI Insight: Tailoring copy for mobile executives increases CTR by 1.2%.
+                  Performance Tip: Tailoring copy for mobile executives increases CTR by 1.2%.
                 </p>
               </div>
 

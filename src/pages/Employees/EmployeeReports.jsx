@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, FileText, Star, MoreVertical, SlidersHorizontal, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Download, FileText, Star, MoreVertical, SlidersHorizontal, Search, ChevronLeft, ChevronRight, ShieldAlert } from 'lucide-react';
 
 const revenueLeaders = [
   { name: 'Jane Doe', role: 'Lead Consultant', revenue: '$12.4k', badge: 'Top 1%', initials: 'JD', bg: '#e0e7ff', color: '#4f46e5' },

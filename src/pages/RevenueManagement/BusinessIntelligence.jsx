@@ -3,7 +3,7 @@ import AdminShell from "../../components/layouts/AdminShell";
 import { 
   Cpu, 
   Layers, 
-  Sparkles, 
+  BarChart2, 
   ArrowUpRight, 
   TrendingUp, 
   Compass, 
@@ -14,6 +14,7 @@ import {
   Globe2, 
   Gauge 
 } from "lucide-react";
+
 
 export default function BusinessIntelligence() {
   // Navigation contextual filters states
@@ -101,12 +102,12 @@ export default function BusinessIntelligence() {
             </div>
           ))}
 
-          {/* AI Neural Engine Simulation Output Component (Solid Navy Style) */}
+          {/* Forecast Overview Card */}
           <div className="bg-indigo-950 text-white rounded-xl p-5 flex flex-col justify-between shadow-sm relative overflow-hidden">
             <div>
               <p className="text-[10px] font-bold text-indigo-300 tracking-wider uppercase flex items-center gap-1">
-                <Sparkles className="h-3 w-3" />
-                <span>AI FORECAST VISIBILITY</span>
+                <BarChart2 className="h-3 w-3" />
+                <span>FORECAST OVERVIEW</span>
               </p>
               <h3 className="text-3xl font-extrabold mt-3 text-white tracking-tight">96.8%</h3>
               <p className="text-xs text-indigo-200/80 mt-2 leading-relaxed font-medium">

@@ -85,7 +85,7 @@ export default function InvestigationPage() {
               <div className="flex gap-2">
                 <CheckCircle className="text-green-500" size={16} />
                 <div>
-                  <p className="font-medium">Flagged by AI Engine</p>
+                  <p className="font-medium">Auto-Flagged</p>
                   <p className="text-xs text-gray-500">14:22</p>
                 </div>
               </div>

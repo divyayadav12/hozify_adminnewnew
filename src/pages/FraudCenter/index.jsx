@@ -209,7 +209,7 @@ function DashboardPage({ page, navigate, onDrawer }) {
         <RiskDistribution />
         <FraudTable title="High Risk Users" rows={fraudCases} navigate={navigate} onDrawer={onDrawer} />
         <AlertsPanel onDrawer={onDrawer} />
-        <DarkInsight title="Network Security Shield" text="AI-powered behavioral analysis is scanning active sessions and wallet networks." />
+        <DarkInsight title="Network Security Shield" text="Behavioral analysis is scanning active sessions and wallet networks." />
       </section>
     </>
   );
@@ -691,7 +691,7 @@ function SidePanel({ page, onModal, onDrawer }) {
       <button className="fraud-btn primary full" type="button" onClick={() => onDrawer('freeze-wallet')}><Lock size={18} />Freeze Wallet</button>
       <button className="fraud-btn danger-outline full" type="button" onClick={() => onDrawer('suspend-account')}><Ban size={18} />Suspend Account</button>
       <button className="fraud-btn ghost full" type="button" onClick={() => onModal('assignment')}><UserPlus size={18} />Assign Investigator</button>
-      <DarkInsight title="AI Recommendation" text="Prioritize high-risk linked entities before closing this review batch." />
+      <DarkInsight title="Review Recommendation" text="Prioritize high-risk linked entities before closing this review batch." />
     </aside>
   );
 }

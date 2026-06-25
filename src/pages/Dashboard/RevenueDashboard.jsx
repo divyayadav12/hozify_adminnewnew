@@ -7,7 +7,6 @@ import {
   TrendingDown, 
   MapPin, 
   SlidersHorizontal, 
-  Sparkles, 
   X,
   CreditCard,
   DollarSign
@@ -346,7 +345,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
           </div>
         </div>
 
-        {/* Floating AI Insight Bar */}
+        {/* Floating Performance Alert Bar */}
         {showInsight && (
           <div style={{
             position: 'fixed',
@@ -364,10 +363,10 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
             maxWidth: '380px'
           }}>
             <div style={{ height: '28px', width: '28px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <Sparkles size={14} style={{ color: '#a78bfa' }} />
+              <TrendingUp size={14} style={{ color: '#a78bfa' }} />
             </div>
             <div style={{ flex: 1 }}>
-              <strong style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#c084fc', display: 'block' }}>AI INSIGHT</strong>
+              <strong style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#c084fc', display: 'block' }}>PERFORMANCE ALERT</strong>
               <span style={{ fontSize: '12.5px', marginTop: '2px', display: 'block' }}>Logistics is outperforming cleaning by 22% this week.</span>
             </div>
             <button onClick={() => setShowInsight(false)} style={{ border: 'none', background: 'transparent', color: '#c7d2fe', cursor: 'pointer', padding: '2px' }}>

@@ -879,12 +879,13 @@ export default function Analytics() {
                     Proactive Monitoring
                   </strong>
                   <p style={{ fontSize: '11px', color: 'var(--muted)', margin: 0, lineHeight: '1.4' }}>
-                    AI-powered threat detection and resource optimization at the edge.
+                    Proactive threat detection and resource optimization at the edge.
                   </p>
                 </div>
 
                 <button
-                  onClick={() => alert('Activating AI Insights...')}
+                  onClick={() => alert('Activating Monitoring...')}
+
                   style={{
                     border: 'none',
                     background: 'transparent',
@@ -898,7 +899,7 @@ export default function Analytics() {
                   }}
                   type="button"
                 >
-                  Enable AI Insights
+                  Enable Monitoring
                 </button>
               </div>
 

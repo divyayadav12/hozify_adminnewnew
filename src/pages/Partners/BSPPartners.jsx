@@ -113,10 +113,10 @@ export default function BSPPartners() {
               <span className="inline-flex items-center rounded-md bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-700/10 uppercase tracking-wider">
                 BSP Management
               </span>
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+              <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
                 Business Service Providers
               </h1>
-              <p className="mt-4 text-base text-slate-500 leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-slate-500 leading-relaxed">
                 Manage onboarding, KYC verification, GST validation, settlements, compliance
                 checks and performance monitoring across all registered Business Service Providers.
               </p>

@@ -1,364 +1,536 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import {
   Filter,
   Download,
-  Clock,
   CheckCircle2,
   AlertCircle,
+  Clock,
+  Ban,
+  ChevronLeft,
+  ChevronRight,
+  TrendingUp,
+  TrendingDown,
 } from "lucide-react";
 
-function ApprovalRow({
-  image,
-  name,
-  email,
-  date,
-  type,
-  status,
-  priority,
-  action,
-}) {
+
+const queueData = [
+  {
+    id: 1,
+    name: "Alexander Thorne",
+    email: "alex.thorne@provider.com",
+    date: "Oct 24, 2023 · 14:20",
+    type: "Personal",
+    typeBg: "#f1f5f9",
+    typeColor: "#475569",
+    docTags: ["ID CARD", "SELFIE", "TAX DOC"],
+    docTagColors: {
+      "ID CARD": { bg: "#eff6ff", color: "#2563eb" },
+      SELFIE: { bg: "#f0fdf4", color: "#16a34a" },
+      "TAX DOC": { bg: "#fdf2f8", color: "#9333ea" },
+    },
+    docStatus: "Blurred Scan · Action Required",
+    docStatusIcon: "warn",
+    priority: true,
+    action: "review",
+    initials: "AT",
+    avatarBg: "#e0e7ff",
+    avatarColor: "#4338ca",
+  },
+  {
+    id: 2,
+    name: "Sarah Jenkins",
+    email: "s.jenkins@enterprise.io",
+    date: "Oct 24, 2023 · 15:05",
+    type: "Business",
+    typeBg: "#fef3c7",
+    typeColor: "#b45309",
+    docTags: [],
+    docStatus: "Pending Review",
+    docStatusIcon: "pending",
+    priority: false,
+    action: "approve",
+    initials: "SJ",
+    avatarBg: "#fce7f3",
+    avatarColor: "#be185d",
+  },
+  {
+    id: 3,
+    name: "Marcus Vane",
+    email: "m.vane@consultancy.net",
+    date: "Oct 24, 2023 · 15:12",
+    type: "Personal",
+    typeBg: "#f1f5f9",
+    typeColor: "#475569",
+    docTags: [],
+    docStatus: "Pending Review",
+    docStatusIcon: "pending",
+    priority: false,
+    action: "approve",
+    initials: "MV",
+    avatarBg: "#e0f2fe",
+    avatarColor: "#0369a1",
+  },
+  {
+    id: 4,
+    name: "Emily Carter",
+    email: "e.carter@business.com",
+    date: "Oct 24, 2023 · 15:22",
+    type: "Business",
+    typeBg: "#fef3c7",
+    typeColor: "#b45309",
+    docTags: [],
+    docStatus: "Pending Review",
+    docStatusIcon: "pending",
+    priority: false,
+    action: "approve",
+    initials: "EC",
+    avatarBg: "#ecfdf5",
+    avatarColor: "#059669",
+  },
+];
+
+function DocStatusBadge({ icon, label }) {
+  if (icon === "warn") {
+    return (
+      <span style={{
+        display: "inline-flex", alignItems: "center", gap: "5px",
+        fontSize: "10px", fontWeight: "700", color: "#b45309",
+        background: "#fef9c3", border: "1px solid #fde68a",
+        borderRadius: "5px", padding: "3px 8px",
+      }}>
+        <AlertCircle size={11} style={{ color: "#ca8a04" }} />
+        {label}
+      </span>
+    );
+  }
   return (
-    <tr className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+    <span style={{
+      display: "inline-flex", alignItems: "center", gap: "5px",
+      fontSize: "10px", fontWeight: "700", color: "#2563eb",
+      background: "#eff6ff", border: "1px solid #bfdbfe",
+      borderRadius: "5px", padding: "3px 8px",
+    }}>
+      <Clock size={11} style={{ color: "#3b82f6" }} />
+      {label}
+    </span>
+  );
+}
 
-      <td className="px-4 py-4">
-        <div className="flex items-center gap-3">
-
-          <img
-            src={image}
-            alt={name}
-            className="w-10 h-10 rounded-lg object-cover"
-          />
-
+function ApprovalRow({ row, onAction }) {
+  return (
+    <tr style={{
+      borderBottom: "1px solid #f1f5f9",
+      background: "#fff",
+      transition: "background 0.15s",
+      borderLeft: row.priority ? "3px solid #4f46e5" : "3px solid transparent",
+    }}
+      onMouseEnter={e => e.currentTarget.style.background = "#fafafa"}
+      onMouseLeave={e => e.currentTarget.style.background = "#fff"}
+    >
+      {/* USER PROFILE */}
+      <td style={{ padding: "14px 16px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{
+            width: "38px", height: "38px", borderRadius: "10px",
+            background: row.avatarBg, color: row.avatarColor,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "13px", fontWeight: "800", flexShrink: 0,
+          }}>
+            {row.initials}
+          </div>
           <div>
-            <p className="text-sm font-bold text-slate-900">
-              {name}
+            <p style={{ fontSize: "13px", fontWeight: "700", color: "#0f172a", margin: 0 }}>
+              {row.name}
             </p>
-
-            <p className="text-xs text-slate-500">
-              {email}
+            <p style={{ fontSize: "11px", color: "#94a3b8", margin: "2px 0 0", fontWeight: "500" }}>
+              {row.email}
             </p>
           </div>
-
         </div>
       </td>
 
-      <td className="px-4 py-4 text-xs text-slate-600">
-        {date}
+      {/* SUBMISSION DATE */}
+      <td style={{ padding: "14px 16px", fontSize: "12px", color: "#64748b", fontWeight: "600", whiteSpace: "nowrap" }}>
+        {row.date}
       </td>
 
-      <td className="px-4 py-4">
-        <span className="px-2 py-1 bg-slate-100 rounded-full text-[10px] font-bold">
-          {type}
+      {/* TYPE */}
+      <td style={{ padding: "14px 16px" }}>
+        <span style={{
+          fontSize: "10px", fontWeight: "800", textTransform: "uppercase",
+          letterSpacing: "0.4px", padding: "4px 10px", borderRadius: "20px",
+          background: row.typeBg, color: row.typeColor,
+        }}>
+          {row.type}
         </span>
       </td>
 
-      <td className="px-4 py-4">
-
-        <div className="flex items-center gap-2">
-
-          <Clock size={12} />
-
-          <span className="text-xs font-medium">
-            {status}
-          </span>
-
+      {/* DOC STATUS */}
+      <td style={{ padding: "14px 16px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          {row.docTags.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+              {row.docTags.map(tag => (
+                <span key={tag} style={{
+                  fontSize: "9px", fontWeight: "800", textTransform: "uppercase",
+                  letterSpacing: "0.5px", padding: "2px 7px", borderRadius: "4px",
+                  background: row.docTagColors[tag].bg,
+                  color: row.docTagColors[tag].color,
+                  border: `1px solid ${row.docTagColors[tag].bg}`,
+                }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+          <DocStatusBadge icon={row.docStatusIcon} label={row.docStatus} />
         </div>
-
       </td>
 
-      <td className="px-4 py-4">
-
-        <div className="flex gap-2">
-
-          {action === "review" ? (
-            <button className="bg-indigo-950 text-white px-4 py-2 rounded-lg text-xs font-bold">
-              Review
-            </button>
+      {/* ACTIONS */}
+      <td style={{ padding: "14px 16px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          {row.action === "review" ? (
+            <>
+              <button
+                type="button"
+                onClick={() => onAction(row.id, "review")}
+                style={{
+                  background: "#0f172a", color: "#fff", border: "none",
+                  borderRadius: "7px", padding: "7px 16px", fontSize: "12px",
+                  fontWeight: "700", cursor: "pointer", letterSpacing: "0.2px",
+                  transition: "all 0.15s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "#1e293b"}
+                onMouseLeave={e => e.currentTarget.style.background = "#0f172a"}
+              >
+                Review
+              </button>
+              <button
+                type="button"
+                title="Reject"
+                onClick={() => onAction(row.id, "reject")}
+                style={{
+                  background: "#fff0f0", border: "1px solid #fecaca",
+                  color: "#dc2626", borderRadius: "7px", padding: "7px 9px",
+                  cursor: "pointer", display: "flex", alignItems: "center",
+                  justifyContent: "center", transition: "all 0.15s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "#fee2e2"}
+                onMouseLeave={e => e.currentTarget.style.background = "#fff0f0"}
+              >
+                <Ban size={14} />
+              </button>
+            </>
           ) : (
             <>
-              <button className="bg-indigo-950 text-white px-4 py-2 rounded-lg text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => onAction(row.id, "approve")}
+                style={{
+                  background: "#0f172a", color: "#fff", border: "none",
+                  borderRadius: "7px", padding: "7px 16px", fontSize: "12px",
+                  fontWeight: "700", cursor: "pointer", transition: "all 0.15s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "#1e293b"}
+                onMouseLeave={e => e.currentTarget.style.background = "#0f172a"}
+              >
                 Approve
               </button>
-
-              <button className="border border-slate-300 px-4 py-2 rounded-lg text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => onAction(row.id, "reject")}
+                style={{
+                  background: "#fff", color: "#475569",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "7px", padding: "7px 16px", fontSize: "12px",
+                  fontWeight: "700", cursor: "pointer", transition: "all 0.15s",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = "#fee2e2";
+                  e.currentTarget.style.color = "#dc2626";
+                  e.currentTarget.style.border = "1px solid #fecaca";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = "#fff";
+                  e.currentTarget.style.color = "#475569";
+                  e.currentTarget.style.border = "1px solid #e2e8f0";
+                }}
+              >
                 Reject
               </button>
             </>
           )}
-
         </div>
-
       </td>
-
     </tr>
   );
 }
+
 export default function UserApprovalPage() {
+  const [rows, setRows] = useState(queueData);
+
+  const handleAction = (id, action) => {
+    if (action === "approve" || action === "reject") {
+      setRows(prev => prev.filter(r => r.id !== id));
+    }
+  };
+
   return (
     <AdminShell
       activeTab="Users"
+      headerTitle="User Approvals (KYC)"
       searchPlaceholder="Search bookings, users, or partners..."
     >
-      <div className="p-6 bg-slate-50 min-h-screen">
+      <div style={{ minHeight: "100vh", background: "#f8fafc" }}>
 
-        {/* PAGE HEADER */}
-
-        <div className="flex justify-between items-start mb-6">
-
-          <div>
-            <h1 className="text-4xl font-black text-slate-900">
-              User Approvals (KYC)
-            </h1>
-
-            <p className="text-slate-500 mt-2">
-              Manage and verify pending identity documentation for new accounts.
-            </p>
-          </div>
-
-          <div className="flex gap-3">
-
-            <button className="flex items-center gap-2 border border-slate-300 px-4 py-2 rounded-xl bg-white text-sm font-semibold">
-              <Filter size={14} />
-              Filter
-            </button>
-
-            <button className="flex items-center gap-2 border border-slate-300 px-4 py-2 rounded-xl bg-white text-sm font-semibold">
-              <Download size={14} />
-              Export CSV
-            </button>
-
-          </div>
-
+      {/* PAGE HEADER */}
+      <div style={{
+        display: "flex", justifyContent: "space-between",
+        alignItems: "flex-start", marginBottom: "24px",
+      }}>
+        <div>
+          <h1 style={{
+            fontSize: "26px", fontWeight: "800", color: "#0f172a",
+            margin: "0 0 4px", letterSpacing: "-0.4px",
+          }}>
+            User Approvals (KYC)
+          </h1>
+          <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0, fontWeight: "500" }}>
+            Manage and verify pending identity documentation for new accounts.
+          </p>
         </div>
 
-        {/* KPI CARDS */}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-6">
-
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-            <p className="text-xs uppercase text-slate-400 font-bold">
-              Pending Total
-            </p>
-
-            <h2 className="text-4xl font-black text-slate-900 mt-3">
-              124
-            </h2>
-
-            <p className="text-xs text-indigo-600 mt-2">
-              ↑ 12% from yesterday
-            </p>
-          </div>
-
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-            <p className="text-xs uppercase text-slate-400 font-bold">
-              Avg Processing Time
-            </p>
-
-            <h2 className="text-4xl font-black text-slate-900 mt-3">
-              4.2
-            </h2>
-
-            <p className="text-xs text-rose-500 mt-2">
-              ↓ 0.5 hrs target
-            </p>
-          </div>
-
-          <div className="bg-emerald-50 p-5 rounded-2xl border border-emerald-100 shadow-sm">
-            <div className="flex justify-between items-center">
-
-              <div>
-                <p className="text-xs uppercase font-bold text-emerald-700">
-                  Verified Today
-                </p>
-
-                <h2 className="text-5xl font-black text-emerald-700 mt-3">
-                  48
-                </h2>
-              </div>
-
-              <CheckCircle2
-                size={22}
-                className="text-emerald-600"
-              />
-
-            </div>
-
-            <div className="h-2 bg-emerald-200 rounded-full mt-5">
-              <div className="h-2 bg-emerald-500 rounded-full w-4/5"></div>
-            </div>
-
-          </div>
-
-          <div className="bg-rose-50 p-5 rounded-2xl border border-rose-100 shadow-sm">
-            <div className="flex justify-between items-center">
-
-              <div>
-                <p className="text-xs uppercase font-bold text-rose-700">
-                  Escalated
-                </p>
-
-                <h2 className="text-5xl font-black text-rose-700 mt-3">
-                  7
-                </h2>
-              </div>
-
-              <AlertCircle
-                size={22}
-                className="text-rose-600"
-              />
-
-            </div>
-
-            <div className="h-2 bg-rose-200 rounded-full mt-5">
-              <div className="h-2 bg-rose-500 rounded-full w-1/4"></div>
-            </div>
-
-          </div>
-
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            type="button"
+            style={{
+              display: "flex", alignItems: "center", gap: "6px",
+              border: "1px solid #e2e8f0", borderRadius: "8px",
+              padding: "8px 14px", background: "#fff",
+              fontSize: "12px", fontWeight: "700", color: "#475569",
+              cursor: "pointer",
+            }}
+          >
+            <Filter size={13} />
+            Filter
+          </button>
+          <button
+            type="button"
+            style={{
+              display: "flex", alignItems: "center", gap: "6px",
+              border: "1px solid #e2e8f0", borderRadius: "8px",
+              padding: "8px 14px", background: "#fff",
+              fontSize: "12px", fontWeight: "700", color: "#475569",
+              cursor: "pointer",
+            }}
+          >
+            <Download size={13} />
+            Export CSV
+          </button>
         </div>
-                {/* VERIFICATION QUEUE */}
-
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-
-          {/* TABLE HEADER */}
-
-          <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
-
-            <h3 className="text-xl font-black text-slate-900">
-              Verification Queue
-            </h3>
-
-            <div className="flex items-center gap-5 text-xs">
-
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-indigo-700"></span>
-                <span className="text-slate-500 font-medium">
-                  Priority
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-                <span className="text-slate-500 font-medium">
-                  Standard
-                </span>
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* TABLE */}
-
-          <div className="overflow-x-auto">
-
-            <table className="w-full min-w-[1000px]">
-
-              <thead className="bg-slate-50">
-
-                <tr>
-
-                  <th className="text-left px-4 py-4 text-xs font-bold uppercase text-slate-500">
-                    User Profile
-                  </th>
-
-                  <th className="text-left px-4 py-4 text-xs font-bold uppercase text-slate-500">
-                    Submission Date
-                  </th>
-
-                  <th className="text-left px-4 py-4 text-xs font-bold uppercase text-slate-500">
-                    Type
-                  </th>
-
-                  <th className="text-left px-4 py-4 text-xs font-bold uppercase text-slate-500">
-                    Doc Status
-                  </th>
-
-                  <th className="text-left px-4 py-4 text-xs font-bold uppercase text-slate-500">
-                    Actions
-                  </th>
-
-                </tr>
-
-              </thead>
-
-              <tbody>
-
-                <ApprovalRow
-                  image="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=200"
-                  name="Alexander Thorne"
-                  email="alex.thorne@provider.com"
-                  date="Oct 24, 2023 • 14:20"
-                  type="Personal"
-                  status="Blurred Scan • Action Required"
-                  priority={true}
-                  action="review"
-                />
-
-                <ApprovalRow
-                  image="https://randomuser.me/api/portraits/women/44.jpg"
-                  name="Sarah Jenkins"
-                  email="s.jenkins@enterprise.io"
-                  date="Oct 24, 2023 • 15:05"
-                  type="Business"
-                  status="Pending Review"
-                  priority={false}
-                  action="approve"
-                />
-
-                <ApprovalRow
-                  image="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200"
-                  name="Marcus Vane"
-                  email="m.vane@consultancy.net"
-                  date="Oct 24, 2023 • 15:12"
-                  type="Personal"
-                  status="Pending Review"
-                  priority={false}
-                  action="approve"
-                />
-
-                <ApprovalRow
-                  image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200"
-                  name="Emily Carter"
-                  email="e.carter@business.com"
-                  date="Oct 24, 2023 • 15:22"
-                  type="Business"
-                  status="Pending Review"
-                  priority={false}
-                  action="approve"
-                />
-
-              </tbody>
-
-            </table>
-
-          </div>
-                    {/* FOOTER */}
-
-          <div className="flex justify-between items-center px-6 py-4 border-t border-slate-100">
-
-            <p className="text-xs text-slate-500">
-              Showing 1 - 4 of 124 requests
-            </p>
-
-            <div className="flex gap-2">
-
-              <button className="px-4 py-2 border border-slate-300 rounded-lg text-xs font-semibold text-slate-500">
-                Previous
-              </button>
-
-              <button className="px-4 py-2 bg-indigo-950 text-white rounded-lg text-xs font-semibold">
-                Next
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
       </div>
+
+      {/* KPI CARDS */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gap: "16px",
+        marginBottom: "24px",
+      }}>
+        {/* Pending Total */}
+        <div style={{
+          background: "#fff", borderRadius: "12px",
+          border: "1px solid #e2e8f0", padding: "20px 22px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        }}>
+          <p style={{ fontSize: "10px", fontWeight: "800", color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.6px", margin: "0 0 8px" }}>
+            Pending Total
+          </p>
+          <h2 style={{ fontSize: "32px", fontWeight: "900", color: "#0f172a", margin: "0 0 8px", lineHeight: 1 }}>
+            124
+          </h2>
+          <p style={{ fontSize: "11px", color: "#6366f1", fontWeight: "700", margin: 0, display: "flex", alignItems: "center", gap: "3px" }}>
+            <TrendingUp size={12} />
+            +12% from yesterday
+          </p>
+        </div>
+
+        {/* Avg Processing Time */}
+        <div style={{
+          background: "#fff", borderRadius: "12px",
+          border: "1px solid #e2e8f0", padding: "20px 22px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        }}>
+          <p style={{ fontSize: "10px", fontWeight: "800", color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.6px", margin: "0 0 8px" }}>
+            Avg. Processing Time
+          </p>
+          <h2 style={{ fontSize: "32px", fontWeight: "900", color: "#0f172a", margin: "0 0 8px", lineHeight: 1 }}>
+            4.2 <span style={{ fontSize: "14px", fontWeight: "600", color: "#94a3b8" }}>hrs</span>
+          </h2>
+          <p style={{ fontSize: "11px", color: "#ef4444", fontWeight: "700", margin: 0, display: "flex", alignItems: "center", gap: "3px" }}>
+            <TrendingDown size={12} />
+            ↓ 0.5 hrs target
+          </p>
+        </div>
+
+        {/* Verified Today */}
+        <div style={{
+          background: "#f0fdf4", borderRadius: "12px",
+          border: "1px solid #bbf7d0", padding: "20px 22px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <p style={{ fontSize: "10px", fontWeight: "800", color: "#16a34a", textTransform: "uppercase", letterSpacing: "0.6px", margin: "0 0 8px" }}>
+                Verified Today
+              </p>
+              <h2 style={{ fontSize: "36px", fontWeight: "900", color: "#15803d", margin: "0 0 10px", lineHeight: 1 }}>
+                48
+              </h2>
+            </div>
+            <div style={{
+              width: "34px", height: "34px", borderRadius: "8px",
+              background: "#dcfce7", display: "flex", alignItems: "center",
+              justifyContent: "center",
+            }}>
+              <CheckCircle2 size={18} style={{ color: "#16a34a" }} />
+            </div>
+          </div>
+          <div style={{ height: "5px", background: "#bbf7d0", borderRadius: "4px", overflow: "hidden" }}>
+            <div style={{ width: "80%", height: "100%", background: "#22c55e", borderRadius: "4px" }} />
+          </div>
+        </div>
+
+        {/* Escalated */}
+        <div style={{
+          background: "#fff5f5", borderRadius: "12px",
+          border: "1px solid #fecaca", padding: "20px 22px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <p style={{ fontSize: "10px", fontWeight: "800", color: "#dc2626", textTransform: "uppercase", letterSpacing: "0.6px", margin: "0 0 8px" }}>
+                Escalated
+              </p>
+              <h2 style={{ fontSize: "36px", fontWeight: "900", color: "#dc2626", margin: "0 0 10px", lineHeight: 1 }}>
+                7
+              </h2>
+            </div>
+            <div style={{
+              width: "34px", height: "34px", borderRadius: "8px",
+              background: "#fee2e2", display: "flex", alignItems: "center",
+              justifyContent: "center",
+            }}>
+              <AlertCircle size={18} style={{ color: "#dc2626" }} />
+            </div>
+          </div>
+          <div style={{ height: "5px", background: "#fecaca", borderRadius: "4px", overflow: "hidden" }}>
+            <div style={{ width: "20%", height: "100%", background: "#ef4444", borderRadius: "4px" }} />
+          </div>
+        </div>
+      </div>
+
+      {/* VERIFICATION QUEUE TABLE */}
+      <div style={{
+        background: "#fff", borderRadius: "12px",
+        border: "1px solid #e2e8f0",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.04)", overflow: "hidden",
+      }}>
+        {/* TABLE TOP BAR */}
+        <div style={{
+          display: "flex", justifyContent: "space-between",
+          alignItems: "center", padding: "16px 20px",
+          borderBottom: "1px solid #f1f5f9",
+        }}>
+          <h3 style={{ fontSize: "15px", fontWeight: "800", color: "#0f172a", margin: 0 }}>
+            Verification Queue
+          </h3>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "11px" }}>
+            <span style={{ display: "flex", alignItems: "center", gap: "6px", fontWeight: "600", color: "#64748b" }}>
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#4f46e5", display: "inline-block" }} />
+              Priority
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: "6px", fontWeight: "600", color: "#94a3b8" }}>
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#cbd5e1", display: "inline-block" }} />
+              Standard
+            </span>
+          </div>
+        </div>
+
+        {/* TABLE */}
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "900px" }}>
+            <thead>
+              <tr style={{ background: "#f8fafc", borderBottom: "1px solid #f1f5f9" }}>
+                {["USER PROFILE", "SUBMISSION DATE", "TYPE", "DOC STATUS", "ACTIONS"].map(col => (
+                  <th key={col} style={{
+                    textAlign: "left", padding: "11px 16px",
+                    fontSize: "10px", fontWeight: "800",
+                    color: "#94a3b8", letterSpacing: "0.6px",
+                    textTransform: "uppercase",
+                  }}>
+                    {col}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(row => (
+                <ApprovalRow key={row.id} row={row} onAction={handleAction} />
+              ))}
+              {rows.length === 0 && (
+                <tr>
+                  <td colSpan={5} style={{ textAlign: "center", padding: "40px", color: "#94a3b8", fontSize: "13px", fontWeight: "600" }}>
+                    No pending approvals. All caught up! 🎉
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* TABLE FOOTER */}
+        <div style={{
+          display: "flex", justifyContent: "space-between",
+          alignItems: "center", padding: "14px 20px",
+          borderTop: "1px solid #f1f5f9",
+        }}>
+          <p style={{ fontSize: "12px", color: "#94a3b8", fontWeight: "600", margin: 0 }}>
+            Showing <strong style={{ color: "#475569" }}>1 – 4</strong> of <strong style={{ color: "#475569" }}>124</strong> requests
+          </p>
+          <div style={{ display: "flex", gap: "8px" }}>
+            <button
+              type="button"
+              style={{
+                display: "flex", alignItems: "center", gap: "4px",
+                border: "1px solid #e2e8f0", borderRadius: "7px",
+                padding: "6px 14px", background: "#fff",
+                fontSize: "12px", fontWeight: "700", color: "#94a3b8",
+                cursor: "pointer",
+              }}
+            >
+              <ChevronLeft size={14} />
+              Previous
+            </button>
+            <button
+              type="button"
+              style={{
+                display: "flex", alignItems: "center", gap: "4px",
+                border: "none", borderRadius: "7px",
+                padding: "6px 14px", background: "#0f172a",
+                fontSize: "12px", fontWeight: "700", color: "#fff",
+                cursor: "pointer",
+              }}
+            >
+              Next
+              <ChevronRight size={14} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     </AdminShell>
   );
 }

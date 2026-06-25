@@ -62,13 +62,7 @@ export default function RevenueForecasting() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Financial Forecasting</h1>
-            <p className="text-xs text-slate-400 mt-0.5">Predictive AI engine analyzing historical performance and market trends.</p>
-          </div>
-          <div className="self-end sm:self-auto">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-full text-xs font-bold shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Model: Hozify-LLM v4.2</span>
-            </span>
+            <p className="text-xs text-slate-400 mt-0.5">Predictive engine analyzing historical performance and market trends.</p>
           </div>
         </div>
 
@@ -221,7 +215,7 @@ export default function RevenueForecasting() {
                   <th className="px-6 py-3">BUSINESS UNIT</th>
                   <th className="px-6 py-3">CURRENT RUN RATE</th>
                   <th className="px-6 py-3">FORECASTED (6M)</th>
-                  <th className="px-6 py-3 w-[22%]">AI CONFIDENCE</th>
+                  <th className="px-6 py-3 w-[22%]">FORECAST SCORE</th>
                   <th className="px-6 py-3">TREND</th>
                   <th className="px-6 py-3 text-right">ACTION</th>
                 </tr>

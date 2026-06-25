@@ -34,7 +34,8 @@ export default function SupplierComparison() {
   };
 
   const handleApprove = () => {
-    alert('AI recommendation approved. Contract assignment pending procurement signature.');
+    alert('Recommendation approved. Contract assignment pending procurement signature.');
+
   };
 
   return (
@@ -302,14 +303,14 @@ export default function SupplierComparison() {
           </div>
         </div>
 
-        {/* Hozify AI Insights Banner */}
+        {/* Smart Procurement Insights Banner */}
         <div className="panel" style={{ background: '#f5f3ff', border: '1px solid #e0e7ff', borderRadius: '12px', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
           <div style={{ display: 'flex', gap: '16px', flex: 1, minWidth: '280px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#25108f', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Zap size={22} fill="#ffffff" />
             </div>
             <div>
-              <strong style={{ display: 'block', fontSize: '16px', color: '#1c2536' }}>Hozify AI Insights</strong>
+              <strong style={{ display: 'block', fontSize: '16px', color: '#1c2536' }}>Smart Procurement Insights</strong>
               <p style={{ fontSize: '13px', color: '#565365', marginTop: '6px', margin: 0, lineHeight: '1.5' }}>
                 <strong>Precision Alloys Ltd</strong> is the recommended choice based on a 42% faster lead time and 15% cost reduction compared to current benchmarks. Their proximity to the Stuttgart hub further reduces carbon footprint by an estimated 12.4 tonnes annually.
               </p>

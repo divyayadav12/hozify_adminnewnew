@@ -210,7 +210,8 @@ export default function BusinessDocReview() {
                   <Clock size={14} style={{ color: 'var(--muted)', marginTop: '2px' }} />
                   <div>
                     <span style={{ color: 'var(--muted)' }}>10:45 AM</span>
-                    <strong style={{ display: 'block', color: 'var(--text)', marginTop: '2px' }}>AI Engine started OCR processing</strong>
+                    <strong style={{ display: 'block', color: 'var(--text)', marginTop: '2px' }}>OCR processing started</strong>
+
                   </div>
                 </div>
 

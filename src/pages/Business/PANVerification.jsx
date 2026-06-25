@@ -365,7 +365,8 @@ export default function KycVerificationPage() {
                 </h2>
 
                 <div className="rounded-full bg-[#EEEEF1] px-4 py-1 text-[14px] font-medium text-[#666]">
-                  AI Confidence: 98%
+                  Scan Accuracy: 98%
+
                 </div>
 
               </div>

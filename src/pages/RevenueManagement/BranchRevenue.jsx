@@ -1,6 +1,7 @@
 import React from "react";
 import AdminShell from "../../components/layouts/AdminShell";
-import { SlidersHorizontal, Download, MoreVertical, Calendar, Globe, ArrowUpRight, ArrowDownRight, Sparkles } from "lucide-react";
+import { SlidersHorizontal, Download, MoreVertical, Calendar, Globe, ArrowUpRight, ArrowDownRight, TrendingUp } from "lucide-react";
+
 
 export default function BranchRevenue() {
   // Stat Cards Data
@@ -106,7 +107,8 @@ export default function BranchRevenue() {
             </div>
           </div>
 
-          {/* Right Column Panels: Growth Lead & AI Insight */}
+          {/* Right Column Panels: Growth Lead & Performance Insight */}
+
           <div className="flex flex-col gap-6">
             
             {/* Regional Growth Progress Bars */}
@@ -128,12 +130,12 @@ export default function BranchRevenue() {
               </div>
             </div>
 
-            {/* AI Insight Card */}
+            {/* Performance Insight Card */}
             <div className="bg-indigo-950 text-white rounded-xl p-5 shadow-sm relative overflow-hidden">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 text-[10px] font-bold text-indigo-300 tracking-wider uppercase">
-                  <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-                  <span>AI Insight</span>
+                  <TrendingUp className="h-3.5 w-3.5 text-indigo-400" />
+                  <span>Performance Insight</span>
                 </div>
               </div>
               <p className="text-xs text-indigo-100 leading-relaxed mt-3 font-medium">
