@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
-import ExportReportModal from "../../components/common/ExportReportModal";
 
 import {
   Store,
@@ -10,268 +9,121 @@ import {
   BadgeCheck,
   Clock3,
   Download,
-  Plus,
+  X,
 } from "lucide-react";
+import PartnerExportButton from "../../components/ui/PartnerExportButton";
+import PartnerExportModal from "../../components/ui/PartnerExportModal";
 
 const stats = [
-  {
-    title: "Business Sellers",
-    value: "2,846",
-    icon: Store,
-    badge: "+14%",
-    color: "text-emerald-600",
-  },
-  {
-    title: "Verified Sellers",
-    value: "2,512",
-    icon: BadgeCheck,
-    badge: "88%",
-    color: "text-blue-600",
-  },
-  {
-    title: "Pending Personal KYC",
-    value: "84",
-    icon: Clock3,
-    badge: "Review",
-    color: "text-orange-500",
-  },
-  {
-    title: "Active Branches",
-    value: "864",
-    icon: Building2,
-    badge: "Live",
-    color: "text-indigo-600",
-  },
-  {
-    title: "Employees",
-    value: "5,428",
-    icon: Users,
-    badge: "+9%",
-    color: "text-violet-600",
-  },
-  {
-    title: "Wallet Balance",
-    value: "₹1.82Cr",
-    icon: Wallet,
-    badge: "Secure",
-    color: "text-green-600",
-  },
+  { title: "Business Sellers", value: "2,846", icon: Store, badge: "+14%", color: "text-emerald-600" },
+  { title: "Verified Sellers", value: "2,512", icon: BadgeCheck, badge: "88%", color: "text-blue-600" },
+  { title: "Pending Personal KYC", value: "84", icon: Clock3, badge: "Review", color: "text-orange-500" },
+  { title: "Active Branches", value: "864", icon: Building2, badge: "Live", color: "text-indigo-600" },
+  { title: "Employees", value: "5,428", icon: Users, badge: "+9%", color: "text-violet-600" },
+  { title: "Wallet Balance", value: "₹1.82Cr", icon: Wallet, badge: "Secure", color: "text-green-600" },
 ];
 
-const sellers = [
-  {
-    id: "BS-1001",
-    business: "Apex Industrial Solutions",
-    owner: "Rahul Sharma",
-    personalKyc: "Verified",
-    businessKyc: "Verified",
-    branches: 12,
-    employees: 84,
-    status: "Active",
-  },
-  {
-    id: "BS-1002",
-    business: "Urban Build Supplies",
-    owner: "Amit Verma",
-    personalKyc: "Pending",
-    businessKyc: "Verified",
-    branches: 8,
-    employees: 52,
-    status: "Pending",
-  },
-  {
-    id: "BS-1003",
-    business: "Prime Home Essentials",
-    owner: "Rakesh Singh",
-    personalKyc: "Verified",
-    businessKyc: "Pending",
-    branches: 5,
-    employees: 31,
-    status: "Review",
-  },
+const initialSellers = [
+  { id: "BS-1001", business: "Apex Industrial Solutions", owner: "Rahul Sharma", personalKyc: "Verified", businessKyc: "Verified", branches: 12, employees: 84, status: "Active" },
+  { id: "BS-1002", business: "Urban Build Supplies", owner: "Amit Verma", personalKyc: "Pending", businessKyc: "Verified", branches: 8, employees: 52, status: "Pending" },
+  { id: "BS-1003", business: "Prime Home Essentials", owner: "Rakesh Singh", personalKyc: "Verified", businessKyc: "Pending", branches: 5, employees: 31, status: "Review" },
 ];
 
 export default function BusinessSellers() {
-  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [filter, setFilter] = useState("All");
+  const [activeModal, setActiveModal] = useState(null); // Pop-up handling state
+  const [isExportOpen, setIsExportOpen] = useState(false);
+
+  const handleExport = (format) => {
+    setIsExportOpen(false);
+    alert(`${format} export for business sellers is starting...`);
+  };
+
+  // Dynamic Filtering for Table
+  const filteredSellers = initialSellers.filter((seller) => {
+    if (filter === "All") return true;
+    return seller.status === filter || seller.personalKyc === filter || seller.businessKyc === filter;
+  });
 
   return (
-    <AdminShell
-      activeTab="Partners"
-      searchPlaceholder="Search business sellers..."
-      pageTitle="Business Seller Operations"
-      pageSubtitle="Monitor and manage all registered business sellers, their compliance, revenue and activity."
-    >
-      <div className="space-y-8">
-
+    <AdminShell activeTab="Partners" searchPlaceholder="Search business sellers...">
+      <div className="space-y-6 max-w-[1600px] mx-auto p-4">
+        
         {/* Hero Section */}
-
-        <div className="relative overflow-hidden rounded-[32px] border border-slate-200 bg-white p-8 shadow-sm">
-
-          <div className="absolute right-0 top-0 h-full w-[400px] opacity-20">
-            <div className="absolute right-10 top-10 h-64 w-64 rounded-full border border-indigo-400"></div>
-            <div className="absolute right-24 top-24 h-44 w-44 rounded-full border border-indigo-400"></div>
-          </div>
-
-          <div className="relative z-10 flex items-center justify-between">
-
+        <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm h-fit">
+          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-
-              <span className="rounded-full bg-indigo-50 px-4 py-2 text-xs font-bold tracking-[0.25em] text-indigo-700">
-                BUSINESS SELLER 
+              <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold tracking-wider text-indigo-700">
+                BUSINESS SELLER
               </span>
-
-              <h1 className="mt-6 text-3xl font-bold text-slate-900">
-                Business Seller Operations
-              </h1>
-
-              <p className="mt-4 max-w-3xl text-lg text-slate-600">
-                Manage business sellers, KYC verification,
-                service mapping, branch operations,
-                employee management and wallet monitoring
-                from a centralized platform.
+              <h1 className="mt-3 text-2xl font-bold text-slate-900">Business Seller Operations</h1>
+              <p className="mt-2 max-w-2xl text-sm text-slate-600">
+                Manage business sellers, KYC verification, branches, and wallet monitoring from a centralized platform.
               </p>
-
-              <div className="mt-8 flex gap-4">
-
-                {/* <button className="flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700">
-                  <Plus size={18} />
-                  Add Business Seller
-                </button> */}
-
-                <button 
-                  onClick={() => setIsExportModalOpen(true)}
-                  className="flex items-center gap-2 rounded-2xl border border-slate-200 px-6 py-3 font-medium hover:bg-slate-50"
-                >
-                  <Download size={18} />
-                  Export Report
-                </button>
-
-              </div>
-
             </div>
-
-            <div className="hidden xl:block">
-
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8">
-
-                <p className="text-sm text-slate-500">
-                  VERIFICATION STATUS
-                </p>
-
-                <h2 className="mt-4 text-6xl font-bold text-emerald-500">
-                  96%
-                </h2>
-
-                <p className="mt-2 text-slate-600">
-                  Overall Approval Rate
-                </p>
-
-              </div>
-
+            
+            <div className="flex gap-3 self-end md:self-center">
+              <PartnerExportButton onClick={() => setIsExportOpen(true)} label="Export Report" />
             </div>
-
           </div>
-
         </div>
 
-        {/* KPI Cards */}
+        <PartnerExportModal
+          open={isExportOpen}
+          onClose={() => setIsExportOpen(false)}
+          title="Export Business Seller Report"
+          description="Choose the file format to download the current business seller directory and status data."
+          helper="Includes KYC status, branch counts, employee numbers, and wallet summaries."
+          onExport={handleExport}
+          confirmLabel="Generate Export"
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6 gap-6">
-
+        {/* KPI Cards - Auto fit content */}
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
           {stats.map((item, index) => {
             const Icon = item.icon;
-
             return (
-              <div
-                key={index}
-                className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg transition-all"
-              >
+              <div key={index} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm h-fit hover:shadow-md transition">
                 <div className="flex items-center justify-between">
-
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50">
-                    <Icon
-                      size={24}
-                      className="text-indigo-600"
-                    />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50">
+                    <Icon size={18} className="text-indigo-600" />
                   </div>
-
-                  <span className={`font-bold ${item.color}`}>
-                    {item.badge}
-                  </span>
-
+                  <span className={`text-xs font-bold ${item.color}`}>{item.badge}</span>
                 </div>
-
-                <p className="mt-6 text-sm text-slate-500">
-                  {item.title}
-                </p>
-
-                <h3 className="mt-2 text-4xl font-bold text-slate-900">
-                  {item.value}
-                </h3>
-
+                <p className="mt-4 text-xs text-slate-500 font-medium truncate">{item.title}</p>
+                <h3 className="mt-1 text-xl font-bold text-slate-900 truncate">{item.value}</h3>
               </div>
             );
           })}
-
         </div>
-        {/* ================= BUSINESS SELLER REGISTRY ================= */}
 
-        <div className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
-
-          {/* Header */}
-
-          <div className="flex items-center justify-between border-b border-slate-200 p-6">
-
+        {/* Directory Section */}
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm h-fit">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 p-5 gap-3">
             <div>
-
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
-                Seller Registry
-              </p>
-
-              <h2 className="mt-2 text-3xl font-bold text-slate-900">
-                Business Seller Directory
-              </h2>
-
-              <p className="mt-1 text-slate-500">
-                Manage seller verification, branches and employee records
-              </p>
-
+              <h2 className="text-lg font-bold text-slate-900">Business Seller Directory</h2>
+              <p className="text-xs text-slate-500">Manage records and live status updates.</p>
             </div>
-
-            <button className="rounded-2xl border border-slate-200 px-5 py-3 font-medium hover:bg-slate-50">
-              Advanced Filters
-            </button>
-
+            <div className="text-xs font-medium text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg w-fit">
+              Total: {filteredSellers.length} Sellers Shown
+            </div>
           </div>
 
-          {/* Filters */}
-
-          <div className="flex items-center justify-between border-b border-slate-200 px-6 py-5">
-
-            <div className="flex rounded-2xl bg-slate-100 p-1">
-
-              <button className="rounded-xl bg-white px-5 py-2 font-semibold shadow-sm">
-                All
-              </button>
-
-              <button className="px-5 py-2 text-slate-600">
-                Verified
-              </button>
-
-              <button className="px-5 py-2 text-slate-600">
-                Pending
-              </button>
-
-              <button className="px-5 py-2 text-slate-600">
-                Review
-              </button>
-
+          {/* Real-time Filter Buttons */}
+          <div className="flex items-center border-b border-slate-100 px-5 py-3 bg-slate-50/50">
+            <div className="flex gap-1.5 rounded-xl bg-slate-200/60 p-1 text-xs font-medium">
+              {["All", "Active", "Pending", "Review"].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setFilter(tab)}
+                  className={`rounded-lg px-4 py-1.5 transition ${
+                    filter === tab ? "bg-white text-slate-900 shadow-sm font-semibold" : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
             </div>
-
-            <div className="text-sm text-slate-500">
-              Total 2,846 Sellers
-            </div>
-
           </div>
 
           {/* Table */}
@@ -293,481 +145,133 @@ export default function BusinessSellers() {
                   <th>STATUS</th>
 
                 </tr>
-
               </thead>
-
-              <tbody>
-
-                {sellers.map((seller) => (
-
-                  <tr
-                    key={seller.id}
-                    className="border-t border-slate-100 hover:bg-slate-50 transition"
-                  >
-
-                    <td className="px-6 py-5">
-
-                      <div className="flex items-center gap-4">
-
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-bold">
+              <tbody className="divide-y divide-slate-100">
+                {filteredSellers.map((seller) => (
+                  <tr key={seller.id} className="hover:bg-slate-50/80 transition">
+                    <td className="px-5 py-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold text-xs">
                           {seller.business.charAt(0)}
                         </div>
-
                         <div>
-
-                          <h4 className="font-semibold text-slate-900">
-                            {seller.business}
-                          </h4>
-
-                          <p className="text-sm text-slate-500">
-                            {seller.id}
-                          </p>
-
+                          <h4 className="font-medium text-slate-900 line-clamp-1">{seller.business}</h4>
+                          <p className="text-xs text-slate-400">{seller.id}</p>
                         </div>
-
                       </div>
-
                     </td>
-
-                    <td className="font-medium text-slate-700">
-                      {seller.owner}
+                    <td className="px-4 py-3 text-slate-700 font-medium">{seller.owner}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                        seller.personalKyc === "Verified" ? "bg-emerald-50 text-emerald-700" : "bg-orange-50 text-orange-700"
+                      }`}>{seller.personalKyc}</span>
                     </td>
-
-                    <td>
-
-                      <span
-                        className={`rounded-full px-3 py-1 text-sm font-medium ${
-                          seller.personalKyc === "Verified"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "bg-orange-100 text-orange-700"
-                        }`}
-                      >
-                        {seller.personalKyc}
-                      </span>
-
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                        seller.businessKyc === "Verified" ? "bg-blue-50 text-blue-700" : "bg-orange-50 text-orange-700"
+                      }`}>{seller.businessKyc}</span>
                     </td>
-
-                    <td>
-
-                      <span
-                        className={`rounded-full px-3 py-1 text-sm font-medium ${
-                          seller.businessKyc === "Verified"
-                            ? "bg-blue-100 text-blue-700"
-                            : "bg-orange-100 text-orange-700"
-                        }`}
-                      >
-                        {seller.businessKyc}
-                      </span>
-
+                    <td className="px-4 py-3 text-center font-medium text-slate-700">{seller.branches}</td>
+                    <td className="px-4 py-3 text-center font-medium text-slate-700">{seller.employees}</td>
+                    <td className="px-5 py-3 text-right">
+                      <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${
+                        seller.status === "Active" ? "bg-emerald-100 text-emerald-800" :
+                        seller.status === "Pending" ? "bg-orange-100 text-orange-800" : "bg-violet-100 text-violet-800"
+                      }`}>{seller.status}</span>
                     </td>
-
-                    <td className="font-semibold">
-                      {seller.branches}
-                    </td>
-
-                    <td className="font-semibold">
-                      {seller.employees}
-                    </td>
-
-                    <td>
-
-                      <span
-                        className={`rounded-full px-4 py-2 text-sm font-semibold ${
-                          seller.status === "Active"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : seller.status === "Pending"
-                            ? "bg-orange-100 text-orange-700"
-                            : "bg-violet-100 text-violet-700"
-                        }`}
-                      >
-                        {seller.status}
-                      </span>
-
-                    </td>
-
                   </tr>
-
                 ))}
-
               </tbody>
 
             </table></div>
 
+        {/* Two Column Layout for operations - Highly Compacted */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          {/* Service & Verification Cards Combined info */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 h-fit">
+            <h3 className="text-base font-bold text-slate-900">Verification Checklists</h3>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="p-3 bg-slate-50 rounded-xl space-y-2">
+                <p className="font-semibold text-slate-500 mb-1">PERSONAL KYC</p>
+                <div className="flex justify-between"><span>Identity Document</span><span className="text-emerald-600 font-medium">Verified</span></div>
+                <div className="flex justify-between"><span>PAN Card</span><span className="text-emerald-600 font-medium">Verified</span></div>
+                <div className="flex justify-between"><span>Address Details</span><span className="text-orange-600 font-medium">Pending</span></div>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-xl space-y-2">
+                <p className="font-semibold text-slate-500 mb-1">BUSINESS REGISTRY</p>
+                <div className="flex justify-between"><span>GST Filing</span><span className="text-blue-600 font-medium">Approved</span></div>
+                <div className="flex justify-between"><span>Business PAN</span><span className="text-blue-600 font-medium">Approved</span></div>
+                <div className="flex justify-between"><span>Trade License</span><span className="text-orange-600 font-medium">Pending</span></div>
+              </div>
+            </div>
           </div>
 
-          {/* Footer */}
+          {/* Quick Actions Panel */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 h-fit">
+            <h3 className="text-base font-bold text-slate-900">Quick Operations</h3>
+            <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
+              {[
+                "Add Business Seller",
+                "Approve Pending KYC",
+                "Manage Branches",
+                "Wallet Audit Logs"
+              ].map((action) => (
+                <button
+                  key={action}
+                  onClick={() => setActiveModal(action)}
+                  className="p-3 text-left rounded-xl border border-slate-100 bg-slate-50 font-semibold text-slate-800 hover:border-indigo-300 hover:bg-indigo-50/50 transition"
+                >
+                  {action}
+                </button>
+              ))}
+            </div>
+          </div>
 
-          <div className="flex items-center justify-between border-t border-slate-200 px-6 py-5">
+        </div>
+      </div>
 
-            <p className="text-sm text-slate-500">
-              Showing 1–3 of 2,846 Sellers
-            </p>
-
-            <div className="flex gap-2">
-
-              <button className="h-10 w-10 rounded-xl border bg-indigo-600 text-white">
-                1
+      {/* Dynamic Pop-up Modal Wrapper */}
+      {activeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl border border-slate-100 mx-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-lg font-bold text-slate-900">{activeModal}</h3>
+              <button 
+                onClick={() => setActiveModal(null)}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
+              >
+                <X size={18} />
               </button>
-
-              <button className="h-10 w-10 rounded-xl border">
-                2
-              </button>
-
-              <button className="h-10 w-10 rounded-xl border">
-                3
-              </button>
-
+            </div>
+            
+            <div className="mt-4 text-sm text-slate-600">
+              <p>Are you sure you want to trigger the action for <strong>{activeModal}</strong>?</p>
+              <div className="mt-3 bg-indigo-50 p-3 rounded-xl text-xs text-indigo-700 font-medium">
+                ⚡ Fetching real-time system queues... Ready to process request.
+              </div>
             </div>
 
+            <div className="mt-6 flex justify-end gap-3 text-sm font-medium">
+              <button 
+                onClick={() => setActiveModal(null)}
+                className="rounded-xl border border-slate-200 px-4 py-2 hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => {
+                  alert(`${activeModal} Successful!`);
+                  setActiveModal(null);
+                }}
+                className="rounded-xl bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
+              >
+                Confirm Action
+              </button>
+            </div>
           </div>
-
         </div>
-        {/* ================= VERIFICATION CENTER ================= */}
-
-<div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-
-  {/* Personal KYC */}
-
-  <div className="rounded-[32px] border border-slate-200 bg-white p-8">
-
-    <h3 className="text-2xl font-bold text-slate-900">
-      Personal KYC Verification
-    </h3>
-
-    <p className="mt-2 text-slate-500">
-      Review seller identity verification requests.
-    </p>
-
-    <div className="mt-6 space-y-4">
-
-      {[
-        ["Aadhaar Verification", "Verified"],
-        ["PAN Verification", "Verified"],
-        ["Mobile Verification", "Verified"],
-        ["Address Verification", "Pending"],
-      ].map(([title, status]) => (
-        <div
-          key={title}
-          className="flex items-center justify-between rounded-2xl bg-slate-50 p-4"
-        >
-          <span>{title}</span>
-
-          <span
-            className={`rounded-full px-3 py-1 text-sm font-medium ${
-              status === "Verified"
-                ? "bg-emerald-100 text-emerald-700"
-                : "bg-orange-100 text-orange-700"
-            }`}
-          >
-            {status}
-          </span>
-        </div>
-      ))}
-
-    </div>
-
-  </div>
-
-  {/* Business Verification */}
-
-  <div className="rounded-[32px] border border-slate-200 bg-white p-8">
-
-    <h3 className="text-2xl font-bold text-slate-900">
-      Business Verification
-    </h3>
-
-    <p className="mt-2 text-slate-500">
-      Monitor business registration and compliance approvals.
-    </p>
-
-    <div className="mt-6 space-y-4">
-
-      {[
-        ["GST Verification", "Approved"],
-        ["Business PAN", "Approved"],
-        ["Trade License", "Approved"],
-        ["Company Registration", "Pending"],
-      ].map(([title, status]) => (
-        <div
-          key={title}
-          className="flex items-center justify-between rounded-2xl bg-slate-50 p-4"
-        >
-          <span>{title}</span>
-
-          <span
-            className={`rounded-full px-3 py-1 text-sm font-medium ${
-              status === "Approved"
-                ? "bg-blue-100 text-blue-700"
-                : "bg-orange-100 text-orange-700"
-            }`}
-          >
-            {status}
-          </span>
-        </div>
-      ))}
-
-    </div>
-
-  </div>
-
-</div>
-
-{/* ================= SERVICE MAPPING + BRANCHES ================= */}
-
-<div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-
-  {/* Service Mapping */}
-
-  <div className="rounded-[32px] border border-slate-200 bg-white p-8">
-
-    <h3 className="text-2xl font-bold text-slate-900">
-      Service Mapping
-    </h3>
-
-    <p className="mt-2 text-slate-500">
-      Assigned services available for business sellers.
-    </p>
-
-    <div className="mt-6 grid grid-cols-2 gap-4">
-
-      {[
-        "Internet Services",
-        "Electrical Services",
-        "Construction",
-        "Home Solutions",
-        "Maintenance",
-        "Security Systems",
-      ].map((item) => (
-        <div
-          key={item}
-          className="rounded-2xl border border-slate-200 p-4"
-        >
-          <h4 className="font-semibold text-slate-900">
-            {item}
-          </h4>
-
-          <p className="mt-1 text-sm text-slate-500">
-            Active Category
-          </p>
-        </div>
-      ))}
-
-    </div>
-
-  </div>
-
-  {/* Branch Management */}
-
-  <div className="rounded-[32px] border border-slate-200 bg-white p-8">
-
-    <h3 className="text-2xl font-bold text-slate-900">
-      Branch Management
-    </h3>
-
-    <p className="mt-2 text-slate-500">
-      Track seller branch operations.
-    </p>
-
-    <div className="mt-6 grid grid-cols-2 gap-4">
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Total Branches
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold">
-          864
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Active Branches
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold text-emerald-600">
-          812
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Inactive
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold text-red-500">
-          32
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Pending Approval
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold text-orange-500">
-          20
-        </h4>
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-{/* ================= EMPLOYEE + WALLET ================= */}
-
-<div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-
-  {/* Employee */}
-
-  <div className="rounded-[32px] border border-slate-200 bg-white p-8">
-
-    <h3 className="text-2xl font-bold text-slate-900">
-      Employee Management
-    </h3>
-
-    <div className="mt-6 grid grid-cols-2 gap-4">
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Total Employees
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold">
-          5,428
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Active
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold text-emerald-600">
-          5,012
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          On Leave
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold text-orange-500">
-          286
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Suspended
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold text-red-500">
-          130
-        </h4>
-      </div>
-
-    </div>
-
-  </div>
-
-  {/* Wallet */}
-
-  <div className="rounded-[32px] border border-slate-200 bg-white p-8">
-
-    <h3 className="text-2xl font-bold text-slate-900">
-      Wallet Monitoring
-    </h3>
-
-    <div className="mt-6 grid grid-cols-2 gap-4">
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Available Balance
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold">
-          ₹1.82Cr
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Pending Settlement
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold">
-          ₹24.5L
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Withdraw Requests
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold">
-          ₹12.4L
-        </h4>
-      </div>
-
-      <div className="rounded-2xl bg-slate-50 p-5">
-        <p className="text-sm text-slate-500">
-          Frozen Amount
-        </p>
-
-        <h4 className="mt-2 text-3xl font-bold text-red-500">
-          ₹2.1L
-        </h4>
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-{/* ================= QUICK ACTIONS ================= */}
-
-<div className="rounded-[32px] border border-slate-200 bg-white p-8">
-
-  <h3 className="text-2xl font-bold text-slate-900">
-    Quick Actions
-  </h3>
-
-  <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-
-    {[
-      "Add Business Seller",
-      "Approve Personal KYC",
-      "Approve Business KYC",
-      "Manage Branches",
-      "Manage Employees",
-      "Wallet Audit",
-    ].map((item) => (
-      <button
-        key={item}
-        className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-left hover:border-indigo-300 hover:bg-indigo-50 transition-all"
-      >
-        <h4 className="font-semibold text-slate-900">
-          {item}
-        </h4>
-      </button>
-    ))}
-
-  </div>
-
-</div>
-      </div>
-      <ExportReportModal 
-        isOpen={isExportModalOpen} 
-        onClose={() => setIsExportModalOpen(false)} 
-        entityName="Business Sellers" 
-        data={sellers} 
-      />
+      )}
     </AdminShell>
   );
 }

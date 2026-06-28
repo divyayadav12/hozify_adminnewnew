@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell"; // आपका एडमिन शेल कंपोनेंट
-import ExportReportModal from "../../components/common/ExportReportModal";
 
 import {
   ShieldAlert,
@@ -16,18 +15,94 @@ import {
   ChevronRight,
   MoreHorizontal
 } from "lucide-react";
+import PartnerExportButton from "../../components/ui/PartnerExportButton";
+import PartnerExportModal from "../../components/ui/PartnerExportModal";
 
-export default function partnerApprovals() {
-  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+// स्टैटिक डेटा (Mock Data) जिसे हम फ़िल्टर करेंगे
+const INITIAL_TASKS = [
+  {
+    id: "PRT-99201",
+    partnerName: "Nexis Logistics",
+    initials: "NX",
+    type: "ISP",
+    pendingItem: "KYC Verification",
+    icon: UserCheck,
+    date: "Oct 24, 2023",
+    time: "09:12 AM",
+    priority: "High",
+    priorityColor: "rose"
+  },
+  {
+    id: "PRT-88421",
+    partnerName: "Blue Freight Inc.",
+    initials: "BF",
+    type: "BSP",
+    pendingItem: "Bank Verification",
+    icon: Building2,
+    date: "Oct 24, 2023",
+    time: "10:45 AM",
+    priority: "Medium",
+    priorityColor: "amber"
+  },
+  {
+    id: "PRT-10293",
+    partnerName: "Swift Ventures",
+    initials: "SV",
+    type: "ISP",
+    pendingItem: "Tax Documents",
+    icon: FileText,
+    date: "Oct 23, 2023",
+    time: "04:30 PM",
+    priority: "Low",
+    priorityColor: "slate"
+  },
+  {
+    id: "PRT-20938",
+    partnerName: "Global Reach Co.",
+    initials: "GR",
+    type: "BSP",
+    pendingItem: "New Branch: Singapore",
+    icon: GitBranch,
+    date: "Oct 23, 2023",
+    time: "01:15 PM",
+    priority: "Medium",
+    priorityColor: "amber"
+  }
+];
+
+export default function PartnerApprovals() {
+  // स्टेट्स (States) मैनेजमेंट
+  const [activeTab, setActiveTab] = useState("all"); // 'all' या 'assigned'
+  const [selectedMetric, setSelectedMetric] = useState("all"); // 'all', 'KYC', 'Bank', 'Branch', 'Documents'
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isExportOpen, setIsExportOpen] = useState(false);
+
+  const handleExport = (format) => {
+    setIsExportOpen(false);
+    alert(`${format} export for approval queue has started.`);
+  };
+
+  // 1. फ़िल्टर लॉजिक (Tab और Metric के आधार पर)
+  const filteredTasks = INITIAL_TASKS.filter((task) => {
+    // टैब फ़िल्टर (उदाहरण के लिए ID के आधार पर 'Assigned to Me' मान लेते हैं)
+    if (activeTab === "assigned" && task.id !== "PRT-99201") {
+      return false;
+    }
+
+    // मेट्रिक्स कार्ड फ़िल्टर
+    if (selectedMetric === "KYC" && !task.pendingItem.includes("KYC")) return false;
+    if (selectedMetric === "Bank" && !task.pendingItem.includes("Bank")) return false;
+    if (selectedMetric === "Branch" && !task.pendingItem.includes("Branch")) return false;
+    if (selectedMetric === "Documents" && !task.pendingItem.includes("Documents") && !task.pendingItem.includes("Tax")) return false;
+
+    return true;
+  });
 
   return (
     <AdminShell
       activeTab="Partners"
       searchPlaceholder="Search approvals, partners, or IDs..."
-      pageTitle="Partner Approval Queue"
-      pageSubtitle="Manage and verify pending administrative requests from global partners."
     >
-      {/* मुख्य लाइट बैकग्राउंड कंटेनर - बिना किसी डार्क थीम लाइन्स के */}
       <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-800 p-8 space-y-6">
         
         {/* ================= HEADER SECTION ================= */}
@@ -44,24 +119,36 @@ export default function partnerApprovals() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm">
+            <button 
+              onClick={() => alert("Opening advanced filter options...")}
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm"
+            >
               <SlidersHorizontal size={14} />
               Filter Requests
             </button>
-            <button 
-              onClick={() => setIsExportModalOpen(true)}
-              className="inline-flex items-center gap-2 rounded-lg bg-indigo-900 px-4 py-2.5 text-xs font-bold text-white hover:bg-indigo-950 transition shadow-sm"
-            >
-              <Download size={14} />
-              Export Report
-            </button>
+            <PartnerExportButton onClick={() => setIsExportOpen(true)} label="Export Report" />
+            <PartnerExportModal
+              open={isExportOpen}
+              onClose={() => setIsExportOpen(false)}
+              title="Export Approval Report"
+              description="Choose the file format to export partner approval queue metrics and audit-ready summaries."
+              helper="Exports include approval statuses, partner verification trends, and task-level analytics."
+              onExport={handleExport}
+              confirmLabel="Generate Export"
+            />
           </div>
         </div>
 
         {/* ================= METRICS STATS GRID ================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          
           {/* Pending KYC */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-start justify-between">
+          <div 
+            onClick={() => setSelectedMetric(selectedMetric === "KYC" ? "all" : "KYC")}
+            className={`rounded-xl border p-5 shadow-sm flex items-start justify-between cursor-pointer transition-all ${
+              selectedMetric === "KYC" ? "border-indigo-600 bg-indigo-50/50 ring-2 ring-indigo-600/20" : "border-slate-200 bg-white hover:border-slate-300"
+            }`}
+          >
             <div className="space-y-4">
               <p className="text-xs font-bold text-slate-500">Pending KYC</p>
               <p className="text-[11px] font-extrabold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md inline-block">
@@ -77,7 +164,7 @@ export default function partnerApprovals() {
           </div>
 
           {/* Pending Services */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-start justify-between">
+          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-start justify-between opacity-60">
             <div className="space-y-4">
               <p className="text-xs font-bold text-slate-500">Pending Services</p>
               <p className="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md inline-block">
@@ -93,7 +180,12 @@ export default function partnerApprovals() {
           </div>
 
           {/* Pending Branches */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-start justify-between">
+          <div 
+            onClick={() => setSelectedMetric(selectedMetric === "Branch" ? "all" : "Branch")}
+            className={`rounded-xl border p-5 shadow-sm flex items-start justify-between cursor-pointer transition-all ${
+              selectedMetric === "Branch" ? "border-amber-500 bg-amber-50/30 ring-2 ring-amber-500/20" : "border-slate-200 bg-white hover:border-slate-300"
+            }`}
+          >
             <div className="space-y-4">
               <p className="text-xs font-bold text-slate-500">Pending Branches</p>
               <p className="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md inline-block">
@@ -109,7 +201,12 @@ export default function partnerApprovals() {
           </div>
 
           {/* Pending Documents */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-start justify-between">
+          <div 
+            onClick={() => setSelectedMetric(selectedMetric === "Documents" ? "all" : "Documents")}
+            className={`rounded-xl border p-5 shadow-sm flex items-start justify-between cursor-pointer transition-all ${
+              selectedMetric === "Documents" ? "border-blue-500 bg-blue-50/30 ring-2 ring-blue-500/20" : "border-slate-200 bg-white hover:border-slate-300"
+            }`}
+          >
             <div className="space-y-4">
               <p className="text-xs font-bold text-slate-500">Pending Documents</p>
               <p className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md inline-block">
@@ -125,7 +222,12 @@ export default function partnerApprovals() {
           </div>
 
           {/* Bank Verification */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-start justify-between">
+          <div 
+            onClick={() => setSelectedMetric(selectedMetric === "Bank" ? "all" : "Bank")}
+            className={`rounded-xl border p-5 shadow-sm flex items-start justify-between cursor-pointer transition-all ${
+              selectedMetric === "Bank" ? "border-orange-500 bg-orange-50/30 ring-2 ring-orange-500/20" : "border-slate-200 bg-white hover:border-slate-300"
+            }`}
+          >
             <div className="space-y-4">
               <p className="text-xs font-bold text-slate-500">Bank Verification</p>
               <p className="text-[11px] font-extrabold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md inline-block">
@@ -148,11 +250,31 @@ export default function partnerApprovals() {
             <div className="flex items-center gap-4">
               <h2 className="text-base font-bold text-slate-900">Active Approval Queue</h2>
               <div className="inline-flex rounded-lg bg-slate-100 p-1 text-xs font-bold text-slate-600">
-                <button className="rounded-md bg-white px-3 py-1 text-slate-900 shadow-sm">All Tasks</button>
-                <button className="rounded-md px-3 py-1 hover:text-slate-900">Assigned to Me</button>
+                <button 
+                  onClick={() => setActiveTab("all")}
+                  className={`rounded-md px-3 py-1 transition ${activeTab === "all" ? "bg-white text-slate-900 shadow-sm" : "hover:text-slate-900"}`}
+                >
+                  All Tasks
+                </button>
+                <button 
+                  onClick={() => setActiveTab("assigned")}
+                  className={`rounded-md px-3 py-1 transition ${activeTab === "assigned" ? "bg-white text-slate-900 shadow-sm" : "hover:text-slate-900"}`}
+                >
+                  Assigned to Me
+                </button>
               </div>
             </div>
-            <p className="text-xs font-bold text-slate-400">Showing 1-10 of 94 items</p>
+            <div className="flex items-center gap-2">
+              {selectedMetric !== "all" && (
+                <button 
+                  onClick={() => setSelectedMetric("all")}
+                  className="text-xs font-bold bg-indigo-50 text-indigo-600 px-2 py-1 rounded hover:bg-indigo-100"
+                >
+                  Clear Filter ✕
+                </button>
+              )}
+              <p className="text-xs font-bold text-slate-400">Showing {filteredTasks.length} items</p>
+            </div>
           </div>
 
           {/* Responsive Table */}
@@ -169,139 +291,59 @@ export default function partnerApprovals() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-700">
-                
-                {/* Row 1 */}
-                <tr className="hover:bg-slate-50/40 transition">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center gap-3">
-                      <div className="h-9 w-9 flex items-center justify-between justify-center rounded-lg bg-slate-200 font-bold text-xs text-slate-600">
-                        <span className="w-full text-center">NX</span>
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-900">Nexis Logistics</p>
-                        <p className="text-[11px] text-slate-400 font-semibold font-mono">ID: PRT-99201</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-slate-500">ISP</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-700">
-                      <UserCheck size={14} /> KYC Verification
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
-                    <p className="font-semibold text-slate-800">Oct 24, 2023</p>
-                    <p className="text-[10px]">09:12 AM</p>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-rose-600">
-                      <span className="h-1.5 w-1.5 rounded-full bg-rose-600"></span> High
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-slate-400">
-                    <button className="hover:text-slate-600"><MoreHorizontal size={16} /></button>
-                  </td>
-                </tr>
-
-                {/* Row 2 */}
-                <tr className="hover:bg-slate-50/40 transition">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center gap-3">
-                      <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-blue-50 font-bold text-xs text-blue-700">
-                        BF
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-900">Blue Freight Inc.</p>
-                        <p className="text-[11px] text-slate-400 font-semibold font-mono">ID: PRT-88421</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap"><span className="text-[10px] font-bold px-1.5 py-0.5 bg-slate-100 rounded text-slate-500">BSP</span></td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700">
-                      <Building2 size={14} /> Bank Verification
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
-                    <p className="font-semibold text-slate-800">Oct 24, 2023</p>
-                    <p className="text-[10px]">10:45 AM</p>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-600">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span> Medium
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-slate-400">
-                    <button className="hover:text-slate-600"><MoreHorizontal size={16} /></button>
-                  </td>
-                </tr>
-
-                {/* Row 3 */}
-                <tr className="hover:bg-slate-50/40 transition">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center gap-3">
-                      <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-indigo-50 font-bold text-xs text-indigo-700">
-                        SV
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-900">Swift Ventures</p>
-                        <p className="text-[11px] text-slate-400 font-semibold font-mono">ID: PRT-10293</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-slate-500">ISP</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700">
-                      <FileText size={14} /> Tax Documents
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
-                    <p className="font-semibold text-slate-800">Oct 23, 2023</p>
-                    <p className="text-[10px]">04:30 PM</p>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-slate-500">
-                      <span className="h-1.5 w-1.5 rounded-full bg-slate-400"></span> Low
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-slate-400">
-                    <button className="hover:text-slate-600"><MoreHorizontal size={16} /></button>
-                  </td>
-                </tr>
-
-                {/* Row 4 */}
-                <tr className="hover:bg-slate-50/40 transition">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center gap-3">
-                      <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-orange-50 font-bold text-xs text-orange-700">
-                        GR
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-900">Global Reach Co.</p>
-                        <p className="text-[11px] text-slate-400 font-semibold font-mono">ID: PRT-20938</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap"><span className="text-[10px] font-bold px-1.5 py-0.5 bg-slate-100 rounded text-slate-500">BSP</span></td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700">
-                      <GitBranch size={14} /> New Branch: Singapore
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
-                    <p className="font-semibold text-slate-800">Oct 23, 2023</p>
-                    <p className="text-[10px]">01:15 PM</p>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-600">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span> Medium
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-slate-400">
-                    <button className="hover:text-slate-600"><MoreHorizontal size={16} /></button>
-                  </td>
-                </tr>
-
+                {filteredTasks.length > 0 ? (
+                  filteredTasks.map((task) => {
+                    const TaskIcon = task.icon;
+                    return (
+                      <tr key={task.id} className="hover:bg-slate-50/40 transition">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center gap-3">
+                            <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-slate-100 font-bold text-xs text-slate-600">
+                              <span>{task.initials}</span>
+                            </div>
+                            <div>
+                              <p className="text-sm font-bold text-slate-900">{task.partnerName}</p>
+                              <p className="text-[11px] text-slate-400 font-semibold font-mono">ID: {task.id}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 bg-slate-100 rounded text-slate-500">
+                            {task.type}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-700">
+                            <TaskIcon size={14} /> {task.pendingItem}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
+                          <p className="font-semibold text-slate-800">{task.date}</p>
+                          <p className="text-[10px]">{task.time}</p>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`inline-flex items-center gap-1 text-xs font-bold text-${task.priorityColor}-600`}>
+                            <span className={`h-1.5 w-1.5 rounded-full bg-${task.priorityColor}-500`}></span> {task.priority}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-slate-400">
+                          <button 
+                            onClick={() => alert(`Opening context menu for ${task.partnerName}...`)}
+                            className="hover:text-slate-600"
+                          >
+                            <MoreHorizontal size={16} />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center py-8 text-slate-400 font-medium text-sm">
+                      No pending requests found for this filter.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table></div>
           </div>
@@ -334,7 +376,10 @@ export default function partnerApprovals() {
             <p className="text-sm text-indigo-200 leading-relaxed font-medium">
               Enable Smart-Approval for trusted partners to bypass standard manual review for low-risk documents and branch updates.
             </p>
-            <button className="mt-2 rounded-lg bg-white px-5 py-2.5 text-xs font-bold text-indigo-900 hover:bg-slate-50 transition shadow-sm">
+            <button 
+              onClick={() => alert("Opening automation rules configuration panel...")}
+              className="mt-2 rounded-lg bg-white px-5 py-2.5 text-xs font-bold text-indigo-900 hover:bg-slate-50 transition shadow-sm"
+            >
               Configure Rules
             </button>
           </div>
@@ -349,12 +394,6 @@ export default function partnerApprovals() {
         </div>
 
       </div>
-      
-      <ExportReportModal 
-        isOpen={isExportModalOpen} 
-        onClose={() => setIsExportModalOpen(false)} 
-        entityName="Partner Approvals" 
-      />
     </AdminShell>
   );
 }

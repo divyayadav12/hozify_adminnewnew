@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
-import ExportReportModal from "../../components/common/ExportReportModal";
 
 import {
   Building2,
@@ -10,27 +9,45 @@ import {
   ArrowUpRight,
   MoreVertical,
 } from "lucide-react";
+import PartnerExportButton from "../../components/ui/PartnerExportButton";
+import PartnerExportModal from "../../components/ui/PartnerExportModal";
 
 const branchStats = [
   {
     title: "Active Branches",
     value: "812",
     growth: "+12%",
+    icon: Building2,
+    color: "text-emerald-600",
+    bg: "bg-emerald-100",
+    description: "Branches currently fully operational.",
   },
   {
     title: "Coverage Cities",
     value: "148",
     growth: "+8%",
+    icon: MapPinned,
+    color: "text-cyan-600",
+    bg: "bg-cyan-100",
+    description: "Cities covered by active branch services.",
   },
   {
     title: "Branch Managers",
     value: "864",
     growth: "+15%",
+    icon: Users,
+    color: "text-indigo-600",
+    bg: "bg-indigo-100",
+    description: "Managers driving partner branch outcomes.",
   },
   {
     title: "Service Mapping",
     value: "96%",
     growth: "+4%",
+    icon: Activity,
+    color: "text-orange-600",
+    bg: "bg-orange-100",
+    description: "Service mapping coverage across locations.",
   },
 ];
 
@@ -61,15 +78,85 @@ const branches = [
   },
 ];
 
+const actionInfo = {
+  add: {
+    title: "Add Branch",
+    description: "Start a new branch setup flow with manager assignment, service mapping, and coverage planning.",
+  },
+  coverage: {
+    title: "Coverage Map",
+    description: "View the latest city coverage and branch reach, with hotspot regions highlighted for action.",
+  },
+  export: {
+    title: "Export Data",
+    description: "Generate a branch export package with the latest directory records and regional performance metrics.",
+  },
+  default: {
+    title: "Branch Actions",
+    description: "Click an action button to see a focused pop-up with the next step for branch operations.",
+  },
+};
+
 export default function PartnerBranches() {
-  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [activeStatIndex, setActiveStatIndex] = useState(0);
+  const [actionMode, setActionMode] = useState("default");
+  const [selectedExportOptions, setSelectedExportOptions] = useState(["all"]);
+  const [isExportOpen, setIsExportOpen] = useState(false);
+  const activeStat = branchStats[activeStatIndex];
+  const activeAction = actionInfo[actionMode] || actionInfo.default;
+
+  const branchExportStats = {
+    total: branches.length,
+    active: branches.filter((branch) => branch.status === "Active").length,
+    pending: branches.filter((branch) => branch.status !== "Active").length,
+  };
+
+  const exportOptions = [
+    {
+      key: "directory",
+      label: "Branch Directory",
+      description: "Branch names, IDs, managers and city details.",
+    },
+    {
+      key: "coverage",
+      label: "Coverage Map Report",
+      description: "Coverage and service reach per city.",
+    },
+    {
+      key: "performance",
+      label: "Performance Summary",
+      description: "Branch KPIs, uptime and SLA metrics.",
+    },
+    {
+      key: "all",
+      label: "Full Export Package",
+      description: "All documents and reports in one download.",
+    },
+  ];
+
+  const toggleExportOption = (key) => {
+    setSelectedExportOptions((current) => {
+      if (key === "all") {
+        return ["all"];
+      }
+
+      const next = current.includes(key)
+        ? current.filter((item) => item !== key)
+        : [...current.filter((item) => item !== "all"), key];
+
+      return next.length === 0 ? ["all"] : next;
+    });
+  };
+
+  const handleExport = (format) => {
+    setIsExportOpen(false);
+    alert(`${format} export for branch data is starting...`);
+  };
 
   return (
     <AdminShell
       activeTab="Partners"
       searchPlaceholder="Search branches..."
-      pageTitle="Branch Network Command Center"
-      pageSubtitle="Monitor branch performance, regional coverage, workforce allocation and service mapping."
     >
       <div className="space-y-8">
 
@@ -105,44 +192,148 @@ export default function PartnerBranches() {
                   the entire partner network.
                 </p>
 
-                <div className="mt-8 flex gap-4">
+                <div className="mt-8 flex flex-wrap gap-3">
 
-                  <button className="rounded-2xl bg-slate-900 px-6 py-3 text-white font-semibold">
+                  <button
+                    type="button"
+                    onClick={() => setActionMode("add")}
+                    className={`rounded-2xl px-5 py-2.5 text-sm font-semibold transition ${
+                      actionMode === "add"
+                        ? "bg-indigo-600 text-white"
+                        : "bg-slate-100 text-slate-900 hover:bg-slate-200"
+                    }`}
+                  >
                     Add Branch
                   </button>
 
-                  <button className="rounded-2xl border border-slate-300 px-6 py-3 font-semibold">
+                  <button
+                    type="button"
+                    onClick={() => setActionMode("coverage")}
+                    className={`rounded-2xl px-5 py-2.5 text-sm font-semibold transition ${
+                      actionMode === "coverage"
+                        ? "bg-cyan-600 text-white"
+                        : "bg-slate-100 text-slate-900 hover:bg-slate-200"
+                    }`}
+                  >
                     Coverage Map
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActionMode("export")}
+                    className={`rounded-2xl px-5 py-2.5 text-sm font-semibold transition ${
+                      actionMode === "export"
+                        ? "bg-emerald-600 text-white"
+                        : "bg-slate-100 text-slate-900 hover:bg-slate-200"
+                    }`}
+                  >
+                    Export Data
                   </button>
 
                 </div>
 
+                {actionMode !== "default" && (
+                  <div className="relative mt-5">
+                    <div className="absolute -top-2 left-6 h-4 w-4 rotate-45 rounded-sm bg-white shadow-sm" />
+                    <div className="rounded-3xl border border-slate-200 bg-white p-4 text-slate-900 shadow-lg">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                            Action Preview
+                          </p>
+                          <h4 className="mt-2 text-lg font-semibold text-slate-900">
+                            {activeAction.title}
+                          </h4>
+                        </div>
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                          {activeAction.title}
+                        </span>
+                      </div>
+                      <p className="mt-3 text-sm text-slate-600">
+                        {activeAction.description}
+                      </p>
+
+                      {actionMode === "export" && (
+                        <div className="mt-5 space-y-3">
+                          {exportOptions.map((option) => (
+                            <button
+                              key={option.key}
+                              type="button"
+                              onClick={() => toggleExportOption(option.key)}
+                              className={`flex w-full items-start justify-between rounded-3xl border px-4 py-4 text-left transition duration-200 ${
+                                selectedExportOptions.includes(option.key)
+                                  ? "border-indigo-500 bg-indigo-50"
+                                  : "border-slate-200 bg-slate-50 hover:border-indigo-300 hover:bg-slate-100"
+                              }`}
+                            >
+                              <div>
+                                <p className="text-sm font-semibold text-slate-900">
+                                  {option.label}
+                                </p>
+                                <p className="mt-1 text-sm text-slate-500">
+                                  {option.description}
+                                </p>
+                              </div>
+                              <span className={`mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold ${
+                                selectedExportOptions.includes(option.key)
+                                  ? "border-indigo-500 bg-indigo-600 text-white"
+                                  : "border-slate-200 bg-white text-slate-400"
+                              }`}>
+                                {selectedExportOptions.includes(option.key) ? "✓" : ""}
+                              </span>
+                            </button>
+                          ))}
+
+                          <div className="flex justify-end">
+                            <button
+                              type="button"
+                              className="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                            >
+                              Export Selected
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
               </div>
 
-              <div className="grid grid-cols-2 gap-4 min-w-[380px]">
+              <div className="grid grid-cols-2 gap-3 min-w-[380px]">
 
-                {branchStats.map((item) => (
+                {branchStats.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={item.title}
+                      type="button"
+                      onClick={() => setActiveStatIndex(index)}
+                      className={`rounded-3xl border px-4 py-4 text-left transition duration-200 ${
+                        activeStatIndex === index
+                          ? "border-indigo-400 bg-indigo-50 shadow-md"
+                          : "border-slate-200 bg-slate-50 hover:border-indigo-300 hover:bg-slate-100"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-3xl ${item.bg} shadow-lg`}>
+                          <Icon className={`h-7 w-7 ${item.color} stroke-2`} />
+                        </div>
+                        <span className={`text-sm font-semibold ${item.color}`}>
+                          {item.growth}
+                        </span>
+                      </div>
 
-                  <div
-                    key={item.title}
-                    className="rounded-3xl border border-slate-200 bg-slate-50 p-5"
-                  >
-                    <p className="text-sm text-slate-500">
-                      {item.title}
-                    </p>
+                      <p className="mt-4 text-sm font-semibold text-slate-700">
+                        {item.title}
+                      </p>
 
-                    <h3 className="mt-2 text-4xl font-bold">
-                      {item.value}
-                    </h3>
-
-                    <div className="mt-2 flex items-center gap-1 text-emerald-600">
-                      <ArrowUpRight size={16} />
-                      {item.growth}
-                    </div>
-
-                  </div>
-
-                ))}
+                      <h3 className="mt-2 text-3xl font-bold text-slate-900">
+                        {item.value}
+                      </h3>
+                    </button>
+                  );
+                })}
 
               </div>
 
@@ -221,56 +412,55 @@ export default function PartnerBranches() {
 
   {/* Top Branch */}
 
-  <div className="rounded-[32px] bg-slate-900 p-8 text-white">
+  <div className="rounded-[32px] border border-slate-200 bg-slate-50 p-8 text-slate-900">
 
     <div className="flex items-center justify-between">
 
-      <Activity size={28} />
+      <Activity size={28} className="text-orange-600" />
 
-      <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-sm text-emerald-400">
-        Top Performer
+      <span className="rounded-full bg-slate-200 px-3 py-1 text-sm text-slate-700">
+        Top Metric
       </span>
 
     </div>
 
-    <h3 className="mt-8 text-2xl font-bold">
-      Mumbai Central Hub
+    <h3 className="mt-8 text-2xl font-bold text-slate-900">
+      {activeStat.title}
     </h3>
 
-    <p className="mt-3 text-slate-400">
-      Highest operational efficiency and
-      service coverage score this month.
+    <p className="mt-3 text-slate-600">
+      {activeStat.description}
     </p>
 
     <div className="mt-8 space-y-4">
 
       <div className="flex justify-between">
-        <span className="text-slate-400">
-          Efficiency
+        <span className="text-slate-600">
+          Current value
         </span>
 
-        <span className="font-semibold">
-          98.4%
-        </span>
-      </div>
-
-      <div className="flex justify-between">
-        <span className="text-slate-400">
-          Workforce
-        </span>
-
-        <span className="font-semibold">
-          82 Employees
+        <span className="font-semibold text-slate-900">
+          {activeStat.value}
         </span>
       </div>
 
       <div className="flex justify-between">
-        <span className="text-slate-400">
-          Service Requests
+        <span className="text-slate-600">
+          Growth
         </span>
 
-        <span className="font-semibold">
-          1,248
+        <span className={`font-semibold ${activeStat.color}`}>
+          {activeStat.growth}
+        </span>
+      </div>
+
+      <div className="flex justify-between">
+        <span className="text-slate-600">
+          Live update
+        </span>
+
+        <span className="font-semibold text-slate-900">
+          {activeAction.description}
         </span>
       </div>
 
@@ -284,21 +474,21 @@ export default function PartnerBranches() {
 
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-  <div className="rounded-[28px] bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-white">
+  <div className="rounded-[28px] border border-slate-200 bg-slate-50 p-6">
 
-    <Building2 size={30} />
+    <Building2 size={30} className="text-emerald-600" />
 
-    <h3 className="mt-5 text-4xl font-bold">
+    <h3 className="mt-5 text-4xl font-bold text-slate-900">
       864
     </h3>
 
-    <p className="mt-2 text-emerald-100">
+    <p className="mt-2 text-slate-600">
       Total Branch Locations
     </p>
 
   </div>
 
-  <div className="rounded-[28px] border border-slate-200 bg-white p-6">
+  <div className="rounded-[28px] border border-slate-200 bg-slate-50 p-6">
 
     <Users className="text-indigo-600" size={30} />
 
@@ -306,13 +496,13 @@ export default function PartnerBranches() {
       5,428
     </h3>
 
-    <p className="mt-2 text-slate-500">
+    <p className="mt-2 text-slate-600">
       Assigned Workforce
     </p>
 
   </div>
 
-  <div className="rounded-[28px] border border-slate-200 bg-white p-6">
+  <div className="rounded-[28px] border border-slate-200 bg-slate-50 p-6">
 
     <Activity className="text-orange-500" size={30} />
 
@@ -320,7 +510,7 @@ export default function PartnerBranches() {
       96.2%
     </h3>
 
-    <p className="mt-2 text-slate-500">
+    <p className="mt-2 text-slate-600">
       Avg Operational Score
     </p>
 
@@ -333,7 +523,7 @@ export default function PartnerBranches() {
 
   {/* Header */}
 
-  <div className="flex items-center justify-between border-b border-slate-200 p-6">
+  <div className="flex flex-col gap-4 border-b border-slate-200 p-6 md:flex-row md:items-center md:justify-between">
 
     <div>
 
@@ -351,16 +541,20 @@ export default function PartnerBranches() {
 
     </div>
 
-    <button 
-      onClick={() => setIsExportModalOpen(true)}
-      className="rounded-2xl border border-slate-200 px-5 py-3 font-medium hover:bg-slate-50 transition-colors"
-    >
-      Export Branch Data
-    </button>
+        <div className="flex items-center">
+          <PartnerExportButton onClick={() => setIsExportOpen(true)} label="Export Branch Data" />
+        </div>
 
-  </div>
-
-  {/* Table */}
+        <PartnerExportModal
+          open={isExportOpen}
+          onClose={() => setIsExportOpen(false)}
+          title="Export Branch Data"
+          description="Choose your preferred file format to download the current branch dataset."
+          helper="Select one of the available export formats below."
+          onExport={handleExport}
+          confirmLabel="Generate Export"
+        />
+      </div>
 
   <div className="overflow-x-auto">
 
@@ -626,9 +820,9 @@ export default function PartnerBranches() {
 
   {/* Coverage Score */}
 
-  <div className="rounded-[32px] bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 p-8 text-white">
+  <div className="rounded-[32px] border border-slate-200 bg-slate-50 p-8 text-slate-900">
 
-    <p className="text-sm uppercase tracking-wider text-emerald-300">
+    <p className="text-sm uppercase tracking-wider text-slate-500">
       Coverage Health
     </p>
 
@@ -636,35 +830,34 @@ export default function PartnerBranches() {
       96%
     </h2>
 
-    <p className="mt-3 text-slate-300">
-      Overall branch coverage efficiency
-      across all operational regions.
+    <p className="mt-3 text-slate-600">
+      Overall branch coverage efficiency across all operational regions.
     </p>
 
     <div className="mt-10 space-y-5">
 
       <div className="flex justify-between">
-        <span className="text-slate-400">
+        <span className="text-slate-600">
           Active Regions
         </span>
 
-        <span>48</span>
+        <span className="font-semibold text-slate-900">48</span>
       </div>
 
       <div className="flex justify-between">
-        <span className="text-slate-400">
+        <span className="text-slate-600">
           Coverage Cities
         </span>
 
-        <span>148</span>
+        <span className="font-semibold text-slate-900">148</span>
       </div>
 
       <div className="flex justify-between">
-        <span className="text-slate-400">
+        <span className="text-slate-600">
           Expansion Requests
         </span>
 
-        <span>23</span>
+        <span className="font-semibold text-slate-900">23</span>
       </div>
 
     </div>
@@ -731,13 +924,6 @@ export default function PartnerBranches() {
 </div>
 
       </div>
-      
-      <ExportReportModal 
-        isOpen={isExportModalOpen} 
-        onClose={() => setIsExportModalOpen(false)} 
-        entityName="Branch Data" 
-        data={branches} 
-      />
     </AdminShell>
   );
 }

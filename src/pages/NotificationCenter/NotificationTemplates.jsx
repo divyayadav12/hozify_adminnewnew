@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import {
   Search,
@@ -17,13 +17,58 @@ import {
   MoreVertical
 } from "lucide-react";
 
+// Mock Data Source for Dynamic State
+const INITIAL_TEMPLATES = [
+  { id: 1, title: "Welcome Onboard", channel: "email", status: "APPROVED", desc: "First interaction email sent to new users...", time: "2h ago", author: "Admin", internalId: "TMPL_001" },
+  { id: 2, title: "Two-Factor Auth", channel: "sms", status: "PENDING", desc: "Quick SMS template for security codes and logins", time: "5h ago", author: "Sarah J.", internalId: "TMPL_002" },
+  { id: 3, title: "System Downtime", channel: "push", status: "APPROVED", desc: "Critical push notification alert for infrastructure maintenance", time: "1d ago", author: "Admin", internalId: "TMPL_003" },
+  { id: 4, title: "Weekly Digest", channel: "email", status: "APPROVED", desc: "Automated content summary sent every weekend...", time: "3d ago", author: "Mike T.", internalId: "TMPL_004" },
+  { id: 5, title: "Re-engagement", channel: "email", status: "PENDING", desc: "Win-back campaign targeting users who have been inactive", time: "4d ago", author: "Sarah J.", internalId: "TMPL_005" },
+  { id: 6, title: "Password Reset", channel: "email", status: "APPROVED", desc: "Secure recovery links sent on-demand to system accounts", time: "5d ago", author: "System", internalId: "TMPL_009" },
+  { id: 7, title: "Order Confirmation", channel: "email", status: "APPROVED", desc: "Instant invoice delivery template following checkouts", time: "6d ago", author: "Mike T.", internalId: "TMPL_042" }
+];
+
 export default function NotificationTemplates() {
+  // State Management
+  const [selectedChannel, setSelectedChannel] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("recent"); // recent or name
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Filter and Search Logic
+  const filteredTemplates = INITIAL_TEMPLATES.filter((template) => {
+    const matchesChannel = selectedChannel === "all" || template.channel === selectedChannel;
+    const matchesSearch = template.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          template.desc.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesChannel && matchesSearch;
+  });
+
+  // Sort Logic
+  const sortedTemplates = [...filteredTemplates].sort((a, b) => {
+    if (sortBy === "name") {
+      return a.title.localeCompare(b.title);
+    }
+    return 0; // Defaulting to recent order in mock data array
+  });
+
+  // Action Handlers
+  const handleEdit = (title) => {
+    alert(`Editing Template: ${title}`);
+  };
+
+  const handleReview = (title) => {
+    alert(`Reviewing Template: ${title}`);
+  };
+
+  const handleCreateNew = () => {
+    alert("Opening wizard to create a new blank canvas template!");
+  };
+
   return (
     <AdminShell activeTab="Notifications" searchPlaceholder="Search templates...">
-      {/* Black background completely removed - Changed to clean slate-50 background */}
       <div className="min-h-screen bg-slate-50 p-8 text-slate-800 space-y-6">
         
-        {/* ================= HEADER SEARCH & CONTROLS (Image Look) ================= */}
+        {/* ================= HEADER SEARCH & CONTROLS ================= */}
         <div className="bg-white border border-slate-200 rounded-lg p-4 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-sm">
           <div className="flex items-center gap-4 flex-1 w-full">
             <h2 className="text-lg font-bold tracking-tight text-[#0f143a] whitespace-nowrap">
@@ -34,7 +79,9 @@ export default function NotificationTemplates() {
               <input
                 type="text"
                 placeholder="Search templates..."
-                className="w-full pl-9 pr-4 py-1.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:border-indigo-500 text-slate-800"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-1.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:border-[#251fa3] text-slate-800"
               />
             </div>
           </div>
@@ -43,23 +90,35 @@ export default function NotificationTemplates() {
         {/* ================= SUB-HEADER ACTION CONTROLS ================= */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           {/* Channels Filter Tabs */}
-          <div className="flex items-center gap-2">
-            <button className="px-4 py-2 text-sm font-semibold rounded-md bg-[#251fa3] text-white">
+          <div className="flex items-center gap-2 flex-wrap">
+            <button 
+              onClick={() => setSelectedChannel("all")}
+              className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors ${selectedChannel === "all" ? "bg-[#251fa3] text-white" : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50"}`}
+            >
               All Channels
             </button>
-            <button className="px-4 py-2 text-sm font-medium rounded-md bg-white text-slate-700 hover:bg-slate-50 flex items-center gap-2 border border-slate-200">
+            <button 
+              onClick={() => setSelectedChannel("email")}
+              className={`px-4 py-2 text-sm font-medium rounded-md flex items-center gap-2 border transition-colors ${selectedChannel === "email" ? "bg-[#251fa3] text-white border-[#251fa3]" : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"}`}
+            >
               <Mail size={15} /> Email
             </button>
-            <button className="px-4 py-2 text-sm font-medium rounded-md bg-white text-slate-700 hover:bg-slate-50 flex items-center gap-2 border border-slate-200">
+            <button 
+              onClick={() => setSelectedChannel("sms")}
+              className={`px-4 py-2 text-sm font-medium rounded-md flex items-center gap-2 border transition-colors ${selectedChannel === "sms" ? "bg-[#251fa3] text-white border-[#251fa3]" : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"}`}
+            >
               <MessageSquare size={15} /> SMS
             </button>
-            <button className="px-4 py-2 text-sm font-medium rounded-md bg-white text-slate-700 hover:bg-slate-50 flex items-center gap-2 border border-slate-200">
+            <button 
+              onClick={() => setSelectedChannel("push")}
+              className={`px-4 py-2 text-sm font-medium rounded-md flex items-center gap-2 border transition-colors ${selectedChannel === "push" ? "bg-[#251fa3] text-white border-[#251fa3]" : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"}`}
+            >
               <Smartphone size={15} /> Push
             </button>
           </div>
 
-          {/* Right Layout Views */}
-          <div className="flex items-center gap-3 self-end sm:self-auto">
+          {/* Right Layout Views & Sorting */}
+          <div className="flex items-center gap-3 self-end sm:self-auto relative">
             <div className="flex items-center border border-slate-200 rounded-md bg-white p-0.5">
               <button className="p-1.5 bg-slate-100 text-slate-800 rounded-sm">
                 <LayoutGrid size={16} />
@@ -69,192 +128,103 @@ export default function NotificationTemplates() {
               </button>
             </div>
             
-            <button className="flex items-center gap-4 px-4 py-2 rounded-md bg-white text-slate-800 border border-slate-200 font-medium text-sm">
-              Recently Created
-              <ChevronDown size={14} className="text-slate-400" />
-            </button>
+            {/* Sort Dropdown */}
+            <div className="relative">
+              <button 
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-4 px-4 py-2 rounded-md bg-white text-slate-800 border border-slate-200 font-medium text-sm hover:bg-slate-50"
+              >
+                {sortBy === "recent" ? "Recently Created" : "Alphabetical (A-Z)"}
+                <ChevronDown size={14} className="text-slate-400" />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-1 w-48 bg-white border border-slate-200 rounded-md shadow-lg z-10 py-1">
+                  <button 
+                    onClick={() => { setSortBy("recent"); setDropdownOpen(false); }}
+                    className="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-100 font-medium"
+                  >
+                    Recently Created
+                  </button>
+                  <button 
+                    onClick={() => { setSortBy("name"); setDropdownOpen(false); }}
+                    className="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-100 font-medium"
+                  >
+                    Alphabetical (A-Z)
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* ================= CARDS GRID CONTAINER ================= */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          {/* Card 1: Create New Blank Canvas */}
-          <div className="border-2 border-dashed border-slate-300 bg-white rounded-lg p-6 flex flex-col items-center justify-center text-center group cursor-pointer hover:border-indigo-500 transition-colors h-[280px] shadow-sm">
-            <div className="h-10 w-10 rounded-md border border-slate-300 flex items-center justify-center text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-600 transition-colors">
+          {/* Card 1: Create New Blank Canvas (Dark Blue Dashed Outline) */}
+          <div 
+            onClick={handleCreateNew}
+            className="border-2 border-dashed border-[#1d1880]/40 bg-white rounded-lg p-6 flex flex-col items-center justify-center text-center group cursor-pointer hover:border-[#1d1880] transition-colors h-[280px] shadow-sm"
+          >
+            <div className="h-10 w-10 rounded-md border border-[#1d1880]/30 flex items-center justify-center text-slate-400 group-hover:text-[#1d1880] group-hover:border-[#1d1880] transition-colors">
               <Plus size={18} />
             </div>
-            <p className="mt-4 text-sm font-semibold text-slate-700 group-hover:text-indigo-600">Create New</p>
+            <p className="mt-4 text-sm font-semibold text-slate-700 group-hover:text-[#1d1880]">Create New</p>
             <p className="text-xs text-slate-400 mt-1">Start with a blank canvas</p>
           </div>
 
-          {/* Card 2: Welcome Onboard */}
-          <div className="bg-white rounded-lg border border-slate-200 p-5 flex flex-col justify-between text-slate-800 h-[280px] shadow-sm">
-            <div>
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-indigo-50 text-[#1d1880] rounded">
-                  <Mail size={18} />
+          {/* Dynamic Rendered Template Cards with Dark Blue Outlines */}
+          {sortedTemplates.map((template) => (
+            <div 
+              key={template.id} 
+              className="bg-white rounded-lg border border-[#1d1880]/20 hover:border-[#1d1880] transition-all p-5 flex flex-col justify-between text-slate-800 h-[280px] shadow-sm"
+            >
+              <div>
+                <div className="flex justify-between items-start">
+                  <div className="p-2 bg-indigo-50 text-[#1d1880] rounded">
+                    {template.channel === "email" && <Mail size={18} />}
+                    {template.channel === "sms" && <MessageSquare size={18} />}
+                    {template.channel === "push" && <Smartphone size={18} />}
+                  </div>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-sm ${template.status === "APPROVED" ? "text-green-600 bg-green-50" : "text-amber-600 bg-amber-50"}`}>
+                    {template.status}
+                  </span>
                 </div>
-                <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-sm">
-                  APPROVED
-                </span>
+                <h3 className="mt-4 font-bold text-slate-900 text-base">{template.title}</h3>
+                <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">{template.desc}</p>
               </div>
-              <h3 className="mt-4 font-bold text-slate-900 text-base">Welcome Onboard</h3>
-              <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">
-                First interaction email sent to new users...
-              </p>
-            </div>
-            <div>
-              <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-                <span className="flex items-center gap-1"><Clock size={12} /> 2h ago</span>
-                <span className="flex items-center gap-1"><User size={12} /> Admin</span>
-              </div>
-              <div className="flex gap-2">
-                <button className="flex-1 py-2 text-xs font-semibold rounded bg-[#1d1880] text-white hover:bg-[#161266]">
-                  Edit
-                </button>
-                <button className="px-3 border border-slate-200 text-slate-400 rounded hover:bg-slate-50">
-                  <Eye size={14} />
-                </button>
-              </div>
-            </div>
-          </div>
 
-          {/* Card 3: Two-Factor Auth */}
-          <div className="bg-white rounded-lg border border-slate-200 p-5 flex flex-col justify-between text-slate-800 h-[280px] shadow-sm">
-            <div>
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-indigo-50 text-[#1d1880] rounded">
-                  <MessageSquare size={18} />
+              <div>
+                <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
+                  <span className="flex items-center gap-1"><Clock size={12} /> {template.time}</span>
+                  <span className="flex items-center gap-1"><User size={12} /> {template.author}</span>
                 </div>
-                <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-sm">
-                  PENDING
-                </span>
-              </div>
-              <h3 className="mt-4 font-bold text-slate-900 text-base">Two-Factor Auth</h3>
-              <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">
-                Quick SMS template for security codes and
-              </p>
-            </div>
-            <div>
-              <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-                <span className="flex items-center gap-1"><Clock size={12} /> 5h ago</span>
-                <span className="flex items-center gap-1"><User size={12} /> Sarah J.</span>
-              </div>
-              <div className="flex gap-2">
-                <button className="flex-1 py-2 text-xs font-semibold rounded bg-[#1d1880] text-white hover:bg-[#161266]">
-                  Review
-                </button>
-                <button className="px-2 border border-slate-200 text-slate-400 rounded hover:bg-slate-50">
-                  <MoreVertical size={14} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 4: System Downtime */}
-          <div className="bg-white rounded-lg border border-slate-200 p-5 flex flex-col justify-between text-slate-800 h-[280px] shadow-sm">
-            <div>
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-indigo-50 text-[#1d1880] rounded">
-                  <Smartphone size={18} />
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => template.status === 'PENDING' ? handleReview(template.title) : handleEdit(template.title)}
+                    className="flex-1 py-2 text-xs font-semibold rounded bg-[#1d1880] text-white hover:bg-[#161266]"
+                  >
+                    {template.status === "PENDING" ? "Review" : "Edit"}
+                  </button>
+                  <button className="px-3 border border-slate-200 text-slate-400 rounded hover:bg-slate-50">
+                    {template.status === "PENDING" ? <MoreVertical size={14} /> : <Eye size={14} />}
+                  </button>
                 </div>
-                <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-sm">
-                  APPROVED
-                </span>
-              </div>
-              <h3 className="mt-4 font-bold text-slate-900 text-base">System Downtime</h3>
-              <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">
-                Critical push notification alert for...
-              </p>
-            </div>
-            <div>
-              <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-                <span className="flex items-center gap-1"><Clock size={12} /> 1d ago</span>
-                <span className="flex items-center gap-1"><User size={12} /> Admin</span>
-              </div>
-              <div className="flex gap-2">
-                <button className="flex-1 py-2 text-xs font-semibold rounded bg-[#1d1880] text-white hover:bg-[#161266]">
-                  Edit
-                </button>
-                <button className="px-3 border border-slate-200 text-slate-400 rounded hover:bg-slate-50">
-                  <Eye size={14} />
-                </button>
               </div>
             </div>
-          </div>
+          ))}
 
+          {/* Fallback state when search/filter returns nothing */}
+          {sortedTemplates.length === 0 && (
+            <div className="col-span-full bg-white p-8 rounded-md border border-slate-200 text-center text-slate-400 text-sm">
+              No templates found matching your filter criteria.
+            </div>
+          )}
         </div>
 
-        {/* Second Row Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          {/* Card 5: Weekly Digest */}
-          <div className="bg-white rounded-lg border border-slate-200 p-5 flex flex-col justify-between text-slate-800 h-[280px] shadow-sm">
-            <div>
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-indigo-50 text-[#1d1880] rounded">
-                  <Mail size={18} />
-                </div>
-                <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-sm">
-                  APPROVED
-                </span>
-              </div>
-              <h3 className="mt-4 font-bold text-slate-900 text-base">Weekly Digest</h3>
-              <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">
-                Automated content summary sent every...
-              </p>
-            </div>
-            <div>
-              <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-                <span className="flex items-center gap-1"><Clock size={12} /> 3d ago</span>
-                <span className="flex items-center gap-1"><User size={12} /> Mike T.</span>
-              </div>
-              <div className="flex gap-2">
-                <button className="flex-1 py-2 text-xs font-semibold rounded bg-[#1d1880] text-white hover:bg-[#161266]">
-                  Edit
-                </button>
-                <button className="px-3 border border-slate-200 text-slate-400 rounded hover:bg-slate-50">
-                  <Eye size={14} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 6: Re-engagement */}
-          <div className="bg-white rounded-lg border border-slate-200 p-5 flex flex-col justify-between text-slate-800 h-[280px] shadow-sm">
-            <div>
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-indigo-50 text-[#1d1880] rounded">
-                  <Mail size={18} />
-                </div>
-                <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-sm">
-                  PENDING
-                </span>
-              </div>
-              <h3 className="mt-4 font-bold text-slate-900 text-base">Re-engagement</h3>
-              <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">
-                Win-back campaign targeting users who...
-              </p>
-            </div>
-            <div>
-              <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-                <span className="flex items-center gap-1"><Clock size={12} /> 4d ago</span>
-                <span className="flex items-center gap-1"><User size={12} /> Sarah J.</span>
-              </div>
-              <div className="flex gap-2">
-                <button className="flex-1 py-2 text-xs font-semibold rounded bg-[#1d1880] text-white hover:bg-[#161266]">
-                  Review
-                </button>
-                <button className="px-2 border border-slate-200 text-slate-400 rounded hover:bg-slate-50">
-                  <MoreVertical size={14} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Performance Overview (Kept original Indigo Blue Panel context as in image) */}
-          <div className="lg:col-span-2 bg-gradient-to-b from-[#0c0d2e] to-[#04051a] rounded-lg border border-slate-800 p-6 flex flex-col justify-between min-h-[280px] shadow-md">
+        {/* Second Row Grid: Performance Panel */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <div className="lg:col-span-4 bg-gradient-to-b from-[#0c0d2e] to-[#04051a] rounded-lg border border-slate-800 p-6 flex flex-col justify-between min-h-[200px] shadow-md">
             <div>
               <h4 className="text-sm font-semibold text-slate-400">Performance Overview</h4>
             </div>
@@ -283,76 +253,63 @@ export default function NotificationTemplates() {
               </div>
             </div>
           </div>
-
         </div>
 
-        {/* ================= RECENT ACTIVITY LOG (White Section Table) ================= */}
-        <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden text-slate-800">
-          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h3 className="font-bold text-[#0f143a] text-sm">Recent Activity Log</h3>
-            <button className="text-xs font-semibold text-indigo-950 hover:underline">View History</button>
+        {/* ================= RECENT ACTIVITY LOG (Excel Format Table) ================= */}
+        <div className="bg-white border-2 border-slate-300 rounded shadow-sm overflow-hidden text-slate-800 font-mono text-xs">
+          <div className="px-4 py-2 bg-slate-100 border-b-2 border-slate-300 flex items-center justify-between font-sans">
+            <h3 className="font-bold text-slate-800 text-xs tracking-tight">📁 Spreadsheet View: recent_activity_log.xlsx</h3>
+            <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300 font-semibold font-mono">Ready</span>
           </div>
 
           <div className="overflow-x-auto">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full border-collapse text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                  <th className="px-6 py-3">Template Name</th>
-                  <th className="px-4 py-3">Channel</th>
-                  <th className="px-4 py-3">Last Modified</th>
-                  <th className="px-4 py-3">By</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="w-10"></th>
+                <tr className="bg-slate-200 text-slate-700 font-bold border-b border-slate-300 text-left">
+                  <th className="border border-slate-300 bg-slate-300/60 w-8 text-center text-slate-500 text-[10px]"></th>
+                  <th className="border border-slate-300 px-4 py-2 text-[11px]">A: TEMPLATE NAME</th>
+                  <th className="border border-slate-300 px-4 py-2 text-[11px]">B: CHANNEL</th>
+                  <th className="border border-slate-300 px-4 py-2 text-[11px]">C: INTERNAL ID</th>
+                  <th className="border border-slate-300 px-4 py-2 text-[11px]">D: MODIFIED BY</th>
+                  <th className="border border-slate-300 px-4 py-2 text-[11px]">E: STATUS</th>
+                  <th className="border border-slate-300 px-2 py-2 text-center w-12">ACTION</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-medium text-slate-600">
-                
-                {/* Row 1 */}
-                <tr className="hover:bg-slate-50/50">
-                  <td className="px-6 py-4">
-                    <div className="font-bold text-slate-900 text-sm">Password Reset</div>
-                    <div className="text-[11px] text-slate-400 font-normal mt-0.5">InternalID: TMPL_009</div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <span className="flex items-center gap-1.5 text-slate-700">
-                      <Mail size={14} className="text-slate-400" /> Email
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-slate-500">Oct 24, 2023</td>
-                  <td className="px-4 py-4 text-slate-700">System</td>
-                  <td className="px-4 py-4">
-                    <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wide bg-green-50 text-green-600 rounded-sm">
-                      APPROVED
-                    </span>
-                  </td>
-                  <td className="pr-4 text-slate-400">
-                    <ChevronRight size={16} />
-                  </td>
-                </tr>
-
-                {/* Row 2 */}
-                <tr className="hover:bg-slate-50/50">
-                  <td className="px-6 py-4">
-                    <div className="font-bold text-slate-900 text-sm">Order Confirmation</div>
-                    <div className="text-[11px] text-slate-400 font-normal mt-0.5">InternalID: TMPL_042</div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <span className="flex items-center gap-1.5 text-slate-700">
-                      <Mail size={14} className="text-slate-400" /> Email
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-slate-500">Oct 23, 2023</td>
-                  <td className="px-4 py-4 text-slate-700">Mike T.</td>
-                  <td className="px-4 py-4">
-                    <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wide bg-green-50 text-green-600 rounded-sm">
-                      APPROVED
-                    </span>
-                  </td>
-                  <td className="pr-4 text-slate-400">
-                    <ChevronRight size={16} />
-                  </td>
-                </tr>
-
+              <tbody className="divide-y divide-slate-300">
+                {sortedTemplates.map((template, index) => (
+                  <tr key={template.id} className="hover:bg-amber-50/40 transition-colors">
+                    {/* Excel Row Index Indicator */}
+                    <td className="border border-slate-300 bg-slate-100 text-center text-[10px] text-slate-400 font-bold select-none">
+                      {index + 1}
+                    </td>
+                    <td className="border border-slate-300 px-4 py-2 font-semibold text-slate-900 font-sans">
+                      {template.title}
+                    </td>
+                    <td className="border border-slate-300 px-4 py-2 text-slate-700 capitalize">
+                      {template.channel}
+                    </td>
+                    <td className="border border-slate-300 px-4 py-2 text-indigo-700 font-semibold font-mono">
+                      {template.internalId}
+                    </td>
+                    <td className="border border-slate-300 px-4 py-2 text-slate-600 font-sans">
+                      {template.author}
+                    </td>
+                    <td className="border border-slate-300 px-4 py-2">
+                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold border ${template.status === 'APPROVED' ? 'bg-green-100 text-green-800 border-green-300' : 'bg-amber-100 text-amber-800 border-amber-300'}`}>
+                        {template.status}
+                      </span>
+                    </td>
+                    <td className="border border-slate-300 px-2 py-2 text-center">
+                      <button 
+                        onClick={() => handleEdit(template.title)} 
+                        className="p-1 hover:bg-slate-200 rounded text-slate-600"
+                        title="Open Row Data"
+                      >
+                        <ChevronRight size={14} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table></div>
           </div>

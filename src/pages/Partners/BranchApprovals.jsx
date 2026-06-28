@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell"; // Aapka AdminShell
 
 import {
@@ -61,12 +61,37 @@ export default function BranchApprovals() {
     }
   ]);
 
+  // States for Live Search and Dropdown Filter
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedZone, setSelectedZone] = useState("All");
+
+  // Dynamically extract unique zones for the filter dropdown
+  const uniqueZones = useMemo(() => {
+    const zones = branches.map(b => b.zone);
+    return ["All", ...new Set(zones)];
+  }, [branches]);
+
   // Handle Approve/Reject branch status
   const handleStatusChange = (id, newStatus) => {
     setBranches(prev =>
       prev.map(branch => branch.id === id ? { ...branch, status: newStatus } : branch)
     );
   };
+
+  // Combined Search and Zone Filter Logic
+  const filteredBranches = useMemo(() => {
+    return branches.filter((branch) => {
+      const matchesSearch = 
+        branch.branchName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        branch.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        branch.manager.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        branch.id.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesZone = selectedZone === "All" || branch.zone === selectedZone;
+
+      return matchesSearch && matchesZone;
+    });
+  }, [branches, searchQuery, selectedZone]);
 
   return (
     <AdminShell
@@ -95,13 +120,15 @@ export default function BranchApprovals() {
           </div>
         </div>
 
-        {/* ================= METRICS COUNTERS ================= */}
+        {/* ================= METRICS COUNTERS (Dynamic) ================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Pending Approvals */}
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Awaiting Launch</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">05 Branches</p>
+              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                {String(branches.filter(b => b.status === "Pending").length).padStart(2, '0')} Branches
+              </p>
               <p className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded inline-block">
                 Ready for Live Sign-off
               </p>
@@ -115,9 +142,11 @@ export default function BranchApprovals() {
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Hubs</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">42 Locations</p>
+              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                {branches.filter(b => b.status === "Approved").length + 41} Locations
+              </p>
               <p className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded inline-block">
-                Covering 22+ Cities
+                Covering Regional Zones
               </p>
             </div>
             <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
@@ -129,9 +158,11 @@ export default function BranchApprovals() {
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Audits Rejected</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">02 Sites</p>
+              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                {String(branches.filter(b => b.status === "Rejected").length).padStart(2, '0')} Sites
+              </p>
               <p className="text-[10px] font-medium text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded inline-block">
-                Safety Standards Deficit
+                Safety Deficit Flagged
               </p>
             </div>
             <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600">
@@ -139,7 +170,7 @@ export default function BranchApprovals() {
             </div>
           </div>
 
-          {/* Infrustructure Score */}
+          {/* Infrastructure Score */}
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Compliance Rate</p>
@@ -154,20 +185,33 @@ export default function BranchApprovals() {
           </div>
         </div>
 
-        {/* ================= SEARCH & FILTERS ================= */}
+        {/* ================= SEARCH & INTERACTIVE FILTERS ================= */}
         <div className="flex flex-col sm:flex-row gap-3 items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
           <div className="relative w-full sm:w-80">
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Filter by branch or territory..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Filter by branch, manager, or ID..."
               className="w-full rounded-lg border border-slate-200 bg-slate-50/50 pl-10 pr-4 py-2 text-xs font-medium focus:outline-none focus:border-indigo-500 focus:bg-white transition"
             />
           </div>
-          <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors">
-            <Filter size={14} />
-            Filter Tier Level
-          </button>
+          
+          <div className="flex items-center gap-2 w-full sm:w-auto border border-slate-200 rounded-lg px-3 py-1.5 bg-white">
+            <Filter size={14} className="text-slate-400" />
+            <select
+              value={selectedZone}
+              onChange={(e) => setSelectedZone(e.target.value)}
+              className="w-full sm:w-auto bg-transparent text-xs font-bold text-slate-600 outline-none cursor-pointer"
+            >
+              {uniqueZones.map((zone) => (
+                <option key={zone} value={zone}>
+                  {zone === "All" ? "All Territories" : zone}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* ================= MAIN CONTENT CONTAINER ================= */}
@@ -187,126 +231,152 @@ export default function BranchApprovals() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-600">
-                {branches.map((branch) => (
-                  <tr key={branch.id} className="hover:bg-slate-50/40 transition-colors">
-                    {/* Branch Info */}
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="text-sm font-bold text-slate-900 inline-flex items-center gap-1">
-                          <MapPin size={14} className="text-indigo-500 flex-shrink-0" /> {branch.branchName}
-                        </p>
-                        <p className="text-xs text-slate-400 font-semibold mt-0.5 ml-5">{branch.id} • {branch.city}</p>
-                      </div>
-                    </td>
-
-                    {/* Zone Tier */}
-                    <td className="px-6 py-4 text-xs font-bold text-slate-500">
-                      {branch.zone}
-                    </td>
-
-                    {/* Hub Lead */}
-                    <td className="px-6 py-4 text-xs font-bold text-slate-700">
-                      {branch.manager}
-                    </td>
-
-                    {/* Onboarding Capacity */}
-                    <td className="px-6 py-4 text-xs font-bold text-slate-800">
-                      {branch.capacity}
-                    </td>
-
-                    {/* Status Badge */}
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
-                        branch.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
-                        branch.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
-                      }`}>
-                        {branch.status}
-                      </span>
-                    </td>
-
-                    {/* Quick Trigger Buttons */}
-                    <td className="px-6 py-4 text-center">
-                      {branch.status === "Pending" ? (
-                        <div className="flex items-center justify-center gap-1.5">
-                          <button 
-                            onClick={() => handleStatusChange(branch.id, "Approved")}
-                            className="bg-indigo-900 hover:bg-indigo-950 text-white text-[11px] font-bold p-1.5 rounded-lg shadow-sm transition"
-                            title="Approve Hub Launch"
-                          >
-                            <Check size={14} />
-                          </button>
-                          <button 
-                            onClick={() => handleStatusChange(branch.id, "Rejected")}
-                            className="border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-slate-600 p-1.5 rounded-lg transition"
-                            title="Reject & Flag Setup"
-                          >
-                            <XCircle size={14} />
-                          </button>
+                {filteredBranches.length > 0 ? (
+                  filteredBranches.map((branch) => (
+                    <tr key={branch.id} className="hover:bg-slate-50/40 transition-colors">
+                      {/* Branch Info */}
+                      <td className="px-6 py-4">
+                        <div>
+                          <p className="text-sm font-bold text-slate-900 inline-flex items-center gap-1">
+                            <MapPin size={14} className="text-indigo-500 flex-shrink-0" /> {branch.branchName}
+                          </p>
+                          <p className="text-xs text-slate-400 font-semibold mt-0.5 ml-5">{branch.id} • {branch.city}</p>
                         </div>
-                      ) : (
-                        <button className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"><MoreVertical size={16} /></button>
-                      )}
+                      </td>
+
+                      {/* Zone Tier */}
+                      <td className="px-6 py-4 text-xs font-bold text-slate-500">
+                        {branch.zone}
+                      </td>
+
+                      {/* Hub Lead */}
+                      <td className="px-6 py-4 text-xs font-bold text-slate-700">
+                        {branch.manager}
+                      </td>
+
+                      {/* Onboarding Capacity */}
+                      <td className="px-6 py-4 text-xs font-bold text-slate-800">
+                        {branch.capacity}
+                      </td>
+
+                      {/* Status Badge */}
+                      <td className="px-6 py-4">
+                        <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
+                          branch.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
+                          branch.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
+                        }`}>
+                          {branch.status}
+                        </span>
+                      </td>
+
+                      {/* Quick Trigger Buttons */}
+                      <td className="px-6 py-4 text-center">
+                        {branch.status === "Pending" ? (
+                          <div className="flex items-center justify-center gap-1.5">
+                            <button 
+                              onClick={() => handleStatusChange(branch.id, "Approved")}
+                              className="bg-indigo-900 hover:bg-indigo-950 text-white text-[11px] font-bold p-1.5 rounded-lg shadow-sm transition"
+                              title="Approve Hub Launch"
+                            >
+                              <Check size={14} />
+                            </button>
+                            <button 
+                              onClick={() => handleStatusChange(branch.id, "Rejected")}
+                              className="border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-slate-600 p-1.5 rounded-lg transition"
+                              title="Reject & Flag Setup"
+                            >
+                              <XCircle size={14} />
+                            </button>
+                          </div>
+                        ) : (
+                          <button 
+                            onClick={() => alert(`Log Context: ${branch.branchName} (${branch.id}) configuration is currently locked under state "${branch.status}".`)}
+                            className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+                          >
+                            <MoreVertical size={16} />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center py-12 text-slate-400 font-medium text-sm">
+                      No matching branches found.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table></div>
           </div>
 
           {/* MOBILE RESPONSIVE LIST VIEW */}
           <div className="block lg:hidden divide-y divide-slate-100">
-            {branches.map((branch) => (
-              <div key={branch.id} className="p-4 space-y-3 hover:bg-slate-50/30 transition-colors">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1">
-                      <MapPin size={14} className="text-indigo-500" /> {branch.branchName}
-                    </h3>
-                    <p className="text-xs text-slate-400 font-semibold mt-0.5 ml-5">{branch.id} • {branch.city}</p>
-                  </div>
-                  <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
-                    branch.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
-                    branch.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
-                  }`}>
-                    {branch.status}
-                  </span>
-                </div>
-
-                <div className="bg-slate-50/60 p-3 rounded-lg text-xs font-semibold space-y-2">
-                  <div className="grid grid-cols-2 gap-2">
+            {filteredBranches.length > 0 ? (
+              filteredBranches.map((branch) => (
+                <div key={branch.id} className="p-4 space-y-3 hover:bg-slate-50/30 transition-colors">
+                  <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="text-slate-400 text-[10px] uppercase tracking-wider">Zone Tier</p>
-                      <p className="text-slate-700 mt-0.5">{branch.zone}</p>
+                      <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1">
+                        <MapPin size={14} className="text-indigo-500" /> {branch.branchName}
+                      </h3>
+                      <p className="text-xs text-slate-400 font-semibold mt-0.5 ml-5">{branch.id} • {branch.city}</p>
                     </div>
-                    <div>
-                      <p className="text-slate-400 text-[10px] uppercase tracking-wider">Manager</p>
-                      <p className="text-slate-800 mt-0.5">{branch.manager}</p>
-                    </div>
+                    <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
+                      branch.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
+                      branch.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
+                    }`}>
+                      {branch.status}
+                    </span>
                   </div>
-                  <div className="pt-1.5 border-t border-slate-200/50 flex justify-between items-center">
-                    <span className="text-slate-400 text-[10px] uppercase tracking-wider">Max Load Capacity</span>
-                    <span className="text-slate-900 font-bold">{branch.capacity}</span>
-                  </div>
-                </div>
 
-                {branch.status === "Pending" && (
-                  <div className="flex items-center gap-2 pt-1">
-                    <button 
-                      onClick={() => handleStatusChange(branch.id, "Approved")}
-                      className="flex-1 bg-indigo-900 text-white text-xs font-bold py-2 rounded-lg text-center shadow-sm"
-                    >
-                      Approve Launch
-                    </button>
-                    <button 
-                      onClick={() => handleStatusChange(branch.id, "Rejected")}
-                      className="flex-1 border border-slate-200 text-slate-600 text-xs font-bold py-2 rounded-lg text-center hover:bg-rose-50 hover:text-rose-600"
-                    >
-                      Reject Site
-                    </button>
+                  <div className="bg-slate-50/60 p-3 rounded-lg text-xs font-semibold space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <p className="text-slate-400 text-[10px] uppercase tracking-wider">Zone Tier</p>
+                        <p className="text-slate-700 mt-0.5">{branch.zone}</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400 text-[10px] uppercase tracking-wider">Manager</p>
+                        <p className="text-slate-800 mt-0.5">{branch.manager}</p>
+                      </div>
+                    </div>
+                    <div className="pt-1.5 border-t border-slate-200/50 flex justify-between items-center">
+                      <span className="text-slate-400 text-[10px] uppercase tracking-wider">Max Load Capacity</span>
+                      <span className="text-slate-900 font-bold">{branch.capacity}</span>
+                    </div>
                   </div>
-                )}
+
+                  {branch.status === "Pending" ? (
+                    <div className="flex items-center gap-2 pt-1">
+                      <button 
+                        onClick={() => handleStatusChange(branch.id, "Approved")}
+                        className="flex-1 bg-indigo-900 text-white text-xs font-bold py-2 rounded-lg text-center shadow-sm"
+                      >
+                        Approve Launch
+                      </button>
+                      <button 
+                        onClick={() => handleStatusChange(branch.id, "Rejected")}
+                        className="flex-1 border border-slate-200 text-slate-600 text-xs font-bold py-2 rounded-lg text-center hover:bg-rose-50 hover:text-rose-600"
+                      >
+                        Reject Site
+                      </button>
+                    </div>
+                  ) : (
+                    <button 
+                      onClick={() => alert(`Log Context: ${branch.branchName} (${branch.id}) configuration is currently locked under state "${branch.status}".`)}
+                      className="w-full text-center border border-slate-200 text-slate-500 font-bold py-2 rounded-lg text-xs hover:bg-slate-50"
+                    >
+                      View Geo-Activation History
+                    </button>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="p-8 text-center text-slate-400 font-medium text-sm">
+                No matching branches found.
               </div>
-            ))}
+            )}
           </div>
 
           {/* Infrastructure Footer Accent */}

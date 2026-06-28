@@ -24,8 +24,58 @@ export default function BranchPerformance() {
     navigate(ROUTES.branchSchedule);
   };
 
+  // Dynamic Button Actions
+  const handleExportReport = () => {
+    alert(`Exporting performance matrix report for [${timeframe}] as an Excel spreadsheet standard document...`);
+  };
+
+  const handleViewStaff = () => {
+    alert('Redirecting to full team performance audit directory listings...');
+  };
+
   return (
     <div className="branch-performance-container">
+      {/* Inline Spreadsheet Design Override Injector */}
+      <style>{`
+        .excel-grid-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 13px;
+          background: #ffffff;
+        }
+        .excel-grid-table th {
+          background-color: #f3f4f6;
+          color: #374151;
+          font-weight: 700;
+          text-align: left;
+          padding: 8px 12px;
+          border: 1px solid #d1d5db;
+          font-size: 11px;
+          letter-spacing: 0.05em;
+        }
+        .excel-grid-table td {
+          padding: 8px 12px;
+          border: 1px solid #e5e7eb;
+          color: #1f2937;
+          vertical-align: middle;
+        }
+        .excel-grid-table tbody tr:nth-child(even) {
+          background-color: #f9fafb;
+        }
+        .excel-grid-table tbody tr:hover {
+          background-color: #e0f2fe;
+          cursor: pointer;
+        }
+        .excel-badge-cell {
+          font-size: 10px;
+          font-weight: 700;
+          padding: 2px 6px;
+          border-radius: 2px;
+          border: 1px solid currentColor;
+          display: inline-block;
+        }
+      `}</style>
+
       {/* Page Header */}
       <div className="partners-page-header">
         <div>
@@ -47,7 +97,12 @@ export default function BranchPerformance() {
             </select>
           </div>
 
-          <button className="primary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          <button 
+            className="primary-action-btn font-bold" 
+            type="button" 
+            style={{ height: '36px', cursor: 'pointer' }}
+            onClick={handleExportReport}
+          >
             <Download size={14} style={{ marginRight: '4px' }} />
             <span>Export Report</span>
           </button>
@@ -114,7 +169,12 @@ export default function BranchPerformance() {
             </div>
           </div>
 
-          <button className="secondary-action-btn font-bold" style={{ width: '100%', height: '36px', justifyContent: 'center', marginTop: '16px', fontSize: '12px' }} type="button">
+          <button 
+            className="secondary-action-btn font-bold" 
+            style={{ width: '100%', height: '36px', justifyContent: 'center', marginTop: '16px', fontSize: '12px', cursor: 'pointer' }} 
+            type="button"
+            onClick={handleViewStaff}
+          >
             View All Staff
           </button>
         </div>
@@ -204,7 +264,7 @@ export default function BranchPerformance() {
       </div>
 
       {/* Bottom Table Section (Operational Audit) */}
-      <section className="panel partner-directory-panel" style={{ padding: '24px' }}>
+      <section className="panel partner-directory-panel" style={{ padding: '24px', background: '#fff', border: '1px solid #d1d5db', borderRadius: '8px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text)', margin: '0' }}>
             Operational Audit — Regional Branches
@@ -232,22 +292,19 @@ export default function BranchPerformance() {
             </thead>
             <tbody>
               {auditBranches.map((branch) => (
-                <tr key={branch.id} className="partner-row-clickable" onClick={() => handleRowClick(branch)}>
+                <tr key={branch.id} onClick={() => handleRowClick(branch)}>
                   <td>
                     <div>
-                      <strong style={{ display: 'block', fontSize: '13px' }}>{branch.name}</strong>
-                      <span style={{ fontSize: '11px', color: 'var(--muted)' }}>ID: {branch.id}</span>
+                      <strong style={{ display: 'block', fontSize: '13px', color: '#111827' }}>{branch.name}</strong>
+                      <span style={{ fontSize: '11px', color: '#6b7280' }}>ID: {branch.id}</span>
                     </div>
                   </td>
-                  <td style={{ color: 'var(--text)', fontWeight: '700' }}>{branch.manager}</td>
-                  <td style={{ color: 'var(--text)', fontWeight: '800' }}>{branch.revenue}</td>
+                  <td style={{ color: '#1f2937', fontWeight: '700' }}>{branch.manager}</td>
+                  <td style={{ color: '#111827', fontWeight: '800' }}>{branch.revenue}</td>
                   <td>
                     <span
+                      className="excel-badge-cell"
                       style={{
-                        fontSize: '9px',
-                        fontWeight: '800',
-                        padding: '3px 8px',
-                        borderRadius: '4px',
                         color: branch.status === 'VERIFIED' ? '#059669' : '#d97706',
                         background: branch.status === 'VERIFIED' ? '#ecfdf5' : '#fffbeb'
                       }}

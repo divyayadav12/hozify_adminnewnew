@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from '../../components/common/ToastNotification';
 import {
   ChevronRight,
   ShieldAlert,
@@ -21,10 +22,12 @@ import {
 
 export default function BusinessSuspension() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
   const [selectedReason, setSelectedReason] = useState('compliance');
   const [strategy, setStrategy] = useState('temporary'); // 'temporary' or 'permanent'
   const [releaseDate, setReleaseDate] = useState('12/31/2024');
   const [adminNotes, setAdminNotes] = useState('');
+  const [suspended, setSuspended] = useState(false);
 
   // Sidebar navigation for Nexus Admin branding override
   const sidebarItems = [
@@ -37,11 +40,14 @@ export default function BusinessSuspension() {
   ];
 
   const handleConfirm = () => {
-    alert(`Suspension confirmed for reason: ${selectedReason}. Strategy: ${strategy}. Notes: ${adminNotes}`);
-    navigate(ROUTES.business);
+    setSuspended(true);
+    const reasonLabel = { compliance: 'Regulatory Non-Compliance', fraud: 'Fraud / Financial Crime', operations: 'Operational Violations', legal: 'Legal Dispute / Court Order' }[selectedReason] || selectedReason;
+    addToast(`Entity suspended: ${reasonLabel} (${strategy === 'temporary' ? 'Temporary' : 'Permanent'}). All business operations halted.`, 'error');
+    setTimeout(() => navigate(ROUTES.business), 2000);
   };
 
   const handleCancel = () => {
+    addToast('Suspension cancelled. Returning to directory...', 'info');
     navigate(ROUTES.business);
   };
 

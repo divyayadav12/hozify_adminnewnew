@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { 
   Download, 
@@ -13,29 +13,185 @@ import {
   ChevronRight
 } from "lucide-react";
 
+// ─── Deterministic seed helper ────────────────────────────────────────────────
+function seedFromId(id = '') {
+  const num = parseInt(id.replace(/\D/g, ''), 10) || 1000;
+  return (num % 9000) + 1000;
+}
+
+// ─── Generate audit rows from business data ───────────────────────────────────
+function generateLogs(biz) {
+  const { id, name, category, location, status, owner } = biz;
+  const base = seedFromId(id);
+
+  const statusColor = status === 'Active' ? '#16a34a'
+    : status === 'Suspended' ? '#ef4444'
+    : status === 'Pending' ? '#b45309'
+    : '#6366f1';
+
+  return [
+    {
+      id: `LOG-${base}`,
+      date: 'Oct 24, 2023', time: '14:22:45 UTC',
+      adminInitials: owner.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+      adminBg: '#1E1B4B', adminText: '#fff',
+      admin: owner,
+      category: 'SECURITY',
+      catBg: '#EFF6FF', catText: '#1E40AF',
+      detail: `Updated multi-factor authentication requirements for all staff accounts of ${name}.`,
+      ip: `192.168.${base % 255}.${(base * 3) % 255}`,
+      status: 'SUCCESS', statusColor: '#16A34A',
+    },
+    {
+      id: `LOG-${base - 11}`,
+      date: 'Oct 24, 2023', time: '14:15:10 UTC',
+      adminInitials: 'SY',
+      adminBg: '#E4E4E7', adminText: '#4B5563',
+      admin: 'System',
+      category: 'FINANCE',
+      catBg: '#F4F4F5', catText: '#4B5563',
+      detail: `Authorized bulk payout for ${category} contractors linked to ${name}.`,
+      ip: `45.22.${(base % 200) + 10}.12`,
+      status: 'SUCCESS', statusColor: '#16A34A',
+    },
+    {
+      id: `LOG-${base - 22}`,
+      date: 'Oct 24, 2023', time: '13:58:02 UTC',
+      adminInitials: 'SE',
+      adminBg: '#FEE2E2', adminText: '#EF4444',
+      admin: 'Security Engine',
+      category: 'ACCESS',
+      catBg: '#FEE2E2', catText: '#991B1B',
+      detail: `Failed login attempt — 3 consecutive failures from unrecognized device at ${location}.`,
+      ip: `203.0.${(base % 100) + 10}.19`,
+      status: 'FAILED', statusColor: '#DC2626',
+    },
+    {
+      id: `LOG-${base - 33}`,
+      date: 'Oct 24, 2023', time: '12:10:45 UTC',
+      adminInitials: owner.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+      adminBg: '#3B82F6', adminText: '#fff',
+      admin: owner,
+      category: 'CONFIGURATION',
+      catBg: '#F1F5F9', catText: '#334155',
+      detail: `Modified service commission rates for ${name} — ${category} tier configuration.`,
+      ip: `10.0.0.${(base % 200) + 10}`,
+      status: 'SUCCESS', statusColor: '#16A34A',
+    },
+    {
+      id: `LOG-${base - 44}`,
+      date: 'Oct 24, 2023', time: '11:02:30 UTC',
+      adminInitials: 'SA',
+      adminBg: '#7C3AED', adminText: '#fff',
+      admin: 'Super Admin',
+      category: 'STATUS',
+      catBg: '#EDE9FE', catText: '#5B21B6',
+      detail: `Business status changed to "${status}" — ${id} manually reviewed and approved.`,
+      ip: `172.16.${(base % 100)}.${(base % 50) + 1}`,
+      status: status === 'Active' ? 'SUCCESS' : status === 'Suspended' ? 'FLAGGED' : 'PENDING',
+      statusColor: statusColor,
+    },
+    {
+      id: `LOG-${base - 55}`,
+      date: 'Oct 24, 2023', time: '10:45:12 UTC',
+      adminInitials: 'OC',
+      adminBg: '#059669', adminText: '#fff',
+      admin: 'OCR System',
+      category: 'COMPLIANCE',
+      catBg: '#D1FAE5', catText: '#065F46',
+      detail: `OCR engine extracted trade registration parameters for ${name} (${category} sector).`,
+      ip: `10.10.${(base % 100) + 1}.${(base % 50) + 2}`,
+      status: 'SUCCESS', statusColor: '#16A34A',
+    },
+    {
+      id: `LOG-${base - 66}`,
+      date: 'Oct 23, 2023', time: '09:33:00 UTC',
+      adminInitials: 'RE',
+      adminBg: '#6366F1', adminText: '#fff',
+      admin: 'Risk Engine',
+      category: 'KYC',
+      catBg: '#E0E7FF', catText: '#3730A3',
+      detail: `Risk profiling alert auto-initialized for ${category} business — ${id}.`,
+      ip: `192.168.${(base % 100) + 5}.${(base % 50) + 10}`,
+      status: 'WARNING', statusColor: '#D97706',
+    },
+  ];
+}
+
+// ─── Status badge style ───────────────────────────────────────────────────────
+function statusStyle(s) {
+  if (s === 'SUCCESS')  return { color: '#16A34A', dot: '#16A34A' };
+  if (s === 'FAILED')   return { color: '#DC2626', dot: '#DC2626' };
+  if (s === 'FLAGGED')  return { color: '#7C3AED', dot: '#7C3AED' };
+  if (s === 'WARNING')  return { color: '#D97706', dot: '#D97706' };
+  if (s === 'PENDING')  return { color: '#B45309', dot: '#B45309' };
+  if (s === 'BLOCKED')  return { color: '#EF4444', dot: '#EF4444' };
+  return { color: '#6B7280', dot: '#6B7280' };
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
 export default function AuditLogs() {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Read selected business from localStorage
+  const biz = useMemo(() => {
+    try {
+      return JSON.parse(localStorage.getItem('selectedBusiness')) || null;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const business = biz || {
+    id: 'BIZ-8829',
+    name: 'Global Logistics Ltd',
+    category: 'Logistics',
+    location: 'Rotterdam, NL',
+    status: 'Active',
+    owner: 'Marcus Thorne',
+  };
+
+  const logs = useMemo(() => generateLogs(business), [business]);
+  const seed = seedFromId(business.id);
+
+  // Dynamic stats from business
+  const totalActions = 1000 + (seed % 600);
+  const securityFlags = (seed % 8) + 1;
+  const activeAdmins = (seed % 20) + 10;
+  const bizStatusColor = business.status === 'Active' ? '#16a34a'
+    : business.status === 'Suspended' ? '#ef4444'
+    : business.status === 'Pending' ? '#b45309'
+    : '#6366f1';
+
+  const totalPages = Math.ceil((seed % 200 + 50) / logs.length);
+
   return (
     <AdminShell>
-      {/* Light Clean Gray Background Wrapping Main Layout */}
       <div className="min-h-screen bg-[#F9FAFB] p-8 text-[#111827]">
-        
-        {/* ================= BREADCRUMB & HEADER ================= */}
+
+        {/* ── BREADCRUMB ── */}
         <div className="mb-2 text-[13px] text-[#71717A] flex items-center gap-1">
           <span>Business Management</span>
           <span>&gt;</span>
+          <span className="text-[#111827] font-semibold">{business.name}</span>
         </div>
 
-        <div className="mb-8 flex items-start justify-between">
+        {/* ── HEADER ── */}
+        <div className="mb-8 flex items-start justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-[32px] font-bold tracking-tight text-[#111827]">
               Business Audit Logs
             </h1>
             <p className="mt-1 text-[14px] text-[#71717A]">
-              Review and track all administrative actions performed across the business ecosystem.
+              Showing all administrative actions for&nbsp;
+              <span className="font-semibold text-[#4f46e5]">{business.name}</span>
+              &nbsp;·&nbsp;
+              <span className="font-mono text-[12px] text-[#71717A]">{business.id}</span>
+              &nbsp;·&nbsp;
+              <span style={{ color: bizStatusColor }} className="font-semibold">{business.status}</span>
             </p>
           </div>
 
-          {/* Action Header Buttons */}
           <div className="flex gap-3">
             <button className="h-[40px] rounded border border-[#E4E4E7] bg-white px-4 text-[14px] font-medium text-black inline-flex items-center gap-2 hover:bg-[#F4F4F5] transition-colors shadow-sm">
               <Download size={16} />
@@ -48,40 +204,38 @@ export default function AuditLogs() {
           </div>
         </div>
 
-        {/* ================= STATS OVERVIEW CARDS (Light Theme Layout) ================= */}
+        {/* ── STATS CARDS ── */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-          
-          {/* Card 1: Total Actions */}
+
+          {/* Total Actions */}
           <div className="rounded-xl border border-[#E4E4E7] bg-white p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-lg bg-[#F4F4F5] flex items-center justify-center border border-[#E4E4E7]">
                 <History size={18} className="text-[#71717A]" />
               </div>
               <span className="rounded-full bg-[#DCFCE7] px-2 py-0.5 text-[12px] font-semibold text-[#15803D]">
-                +12%
+                +{(seed % 20) + 5}%
               </span>
             </div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">
-              TOTAL ACTIONS (24H)
-            </p>
-            <p className="text-[32px] font-bold text-[#111827] mt-1">1,482</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">TOTAL ACTIONS (24H)</p>
+            <p className="text-[32px] font-bold text-[#111827] mt-1">{totalActions.toLocaleString()}</p>
           </div>
 
-          {/* Card 2: Security Flags */}
+          {/* Security Flags */}
           <div className="rounded-xl border border-[#E4E4E7] bg-white p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-lg bg-[#F4F4F5] flex items-center justify-center border border-[#E4E4E7]">
                 <ShieldAlert size={18} className="text-[#EF4444]" />
               </div>
-              <span className="text-[13px] font-medium text-[#71717A]">Stable</span>
+              <span className="text-[13px] font-medium text-[#71717A]">
+                {securityFlags > 5 ? 'High' : securityFlags > 2 ? 'Moderate' : 'Stable'}
+              </span>
             </div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">
-              SECURITY FLAGS
-            </p>
-            <p className="text-[32px] font-bold text-[#111827] mt-1">03</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">SECURITY FLAGS</p>
+            <p className="text-[32px] font-bold text-[#111827] mt-1">{String(securityFlags).padStart(2, '0')}</p>
           </div>
 
-          {/* Card 3: Active Admins */}
+          {/* Active Admins */}
           <div className="rounded-xl border border-[#E4E4E7] bg-white p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-lg bg-[#F4F4F5] flex items-center justify-center border border-[#E4E4E7]">
@@ -89,51 +243,44 @@ export default function AuditLogs() {
               </div>
               <span className="text-[13px] font-medium text-[#71717A]">Active</span>
             </div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">
-              ACTIVE ADMINS
-            </p>
-            <p className="text-[32px] font-bold text-[#111827] mt-1">24</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">ACTIVE ADMINS</p>
+            <p className="text-[32px] font-bold text-[#111827] mt-1">{activeAdmins}</p>
           </div>
 
-          {/* Card 4: Last Entry */}
+          {/* Last Entry */}
           <div className="rounded-xl border border-[#E4E4E7] bg-white p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-lg bg-[#F4F4F5] flex items-center justify-center border border-[#E4E4E7]">
                 <Clock size={18} className="text-[#71717A]" />
               </div>
             </div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">
-              LAST ENTRY
-            </p>
-            <p className="text-[32px] font-bold text-[#111827] mt-1">2m ago</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#71717A]">LAST ENTRY</p>
+            <p className="text-[32px] font-bold text-[#111827] mt-1">{(seed % 15) + 1}m ago</p>
           </div>
         </div>
 
-        {/* ================= MAIN LOGS CONTAINER BLOCK ================= */}
+        {/* ── MAIN TABLE CONTAINER ── */}
         <div className="rounded-xl border border-[#E4E4E7] bg-white text-black overflow-hidden shadow-sm mb-6">
-          
-          {/* Internal Filters Bar */}
+
+          {/* Filters Bar */}
           <div className="p-4 border-b border-[#E4E4E7] flex flex-wrap items-center justify-between gap-4 bg-[#FAFAFA]">
             <div className="flex items-center gap-3">
-              {/* Category Dropdown */}
               <button className="h-[36px] px-3 rounded-lg border border-[#E4E4E7] bg-white text-[13px] font-medium text-[#27272A] inline-flex items-center gap-6 shadow-sm">
                 <span>All Categories</span>
                 <ChevronDown size={14} className="text-[#71717A]" />
               </button>
-
-              {/* Date Filter */}
               <button className="h-[36px] px-3 rounded-lg border border-[#E4E4E7] bg-white text-[13px] font-medium text-[#27272A] inline-flex items-center gap-3 shadow-sm">
                 <span>Last 7 Days</span>
                 <Calendar size={14} className="text-[#71717A]" />
               </button>
             </div>
-
             <div className="text-[13px] text-[#71717A]">
-              Showing <span className="font-semibold text-black">1-50</span> of 12,480 logs
+              Business: <span className="font-semibold text-[#4f46e5]">{business.name}</span>
+              &nbsp;·&nbsp; Showing <span className="font-semibold text-black">1–{logs.length}</span> of {(seed % 300) + 50} logs
             </div>
           </div>
 
-          {/* Data Table */}
+          {/* Table */}
           <div className="overflow-x-auto">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse min-w-[900px]">
               <thead>
@@ -147,171 +294,99 @@ export default function AuditLogs() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E4E4E7] text-[13px] bg-white">
-                
-                {/* Row 1 */}
-                <tr className="hover:bg-[#FAFAFA]">
-                  <td className="py-4 px-5 text-[#27272A] font-medium leading-tight">
-                    Oct 24, 2023 <br />
-                    <span className="text-[11px] text-[#71717A]">14:22:45 UTC</span>
-                  </td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#1E1B4B] flex items-center justify-center text-[11px] font-bold text-white">JD</div>
-                      <span className="font-semibold text-[#111827]">James Davidson</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-5">
-                    <span className="rounded bg-[#EFF6FF] px-2 py-0.5 text-[11px] font-bold text-[#1E40AF]">SECURITY</span>
-                  </td>
-                  <td className="py-4 px-5 text-[#4B5563] font-medium">Updated multi-factor authentication requirements for all staff accounts.</td>
-                  <td className="py-4 px-5 text-[#27272A] font-mono">192.168.1.45</td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-1.5 text-[#16A34A] font-bold text-[12px]">
-                      <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
-                      SUCCESS
-                    </div>
-                  </td>
-                </tr>
-
-                {/* Row 2 */}
-                <tr className="hover:bg-[#FAFAFA]">
-                  <td className="py-4 px-5 text-[#27272A] font-medium leading-tight">
-                    Oct 24, 2023 <br />
-                    <span className="text-[11px] text-[#71717A]">14:15:10 UTC</span>
-                  </td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#E4E4E7] flex items-center justify-center text-[11px] font-bold text-[#4B5563]">SM</div>
-                      <span className="font-semibold text-[#111827]">Sarah Miller</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-5">
-                    <span className="rounded bg-[#F4F4F5] px-2 py-0.5 text-[11px] font-bold text-[#4B5563]">FINANCE</span>
-                  </td>
-                  <td className="py-4 px-5 text-[#4B5563] font-medium">Authorized bulk payout of $14,200.00 for external regional logistics contractors.</td>
-                  <td className="py-4 px-5 text-[#27272A] font-mono">45.22.109.12</td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-1.5 text-[#16A34A] font-bold text-[12px]">
-                      <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
-                      SUCCESS
-                    </div>
-                  </td>
-                </tr>
-
-                {/* Row 3 */}
-                <tr className="hover:bg-[#FAFAFA]">
-                  <td className="py-4 px-5 text-[#27272A] font-medium leading-tight">
-                    Oct 24, 2023 <br />
-                    <span className="text-[11px] text-[#71717A]">13:58:02 UTC</span>
-                  </td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#FEE2E2] flex items-center justify-center text-[11px] font-bold text-[#EF4444]">AL</div>
-                      <span className="font-semibold text-[#111827]">Alex Low</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-5">
-                    <span className="rounded bg-[#FEE2E2] px-2 py-0.5 text-[11px] font-bold text-[#991B1B]">ACCESS</span>
-                  </td>
-                  <td className="py-4 px-5 text-[#4B5563] font-medium">Failed login attempt - 3 consecutive failures from unrecognized terminal device location.</td>
-                  <td className="py-4 px-5 text-[#27272A] font-mono">203.0.113.19</td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-1.5 text-[#DC2626] font-bold text-[12px]">
-                      <span className="w-2 h-2 rounded-full bg-[#DC2626]" />
-                      FAILED
-                    </div>
-                  </td>
-                </tr>
-
-                {/* Row 4 */}
-                <tr className="hover:bg-[#FAFAFA]">
-                  <td className="py-4 px-5 text-[#27272A] font-medium leading-tight">
-                    Oct 24, 2023 <br />
-                    <span className="text-[11px] text-[#71717A]">12:10:45 UTC</span>
-                  </td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#3B82F6] flex items-center justify-center text-[11px] font-bold text-white">RB</div>
-                      <span className="font-semibold text-[#111827]">Rob Banks</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-5">
-                    <span className="rounded bg-[#F1F5F9] px-2 py-0.5 text-[11px] font-bold text-[#334155]">CONFIGURATION</span>
-                  </td>
-                  <td className="py-4 px-5 text-[#4B5563] font-medium">Modified service commission rates for 'Partner tier B' configurations ecosystem wide.</td>
-                  <td className="py-4 px-5 text-[#27272A] font-mono">10.0.0.122</td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-1.5 text-[#16A34A] font-bold text-[12px]">
-                      <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
-                      SUCCESS
-                    </div>
-                  </td>
-                </tr>
-
-                {/* Row 5 */}
-                <tr className="hover:bg-[#FAFAFA]">
-                  <td className="py-4 px-5 text-[#27272A] font-medium leading-tight">
-                    Oct 24, 2023 <br />
-                    <span className="text-[11px] text-[#71717A]">10:45:12 UTC</span>
-                  </td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#1E1B4B] flex items-center justify-center text-[11px] font-bold text-white">JD</div>
-                      <span className="font-semibold text-[#111827]">James Davidson</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-5">
-                    <span className="rounded bg-[#F0FDF4] px-2 py-0.5 text-[11px] font-bold text-[#166534]">USER MGMT</span>
-                  </td>
-                  <td className="py-4 px-5 text-[#4B5563] font-medium">Deleted employee profile #8892 (Terminal Offboarding process completed).</td>
-                  <td className="py-4 px-5 text-[#27272A] font-mono">192.168.1.45</td>
-                  <td className="py-4 px-5">
-                    <div className="flex items-center gap-1.5 text-[#16A34A] font-bold text-[12px]">
-                      <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
-                      SUCCESS
-                    </div>
-                  </td>
-                </tr>
-
+                {logs.map((log) => {
+                  const st = statusStyle(log.status);
+                  return (
+                    <tr key={log.id} className="hover:bg-[#FAFAFA]">
+                      <td className="py-4 px-5 text-[#27272A] font-medium leading-tight">
+                        {log.date}<br />
+                        <span className="text-[11px] text-[#71717A]">{log.time}</span>
+                      </td>
+                      <td className="py-4 px-5">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold"
+                            style={{ background: log.adminBg, color: log.adminText }}
+                          >
+                            {log.adminInitials}
+                          </div>
+                          <span className="font-semibold text-[#111827]">{log.admin}</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-5">
+                        <span
+                          className="rounded px-2 py-0.5 text-[11px] font-bold"
+                          style={{ background: log.catBg, color: log.catText }}
+                        >
+                          {log.category}
+                        </span>
+                      </td>
+                      <td className="py-4 px-5 text-[#4B5563] font-medium">{log.detail}</td>
+                      <td className="py-4 px-5 text-[#27272A] font-mono">{log.ip}</td>
+                      <td className="py-4 px-5">
+                        <div className="flex items-center gap-1.5 font-bold text-[12px]" style={{ color: st.color }}>
+                          <span className="w-2 h-2 rounded-full" style={{ background: st.dot }} />
+                          {log.status}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table></div>
           </div>
 
-          {/* Table Pagination Section Footer */}
+          {/* Pagination */}
           <div className="p-4 border-t border-[#E4E4E7] bg-white flex items-center justify-between flex-wrap gap-4 text-[13px] text-[#27272A]">
             <div className="flex items-center gap-1.5">
-              <button className="h-[32px] px-3 rounded border border-[#E4E4E7] bg-white text-[#71717A] hover:bg-[#F4F4F5] font-medium inline-flex items-center gap-1">
-                <ChevronLeft size={14} />
-                Previous
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                className="h-[32px] px-3 rounded border border-[#E4E4E7] bg-white text-[#71717A] hover:bg-[#F4F4F5] font-medium inline-flex items-center gap-1"
+              >
+                <ChevronLeft size={14} /> Previous
               </button>
-              <button className="w-[32px] h-[32px] rounded bg-[#1D1B84] text-white font-semibold">1</button>
-              <button className="w-[32px] h-[32px] rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] font-medium">2</button>
-              <button className="w-[32px] h-[32px] rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] font-medium">3</button>
+              {[1, 2, 3].map(n => (
+                <button
+                  key={n}
+                  onClick={() => setCurrentPage(n)}
+                  className="w-[32px] h-[32px] rounded font-semibold"
+                  style={{
+                    background: currentPage === n ? '#1D1B84' : '#fff',
+                    color: currentPage === n ? '#fff' : '#27272A',
+                    border: currentPage === n ? 'none' : '1px solid #E4E4E7',
+                  }}
+                >
+                  {n}
+                </button>
+              ))}
               <span className="px-1 text-[#71717A]">...</span>
-              <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] font-medium">250</button>
-              <button className="h-[32px] px-3 rounded border border-[#E4E4E7] bg-white text-[#27272A] hover:bg-[#F4F4F5] font-medium inline-flex items-center gap-1">
-                Next
-                <ChevronRight size={14} />
+              <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] font-medium">
+                {totalPages}
+              </button>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                className="h-[32px] px-3 rounded border border-[#E4E4E7] bg-white text-[#27272A] hover:bg-[#F4F4F5] font-medium inline-flex items-center gap-1"
+              >
+                Next <ChevronRight size={14} />
               </button>
             </div>
 
-            {/* Rows Per Page Config Selector */}
             <div className="flex items-center gap-2">
               <span className="text-[#71717A]">Rows per page:</span>
               <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white font-bold inline-flex items-center gap-3">
-                <span>50</span>
+                <span>{logs.length}</span>
                 <ChevronDown size={14} className="text-[#71717A]" />
               </button>
             </div>
           </div>
-
         </div>
 
-        {/* ================= BOTTOM SYSTEM INTEGRITY BOX (Light Themed) ================= */}
+        {/* ── FOOTER INTEGRITY BOX ── */}
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-6 flex flex-wrap items-center justify-between gap-4 shadow-sm">
           <div>
             <p className="text-[14px] text-[#4B5563] leading-relaxed max-w-xl">
-              All critical administrative actions are being logged and encrypted in real-time. System integrity at 100%.
+              All critical administrative actions for <strong>{business.name}</strong> are being logged and
+              encrypted in real-time. System integrity at 100%.
             </p>
           </div>
           <button className="h-[40px] rounded bg-black px-5 text-[14px] font-bold text-white hover:bg-[#222] transition-colors shadow-md">
