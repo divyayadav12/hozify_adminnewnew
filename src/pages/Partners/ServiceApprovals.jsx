@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell"; // Aapka AdminShell
 
 import {
@@ -56,37 +56,12 @@ export default function ServiceApprovals() {
     }
   ]);
 
-  // States for Live Searching and Tier Filtering
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTier, setSelectedTier] = useState("All");
-
-  // Dynamically pull unique tiers for filter dropdown options
-  const uniqueTiers = useMemo(() => {
-    const tiers = serviceRequests.map(item => item.tier);
-    return ["All", ...new Set(tiers)];
-  }, [serviceRequests]);
-
   // Handle Approve/Reject status
   const handleStatusChange = (id, newStatus) => {
     setServiceRequests(prev =>
       prev.map(item => item.id === id ? { ...item, status: newStatus } : item)
     );
   };
-
-  // Live Filtering Logic (Combines search query + dropdown select)
-  const filteredRequests = useMemo(() => {
-    return serviceRequests.filter((item) => {
-      const matchesSearch = 
-        item.partnerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.requestedService.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.currentSkills.toLowerCase().includes(searchQuery.toLowerCase());
-
-      const matchesTier = selectedTier === "All" || item.tier === selectedTier;
-
-      return matchesSearch && matchesTier;
-    });
-  }, [serviceRequests, searchQuery, selectedTier]);
 
   return (
     <AdminShell
@@ -115,17 +90,15 @@ export default function ServiceApprovals() {
           </div>
         </div>
 
-        {/* ================= METRICS COUNTERS (Dynamic) ================= */}
+        {/* ================= METRICS COUNTERS ================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Pending Service Audits */}
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Awaiting Audit</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
-                {serviceRequests.filter(r => r.status === "Pending").length} Add-ons
-              </p>
+              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">12 Add-ons</p>
               <p className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded inline-block">
-                SLA Tracked Live
+                8 Passed Training Test
               </p>
             </div>
             <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-600">
@@ -136,12 +109,10 @@ export default function ServiceApprovals() {
           {/* Upgraded Today */}
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
             <div className="space-y-1">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Upgraded</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
-                {serviceRequests.filter(r => r.status === "Approved").length} Partners
-              </p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Upgraded (24h)</p>
+              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">26 Partners</p>
               <p className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded inline-block">
-                High Potential Tier
+                Avg +₹8k Potential Earnings
               </p>
             </div>
             <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
@@ -153,10 +124,8 @@ export default function ServiceApprovals() {
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Retraining Needed</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
-                {serviceRequests.filter(r => r.status === "Rejected").length} Requests
-              </p>
-              <p className="text-[10px] font-medium text-slate-400">Below 80% cutoff</p>
+              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">03 Requests</p>
+              <p className="text-[10px] font-medium text-slate-400">Score below 80% cutoff</p>
             </div>
             <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600">
               <XCircle size={18} />
@@ -184,27 +153,14 @@ export default function ServiceApprovals() {
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Filter by partner, skill or ID..."
+              placeholder="Filter by partner or target skill..."
               className="w-full rounded-lg border border-slate-200 bg-slate-50/50 pl-10 pr-4 py-2 text-xs font-medium focus:outline-none focus:border-indigo-500 focus:bg-white transition"
             />
           </div>
-          
-          <div className="flex items-center gap-2 w-full sm:w-auto border border-slate-200 rounded-lg px-3 py-1.5 bg-white">
-            <Filter size={14} className="text-slate-400" />
-            <select
-              value={selectedTier}
-              onChange={(e) => setSelectedTier(e.target.value)}
-              className="w-full sm:w-auto bg-transparent text-xs font-bold text-slate-600 outline-none cursor-pointer"
-            >
-              {uniqueTiers.map((tier) => (
-                <option key={tier} value={tier}>
-                  {tier === "All" ? "All Service Tiers" : `${tier} Tier`}
-                </option>
-              ))}
-            </select>
-          </div>
+          <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+            <Filter size={14} />
+            Filter By Service Tier
+          </button>
         </div>
 
         {/* ================= MAIN CONTENT QUEUE CONTAINER ================= */}
@@ -224,160 +180,134 @@ export default function ServiceApprovals() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-600">
-                {filteredRequests.length > 0 ? (
-                  filteredRequests.map((item) => (
-                    <tr key={item.id} className="hover:bg-slate-50/40 transition-colors">
-                      {/* Partner Details */}
-                      <td className="px-6 py-4">
-                        <div>
-                          <p className="text-sm font-bold text-slate-900">{item.partnerName}</p>
-                          <p className="text-xs text-slate-400 font-mono font-semibold mt-0.5">
-                            {item.id} • <span className="text-indigo-600 font-sans">{item.tier} Tier</span>
-                          </p>
-                        </div>
-                      </td>
+                {serviceRequests.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50/40 transition-colors">
+                    {/* Partner Details */}
+                    <td className="px-6 py-4">
+                      <div>
+                        <p className="text-sm font-bold text-slate-900">{item.partnerName}</p>
+                        <p className="text-xs text-slate-400 font-mono font-semibold mt-0.5">
+                          {item.id} • <span className="text-indigo-600 font-sans">{item.tier} Tier</span>
+                        </p>
+                      </div>
+                    </td>
 
-                      {/* Current Skills */}
-                      <td className="px-6 py-4 text-xs text-slate-500 font-semibold truncate">
-                        {item.currentSkills}
-                      </td>
+                    {/* Current Skills */}
+                    <td className="px-6 py-4 text-xs text-slate-500 font-semibold truncate">
+                      {item.currentSkills}
+                    </td>
 
-                      {/* Requested Service */}
-                      <td className="px-6 py-4">
-                        <span className="text-xs font-bold text-indigo-950 bg-indigo-50/70 border border-indigo-100/50 px-2 py-1 rounded-md">
-                          {item.requestedService}
+                    {/* Requested Service */}
+                    <td className="px-6 py-4">
+                      <span className="text-xs font-bold text-indigo-950 bg-indigo-50/70 border border-indigo-100/50 px-2 py-1 rounded-md">
+                        {item.requestedService}
+                      </span>
+                    </td>
+
+                    {/* Academy Marks */}
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col gap-1">
+                        <span className={`text-xs font-bold ${parseInt(item.trainingScore) < 80 ? 'text-rose-600' : 'text-slate-900'}`}>
+                          {item.trainingScore}
                         </span>
-                      </td>
-
-                      {/* Academy Marks */}
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col gap-1">
-                          <span className={`text-xs font-bold ${parseInt(item.trainingScore) < 80 ? 'text-rose-600' : 'text-slate-900'}`}>
-                            {item.trainingScore}
-                          </span>
-                          <div className="h-1 w-20 bg-slate-100 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full rounded-full ${parseInt(item.trainingScore) < 80 ? 'bg-rose-500' : 'bg-indigo-600'}`} 
-                              style={{ width: `${parseInt(item.trainingScore)}%` }}
-                            ></div>
-                          </div>
+                        <div className="h-1 w-20 bg-slate-100 rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full rounded-full ${parseInt(item.trainingScore) < 80 ? 'bg-rose-500' : 'bg-indigo-600'}`} 
+                            style={{ width: `${parseInt(item.trainingScore)}%` }}
+                          ></div>
                         </div>
-                      </td>
+                      </div>
+                    </td>
 
-                      {/* Status Badge */}
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
-                          item.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
-                          item.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
-                        }`}>
-                          {item.status}
-                        </span>
-                      </td>
+                    {/* Status Badge */}
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
+                        item.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
+                        item.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
+                      }`}>
+                        {item.status}
+                      </span>
+                    </td>
 
-                      {/* Interaction Buttons */}
-                      <td className="px-6 py-4 text-center">
-                        {item.status === "Pending" ? (
-                          <div className="flex items-center justify-center gap-1.5">
-                            <button 
-                              onClick={() => handleStatusChange(item.id, "Approved")}
-                              className="bg-indigo-900 hover:bg-indigo-950 text-white text-[11px] font-bold p-1.5 rounded-lg shadow-sm transition"
-                              title="Approve Skills"
-                            >
-                              <Check size={14} />
-                            </button>
-                            <button 
-                              onClick={() => handleStatusChange(item.id, "Rejected")}
-                              className="border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-slate-600 p-1.5 rounded-lg transition"
-                              title="Send to Retraining"
-                            >
-                              <XCircle size={14} />
-                            </button>
-                          </div>
-                        ) : (
+                    {/* Interaction Buttons */}
+                    <td className="px-6 py-4 text-center">
+                      {item.status === "Pending" ? (
+                        <div className="flex items-center justify-center gap-1.5">
                           <button 
-                            onClick={() => alert(`Audit Logs: Expansion item ${item.id} status modified to "${item.status}"`)}
-                            className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+                            onClick={() => handleStatusChange(item.id, "Approved")}
+                            className="bg-indigo-900 hover:bg-indigo-950 text-white text-[11px] font-bold p-1.5 rounded-lg shadow-sm transition"
+                            title="Approve Skills"
                           >
-                            <MoreVertical size={16} />
+                            <Check size={14} />
                           </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="text-center py-12 text-slate-400 font-medium text-sm">
-                      No matching requests found.
+                          <button 
+                            onClick={() => handleStatusChange(item.id, "Rejected")}
+                            className="border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-slate-600 p-1.5 rounded-lg transition"
+                            title="Send to Retraining"
+                          >
+                            <XCircle size={14} />
+                          </button>
+                        </div>
+                      ) : (
+                        <button className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"><MoreVertical size={16} /></button>
+                      )}
                     </td>
                   </tr>
-                )}
+                ))}
               </tbody>
             </table></div>
           </div>
 
           {/* MOBILE RESPONSIVE CARD VIEW (Anti-Horizontal Scroll) */}
           <div className="block lg:hidden divide-y divide-slate-100">
-            {filteredRequests.length > 0 ? (
-              filteredRequests.map((item) => (
-                <div key={item.id} className="p-4 space-y-3 hover:bg-slate-50/30 transition-colors">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900">{item.partnerName}</h3>
-                      <p className="text-xs text-slate-400 font-mono mt-0.5">{item.id} • {item.tier}</p>
-                    </div>
-                    <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
-                      item.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
-                      item.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
-                    }`}>
-                      {item.status}
-                    </span>
+            {serviceRequests.map((item) => (
+              <div key={item.id} className="p-4 space-y-3 hover:bg-slate-50/30 transition-colors">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900">{item.partnerName}</h3>
+                    <p className="text-xs text-slate-400 font-mono mt-0.5">{item.id} • {item.tier}</p>
                   </div>
-
-                  <div className="bg-slate-50/60 p-3 rounded-lg text-xs font-semibold space-y-2">
-                    <div>
-                      <p className="text-slate-400 text-[10px] uppercase tracking-wider">Current Catalog</p>
-                      <p className="text-slate-700 truncate mt-0.5">{item.currentSkills}</p>
-                    </div>
-                    <div>
-                      <p className="text-slate-400 text-[10px] uppercase tracking-wider">Requested Upgrade</p>
-                      <p className="text-indigo-900 font-bold mt-0.5">{item.requestedService}</p>
-                    </div>
-                    <div className="flex justify-between items-center pt-1 border-t border-slate-200/50">
-                      <span className="text-slate-400 text-[10px] uppercase tracking-wider">Academy Test Score</span>
-                      <span className={`font-bold ${parseInt(item.trainingScore) < 80 ? 'text-rose-600' : 'text-slate-900'}`}>{item.trainingScore}</span>
-                    </div>
-                  </div>
-
-                  {item.status === "Pending" ? (
-                    <div className="flex items-center gap-2 pt-1">
-                      <button 
-                        onClick={() => handleStatusChange(item.id, "Approved")}
-                        className="flex-1 bg-indigo-900 text-white text-xs font-bold py-2 rounded-lg text-center shadow-sm"
-                      >
-                        Approve Upgrade
-                      </button>
-                      <button 
-                        onClick={() => handleStatusChange(item.id, "Rejected")}
-                        className="flex-1 border border-slate-200 text-slate-600 text-xs font-bold py-2 rounded-lg text-center hover:bg-rose-50 hover:text-rose-600"
-                      >
-                        Reject Request
-                      </button>
-                    </div>
-                  ) : (
-                    <button 
-                      onClick={() => alert(`Audit Logs: Expansion item ${item.id} status modified to "${item.status}"`)}
-                      className="w-full text-center border border-slate-200 text-slate-500 font-bold py-2 rounded-lg text-xs hover:bg-slate-50"
-                    >
-                      View Operational History
-                    </button>
-                  )}
+                  <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
+                    item.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
+                    item.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
+                  }`}>
+                    {item.status}
+                  </span>
                 </div>
-              ))
-            ) : (
-              <div className="p-8 text-center text-slate-400 font-medium text-sm">
-                No matching requests found.
+
+                <div className="bg-slate-50/60 p-3 rounded-lg text-xs font-semibold space-y-2">
+                  <div>
+                    <p className="text-slate-400 text-[10px] uppercase tracking-wider">Current Catalog</p>
+                    <p className="text-slate-700 truncate mt-0.5">{item.currentSkills}</p>
+                  </div>
+                  <div>
+                    <p className="text-slate-400 text-[10px] uppercase tracking-wider">Requested Upgrade</p>
+                    <p className="text-indigo-900 font-bold mt-0.5">{item.requestedService}</p>
+                  </div>
+                  <div className="flex justify-between items-center pt-1 border-t border-slate-200/50">
+                    <span className="text-slate-400 text-[10px] uppercase tracking-wider">Academy Test Score</span>
+                    <span className={`font-bold ${parseInt(item.trainingScore) < 80 ? 'text-rose-600' : 'text-slate-900'}`}>{item.trainingScore}</span>
+                  </div>
+                </div>
+
+                {item.status === "Pending" && (
+                  <div className="flex items-center gap-2 pt-1">
+                    <button 
+                      onClick={() => handleStatusChange(item.id, "Approved")}
+                      className="flex-1 bg-indigo-900 text-white text-xs font-bold py-2 rounded-lg text-center shadow-sm"
+                    >
+                      Approve Upgrade
+                    </button>
+                    <button 
+                      onClick={() => handleStatusChange(item.id, "Rejected")}
+                      className="flex-1 border border-slate-200 text-slate-600 text-xs font-bold py-2 rounded-lg text-center hover:bg-rose-50 hover:text-rose-600"
+                    >
+                      Reject Request
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
 
           {/* Audit Disclaimer Banner */}

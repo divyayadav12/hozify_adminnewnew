@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell"; // आपका एडमिन शेल
-import PartnerExportButton from "../../components/ui/PartnerExportButton";
-import PartnerExportModal from "../../components/ui/PartnerExportModal";
+import ExportReportModal from "../../components/common/ExportReportModal";
 
 import {
   Clock,
@@ -15,19 +14,17 @@ import {
   Download,
 } from "lucide-react";
 
-export default function PartnersReviews() {
-  const [isExportOpen, setIsExportOpen] = useState(false);
-
-  const handleExport = (format) => {
-    setIsExportOpen(false);
-    alert(`${format} export for review report has started.`);
-  };
+export default function PartnerReviewDashboard() {
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
   return (
     <AdminShell
       activeTab="Partners"
       searchPlaceholder="Search bookings, users, or partners..."
+      pageTitle="Partner Review Dashboard"
+      pageSubtitle="Reviewing performance metrics, SLA compliance and service quality for partners."
     >
+      {/* पूरे पेज का बैकग्राउंड अब पूरी तरह लाइट (bg-slate-50) है, कोई डार्कनेस नहीं */}
       <div className="min-h-screen bg-slate-50 font-sans text-slate-700 p-6 space-y-6">
         
         {/* ================= BREADCRUMB & SUBTITLE ================= */}
@@ -43,17 +40,14 @@ export default function PartnersReviews() {
             </p>
           </div>
           
-          <PartnerExportButton onClick={() => setIsExportOpen(true)} label="Export Report" />
+          <button 
+            onClick={() => setIsExportModalOpen(true)}
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 transition shadow-sm"
+          >
+            <Download size={14} />
+            Export Report
+          </button>
         </div>
-        <PartnerExportModal
-          open={isExportOpen}
-          onClose={() => setIsExportOpen(false)}
-          title="Export Partner Review Report"
-          description="Choose the file format for exporting partner review analytics and performance summaries."
-          helper="Your export will include partner ratings, incident trends, and compliance insights."
-          onExport={handleExport}
-          confirmLabel="Generate Export"
-        />
 
         {/* ================= ARCHITECTURE GRID ================= */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -296,6 +290,12 @@ export default function PartnersReviews() {
 
         </div>
       </div>
+      
+      <ExportReportModal 
+        isOpen={isExportModalOpen} 
+        onClose={() => setIsExportModalOpen(false)} 
+        entityName="Partner Reviews" 
+      />
     </AdminShell>
   );
 }

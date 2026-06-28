@@ -13,25 +13,21 @@ const stats = [
     title: "Total Audit Logs",
     value: "24,842",
     icon: FileText,
-    accent: "blue",
   },
   {
     title: "Today's Activities",
     value: "1,248",
     icon: Activity,
-    accent: "emerald",
   },
   {
     title: "Risk Events",
     value: "42",
     icon: AlertTriangle,
-    accent: "orange",
   },
   {
     title: "Compliance Score",
     value: "96%",
     icon: ShieldCheck,
-    accent: "violet",
   },
 ];
 
@@ -44,16 +40,16 @@ export default function PartnerAuditLogs() {
       <div className="space-y-8">
 
         {/* HERO */}
-        <div className="rounded-[32px] bg-white border border-slate-200 p-8 shadow-sm">
-          <p className="text-sm uppercase tracking-[0.3em] text-slate-500">
+        <div className="rounded-[32px] bg-gradient-to-r from-blue-900 via-slate-800 to-indigo-900 p-10 text-white">
+          <p className="text-sm uppercase tracking-[0.3em] text-blue-200">
             Audit Monitoring
           </p>
 
-          <h1 className="mt-4 text-5xl font-normal text-slate-900">
+          <h1 className="mt-4 text-5xl font-bold">
             Partner Audit Logs
           </h1>
 
-          <p className="mt-4 max-w-3xl text-slate-600">
+          <p className="mt-4 max-w-3xl text-slate-300">
             Monitor user activities, security events,
             compliance tracking and system audit records.
           </p>
@@ -63,27 +59,23 @@ export default function PartnerAuditLogs() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {stats.map((item) => {
             const Icon = item.icon;
-            const accent = item.accent;
+
             return (
               <div
                 key={item.title}
-                className="rounded-[28px] bg-white border border-slate-200 p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                className="rounded-[28px] bg-gradient-to-br from-blue-50 to-slate-100 border border-slate-200 p-6"
               >
                 <div className="flex items-center justify-between">
-                  <div className={`h-14 w-14 rounded-2xl flex items-center justify-center shadow ${
-                    accent === 'blue' ? 'bg-blue-100 text-blue-700' : ''
-                  } ${accent === 'emerald' ? 'bg-emerald-100 text-emerald-700' : ''} ${
-                    accent === 'orange' ? 'bg-orange-100 text-orange-700' : ''
-                  } ${accent === 'violet' ? 'bg-violet-100 text-violet-700' : ''}`}>
-                    <Icon size={26} className="text-current" />
+                  <div className="h-14 w-14 rounded-2xl bg-blue-100 flex items-center justify-center">
+                    <Icon className="text-blue-700" size={24} />
                   </div>
                 </div>
 
-                <p className="mt-5 text-slate-500 text-sm font-medium">
+                <p className="mt-5 text-slate-500">
                   {item.title}
                 </p>
 
-                <h3 className="mt-2 text-3xl font-semibold text-slate-900">
+                <h3 className="mt-2 text-4xl font-bold text-slate-900">
                   {item.value}
                 </h3>
               </div>

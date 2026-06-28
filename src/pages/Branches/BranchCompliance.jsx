@@ -26,15 +26,6 @@ export default function BranchCompliance() {
     navigate(ROUTES.branchSchedule);
   };
 
-  // Handlers for Download Report and Bulk Verify
-  const handleDownloadReport = () => {
-    alert('Generating and downloading compliance report...');
-  };
-
-  const handleBulkVerify = () => {
-    alert('Initiating bulk verification process for all pending documents...');
-  };
-
   return (
     <div className="branch-compliance-container">
       {/* Page Header */}
@@ -44,20 +35,10 @@ export default function BranchCompliance() {
           <p className="page-subtitle">Real-time regulatory status and document verification pipeline.</p>
         </div>
         <div className="partners-header-buttons">
-          <button 
-            className="secondary-action-btn font-bold" 
-            type="button" 
-            style={{ height: '36px' }}
-            onClick={handleDownloadReport}
-          >
+          <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
             <span>Download Report</span>
           </button>
-          <button 
-            className="primary-action-btn font-bold" 
-            type="button" 
-            style={{ height: '36px', backgroundColor: '#0f172a', color: '#fff' }}
-            onClick={handleBulkVerify}
-          >
+          <button className="primary-action-btn font-bold" type="button" style={{ height: '36px', backgroundColor: '#0f172a', color: '#fff' }}>
             <ShieldCheck size={14} style={{ marginRight: '4px' }} />
             <span>Bulk Verify</span>
           </button>

@@ -44,13 +44,13 @@ export default function PartnerFraudMonitoring() {
 
         {/* Hero */}
 
-        <div className="bg-white border border-slate-200 rounded-3xl p-8 text-slate-900 shadow-sm">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 text-white">
 
-          <h1 className="text-4xl font-normal text-slate-900">
+          <h1 className="text-4xl font-bold">
             Partner Fraud Monitoring
           </h1>
 
-          <p className="mt-3 text-slate-600 max-w-2xl">
+          <p className="mt-3 text-blue-100 max-w-2xl">
             Monitor suspicious partner activity,
             fraud alerts and risk scores in real time.
           </p>
@@ -71,24 +71,24 @@ export default function PartnerFraudMonitoring() {
               >
                 <div className="flex justify-between">
 
-                  <div className="h-14 w-14 rounded-2xl bg-slate-100 flex items-center justify-center">
+                  <div className="h-14 w-14 rounded-2xl bg-blue-100 flex items-center justify-center">
                     <Icon
                       size={24}
-                      className="text-slate-700"
+                      className="text-blue-600"
                     />
                   </div>
 
-                  <span className="text-green-600 font-medium">
+                  <span className="text-green-600 font-semibold">
                     {item.growth}
                   </span>
 
                 </div>
 
-                <p className="mt-5 text-slate-500 text-sm font-medium">
+                <p className="mt-5 text-slate-500">
                   {item.title}
                 </p>
 
-                <h2 className="mt-2 text-4xl font-semibold text-slate-900">
+                <h2 className="mt-2 text-4xl font-bold text-slate-900">
                   {item.value}
                 </h2>
 

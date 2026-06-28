@@ -17,6 +17,13 @@ const MOCK_LOGS = [
   { id: 'LOG-99196', user: 'David Smith', action: 'API Key Generation', module: 'Developer', severity: 'CRITICAL', time: '4 hours ago', ip: '192.168.1.20', status: 'BLOCKED', statusBg: '#fee2e2', statusColor: '#ef4444' },
 ];
 
+const MOCK_TIMELINE = [
+  { time: '10:45 AM', user: 'Sarah Jenkins', action: 'Created new branch schedule', type: 'update' },
+  { time: '09:30 AM', user: 'System', action: 'Daily automated sync completed', type: 'system' },
+  { time: '08:15 AM', user: 'Michael Chen', action: 'Requested emergency leave', type: 'user' },
+  { time: '02:00 AM', user: 'Security Bot', action: 'Blocked suspicious login attempt from RU', type: 'security' },
+];
+
 const MOCK_EVENTS = [
   { title: 'Multiple Failed Logins', desc: '5 attempts from IP 45.22.11.90', time: '15m ago', icon: <Lock size={14} />, color: '#ef4444', bg: '#fee2e2' },
   { title: 'Role Escalation', desc: 'User elevated to Admin', time: '3h ago', icon: <ShieldAlert size={14} />, color: '#d97706', bg: '#fef3c7' },
@@ -26,43 +33,12 @@ const MOCK_EVENTS = [
 export default function BranchAuditLogs() {
   const { navigate } = useApp();
   const [search, setSearch] = useState('');
-  const [logs, setLogs] = useState(MOCK_LOGS);
-  const [severityFilter, setSeverityFilter] = useState('');
-  const [moduleFilter, setModuleFilter] = useState('');
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  // Dynamic Actions
-  const handleRefresh = () => {
-    setIsRefreshing(true);
-    // Dynamic mock analysis: shuffling or slightly updating order to simulate live data
-    setTimeout(() => {
-      const reorderedLogs = [...logs].sort(() => Math.random() - 0.5);
-      setLogs(reorderedLogs);
-      setIsRefreshing(false);
-      alert('Data analysis complete. Logs refreshed with real-time stream.');
-    }, 600);
-  };
-
-  const handleToggleSort = () => {
-    // Dynamic analytical filter: reverses current log sorting sequence
-    const invertedLogs = [...logs].reverse();
-    setLogs(invertedLogs);
-    alert('Advanced filter applied: Inverted log analysis view.');
-  };
-
-  const handleExportExcel = () => {
-    // Dynamic download trigger simulation
-    alert(`Exporting ${filteredLogs.length} matching rows into Standard Excel (.xlsx) matrix layout...`);
-  };
-
-  const filteredLogs = logs.filter(l => {
-    const matchesSearch = l.id.toLowerCase().includes(search.toLowerCase()) || 
-                          l.user.toLowerCase().includes(search.toLowerCase()) || 
-                          l.action.toLowerCase().includes(search.toLowerCase());
-    const matchesSeverity = severityFilter ? l.severity === severityFilter : true;
-    const matchesModule = moduleFilter ? l.module === moduleFilter : true;
-    return matchesSearch && matchesSeverity && matchesModule;
-  });
+  
+  const filteredLogs = MOCK_LOGS.filter(l => 
+    l.id.toLowerCase().includes(search.toLowerCase()) || 
+    l.user.toLowerCase().includes(search.toLowerCase()) || 
+    l.action.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <AdminShell
@@ -81,30 +57,15 @@ export default function BranchAuditLogs() {
             <p className="page-subtitle">Monitor system activities, security events, and administrative actions.</p>
           </div>
           <div className="partners-header-buttons">
-            <button 
-              className={`secondary-action-btn font-bold ${isRefreshing ? 'opacity-50' : ''}`} 
-              type="button" 
-              style={{ height: '36px' }}
-              onClick={handleRefresh}
-            >
-              <RefreshCw size={14} style={{ marginRight: '6px' }} className={isRefreshing ? 'animate-spin' : ''} />
-              <span>{isRefreshing ? 'Analyzing...' : 'Refresh'}</span>
+            <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+              <RefreshCw size={14} style={{ marginRight: '6px' }} />
+              <span>Refresh</span>
             </button>
-            <button 
-              className="secondary-action-btn font-bold" 
-              type="button" 
-              style={{ height: '36px' }}
-              onClick={handleToggleSort}
-            >
+            <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
               <SlidersHorizontal size={14} style={{ marginRight: '6px' }} />
-              <span>Toggle Sort</span>
+              <span>Filters</span>
             </button>
-            <button 
-              className="primary-action-btn font-bold" 
-              type="button" 
-              style={{ height: '36px' }}
-              onClick={handleExportExcel}
-            >
+            <button className="primary-action-btn font-bold" type="button" style={{ height: '36px' }}>
               <Download size={14} style={{ marginRight: '6px' }} />
               <span>Export Logs</span>
             </button>
@@ -112,7 +73,7 @@ export default function BranchAuditLogs() {
         </div>
 
         {/* ================================================= */}
-        {/* STATISTICS CARDS (Dark Blue Outline Applied)      */}
+        {/* STATISTICS CARDS                                  */}
         {/* ================================================= */}
         <style>{`
           .audit-kpi-grid {
@@ -126,7 +87,7 @@ export default function BranchAuditLogs() {
           .audit-kpi-card {
             padding: 16px;
             background: #fff;
-            border: 2px solid #1e3a8a; /* Dark Blue Outline */
+            border: 1px solid var(--line);
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -156,34 +117,6 @@ export default function BranchAuditLogs() {
             overflow: hidden;
             text-overflow: ellipsis;
           }
-
-          /* Excel-style table architecture overrides */
-          .excel-format-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            border: 1px solid #d1d5db !important;
-          }
-          .excel-format-table th {
-            background-color: #f3f4f6 !important;
-            color: #374151 !important;
-            font-weight: 600 !important;
-            font-size: 11px !important;
-            text-transform: uppercase;
-            border: 1px solid #d1d5db !important;
-            padding: 6px 10px !important;
-            letter-spacing: 0.5px;
-          }
-          .excel-format-table td {
-            border: 1px solid #e5e7eb !important;
-            padding: 6px 10px !important;
-            font-size: 12px !important;
-            height: 28px;
-            background-color: #ffffff;
-          }
-          .excel-format-table tr:hover td {
-            background-color: #f0fdf4 !important; /* Excel selection tone indicator */
-          }
         `}</style>
         <section className="audit-kpi-grid">
           <div className="audit-kpi-card">
@@ -200,7 +133,7 @@ export default function BranchAuditLogs() {
               <span>Security Events</span>
               <ShieldAlert size={14} color="#ef4444" />
             </div>
-            <strong className="audit-kpi-card-value">{filteredLogs.length}</strong>
+            <strong className="audit-kpi-card-value">48</strong>
             <div style={{ height: '4px', background: '#ef4444', borderRadius: '2px', marginTop: '4px' }} />
           </div>
 
@@ -335,7 +268,7 @@ export default function BranchAuditLogs() {
         </section>
 
         {/* ================================================= */}
-        {/* LOGS TABLE SECTION (Excel Design Implemented)   */}
+        {/* LOGS TABLE SECTION                                */}
         {/* ================================================= */}
         <section className="panel" style={{ padding: '24px' }}>
           
@@ -344,7 +277,7 @@ export default function BranchAuditLogs() {
               Detailed Audit Logs
             </h2>
             
-            {/* Filter Panel (Inline Linked with State) */}
+            {/* Filter Panel (Inline) */}
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
               <div className="dash-search" style={{ width: '240px', margin: 0, height: '34px' }}>
                 <Search size={14} style={{ marginLeft: '12px', color: 'var(--muted)' }} />
@@ -356,11 +289,7 @@ export default function BranchAuditLogs() {
                 />
               </div>
               
-              <select 
-                value={severityFilter}
-                onChange={(e) => setSeverityFilter(e.target.value)}
-                style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
-              >
+              <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
                 <option value="">All Severities</option>
                 <option value="CRITICAL">Critical</option>
                 <option value="HIGH">High</option>
@@ -368,80 +297,71 @@ export default function BranchAuditLogs() {
                 <option value="LOW">Low</option>
               </select>
 
-              <select 
-                value={moduleFilter}
-                onChange={(e) => setModuleFilter(e.target.value)}
-                style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
-              >
+              <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
                 <option value="">All Modules</option>
                 <option value="Auth">Auth</option>
                 <option value="System">System</option>
                 <option value="Security">Security</option>
                 <option value="Users">Users</option>
-                <option value="Developer">Developer</option>
-                <option value="Reports">Reports</option>
               </select>
             </div>
           </div>
 
-<<<<<<< HEAD
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-=======
-          <div className="table-wrap" style={{ overflowX: 'auto' }}>
-            <table className="excel-format-table">
->>>>>>> 94fd7cb (Updated partner modules and export components)
               <thead>
-                <tr>
-                  <th style={{ width: '10%' }}>LOG ID</th>
-                  <th style={{ width: '12%' }}>TIMESTAMP</th>
-                  <th style={{ width: '15%' }}>USER / ACTOR</th>
-                  <th style={{ width: '25%' }}>ACTION</th>
-                  <th style={{ width: '10%' }}>MODULE</th>
-                  <th style={{ width: '12%' }}>IP ADDRESS</th>
-                  <th style={{ width: '10%' }}>SEVERITY</th>
-                  <th style={{ width: '10%' }}>STATUS</th>
-                  <th style={{ width: '6%', textAlign: 'center' }}>CMD</th>
+                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>LOG ID</th>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>TIMESTAMP</th>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>USER / ACTOR</th>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>ACTION</th>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>MODULE</th>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>IP ADDRESS</th>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>SEVERITY</th>
+                  <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>STATUS</th>
+                  <th style={{ padding: '12px', textAlign: 'right', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredLogs.map((row) => (
-                  <tr key={row.id}>
-                    <td style={{ color: '#1e3a8a', fontWeight: '600', fontFamily: 'monospace' }}>
-                      {row.id}
+                  <tr key={row.id} style={{ borderBottom: '1px solid var(--line)' }}>
+                    <td style={{ padding: '12px', fontSize: '12px' }}>
+                      <span style={{ color: '#4f46e5', fontWeight: '700', cursor: 'pointer' }}>{row.id}</span>
                     </td>
-                    <td style={{ color: '#555' }}>
-                      {row.time}
+                    <td style={{ padding: '12px', fontSize: '12px', color: 'var(--muted)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Clock size={12} /> {row.time}
+                      </div>
                     </td>
-                    <td style={{ color: '#333', fontWeight: '500' }}>
+                    <td style={{ padding: '12px', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}>
                       {row.user}
                     </td>
-                    <td style={{ color: '#222' }}>
+                    <td style={{ padding: '12px', fontSize: '13px', color: 'var(--text)' }}>
                       {row.action}
                     </td>
-                    <td style={{ color: '#444', fontFamily: 'sans-serif' }}>
+                    <td style={{ padding: '12px', fontSize: '12px', color: 'var(--muted)' }}>
                       {row.module}
                     </td>
-                    <td style={{ color: '#555', fontFamily: 'Consolas, monospace', fontSize: '11px' }}>
+                    <td style={{ padding: '12px', fontSize: '12px', color: 'var(--muted)', fontFamily: 'monospace' }}>
                       {row.ip}
                     </td>
-                    <td>
+                    <td style={{ padding: '12px' }}>
                       <span style={{ 
-                        fontSize: '9px', fontWeight: '700', padding: '1px 5px', borderRadius: '2px',
+                        fontSize: '9px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px',
                         background: row.severity === 'CRITICAL' ? '#fee2e2' : row.severity === 'HIGH' ? '#ffedd5' : '#f1f5f9',
                         color: row.severity === 'CRITICAL' ? '#ef4444' : row.severity === 'HIGH' ? '#ea580c' : '#64748b'
                       }}>
                         {row.severity}
                       </span>
                     </td>
-                    <td>
-                      <span style={{ fontSize: '9px', fontWeight: '700', padding: '1px 5px', borderRadius: '2px', background: row.statusBg, color: row.statusColor }}>
+                    <td style={{ padding: '12px' }}>
+                      <span style={{ fontSize: '9px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px', background: row.statusBg, color: row.statusColor }}>
                         {row.status}
                       </span>
                     </td>
-                    <td style={{ textAlign: 'center' }}>
-                      <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#9ca3af', padding: '2px' }}>
-                        <MoreVertical size={12} />
+                    <td style={{ padding: '12px', textAlign: 'right' }}>
+                      <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}>
+                        <MoreVertical size={14} />
                       </button>
                     </td>
                   </tr>
@@ -450,8 +370,8 @@ export default function BranchAuditLogs() {
             </table></div>
 
             {filteredLogs.length === 0 && (
-              <div style={{ padding: '30px', textAlign: 'center', color: '#6b7280', fontSize: '12px', background: '#fff', border: '1px solid #d1d5db', borderTop: 'none' }}>
-                No records found matching current tabular filters.
+              <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
+                No logs found matching your criteria.
               </div>
             )}
           </div>
