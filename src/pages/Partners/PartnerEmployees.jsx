@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 
 import {
@@ -18,6 +18,8 @@ const employeeStats = [
     icon: Users,
     badge: "+8%",
     color: "text-emerald-600",
+    bg: "bg-emerald-100",
+    description: "Overall partner workforce strength and hiring momentum.",
   },
   {
     title: "Active Employees",
@@ -25,6 +27,8 @@ const employeeStats = [
     icon: UserCheck,
     badge: "94%",
     color: "text-green-600",
+    bg: "bg-green-100",
+    description: "Employees currently active across partner operations.",
   },
   {
     title: "Pending Verification",
@@ -32,6 +36,8 @@ const employeeStats = [
     icon: Clock3,
     badge: "Review",
     color: "text-orange-500",
+    bg: "bg-orange-100",
+    description: "Employees waiting for document verification and approval.",
   },
   {
     title: "Suspended",
@@ -39,6 +45,8 @@ const employeeStats = [
     icon: UserX,
     badge: "-2%",
     color: "text-red-500",
+    bg: "bg-red-100",
+    description: "Staff currently paused from partner systems.",
   },
 ];
 
@@ -67,8 +75,27 @@ const employees = [
     role: "Team Lead",
     status: "Active",
   },
+  {
+    name: "Nikhil Rao",
+    id: "EMP-1004",
+    partner: "BlueWave Systems",
+    department: "Compliance",
+    role: "Auditor",
+    status: "Suspended",
+  },
 ];
 export default function PartnerEmployees() {
+  const [activeStatIndex, setActiveStatIndex] = useState(0);
+  const activeStat = employeeStats[activeStatIndex];
+
+  const filteredEmployees = useMemo(() => {
+    if (activeStatIndex === 0) return employees;
+    if (activeStatIndex === 1) return employees.filter((employee) => employee.status === "Active");
+    if (activeStatIndex === 2) return employees.filter((employee) => employee.status === "Pending");
+    if (activeStatIndex === 3) return employees.filter((employee) => employee.status === "Suspended");
+    return employees;
+  }, [activeStatIndex]);
+
   return (
     <AdminShell
       activeTab="Partners"
@@ -76,20 +103,41 @@ export default function PartnerEmployees() {
     >
       <div className="space-y-8">
 
-        <div className="overflow-hidden rounded-[32px] bg-gradient-to-r from-slate-900 via-indigo-900 to-violet-900 p-8 text-white">
+        <div className="overflow-hidden rounded-[32px] bg-slate-50 border border-slate-200 p-8 text-slate-900 shadow-sm">
 
-          <span className="rounded-full bg-white/10 px-4 py-2 text-xs tracking-[0.3em]">
+          <span className="rounded-full bg-slate-100 px-4 py-2 text-xs tracking-[0.3em] text-slate-600">
             PARTNER EMPLOYEES
           </span>
 
-          <h1 className="mt-5 text-3xl font-bold">
-            Workforce Management Center
+          <h1 className="mt-5 text-3xl font-bold text-slate-900">
+            {activeStat.title}
           </h1>
 
-          <p className="mt-4 max-w-3xl text-slate-300">
-            Manage partner employees, roles, departments,
-            verification status and workforce productivity.
+          <p className="mt-4 max-w-3xl text-slate-600">
+            {activeStat.description}
           </p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-[280px_1fr] items-start">
+            <div className="rounded-[28px] bg-white p-6 shadow-sm border border-slate-200">
+              <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                Current value
+              </p>
+              <p className="mt-4 text-5xl font-bold text-slate-900">
+                {activeStat.value}
+              </p>
+            </div>
+            <div className="rounded-[28px] bg-white p-6 shadow-sm border border-slate-200">
+              <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                Trend
+              </p>
+              <p className={`mt-4 text-4xl font-semibold ${activeStat.color}`}>
+                {activeStat.badge}
+              </p>
+              <p className="mt-4 text-sm text-slate-500">
+                Tap any stat card below to refresh this summary with the latest insight.
+              </p>
+            </div>
+          </div>
 
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -99,18 +147,24 @@ export default function PartnerEmployees() {
     const Icon = item.icon;
 
     return (
-      <div
+      <button
         key={index}
-        className="rounded-[28px] border border-slate-200 bg-white p-6"
+        type="button"
+        onClick={() => setActiveStatIndex(index)}
+        className={`rounded-[28px] border p-6 text-left transition-shadow duration-200 ${
+          activeStatIndex === index
+            ? "border-indigo-500 bg-indigo-50 shadow-lg"
+            : "border-slate-200 bg-white shadow-sm hover:border-indigo-300 hover:bg-slate-50"
+        }`}
       >
 
-        <div className="flex justify-between">
+        <div className="flex justify-between items-start gap-4">
 
-          <div className="h-14 w-14 rounded-2xl bg-indigo-50 flex items-center justify-center">
-            <Icon className="text-indigo-600" />
+          <div className={`flex h-14 w-14 items-center justify-center rounded-3xl ${item.bg} shadow-lg`}>
+            <Icon className={`h-8 w-8 ${item.color} stroke-2`} />
           </div>
 
-          <span className={item.color}>
+          <span className={`text-sm font-semibold ${item.color}`}>
             {item.badge}
           </span>
 
@@ -120,11 +174,11 @@ export default function PartnerEmployees() {
           {item.title}
         </p>
 
-        <h3 className="mt-2 text-4xl font-bold">
+        <h3 className="mt-2 text-4xl font-bold text-slate-900">
           {item.value}
         </h3>
 
-      </div>
+      </button>
     );
   })}
 
@@ -134,11 +188,11 @@ export default function PartnerEmployees() {
   <div className="border-b border-slate-200 p-6">
 
     <h2 className="text-3xl font-bold">
-      Employee Directory
+      Employee Directory — {activeStat.title}
     </h2>
 
     <p className="text-slate-500 mt-2">
-      Monitor workforce across all partners
+      Showing {filteredEmployees.length} {activeStat.title.toLowerCase()} record{filteredEmployees.length === 1 ? "" : "s"}.
     </p>
 
   </div>
@@ -162,7 +216,7 @@ export default function PartnerEmployees() {
 
     <tbody>
 
-      {employees.map((employee) => (
+      {filteredEmployees.map((employee) => (
 
         <tr
           key={employee.id}
@@ -193,7 +247,9 @@ export default function PartnerEmployees() {
               className={`rounded-full px-4 py-2 text-sm ${
                 employee.status === "Active"
                   ? "bg-green-100 text-green-700"
-                  : "bg-orange-100 text-orange-700"
+                  : employee.status === "Pending"
+                  ? "bg-orange-100 text-orange-700"
+                  : "bg-slate-100 text-slate-700"
               }`}
             >
               {employee.status}

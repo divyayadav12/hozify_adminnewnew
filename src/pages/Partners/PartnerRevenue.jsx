@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import {
   IndianRupee,
@@ -11,26 +11,94 @@ const stats = [
   {
     title: "Total Revenue",
     value: "₹8.42Cr",
+    delta: "+12%",
     icon: IndianRupee,
+    subtitle: "Net partner earnings",
+    accent: "from-indigo-500 to-blue-600",
   },
   {
     title: "Monthly Revenue",
     value: "₹1.24Cr",
+    delta: "+9%",
     icon: TrendingUp,
+    subtitle: "Current month performance",
+    accent: "from-emerald-500 to-teal-500",
   },
   {
     title: "Settlements",
     value: "₹92.8L",
+    delta: "+6%",
     icon: Wallet,
+    subtitle: "Cleared payouts",
+    accent: "from-violet-500 to-indigo-500",
   },
   {
     title: "Profit Margin",
     value: "28%",
+    delta: "+4 pts",
     icon: Receipt,
+    subtitle: "Partner contribution share",
+    accent: "from-amber-500 to-orange-500",
   },
 ];
 
+const revenueSources = [
+  { title: "Subscriptions", amount: 3.24, percent: 38, change: "+12%", color: "from-slate-900 to-slate-600" },
+  { title: "Service Revenue", amount: 2.18, percent: 26, change: "+8%", color: "from-cyan-700 to-sky-500" },
+  { title: "Commission", amount: 1.84, percent: 22, change: "+5%", color: "from-indigo-700 to-indigo-500" },
+  { title: "Other Revenue", amount: 1.16, percent: 14, change: "+3%", color: "from-violet-700 to-violet-500" },
+];
+
+const monthlyTrend = [
+  { month: "Jan", value: 62 },
+  { month: "Feb", value: 84 },
+  { month: "Mar", value: 76 },
+  { month: "Apr", value: 102 },
+  { month: "May", value: 118 },
+  { month: "Jun", value: 136 },
+  { month: "Jul", value: 126 },
+  { month: "Aug", value: 148 },
+  { month: "Sep", value: 162 },
+  { month: "Oct", value: 180 },
+  { month: "Nov", value: 198 },
+  { month: "Dec", value: 225 },
+];
+
+const topPartners = [
+  { name: "Apex Digital", category: "Enterprise", revenue: "₹24.8L", growth: "+18%", status: "Top Performer" },
+  { name: "Urban Connect", category: "Retail", revenue: "₹18.2L", growth: "+12%", status: "Growing" },
+  { name: "Prime Hub", category: "Corporate", revenue: "₹15.4L", growth: "+8%", status: "Stable" },
+  { name: "Elite Group", category: "Enterprise", revenue: "₹12.6L", growth: "+5%", status: "Stable" },
+  { name: "Smart Connect", category: "SMB", revenue: "₹10.8L", growth: "+10%", status: "Rising" },
+];
+
 export default function PartnerRevenue() {
+  const [selectedStat, setSelectedStat] = useState(stats[0].title);
+  const [selectedSource, setSelectedSource] = useState(revenueSources[0].title);
+  const [selectedMonthIndex, setSelectedMonthIndex] = useState(monthlyTrend.length - 1);
+
+  const selectedStatData = stats.find((item) => item.title === selectedStat) || stats[0];
+  const selectedSourceData = revenueSources.find((item) => item.title === selectedSource) || revenueSources[0];
+  const selectedMonth = monthlyTrend[selectedMonthIndex];
+  const maxTrendValue = useMemo(
+    () => Math.max(...monthlyTrend.map((item) => item.value)),
+    []
+  );
+
+  const trendChart = useMemo(() => {
+    const padding = 18;
+    const width = 340;
+    const height = 120;
+    const stepX = (width - padding * 2) / (monthlyTrend.length - 1);
+    const points = monthlyTrend.map((item, index) => {
+      const x = padding + stepX * index;
+      const y = height - padding - (item.value / maxTrendValue) * (height - padding * 2);
+      return { x, y, month: item.month, value: item.value };
+    });
+    const path = points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' ');
+    return { path, points };
+  }, [maxTrendValue]);
+
   return (
     <AdminShell
       activeTab="Partners"
@@ -39,265 +107,191 @@ export default function PartnerRevenue() {
       <div className="min-h-screen bg-slate-50 p-6 space-y-6">
 
         {/* Hero Section */}
-        <div className="rounded-3xl bg-white border border-slate-200 p-8 shadow-sm">
-          <span className="inline-flex px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
-            REVENUE ANALYTICS
-          </span>
+        <div className="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <span className="inline-flex px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                REVENUE ANALYTICS
+              </span>
 
-          <h1 className="mt-4 text-4xl font-bold text-slate-900">
-            Partner Revenue 
-          </h1>
+              <h1 className="mt-4 text-3xl font-bold text-slate-900">
+                Partner Revenue Insights
+              </h1>
 
-          <p className="mt-3 text-slate-500 max-w-2xl">
-            Monitor partner earnings, settlements,
-            commissions and overall revenue performance.
-          </p>
-        </div>
+              <p className="mt-3 text-slate-500 max-w-2xl">
+                Monitor partner earnings, settlements, and commissions with a clean, professional finance dashboard.
+              </p>
+            </div>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {stats.map((item) => {
-            const Icon = item.icon;
-
-            return (
-              <div
-                key={item.title}
-                className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"
-              >
-                <div className="flex justify-between items-center">
-                  <div className="h-14 w-14 rounded-2xl bg-blue-50 flex items-center justify-center">
-                    <Icon
-                      size={24}
-                      className="text-blue-600"
-                    />
-                  </div>
-
-                  <span className="text-green-600 text-sm font-semibold">
-                    +12%
-                  </span>
-                </div>
-
-                <p className="mt-5 text-slate-500">
+            <div className="flex flex-wrap gap-3">
+              {stats.map((item) => (
+                <button
+                  key={item.title}
+                  type="button"
+                  onClick={() => setSelectedStat(item.title)}
+                  className={`rounded-2xl border px-4 py-2 text-sm font-semibold transition ${
+                    selectedStat === item.title
+                      ? 'border-indigo-500 bg-indigo-100 text-slate-900 shadow-sm'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                  }`}
+                >
                   {item.title}
-                </p>
+                </button>
+              ))}
+            </div>
+          </div>
 
-                <h2 className="mt-2 text-3xl font-bold text-slate-900">
-                  {item.value}
-                </h2>
-              </div>
-            );
-          })}
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {stats.map((item) => {
+              const Icon = item.icon;
+              const active = selectedStat === item.title;
+              return (
+                <div
+                  key={item.title}
+                  className={`rounded-3xl border border-slate-200 bg-slate-50 p-4 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-md ${
+                    active ? 'border-indigo-500 bg-white shadow-lg' : ''
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className={`h-12 w-12 rounded-3xl flex items-center justify-center shadow-lg ${active ? `bg-gradient-to-br ${item.accent} text-white` : `bg-gradient-to-br ${item.accent} text-white`}`}>
+                      <Icon size={26} strokeWidth={1.9} className="text-current" />
+                    </div>
+                    <span className={`text-sm font-semibold ${active ? 'text-emerald-300' : 'text-slate-500'}`}>
+                      {item.delta}
+                    </span>
+                  </div>
+                  <p className={`mt-4 text-sm ${active ? 'text-slate-300' : 'text-slate-500'}`}>
+                    {item.subtitle}
+                  </p>
+                  <h2 className="mt-3 text-2xl font-bold text-slate-900">
+                    {item.value}
+                  </h2>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Revenue Sources */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {[
-            {
-              title: "Subscriptions",
-              amount: "₹3.24Cr",
-              color: "bg-blue-500",
-            },
-            {
-              title: "Service Revenue",
-              amount: "₹2.18Cr",
-              color: "bg-cyan-500",
-            },
-            {
-              title: "Commission",
-              amount: "₹1.84Cr",
-              color: "bg-indigo-500",
-            },
-            {
-              title: "Other Revenue",
-              amount: "₹1.16Cr",
-              color: "bg-violet-500",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"
-            >
-              <div className={`h-2 w-full rounded-full ${item.color}`} />
-
-              <p className="mt-5 text-slate-500">
-                {item.title}
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-slate-900">
-                {item.amount}
-              </h3>
-
-              <span className="text-green-600 text-sm font-semibold">
-                +12%
-              </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          {revenueSources.map((item) => (
+            <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-md">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+                  <p className="mt-1 text-xs text-slate-500">Monthly partner contribution</p>
+                </div>
+                <div className={`h-10 w-10 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white`}>%</div>
+              </div>
+              <div className="mt-5 flex items-end justify-between gap-4">
+                <div>
+                  <p className="text-3xl font-bold text-slate-900">₹{item.amount.toFixed(2)}Cr</p>
+                  <p className="text-xs text-slate-500">{item.percent}% share</p>
+                </div>
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">{item.change}</span>
+              </div>
             </div>
           ))}
         </div>
 
         {/* Revenue Distribution */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          {/* Distribution Chart */}
-          <div className="xl:col-span-2 bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-            <h2 className="text-2xl font-bold text-slate-900">
-              Revenue Distribution
-            </h2>
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          <div className="xl:col-span-2 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900">Revenue Distribution</h2>
+                <p className="mt-2 text-sm text-slate-500">Revenue contribution across partner channels.</p>
+              </div>
+              <div className="rounded-3xl bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700">Real time</div>
+            </div>
 
-            <p className="text-slate-500 mt-2">
-              Revenue contribution by source
-            </p>
-
-            <div className="mt-8 space-y-6">
-              {[
-                ["Subscriptions", "38%"],
-                ["Services", "26%"],
-                ["Commission", "22%"],
-                ["Other Revenue", "14%"],
-              ].map(([name, value]) => (
-                <div key={name}>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-slate-700 font-medium">
-                      {name}
-                    </span>
-
-                    <span className="font-semibold text-blue-600">
-                      {value}
-                    </span>
+            <div className="mt-8 space-y-4">
+              {revenueSources.map((item) => (
+                <div key={item.title} className="rounded-3xl border border-slate-100 bg-slate-50 p-4 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-slate-900">{item.title}</p>
+                    <span className="text-slate-500">{item.percent}%</span>
                   </div>
-
-                  <div className="h-3 rounded-full bg-slate-100">
-                    <div
-                      className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500"
-                      style={{ width: value }}
-                    />
+                  <div className="mt-3 h-3 rounded-full bg-slate-200 overflow-hidden">
+                    <div className={`h-full rounded-full bg-gradient-to-r ${item.color}`} style={{ width: `${item.percent}%` }} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Summary Card */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-            <p className="text-sm font-semibold text-blue-600 uppercase">
-              Top Source
-            </p>
-
-            <h3 className="mt-4 text-3xl font-bold text-slate-900">
-              Subscription Plans
-            </h3>
-
-            <p className="mt-3 text-slate-500">
-              Highest revenue generating source across all active partners.
-            </p>
-
+          <div className="bg-slate-50 rounded-3xl border border-slate-200 p-6 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-md">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Key Revenue Source</p>
+            <h3 className="mt-4 text-3xl font-bold text-slate-900">Subscription Plans</h3>
+            <p className="mt-3 text-slate-500">Primary contributor to partner revenue this quarter.</p>
             <div className="mt-8 space-y-4">
-              <div className="flex justify-between">
-                <span className="text-slate-500">Revenue</span>
-                <span className="font-semibold">₹3.24Cr</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-slate-500">Contribution</span>
-                <span className="font-semibold">38%</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-slate-500">Growth</span>
-                <span className="font-semibold text-green-600">+12%</span>
-              </div>
+              <div className="flex justify-between text-sm text-slate-500"><span>Revenue</span><span>₹3.24Cr</span></div>
+              <div className="flex justify-between text-sm text-slate-500"><span>Share</span><span>38%</span></div>
+              <div className="flex justify-between text-sm text-slate-500"><span>Growth</span><span className="text-emerald-600 font-semibold">+12%</span></div>
             </div>
           </div>
         </div>
 
         {/* Top Earning Partners */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-900">
-              Top Earning Partners
-            </h2>
-
-            <p className="mt-2 text-slate-500">
-              Highest performing partners this month
-            </p>
+          <div className="p-5 border-b border-slate-200 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">Top Earning Partners</h2>
+              <p className="mt-1 text-sm text-slate-500">Highest performing partners this month</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {topPartners.slice(0, 3).map((partner) => (
+                <button
+                  key={partner.name}
+                  type="button"
+                  onClick={() => setSelectedSource(partner.name)}
+                  className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                >
+                  {partner.name}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="overflow-x-auto">
+<<<<<<< HEAD
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full">
               <thead className="bg-slate-50">
                 <tr className="text-left text-sm text-slate-600">
+=======
+            <table className="w-full text-sm text-slate-600">
+              <thead className="bg-slate-50 text-left text-xs uppercase tracking-[0.18em] text-slate-500">
+                <tr>
+>>>>>>> 94fd7cb (Updated partner modules and export components)
                   <th className="px-6 py-4">Partner</th>
-                  <th>Category</th>
-                  <th>Revenue</th>
-                  <th>Growth</th>
-                  <th>Status</th>
+                  <th className="px-6 py-4">Category</th>
+                  <th className="px-6 py-4">Revenue</th>
+                  <th className="px-6 py-4">Growth</th>
+                  <th className="px-6 py-4">Status</th>
                 </tr>
               </thead>
-
               <tbody>
-                {[
-                  {
-                    name: "Apex Digital",
-                    category: "Enterprise",
-                    revenue: "₹24.8L",
-                    growth: "+18%",
-                    status: "Top Performer",
-                  },
-                  {
-                    name: "Urban Connect",
-                    category: "Retail",
-                    revenue: "₹18.2L",
-                    growth: "+12%",
-                    status: "Growing",
-                  },
-                  {
-                    name: "Prime Hub",
-                    category: "Corporate",
-                    revenue: "₹15.4L",
-                    growth: "+8%",
-                    status: "Stable",
-                  },
-                  {
-                    name: "Elite Group",
-                    category: "Enterprise",
-                    revenue: "₹12.6L",
-                    growth: "+5%",
-                    status: "Stable",
-                  },
-                ].map((partner, index) => (
+                {topPartners.map((partner, index) => (
                   <tr
-                    key={index}
-                    className="border-t border-slate-100 hover:bg-slate-50"
+                    key={partner.name}
+                    className={`border-t border-slate-100 transition ${
+                      partner.name === selectedSource ? 'bg-slate-50' : 'hover:bg-slate-50'
+                    }`}
                   >
-                    <td className="px-6 py-5">
-                      <div className="flex items-center gap-4">
-                        <div className="h-11 w-11 rounded-xl bg-blue-100 flex items-center justify-center font-bold text-blue-700">
-                          {partner.name.charAt(0)}
-                        </div>
-
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-100 text-slate-800 font-semibold">{index + 1}</span>
                         <div>
-                          <h4 className="font-semibold text-slate-900">
-                            {partner.name}
-                          </h4>
-                          <p className="text-sm text-slate-500">
-                            ID #{1001 + index}
-                          </p>
+                          <div className="font-semibold text-slate-900">{partner.name}</div>
+                          <div className="text-xs text-slate-500">{partner.category}</div>
                         </div>
                       </div>
                     </td>
-
-                    <td>{partner.category}</td>
-
-                    <td className="font-semibold text-slate-900">
-                      {partner.revenue}
-                    </td>
-
-                    <td className="text-green-600 font-semibold">
-                      {partner.growth}
-                    </td>
-
-                    <td>
-                      <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
-                        {partner.status}
-                      </span>
+                    <td className="px-6 py-4">{partner.category}</td>
+                    <td className="px-6 py-4 font-semibold text-slate-900">{partner.revenue}</td>
+                    <td className="px-6 py-4 text-emerald-600 font-semibold">{partner.growth}</td>
+                    <td className="px-6 py-4">
+                      <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{partner.status}</span>
                     </td>
                   </tr>
                 ))}
@@ -307,189 +301,139 @@ export default function PartnerRevenue() {
         </div>
 
         {/* Revenue Leaderboard */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          <div className="xl:col-span-2 bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-            <h2 className="text-2xl font-bold text-slate-900">
-              Revenue Leaderboard
-            </h2>
-
-            <p className="mt-2 text-slate-500">
-              Ranking by monthly revenue
-            </p>
-
-            <div className="mt-8 space-y-4">
-              {[
-                ["Apex Digital", "₹24.8L"],
-                ["Urban Connect", "₹18.2L"],
-                ["Prime Hub", "₹15.4L"],
-                ["Elite Group", "₹12.6L"],
-                ["Smart Connect", "₹10.8L"],
-              ].map(([name, amount], index) => (
-                <div
-                  key={name}
-                  className="flex items-center justify-between p-5 rounded-2xl bg-slate-50"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
-                      #{index + 1}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          <div className="xl:col-span-2 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900">Revenue Leaderboard</h2>
+                <p className="mt-1 text-sm text-slate-500">Ranking by monthly revenue</p>
+              </div>
+              <span className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">Live</span>
+            </div>
+            <div className="mt-5 space-y-3">
+              {topPartners.map((partner, index) => (
+                <div key={partner.name} className="rounded-3xl border border-slate-200 bg-slate-50 p-4 flex items-center justify-between gap-4 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-900 text-white font-bold shadow-lg">#{index + 1}</span>
+                    <div>
+                      <div className="font-semibold text-slate-900">{partner.name}</div>
+                      <div className="text-xs text-slate-500">{partner.category}</div>
                     </div>
-
-                    <span className="font-semibold text-slate-900">
-                      {name}
-                    </span>
                   </div>
-
-                  <span className="font-bold text-blue-600 text-lg">
-                    {amount}
-                  </span>
+                  <span className="text-slate-900 font-semibold">{partner.revenue}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Revenue Health Card */}
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white">
-            <p className="uppercase text-sm tracking-wider opacity-80">
-              Revenue Health
-            </p>
-
-            <h2 className="mt-4 text-6xl font-bold">
-              94%
-            </h2>
-
-            <p className="mt-4 text-blue-100">
-              Strong earnings performance across all active partners.
-            </p>
-
-            <div className="mt-8 space-y-4">
-              <div className="flex justify-between">
-                <span>Active Partners</span>
-                <span>1,284</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>Avg Revenue</span>
-                <span>₹6.4L</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>Growth Rate</span>
-                <span>+18%</span>
-              </div>
+          <div className="bg-slate-50 rounded-3xl border border-slate-200 p-6 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-md">
+            <p className="text-sm uppercase tracking-[0.22em] text-slate-500">Revenue Health</p>
+            <h2 className="mt-4 text-5xl font-bold text-slate-900">94%</h2>
+            <p className="mt-3 text-slate-600">Strong earnings performance across active partners.</p>
+            <div className="mt-8 space-y-4 text-sm text-slate-600">
+              <div className="flex justify-between"><span>Active Partners</span><span>1,284</span></div>
+              <div className="flex justify-between"><span>Avg Revenue</span><span>₹6.4L</span></div>
+              <div className="flex justify-between"><span>Growth Rate</span><span className="text-emerald-700 font-semibold">+18%</span></div>
             </div>
           </div>
         </div>
 
         {/* Monthly Revenue Trend */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-          <div className="flex items-center justify-between">
+        <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Monthly Revenue Trend
-              </h2>
-
-              <p className="mt-2 text-slate-500">
-                Revenue growth throughout the year
-              </p>
+              <h2 className="text-2xl font-bold text-slate-900">Monthly Revenue Trend</h2>
+              <p className="mt-2 text-slate-500">Revenue growth throughout the year.</p>
             </div>
-
-            <span className="px-4 py-2 rounded-xl bg-green-100 text-green-700 font-semibold">
-              +18%
-            </span>
+            <div className="flex flex-wrap gap-2 text-sm">
+              {monthlyTrend.map((item, index) => (
+                <button
+                  key={item.month}
+                  type="button"
+                  onClick={() => setSelectedMonthIndex(index)}
+                  className={`rounded-full px-3 py-1 transition ${
+                    selectedMonthIndex === index ? 'bg-indigo-100 text-slate-900' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  {item.month}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-10">
-            <div className="flex items-end gap-3 h-64">
-              {[60, 90, 80, 120, 140, 170, 150, 190, 210, 230, 250, 280].map(
-                (height, index) => (
-                  <div
-                    key={index}
-                    className="flex-1 rounded-t-2xl bg-gradient-to-t from-blue-500 to-cyan-400"
-                    style={{ height: `${height}px` }}
+          <div className="mt-8">
+            <div className="relative rounded-3xl bg-slate-100 p-5">
+              <svg viewBox="0 0 340 140" className="w-full overflow-visible">
+                <defs>
+                  <linearGradient id="trendLine" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stopColor="#2563eb" />
+                    <stop offset="100%" stopColor="#06b6d4" />
+                  </linearGradient>
+                  <linearGradient id="trendArea" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(37,99,235,0.18)" />
+                    <stop offset="100%" stopColor="rgba(37,99,235,0)" />
+                  </linearGradient>
+                </defs>
+                <path d={`${trendChart.path} L 322 130 L 18 130 Z`} fill="url(#trendArea)" />
+                <path d={trendChart.path} fill="none" stroke="url(#trendLine)" strokeWidth="4" strokeLinecap="round" />
+                {trendChart.points.map((point, index) => (
+                  <circle
+                    key={point.month}
+                    cx={point.x}
+                    cy={point.y}
+                    r={selectedMonthIndex === index ? 6 : 4}
+                    fill={selectedMonthIndex === index ? '#1d4ed8' : '#0ea5e9'}
+                    stroke="#ffffff"
+                    strokeWidth="2"
                   />
-                )
-              )}
+                ))}
+              </svg>
+              <div className="mt-4 grid grid-cols-12 gap-2 text-[11px] uppercase tracking-[0.18em] text-slate-500">
+                {monthlyTrend.map((item, index) => (
+                  <div key={item.month} className="col-span-1 text-center">
+                    <div className={`mx-auto h-2 w-2 rounded-full ${selectedMonthIndex === index ? 'bg-indigo-600' : 'bg-slate-400'}`} />
+                    <p className="mt-2 text-xs">{item.month}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-
-            <div className="mt-4 flex justify-between text-sm text-slate-500">
-              <span>Jan</span>
-              <span>Feb</span>
-              <span>Mar</span>
-              <span>Apr</span>
-              <span>May</span>
-              <span>Jun</span>
-              <span>Jul</span>
-              <span>Aug</span>
-              <span>Sep</span>
-              <span>Oct</span>
-              <span>Nov</span>
-              <span>Dec</span>
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="rounded-3xl bg-slate-50 p-4 text-sm text-slate-700">
+                <p className="font-semibold text-slate-900">Current Month</p>
+                <p className="mt-2 text-2xl font-bold text-slate-900">₹{selectedMonth.value}L</p>
+              </div>
+              <div className="rounded-3xl bg-slate-50 p-4 text-sm text-slate-700">
+                <p className="font-semibold text-slate-900">Peak Month</p>
+                <p className="mt-2 text-2xl font-bold text-slate-900">₹{maxTrendValue}L</p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Settlement Overview */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white">
-            <p className="uppercase text-sm tracking-wider opacity-80">
-              Settlement Overview
-            </p>
-
-            <h2 className="mt-5 text-5xl font-bold">
-              ₹92.8L
-            </h2>
-
-            <p className="mt-3 text-blue-100">
-              Total settlements processed this month.
-            </p>
-
-            <div className="mt-8 space-y-4">
-              <div className="flex justify-between">
-                <span>Successful</span>
-                <span>₹84.6L</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>Pending</span>
-                <span>₹6.2L</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>Failed</span>
-                <span>₹2.0L</span>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="bg-gradient-to-br from-blue-600 to-slate-900 rounded-3xl p-6 text-white shadow-sm">
+            <p className="uppercase text-xs tracking-[0.28em] opacity-80">Settlement Overview</p>
+            <h2 className="mt-4 text-4xl font-bold">₹92.8L</h2>
+            <p className="mt-2 text-slate-200">Total settlements processed this month.</p>
+            <div className="mt-6 space-y-3 text-sm text-slate-200">
+              <div className="flex justify-between"><span>Successful</span><span>₹84.6L</span></div>
+              <div className="flex justify-between"><span>Pending</span><span>₹6.2L</span></div>
+              <div className="flex justify-between"><span>Failed</span><span>₹2.0L</span></div>
             </div>
           </div>
 
-          {/* Revenue Channels */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-            <h3 className="text-2xl font-bold text-slate-900">
-              Revenue Channels
-            </h3>
-
-            <div className="mt-8 space-y-6">
-              {[
-                ["Subscription Plans", "38%"],
-                ["Partner Services", "26%"],
-                ["Commission Revenue", "22%"],
-                ["Other Revenue", "14%"],
-              ].map(([title, value]) => (
-                <div key={title}>
-                  <div className="flex justify-between mb-2">
-                    <span className="font-medium text-slate-700">
-                      {title}
-                    </span>
-
-                    <span className="font-semibold text-blue-600">
-                      {value}
-                    </span>
+          <div className="bg-slate-50 rounded-3xl border border-slate-200 p-6 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-md">
+            <h3 className="text-2xl font-bold text-slate-900">Revenue Channels</h3>
+            <div className="mt-6 space-y-4">
+              {revenueSources.map((item) => (
+                <div key={item.title}>
+                  <div className="flex items-center justify-between text-sm text-slate-600">
+                    <span>{item.title}</span>
+                    <span className="font-semibold text-slate-900">{item.percent}%</span>
                   </div>
-
-                  <div className="h-3 rounded-full bg-slate-100">
-                    <div
-                      className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
-                      style={{ width: value }}
-                    />
+                  <div className="mt-2 h-2 rounded-full bg-slate-100 overflow-hidden">
+                    <div className={`h-full rounded-full bg-gradient-to-r ${item.color}`} style={{ width: `${item.percent}%` }} />
                   </div>
                 </div>
               ))}
@@ -497,51 +441,43 @@ export default function PartnerRevenue() {
           </div>
         </div>
 
-        {/* Revenue Insights */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="font-bold text-slate-900">
-              Fastest Growing Partner
-            </h3>
-
-            <p className="mt-4 text-3xl font-bold text-blue-600">
-              Apex Digital
-            </p>
-
-            <p className="mt-3 text-slate-500">
-              Achieved 28% growth this quarter.
-            </p>
+        {/* Revenue Leaderboard */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          <div className="xl:col-span-2 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900">Revenue Leaderboard</h2>
+                <p className="mt-1 text-sm text-slate-500">Ranking by monthly revenue</p>
+              </div>
+              <span className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">Live</span>
+            </div>
+            <div className="mt-4 space-y-3">
+              {topPartners.map((partner, index) => (
+                <div key={partner.name} className="rounded-3xl border border-slate-200 bg-slate-50 p-4 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-200 text-slate-900 font-semibold">#{index + 1}</span>
+                    <div>
+                      <div className="font-semibold text-slate-900">{partner.name}</div>
+                      <div className="text-xs text-slate-500">{partner.category}</div>
+                    </div>
+                  </div>
+                  <span className="text-slate-900 font-semibold">{partner.revenue}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="font-bold text-slate-900">
-              Highest Settlement
-            </h3>
-
-            <p className="mt-4 text-3xl font-bold text-green-600">
-              ₹24.8L
-            </p>
-
-            <p className="mt-3 text-slate-500">
-              Largest settlement processed this month.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="font-bold text-slate-900">
-              Revenue Forecast
-            </h3>
-
-            <p className="mt-4 text-3xl font-bold text-indigo-600">
-              ₹9.6Cr
-            </p>
-
-            <p className="mt-3 text-slate-500">
-              Estimated next quarter revenue.
-            </p>
+          <div className="bg-slate-50 rounded-3xl border border-slate-200 p-6 text-slate-900 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-md">
+            <p className="text-sm uppercase tracking-[0.22em] text-slate-500">Revenue Health</p>
+            <h2 className="mt-4 text-5xl font-bold">94%</h2>
+            <p className="mt-2 text-slate-600">Strong earnings performance across active partners.</p>
+            <div className="mt-6 space-y-3 text-sm text-slate-600">
+              <div className="flex justify-between"><span>Active Partners</span><span>1,284</span></div>
+              <div className="flex justify-between"><span>Avg Revenue</span><span>₹6.4L</span></div>
+              <div className="flex justify-between"><span>Growth Rate</span><span className="text-emerald-700 font-semibold">+18%</span></div>
+            </div>
           </div>
         </div>
-
       </div>
     </AdminShell>
   );

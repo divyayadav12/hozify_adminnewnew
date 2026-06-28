@@ -265,7 +265,6 @@ import MarketingReports from '../../pages/Analytics/MarketingReports';
 import PartnerReports from '../../pages/Analytics/PartnerReports';
 import EmployeeReports from '../../pages/Analytics/EmployeeReports';
 import RevenueReports from '../../pages/Analytics/RevenueReports';
-import BSPPartners from '../../pages/Partners/BSPPartners';
 import PartnersReviews from '../../pages/Partners/PartnersReviews';
 import PartnerApprovals from '../../pages/Partners/PartnerApprovals';
 import BusinessSellers from '../../pages/Partners/BusinessSellers';
@@ -323,6 +322,7 @@ import ContractsPage from '../../pages/DocumentManagement/ContractsPage';
 import AgreementsPage from '../../pages/DocumentManagement/AgreementsPage';
 import KYCDocumentsPage from '../../pages/DocumentManagement/KYCDocumentsPage';
 import VerificationRecordsPage from '../../pages/DocumentManagement/VerificationRecordsPage';
+import BSPPartners from '../../pages/Partners/BSPPartners';
 
 
 
@@ -547,7 +547,7 @@ export function Router() {
     case ROUTES.ispPartners:
       return <ISPPartners />;
     case ROUTES.bspPartners:
-        return <BSPPartners />;
+        return <BSPPartners/>
     case ROUTES.businessSellers:
       return <BusinessSellers/>
     case ROUTES.partnerApprovals:
@@ -559,7 +559,7 @@ export function Router() {
     case ROUTES.branchApprovals:
       return <BranchApprovals/>
     case ROUTES.partnerWallets:
-      return <PartnerWallets/>
+        return <PartnerWallets/>
     case ROUTES.partnerBanking:
       return <PartnerBanking/>
     case ROUTES.partnerEmployees:

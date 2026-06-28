@@ -14,6 +14,7 @@ const mockEmployees = [
 export default function BranchEmployees() {
   const { navigate } = useApp();
   const [search, setSearch] = useState('');
+  const [showExportModal, setShowExportModal] = useState(false); // Modal display state
 
   const filteredEmployees = mockEmployees.filter(e =>
     e.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -21,28 +22,91 @@ export default function BranchEmployees() {
     e.department.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Function to handle dynamic file download action
+  const triggerDownload = (format) => {
+    alert(`Preparing your employee data download...\nYour data is being exported as an ${format} document.`);
+    setShowExportModal(false);
+  };
+
   return (
     <AdminShell
       activeTab="Branch Management"
       headerTitle="Branch Employees"
       searchPlaceholder="Search employees..."
     >
-      <div className="branch-inventory-container">
+      <div className="branch-inventory-container" style={{ position: 'relative' }}>
         {/* Page Header */}
         <div className="partners-page-header">
           <div>
             <h1 className="page-title">Branch Employees</h1>
             <p className="page-subtitle">Track workforce distribution, roles, and status across all branches.</p>
           </div>
-          <div className="partners-header-buttons">
-            <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          <div className="partners-header-buttons" style={{ position: 'relative' }}>
+            <button 
+              className="secondary-action-btn font-bold" 
+              type="button" 
+              style={{ height: '36px', cursor: 'pointer' }}
+              onClick={() => setShowExportModal(!showExportModal)}
+            >
               <Download size={14} style={{ marginRight: '4px' }} />
               <span>Export</span>
             </button>
+
+            {/* Custom Dynamic Modal Pop-up for Exporting Document Formats */}
+            {showExportModal && (
+              <div style={{
+                position: 'absolute',
+                top: '42px',
+                right: '0',
+                backgroundColor: '#ffffff',
+                border: '1px solid #d1d5db',
+                borderRadius: '6px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                zIndex: 100,
+                width: '240px',
+                padding: '8px 0'
+              }}>
+                <div style={{ padding: '8px 16px', fontSize: '11px', fontWeight: '700', color: '#6b7280', textTransform: 'uppercase', borderBottom: '1px solid #f3f4f6' }}>
+                  Select Document Format
+                </div>
+                <button 
+                  onClick={() => triggerDownload('Excel Spreadsheet (.xlsx)')}
+                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  📊 <span>Excel Spreadsheet (.xlsx)</span>
+                </button>
+                <button 
+                  onClick={() => triggerDownload('CSV Delimited (.csv)')}
+                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  📝 <span>CSV Document (.csv)</span>
+                </button>
+                <button 
+                  onClick={() => triggerDownload('PDF Report (.pdf)')}
+                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  📕 <span>PDF Print Report (.pdf)</span>
+                </button>
+                <div style={{ borderTop: '1px solid #f3f4f6', marginTop: '4px', padding: '4px 8px 0 8px' }}>
+                  <button 
+                    onClick={() => setShowExportModal(false)}
+                    style={{ width: '100%', border: 'none', background: '#f3f4f6', borderRadius: '4px', padding: '6px', fontSize: '12px', fontWeight: '600', color: '#4b5563', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Top Section KPIs Row */}
+        {/* Dynamic Styling Overrides */}
         <style>{`
           .branch-kpi-grid {
             display: grid;
@@ -52,10 +116,12 @@ export default function BranchEmployees() {
           @media (min-width: 1024px) { .branch-kpi-grid { grid-template-columns: repeat(6, 1fr); } }
           @media (min-width: 768px) and (max-width: 1023px) { .branch-kpi-grid { grid-template-columns: repeat(3, 1fr); } }
           @media (max-width: 767px) { .branch-kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+          
+          /* Dark Blue Outline Border Design */
           .branch-kpi-card {
             padding: 16px;
             background: #fff;
-            border: 1px solid var(--line);
+            border: 1.5px solid #1e3a8a; 
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -68,7 +134,49 @@ export default function BranchEmployees() {
             text-overflow: ellipsis;
             display: block;
           }
+
+          /* Excel spreadsheet layout architecture */
+          .excel-style-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
+            background-color: #ffffff;
+          }
+          .excel-style-table th {
+            background-color: #f3f4f6;
+            color: #374151;
+            font-weight: 600;
+            text-align: left;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db; /* Clean grey grid border lines */
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+          }
+          .excel-style-table td {
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            color: #1f2937;
+            vertical-align: middle;
+          }
+          .excel-style-table tbody tr:nth-child(even) {
+            background-color: #f9fafb; /* Zebra Striping Row */
+          }
+          .excel-style-table tbody tr:hover {
+            background-color: #e0f2fe; /* Spreadsheet cell row illumination */
+          }
+          .excel-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 2px; /* Flat modern grid box shapes */
+            border: 1px solid currentColor;
+            display: inline-block;
+          }
         `}</style>
+
+        {/* Top Section KPIs Row */}
         <section className="branch-kpi-grid">
           <div className="branch-kpi-card">
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between' }}>
@@ -126,10 +234,10 @@ export default function BranchEmployees() {
         </section>
 
         {/* Main Table Panel */}
-        <section className="panel partner-directory-panel" style={{ padding: '24px', marginBottom: '24px' }}>
+        <section className="panel partner-directory-panel" style={{ padding: '24px', marginBottom: '24px', background: '#fff', border: '1px solid #d1d5db', borderRadius: '8px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>
-              Employee Directory
+              Employee Directory Spreadsheet View
             </h2>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div className="dash-search" style={{ width: '220px', margin: 0, height: '32px' }}>
@@ -137,7 +245,7 @@ export default function BranchEmployees() {
                   placeholder="Search name, role, dept..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  style={{ fontSize: '12px', paddingLeft: '8px' }}
+                  style={{ fontSize: '12px', paddingLeft: '8px', border: '1px solid #d1d5db', height: '100%', borderRadius: '4px' }}
                 />
               </div>
               <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -149,44 +257,45 @@ export default function BranchEmployees() {
             </div>
           </div>
 
+<<<<<<< HEAD
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+=======
+          <div className="table-wrap" style={{ overflowX: 'auto' }}>
+            <table className="excel-style-table">
+>>>>>>> 94fd7cb (Updated partner modules and export components)
               <thead>
                 <tr>
-                  <th>EMPLOYEE</th>
+                  <th>EMPLOYEE ID</th>
+                  <th>NAME</th>
                   <th>ROLE</th>
                   <th>DEPARTMENT</th>
                   <th>PRIMARY BRANCH</th>
                   <th>JOIN DATE</th>
                   <th>STATUS</th>
-                  <th>ACTIONS</th>
+                  <th style={{ textAlign: 'center' }}>ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredEmployees.map((row) => (
                   <tr key={row.id}>
+                    <td style={{ fontWeight: '500', color: '#6b7280' }}>{row.id}</td>
                     <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '11px' }}>
                           {row.name.charAt(0)}
                         </div>
-                        <div>
-                          <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>{row.name}</strong>
-                          <span style={{ fontSize: '11px', color: 'var(--muted)' }}>{row.id}</span>
-                        </div>
+                        <strong style={{ color: '#111827' }}>{row.name}</strong>
                       </div>
                     </td>
-                    <td style={{ color: 'var(--text)', fontWeight: '600' }}>{row.role}</td>
-                    <td style={{ color: 'var(--muted)' }}>{row.department}</td>
-                    <td style={{ color: 'var(--text)' }}>{row.branch}</td>
-                    <td style={{ color: 'var(--muted)' }}>{row.joinDate}</td>
+                    <td style={{ fontWeight: '500', color: 'var(--text)' }}>{row.role}</td>
+                    <td>{row.department}</td>
+                    <td>{row.branch}</td>
+                    <td style={{ color: '#4b5563' }}>{row.joinDate}</td>
                     <td>
                       <span
+                        className="excel-badge"
                         style={{
-                          fontSize: '9px',
-                          fontWeight: '800',
-                          padding: '3px 8px',
-                          borderRadius: '4px',
                           color: row.statusColor,
                           background: row.statusBg
                         }}
@@ -194,8 +303,8 @@ export default function BranchEmployees() {
                         {row.status}
                       </span>
                     </td>
-                    <td>
-                      <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}>
+                    <td style={{ textAlign: 'center' }}>
+                      <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#9ca3af' }}>
                         <MoreVertical size={14} />
                       </button>
                     </td>
@@ -205,25 +314,25 @@ export default function BranchEmployees() {
             </table></div>
 
             {filteredEmployees.length === 0 && (
-              <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
+              <div style={{ padding: '40px', textAlign: 'center', color: '#6b7280', fontSize: '13px', border: '1px solid #e5e7eb', borderTop: 'none' }}>
                 No employees found matching your criteria.
               </div>
             )}
           </div>
 
-          <div className="directory-table-footer" style={{ marginTop: '16px' }}>
-            <span className="footer-results-text">Showing {filteredEmployees.length} of 2,450 employees</span>
-            <div className="pagination-wrap">
-              <button className="pag-nav-btn" type="button" disabled>
-                <ChevronLeft size={16} />
+          <div className="directory-table-footer" style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span className="footer-results-text" style={{ fontSize: '12px', color: '#4b5563' }}>Showing {filteredEmployees.length} of 2,450 employees</span>
+            <div className="pagination-wrap" style={{ display: 'flex', gap: '4px' }}>
+              <button className="pag-nav-btn" type="button" disabled style={{ padding: '4px 8px', border: '1px solid #d1d5db', background: '#f3f4f6' }}>
+                <ChevronLeft size={14} />
               </button>
-              <button className="pag-num-btn active" type="button">1</button>
-              <button className="pag-num-btn" type="button">2</button>
-              <button className="pag-num-btn" type="button">3</button>
-              <span style={{ margin: '0 4px', color: 'var(--muted)' }}>...</span>
-              <button className="pag-num-btn" type="button">49</button>
-              <button className="pag-nav-btn" type="button">
-                <ChevronRight size={16} />
+              <button className="pag-num-btn active" type="button" style={{ padding: '4px 10px', border: '1px solid #1e3a8a', background: '#1e3a8a', color: '#fff', fontWeight: '600' }}>1</button>
+              <button className="pag-num-btn" type="button" style={{ padding: '4px 10px', border: '1px solid #d1d5db', background: '#fff' }}>2</button>
+              <button className="pag-num-btn" type="button" style={{ padding: '4px 10px', border: '1px solid #d1d5db', background: '#fff' }}>3</button>
+              <span style={{ margin: '0 4px', color: '#9ca3af' }}>...</span>
+              <button className="pag-num-btn" type="button" style={{ padding: '4px 10px', border: '1px solid #d1d5db', background: '#fff' }}>49</button>
+              <button className="pag-nav-btn" type="button" style={{ padding: '4px 8px', border: '1px solid #d1d5db', background: '#fff' }}>
+                <ChevronRight size={14} />
               </button>
             </div>
           </div>

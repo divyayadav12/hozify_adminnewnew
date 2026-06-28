@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import {
   Search,
@@ -15,10 +15,61 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+// Mock Data Matrix
+const INITIAL_CAMPAIGNS = [
+  { id: "CAM-7294", name: "Q4 Seasonal Product Launch", status: "SENT", sent: "42,500", openRate: "24.8%", clickRate: "3.2%", date: "Oct 24, 2023", rawOpen: 24.8 },
+  { id: "CAM-7301", name: "Weekly Newsletter #42", status: "SCHEDULED", sent: "--", openRate: "--", clickRate: "--", date: "Oct 28, 2023", rawOpen: 0 },
+  { id: "CAM-6855", name: "Customer Re-engagement Beta", status: "SENT", sent: "12,100", openRate: "18.2%", clickRate: "1.5%", date: "Oct 15, 2023", rawOpen: 18.2 },
+  { id: "CAM-7312", name: "Referral Program Update", status: "DRAFT", sent: "--", openRate: "--", clickRate: "--", date: "Today, 09:12 AM", rawOpen: 0 },
+  { id: "CAM-7002", name: "Abandoned Cart - Recovery A", status: "SENT", sent: "8,450", openRate: "44.1%", clickRate: "7.8%", date: "Oct 12, 2023", rawOpen: 44.1 },
+];
+
 export default function CampaignListing() {
+  // States for dynamic functionality
+  const [campaigns, setCampaigns] = useState(INITIAL_CAMPAIGNS);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All Statuses");
+
+  // Dynamic Action: Clear All Filters
+  const handleClearAll = () => {
+    setSearchTerm("");
+    setStatusFilter("All Statuses");
+    setCampaigns(INITIAL_CAMPAIGNS);
+    alert("All active filters and search terms cleared successfully.");
+  };
+
+  // Dynamic Action: Export Matrix
+  const handleExportData = () => {
+    alert(`Exporting matrix schema for ${filteredCampaigns.length} matching rows to system clipboard as spreadsheet artifact...`);
+  };
+
+  // Dynamic Action: Create New Simulation
+  const handleCreateCampaign = () => {
+    const randomId = Math.floor(1000 + Math.random() * 9000);
+    const newCamp = {
+      id: `CAM-${randomId}`,
+      name: `Instant Draft Campaign #${randomId}`,
+      status: "DRAFT",
+      sent: "--",
+      openRate: "--",
+      clickRate: "--",
+      date: "Just Now",
+      rawOpen: 0
+    };
+    setCampaigns([newCamp, ...campaigns]);
+    alert(`New layout dynamic entry generated: ${newCamp.name}`);
+  };
+
+  // Dynamic Filter Engine
+  const filteredCampaigns = campaigns.filter((item) => {
+    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          item.id.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === "All Statuses" || item.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
   return (
     <AdminShell activeTab="Marketing" searchPlaceholder="Search dashboard...">
-      {/* Black color completely removed. Changed to soft, clean light background */}
       <div className="min-h-screen bg-slate-50 p-8 text-slate-800 space-y-8">
         
         {/* ================= HEADER SECTION ================= */}
@@ -35,11 +86,17 @@ export default function CampaignListing() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-white text-slate-700 border border-slate-200 font-medium text-sm hover:bg-slate-50 transition-colors shadow-sm">
+            <button 
+              onClick={handleExportData}
+              className="flex items-center gap-2 px-4 py-2 rounded-md bg-white text-slate-700 border border-slate-200 font-medium text-sm hover:bg-slate-50 transition-colors shadow-sm"
+            >
               <Download size={16} />
               Export Data
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 transition-colors shadow-sm">
+            <button 
+              onClick={handleCreateCampaign}
+              className="flex items-center gap-2 px-4 py-2 rounded-md bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 transition-colors shadow-sm"
+            >
               <Plus size={16} />
               Create Campaign
             </button>
@@ -55,14 +112,23 @@ export default function CampaignListing() {
               <input
                 type="text"
                 placeholder="Search campaigns by name or ID..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-9 pr-4 py-2 rounded-md border border-slate-200 bg-white text-slate-800 text-sm placeholder:text-slate-400 focus:outline-none focus:border-indigo-500"
               />
             </div>
 
             {/* Status Dropdown */}
             <div className="relative">
-              <select className="appearance-none pl-4 pr-10 py-2 rounded-md border border-slate-200 bg-white text-slate-700 text-sm font-normal focus:outline-none focus:border-indigo-500 min-w-[130px]">
-                <option>All Statuses</option>
+              <select 
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="appearance-none pl-4 pr-10 py-2 rounded-md border border-slate-200 bg-white text-slate-700 text-sm font-normal focus:outline-none focus:border-indigo-500 min-w-[150px]"
+              >
+                <option value="All Statuses">All Statuses</option>
+                <option value="SENT">SENT</option>
+                <option value="SCHEDULED">SCHEDULED</option>
+                <option value="DRAFT">DRAFT</option>
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
             </div>
@@ -83,210 +149,111 @@ export default function CampaignListing() {
             <button className="flex items-center justify-center p-2 rounded-md border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100">
               <SlidersHorizontal size={16} />
             </button>
-            <button className="text-sm font-medium text-slate-500 hover:text-slate-800 hover:underline">
+            <button 
+              onClick={handleClearAll}
+              className="text-sm font-medium text-slate-500 hover:text-slate-800 hover:underline"
+            >
               Clear All
             </button>
           </div>
         </div>
 
-        {/* ================= CAMPAIGNS TABLE ================= */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        {/* ================= CAMPAIGNS TABLE (Excel Grid Layout) ================= */}
+        <div className="bg-white rounded-md border border-slate-300 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
+<<<<<<< HEAD
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full border-collapse text-left">
+=======
+            <table className="w-full border-collapse text-left text-xs font-mono">
+>>>>>>> 94fd7cb (Updated partner modules and export components)
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  <th className="p-4 w-12 text-center">
-                    <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                <tr className="bg-slate-100 text-slate-700 font-bold border-b border-slate-300">
+                  <th className="p-2 border-r border-slate-300 w-10 text-center bg-slate-100">
+                    <input type="checkbox" className="rounded border-slate-400 text-indigo-600 focus:ring-0" />
                   </th>
-                  <th className="px-6 py-4">Campaign Name</th>
-                  <th className="px-4 py-4">Status</th>
-                  <th className="px-4 py-4">Sent</th>
-                  <th className="px-6 py-4">Open Rate</th>
-                  <th className="px-4 py-4">Click Rate</th>
-                  <th className="px-4 py-4">Last Modified</th>
-                  <th className="px-4 py-4 text-center">Actions</th>
+                  <th className="p-2 border-r border-slate-300 uppercase tracking-tight text-slate-700 font-semibold">Campaign Name</th>
+                  <th className="p-2 border-r border-slate-300 uppercase tracking-tight text-slate-700 font-semibold">Status</th>
+                  <th className="p-2 border-r border-slate-300 uppercase tracking-tight text-slate-700 font-semibold text-right">Sent</th>
+                  <th className="p-2 border-r border-slate-300 uppercase tracking-tight text-slate-700 font-semibold text-right">Open Rate</th>
+                  <th className="p-2 border-r border-slate-300 uppercase tracking-tight text-slate-700 font-semibold text-right">Click Rate</th>
+                  <th className="p-2 border-r border-slate-300 uppercase tracking-tight text-slate-700 font-semibold">Last Modified</th>
+                  <th className="p-2 text-center bg-slate-100 uppercase tracking-tight text-slate-700 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 text-sm text-slate-600">
-                
-                {/* Row 1 */}
-                <tr className="hover:bg-slate-50/50 transition-colors">
-                  <td className="p-4 text-center">
-                    <input type="checkbox" className="rounded border-slate-300" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="font-semibold text-slate-900">Q4 Seasonal Product Launch</div>
-                    <div className="text-xs text-slate-400 mt-0.5">ID: CAM-7294</div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <span className="inline-block px-2.5 py-0.5 rounded-sm text-[11px] font-bold tracking-wide bg-green-50 text-green-600">
-                      SENT
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-slate-700">42,500</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 min-w-[120px]">
-                      <span className="font-semibold text-slate-800">24.8%</span>
-                      <div className="h-1.5 flex-1 rounded-full bg-slate-100 overflow-hidden">
-                        <div className="h-full rounded-full bg-[#0a0f29]" style={{ width: "24.8%" }} />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-4 text-slate-700">3.2%</td>
-                  <td className="px-4 py-4 text-slate-500">Oct 24, 2023</td>
-                  <td className="px-4 py-4 text-center">
-                    <button className="text-slate-400 hover:text-slate-600 p-1">
-                      <MoreVertical size={16} />
-                    </button>
-                  </td>
-                </tr>
-
-                {/* Row 2 */}
-                <tr className="hover:bg-slate-50/50 transition-colors">
-                  <td className="p-4 text-center">
-                    <input type="checkbox" className="rounded border-slate-300" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="font-semibold text-slate-900">Weekly Newsletter #42</div>
-                    <div className="text-xs text-slate-400 mt-0.5">ID: CAM-7301</div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <span className="inline-block px-2.5 py-0.5 rounded-sm text-[11px] font-bold tracking-wide bg-blue-50 text-blue-600">
-                      SCHEDULED
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-slate-400">--</td>
-                  <td className="px-6 py-4 text-slate-400">--</td>
-                  <td className="px-4 py-4 text-slate-400">--</td>
-                  <td className="px-4 py-4 text-slate-500">Oct 28, 2023</td>
-                  <td className="px-4 py-4 text-center">
-                    <button className="text-slate-400 hover:text-slate-600 p-1">
-                      <MoreVertical size={16} />
-                    </button>
-                  </td>
-                </tr>
-
-                {/* Row 3 */}
-                <tr className="hover:bg-slate-50/50 transition-colors">
-                  <td className="p-4 text-center">
-                    <input type="checkbox" className="rounded border-slate-300" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="font-semibold text-slate-900">Customer Re-engagement Beta</div>
-                    <div className="text-xs text-slate-400 mt-0.5">ID: CAM-6855</div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <span className="inline-block px-2.5 py-0.5 rounded-sm text-[11px] font-bold tracking-wide bg-green-50 text-green-600">
-                      SENT
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-slate-700">12,100</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 min-w-[120px]">
-                      <span className="font-semibold text-slate-800">18.2%</span>
-                      <div className="h-1.5 flex-1 rounded-full bg-slate-100 overflow-hidden">
-                        <div className="h-full rounded-full bg-[#0a0f29]" style={{ width: "18.2%" }} />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-4 text-slate-700">1.5%</td>
-                  <td className="px-4 py-4 text-slate-500">Oct 15, 2023</td>
-                  <td className="px-4 py-4 text-center">
-                    <button className="text-slate-400 hover:text-slate-600 p-1">
-                      <MoreVertical size={16} />
-                    </button>
-                  </td>
-                </tr>
-
-                {/* Row 4 */}
-                <tr className="hover:bg-slate-50/50 transition-colors">
-                  <td className="p-4 text-center">
-                    <input type="checkbox" className="rounded border-slate-300" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="font-semibold text-slate-900">Referral Program Update</div>
-                    <div className="text-xs text-slate-400 mt-0.5">ID: CAM-7312</div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <span className="inline-block px-2.5 py-0.5 rounded-sm text-[11px] font-bold tracking-wide bg-slate-100 text-slate-500">
-                      DRAFT
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-slate-400">--</td>
-                  <td className="px-6 py-4 text-slate-400">--</td>
-                  <td className="px-4 py-4 text-slate-400">--</td>
-                  <td className="px-4 py-4 text-slate-500">Today, 09:12 AM</td>
-                  <td className="px-4 py-4 text-center">
-                    <button className="text-slate-400 hover:text-slate-600 p-1">
-                      <MoreVertical size={16} />
-                    </button>
-                  </td>
-                </tr>
-
-                {/* Row 5 */}
-                <tr className="hover:bg-slate-50/50 transition-colors">
-                  <td className="p-4 text-center">
-                    <input type="checkbox" className="rounded border-slate-300" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="font-semibold text-slate-900">Abandoned Cart - Recovery A</div>
-                    <div className="text-xs text-slate-400 mt-0.5">ID: CAM-7002</div>
-                  </td>
-                  <td className="px-4 py-4">
-                    <span className="inline-block px-2.5 py-0.5 rounded-sm text-[11px] font-bold tracking-wide bg-green-50 text-green-600">
-                      SENT
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-slate-700">8,450</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 min-w-[120px]">
-                      <span className="font-semibold text-slate-800">44.1%</span>
-                      <div className="h-1.5 flex-1 rounded-full bg-slate-100 overflow-hidden">
-                        <div className="h-full rounded-full bg-[#0a0f29]" style={{ width: "44.1%" }} />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-4 text-slate-700">7.8%</td>
-                  <td className="px-4 py-4 text-slate-500">Oct 12, 2023</td>
-                  <td className="px-4 py-4 text-center">
-                    <button className="text-slate-400 hover:text-slate-600 p-1">
-                      <MoreVertical size={16} />
-                    </button>
-                  </td>
-                </tr>
-
+              <tbody className="divide-y divide-slate-200 text-xs text-slate-700 bg-white">
+                {filteredCampaigns.map((row) => (
+                  <tr key={row.id} className="hover:bg-emerald-50/50 transition-colors border-b border-slate-200">
+                    <td className="p-2 border-r border-slate-200 text-center bg-slate-50/50">
+                      <input type="checkbox" className="rounded border-slate-300" />
+                    </td>
+                    <td className="p-2 border-r border-slate-200 font-sans">
+                      <div className="font-semibold text-slate-900">{row.name}</div>
+                      <div className="text-[10px] text-indigo-600 font-mono mt-0.5">{row.id}</div>
+                    </td>
+                    <td className="p-2 border-r border-slate-200">
+                      <span className={`inline-block px-1.5 py-0.5 rounded-sm text-[10px] font-bold tracking-wide ${
+                        row.status === 'SENT' ? 'bg-green-100 text-green-800' :
+                        row.status === 'SCHEDULED' ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-600'
+                      }`}>
+                        {row.status}
+                      </span>
+                    </td>
+                    <td className="p-2 border-r border-slate-200 text-right font-medium text-slate-800">{row.sent}</td>
+                    <td className="p-2 border-r border-slate-200 text-right font-semibold text-slate-800">
+                      {row.openRate !== "--" ? (
+                        <div className="flex items-center justify-end gap-2">
+                          <span>{row.openRate}</span>
+                          <div className="w-12 h-2 rounded bg-slate-100 overflow-hidden inline-block border border-slate-200">
+                            <div className="h-full bg-indigo-600" style={{ width: row.openRate }} />
+                          </div>
+                        </div>
+                      ) : "--"}
+                    </td>
+                    <td className="p-2 border-r border-slate-200 text-right font-medium text-slate-800">{row.clickRate}</td>
+                    <td className="p-2 border-r border-slate-200 text-slate-500 font-sans">{row.date}</td>
+                    <td className="p-2 text-center bg-slate-50/30">
+                      <button className="text-slate-400 hover:text-slate-700 p-0.5">
+                        <MoreVertical size={14} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {filteredCampaigns.length === 0 && (
+                  <tr>
+                    <td colSpan={8} className="p-6 text-center text-slate-400 font-sans italic">
+                      No active rows found matching current filters.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table></div>
           </div>
 
-          {/* Table Pagination Footer */}
-          <div className="flex flex-col sm:flex-row items-center justify-between p-4 border-t border-slate-200 gap-4 bg-white text-sm text-slate-500">
-            <div>Showing 1 to 10 of 48 entries</div>
+          {/* Excel-style Pagination Footer */}
+          <div className="flex flex-col sm:flex-row items-center justify-between p-2.5 border-t border-slate-300 gap-4 bg-slate-50 text-xs text-slate-600 font-sans">
+            <div>Showing 1 to {filteredCampaigns.length} of {filteredCampaigns.length} spreadsheet records</div>
             <div className="flex items-center gap-1">
-              <button className="p-1.5 rounded border border-slate-200 text-slate-400 hover:bg-slate-50">
-                <ChevronLeft size={16} />
+              <button className="p-1 rounded border border-slate-300 bg-white text-slate-400 hover:bg-slate-100">
+                <ChevronLeft size={14} />
               </button>
-              <button className="h-7 w-7 rounded bg-[#0a0f29] text-white font-semibold flex items-center justify-center text-xs">
+              <button className="h-6 w-6 rounded bg-[#0a0f29] text-white font-semibold flex items-center justify-center text-[11px]">
                 1
               </button>
-              <button className="h-7 w-7 rounded border border-slate-200 hover:bg-slate-50 flex items-center justify-center text-xs text-slate-600">
+              <button className="h-6 w-6 rounded border border-slate-300 bg-white hover:bg-slate-100 flex items-center justify-center text-[11px] text-slate-600">
                 2
               </button>
-              <button className="h-7 w-7 rounded border border-slate-200 hover:bg-slate-50 flex items-center justify-center text-xs text-slate-600">
+              <button className="h-6 w-6 rounded border border-slate-300 bg-white hover:bg-slate-100 flex items-center justify-center text-[11px] text-slate-600">
                 3
               </button>
-              <span className="px-1 text-slate-400 text-xs">...</span>
-              <button className="h-7 w-7 rounded border border-slate-200 hover:bg-slate-50 flex items-center justify-center text-xs text-slate-600">
-                5
-              </button>
-              <button className="p-1.5 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">
-                <ChevronRight size={16} />
+              <span className="px-0.5 text-slate-400">...</span>
+              <button className="p-1 rounded border border-slate-300 bg-white text-slate-600 hover:bg-slate-100">
+                <ChevronRight size={14} />
               </button>
             </div>
           </div>
         </div>
 
-        {/* ================= PERFORMANCE SNAPSHOT ================= */}
+        {/* ================= PERFORMANCE SNAPSHOT (Dark Blue Outline) ================= */}
         <div className="space-y-4 pt-4">
           <h2 className="text-xl font-bold tracking-tight text-slate-900">
             Performance Snapshot
@@ -295,7 +262,7 @@ export default function CampaignListing() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Average Deliverability Card */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+            <div className="bg-white rounded-xl border-2 border-[#0a0f29] p-6 shadow-sm flex flex-col justify-between">
               <div className="flex justify-between items-start">
                 <div className="p-2 bg-blue-50 text-blue-600 rounded">
                   <Mail size={20} />
@@ -318,7 +285,7 @@ export default function CampaignListing() {
             </div>
 
             {/* Total Subscribers Card */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+            <div className="bg-white rounded-xl border-2 border-[#0a0f29] p-6 shadow-sm flex flex-col justify-between">
               <div className="flex justify-between items-start">
                 <div className="p-2 bg-purple-50 text-purple-600 rounded">
                   <Users size={20} />
@@ -341,7 +308,7 @@ export default function CampaignListing() {
             </div>
 
             {/* Click-Through Rate Card */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+            <div className="bg-white rounded-xl border-2 border-[#0a0f29] p-6 shadow-sm flex flex-col justify-between">
               <div className="flex justify-between items-start">
                 <div className="p-2 bg-orange-50 text-orange-600 rounded">
                   <MousePointerClick size={20} />
