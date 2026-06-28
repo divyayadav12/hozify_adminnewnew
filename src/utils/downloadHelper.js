@@ -29,7 +29,7 @@ export function generateCSV(headers, data) {
   return csvRows.join('\n');
 }
 
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 
 export function downloadDummyPDF(title, content) {
   try {
@@ -37,48 +37,40 @@ export function downloadDummyPDF(title, content) {
     
     // Add Header
     doc.setFontSize(16);
-    doc.setTextColor(37, 16, 143); // Hozify primary color
-    doc.text('HOZIFY ENTERPRISE', 14, 22);
-    
-    doc.setFontSize(12);
-    doc.setTextColor(100, 100, 100);
-    doc.text('DOCUMENT EXPORT', 14, 28);
-    
-    // Add Separator Line
-    doc.setDrawColor(226, 232, 240);
-    doc.line(14, 32, 196, 32);
+    doc.setTextColor(37, 16, 143);
+    doc.text('HOZIFY ENTERPRISE EXPORT', 14, 22);
     
     // Add Metadata
     doc.setFontSize(11);
     doc.setTextColor(30, 41, 59);
     doc.text(`Title: ${title}`, 14, 42);
-    doc.text(`Exported At: ${new Date().toLocaleString()}`, 14, 48);
-    doc.text(`Status: APPROVED & LIVE`, 14, 54);
+    doc.text(`Date: ${new Date().toLocaleString()}`, 14, 48);
     
     // Add Content Brief Header
     doc.setFontSize(12);
     doc.setTextColor(15, 23, 42);
     doc.text('CONTENT BRIEF:', 14, 66);
     
-    // Split and add Content text (handle newlines properly)
+    // Add Content text
     doc.setFontSize(10);
     doc.setTextColor(71, 85, 105);
-    const splitContent = doc.splitTextToSize(content, 180);
-    doc.text(splitContent, 14, 74);
     
-    // Add Footer
-    doc.setFontSize(9);
-    doc.setTextColor(148, 163, 184);
-    const pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
-    doc.text('This is a secure system generated report.', 14, pageHeight - 10);
+    // Split content by newlines and print each line
+    const lines = content.split('\n');
+    let yPos = 74;
+    for (const line of lines) {
+      doc.text(line, 14, yPos);
+      yPos += 6;
+    }
     
     // Save the PDF
-    const filename = `${title.toLowerCase().replace(/ /g, '_')}_export.pdf`;
+    const filename = `${title.toLowerCase().replace(/[^a-z0-9]/g, '_')}_export.pdf`;
     doc.save(filename);
   } catch (error) {
     console.error('Error generating PDF:', error);
+    alert('Failed to generate PDF: ' + error.message);
     // Fallback if jsPDF is not fully loaded
     const text = `TITLE: ${title}\nEXPORTED AT: ${new Date().toLocaleString()}\n\n${content}`;
-    triggerDownload(text, `${title.toLowerCase().replace(/ /g, '_')}_export.txt`, 'text/plain');
+    triggerDownload(text, `${title.toLowerCase().replace(/[^a-z0-9]/g, '_')}_export.txt`, 'text/plain');
   }
 }

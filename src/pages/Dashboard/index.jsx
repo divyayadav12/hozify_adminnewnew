@@ -82,6 +82,26 @@ export default function Dashboard() {
   const [trendView, setTrendView] = useState('Monthly');
   const [openMenuId, setOpenMenuId] = useState(null);
 
+  const getMultiplier = () => {
+    switch(timeframe) {
+      case 'Today': return 0.03;
+      case 'Last 7 Days': return 0.23;
+      case 'Last 30 Days': return 1;
+      case 'This Month': return 0.8;
+      case 'Current Year': return 8;
+      default: return 1;
+    }
+  };
+  const m = getMultiplier();
+  const applyMultiplier = (valStr) => {
+    if (!valStr || !valStr.replace) return valStr;
+    const num = parseFloat(valStr.replace(/[^0-9.]/g, ''));
+    if (isNaN(num)) return valStr;
+    const newNum = Math.floor(num * m);
+    if (valStr.includes('$')) return '$' + newNum.toLocaleString();
+    return newNum.toLocaleString();
+  };
+
   // Close dropdown on outside click
   useEffect(() => {
     const handleClick = () => setOpenMenuId(null);
@@ -165,26 +185,6 @@ export default function Dashboard() {
   ) : null;
 
   const renderDashboardContent = () => {
-    const getMultiplier = () => {
-      switch(timeframe) {
-        case 'Today': return 0.03;
-        case 'Last 7 Days': return 0.23;
-        case 'Last 30 Days': return 1;
-        case 'This Month': return 0.8;
-        case 'Current Year': return 8;
-        default: return 1;
-      }
-    };
-    const m = getMultiplier();
-    const applyMultiplier = (valStr) => {
-      if (!valStr || !valStr.replace) return valStr;
-      const num = parseFloat(valStr.replace(/[^0-9.]/g, ''));
-      if (isNaN(num)) return valStr;
-      const newNum = Math.floor(num * m);
-      if (valStr.includes('$')) return '$' + newNum.toLocaleString();
-      return newNum.toLocaleString();
-    };
-
     if (dashboardView === 'system') {
       return (
         <>
