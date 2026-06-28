@@ -228,7 +228,59 @@ export default function GlobalAdminShell({ children }) {
 
         .global-sidebar {
           border-right: none !important;
-          background-color: #1F2258 !important;
+          background: linear-gradient(180deg, #1B2435 0%, #232F45 100%) !important;
+        }
+
+        .global-sidebar .sidebar-module-btn {
+          padding: 0 20px !important;
+          height: 50px !important;
+          margin-bottom: 8px !important;
+          border-radius: 10px !important;
+          font-weight: 500 !important;
+          font-size: 15px !important;
+          color: rgba(255, 255, 255, 0.95) !important;
+          background-color: transparent !important;
+          box-shadow: none !important;
+          transition: all 0.25s ease-in-out !important;
+        }
+
+        .global-sidebar .sidebar-module-btn svg {
+          color: #E5E7EB !important;
+          width: 22px !important;
+          height: 22px !important;
+          stroke-width: 2.2px !important;
+          transition: all 0.25s ease-in-out !important;
+        }
+
+        .global-sidebar .sidebar-module-btn.active {
+          background-color: #3B82F6 !important;
+          color: #ffffff !important;
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+        }
+
+        .global-sidebar .sidebar-module-btn:hover:not(.active) {
+          background-color: rgba(59, 130, 246, 0.15) !important;
+          color: #ffffff !important;
+        }
+
+        .global-sidebar .sidebar-module-btn.active svg,
+        .global-sidebar .sidebar-module-btn:hover svg {
+          color: #ffffff !important;
+        }
+
+        .global-sidebar .sidebar-subnav-btn {
+          color: #cbd5e1 !important;
+          font-size: 14px !important;
+          font-weight: 400 !important;
+          padding: 8px 12px 8px 44px !important;
+          margin-bottom: 4px !important;
+          background-color: transparent !important;
+        }
+
+        .global-sidebar .sidebar-subnav-btn:hover,
+        .global-sidebar .sidebar-subnav-btn.active-sub {
+          color: #ffffff !important;
+          background-color: rgba(255, 255, 255, 0.05) !important;
         }
 
         .global-header {
@@ -293,13 +345,14 @@ export default function GlobalAdminShell({ children }) {
       )}
 
       <aside className={`sidebar global-sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <div className="sidebar-brand" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', background: 'transparent' }}>
+        <div className="sidebar-brand" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '28px', paddingBottom: '24px', justifyContent: 'center', background: 'transparent' }}>
           <img
             src={brandLogo}
             alt="HOZIFY Partner Logo"
             style={{
-              width: '140px',
-              height: '80px',
+              width: '150px',
+              height: 'auto',
+              maxHeight: '85px',
               objectFit: 'contain',
               background: 'transparent',
               display: 'block',
@@ -320,8 +373,8 @@ export default function GlobalAdminShell({ children }) {
                   type="button"
                   onClick={() => handleModuleClick(item)}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <Icon size={18} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <Icon size={22} />
                     <span>{item.label}</span>
                   </div>
                   {item.children && (
