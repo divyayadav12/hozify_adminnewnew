@@ -173,7 +173,6 @@ export default function ISPPartners() {
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
 
-  // New states for extended functional rows & modular sub-sections
   const [expandedPartnerId, setExpandedPartnerId] = useState(null);
   const [selectedKycDoc, setSelectedKycDoc] = useState(null);
 
@@ -231,402 +230,13 @@ export default function ISPPartners() {
   };
 
   return (
-<<<<<<< HEAD
     <AdminShell
       activeTab="Partners"
       searchPlaceholder="Search providers, cities, settlements..."
-      pageTitle="Internet Service Providers"
-      pageSubtitle="Manage and monitor service providers across the HOZIFY ecosystem."
     >
-      <div className="space-y-8">
-        <div className="overflow-hidden rounded-[32px] border border-slate-200 bg-white p-8 relative shadow-sm">
-  <div className="absolute right-0 top-0 h-full w-[500px] opacity-20">
-    <div className="absolute right-16 top-12 h-72 w-72 rounded-full border border-indigo-400"></div>
-    <div className="absolute right-28 top-24 h-52 w-52 rounded-full border border-indigo-400"></div>
-    <div className="absolute right-40 top-36 h-32 w-32 rounded-full border border-indigo-400"></div>
-  </div>
-
-  <div className="relative z-10 flex items-center justify-between">
-
-    <div>
-
-      <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold tracking-[0.25em]">
-        ISP MANAGEMENT
-      </span>
-
-      <h1 className="mt-6 text-3xl font-bold">
-        Internet Service Providers
-      </h1>
-
-      <p className="mt-4 max-w-3xl text-slate-800 text-lg">
-        Manage and monitor 1,284 service providers across the
-        HOZIFY ecosystem. Track uptime, settlements,
-        subscribers and network health from one place.
-      </p>
-
-      <div className="mt-8 flex gap-4">
-
-
-        <button 
-          onClick={() => setIsExportModalOpen(true)}
-          className="flex items-center gap-2 rounded-2xl border border-white/20 px-6 py-3 hover:bg-white/5 transition-colors"
-        >
-          <Download size={18} />
-          Export Report
-        </button>
-
-      </div>
-
-    </div>
-
-    <div className="hidden xl:block">
-
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-
-        <p className="text-sm text-slate-400">
-          NETWORK STATUS
-        </p>
-
-        <h2 className="mt-4 text-6xl font-bold text-emerald-400">
-          99.82%
-        </h2>
-
-        <p className="mt-2 text-slate-300">
-          Global Uptime
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-{/* ================= STATS ================= */}
-
-<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6 gap-6">
-
-  {stats.map((item, index) => {
-    const Icon = item.icon;
-
-    return (
-      <div
-        key={index}
-        className="group relative overflow-hidden rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-      >
-        {/* Glow */}
-        <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-indigo-100 blur-3xl opacity-50"></div>
-
-        <div className="relative z-10">
-
-          <div className="flex items-center justify-between">
-
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50">
-              <Icon
-                size={24}
-                className="text-indigo-600"
-              />
-            </div>
-
-            <span
-              className={`text-sm font-bold ${item.badgeColor}`}
-            >
-              {item.badge}
-            </span>
-
-          </div>
-
-          <p className="mt-6 text-sm text-slate-500">
-            {item.title}
-          </p>
-
-          <h3 className="mt-2 text-4xl font-bold text-slate-900">
-            {item.value}
-          </h3>
-
-          <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100">
-
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-600"
-              style={{
-                width: `${72 + index * 4}%`,
-              }}
-            />
-
-          </div>
-
-        </div>
-      </div>
-    );
-  })}
-
-</div>
-{/* ================= ISP DIRECTORY ================= */}
-
-<div className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
-
-  {/* Header */}
-  <div className="flex items-center justify-between border-b border-slate-200 p-6">
-
-    <div>
-      <p className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
-        Provider Management
-      </p>
-
-      <h2 className="mt-2 text-3xl font-bold text-slate-900">
-        ISP Directory
-      </h2>
-
-      <p className="mt-1 text-slate-500">
-        Monitor all registered internet service providers
-      </p>
-    </div>
-
-    <button className="flex items-center gap-2 rounded-2xl border border-slate-200 px-5 py-3 font-medium hover:bg-slate-50">
-      <Filter size={18} />
-      Advanced Filters
-    </button>
-
-  </div>
-
-  {/* ================= ISP PARTNER  ================= */}
-
-{/* ================= ISP FEATURES ================= */}
-
-<div className="p-6 border-b border-slate-200">
-
-  <div className="rounded-[28px] border border-slate-200 bg-slate-100 p-8">
-
-    <div className="flex items-center gap-4">
-
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-white font-bold">
-        ISP
-      </div>
-
-      <div>
-        <h3 className="text-2xl font-bold text-slate-900">
-          Internet Service Provider
-        </h3>
-
-        <p className="text-slate-600">
-          Broadband & Internet Distribution Partner
-        </p>
-      </div>
-
-    </div>
-
-    <div className="mt-8">
-
-      <h4 className="mb-5 text-lg font-semibold text-slate-900">
-        Required KYC Documents
-      </h4>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-        {[
-          "Aadhaar Card",
-          "PAN Card",
-          "Selfie Verification",
-          "Bank Account Details",
-        ].map((item) => (
-          <div
-            key={item}
-            className="flex items-center gap-3 rounded-2xl bg-white p-4 border border-slate-200"
-          >
-            <div className="h-3 w-3 rounded-full bg-indigo-600"></div>
-
-            <span className="font-medium text-slate-700">
-              {item}
-            </span>
-          </div>
-        ))}
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-  {/* Filters */}
-  <div className="flex items-center justify-between border-b border-slate-200 px-6 py-5">
-
-    <div className="flex items-center gap-4">
-
-      <div className="flex rounded-2xl bg-slate-100 p-1">
-
-        <button className="rounded-xl bg-white px-5 py-2 font-semibold shadow-sm">
-          All
-        </button>
-
-        <button className="px-5 py-2 text-slate-600">
-          Active
-        </button>
-
-        <button className="px-5 py-2 text-slate-600">
-          Inactive
-        </button>
-
-      </div>
-
-      <button className="flex items-center gap-2 text-slate-700 font-medium">
-        All Cities
-        <ChevronDown size={16} />
-      </button>
-
-      <button className="flex items-center gap-2 text-slate-700 font-medium">
-        Service Type
-        <ChevronDown size={16} />
-      </button>
-
-    </div>
-
-    <div className="text-sm text-slate-500">
-      1,284 Providers
-    </div>
-
-  </div>
-
-  {/* Table */}
-
-  <div className="overflow-x-auto">
-
-    <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full">
-
-      <thead className="bg-slate-50">
-
-        <tr className="text-left text-sm font-semibold text-slate-500">
-
-          <th className="px-6 py-5">PROVIDER</th>
-          <th>SERVICE AREA</th>
-          <th>SUBSCRIBERS</th>
-          <th>UPTIME</th>
-          <th>STATUS</th>
-          <th>ACTIONS</th>
-
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-        {partners.map((partner) => (
-
-          <tr
-            key={partner.id}
-            className="border-t border-slate-100 transition hover:bg-slate-50"
-          >
-
-            {/* Provider */}
-            <td className="px-6 py-5">
-
-              <div className="flex items-center gap-4">
-
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-bold">
-                  {partner.name.charAt(0)}
-=======
-    <AdminShell activeTab="Partners" searchPlaceholder="Search providers, cities, settlements...">
-      <div className="space-y-8 p-1 relative">
+      <div className="space-y-8 max-w-[1600px] mx-auto p-4">
         
-        <PartnerExportModal
-          open={isExportOpen}
-          onClose={() => setIsExportOpen(false)}
-          title="Export ISP Directory"
-          description="Choose your preferred file format to download ISP records matching the current filters."
-          helper="Select one of the available export formats below."
-          onExport={handleExport}
-          confirmLabel="Generate Export"
-        />
-
-        {/* ================= MODAL FOR DOCUMENT KYC VIEW ================= */}
-        {selectedKycDoc && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-            <div className="w-full max-w-lg overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-2xl animate-scale-in">
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/50 p-5">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600">Independent Service Provider</p>
-                  <h3 className="text-lg font-bold text-slate-900">{documentLabels[selectedKycDoc.docKey]} Details</h3>
-                </div>
-                <button 
-                  onClick={() => setSelectedKycDoc(null)}
-                  className="rounded-xl border border-slate-200 p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-
-              {/* Body */}
-              <div className="p-6 space-y-4 text-sm">
-                <div className="grid grid-cols-2 gap-4 rounded-2xl bg-slate-50 p-4 border border-slate-100">
-                  <div>
-                    <span className="text-xs font-medium text-slate-400 block">Document Number</span>
-                    <span className="font-semibold text-slate-800">{selectedKycDoc.documentNumber}</span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-medium text-slate-400 block">Verification Status</span>
-                    <span className={`inline-flex items-center rounded-md mt-1 px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${statusConfig[selectedKycDoc.status]?.bg}`}>
-                      {selectedKycDoc.status}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-medium text-slate-400 block">Upload Date</span>
-                    <span className="font-semibold text-slate-700">{selectedKycDoc.uploadDate}</span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-medium text-slate-400 block">Uploaded By</span>
-                    <span className="font-semibold text-slate-700">{selectedKycDoc.uploadedBy}</span>
-                  </div>
->>>>>>> 85a8df8 (updated partner UI)
-                </div>
-
-                <div>
-                  <span className="text-xs font-medium text-slate-400 block mb-1">Administrative Remarks</span>
-                  <p className="rounded-xl border border-slate-100 bg-white p-3 text-xs font-medium text-slate-600 shadow-inner min-h-[50px]">
-                    {selectedKycDoc.remarks || "No evaluation remarks recorded."}
-                  </p>
-                </div>
-              </div>
-
-              {/* Actions Footer */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100 bg-slate-50/50 p-5">
-                <div className="flex w-full sm:w-auto gap-2">
-                  <a
-                    href={selectedKycDoc.fileUrl}
-                    className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition"
-                  >
-                    <Eye size={14} /> View
-                  </a>
-                  <a
-                    href={selectedKycDoc.fileUrl}
-                    className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition"
-                  >
-                    <Download size={14} /> Download
-                  </a>
-                </div>
-                <div className="flex w-full sm:w-auto gap-2">
-                  <button
-                    onClick={() => handleUpdateStatus(selectedKycDoc.partnerId, selectedKycDoc.docKey, "VERIFIED")}
-                    disabled={selectedKycDoc.status === "VERIFIED"}
-                    className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 disabled:opacity-40 transition"
-                  >
-                    <CheckCircle size={14} /> Approve
-                  </button>
-                  <button
-                    onClick={() => handleUpdateStatus(selectedKycDoc.partnerId, selectedKycDoc.docKey, "REJECTED")}
-                    disabled={selectedKycDoc.status === "REJECTED"}
-                    className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 rounded-xl bg-rose-600 px-3 py-2 text-xs font-bold text-white shadow-sm hover:bg-rose-700 disabled:opacity-40 transition"
-                  >
-                    <XCircle size={14} /> Reject
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ================= HERO SECTION ================= */}
+        {/* Hero Section */}
         <div className="overflow-hidden rounded-[32px] border border-slate-200 bg-white p-8 relative shadow-sm">
           <div className="absolute right-0 top-0 h-full w-[500px] opacity-20 pointer-events-none">
             <div className="absolute right-16 top-12 h-72 w-72 rounded-full border border-indigo-400"></div>
@@ -651,116 +261,27 @@ export default function ISPPartners() {
               </div>
             </div>
 
-<<<<<<< HEAD
-            </td>
-
-            {/* Actions */}
-            <td>
-
-              <button className="rounded-xl p-2 hover:bg-slate-100">
-                <MoreVertical size={18} />
-              </button>
-
-            </td>
-
-          </tr>
-
-        ))}
-
-      </tbody>
-
-    </table></div>
-
-  </div>
-
-  {/* Footer */}
-
-  <div className="flex items-center justify-between border-t border-slate-200 px-6 py-5">
-
-    <p className="text-sm text-slate-500">
-      Showing 1–4 of 1,284 Providers
-    </p>
-
-    <div className="flex gap-2">
-
-      <button className="h-10 w-10 rounded-xl border">
-        1
-      </button>
-
-      <button className="h-10 w-10 rounded-xl border">
-        2
-      </button>
-
-      <button className="h-10 w-10 rounded-xl border">
-        3
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-{/* ================= NETWORK ANALYTICS ================= */}
-
-<div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-
-  {/* Analytics Card */}
-
-  <div className="xl:col-span-2 overflow-hidden rounded-[32px] bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 p-8 text-white relative">
-
-    {/* Background Effect */}
-
-    <div className="absolute right-0 top-0 h-full w-full opacity-10">
-
-      <div className="absolute right-10 top-10 h-80 w-80 rounded-full border border-white"></div>
-
-      <div className="absolute right-20 top-20 h-60 w-60 rounded-full border border-white"></div>
-
-      <div className="absolute right-32 top-32 h-40 w-40 rounded-full border border-white"></div>
-
-    </div>
-
-    <div className="relative z-10">
-
-      <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold tracking-[0.3em]">
-        LIVE NETWORK OVERVIEW
-      </span>
-
-      <h2 className="mt-5 text-4xl font-bold">
-        Provider Network Health
-      </h2>
-
-      <p className="mt-3 max-w-2xl text-slate-400">
-        Real-time monitoring across all ISP providers.
-        Analyze uptime, latency, settlements and
-        active node performance.
-      </p>
-
-      {/* Metrics */}
-
-      <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6">
-
-        <div>
-          <p className="text-xs uppercase tracking-wider text-slate-500">
-            Global Uptime
-          </p>
-
-          <h3 className="mt-2 text-4xl font-bold text-emerald-400">
-            99.82%
-          </h3>
-=======
-            <div className="hidden xl:block shrink-0">
-              <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 shadow-inner">
+            <div className="hidden xl:block">
+              <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 min-w-[200px]">
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">NETWORK STATUS</p>
-                <h2 className="mt-2 text-5xl font-extrabold text-emerald-600">99.82%</h2>
-                <p className="mt-1 text-sm font-medium text-slate-500">Global Uptime</p>
+                <h2 className="mt-2 text-4xl font-extrabold text-emerald-600">99.82%</h2>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">Global Uptime</p>
               </div>
             </div>
           </div>
->>>>>>> 85a8df8 (updated partner UI)
         </div>
 
-        {/* ================= STATS CARDS ================= */}
+        <PartnerExportModal
+          open={isExportOpen}
+          onClose={() => setIsExportOpen(false)}
+          title="Export ISP Directory Report"
+          description="Choose the file format to download the complete provider network data."
+          helper="Includes uptime logs, KYC records, and subscriber data summaries."
+          onExport={handleExport}
+          confirmLabel="Generate Export"
+        />
+
+        {/* Stats Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           {stats.map((item, index) => {
             const Icon = item.icon;
@@ -802,9 +323,8 @@ export default function ISPPartners() {
           })}
         </div>
 
-        {/* ================= ISP DIRECTORY ================= */}
+        {/* ISP Directory Main Card */}
         <div className="overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
-          {/* Header */}
           <div className="flex items-center justify-between border-b border-slate-200 p-6">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">Provider Management</p>
@@ -817,7 +337,7 @@ export default function ISPPartners() {
             </button>
           </div>
 
-          {/* KYC Features Module */}
+          {/* Requirements Overview Card inside directory */}
           <div className="p-6 border-b border-slate-200 bg-slate-50/50">
             <div className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-4">
@@ -831,7 +351,7 @@ export default function ISPPartners() {
               <div className="mt-6">
                 <h4 className="mb-3 text-xs font-bold text-slate-400 uppercase tracking-wider">Required KYC Documents</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                  {["Aadhaar Card", "PAN Card", "Selfie Verification", "Bank Account Details"].map((item) => (
+                  {Object.values(documentLabels).map((item) => (
                     <div key={item} className="flex items-center gap-2.5 rounded-xl bg-slate-50 p-3 border border-slate-100">
                       <div className="h-2 w-2 rounded-full bg-indigo-500"></div>
                       <span className="text-xs font-semibold text-slate-700">{item}</span>
@@ -842,7 +362,7 @@ export default function ISPPartners() {
             </div>
           </div>
 
-          {/* Dynamic Filter Header (Tabs + Dropdowns) */}
+          {/* Filtering Header */}
           <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50/30">
             <div className="flex items-center gap-4 relative">
               <div className="flex rounded-xl bg-slate-200/60 p-0.5 text-xs font-semibold">
@@ -863,7 +383,6 @@ export default function ISPPartners() {
                 ))}
               </div>
 
-              {/* DYNAMIC CITIES DROPDOWN */}
               <div className="relative">
                 <button 
                   onClick={() => { setIsCityDropdownOpen(!isCityDropdownOpen); setIsServiceDropdownOpen(false); }}
@@ -887,7 +406,6 @@ export default function ISPPartners() {
                 )}
               </div>
 
-              {/* DYNAMIC SERVICE TYPE DROPDOWN */}
               <div className="relative">
                 <button 
                   onClick={() => { setIsServiceDropdownOpen(!isServiceDropdownOpen); setIsCityDropdownOpen(false); }}
@@ -917,7 +435,7 @@ export default function ISPPartners() {
             </div>
           </div>
 
-          {/* Table Container */}
+          {/* Directory Table */}
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead className="bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">
@@ -990,7 +508,7 @@ export default function ISPPartners() {
                         </td>
                       </tr>
 
-                      {/* Expanded Section for Independent Service Provider KYC module */}
+                      {/* Expanded Compliance Drawer */}
                       {expandedPartnerId === partner.id && (
                         <tr>
                           <td colSpan="6" className="bg-slate-50/40 px-8 py-5 border-y border-slate-100/70">
@@ -1005,7 +523,6 @@ export default function ISPPartners() {
                                 </span>
                               </div>
 
-                              {/* Document rows populated using dynamic mapping */}
                               <div className="divide-y divide-slate-100 border border-slate-100 rounded-2xl overflow-hidden">
                                 {Object.entries(partner.ispKyc).map(([key, value]) => (
                                   <div
@@ -1056,7 +573,7 @@ export default function ISPPartners() {
           </div>
         </div>
 
-        {/* ================= LIGHT GRAPH PANEL (BLUE BARS) & ACTIONS ================= */}
+        {/* Analytics & Quick Action Section */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           <div className="xl:col-span-2 overflow-hidden rounded-[32px] border border-slate-200 bg-slate-50 p-8 text-slate-900 relative shadow-sm">
             <div className="absolute right-0 top-0 h-full w-full opacity-40 pointer-events-none">
@@ -1094,7 +611,7 @@ export default function ISPPartners() {
                 </div>
               </div>
 
-              {/* BLUE COLUMN BAR CHART */}
+              {/* Blue column charts */}
               <div className="mt-8">
                 <div className="flex items-end gap-2 h-28">
                   {[40, 65, 55, 90, 75, 110, 95, 140, 125, 160, 150, 180].map((height, index) => (
@@ -1117,7 +634,6 @@ export default function ISPPartners() {
             </div>
           </div>
 
-          {/* Quick Admin Actions Panel */}
           <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">ADMIN TOOLS</p>
@@ -1148,6 +664,70 @@ export default function ISPPartners() {
         </div>
 
       </div>
+
+      {/* Verification Modal Action Drawer */}
+      {selectedKycDoc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl border border-slate-100 mx-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-lg font-bold text-slate-900">Review {documentLabels[selectedKycDoc.docKey]}</h3>
+              <button 
+                onClick={() => setSelectedKycDoc(null)}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            <div className="mt-4 text-xs space-y-3 text-slate-600">
+              <div>
+                <span className="font-bold block text-slate-400 uppercase tracking-wider mb-0.5">Document Identifier</span>
+                <span className="font-mono text-slate-800 text-sm bg-slate-50 p-1.5 rounded border border-slate-100 block">{selectedKycDoc.documentNumber}</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <span className="font-bold block text-slate-400 uppercase tracking-wider">Uploaded By</span>
+                  <span className="text-slate-800 font-medium">{selectedKycDoc.uploadedBy}</span>
+                </div>
+                <div>
+                  <span className="font-bold block text-slate-400 uppercase tracking-wider">Upload Date</span>
+                  <span className="text-slate-800 font-medium">{selectedKycDoc.uploadDate}</span>
+                </div>
+              </div>
+              <div>
+                <span className="font-bold block text-slate-400 uppercase tracking-wider mb-1">Administrative Remarks</span>
+                <p className="rounded-xl border border-slate-100 bg-slate-50/50 p-3 text-xs font-medium text-slate-600 shadow-inner">
+                  {selectedKycDoc.remarks || "No evaluation remarks recorded."}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+              <div className="flex gap-2">
+                <a href={selectedKycDoc.fileUrl} className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">
+                  <Eye size={14} /> View
+                </a>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleUpdateStatus(selectedKycDoc.partnerId, selectedKycDoc.docKey, "REJECTED")}
+                  disabled={selectedKycDoc.status === "REJECTED"}
+                  className="flex items-center gap-1.5 rounded-xl bg-rose-600 px-3 py-2 text-xs font-bold text-white hover:bg-rose-700 disabled:opacity-40 transition"
+                >
+                  <XCircle size={14} /> Reject
+                </button>
+                <button
+                  onClick={() => handleUpdateStatus(selectedKycDoc.partnerId, selectedKycDoc.docKey, "VERIFIED")}
+                  disabled={selectedKycDoc.status === "VERIFIED"}
+                  className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-40 transition"
+                >
+                  <CheckCircle size={14} /> Approve
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

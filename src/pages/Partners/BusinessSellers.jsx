@@ -126,24 +126,18 @@ export default function BusinessSellers() {
             </div>
           </div>
 
-          {/* Table */}
-
-          <div className="overflow-x-auto">
-
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full">
-
-              <thead className="bg-slate-50">
-
-                <tr className="text-left text-sm font-semibold text-slate-500">
-
-                  <th className="px-6 py-5">BUSINESS</th>
-                  <th>OWNER</th>
-                  <th>PERSONAL KYC</th>
-                  <th>BUSINESS KYC</th>
-                  <th>BRANCHES</th>
-                  <th>EMPLOYEES</th>
-                  <th>STATUS</th>
-
+          {/* Compact Table */}
+          <div className="overflow-x-auto text-sm">
+            <table className="w-full border-collapse">
+              <thead className="bg-slate-50 text-left text-xs font-semibold text-slate-500 border-b border-slate-100">
+                <tr>
+                  <th className="px-5 py-3">BUSINESS</th>
+                  <th className="px-4 py-3">OWNER</th>
+                  <th className="px-4 py-3">PERSONAL KYC</th>
+                  <th className="px-4 py-3">BUSINESS KYC</th>
+                  <th className="px-4 py-3 text-center">BRANCHES</th>
+                  <th className="px-4 py-3 text-center">EMPLOYEES</th>
+                  <th className="px-5 py-3 text-right">STATUS</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -182,8 +176,9 @@ export default function BusinessSellers() {
                   </tr>
                 ))}
               </tbody>
-
-            </table></div>
+            </table>
+          </div>
+        </div>
 
         {/* Two Column Layout for operations - Highly Compacted */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

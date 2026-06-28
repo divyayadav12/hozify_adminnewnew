@@ -647,132 +647,129 @@ export default function BSPPartners() {
               <thead>
                 <tr className="border-b border-slate-100 bg-slate-50/30 text-xs font-bold uppercase tracking-wider text-slate-400">
                   <th className="px-6 py-4">Business</th>
-                  <th className="px-6 py-4">City</th>
-                  <th className="px-6 py-4">Revenue</th>
+                  <th className="px-6 py-4">Location</th>
+                  <th className="px-6 py-4">Service Type</th>
+                  <th className="px-6 py-4">Revenue Volume</th>
                   <th className="px-6 py-4">Status</th>
-                  <th className="px-6 py-4 text-right">Actions</th>
+                  <th className="px-6 py-4 text-right">Verification Desk</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 text-sm text-slate-600">
-                {partners.map((partner) => (
-                  <tr key={partner.id} className="hover:bg-slate-50/80 transition">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 font-bold text-indigo-600">
-                          {partner.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-semibold text-slate-900">{partner.name}</p>
-                          <p className="text-xs text-slate-400">{partner.id}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap align-middle font-medium text-slate-500">{partner.city}</td>
-                    <td className="px-6 py-4 whitespace-nowrap align-middle font-semibold text-slate-900">{partner.revenue}</td>
-                    <td className="px-6 py-4 whitespace-nowrap align-middle">
-                      <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
-                        partner.status === "Active"
-                          ? "bg-emerald-50 text-emerald-700 ring-emerald-600/10"
-                          : partner.status === "Pending"
-                          ? "bg-amber-50 text-amber-700 ring-amber-600/10"
-                          : "bg-rose-50 text-rose-700 ring-rose-600/10"
-                      }`}>
-                        {partner.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap align-middle text-right">
-                      <button className="rounded-lg px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:bg-indigo-50 transition">
-                        View Details
-                      </button>
+              <tbody className="divide-y divide-slate-100 text-sm">
+                {filteredPartners.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="px-6 py-12 text-center text-slate-400 font-medium">
+                      No service providers found matching the selected filtering index parameters.
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                ) : (
+                  filteredPartners.map((partner) => {
+                    const isExpanded = expandedPartnerId === partner.id;
 
-          <div className="border-t border-slate-100 px-6 py-4 flex items-center justify-between text-xs text-slate-400">
-            <p>Showing 1–4 of 148 BSP Partners</p>
-            <div className="flex gap-1">
-              <button className="h-7 w-7 rounded-md bg-indigo-600 font-semibold text-white shadow-sm">1</button>
-              <button className="h-7 w-7 rounded-md border border-slate-200 bg-white font-semibold text-slate-600 hover:bg-slate-50">2</button>
-              <button className="h-7 w-7 rounded-md border border-slate-200 bg-white font-semibold text-slate-600 hover:bg-slate-50">3</button>
-            </div>
-          </div>
-        </div>
+                    return (
+                      <React.Fragment key={partner.id}>
+                        {/* Primary Row Entry */}
+                        <tr className={`hover:bg-slate-50/80 transition duration-150 ${isExpanded ? 'bg-indigo-50/10' : ''}`}>
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 font-bold text-slate-700 border border-slate-200/40">
+                                {partner.name.charAt(0)}
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-bold text-slate-900">{partner.name}</span>
+                                  {partner.isTopRated && (
+                                    <span className="inline-flex items-center gap-0.5 rounded-md bg-amber-50 border border-amber-200/60 px-1.5 py-0.5 text-[9px] font-extrabold tracking-wider text-amber-700 uppercase">
+                                      Top Rated
+                                    </span>
+                                  )}
+                                </div>
+                                <span className="text-xs font-mono font-medium text-slate-400">{partner.id}</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 font-semibold text-slate-700">{partner.city}</td>
+                          <td className="px-6 py-4">
+                            <span className="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">
+                              <Briefcase size={12} className="text-slate-400" />
+                              {partner.serviceType || "Corporate Lease"}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 font-bold text-slate-800">{formatIndianCurrency(partner.revenue)}</td>
+                          <td className="px-6 py-4">
+                            <span className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-md border ${
+                              partner.status === "Active" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+                              partner.status === "Pending" ? "bg-amber-50 text-amber-700 border-amber-200" :
+                              "bg-rose-50 text-rose-700 border-rose-200"
+                            }`}>
+                              <span className={`h-1.5 w-1.5 rounded-full ${
+                                partner.status === "Active" ? "bg-emerald-500" :
+                                partner.status === "Pending" ? "bg-amber-500" : "bg-rose-500"
+                              }`} />
+                              {partner.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            <button
+                              onClick={() => togglePartnerKyc(partner.id)}
+                              className={`inline-flex items-center gap-1 px-4 py-1.5 rounded-xl border text-xs font-bold transition shadow-sm active:scale-95 ${
+                                isExpanded 
+                                  ? "bg-slate-800 border-slate-900 text-white hover:bg-slate-900" 
+                                  : "bg-white border-slate-200 text-indigo-600 hover:bg-slate-50"
+                              }`}
+                            >
+                              {isExpanded ? "Close Console" : "Review KYC"}
+                              {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                            </button>
+                          </td>
+                        </tr>
 
-        {/* ================= STRUCTURAL KYC & COMPLIANCE CENTER ================= */}
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-          
-          {/* KYC Subsections Group */}
-          <div className="xl:col-span-2 space-y-6">
-            <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
-              <div className="mb-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Compliance Center</span>
-                <h2 className="text-xl font-bold text-slate-900 mt-1">KYC & Verification Hub</h2>
-                <p className="text-xs text-slate-400 mt-0.5">Segmented verification workflow for quick audits.</p>
-              </div>
-
-              {/* Personal KYC Stack */}
-              <div className="mb-6">
-                <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100 text-slate-800">
-                  <UserCheck size={18} className="text-indigo-500" />
-                  <h3 className="font-bold text-sm tracking-wide text-slate-700 uppercase">Personal KYC</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Aadhaar Section */}
-                  <div className="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 hover:border-slate-200 transition">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-semibold text-slate-900 text-sm">Aadhaar Card</h4>
-                        <p className="mt-1 text-xs text-slate-400">Submitted identity data checklist verified.</p>
-                      </div>
-                      <span className="rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-bold text-emerald-700 ring-1 ring-inset ring-emerald-600/10">
-                        VERIFIED
-                      </span>
-                    </div>
-                  </div>
-                  {/* PAN Section */}
-                  <div className="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 hover:border-slate-200 transition">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-semibold text-slate-900 text-sm">PAN Card</h4>
-                        <p className="mt-1 text-xs text-slate-400">Awaiting automated compliance match score.</p>
-                      </div>
-                      <span className="rounded-md bg-amber-50 px-2 py-1 text-[10px] font-bold text-amber-700 ring-1 ring-inset ring-amber-600/10">
-                        PENDING
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-                                {/* Business KYC Card Section */}
-                                <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm space-y-4">
-                                  <div className="flex items-center gap-2 pb-2.5 border-b border-slate-100">
-                                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
-                                      <Briefcase size={15} />
-                                    </div>
-                                    <div>
-                                      <h5 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Business KYC</h5>
-                                      <p className="text-[10px] text-slate-400 font-medium">Commercial registry & tax authority blueprints</p>
-                                    </div>
+                        {/* Nested Expandable Compliance Sub-Grid */}
+                        {isExpanded && (
+                          <tr>
+                            <td colSpan="6" className="bg-slate-50/50 px-8 py-6 border-l-2 border-indigo-500 animate-in fade-in slide-in-from-top-2 duration-200">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                
+                                {/* Left Sub-Section: Personal Identity Proofs */}
+                                <div>
+                                  <div className="flex items-center gap-1.5 mb-3">
+                                    <UserCheck size={14} className="text-indigo-500" />
+                                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Personal Signatory Proofs</h4>
                                   </div>
                                   <div className="space-y-2">
                                     <KycDocumentRow 
-                                      label="GSTIN Status"
-                                      docData={partner.businessKyc?.gst}
-                                      onClick={() => openKycModal(partner.id, "businessKyc", "gst", "GSTIN Mapping Verification")}
+                                      label="Aadhaar Signature" 
+                                      docData={partner.personalKyc?.aadhaar} 
+                                      onClick={() => openKycModal(partner.id, "personalKyc", "aadhaar", "Aadhaar Signature Profile")} 
                                     />
                                     <KycDocumentRow 
-                                      label="Corporate / Business PAN"
-                                      docData={partner.businessKyc?.businessPan}
-                                      onClick={() => openKycModal(partner.id, "businessKyc", "businessPan", "Corporate / Business PAN Card")}
+                                      label="Individual PAN Verification" 
+                                      docData={partner.personalKyc?.pan} 
+                                      onClick={() => openKycModal(partner.id, "personalKyc", "pan", "Individual PAN Matrix")} 
+                                    />
+                                  </div>
+                                </div>
+
+                                {/* Right Sub-Section: Corporate Entity Credentials */}
+                                <div>
+                                  <div className="flex items-center gap-1.5 mb-3">
+                                    <Building2 size={14} className="text-indigo-500" />
+                                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Institutional Licensing & Tax Infrastructure</h4>
+                                  </div>
+                                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                    <KycDocumentRow 
+                                      label="GSTIN Mapping" 
+                                      docData={partner.businessKyc?.gst} 
+                                      onClick={() => openKycModal(partner.id, "businessKyc", "gst", "GSTIN Realtime Gateway Mapping")} 
                                     />
                                     <KycDocumentRow 
-                                      label="Registration Certificate"
-                                      docData={partner.businessKyc?.registration}
-                                      onClick={() => openKycModal(partner.id, "businessKyc", "registration", "Business Registration Certificate")}
+                                      label="Corporate PAN" 
+                                      docData={partner.businessKyc?.businessPan} 
+                                      onClick={() => openKycModal(partner.id, "businessKyc", "businessPan", "Commercial Business PAN")} 
+                                    />
+                                    <KycDocumentRow 
+                                      label="Incorp Certificate" 
+                                      docData={partner.businessKyc?.registration} 
+                                      onClick={() => openKycModal(partner.id, "businessKyc", "registration", "MCA Incorporation Registry")} 
                                     />
                                   </div>
                                 </div>
@@ -784,25 +781,11 @@ export default function BSPPartners() {
                       </React.Fragment>
                     );
                   })
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="px-6 py-8 text-center text-xs font-semibold text-slate-400 bg-white">
-                      No business service providers match the chosen criteria.
-                    </td>
-                  </tr>
                 )}
               </tbody>
             </table>
           </div>
-
-          <div className="flex items-center justify-between border-t border-slate-200 px-6 py-4 text-xs font-medium text-slate-400 bg-white">
-            <p>Showing 1–{filteredPartners.length} of {filteredPartners.length} Criteria Matches</p>
-            <div className="flex gap-1.5">
-              <button className="h-7 w-7 rounded-md bg-indigo-600 font-semibold text-white shadow-sm flex items-center justify-center">1</button>
-            </div>
-          </div>
         </div>
-
       </div>
     </AdminShell>
   );

@@ -257,13 +257,8 @@ export default function BranchEmployees() {
             </div>
           </div>
 
-<<<<<<< HEAD
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
-=======
-          <div className="table-wrap" style={{ overflowX: 'auto' }}>
-            <table className="excel-style-table">
->>>>>>> 85a8df8 (updated partner UI)
               <thead>
                 <tr>
                   <th>EMPLOYEE ID</th>
