@@ -48,7 +48,7 @@ export default function GlobalAdminShell({ children }) {
   } = shellProps;
 
   const activeNavModules = sidebarNavigation;
-  
+
   const userName = customProfileName || session?.user?.name || 'Alex Sterling';
   const roleLabel = customProfileRole || session?.user?.roleLabel || 'System Administrator';
   const role = session?.role || 'super-admin';
@@ -58,9 +58,9 @@ export default function GlobalAdminShell({ children }) {
 
   // Sync expanded module on load or when route changes
   const [openModule, setOpenModule] = useState(() => {
-    const activeModule = activeNavModules.find(m => 
+    const activeModule = activeNavModules.find(m =>
       m.route === route ||
-      m.label === activeTab || 
+      m.label === activeTab ||
       hasRoute(m, route)
     );
     return activeModule ? activeModule.label : null;
@@ -111,7 +111,7 @@ export default function GlobalAdminShell({ children }) {
   };
 
   useEffect(() => {
-    const activeModule = activeNavModules.find(m => 
+    const activeModule = activeNavModules.find(m =>
       m.route === route ||
       hasRoute(m, route)
     );
@@ -165,7 +165,7 @@ export default function GlobalAdminShell({ children }) {
     }, {});
   }
 
-  const toggleSubModule = (key) => {
+  const toggleSubModule = (key) => {  
     setOpenSubModules((current) => ({
       ...current,
       [key]: !current[key]
@@ -285,57 +285,57 @@ export default function GlobalAdminShell({ children }) {
       `}</style>
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div 
-          className="sidebar-overlay" 
+        <div
+          className="sidebar-overlay"
           onClick={() => setSidebarOpen(false)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 900 }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(66, 124, 201, 0.4)', zIndex: 900 }}
         />
       )}
 
       <aside className={`sidebar global-sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <div className="sidebar-brand" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', background: 'transparent', padding: '24px 24px 12px', marginBottom: '0', height: 'auto', minHeight: 'auto', overflow: 'visible' }}>
-          <img 
-            src={brandLogo} 
-            alt="HOZIFY Partner Logo" 
-            style={{ 
-              width: '160px', 
-              height: 'auto', 
+        <div className="sidebar-brand" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', background: 'transparent' }}>
+          <img
+            src={brandLogo}
+            alt="HOZIFY Partner Logo"
+            style={{
+              width: '140px',
+              height: '80px',
               objectFit: 'contain',
               background: 'transparent',
-              display: 'block'
-            }} 
+              display: 'block',
+            }}
           />
         </div>
-        
+
         <nav className="sidebar-nav">
           {activeNavModules.map((item) => {
-              const Icon = item.icon;
-              const activeParent = isParentActive(item);
-              const isExpanded = openModule === item.label;
+            const Icon = item.icon;
+            const activeParent = isParentActive(item);
+            const isExpanded = openModule === item.label;
 
-              return (
-                <div key={item.label}>
-                  <button
-                    className={`sidebar-module-btn ${activeParent ? 'active' : ''}`}
-                    type="button"
-                    onClick={() => handleModuleClick(item)}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <Icon size={18} />
-                      <span>{item.label}</span>
-                    </div>
-                    {item.children && (
-                      <ChevronRight 
-                        size={15} 
-                        className={`sidebar-chevron ${isExpanded ? 'open' : ''}`}
-                        style={{ marginLeft: 'auto', transition: 'transform 0.25s' }}
-                      />
-                    )}
-                  </button>
-                  {isExpanded && item.children && renderNavChildren(item.children, item.label)}
-                </div>
-              );
-            })}
+            return (
+              <div key={item.label}>
+                <button
+                  className={`sidebar-module-btn ${activeParent ? 'active' : ''}`}
+                  type="button"
+                  onClick={() => handleModuleClick(item)}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <Icon size={18} />
+                    <span>{item.label}</span>
+                  </div>
+                  {item.children && (
+                    <ChevronRight
+                      size={15}
+                      className={`sidebar-chevron ${isExpanded ? 'open' : ''}`}
+                      style={{ marginLeft: 'auto', transition: 'transform 0.25s' }}
+                    />
+                  )}
+                </button>
+                {isExpanded && item.children && renderNavChildren(item.children, item.label)}
+              </div>
+            );
+          })}
         </nav>
 
         {sidebarButton && (
@@ -349,8 +349,8 @@ export default function GlobalAdminShell({ children }) {
         <header className="dash-header global-header" style={{ position: 'sticky', top: 0, zIndex: 90, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px', height: '64px', background: 'linear-gradient(90deg, #1B0B90 0%, #2F1DB8 100%)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)' }}>
           {/* Left Combo */}
           <div className="header-left-combo" style={{ display: 'flex', alignItems: 'center', gap: '20px', flex: '1 1 0%', minWidth: 0 }}>
-            <button 
-              className="mobile-menu-btn" 
+            <button
+              className="mobile-menu-btn"
               onClick={() => setSidebarOpen(true)}
               style={{ display: 'none', background: 'none', border: 'none', color: 'var(--text)', cursor: 'pointer' }}
             >
@@ -371,11 +371,11 @@ export default function GlobalAdminShell({ children }) {
 
           {/* Right Actions Combo */}
           <div className="dash-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '16px', flex: '1 1 0%' }}>
-            
+
             {/* Fullscreen Button */}
-            <button 
-              className="header-icon-btn" 
-              type="button" 
+            <button
+              className="header-icon-btn"
+              type="button"
               title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
               onClick={toggleFullscreen}
               style={{ color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -387,31 +387,31 @@ export default function GlobalAdminShell({ children }) {
 
             {/* Notification Bell with Dropdown */}
             <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <button 
-                className="header-icon-btn" 
-                type="button" 
+              <button
+                className="header-icon-btn"
+                type="button"
                 title="Notifications"
                 onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
                 style={{ position: 'relative', color: '#ffffff' }}
               >
                 <Bell size={20} />
                 {unreadCount > 0 && (
-                  <span 
-                    className="badge" 
-                    style={{ 
-                      position: 'absolute', 
-                      top: '4px', 
-                      right: '4px', 
-                      width: '16px', 
-                      height: '16px', 
-                      background: '#ef4444', 
-                      color: '#fff', 
-                      borderRadius: '50%', 
-                      fontSize: '9px', 
-                      fontWeight: '800', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center' 
+                  <span
+                    className="badge"
+                    style={{
+                      position: 'absolute',
+                      top: '4px',
+                      right: '4px',
+                      width: '16px',
+                      height: '16px',
+                      background: '#ef4444',
+                      color: '#fff',
+                      borderRadius: '50%',
+                      fontSize: '9px',
+                      fontWeight: '800',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                     }}
                   >
                     {unreadCount}
@@ -422,7 +422,7 @@ export default function GlobalAdminShell({ children }) {
               {notifDropdownOpen && (
                 <>
                   {/* Click outside to close */}
-                  <div 
+                  <div
                     onClick={() => setNotifDropdownOpen(false)}
                     style={{ position: 'fixed', inset: 0, zIndex: 998 }}
                   />
@@ -430,8 +430,8 @@ export default function GlobalAdminShell({ children }) {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <strong style={{ fontSize: '14px', color: 'var(--text)' }}>Notifications</strong>
                       {unreadCount > 0 && (
-                        <button 
-                          onClick={markAllAsRead} 
+                        <button
+                          onClick={markAllAsRead}
                           style={{ background: 'none', border: 'none', color: '#2563eb', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }}
                         >
                           Mark all as read
@@ -442,41 +442,41 @@ export default function GlobalAdminShell({ children }) {
                     <div style={{ height: '1px', background: 'var(--line)' }} />
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '240px', overflowY: 'auto' }}>
-                       {notifications.length > 0 ? (
-                         notifications.map(n => (
-                           <div 
-                             key={n.id} 
-                             onClick={() => { markAsRead(n.id); }}
-                             style={{ 
-                               display: 'flex', 
-                               flexDirection: 'column', 
-                               gap: '2px', 
-                               padding: '8px', 
-                               borderRadius: '6px', 
-                               background: n.read ? 'transparent' : '#f8fafc',
-                               cursor: 'pointer',
-                               borderLeft: n.read ? 'none' : '3px solid #2563eb',
-                               transition: 'background 0.2s',
-                               textAlign: 'left'
-                             }}
-                             onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
-                             onMouseLeave={e => e.currentTarget.style.background = n.read ? 'transparent' : '#f8fafc'}
-                           >
-                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                               <span style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text)' }}>{n.title}</span>
-                               <span style={{ fontSize: '10px', color: 'var(--muted)' }}>{n.time}</span>
-                             </div>
-                             <span style={{ fontSize: '11px', color: 'var(--muted)' }}>{n.message}</span>
-                           </div>
-                         ))
-                       ) : (
-                         <span style={{ fontSize: '12px', color: 'var(--muted)', textAlign: 'center', padding: '16px' }}>No notifications</span>
-                       )}
+                      {notifications.length > 0 ? (
+                        notifications.map(n => (
+                          <div
+                            key={n.id}
+                            onClick={() => { markAsRead(n.id); }}
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '2px',
+                              padding: '8px',
+                              borderRadius: '6px',
+                              background: n.read ? 'transparent' : '#f8fafc',
+                              cursor: 'pointer',
+                              borderLeft: n.read ? 'none' : '3px solid #2563eb',
+                              transition: 'background 0.2s',
+                              textAlign: 'left'
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
+                            onMouseLeave={e => e.currentTarget.style.background = n.read ? 'transparent' : '#f8fafc'}
+                          >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <span style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text)' }}>{n.title}</span>
+                              <span style={{ fontSize: '10px', color: 'var(--muted)' }}>{n.time}</span>
+                            </div>
+                            <span style={{ fontSize: '11px', color: 'var(--muted)' }}>{n.message}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <span style={{ fontSize: '12px', color: 'var(--muted)', textAlign: 'center', padding: '16px' }}>No notifications</span>
+                      )}
                     </div>
 
                     <div style={{ height: '1px', background: 'var(--line)' }} />
 
-                    <button 
+                    <button
                       onClick={() => { setNotifDropdownOpen(false); navigate('/notifications'); }}
                       style={{ width: '100%', background: '#f8fafc', border: 'none', padding: '8px', borderRadius: '6px', fontSize: '12px', fontWeight: '700', color: '#2563eb', cursor: 'pointer', textAlign: 'center', transition: 'background 0.2s' }}
                       onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
@@ -509,16 +509,16 @@ export default function GlobalAdminShell({ children }) {
               {profileDropdownOpen && (
                 <>
                   {/* Click outside overlay to close */}
-                  <div 
+                  <div
                     onClick={() => setProfileDropdownOpen(false)}
                     style={{ position: 'fixed', inset: 0, zIndex: 998 }}
                   />
                   <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', width: '280px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05)', padding: '16px', zIndex: 999, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    
+
                     {/* Premium Profile Header Info */}
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                       <div style={{ position: 'relative' }}>
-                        <img 
+                        <img
                           src={customProfileAvatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80"}
                           alt={userName}
                           style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }}
@@ -538,42 +538,42 @@ export default function GlobalAdminShell({ children }) {
 
                     {/* Actions List with Icons and Premium Styling */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                      <button 
+                      <button
                         onClick={() => { setProfileDropdownOpen(false); setShowSwitchRolePopup(true); }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', transition: 'all 0.2s' }}
                         className="dropdown-action-item"
                       >
                         <RefreshCw size={14} color="#64748b" /> Switch Role
                       </button>
-                      <button 
+                      <button
                         onClick={() => { setProfileDropdownOpen(false); navigate('/my-profile'); }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', transition: 'all 0.2s' }}
                         className="dropdown-action-item"
                       >
                         <User size={14} color="#64748b" /> My Profile
                       </button>
-                      <button 
+                      <button
                         onClick={() => { setProfileDropdownOpen(false); navigate('/settings/account'); }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', transition: 'all 0.2s' }}
                         className="dropdown-action-item"
                       >
                         <Settings size={14} color="#64748b" /> Account Settings
                       </button>
-                      <button 
+                      <button
                         onClick={() => { setProfileDropdownOpen(false); navigate('/settings/change-password'); }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', transition: 'all 0.2s' }}
                         className="dropdown-action-item"
                       >
                         <Key size={14} color="#64748b" /> Change Password
                       </button>
-                      <button 
+                      <button
                         onClick={() => { setProfileDropdownOpen(false); navigate('/profile/activity-log'); }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', transition: 'all 0.2s' }}
                         className="dropdown-action-item"
                       >
                         <Terminal size={14} color="#64748b" /> Activity Log
                       </button>
-                      <button 
+                      <button
                         onClick={() => { setProfileDropdownOpen(false); navigate('/help-support'); }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', transition: 'all 0.2s' }}
                         className="dropdown-action-item"
@@ -583,7 +583,7 @@ export default function GlobalAdminShell({ children }) {
 
                       <div style={{ height: '1px', background: 'var(--line)', margin: '8px 0' }} />
 
-                      <button 
+                      <button
                         onClick={() => { setProfileDropdownOpen(false); setShowLogoutConfirm(true); }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', color: '#ef4444', fontWeight: '700', cursor: 'pointer', transition: 'all 0.2s' }}
                         className="dropdown-logout-item"
@@ -603,14 +603,14 @@ export default function GlobalAdminShell({ children }) {
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: 0 }}>Confirm Logout</h3>
               <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>Are you sure you want to log out of the Hozify Admin platform?</p>
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '4px' }}>
-                <button 
+                <button
                   onClick={() => setShowLogoutConfirm(false)}
                   className="custom-btn-secondary"
                   style={{ height: '36px', padding: '0 16px', fontSize: '13px' }}
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   onClick={() => { setShowLogoutConfirm(false); logout(); }}
                   className="custom-btn-primary"
                   style={{ height: '36px', padding: '0 16px', fontSize: '13px', background: '#ef4444', borderColor: '#ef4444' }}
@@ -633,7 +633,7 @@ export default function GlobalAdminShell({ children }) {
                 </button>
               </div>
               <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>Select an authorized administrative role below to update dynamic permissions immediately.</p>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {['Super Admin', 'Admin', 'Manager', 'Support'].map((r) => {
                   const isCurrent = activeRoleLabel === r;
@@ -645,18 +645,18 @@ export default function GlobalAdminShell({ children }) {
                         setShowSwitchRolePopup(false);
                         addToast(`Role switched to ${r} successfully! Dynamic permissions synced.`, 'success');
                       }}
-                      style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
                         justifyContent: 'space-between',
-                        width: '100%', 
-                        padding: '12px 16px', 
-                        borderRadius: '8px', 
-                        border: isCurrent ? '2px solid #2563eb' : '1px solid var(--line)', 
+                        width: '100%',
+                        padding: '12px 16px',
+                        borderRadius: '8px',
+                        border: isCurrent ? '2px solid #2563eb' : '1px solid var(--line)',
                         background: isCurrent ? '#eff6ff' : '#fff',
-                        fontSize: '13px', 
-                        fontWeight: '700', 
-                        color: isCurrent ? '#1e40af' : 'var(--text)', 
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        color: isCurrent ? '#1e40af' : 'var(--text)',
                         cursor: 'pointer',
                         transition: 'all 0.2s'
                       }}

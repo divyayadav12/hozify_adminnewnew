@@ -80,6 +80,14 @@ export default function Dashboard() {
   const [timeframe, setTimeframe] = useState('Last 30 Days');
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [trendView, setTrendView] = useState('Monthly');
+  const [openMenuId, setOpenMenuId] = useState(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClick = () => setOpenMenuId(null);
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
 
   // Trigger toast hide automatically after 10s if not manual
   useEffect(() => {
@@ -443,10 +451,63 @@ export default function Dashboard() {
                             </span>
                           </td>
                           <td style={{ padding: '14px 8px', fontSize: '13px', fontWeight: '700', color: 'var(--text)' }}>{order.value}</td>
-                          <td style={{ padding: '14px 8px', textAlign: 'center' }}>
-                            <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }} type="button">
+                          <td style={{ padding: '14px 8px', textAlign: 'center', position: 'relative' }}>
+                            <button 
+                              onClick={(e) => { 
+                                e.preventDefault(); 
+                                e.stopPropagation();
+                                setOpenMenuId(openMenuId === order.id ? null : order.id); 
+                              }} 
+                              style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer', padding: '4px' }} 
+                              type="button"
+                            >
                               <MoreVertical size={16} />
                             </button>
+                            
+                            {/* Dropdown Menu */}
+                            {openMenuId === order.id && (
+                              <div style={{
+                                position: 'absolute',
+                                right: '100%',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                background: '#fff',
+                                border: '1px solid #e2e8f0',
+                                borderRadius: '8px',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                zIndex: 10,
+                                minWidth: '140px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                padding: '4px',
+                                textAlign: 'left'
+                              }}>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); setOpenMenuId(null); toast.success(`Viewing details for ${order.id}`); }}
+                                  style={{ padding: '8px 12px', background: 'transparent', border: 'none', textAlign: 'left', fontSize: '13px', cursor: 'pointer', borderRadius: '4px' }}
+                                  onMouseEnter={(e) => e.target.style.background = '#f8fafc'}
+                                  onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                                >
+                                  View Details
+                                </button>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); setOpenMenuId(null); toast.success(`${order.id} marked as completed`); }}
+                                  style={{ padding: '8px 12px', background: 'transparent', border: 'none', textAlign: 'left', fontSize: '13px', cursor: 'pointer', borderRadius: '4px' }}
+                                  onMouseEnter={(e) => e.target.style.background = '#f8fafc'}
+                                  onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                                >
+                                  Mark Complete
+                                </button>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); setOpenMenuId(null); toast.error(`${order.id} deleted`); }}
+                                  style={{ padding: '8px 12px', background: 'transparent', border: 'none', textAlign: 'left', fontSize: '13px', cursor: 'pointer', color: '#ef4444', borderRadius: '4px' }}
+                                  onMouseEnter={(e) => e.target.style.background = '#fef2f2'}
+                                  onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                                >
+                                  Delete Order
+                                </button>
+                              </div>
+                            )}
                           </td>
                         </tr>
                       ))}
