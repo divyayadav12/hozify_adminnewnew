@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { toast } from "react-hot-toast";
 import {
@@ -52,68 +52,13 @@ const formatCurrency = (amount) => {
 };
 
 export default function WalletReportPage() {
-  const [loading, setLoading] = useState(true);
-  const [summary, setSummary] = useState(null);
-  const [transactions, setTransactions] = useState([]);
-  
-  // Filters & Pagination
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterType, setFilterType] = useState("All");
-  const [filterStatus, setFilterStatus] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-  
-  // Modal State
-  const [selectedTxn, setSelectedTxn] = useState(null);
+  const [showCalendar, setShowCalendar] = useState(false);
 
-  // Fetch Data (Mock)
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 800));
-        setSummary(MOCK_SUMMARY);
-        setTransactions(MOCK_TRANSACTIONS);
-      } catch (error) {
-        toast.error("Failed to fetch wallet report data.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  // Filter Logic
-  const filteredTransactions = transactions.filter(txn => {
-    const matchesSearch = 
-      txn.id.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      txn.userName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = filterType === "All" || txn.type === filterType;
-    const matchesStatus = filterStatus === "All" || txn.status === filterStatus;
-    
-    return matchesSearch && matchesType && matchesStatus;
-  });
-
-  // Pagination Logic
-  const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
-  const paginatedTransactions = filteredTransactions.slice(
-    (currentPage - 1) * itemsPerPage, 
-    currentPage * itemsPerPage
-  );
-
-  const handleExport = (type) => {
-    toast.success(`Exporting report as ${type}...`);
-    // Implement actual export logic here
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'Success': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-      case 'Pending': return 'bg-amber-50 text-amber-700 border-amber-200';
-      case 'Failed': return 'bg-rose-50 text-rose-700 border-rose-200';
-      default: return 'bg-gray-50 text-gray-700 border-gray-200';
-    }
+  // CSV Export Function
+  const handleExportCSV = () => {
+    alert("Exporting CSV...");
+    // Logic here
   };
 
   return (
@@ -129,261 +74,153 @@ export default function WalletReportPage() {
             </p>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 relative">
+            {/* Calendar Button */}
             <button 
-              onClick={() => handleExport('Excel')}
-              className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-slate-700 shadow-sm hover:bg-gray-50 transition-colors"
+              onClick={() => setShowCalendar(!showCalendar)}
+              className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold text-slate-700 shadow-sm hover:bg-gray-50 transition-colors"
             >
-              <FileSpreadsheet size={16} className="text-green-600" /> Export Excel
+              <span>📅</span> Last 30 Days <span className="text-[10px] text-gray-400">▼</span>
             </button>
+            {showCalendar && (
+              <input 
+                type="date" 
+                className="absolute top-12 right-24 p-2 border rounded shadow-lg z-50 bg-white"
+                onChange={() => setShowCalendar(false)}
+              />
+            )}
+
+            {/* Export Button */}
             <button 
-              onClick={() => handleExport('CSV')}
-              className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-slate-700 shadow-sm hover:bg-gray-50 transition-colors"
+              onClick={handleExportCSV}
+              className="flex items-center gap-2 px-4 py-2 bg-[#1d0094] rounded-lg text-xs font-bold text-white shadow-sm hover:bg-opacity-90 transition-colors"
             >
-              <Download size={16} className="text-blue-600" /> Export CSV
-            </button>
-            <button 
-              onClick={() => handleExport('PDF')}
-              className="flex items-center gap-2 px-4 py-2 bg-[#1d0094] rounded-lg text-sm font-bold text-white shadow-sm hover:bg-opacity-90 transition-colors"
-            >
-              <FileText size={16} /> Download PDF
+              <span>📤</span> Export CSV
             </button>
           </div>
         </div>
 
-        {loading ? (
-          <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1d0094]"></div>
+        {/* TOP ROW: THREE SEGMENT CARDS */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="bg-white border border-gray-200/70 rounded-xl p-6 shadow-sm relative">
+            <div className="absolute top-6 right-6 text-slate-400 text-lg">👥</div>
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">User Segment</span>
+            <div className="mt-4">
+              <span className="text-2xl font-black text-slate-900 tracking-tight block">$1,482,930.55</span>
+              <div className="flex items-center gap-1 mt-1 text-[11px]">
+                <span className="font-bold text-emerald-500">📈 12.5%</span>
+                <span className="text-gray-400">vs last month</span>
+              </div>
+            </div>
           </div>
-        ) : (
-          <>
-            {/* SUMMARY CARDS */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-[#1d0094]">
-                    <Wallet size={20} />
-                  </div>
-                </div>
-                <p className="text-sm font-bold text-gray-500">Total Wallet Balance</p>
-                <h3 className="text-2xl font-black text-slate-900 mt-1">{formatCurrency(summary.totalBalance)}</h3>
-              </div>
-              
-              <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
-                    <ArrowUpRight size={20} />
-                  </div>
-                </div>
-                <p className="text-sm font-bold text-gray-500">Total Credits</p>
-                <h3 className="text-2xl font-black text-slate-900 mt-1">{formatCurrency(summary.totalCredits)}</h3>
-              </div>
-              
-              <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center text-rose-600">
-                    <ArrowDownLeft size={20} />
-                  </div>
-                </div>
-                <p className="text-sm font-bold text-gray-500">Total Debits</p>
-                <h3 className="text-2xl font-black text-slate-900 mt-1">{formatCurrency(summary.totalDebits)}</h3>
-              </div>
-
-              <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
-                    <Undo2 size={20} />
-                  </div>
-                </div>
-                <p className="text-sm font-bold text-gray-500">Total Refunds</p>
-                <h3 className="text-2xl font-black text-slate-900 mt-1">{formatCurrency(summary.totalRefunds)}</h3>
+          <div className="bg-white border border-gray-200/70 rounded-xl p-6 shadow-sm relative">
+            <div className="absolute top-6 right-6 text-slate-400 text-lg">💎</div>
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Partner Segment</span>
+            <div className="mt-4">
+              <span className="text-2xl font-black text-slate-900 tracking-tight block">$842,100.00</span>
+              <div className="flex items-center gap-1 mt-1 text-[11px]">
+                <span className="font-bold text-emerald-500">📈 4.2%</span>
+                <span className="text-gray-400">vs last month</span>
               </div>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-              <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
-                    <CheckCircle2 size={24} />
-                 </div>
-                 <div>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Successful</p>
-                    <h4 className="text-xl font-black text-slate-900">{summary.successfulTransactions.toLocaleString()}</h4>
-                 </div>
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
-                    <Clock size={24} />
-                 </div>
-                 <div>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Pending</p>
-                    <h4 className="text-xl font-black text-slate-900">{summary.pendingTransactions.toLocaleString()}</h4>
-                 </div>
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600">
-                    <XCircle size={24} />
-                 </div>
-                 <div>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Failed</p>
-                    <h4 className="text-xl font-black text-slate-900">{summary.failedTransactions.toLocaleString()}</h4>
-                 </div>
+          </div>
+          <div className="bg-white border border-gray-200/70 rounded-xl p-6 shadow-sm relative">
+            <div className="absolute top-6 right-6 text-slate-400 text-lg">🏪</div>
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Seller Segment</span>
+            <div className="mt-4">
+              <span className="text-2xl font-black text-slate-900 tracking-tight block">$2,109,445.12</span>
+              <div className="flex items-center gap-1 mt-1 text-[11px]">
+                <span className="font-bold text-rose-500">📉 2.1%</span>
+                <span className="text-gray-400">vs last month</span>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* FILTERS & SEARCH */}
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm mb-6 p-4">
-              <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-                
-                <div className="relative w-full md:w-1/3">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search size={16} className="text-gray-400" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search by Transaction ID or User Name..."
-                    value={searchTerm}
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1d0094] focus:border-transparent"
-                  />
+        {/* MIDDLE SECTION */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="bg-white border border-gray-200/70 rounded-xl p-6 shadow-sm lg:col-span-2 flex flex-col justify-between">
+            <h3 className="text-sm font-black text-[#1d0094] tracking-wide mb-6">Aggregate Balance Trend</h3>
+            <div className="h-56 flex items-end justify-between pt-4 px-2 relative border-b border-gray-100">
+               {/* Bar Chart Bars */}
+              <div className="w-[6%] bg-gray-200 rounded-t h-[40%]"></div>
+              <div className="w-[6%] bg-gray-200 rounded-t h-[45%]"></div>
+              <div className="w-[6%] bg-gray-200 rounded-t h-[35%]"></div>
+              <div className="w-[6%] bg-gray-200 rounded-t h-[55%]"></div>
+              <div className="w-[6%] bg-gray-200 rounded-t h-[65%]"></div>
+              <div className="w-[6%] bg-gray-200 rounded-t h-[75%]"></div>
+              <div className="w-[6%] bg-gray-200 rounded-t h-[70%]"></div>
+              <div className="w-[6%] bg-[#1d0094] rounded-t h-[85%]"></div>
+              <div className="w-[6%] bg-gray-400 rounded-t h-[80%]"></div>
+              <div className="w-[6%] bg-gray-400 rounded-t h-[90%]"></div>
+              <div className="w-[6%] bg-gray-400 rounded-t h-[87%]"></div>
+              <div className="w-[6%] bg-gray-400 rounded-t h-[93%]"></div>
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="flex flex-col gap-6">
+            <div className="bg-white border border-gray-200/70 rounded-xl p-6 shadow-sm flex-1">
+              <h3 className="text-sm font-black text-slate-800 tracking-wide mb-4">Wallet Activity</h3>
+              {/* Wallet Activity Items */}
+              <div className="space-y-4">
+                <div>
+                   <div className="flex justify-between text-xs font-bold text-slate-600 mb-1.5"><span>Avg. Top-up Size</span><span className="text-slate-900 font-extrabold">$1,240.00</span></div>
+                   <div className="w-full bg-gray-100 h-1.5 rounded-full"><div className="bg-slate-900 h-full rounded-full" style={{ width: "40%" }}></div></div>
                 </div>
-
-                <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-                  <div className="flex items-center gap-2">
-                    <Filter size={16} className="text-gray-500" />
-                    <span className="text-sm font-bold text-gray-600">Filters:</span>
-                  </div>
-                  
-                  <select 
-                    className="border border-gray-200 rounded-lg text-sm px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#1d0094]"
-                  >
-                    <option value="All">All Time</option>
-                    <option value="Today">Today</option>
-                    <option value="Last 7 Days">Last 7 Days</option>
-                    <option value="Last 30 Days">Last 30 Days</option>
-                    <option value="This Month">This Month</option>
-                  </select>
-
-                  <select 
-                    value={filterType}
-                    onChange={(e) => { setFilterType(e.target.value); setCurrentPage(1); }}
-                    className="border border-gray-200 rounded-lg text-sm px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#1d0094]"
-                  >
-                    <option value="All">All Types</option>
-                    <option value="Credit">Credit</option>
-                    <option value="Debit">Debit</option>
-                  </select>
-
-                  <select 
-                    value={filterStatus}
-                    onChange={(e) => { setFilterStatus(e.target.value); setCurrentPage(1); }}
-                    className="border border-gray-200 rounded-lg text-sm px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#1d0094]"
-                  >
-                    <option value="All">All Statuses</option>
-                    <option value="Success">Success</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Failed">Failed</option>
-                  </select>
+                <div>
+                   <div className="flex justify-between text-xs font-bold text-slate-600 mb-1.5"><span>Avg. Withdrawal</span><span className="text-slate-900 font-extrabold">$4,500.00</span></div>
+                   <div className="w-full bg-gray-100 h-1.5 rounded-full"><div className="bg-slate-900 h-full rounded-full" style={{ width: "75%" }}></div></div>
+                </div>
+                <div>
+                   <div className="flex justify-between text-xs font-bold text-slate-600 mb-1.5"><span>Pending Transfers</span><span className="text-slate-900 font-extrabold">143</span></div>
+                   <div className="w-full bg-gray-100 h-1.5 rounded-full"><div className="bg-slate-900 h-full rounded-full" style={{ width: "20%" }}></div></div>
                 </div>
               </div>
             </div>
-
-            {/* TRANSACTIONS TABLE */}
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm border-collapse min-w-[900px]">
-                  <thead>
-                    <tr className="bg-slate-50 text-slate-500 border-b border-gray-200 uppercase text-xs font-bold tracking-wider">
-                      <th className="py-4 px-6">Transaction ID</th>
-                      <th className="py-4 px-6">User Name</th>
-                      <th className="py-4 px-6">Type</th>
-                      <th className="py-4 px-6">Amount</th>
-                      <th className="py-4 px-6">Method</th>
-                      <th className="py-4 px-6">Date & Time</th>
-                      <th className="py-4 px-6">Status</th>
-                      <th className="py-4 px-6 text-right">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100 text-slate-700">
-                    {paginatedTransactions.length > 0 ? (
-                      paginatedTransactions.map((txn, idx) => (
-                        <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                          <td className="py-4 px-6 font-bold">{txn.id}</td>
-                          <td className="py-4 px-6 font-medium">{txn.userName}</td>
-                          <td className="py-4 px-6">
-                            <span className={`font-bold ${txn.type === 'Credit' ? 'text-emerald-600' : 'text-rose-600'}`}>
-                              {txn.type}
-                            </span>
-                          </td>
-                          <td className="py-4 px-6 font-black text-slate-900">
-                            {txn.type === 'Credit' ? '+' : '-'}{formatCurrency(txn.amount)}
-                          </td>
-                          <td className="py-4 px-6 text-gray-500">{txn.method}</td>
-                          <td className="py-4 px-6 text-gray-500 text-xs font-medium">
-                            {new Date(txn.date).toLocaleString()}
-                          </td>
-                          <td className="py-4 px-6">
-                            <span className={`text-xs font-bold border px-2.5 py-1 rounded-full ${getStatusColor(txn.status)}`}>
-                              {txn.status}
-                            </span>
-                          </td>
-                          <td className="py-4 px-6 text-right">
-                            <button 
-                              onClick={() => setSelectedTxn(txn)}
-                              className="text-[#1d0094] hover:text-indigo-800 font-bold text-xs flex items-center justify-end gap-1 w-full"
-                            >
-                              <Eye size={14} /> View Details
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="8" className="py-12 text-center text-gray-400">
-                          <div className="flex flex-col items-center justify-center">
-                            <Wallet size={48} className="mb-4 text-gray-300" />
-                            <p className="text-base font-bold text-slate-600">No transactions found</p>
-                            <p className="text-sm mt-1">Try adjusting your search or filters to find what you're looking for.</p>
-                          </div>
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-              
-              {/* Pagination controls */}
-              {totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between bg-slate-50">
-                  <span className="text-sm text-gray-500 font-medium">
-                    Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredTransactions.length)} of {filteredTransactions.length} entries
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <button 
-                      onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                      disabled={currentPage === 1}
-                      className="p-2 rounded-lg border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <ChevronLeft size={16} />
-                    </button>
-                    <span className="text-sm font-bold text-slate-700 px-2">
-                      Page {currentPage} of {totalPages}
-                    </span>
-                    <button 
-                      onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                      disabled={currentPage === totalPages}
-                      className="p-2 rounded-lg border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <ChevronRight size={16} />
-                    </button>
-                  </div>
-                </div>
-              )}
+            
+            {/* Critical Alert */}
+            <div className="bg-[#110066] text-white rounded-xl p-5 shadow-sm">
+              <span className="text-[9px] font-black text-blue-300 tracking-wider uppercase block">Critical Alert</span>
+              <h4 className="text-sm font-black mt-1 tracking-tight">High Volume Withdrawal</h4>
+              <button className="mt-4 text-xs font-bold text-white underline">Review Case</button>
             </div>
-          </>
-        )}
+          </div>
+        </div>
+
+        {/* TABLE SECTION */}
+        <div className="bg-white border border-gray-200/80 rounded-xl shadow-sm overflow-hidden">
+          <table className="w-full text-left text-xs border-collapse">
+             <thead>
+                <tr className="bg-[#f8fafd] text-gray-400 border-b uppercase text-[9px] font-black">
+                  <th className="py-3.5 px-6">Transaction ID</th>
+                  <th className="py-3.5 px-6">Entity</th>
+                  <th className="py-3.5 px-4">Type</th>
+                  <th className="py-3.5 px-4">Date</th>
+                  <th className="py-3.5 px-4">Amount</th>
+                  <th className="py-3.5 px-6 text-right">Status</th>
+                </tr>
+             </thead>
+             <tbody className="divide-y divide-gray-100 font-bold text-slate-700">
+                {/* Rows Row 1 to 5 kept exactly as they were */}
+                <tr><td className="py-4 px-6">#TRX-99201</td><td className="py-4 px-6">John Sullivan (Seller)</td><td className="py-4 px-4">Withdrawal</td><td className="py-4 px-4">Oct 24, 2023</td><td className="py-4 px-4">-$1,200.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+                <tr><td className="py-4 px-6">#TRX-99202</td><td className="py-4 px-6">Acme West (Partner)</td><td className="py-4 px-4">Top-up</td><td className="py-4 px-4">Oct 24, 2023</td><td className="py-4 px-4">+$15,000.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+                <tr><td className="py-4 px-6">#TRX-99203</td><td className="py-4 px-6">Elena Martinez (User)</td><td className="py-4 px-4">Refund</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">+$42.50</td><td className="py-4 px-6 text-right">Pending</td></tr>
+                <tr><td className="py-4 px-6">#TRX-99204</td><td className="py-4 px-6">Global Logistics (Partner)</td><td className="py-4 px-4">Withdrawal</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">-$5,600.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+                <tr><td className="py-4 px-6">#TRX-99205</td><td className="py-4 px-6">Tech Pro (Seller)</td><td className="py-4 px-4">Settlement</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">+$8,920.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+             </tbody>
+          </table>
+
+          {/* Pagination */}
+          <div className="bg-[#f8fafd] border-t px-6 py-3 flex justify-between items-center text-xs font-bold text-gray-400">
+            <span>Showing Page {currentPage} of 3</span>
+            <div className="flex items-center gap-1">
+              <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} className="px-2 py-1 bg-white border rounded">&lt;</button>
+              <button className="px-2 py-1 bg-[#1d0094] text-white rounded">{currentPage}</button>
+              <button onClick={() => setCurrentPage(Math.min(3, currentPage + 1))} className="px-2 py-1 bg-white border rounded">&gt;</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* TRANSACTION DETAILS MODAL */}
