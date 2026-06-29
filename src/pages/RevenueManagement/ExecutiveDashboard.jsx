@@ -234,12 +234,7 @@ export default function ExecutiveDashboard() {
           </div>
         </div>
 
-        {/* ==========================================
-            3. WORKSPACE SECTIONS: BUILDER & SELECTIONS
-           ========================================== */}
-        <div className="grid grid-cols-1 md:grid-cols-3 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-          <div className="p-4 bg-slate-50/60 border-b md:border-b-0 md:border-r border-slate-200/80 space-y-5">
-            <div className="space-y-2">
+        {/* =================================== */}
               <span className="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Dimensions</span>
               <div className="space-y-1.5">
                 {dimensions.map((dim, idx) => (
@@ -262,7 +257,7 @@ export default function ExecutiveDashboard() {
                 ))}
               </div>
             </div>
-          </div>
+
 
           <div className="md:col-span-2 p-8 flex flex-col items-center justify-center text-center min-h-[260px]">
             <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-400 mb-3 shadow-inner">
@@ -282,23 +277,6 @@ export default function ExecutiveDashboard() {
               className="mt-5 px-4 py-1.5 border border-slate-200 bg-white hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 text-xs font-bold rounded-lg transition-all shadow-sm cursor-pointer"
             >
               Select Template
-            </button>
-          </div>
-        </div>
-
-        {/* ==========================================
-            4. BOTTOM PANEL: EXECUTIVE DATA LOG ENTRIES
-           ========================================== */}
-        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-          <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-white">
-            <h3 className="font-bold text-xs uppercase tracking-wider text-slate-900">Shared Executive Reports</h3>
-            <button 
-              type="button"
-              onClick={(e) => { e.stopPropagation(); setShowSharedModal(true); }}
-              className="text-xs font-bold text-indigo-600 flex items-center gap-1 hover:text-indigo-800 transition-colors cursor-pointer"
-            >
-              <span>View All Shared</span>
-              <ExternalLink className="h-3 w-3" />
             </button>
           </div>
 
@@ -373,67 +351,12 @@ export default function ExecutiveDashboard() {
               </tbody>
             </table>
           </div>
-        </div>
 
-        {/* ==========================================
-            5. INTERACTIVE MODAL INTERFACES
-           ========================================== */}
-        
-        {/* SELECT TEMPLATE MODAL */}
-        {showTemplateModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowTemplateModal(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-                  <LayoutTemplate className="h-4 w-4 text-indigo-600" /> Select Base Template
-                </h4>
-                <button type="button" onClick={() => setShowTemplateModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-5 space-y-3">
-                {templatesPool.map((tpl) => (
-                  <div 
-                    key={tpl.id} 
-                    onClick={() => applyTemplate(tpl.title)}
-                    className="p-3 border border-slate-100 hover:border-indigo-200 rounded-lg bg-white hover:bg-indigo-50/20 cursor-pointer transition-all shadow-xs"
-                  >
-                    <h5 className="text-xs font-bold text-slate-800">{tpl.title}</h5>
-                    <p className="text-[11px] text-slate-400 mt-0.5 font-medium">{tpl.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
 
-        {/* VIEW ALL SHARED MODAL */}
-        {showSharedModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowSharedModal(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">Global Shared Database View</h4>
-                <button type="button" onClick={() => setShowSharedModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-5 space-y-2 max-h-80 overflow-y-auto">
-                {sharedReports.map((item, index) => (
-                  <div key={index} className="flex justify-between items-center p-3 border border-slate-100 bg-slate-50/50 rounded-lg">
-                    <div>
-                      <p className="text-xs font-bold text-slate-800">{item.name}</p>
-                      <p className="text-[10px] text-slate-400 font-medium">Owner: {item.createdBy} • {item.time}</p>
-                    </div>
-                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded ${item.statusClass}`}>{item.status}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* FOOTER */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-2 pt-4 border-t border-slate-100 text-[10px] text-slate-400 font-medium">
+        {/* ========================================== */}
+        {/*           6. FOOTER SECTION                */}
+        {/* ========================================== */}
+        <div className="flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-400 font-medium py-6 border-t border-slate-100">
           <span>© 2026 Hozify Enterprise BI. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <a href="#terms" className="hover:text-slate-600">Terms of Service</a>
@@ -441,8 +364,6 @@ export default function ExecutiveDashboard() {
             <a href="#compliance" className="hover:text-slate-600">Compliance</a>
           </div>
         </div>
-
-      </div>
     </AdminShell>
   );
 }

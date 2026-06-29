@@ -1,97 +1,166 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Calendar, ChevronDown, X, Check } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+import { DateRangePicker as RDRDateRangePicker, createStaticRanges } from 'react-date-range';
+import { addDays, subDays, startOfMonth, endOfMonth, startOfDay, endOfDay, subMonths, isSameDay } from 'date-fns';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
-const PRESETS = [
-  { label: 'Today', days: 0 },
-  { label: 'Yesterday', days: 1 },
-  { label: 'Last 7 Days', days: 7 },
-  { label: 'Last 30 Days', days: 30 },
-  { label: 'Last 90 Days', days: 90 },
-  { label: 'This Month', days: 'month' },
-  { label: 'Last 3 Months', days: 90 },
-  { label: 'This Year', days: 'year' },
-];
-
-function formatDate(date) {
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-}
-
-function getPresetRange(preset) {
-  const now = new Date();
-  const end = new Date(now);
-  if (preset.days === 'month') {
-    const start = new Date(now.getFullYear(), now.getMonth(), 1);
-    return { start, end };
+// Custom defined ranges for the side panel
+const customStaticRanges = createStaticRanges([
+  {
+    label: 'Today',
+    range: () => ({ startDate: startOfDay(new Date()), endDate: endOfDay(new Date()) })
+  },
+  {
+    label: 'Yesterday',
+    range: () => ({ startDate: startOfDay(subDays(new Date(), 1)), endDate: endOfDay(subDays(new Date(), 1)) })
+  },
+  {
+    label: 'Last 7 Days',
+    range: () => ({ startDate: startOfDay(subDays(new Date(), 6)), endDate: endOfDay(new Date()) })
+  },
+  {
+    label: 'Last 30 Days',
+    range: () => ({ startDate: startOfDay(subDays(new Date(), 29)), endDate: endOfDay(new Date()) })
+  },
+  {
+    label: 'This Month',
+    range: () => ({ startDate: startOfMonth(new Date()), endDate: endOfMonth(new Date()) })
+  },
+  {
+    label: 'Previous Month',
+    range: () => ({ startDate: startOfMonth(subMonths(new Date(), 1)), endDate: endOfMonth(subMonths(new Date(), 1)) })
   }
-  if (preset.days === 'year') {
-    const start = new Date(now.getFullYear(), 0, 1);
-    return { start, end };
-  }
-  const start = new Date(now);
-  start.setDate(now.getDate() - preset.days);
-  return { start, end };
-}
+]);
 
-export default function DateRangePicker({ value, onChange, label = 'Last 30 Days' }) {
+// Format date to e.g., "Oct 24 - Oct 30"
+const formatRange = (start, end) => {
+  if (!start || !end) return 'Select Date';
+  
+  const formatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
+  const startStr = formatter.format(start);
+  const endStr = formatter.format(end);
+  
+  if (isSameDay(start, end)) return startStr;
+  return `${startStr} - ${endStr}`;
+};
+
+export default function DateRangePicker({ 
+  value, 
+  onChange, 
+  className,
+  style,
+  buttonContent // Allows overriding the internal button content
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [activePreset, setActivePreset] = useState(label);
-  const [customStart, setCustomStart] = useState('');
-  const [customEnd, setCustomEnd] = useState('');
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+  const [clickCount, setClickCount] = useState(0);
+
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: subDays(new Date(), 6),
+      endDate: new Date(),
+      key: 'selection'
+    }
+  ]);
   const ref = useRef(null);
+
+  // Sync internal state if value prop is provided (controlled component)
+  useEffect(() => {
+    if (value && value.startDate && value.endDate) {
+      setDateRange([{ ...value, key: 'selection' }]);
+    }
+  }, [value]);
 
   useEffect(() => {
     const handler = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setIsOpen(false);
     };
     document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
-  const handlePreset = (preset) => {
-    const range = getPresetRange(preset);
-    setActivePreset(preset.label);
-    setCustomStart('');
-    setCustomEnd('');
-    onChange?.({ label: preset.label, ...range });
-    setIsOpen(false);
+  const handleSelect = (ranges) => {
+    const selection = ranges.selection;
+    setDateRange([selection]);
+    
+    if (onChange) {
+      onChange({
+        startDate: selection.startDate,
+        endDate: selection.endDate,
+        label: formatRange(selection.startDate, selection.endDate)
+      });
+    }
+
+    // Auto-close logic
+    const isPreset = customStaticRanges.some(preset => {
+      const pRange = preset.range();
+      return isSameDay(pRange.startDate, selection.startDate) && isSameDay(pRange.endDate, selection.endDate);
+    });
+
+    if (isPreset) {
+      setIsOpen(false);
+      setClickCount(0);
+    } else {
+      // It's a custom date selection from the calendar
+      if (selection.startDate !== selection.endDate) {
+        // Range selected
+        setTimeout(() => {
+          setIsOpen(false);
+          setClickCount(0);
+        }, 150);
+      } else {
+        // Either first click or single day selection
+        const newCount = clickCount + 1;
+        setClickCount(newCount);
+        if (newCount >= 2) {
+          // Second click on the same day means they want a 1-day range
+          setTimeout(() => {
+            setIsOpen(false);
+            setClickCount(0);
+          }, 150);
+        }
+      }
+    }
   };
 
-  const handleCustomApply = () => {
-    if (!customStart || !customEnd) return;
-    const start = new Date(customStart);
-    const end = new Date(customEnd);
-    if (start > end) return;
-    const label = `${formatDate(start)} – ${formatDate(end)}`;
-    setActivePreset(label);
-    onChange?.({ label, start, end });
-    setIsOpen(false);
-  };
+  const currentLabel = formatRange(dateRange[0].startDate, dateRange[0].endDate);
+  
+  const isMobile = windowWidth < 768;
 
   return (
-    <div className="relative" ref={ref}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: '#e0e7ff',
-          color: '#1e1b4b',
-          border: 'none',
-          borderRadius: '8px',
-          padding: '8px 14px',
-          fontSize: '13px',
-          fontWeight: '700',
-          cursor: 'pointer',
-          whiteSpace: 'nowrap',
-          transition: 'background 0.2s',
-        }}
-        type="button"
-      >
-        <Calendar size={15} />
-        <span>{activePreset}</span>
-        <ChevronDown size={13} style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-      </button>
+    <div className={`relative ${className || ''}`} ref={ref} style={style}>
+      <div onClick={() => setIsOpen(!isOpen)}>
+        {buttonContent ? (
+          buttonContent(currentLabel)
+        ) : (
+          <button
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              border: '1px solid var(--line)',
+              background: '#fff',
+              padding: '7px 14px',
+              borderRadius: '6px',
+              fontSize: '13px',
+              fontWeight: '750',
+              cursor: 'pointer'
+            }}
+            type="button"
+          >
+            <Calendar size={14} style={{ color: 'var(--muted)' }} />
+            <span>{currentLabel}</span>
+          </button>
+        )}
+      </div>
 
       {isOpen && (
         <div style={{
@@ -100,80 +169,72 @@ export default function DateRangePicker({ value, onChange, label = 'Last 30 Days
           right: 0,
           zIndex: 1000,
           background: '#fff',
-          borderRadius: '14px',
+          borderRadius: '12px',
           boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
           border: '1px solid #e2e8f0',
-          minWidth: '280px',
           overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          maxWidth: '90vw'
         }}>
-          {/* Preset List */}
-          <div style={{ padding: '8px' }}>
-            <p style={{ fontSize: '10px', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', padding: '8px 10px 4px' }}>Quick Select</p>
-            {PRESETS.map((preset) => (
-              <button
-                key={preset.label}
-                onClick={() => handlePreset(preset)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: '9px 12px',
-                  borderRadius: '8px',
-                  border: 'none',
-                  background: activePreset === preset.label ? '#eef2ff' : 'transparent',
-                  color: activePreset === preset.label ? '#4f46e5' : '#374151',
-                  fontSize: '13px',
-                  fontWeight: activePreset === preset.label ? '700' : '500',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                }}
-              >
-                {preset.label}
-                {activePreset === preset.label && <Check size={13} color="#4f46e5" />}
-              </button>
-            ))}
-          </div>
-
-          {/* Custom Range */}
-          <div style={{ borderTop: '1px solid #f1f5f9', padding: '12px 14px' }}>
-            <p style={{ fontSize: '11px', fontWeight: '700', color: '#64748b', marginBottom: '8px' }}>Custom Range</p>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <input
-                type="date"
-                value={customStart}
-                onChange={(e) => setCustomStart(e.target.value)}
-                style={{ flex: 1, padding: '7px 10px', borderRadius: '7px', border: '1px solid #e2e8f0', fontSize: '12px', outline: 'none' }}
-              />
-              <span style={{ color: '#94a3b8', fontSize: '12px' }}>→</span>
-              <input
-                type="date"
-                value={customEnd}
-                onChange={(e) => setCustomEnd(e.target.value)}
-                style={{ flex: 1, padding: '7px 10px', borderRadius: '7px', border: '1px solid #e2e8f0', fontSize: '12px', outline: 'none' }}
-              />
-            </div>
-            <button
-              onClick={handleCustomApply}
-              disabled={!customStart || !customEnd}
-              style={{
-                marginTop: '10px',
-                width: '100%',
-                padding: '8px',
-                borderRadius: '8px',
-                border: 'none',
-                background: (!customStart || !customEnd) ? '#e2e8f0' : '#4f46e5',
-                color: (!customStart || !customEnd) ? '#94a3b8' : '#fff',
-                fontSize: '13px',
-                fontWeight: '700',
-                cursor: (!customStart || !customEnd) ? 'not-allowed' : 'pointer',
-              }}
-            >
-              Apply Range
-            </button>
+          <div style={{ overflowX: 'auto', display: 'flex' }}>
+            <RDRDateRangePicker
+              onChange={handleSelect}
+              showSelectionPreview={true}
+              moveRangeOnFirstSelection={false}
+              months={isMobile ? 1 : 2}
+              ranges={dateRange}
+              direction="horizontal"
+              rangeColors={['#25108f']} // The application's primary purple
+              staticRanges={customStaticRanges}
+              inputRanges={[]} // Disable the "days up to today" input boxes
+            />
           </div>
         </div>
       )}
+      
+      {/* Global overrides for react-date-range aesthetics */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .rdrDateRangePickerWrapper {
+          font-family: inherit;
+        }
+        .rdrDefinedRangesWrapper {
+          border-right: 1px solid var(--line) !important;
+          background: #f9f8fa;
+        }
+        .rdrStaticRange {
+          border-bottom: 1px solid var(--line) !important;
+          background: #f9f8fa !important;
+        }
+        .rdrStaticRange:hover .rdrStaticRangeLabel, .rdrStaticRange:focus .rdrStaticRangeLabel {
+          background: #f4eff8 !important;
+          color: #25108f !important;
+        }
+        .rdrStaticRangeSelected {
+          color: #25108f !important;
+          font-weight: bold;
+        }
+        .rdrStaticRangeLabel {
+          padding: 10px 20px !important;
+          color: var(--text) !important;
+        }
+        .rdrDayToday .rdrDayNumber span:after {
+          background: #25108f !important;
+        }
+        .rdrDayHovered {
+          border-color: #25108f !important;
+        }
+        @media (max-width: 768px) {
+          .rdrDateRangePickerWrapper {
+            flex-direction: column !important;
+          }
+          .rdrDefinedRangesWrapper {
+            border-right: none !important;
+            border-bottom: 1px solid var(--line) !important;
+            width: 100% !important;
+          }
+        }
+      `}} />
     </div>
   );
 }

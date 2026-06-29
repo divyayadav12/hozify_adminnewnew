@@ -17,6 +17,8 @@ import {
 
 export default function PartnersReviews() {
   const [isExportOpen, setIsExportOpen] = useState(false);
+  const [determination, setDetermination] = useState("approve");
+  const [comment, setComment] = useState("");
 
   const handleExport = (format) => {
     setIsExportOpen(false);
@@ -216,34 +218,55 @@ export default function PartnersReviews() {
               </p>
 
               <div className="mt-3 space-y-3">
-                {/* Approve Active Card */}
-                <label className="relative flex cursor-pointer items-start rounded-xl bg-white p-4 transition shadow-sm">
+                {/* Approve Card */}
+                <label 
+                  onClick={() => setDetermination("approve")}
+                  className={`relative flex cursor-pointer items-start rounded-xl p-4 transition shadow-sm ${determination === "approve" ? "bg-white" : "bg-indigo-950/30 border border-indigo-900/40 hover:bg-indigo-900/20"}`}
+                >
                   <div className="flex flex-1 flex-col">
-                    <span className="text-sm font-bold text-slate-900">Approve Renewal</span>
-                    <span className="mt-0.5 text-xs text-slate-500">Extend contract for 12 months</span>
+                    <span className={`text-sm font-bold ${determination === "approve" ? "text-slate-900" : "text-indigo-200"}`}>Approve Renewal</span>
+                    <span className={`mt-0.5 text-xs ${determination === "approve" ? "text-slate-500" : "text-indigo-400/60"}`}>Extend contract for 12 months</span>
                   </div>
-                  <input type="radio" name="determination" defaultChecked className="sr-only" />
-                  <span className="ml-3 text-emerald-500">
-                    <CheckCircle2 size={18} />
-                  </span>
+                  <input type="radio" name="determination" checked={determination === "approve"} readOnly className="sr-only" />
+                  {determination === "approve" && (
+                    <span className="ml-3 text-emerald-500">
+                      <CheckCircle2 size={18} />
+                    </span>
+                  )}
                 </label>
 
                 {/* Request Improvements Card */}
-                <label className="relative flex cursor-pointer items-start rounded-xl bg-indigo-950/30 p-4 border border-indigo-900/40 hover:bg-indigo-900/20 transition">
+                <label 
+                  onClick={() => setDetermination("improve")}
+                  className={`relative flex cursor-pointer items-start rounded-xl p-4 transition shadow-sm ${determination === "improve" ? "bg-white" : "bg-indigo-950/30 border border-indigo-900/40 hover:bg-indigo-900/20"}`}
+                >
                   <div className="flex flex-1 flex-col">
-                    <span className="text-sm font-bold text-indigo-200">Request Improvements</span>
-                    <span className="mt-0.5 text-xs text-indigo-400/60">Issue 30-day correction notice</span>
+                    <span className={`text-sm font-bold ${determination === "improve" ? "text-slate-900" : "text-indigo-200"}`}>Request Improvements</span>
+                    <span className={`mt-0.5 text-xs ${determination === "improve" ? "text-slate-500" : "text-indigo-400/60"}`}>Issue 30-day correction notice</span>
                   </div>
-                  <input type="radio" name="determination" className="sr-only" />
+                  <input type="radio" name="determination" checked={determination === "improve"} readOnly className="sr-only" />
+                  {determination === "improve" && (
+                    <span className="ml-3 text-emerald-500">
+                      <CheckCircle2 size={18} />
+                    </span>
+                  )}
                 </label>
 
                 {/* Terminate Partnership Card */}
-                <label className="relative flex cursor-pointer items-start rounded-xl bg-rose-600 p-4 transition text-white shadow-sm">
+                <label 
+                  onClick={() => setDetermination("terminate")}
+                  className={`relative flex cursor-pointer items-start rounded-xl p-4 transition shadow-sm ${determination === "terminate" ? "bg-rose-600 text-white" : "bg-indigo-950/30 border border-indigo-900/40 hover:bg-rose-900/20"}`}
+                >
                   <div className="flex flex-1 flex-col">
-                    <span className="text-sm font-bold">Terminate Partnership</span>
-                    <span className="mt-0.5 text-xs text-rose-100/80">Initiate standard 60-day offboarding</span>
+                    <span className={`text-sm font-bold ${determination === "terminate" ? "text-white" : "text-rose-400"}`}>Terminate Partnership</span>
+                    <span className={`mt-0.5 text-xs ${determination === "terminate" ? "text-rose-100/80" : "text-rose-400/60"}`}>Initiate standard 60-day offboarding</span>
                   </div>
-                  <input type="radio" name="determination" className="sr-only" />
+                  <input type="radio" name="determination" checked={determination === "terminate"} readOnly className="sr-only" />
+                  {determination === "terminate" && (
+                    <span className="ml-3 text-white">
+                      <CheckCircle2 size={18} />
+                    </span>
+                  )}
                 </label>
               </div>
 
@@ -251,12 +274,17 @@ export default function PartnersReviews() {
                 <label className="text-xs font-bold text-indigo-200/70">Internal Review Comments</label>
                 <textarea
                   rows={4}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
                   placeholder="Add a note for the auditing team..."
                   className="mt-1.5 w-full rounded-xl bg-[#0d0e30] p-3 text-sm text-slate-200 placeholder-indigo-900/50 border border-indigo-950/60 focus:outline-none resize-none"
                 ></textarea>
               </div>
 
-              <button className="mt-4 w-full rounded-xl border border-indigo-500 bg-transparent py-2.5 text-xs font-bold text-white hover:bg-indigo-600 transition shadow-sm">
+              <button 
+                onClick={() => alert(`Saved determination: ${determination}\nComment: ${comment}`)}
+                className="mt-4 w-full rounded-xl border border-indigo-500 bg-transparent py-2.5 text-xs font-bold text-white hover:bg-indigo-600 transition shadow-sm"
+              >
                 Save Draft Comment
               </button>
             </div>

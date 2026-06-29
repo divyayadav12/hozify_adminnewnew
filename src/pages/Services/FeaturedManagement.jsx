@@ -15,8 +15,10 @@ import {
   Calendar,
   AlertCircle
 } from 'lucide-react';
+import { useToast } from '../../components/common/ToastNotification';
 
 export default function FeaturedManagement() {
+  const { addToast } = useToast();
   const [registryServices, setRegistryServices] = useState([
     { id: 1, name: 'Deep Cleaning', category: 'Residential', price: '$85/hr', icon: Sparkles, color: '#e0e7ff', iconColor: '#4f46e5' },
     { id: 2, name: 'Pipe Repair', category: 'Maintenance', price: '$120/hr', icon: Wrench, color: '#fef3c7', iconColor: '#d97706' },
@@ -62,7 +64,7 @@ export default function FeaturedManagement() {
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
-            onClick={() => alert('Discarded changes')}
+            onClick={() => addToast('Changes discarded successfully.', 'info')}
             type="button"
           >
             Discard Changes
@@ -79,7 +81,7 @@ export default function FeaturedManagement() {
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
-            onClick={() => alert('Layout published successfully')}
+            onClick={() => addToast('Promotional layout published successfully!', 'success')}
             type="button"
           >
             Publish Layout
@@ -422,10 +424,10 @@ export default function FeaturedManagement() {
                 </h2>
               </div>
               <div style={{ display: 'flex', gap: '8px' }}>
-                <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="Refresh trending">
+                <button onClick={() => addToast('Refreshing trending clusters algorithm data...', 'success')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="Refresh trending">
                   <RefreshCw size={15} />
                 </button>
-                <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="More options">
+                <button onClick={() => addToast('Trending clusters options menu opened.', 'info')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="More options">
                   <MoreVertical size={15} />
                 </button>
               </div>
@@ -644,7 +646,7 @@ export default function FeaturedManagement() {
                           </span>
                         </td>
                         <td style={{ padding: '12px 8px', textAlign: 'right' }}>
-                          <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="Promotion actions">
+                          <button onClick={() => addToast(`Promotion actions menu opened for "${row.name}".`, 'info')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="Promotion actions">
                             <MoreVertical size={16} />
                           </button>
                         </td>

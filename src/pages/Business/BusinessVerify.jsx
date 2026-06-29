@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
 import AdminShell from '../../components/layouts/AdminShell';
 import BusinessHeaderTabs from './BusinessHeaderTabs';
 import {
@@ -19,19 +20,20 @@ import {
 
 export default function BusinessVerify() {
   const { navigate } = useApp();
-
+  const { addToast } = useToast();
+  
   const handleApprove = () => {
-    alert('Identity Verification Approved!');
+    addToast('Identity Verification Approved!', 'success');
     navigate(ROUTES.businessReview);
   };
-
+  
   const handleReject = () => {
-    alert('Identity Verification Rejected.');
+    addToast('Identity Verification Rejected.', 'error');
     navigate(ROUTES.businessReview);
   };
-
+  
   const handleEscalate = () => {
-    alert('Escalated to Manual Review Queue.');
+    addToast('Escalated to Manual Review Queue.', 'info');
     navigate(ROUTES.businessReview);
   };
 
@@ -55,8 +57,11 @@ export default function BusinessVerify() {
           </div>
 
           <button
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '34px', padding: '0 12px', borderRadius: '6px' }}
-            onClick={() => alert('Opening audit logs...')}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '34px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+            onClick={() => {
+              addToast('Navigating to Audit Logs...', 'info');
+              navigate(ROUTES.businessAuditLogs);
+            }}
             type="button"
           >
             <RotateCw size={12} /> View Audit Log

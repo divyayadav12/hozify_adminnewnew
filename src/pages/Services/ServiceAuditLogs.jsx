@@ -5,6 +5,7 @@ import {
   Tags, FileText, ChevronLeft, ChevronRight,
   MoreVertical, Clock, DollarSign
 } from 'lucide-react';
+import { useToast } from '../../components/common/ToastNotification';
 
 const MOCK_LOGS = [
   { id: 'LOG-SVC-901', user: 'Admin (System)', action: 'Updated Global Pricing Strategy', module: 'Pricing', severity: 'HIGH', time: '10 mins ago', ip: '192.168.1.1', status: 'SUCCESS', statusBg: '#ecfdf5', statusColor: '#059669' },
@@ -22,6 +23,7 @@ const MOCK_EVENTS = [
 ];
 
 export default function ServiceAuditLogs() {
+  const { addToast } = useToast();
   const [search, setSearch] = useState('');
   
   const filteredLogs = MOCK_LOGS.filter(l => 
@@ -30,10 +32,28 @@ export default function ServiceAuditLogs() {
     l.action.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleExportCSV = () => {
+    addToast('Generating and downloading CSV audit logs...', 'success');
+    const headers = "Log ID,Time,User,Action,Module,Severity,Status";
+    const csvRows = MOCK_LOGS.map(l => 
+      `"${l.id}","${l.time}","${l.user}","${l.action}","${l.module}","${l.severity}","${l.status}"`
+    );
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'service_audit_logs.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div style={{ paddingBottom: '40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
       
-      {/* ================================================= */}
+      {/* ========================================== */}
       {/* HEADER                                            */}
       {/* ================================================= */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -42,19 +62,19 @@ export default function ServiceAuditLogs() {
           <p style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '4px' }}>Monitor catalog operations, pricing adjustments, and security events.</p>
         </div>
         <div style={{ display: 'flex', gap: '12px' }}>
-          <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          <button onClick={() => addToast('Refreshing service audit logs...', 'success')} className="secondary-action-btn font-bold" type="button" style={{ height: '36px', cursor: 'pointer' }}>
             <RefreshCw size={14} style={{ marginRight: '6px' }} /> Refresh
           </button>
-          <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          <button onClick={() => addToast('Filters panel opened.', 'info')} className="secondary-action-btn font-bold" type="button" style={{ height: '36px', cursor: 'pointer' }}>
             <SlidersHorizontal size={14} style={{ marginRight: '6px' }} /> Filters
           </button>
-          <button className="primary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          <button onClick={handleExportCSV} className="primary-action-btn font-bold" type="button" style={{ height: '36px', cursor: 'pointer' }}>
             <Download size={14} style={{ marginRight: '6px' }} /> Export Logs
           </button>
         </div>
       </div>
 
-      {/* ================================================= */}
+      {/* ========================================== */}
       {/* STATISTICS CARDS                                  */}
       {/* ================================================= */}
       <style>{`
@@ -155,7 +175,7 @@ export default function ServiceAuditLogs() {
         </div>
       </section>
 
-      {/* ================================================= */}
+      {/* ========================================== */}
       {/* MIDDLE SECTION: TIMELINE & EVENTS                 */}
       {/* ================================================= */}
       <style>{`
@@ -247,7 +267,7 @@ export default function ServiceAuditLogs() {
         
       </section>
 
-      {/* ================================================= */}
+      {/* ========================================== */}
       {/* LOGS TABLE SECTION                                */}
       {/* ================================================= */}
       <section className="panel" style={{ padding: '24px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
@@ -336,7 +356,7 @@ export default function ServiceAuditLogs() {
                     </span>
                   </td>
                   <td style={{ padding: '12px', textAlign: 'right' }}>
-                    <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}>
+                    <button onClick={() => addToast(`Actions menu opened for log: ${row.id}`, 'info')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} type="button" aria-label="Log actions">
                       <MoreVertical size={14} />
                     </button>
                   </td>
@@ -355,15 +375,15 @@ export default function ServiceAuditLogs() {
         <div className="directory-table-footer" style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>Showing {filteredLogs.length} of 24,500 logs</span>
           <div className="pagination-wrap" style={{ display: 'flex', gap: '4px' }}>
-            <button className="pag-nav-btn" type="button" disabled style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--muted)', cursor: 'not-allowed' }}>
+             <button onClick={() => addToast('Opening previous page...', 'info')} className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
               <ChevronLeft size={14} />
             </button>
-            <button style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">1</button>
-            <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">2</button>
-            <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">3</button>
+            <button onClick={() => addToast('Switched to page 1.', 'success')} style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">1</button>
+            <button onClick={() => addToast('Switched to page 2.', 'success')} style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">2</button>
+            <button onClick={() => addToast('Switched to page 3.', 'success')} style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">3</button>
             <span style={{ padding: '6px 4px', color: 'var(--muted)' }}>...</span>
-            <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">100</button>
-            <button className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
+            <button onClick={() => addToast('Switched to page 100.', 'success')} style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">100</button>
+            <button onClick={() => addToast('Opening next page...', 'info')} className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
               <ChevronRight size={14} />
             </button>
           </div>

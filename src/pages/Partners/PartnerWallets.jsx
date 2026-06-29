@@ -397,7 +397,7 @@ export default function PartnerWallets() {
             <h4 className="mt-2 text-2xl font-black text-emerald-600 tracking-tight">98%</h4>
           </div>
 
-<<<<<<< HEAD
+
     <div className="flex gap-2">
 
       <button className="rounded-xl bg-indigo-600 px-5 py-3 text-white">
@@ -477,80 +477,15 @@ export default function PartnerWallets() {
                 <p className="text-sm text-slate-500">
                   {partner.id}
                 </p>
-=======
-          <div className="rounded-2xl border border-slate-200 bg-white p-4.5 shadow-sm hover:border-slate-300 transition">
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="text-rose-600" size={16} />
-              <h3 className="text-xs font-bold text-slate-800">Overdue Settlements</h3>
-            </div>
-            <p className="mt-1 text-[11px] text-slate-500 leading-relaxed">Exceeded cycle limitation accounts.</p>
-            <h4 className="mt-2 text-2xl font-black text-rose-600 tracking-tight">
-              {String(metrics.overdueCount).padStart(2, '0')}
-            </h4>
-          </div>
-        </div>
->>>>>>> 85a8df8 (updated partner UI)
-
-        {/* DYNAMIC INTERACTIVE POPUP / MODAL */}
-        {activeModalData && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-fadeIn">
-            <div className="w-full max-w-sm rounded-2xl border border-slate-100 bg-white p-5 shadow-2xl transition-all scale-100">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
-                    {activeModalData.type} Node Profile
-                  </span>
-                  <h3 className="text-base font-bold text-slate-900 mt-1">{activeModalData.name}</h3>
-                </div>
-                <button 
-                  onClick={() => setActiveModalData(null)}
-                  className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
-                >
-                  <X size={16} />
-                </button>
               </div>
+            </td>
 
-              <div className="mt-4 space-y-3 text-xs">
-                <div className="flex justify-between border-b border-slate-50 pb-1.5">
-                  <span className="text-slate-400 font-medium">System Registry ID:</span>
-                  <span className="font-mono font-bold text-slate-700">{activeModalData.id}</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-50 pb-1.5">
-                  <span className="text-slate-400 font-medium">Available Balance:</span>
-                  <span className="font-extrabold text-slate-900">{formatCurrency(activeModalData.balance)}</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-50 pb-1.5">
-                  <span className="text-slate-400 font-medium">Allocated Threshold:</span>
-                  <span className="font-semibold text-slate-700">{formatCurrency(activeModalData.threshold)}</span>
-                </div>
-                <div className="flex justify-between items-center pb-1">
-                  <span className="text-slate-400 font-medium">Execution Status:</span>
-                  <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold border ${
-                    activeModalData.status === "On Track" ? "bg-emerald-50 text-emerald-700 border-emerald-100" : 
-                    activeModalData.status === "Overdue" ? "bg-rose-50 text-rose-700 border-rose-100" : "bg-amber-50 text-amber-700 border-amber-100"
-                  }`}>{activeModalData.status}</span>
-                </div>
-              </div>
+            <td>
+              <span className={`px-2 py-1 rounded-md text-xs font-medium ${partner.type === 'ISP' ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-700'}`}>
+                {partner.type}
+              </span>
+            </td>
 
-              <div className="mt-5 grid grid-cols-2 gap-2">
-                <button 
-                  onClick={() => { showToast(`Balance audit logs pulled for ${activeModalData.name}`); setActiveModalData(null); }}
-                  className="rounded-xl bg-slate-900 py-2 text-center text-xs font-bold text-white hover:bg-slate-800 transition"
-                >
-                  Audit Stream
-                </button>
-                <button 
-                  onClick={() => { showToast(`Instant settlement pipeline initialized for ${activeModalData.name}`); setActiveModalData(null); }}
-                  className="rounded-xl bg-indigo-600 py-2 text-center text-xs font-bold text-white hover:bg-indigo-700 transition"
-                >
-                  Settle Node
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-<<<<<<< HEAD
             <td className="font-semibold">
               {partner.balance}
             </td>
@@ -660,10 +595,67 @@ export default function PartnerWallets() {
   </div>
 
 </div>
-</div>
-=======
+
+{/* DYNAMIC INTERACTIVE POPUP / MODAL */}
+{activeModalData && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-fadeIn">
+    <div className="w-full max-w-sm rounded-2xl border border-slate-100 bg-white p-5 shadow-2xl transition-all scale-100">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span className="text-[9px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+            {activeModalData.type} Node Profile
+          </span>
+          <h3 className="text-base font-bold text-slate-900 mt-1">{activeModalData.name}</h3>
+        </div>
+        <button 
+          onClick={() => setActiveModalData(null)}
+          className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
+        >
+          <X size={16} />
+        </button>
       </div>
->>>>>>> 85a8df8 (updated partner UI)
+
+      <div className="mt-4 space-y-3 text-xs">
+        <div className="flex justify-between border-b border-slate-50 pb-1.5">
+          <span className="text-slate-400 font-medium">System Registry ID:</span>
+          <span className="font-mono font-bold text-slate-700">{activeModalData.id}</span>
+        </div>
+        <div className="flex justify-between border-b border-slate-50 pb-1.5">
+          <span className="text-slate-400 font-medium">Available Balance:</span>
+          <span className="font-extrabold text-slate-900">{formatCurrency(activeModalData.balance)}</span>
+        </div>
+        <div className="flex justify-between border-b border-slate-50 pb-1.5">
+          <span className="text-slate-400 font-medium">Allocated Threshold:</span>
+          <span className="font-semibold text-slate-700">{formatCurrency(activeModalData.threshold)}</span>
+        </div>
+        <div className="flex justify-between items-center pb-1">
+          <span className="text-slate-400 font-medium">Execution Status:</span>
+          <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold border ${
+            activeModalData.status === "On Track" ? "bg-emerald-50 text-emerald-700 border-emerald-100" : 
+            activeModalData.status === "Overdue" ? "bg-rose-50 text-rose-700 border-rose-100" : "bg-amber-50 text-amber-700 border-amber-100"
+          }`}>{activeModalData.status}</span>
+        </div>
+      </div>
+
+      <div className="mt-5 grid grid-cols-2 gap-2">
+        <button 
+          onClick={() => { showToast(`Balance audit logs pulled for ${activeModalData.name}`); setActiveModalData(null); }}
+          className="rounded-xl bg-slate-900 py-2 text-center text-xs font-bold text-white hover:bg-slate-800 transition"
+        >
+          Audit Stream
+        </button>
+        <button 
+          onClick={() => { showToast(`Instant settlement pipeline initialized for ${activeModalData.name}`); setActiveModalData(null); }}
+          className="rounded-xl bg-indigo-600 py-2 text-center text-xs font-bold text-white hover:bg-indigo-700 transition"
+        >
+          Settle Node
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
     </AdminShell>
   );
 }

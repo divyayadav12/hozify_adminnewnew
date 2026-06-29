@@ -306,7 +306,7 @@ export default function GSTVerification() {
 
             <div 
               onClick={() => addToast('Auditor Profile options.', 'info')}
-              className="w-12 h-12 rounded-full bg-[#E4E1FF] flex items-center justify-center text-[#312E81] font-bold cursor-pointer hover:opacity-95"
+              className="w-9 h-9 rounded-full bg-[#E4E1FF] flex items-center justify-center text-[#312E81] font-bold cursor-pointer hover:opacity-95"
             >
               AU
             </div>

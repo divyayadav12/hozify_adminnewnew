@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Download, SlidersHorizontal, CheckSquare, ShieldCheck, Landmark, ShieldAlert, AlertCircle, Eye, Share2, MoreVertical, Globe } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -16,6 +17,7 @@ const complianceLedger = [
 ];
 
 export default function BranchCompliance() {
+  const { addToast } = useToast();
   const { navigate, setCurrentBranchId } = useApp();
   const [alerts, setAlerts] = useState(initialAlerts);
 
@@ -24,15 +26,6 @@ export default function BranchCompliance() {
     const cleanId = id.replace('#', '');
     setCurrentBranchId(cleanId);
     navigate(ROUTES.branchSchedule);
-  };
-
-  // Handlers for Download Report and Bulk Verify
-  const handleDownloadReport = () => {
-    alert('Generating and downloading compliance report...');
-  };
-
-  const handleBulkVerify = () => {
-    alert('Initiating bulk verification process for all pending documents...');
   };
 
   return (
@@ -44,20 +37,10 @@ export default function BranchCompliance() {
           <p className="page-subtitle">Real-time regulatory status and document verification pipeline.</p>
         </div>
         <div className="partners-header-buttons">
-          <button 
-            className="secondary-action-btn font-bold" 
-            type="button" 
-            style={{ height: '36px' }}
-            onClick={handleDownloadReport}
-          >
+          <button className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
             <span>Download Report</span>
           </button>
-          <button 
-            className="primary-action-btn font-bold" 
-            type="button" 
-            style={{ height: '36px', backgroundColor: '#0f172a', color: '#fff' }}
-            onClick={handleBulkVerify}
-          >
+          <button className="primary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '36px', backgroundColor: '#0f172a', color: '#fff' }} onClick={() => addToast('Action performed successfully.', 'success')}>
             <ShieldCheck size={14} style={{ marginRight: '4px' }} />
             <span>Bulk Verify</span>
           </button>
@@ -130,8 +113,8 @@ export default function BranchCompliance() {
                 <ShieldAlert size={16} style={{ color: '#ef4444' }} /> Critical Compliance Alerts
               </h2>
               <div style={{ display: 'flex', gap: '8px' }}>
-                <button style={{ border: 'none', background: '#0f172a', color: '#fff', fontSize: '10px', fontWeight: '800', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer' }} type="button">Filter All</button>
-                <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }} type="button">Resolve All</button>
+                <button style={{ cursor: 'pointer',  border: 'none', background: '#0f172a', color: '#fff', fontSize: '10px', fontWeight: '800', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>Filter All</button>
+                <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', color: 'var(--muted)', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>Resolve All</button>
               </div>
             </div>
 
@@ -150,8 +133,8 @@ export default function BranchCompliance() {
                     <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '700' }}>{alert.time}</span>
                   </div>
                   <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                    <button style={{ border: 'none', background: 'transparent', color: '#4f46e5', cursor: 'pointer' }} aria-label="Review alert"><Eye size={16} /></button>
-                    <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }} aria-label="More options"><MoreVertical size={16} /></button>
+                    <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', color: '#4f46e5', cursor: 'pointer' }} aria-label="Review alert" onClick={() => addToast('Review alert performed successfully.', 'success')}><Eye size={16} /></button>
+                    <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }} aria-label="More options" onClick={() => addToast('More options performed successfully.', 'success')}><button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={16}  /></button></button>
                   </div>
                 </div>
               ))}
@@ -169,17 +152,17 @@ export default function BranchCompliance() {
                 Regional Compliance Ledger
               </h2>
               <div style={{ display: 'flex', gap: '10px' }}>
-                <button className="secondary-action-btn" style={{ height: '30px', width: '30px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Filter ledger">
-                  <SlidersHorizontal size={12} />
+                <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '30px', width: '30px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Filter ledger" onClick={() => addToast('Filter ledger performed successfully.', 'success')}>
+                  <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><SlidersHorizontal size={12}  /></button>
                 </button>
-                <button className="secondary-action-btn" style={{ height: '30px', width: '30px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Download ledger report">
+                <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '30px', width: '30px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Download ledger report" onClick={() => addToast('Download ledger report performed successfully.', 'success')}>
                   <Download size={12} />
                 </button>
               </div>
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+              <table className="partner-table">
                 <thead>
                   <tr>
                     <th>BRANCH ID</th>
@@ -221,7 +204,7 @@ export default function BranchCompliance() {
                     </tr>
                   ))}
                 </tbody>
-              </table></div>
+              </table>
             </div>
           </section>
 

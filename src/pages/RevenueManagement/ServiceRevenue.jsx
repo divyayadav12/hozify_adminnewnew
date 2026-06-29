@@ -45,13 +45,6 @@ export default function ServiceRevenue() {
       >
         
         {/* ==========================================
-            1. HEADER SECTION WITH WORKING CALENDAR
-           ========================================== */}
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">Service Revenue Analysis</h1>
-            <p className="text-xs text-slate-400 mt-0.5 font-medium">
-              Comprehensive performance breakdown by strategic service lines
             </p>
           </div>
 
@@ -87,18 +80,6 @@ export default function ServiceRevenue() {
         </div>
 
         {/* ==========================================
-            2. COMPACT THREE COLUMNS TOP STATS CARDS
-           ========================================== */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Total Service Revenue */}
-          <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between shadow-sm min-h-[105px]">
-            <div>
-              <p className="text-[9px] font-bold text-slate-400 tracking-wider uppercase">TOTAL SERVICE REVENUE</p>
-              <h3 className="text-2xl font-extrabold mt-1 text-slate-900 tracking-tight">$24.8M</h3>
-            </div>
-            <div className="mt-2">
-              <span className="inline-flex items-center text-[10px] font-bold text-emerald-600 bg-emerald-50/70 px-2 py-0.5 rounded border border-emerald-100">
-                ↗ +12.4% vs Last Quarter
               </span>
             </div>
           </div>
@@ -128,7 +109,6 @@ export default function ServiceRevenue() {
               </span>
             </div>
           </div>
-        </div>
 
         {/* ==========================================
             3. MIDDLE ROW: SERVICE MIX & REVENUE TRENDS
@@ -275,67 +255,7 @@ export default function ServiceRevenue() {
           </button>
         </div>
 
-        {/* ==========================================
-            6. FUNCTIONAL MODAL SYSTEM LAYOUT
-           ========================================== */}
-        
-        {/* FULL DATASET DETAILS MODAL */}
-        {showDatasetModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowDatasetModal(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                  <BarChart2 className="h-4 w-4 text-indigo-600" /> Complete Service Segment Ledger
-                </h4>
-                <button type="button" onClick={() => setShowDatasetModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-5 space-y-3 max-h-[350px] overflow-y-auto">
-                {serviceLines.map((s, i) => (
-                  <div key={i} className="p-3 border border-slate-100 rounded-lg bg-slate-50/50 flex justify-between items-center text-xs">
-                    <div>
-                      <p className="font-bold text-slate-800 flex items-center gap-1.5">{s.icon} {s.name}</p>
-                      <p className="text-[11px] text-slate-400 mt-0.5 font-medium">Margin Multiplier Layer: {s.margin}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-extrabold text-slate-900">{s.revenue}</p>
-                      <p className="text-[11px] text-emerald-600 font-bold">{s.growth} Growth</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* EXPANSION PLAN MODAL */}
-        {showExpansionModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowExpansionModal(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-indigo-600" /> Q2 2027 Expansion Strategy
-                </h4>
-                <button type="button" onClick={() => setShowExpansionModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-5 space-y-4">
-                <div className="p-3 bg-indigo-50/50 border border-indigo-100 rounded-lg text-xs">
-                  <h5 className="font-bold text-indigo-950 flex items-center gap-1.5">🗺️ Phase 1: European Hub Rollout</h5>
-                  <p className="text-slate-500 font-medium mt-1 leading-relaxed">Targeting Western Europe enterprise nodes with localized high-margin Tracking Pro software integrations.</p>
-                </div>
-                <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs">
-                  <h5 className="font-bold text-slate-800">📈 Projected Incremental Yield</h5>
-                  <p className="text-slate-500 font-medium mt-1 leading-relaxed">Expected baseline trajectory estimates a <span className="font-bold text-indigo-600">+$2.4M ARR</span> scaling vector at maturity tier stage.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-      </div>
+        {/* =================================== */}
     </AdminShell>
   );
 }

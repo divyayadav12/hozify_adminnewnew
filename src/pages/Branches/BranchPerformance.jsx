@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Award, Calendar, Download, Eye, SlidersHorizontal, MoreVertical, TrendingUp, HelpCircle } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
 
 const topPerformers = [
   { rank: 1, name: 'Sarah Miller', efficiency: '98% Efficiency', value: '+$12k', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80', active: true },
@@ -16,6 +17,7 @@ const auditBranches = [
 ];
 
 export default function BranchPerformance() {
+  const { addToast } = useToast();
   const { navigate, setCurrentBranchId } = useApp();
   const [timeframe, setTimeframe] = useState('Last 30 Days');
 
@@ -26,11 +28,25 @@ export default function BranchPerformance() {
 
   // Dynamic Button Actions
   const handleExportReport = () => {
-    alert(`Exporting performance matrix report for [${timeframe}] as an Excel spreadsheet standard document...`);
+    addToast(`Exporting performance matrix report for [${timeframe}]...`, 'success');
+    const headers = "Branch Name,ID,Manager,Daily Revenue,Status,Trend";
+    const csvRows = auditBranches.map(b => 
+      `"${b.name}","${b.id}","${b.manager}","${b.revenue}","${b.status}","${b.trend}"`
+    );
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `branch_performance_${timeframe.toLowerCase().replace(/\s+/g, '_')}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleViewStaff = () => {
-    alert('Redirecting to full team performance audit directory listings...');
+    addToast('Opening staff directory and scheduling panel...', 'info');
   };
 
   return (
@@ -270,10 +286,10 @@ export default function BranchPerformance() {
             Operational Audit — Regional Branches
           </h2>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Filters">
+            <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Filters" onClick={() => addToast('Filtering tools opened.', 'info')}>
               <SlidersHorizontal size={14} />
             </button>
-            <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Options">
+            <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Options" onClick={() => addToast('More options opened.', 'info')}>
               <MoreVertical size={14} />
             </button>
           </div>

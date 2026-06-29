@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 import {
   Filter,
   Download,
@@ -105,12 +106,38 @@ const PAGE_SIZE = 4;
 const TOTAL_PAGES = 3; // simulated
 
 export default function BusinessEmployees() {
+  const { addToast } = useToast();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRow, setSelectedRow] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [exportClicked, setExportClicked] = useState(false);
   const [accessLogsClicked, setAccessLogsClicked] = useState(false);
   const [menuOpenId, setMenuOpenId] = useState(null);
+
+  const handleExport = () => {
+    setExportClicked(true);
+    setTimeout(() => setExportClicked(false), 300);
+    
+    addToast('Generating employee records CSV...', 'success');
+    
+    const headers = "ID,Name,Email,Role,Department,Performance";
+    const csvRows = ALL_EMPLOYEES.map(emp => 
+      `"${emp.id}","${emp.name}","${emp.email}","${emp.role}","${emp.dept}","${emp.performance}"`
+    );
+    
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'business_employees.csv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Simulated page data — page 1 shows first 4, page 2 next 4, page 3 wraps
   const pageEmployees = ALL_EMPLOYEES.slice(
@@ -160,7 +187,7 @@ export default function BusinessEmployees() {
         {/* HEADER */}
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-4xl font-bold">Employee Management</h1>
+            <h1 className="text-2xl font-bold">Employee Management</h1>
             <p className="text-gray-500 mt-2 transition-all duration-300">
               Manage {headcount.toLocaleString()} active staff members across 14 departments.
             </p>
@@ -178,7 +205,7 @@ export default function BusinessEmployees() {
 
             <button
               className={`h-12 px-5 border rounded-lg flex items-center gap-2 transition-all duration-150 active:scale-95 hover:bg-gray-50 ${exportClicked ? "scale-95 bg-gray-100" : ""}`}
-              onClick={() => flashBtn(setExportClicked)}
+              onClick={handleExport}
               type="button"
             >
               <Download size={18} />
@@ -196,7 +223,7 @@ export default function BusinessEmployees() {
               Total Headcount
             </h4>
             <div className="flex items-center gap-3 mt-4">
-              <span className="text-6xl font-light transition-all duration-500">
+              <span className="text-3xl font-light transition-all duration-500">
                 {headcount.toLocaleString()}
               </span>
               <span className="text-green-600 font-semibold">+4.2%</span>
@@ -209,7 +236,7 @@ export default function BusinessEmployees() {
               Retention Rate
             </h4>
             <div className="flex items-center gap-4 mt-4">
-              <span className="text-6xl font-light transition-all duration-500">
+              <span className="text-3xl font-light transition-all duration-500">
                 {retention}
               </span>
               <span className="text-gray-500">High Stability</span>
@@ -221,7 +248,7 @@ export default function BusinessEmployees() {
             <h4 className="uppercase tracking-widest text-indigo-300 text-sm">
               Performance Highlight
             </h4>
-            <h3 className="text-4xl font-semibold mt-4 max-w-xl transition-all duration-500">
+            <h3 className="text-2xl font-semibold mt-4 max-w-xl transition-all duration-500">
               {topPct}% Employees with 'Top Performer' Badges
             </h3>
             <p className="text-indigo-200 mt-5 max-w-2xl">
@@ -264,7 +291,7 @@ export default function BusinessEmployees() {
                   <img
                     src={employee.avatar}
                     alt={employee.name}
-                    className={`w-14 h-14 rounded-full object-cover transition-all duration-200 ${isSelected ? "ring-2 ring-indigo-500 ring-offset-2 scale-110" : ""}`}
+                    className={`w-10 h-10 rounded-full object-cover transition-all duration-200 ${isSelected ? "ring-2 ring-indigo-500 ring-offset-2 scale-110" : ""}`}
                   />
                   <div>
                     <h3 className="text-xl font-medium">{employee.name}</h3>
@@ -316,7 +343,11 @@ export default function BusinessEmployees() {
                         <button
                           key={action}
                           className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 active:bg-gray-100 transition-colors"
-                          onClick={(e) => { e.stopPropagation(); setMenuOpenId(null); }}
+                          onClick={(e) => { 
+                            e.stopPropagation(); 
+                            setMenuOpenId(null); 
+                            addToast(`Action "${action}" performed successfully for ${employee.name}.`, 'success');
+                          }}
                           type="button"
                         >
                           {action}
@@ -351,7 +382,7 @@ export default function BusinessEmployees() {
               {[1, 2, 3].map((page) => (
                 <button
                   key={page}
-                  className={`w-12 h-12 rounded font-medium transition-all duration-150 active:scale-90 ${
+                  className={`w-9 h-9 rounded font-medium transition-all duration-150 active:scale-90 ${
                     currentPage === page
                       ? "bg-black text-white scale-105"
                       : "border hover:bg-gray-50"
@@ -394,10 +425,10 @@ export default function BusinessEmployees() {
           {/* HEALTH CARD */}
           <div className="col-span-6 bg-white border rounded-xl p-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-black rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
                 <Award className="text-white" size={26} />
               </div>
-              <h3 className="text-4xl font-semibold">Employee Health & Morale</h3>
+              <h3 className="text-2xl font-semibold">Employee Health & Morale</h3>
             </div>
 
             <p className="text-gray-600 text-xl leading-relaxed transition-all duration-500">
@@ -420,10 +451,10 @@ export default function BusinessEmployees() {
           {/* SECURITY CARD */}
           <div className="col-span-6 bg-white border rounded-xl p-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-orange-100 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
                 <Shield className="text-orange-700" size={26} />
               </div>
-              <h3 className="text-4xl font-semibold">Security & Access Audits</h3>
+              <h3 className="text-2xl font-semibold">Security & Access Audits</h3>
             </div>
 
             <p className="text-gray-600 text-xl leading-relaxed">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 import {
   Calendar,
   Download,
@@ -122,6 +123,7 @@ const PERIOD_DATA = {
 };
 
 export default function BusinessRevenue() {
+  const { addToast } = useToast();
   const [activePeriod, setActivePeriod]         = useState("Last 30 Days");
   const [periodDropdown, setPeriodDropdown]      = useState(false);
   const [selectedRow, setSelectedRow]            = useState(null);
@@ -135,6 +137,46 @@ export default function BusinessRevenue() {
   const [exportClicked, setExportClicked]        = useState(false);
 
   const d = PERIOD_DATA[activePeriod];
+  
+  const handleExport = () => {
+    setExportClicked(true);
+    setTimeout(() => setExportClicked(false), 300);
+    addToast('Generating revenue report CSV...', 'success');
+    
+    if (!d || !d.payouts || d.payouts.length === 0) {
+      addToast('No revenue data to export', 'error');
+      return;
+    }
+    
+    const headers = "Transaction ID,Recipient,Date,Amount,Status";
+    const csvRows = d.payouts.map(payout => 
+      `"${payout.id}","${payout.recipient}","${payout.date}","${payout.amount}","${payout.status}"`
+    );
+    
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'business_revenue_report.csv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleWithdraw = () => {
+    setWithdrawClicked(true);
+    setTimeout(() => setWithdrawClicked(false), 300);
+    
+    if (d.availablePayout === "$0.00" || d.availablePayout === "$0") {
+      addToast('No funds available for withdrawal.', 'error');
+    } else {
+      addToast(`Withdrawal of ${d.availablePayout} initiated successfully. Processing may take up to ${d.payoutDays}.`, 'success');
+    }
+  };
 
   const flashBtn = (setter) => {
     setter(true);
@@ -162,7 +204,7 @@ export default function BusinessRevenue() {
         {/* HEADER */}
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-4xl font-bold">Revenue Dashboard</h1>
+            <h1 className="text-2xl font-bold">Revenue Dashboard</h1>
             <p className="text-gray-500 mt-2 transition-all duration-300">{d.subtitle}</p>
           </div>
 
@@ -196,7 +238,7 @@ export default function BusinessRevenue() {
 
             <button
               className={`h-12 px-5 bg-indigo-700 text-white rounded-lg flex items-center gap-2 transition-all duration-150 active:scale-95 hover:bg-indigo-800 ${exportClicked ? "scale-95 bg-indigo-900" : ""}`}
-              onClick={() => flashBtn(setExportClicked)}
+              onClick={handleExport}
               type="button"
             >
               <Download size={18} />
@@ -268,7 +310,7 @@ export default function BusinessRevenue() {
             {/* Total Earnings */}
             <div className="bg-white border rounded-xl p-6">
               <h4 className="text-gray-500 text-xl">Total Earnings</h4>
-              <div className="text-5xl font-bold mt-3 transition-all duration-500">{d.totalEarnings}</div>
+              <div className="text-2xl font-bold mt-3 transition-all duration-500">{d.totalEarnings}</div>
               <p className="text-green-600 mt-5 flex items-center gap-1">
                 <ArrowUpRight size={16} />
                 {d.earningsGrowth} from last period
@@ -278,7 +320,7 @@ export default function BusinessRevenue() {
             {/* Pending Settlements */}
             <div className="bg-white border rounded-xl p-6">
               <h4 className="text-gray-500 text-xl">Pending Settlements</h4>
-              <div className="text-5xl font-bold mt-3 transition-all duration-500">{d.pendingSettlements}</div>
+              <div className="text-2xl font-bold mt-3 transition-all duration-500">{d.pendingSettlements}</div>
               <p className="text-gray-500 mt-5 flex items-center gap-2">
                 <Clock3 size={15} />
                 Est. payout in {d.payoutDays}
@@ -288,10 +330,10 @@ export default function BusinessRevenue() {
             {/* Available for Payout */}
             <div className="bg-indigo-800 text-white rounded-xl p-6">
               <h4 className="text-indigo-200 text-xl">Available for Payout</h4>
-              <div className="text-5xl font-bold mt-3 transition-all duration-500">{d.availablePayout}</div>
+              <div className="text-2xl font-bold mt-3 transition-all duration-500">{d.availablePayout}</div>
               <button
                 className={`bg-white text-black px-5 h-12 rounded-lg mt-6 font-semibold transition-all duration-150 active:scale-95 hover:bg-gray-100 ${withdrawClicked ? "scale-95 bg-gray-200" : ""}`}
-                onClick={() => flashBtn(setWithdrawClicked)}
+                onClick={handleWithdraw}
                 type="button"
               >
                 Withdraw Funds
@@ -307,7 +349,7 @@ export default function BusinessRevenue() {
           {/* RECENT PAYOUTS */}
           <div className="col-span-8 bg-white border rounded-xl overflow-hidden">
 
-            <div className="flex items-center justify-between px-6 py-5 border-b">
+            <div className="flex items-center justify-between px-6 py-4 border-b">
               <h2 className="text-3xl font-semibold">Recent Payouts</h2>
               <button
                 className={`font-semibold transition-all duration-150 hover:text-indigo-700 active:scale-95 ${viewAllClicked ? "text-indigo-700 scale-95" : ""}`}
@@ -401,7 +443,7 @@ export default function BusinessRevenue() {
 
             {/* LEFT INFO */}
             <div className="col-span-4 p-8 border-r">
-              <h2 className="text-4xl font-semibold mb-4">Global Revenue</h2>
+              <h2 className="text-2xl font-semibold mb-4">Global Revenue</h2>
               <p className="text-gray-500 text-lg leading-relaxed mb-8">
                 Regional distribution of earnings and contract density across primary hubs.
               </p>

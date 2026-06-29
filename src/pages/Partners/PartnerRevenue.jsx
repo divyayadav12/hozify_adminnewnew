@@ -240,23 +240,33 @@ export default function PartnerRevenue() {
               <p className="mt-1 text-sm text-slate-500">Highest performing partners this month</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              {topPartners.slice(0, 3).map((partner) => (
-                <button
-                  key={partner.name}
-                  type="button"
-                  onClick={() => setSelectedSource(partner.name)}
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-50"
-                >
-                  {partner.name}
-                </button>
-              ))}
+              {topPartners.slice(0, 3).map((partner) => {
+                const isActive = partner.name === selectedSource;
+                return (
+                  <button
+                    key={partner.name}
+                    type="button"
+                    onClick={() => {
+                      setSelectedSource(partner.name);
+                      alert(`Viewing revenue details for ${partner.name}`);
+                    }}
+                    className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition ${
+                      isActive 
+                        ? "border-slate-900 bg-white text-slate-900 shadow-sm" 
+                        : "border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700"
+                    }`}
+                  >
+                    {partner.name}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           <div className="overflow-x-auto">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full">
-              <thead className="bg-slate-50">
-                <tr className="text-left text-sm text-slate-600">
+              <thead className="bg-[#111166]">
+                <tr className="text-left text-xs font-bold tracking-wider text-white uppercase">
                   <th className="px-6 py-4">Partner</th>
                   <th className="px-6 py-4">Category</th>
                   <th className="px-6 py-4">Revenue</th>

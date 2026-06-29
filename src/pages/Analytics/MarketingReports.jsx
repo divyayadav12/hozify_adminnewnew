@@ -298,6 +298,7 @@ export default function MarketingReports() {
                 ))}
               </tbody>
             </table></div>
+            
           </div>
 
           {/* Anomalies Detected */}

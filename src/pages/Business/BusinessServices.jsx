@@ -9,6 +9,7 @@ import {
   Calendar,
   ChevronRight,
 } from "lucide-react";
+import { useToast } from "../../components/common/ToastNotification";
 
 const ALL_SERVICES = [
   {
@@ -77,6 +78,7 @@ const DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const PAGE_SIZE = 3;
 
 export default function BusinessServices() {
+  const { addToast } = useToast();
   const [activeTab, setActiveTab] = useState("ACTIVE");
   const [currentPage, setCurrentPage] = useState(1);
   const [peakPricingOn, setPeakPricingOn] = useState(true);
@@ -117,6 +119,16 @@ export default function BusinessServices() {
     setTimeout(() => setter(false), 300);
   };
 
+  const handleExport = () => {
+    flashBtn(setExportClicked);
+    addToast("Exporting catalog to CSV...", "success");
+  };
+
+  const handleManageCampaigns = () => {
+    flashBtn(setManageCampaignClicked);
+    addToast("Redirecting to Campaign Manager...", "success");
+  };
+
   const handleRowClick = (id) => {
     setClickedRow(id);
     setTimeout(() => setClickedRow(null), 400);
@@ -129,16 +141,16 @@ export default function BusinessServices() {
         {/* HEADER */}
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-4xl font-bold">Business Services</h1>
-            <p className="text-gray-500 mt-2 max-w-3xl">
+            <h1 className="text-2xl font-bold text-gray-800">Business Services</h1>
+            <p className="text-gray-500 text-xs mt-0.5 max-w-3xl text-sm">
               Manage your service offerings, define dynamic pricing, and control
               global availability windows from a centralized command center.
             </p>
           </div>
 
           <button
-            className={`border border-gray-300 bg-white px-5 h-11 rounded-md flex items-center gap-2 transition-all duration-150 hover:bg-gray-50 active:scale-95 active:brightness-90 ${exportClicked ? "scale-95 brightness-90" : ""}`}
-            onClick={() => flashBtn(setExportClicked)}
+            className={`border border-gray-300 bg-white px-4 h-9 text-sm rounded-md flex items-center gap-1.5 transition-all duration-150 hover:bg-gray-50 active:scale-95 active:brightness-90 ${exportClicked ? "scale-95 brightness-90" : ""}`}
+            onClick={handleExport}
             type="button"
           >
             <Download size={16} />
@@ -150,21 +162,21 @@ export default function BusinessServices() {
         <div className="grid grid-cols-12 gap-6">
 
           {/* CARD 1 */}
-          <div className="col-span-4 bg-white border rounded-xl p-6">
-            <h4 className="text-gray-500 text-xl">Total Services</h4>
-            <div className="text-6xl mt-3 font-light transition-all duration-300">
+          <div className="col-span-4 bg-white border rounded-xl p-4">
+            <h4 className="text-gray-500 text-sm font-medium">Total Services</h4>
+            <div className="text-3xl mt-2 font-semibold transition-all duration-300">
               {totalServices}
             </div>
-            <p className="mt-5 text-green-600 font-medium">↗ +3 this month</p>
+            <p className="mt-2 text-sm text-green-600 font-medium">↗ +3 this month</p>
           </div>
 
           {/* CARD 2 */}
-          <div className="col-span-4 bg-white border rounded-xl p-6">
-            <h4 className="text-gray-500 text-xl">Avg. Revenue / Service</h4>
-            <div className="text-6xl mt-3 font-light transition-all duration-500">
+          <div className="col-span-4 bg-white border rounded-xl p-4">
+            <h4 className="text-gray-500 text-sm font-medium">Avg. Revenue / Service</h4>
+            <div className="text-3xl mt-2 font-semibold transition-all duration-500">
               {avgRevenue}
             </div>
-            <div className="mt-6 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
                 className="h-full bg-indigo-700 rounded-full transition-all duration-700"
                 style={{ width: peakPricingOn ? "78%" : "65%" }}
@@ -173,14 +185,14 @@ export default function BusinessServices() {
           </div>
 
           {/* CARD 3 */}
-          <div className="col-span-4 bg-indigo-800 text-white rounded-xl p-6">
-            <h4 className="text-xl text-indigo-200">Active Promotions</h4>
-            <div className="text-6xl mt-3 transition-all duration-300">
+          <div className="col-span-4 bg-indigo-800 text-white rounded-xl p-4">
+            <h4 className="text-sm font-medium text-indigo-200">Active Promotions</h4>
+            <div className="text-3xl mt-2 font-semibold transition-all duration-300">
               {String(activePromos).padStart(2, "0")}
             </div>
             <button
-              className={`underline mt-5 font-medium transition-all duration-150 active:scale-95 hover:text-indigo-200 ${manageCampaignClicked ? "scale-95 opacity-70" : ""}`}
-              onClick={() => flashBtn(setManageCampaignClicked)}
+              className={`underline mt-4 text-sm font-medium transition-all duration-150 active:scale-95 hover:text-indigo-200 ${manageCampaignClicked ? "scale-95 opacity-70" : ""}`}
+              onClick={handleManageCampaigns}
               type="button"
             >
               Manage Campaigns
@@ -193,10 +205,10 @@ export default function BusinessServices() {
         <div className="bg-white border rounded-xl overflow-hidden">
 
           {/* TABLE HEADER */}
-          <div className="flex items-center justify-between px-6 py-5 border-b">
+          <div className="flex items-center justify-between px-6 py-4 border-b">
 
             <div className="flex items-center gap-4">
-              <h2 className="text-3xl font-medium">All Services</h2>
+              <h2 className="text-lg font-semibold text-gray-800">All Services</h2>
 
               <button
                 onClick={() => handleTabChange("ACTIVE")}
@@ -221,7 +233,7 @@ export default function BusinessServices() {
 
             <div className="flex gap-3">
               <button
-                className={`w-12 h-12 border rounded-lg flex items-center justify-center transition-all duration-150 active:scale-90 hover:bg-gray-50 ${filterClicked ? "bg-gray-100 scale-90" : ""}`}
+                className={`w-9 h-9 border rounded-lg flex items-center justify-center transition-all duration-150 active:scale-90 hover:bg-gray-50 ${filterClicked ? "bg-gray-100 scale-90" : ""}`}
                 onClick={() => flashBtn(setFilterClicked)}
                 type="button"
                 title="Filter"
@@ -230,7 +242,7 @@ export default function BusinessServices() {
               </button>
 
               <button
-                className={`w-12 h-12 border rounded-lg flex items-center justify-center transition-all duration-150 active:scale-90 hover:bg-gray-50 ${gridClicked ? "bg-gray-100 scale-90" : ""}`}
+                className={`w-9 h-9 border rounded-lg flex items-center justify-center transition-all duration-150 active:scale-90 hover:bg-gray-50 ${gridClicked ? "bg-gray-100 scale-90" : ""}`}
                 onClick={() => flashBtn(setGridClicked)}
                 type="button"
                 title="Grid View"
@@ -242,7 +254,7 @@ export default function BusinessServices() {
           </div>
 
           {/* TABLE HEADINGS */}
-          <div className="grid grid-cols-12 px-6 py-5 border-b text-gray-600 font-semibold uppercase tracking-wide">
+          <div className="grid grid-cols-12 px-6 py-4 border-b text-gray-600 font-semibold uppercase tracking-wide">
             <div className="col-span-3">Service Details</div>
             <div className="col-span-2">Category</div>
             <div className="col-span-2">Base Price</div>
@@ -253,7 +265,7 @@ export default function BusinessServices() {
 
           {/* SERVICES ROWS */}
           {paginated.length === 0 && (
-            <div className="px-6 py-10 text-center text-gray-400 text-lg">
+            <div className="px-6 py-10 text-center text-gray-400 text-sm">
               No services in this category.
             </div>
           )}
@@ -261,7 +273,7 @@ export default function BusinessServices() {
           {paginated.map((service) => (
             <div
               key={service.id}
-              className={`grid grid-cols-12 px-6 py-8 border-b items-center cursor-pointer transition-all duration-150 hover:bg-gray-50 active:bg-gray-100 active:scale-[0.995] select-none ${clickedRow === service.id ? "bg-indigo-50 scale-[0.995]" : ""}`}
+              className={`grid grid-cols-12 px-6 py-4 border-b items-center cursor-pointer transition-all duration-150 hover:bg-gray-50 active:bg-gray-100 active:scale-[0.995] select-none ${clickedRow === service.id ? "bg-indigo-50 scale-[0.995]" : ""}`}
               onClick={() => handleRowClick(service.id)}
             >
 
@@ -270,28 +282,28 @@ export default function BusinessServices() {
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-14 h-14 rounded object-cover"
+                  className="w-8 h-8 text-sm rounded object-cover"
                 />
                 <div>
-                  <h3 className="font-semibold text-xl">{service.title}</h3>
-                  <p className="text-gray-500 mt-1">{service.code}</p>
+                  <h3 className="font-semibold text-sm text-gray-800">{service.title}</h3>
+                  <p className="text-gray-500 text-xs mt-0.5">{service.code}</p>
                 </div>
               </div>
 
               {/* CATEGORY */}
               <div className="col-span-2">
-                <span className="text-2xl text-gray-700">{service.category}</span>
+                <span className="text-sm text-gray-700">{service.category}</span>
               </div>
 
               {/* PRICE */}
               <div className="col-span-2">
-                <span className="text-2xl font-semibold">{service.price}</span>
+                <span className="text-sm font-semibold text-gray-800">{service.price}</span>
               </div>
 
               {/* DURATION */}
               <div className="col-span-2 flex items-center gap-2">
-                <Clock3 size={18} />
-                <span className="text-2xl text-gray-700">{service.duration}</span>
+                <Clock3 size={16} className="text-gray-400" />
+                <span className="text-sm text-gray-700">{service.duration}</span>
               </div>
 
               {/* AVAILABILITY */}
@@ -307,11 +319,11 @@ export default function BusinessServices() {
               {/* ACTION */}
               <div className="col-span-1 flex justify-center">
                 <button
-                  className="hover:bg-gray-100 rounded-full p-2 transition-all duration-150 active:scale-75 active:bg-gray-200"
+                  className="hover:bg-gray-100 rounded-full p-1.5 transition-all duration-150 active:scale-75 active:bg-gray-200"
                   onClick={(e) => { e.stopPropagation(); handleRowClick(service.id); }}
                   type="button"
                 >
-                  <ChevronRight size={20} />
+                  <ChevronRight size={18} className="text-gray-400" />
                 </button>
               </div>
 
@@ -319,8 +331,8 @@ export default function BusinessServices() {
           ))}
 
           {/* PAGINATION */}
-          <div className="flex items-center justify-between px-6 py-5">
-            <p className="text-gray-500 text-lg">
+          <div className="flex items-center justify-between px-6 py-4">
+            <p className="text-sm text-gray-500">
               Showing {paginated.length} of {filtered.length} services
             </p>
 
@@ -328,7 +340,7 @@ export default function BusinessServices() {
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                 <button
                   key={page}
-                  className={`w-10 h-10 rounded transition-all duration-150 active:scale-90 font-medium ${
+                  className={`w-8 h-8 text-sm rounded transition-all duration-150 active:scale-90 font-medium ${
                     currentPage === page
                       ? "bg-indigo-700 text-white scale-105"
                       : "border hover:bg-gray-50"
@@ -341,12 +353,12 @@ export default function BusinessServices() {
               ))}
 
               <button
-                className="w-10 h-10 border rounded flex items-center justify-center transition-all duration-150 active:scale-90 hover:bg-gray-50 disabled:opacity-40"
+                className="w-8 h-8 text-sm border rounded flex items-center justify-center transition-all duration-150 active:scale-90 hover:bg-gray-50 disabled:opacity-40"
                 onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
                 disabled={currentPage === totalPages}
                 type="button"
               >
-                <ChevronRight size={16} />
+                <ChevronRight size={14} />
               </button>
             </div>
           </div>
@@ -357,26 +369,26 @@ export default function BusinessServices() {
         <div className="grid grid-cols-12 gap-8">
 
           {/* GLOBAL PRICING RULES */}
-          <div className="col-span-6 bg-white border rounded-xl p-6">
+          <div className="col-span-6 bg-white border rounded-xl p-4">
 
-            <div className="flex items-start gap-4 mb-8">
-              <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center">
-                <CreditCard size={26} className="text-blue-700" />
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-8 h-8 text-sm bg-blue-100 rounded-lg flex items-center justify-center">
+                <CreditCard size={20} className="text-blue-700" />
               </div>
               <div>
-                <h3 className="text-3xl font-medium">Global Pricing Rules</h3>
-                <p className="uppercase tracking-widest text-gray-500 text-sm mt-1">
+                <h3 className="text-lg font-semibold">Global Pricing Rules</h3>
+                <p className="uppercase tracking-widest text-gray-500 text-xs mt-0.5">
                   Managed Automated Adjustments
                 </p>
               </div>
             </div>
 
             {/* RULE 1 */}
-            <div className="bg-gray-50 rounded-xl p-5 mb-5">
+            <div className="bg-gray-50 rounded-xl p-4 mb-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-2xl font-medium">Dynamic Peak Pricing</h4>
-                  <p className="text-gray-500 mt-1">
+                  <h4 className="text-sm font-semibold text-gray-800">Dynamic Peak Pricing</h4>
+                  <p className="text-gray-500 text-xs mt-0.5">
                     Automated {peakPricingOn ? "+15%" : "0%"} on weekends
                   </p>
                 </div>
@@ -394,11 +406,11 @@ export default function BusinessServices() {
             </div>
 
             {/* RULE 2 */}
-            <div className="bg-gray-50 rounded-xl p-5">
+            <div className="bg-gray-50 rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-2xl font-medium">Member-only Discounts</h4>
-                  <p className="text-gray-500 mt-1">
+                  <h4 className="text-sm font-semibold text-gray-800">Member-only Discounts</h4>
+                  <p className="text-gray-500 text-xs mt-0.5">
                     Universal {memberDiscountOn ? "-10%" : "0%"} for tier 2 clients
                   </p>
                 </div>
@@ -418,28 +430,28 @@ export default function BusinessServices() {
           </div>
 
           {/* GLOBAL AVAILABILITY */}
-          <div className="col-span-6 bg-white border rounded-xl p-6">
+          <div className="col-span-6 bg-white border rounded-xl p-4">
 
-            <div className="flex items-start gap-4 mb-8">
-              <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center">
-                <Calendar size={26} className="text-red-600" />
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-8 h-8 text-sm bg-red-100 rounded-lg flex items-center justify-center">
+                <Calendar size={20} className="text-red-600" />
               </div>
               <div>
-                <h3 className="text-3xl font-medium">Global Availability</h3>
-                <p className="uppercase tracking-widest text-gray-500 text-sm mt-1">
+                <h3 className="text-lg font-semibold">Global Availability</h3>
+                <p className="uppercase tracking-widest text-gray-500 text-xs mt-0.5">
                   Calendar & Break Controls
                 </p>
               </div>
             </div>
 
             {/* DAY BUTTONS */}
-            <div className="grid grid-cols-7 gap-2 mb-8">
+            <div className="grid grid-cols-7 gap-2 mb-6">
               {DAYS.map((day, index) => {
                 const isActive = activeDays.includes(index);
                 return (
                   <button
                     key={day}
-                    className={`h-12 rounded font-medium text-sm transition-all duration-200 active:scale-90 select-none ${
+                    className={`h-9 rounded font-medium text-xs transition-all duration-200 active:scale-90 select-none ${
                       isActive
                         ? "bg-indigo-700 text-white scale-100 shadow-md"
                         : "bg-gray-100 text-gray-400 hover:bg-gray-200"
@@ -456,7 +468,7 @@ export default function BusinessServices() {
 
             {/* EDIT BUTTON */}
             <button
-              className={`w-full h-14 border border-gray-300 rounded-lg text-xl font-medium transition-all duration-150 hover:bg-gray-50 active:scale-[0.98] active:bg-gray-100 ${editHoursClicked ? "bg-gray-100 scale-[0.98]" : ""}`}
+              className={`w-full h-10 border border-gray-300 rounded-lg text-sm font-medium transition-all duration-150 hover:bg-gray-50 active:scale-[0.98] active:bg-gray-100 ${editHoursClicked ? "bg-gray-100 scale-[0.98]" : ""}`}
               onClick={() => flashBtn(setEditHoursClicked)}
               type="button"
             >

@@ -190,7 +190,7 @@ export default function RegistrationVerification() {
   };
 
   return (
-    <AdminShell>
+    <AdminShell activeTab="Registration Verification">
       {rejectModalOpen && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ background: "#fff", borderRadius: "12px", padding: "28px", width: "420px", boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
@@ -334,7 +334,7 @@ export default function RegistrationVerification() {
                   >
                     <div className="mb-14 flex justify-between">
                       <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#EEF2F7]">
-                        <div className="text-4xl text-[#94A3B8]">🏢</div>
+                        <div className="text-2xl text-[#94A3B8]">🏢</div>
                       </div>
                       <div className="text-right">
                         <h2 className="text-[22px] font-bold text-[#111827]">TRADE LICENSE</h2>
@@ -464,9 +464,9 @@ export default function RegistrationVerification() {
                         : "License validity period confirmed and within acceptable range."}
                     </p>
                     <div className="flex gap-3">
-                      <button onClick={() => handleChecklistAction("licenseValidity", "urgent")} type="button" className="h-11 min-w-[130px] rounded bg-[#D7191C] px-6 text-[16px] font-semibold text-white">Invalid</button>
-                      <button onClick={() => handleChecklistAction("licenseValidity", "pending")} type="button" className="h-11 min-w-[130px] rounded bg-[#D1D5DB] px-6 text-[16px] font-semibold text-[#1F2937]">Flag</button>
-                      <button onClick={() => handleChecklistAction("licenseValidity", "verified")} type="button" className="h-11 min-w-[130px] rounded border border-[#D1D5DB] bg-white px-6 text-[16px] font-semibold text-[#1F2937]">Verified</button>
+                      <button onClick={() => handleChecklistAction("licenseValidity", "urgent")} type="button" className="h-9 min-w-[130px] rounded bg-[#D7191C] px-6 text-[16px] font-semibold text-white">Invalid</button>
+                      <button onClick={() => handleChecklistAction("licenseValidity", "pending")} type="button" className="h-9 min-w-[130px] rounded bg-[#D1D5DB] px-6 text-[16px] font-semibold text-[#1F2937]">Flag</button>
+                      <button onClick={() => handleChecklistAction("licenseValidity", "verified")} type="button" className="h-9 min-w-[130px] rounded border border-[#D1D5DB] bg-white px-6 text-[16px] font-semibold text-[#1F2937]">Verified</button>
                     </div>
                   </div>
                 </div>

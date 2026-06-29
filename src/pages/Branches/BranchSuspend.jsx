@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { ShieldAlert, Calendar, Clock, AlertTriangle, AlertCircle, Trash2 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -5,6 +6,7 @@ import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
 export default function BranchSuspend() {
+  const { addToast } = useToast();
   const { navigate, currentBranchId } = useApp();
   const [reason, setReason] = useState('');
   const [duration, setDuration] = useState('Temporary'); // Temporary, Indefinite
@@ -174,8 +176,8 @@ export default function BranchSuspend() {
                 </button>
                 <button
                   type="submit"
-                  style={{ border: 'none', background: '#ef4444', color: '#fff', padding: '10px 18px', borderRadius: '6px', fontWeight: '800', fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 2px 8px rgba(239, 68, 68, 0.2)' }}
-                >
+                  style={{ cursor: 'pointer',  border: 'none', background: '#ef4444', color: '#fff', padding: '10px 18px', borderRadius: '6px', fontWeight: '800', fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 2px 8px rgba(239, 68, 68, 0.2)' }}
+                 onClick={() => addToast('Action performed successfully.', 'success')}>
                   <Trash2 size={15} /> Suspend Branch
                 </button>
               </div>

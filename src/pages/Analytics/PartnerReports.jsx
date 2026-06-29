@@ -208,6 +208,7 @@ export default function PartnerReports() {
                 ))}
               </tbody>
             </table></div>
+            
           </div>
 
           {/* Pagination */}

@@ -27,11 +27,8 @@ export default function Branches({ defaultTab }) {
     setActiveTab(getTabFromRouteOrProp());
   }, [route, defaultTab]);
 
-  const handleTabClick = (e, tabId) => {
-    e.preventDefault();
-    e.stopPropagation(); // Prevents layout hierarchy locks
+  const handleTabClick = (tabId) => {
     setActiveTab(tabId);
-    
     if (tabId === 'Directory') {
       navigate(ROUTES.branches);
     } else if (tabId === 'Performance') {
@@ -68,73 +65,8 @@ export default function Branches({ defaultTab }) {
       headerTitle="Branch Manager"
       searchPlaceholder="Search in branch suite..."
     >
-      {/* Global CSS Overrides to fix pointer events and layout blocking */}
-      <style>{`
-        /* 1. Force Enable Click Action Pointers on all buttons and layout interactive tags */
-        .primary-action-btn, 
-        .secondary-action-btn, 
-        .partners-header-buttons button,
-        .excel-style-table button,
-        .partner-table button,
-        table button,
-        .pagination-wrap button,
-        .directory-table-footer button {
-          cursor: pointer !important;
-          pointer-events: auto !important; /* Forces layout to receive clicks */
-          position: relative;
-          z-index: 10 !important; /* Keeps buttons above grid layout backgrounds */
-        }
-
-        /* 2. Dark Blue Outline for Cards */
-        .kpi-card, .branch-kpi-card, .card {
-          border: 1.5px solid #1e3a8a !important; 
-          box-shadow: 0 1px 3px rgba(30, 58, 138, 0.1) !important;
-          border-radius: 6px !important;
-        }
-
-        /* 3. Excel Spreadsheet View Formatting rules for nested tables */
-        .partner-table, .excel-style-table, table {
-          width: 100% !important;
-          border-collapse: collapse !important;
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-          font-size: 13px !important;
-        }
-        
-        .partner-table th, .excel-style-table th, table th {
-          background-color: #f3f4f6 !important;
-          color: #374151 !important;
-          font-weight: 600 !important;
-          text-align: left !important;
-          padding: 10px 12px !important;
-          border: 1px solid #d1d5db !important;
-          text-transform: uppercase !important;
-          font-size: 11px !important;
-        }
-
-        .partner-table td, .excel-style-table td, table td {
-          padding: 10px 12px !important;
-          border: 1px solid #e5e7eb !important;
-          color: #4b5563 !important;
-          vertical-align: middle !important;
-        }
-
-        .partner-table tbody tr:nth-child(even), table tbody tr:nth-child(even) {
-          background-color: #f9fafb !important;
-        }
-
-        .partner-table tbody tr:hover, table tbody tr:hover {
-          background-color: #f0fdf4 !important; 
-        }
-
-        .table-wrap {
-          border: 1px solid #d1d5db !important;
-          border-radius: 4px !important;
-          overflow: hidden !important;
-        }
-      `}</style>
-
       {/* Sub-tab selection bar */}
-      <div style={{ display: 'flex', gap: '16px', borderBottom: '1px solid var(--line)', marginBottom: '24px', overflowX: 'auto', whiteSpace: 'nowrap', position: 'relative', zIndex: 20 }}>
+      <div style={{ display: 'flex', gap: '16px', borderBottom: '1px solid var(--line)', marginBottom: '24px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
         {[
           { id: 'Directory', label: 'Directory' },
           { id: 'Performance', label: 'Performance Overview' },
@@ -144,7 +76,7 @@ export default function Branches({ defaultTab }) {
         ].map((tab) => (
           <button
             key={tab.id}
-            onClick={(e) => handleTabClick(e, tab.id)}
+            onClick={() => handleTabClick(tab.id)}
             type="button"
             style={{
               background: 'transparent',
@@ -156,8 +88,7 @@ export default function Branches({ defaultTab }) {
               padding: '10px 4px',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              marginRight: '8px',
-              pointerEvents: 'auto'
+              marginRight: '8px'
             }}
           >
             {tab.label}
@@ -166,9 +97,7 @@ export default function Branches({ defaultTab }) {
       </div>
 
       {/* Render sub-view component */}
-      <div className="sub-view-wrapper" style={{ position: 'relative', zIndex: 5 }}>
-        {renderContent()}
-      </div>
+      {renderContent()}
     </AdminShell>
   );
 }

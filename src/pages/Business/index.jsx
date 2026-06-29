@@ -108,7 +108,34 @@ export default function BusinessRegistry() {
   };
 
   const handleExport = () => {
-    addToast('Exporting business registry CSV...', 'success');
+    addToast('Generating business registry CSV...', 'success');
+    
+    const dataToExport = isComplianceTab ? pendingBusinesses : directoryBusinesses;
+    if (!dataToExport || dataToExport.length === 0) {
+      addToast('No data to export', 'error');
+      return;
+    }
+    
+    // Extract headers
+    const headers = Object.keys(dataToExport[0]).join(',');
+    
+    // Extract rows
+    const csvRows = dataToExport.map(row => 
+      Object.values(row).map(val => `"${val}"`).join(',')
+    );
+    
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', isComplianceTab ? 'business_approval_queue.csv' : 'business_directory.csv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleApprove = (busId, name) => {

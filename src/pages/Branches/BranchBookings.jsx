@@ -1,5 +1,6 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
-import { Plus, Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, Calendar, DollarSign, Activity, Star, Settings } from 'lucide-react';
+import { Plus, Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, Calendar, DollarSign, Activity } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import AdminShell from '../../components/layouts/AdminShell';
 
@@ -12,9 +13,9 @@ const mockBookings = [
 ];
 
 export default function BranchBookings() {
+  const { addToast } = useToast();
   const { navigate } = useApp();
   const [search, setSearch] = useState('');
-  const [showExportModal, setShowExportModal] = useState(false); // Dropdown toggler state
 
   const filteredBookings = mockBookings.filter(b =>
     b.id.toLowerCase().includes(search.toLowerCase()) ||
@@ -22,104 +23,32 @@ export default function BranchBookings() {
     b.service.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Dynamic actions handles
-  const handleCreateBooking = () => {
-    alert('Create Booking clicked! Initializing secure booking configuration wizard...');
-  };
-
-  const triggerDownload = (format) => {
-    alert(`Preparing your booking records...\nYour file is being exported successfully as an ${format} document.`);
-    setShowExportModal(false);
-  };
-
   return (
     <AdminShell
       activeTab="Branch Management"
       headerTitle="Branch Bookings"
       searchPlaceholder="Search bookings..."
     >
-      <div className="branch-inventory-container" style={{ position: 'relative' }}>
+      <div className="branch-inventory-container">
         {/* Page Header */}
         <div className="partners-page-header">
           <div>
             <h1 className="page-title">Branch Bookings</h1>
             <p className="page-subtitle">Track service requests, scheduling, and revenue across branches.</p>
           </div>
-          <div className="partners-header-buttons" style={{ position: 'relative' }}>
-            <button 
-              className="primary-action-btn font-bold" 
-              style={{ height: '36px', cursor: 'pointer' }}
-              onClick={handleCreateBooking}
-            >
+          <div className="partners-header-buttons">
+            <button className="primary-action-btn font-bold" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <Plus size={14} style={{ marginRight: '4px' }} />
               <span>Create Booking</span>
             </button>
-            
-            <button 
-              className="secondary-action-btn font-bold" 
-              type="button" 
-              style={{ height: '36px', cursor: 'pointer' }}
-              onClick={() => setShowExportModal(!showExportModal)}
-            >
+            <button className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <Download size={14} style={{ marginRight: '4px' }} />
               <span>Export CSV</span>
             </button>
-
-            {/* Excel Dynamic Format Picker Dropdown */}
-            {showExportModal && (
-              <div style={{
-                position: 'absolute',
-                top: '42px',
-                right: '0',
-                backgroundColor: '#ffffff',
-                border: '1px solid #d1d5db',
-                borderRadius: '6px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                zIndex: 100,
-                width: '240px',
-                padding: '8px 0'
-              }}>
-                <div style={{ padding: '8px 16px', fontSize: '11px', fontWeight: '700', color: '#6b7280', textTransform: 'uppercase', borderBottom: '1px solid #f3f4f6' }}>
-                  Select Document Format
-                </div>
-                <button 
-                  onClick={() => triggerDownload('Excel Spreadsheet (.xlsx)')}
-                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  📊 <span>Excel Spreadsheet (.xlsx)</span>
-                </button>
-                <button 
-                  onClick={() => triggerDownload('CSV Delimited (.csv)')}
-                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  📝 <span>CSV Document (.csv)</span>
-                </button>
-                <button 
-                  onClick={() => triggerDownload('PDF Report (.pdf)')}
-                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  📕 <span>PDF Print Report (.pdf)</span>
-                </button>
-                <div style={{ borderTop: '1px solid #f3f4f6', marginTop: '4px', padding: '4px 8px 0 8px' }}>
-                  <button 
-                    onClick={() => setShowExportModal(false)}
-                    style={{ width: '100%', border: 'none', background: '#f3f4f6', borderRadius: '4px', padding: '6px', fontSize: '12px', fontWeight: '600', color: '#4b5563', cursor: 'pointer' }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* CSS Layout Injector */}
+        {/* Top Section KPIs Row */}
         <style>{`
           .branch-kpi-grid {
             display: grid;
@@ -129,12 +58,10 @@ export default function BranchBookings() {
           @media (min-width: 1024px) { .branch-kpi-grid { grid-template-columns: repeat(6, 1fr); } }
           @media (min-width: 768px) and (max-width: 1023px) { .branch-kpi-grid { grid-template-columns: repeat(3, 1fr); } }
           @media (max-width: 767px) { .branch-kpi-grid { grid-template-columns: repeat(2, 1fr); } }
-          
-          /* Dark Blue Outline Style Borders for Cards */
           .branch-kpi-card {
             padding: 16px;
             background: #fff;
-            border: 1.5px solid #1e3a8a; 
+            border: 1px solid var(--line);
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -147,49 +74,7 @@ export default function BranchBookings() {
             text-overflow: ellipsis;
             display: block;
           }
-
-          /* Clean Excel Sheet Structure Layout */
-          .excel-style-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 13px;
-            background-color: #ffffff;
-          }
-          .excel-style-table th {
-            background-color: #f3f4f6;
-            color: #374151;
-            font-weight: 600;
-            text-align: left;
-            padding: 8px 12px;
-            border: 1px solid #d1d5db; /* Standard spreadsheet full block grid lines */
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.05em;
-          }
-          .excel-style-table td {
-            padding: 8px 12px;
-            border: 1px solid #e5e7eb;
-            color: #1f2937;
-            vertical-align: middle;
-          }
-          .excel-style-table tbody tr:nth-child(even) {
-            background-color: #f9fafb; /* Row Zebra Stripes */
-          }
-          .excel-style-table tbody tr:hover {
-            background-color: #e0f2fe; /* Spreadsheet entry row select high-light */
-          }
-          .excel-badge {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 2px;
-            border: 1px solid currentColor;
-            display: inline-block;
-          }
         `}</style>
-
-        {/* Top Section KPIs Row */}
         <section className="branch-kpi-grid">
           <div className="branch-kpi-card">
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between' }}>
@@ -247,10 +132,10 @@ export default function BranchBookings() {
         </section>
 
         {/* Main Table Panel */}
-        <section className="panel partner-directory-panel" style={{ padding: '24px', marginBottom: '24px', background: '#fff', border: '1px solid #d1d5db', borderRadius: '8px' }}>
+        <section className="panel partner-directory-panel" style={{ padding: '24px', marginBottom: '24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>
-              Recent Bookings Spreadsheet View
+              Recent Bookings
             </h2>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div className="dash-search" style={{ width: '220px', margin: 0, height: '32px' }}>
@@ -258,20 +143,20 @@ export default function BranchBookings() {
                   placeholder="Search ID, customer, service..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  style={{ fontSize: '12px', paddingLeft: '8px', border: '1px solid #d1d5db', height: '100%', borderRadius: '4px' }}
+                  style={{ fontSize: '12px', paddingLeft: '8px' }}
                 />
               </div>
-              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <SlidersHorizontal size={14} />
+              <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><SlidersHorizontal size={14}  /></button>
               </button>
-              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <MoreVertical size={14} />
+              <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={14}  /></button>
               </button>
             </div>
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+            <table className="partner-table">
               <thead>
                 <tr>
                   <th>BOOKING ID</th>
@@ -281,7 +166,7 @@ export default function BranchBookings() {
                   <th>SCHEDULED DATE</th>
                   <th>AMOUNT</th>
                   <th>STATUS</th>
-                  <th style={{ textAlign: 'center' }}>ACTIONS</th>
+                  <th>ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
@@ -290,15 +175,18 @@ export default function BranchBookings() {
                     <td>
                       <span style={{ color: '#4f46e5', fontWeight: '700', textDecoration: 'underline', cursor: 'pointer' }}>{row.id}</span>
                     </td>
-                    <td style={{ color: '#111827', fontWeight: '700' }}>{row.customer}</td>
-                    <td style={{ color: '#4b5563' }}>{row.service}</td>
-                    <td style={{ color: '#111827' }}>{row.branch}</td>
-                    <td style={{ color: '#4b5563' }}>{row.date}</td>
-                    <td style={{ color: '#111827', fontWeight: '800' }}>{row.amount}</td>
+                    <td style={{ color: 'var(--text)', fontWeight: '700' }}>{row.customer}</td>
+                    <td style={{ color: 'var(--muted)' }}>{row.service}</td>
+                    <td style={{ color: 'var(--text)' }}>{row.branch}</td>
+                    <td style={{ color: 'var(--muted)' }}>{row.date}</td>
+                    <td style={{ color: 'var(--text)', fontWeight: '800' }}>{row.amount}</td>
                     <td>
                       <span
-                        className="excel-badge"
                         style={{
+                          fontSize: '9px',
+                          fontWeight: '800',
+                          padding: '3px 8px',
+                          borderRadius: '4px',
                           color: row.statusColor,
                           background: row.statusBg
                         }}
@@ -306,36 +194,36 @@ export default function BranchBookings() {
                         {row.status}
                       </span>
                     </td>
-                    <td style={{ textAlign: 'center' }}>
-                      <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#9ca3af' }}>
-                        <MoreVertical size={14} />
+                    <td>
+                      <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                        <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={14}  /></button>
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
 
             {filteredBookings.length === 0 && (
-              <div style={{ padding: '40px', textAlign: 'center', color: '#6b7280', fontSize: '13px', border: '1px solid #e5e7eb', borderTop: 'none' }}>
+              <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
                 No bookings found matching your criteria.
               </div>
             )}
           </div>
 
-          <div className="directory-table-footer" style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className="footer-results-text" style={{ fontSize: '12px', color: '#4b5563' }}>Showing {filteredBookings.length} of 14,250 bookings</span>
-            <div className="pagination-wrap" style={{ display: 'flex', gap: '4px' }}>
-              <button className="pag-nav-btn" type="button" disabled style={{ padding: '4px 8px', border: '1px solid #d1d5db', background: '#f3f4f6' }}>
-                <ChevronLeft size={14} />
+          <div className="directory-table-footer" style={{ marginTop: '16px' }}>
+            <span className="footer-results-text">Showing {filteredBookings.length} of 14,250 bookings</span>
+            <div className="pagination-wrap">
+              <button className="pag-nav-btn" type="button" disabled style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <ChevronLeft size={16} />
               </button>
-              <button className="pag-num-btn active" type="button" style={{ padding: '4px 10px', border: '1px solid #1e3a8a', background: '#1e3a8a', color: '#fff', fontWeight: '600' }}>1</button>
-              <button className="pag-num-btn" type="button" style={{ padding: '4px 10px', border: '1px solid #d1d5db', background: '#fff' }}>2</button>
-              <button className="pag-num-btn" type="button" style={{ padding: '4px 10px', border: '1px solid #d1d5db', background: '#fff' }}>3</button>
-              <span style={{ margin: '0 4px', color: '#9ca3af' }}>...</span>
-              <button className="pag-num-btn" type="button" style={{ padding: '4px 10px', border: '1px solid #d1d5db', background: '#fff' }}>285</button>
-              <button className="pag-nav-btn" type="button" style={{ padding: '4px 8px', border: '1px solid #d1d5db', background: '#fff' }}>
-                <ChevronRight size={14} />
+              <button className="pag-num-btn active" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>1</button>
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>2</button>
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>3</button>
+              <span style={{ margin: '0 4px', color: 'var(--muted)' }}>...</span>
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>285</button>
+              <button className="pag-nav-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <ChevronRight size={16} />
               </button>
             </div>
           </div>

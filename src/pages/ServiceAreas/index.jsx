@@ -1,8 +1,10 @@
 import React from 'react';
-import { ShieldCheck, SlidersHorizontal, Search, Settings, Map, Compass, ShieldAlert, Award, AlertCircle, Edit, PlusCircle, VolumeX } from 'lucide-react';
+import { ShieldCheck, SlidersHorizontal, Search, Settings, Map, Compass, ShieldAlert, Award, AlertCircle, Edit, PlusCircle, VolumeX, Trash2, Eye } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from '../../components/common/ToastNotification';
 
 export default function ServiceAreas({ mode = 'areas' }) {
+  const { addToast } = useToast();
   const isCoverage = mode === 'coverage';
 
   return (
@@ -91,6 +93,7 @@ export default function ServiceAreas({ mode = 'areas' }) {
               {['Pointer', 'Share', 'Target', 'Pin', 'Plus', 'Minus', 'Layers'].map((tool, i) => (
                 <button
                   key={tool}
+                  onClick={() => addToast(`Tool "${tool}" activated.`, 'info')}
                   style={{
                     width: '24px',
                     height: '24px',
@@ -114,13 +117,13 @@ export default function ServiceAreas({ mode = 'areas' }) {
 
             {/* Bottom float actions */}
             <div style={{ position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <button style={{ height: '32px', padding: '0 12px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(15, 23, 42, 0.8)', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button">
+              <button onClick={() => addToast('Edit Area tool activated.', 'success')} style={{ height: '32px', padding: '0 12px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(15, 23, 42, 0.8)', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button">
                 <Edit size={12} /> Edit Area
               </button>
-              <button style={{ height: '32px', padding: '0 12px', border: 'none', background: '#4f46e5', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button">
+              <button onClick={() => addToast('Add Area workflow launched.', 'success')} style={{ height: '32px', padding: '0 12px', border: 'none', background: '#4f46e5', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button">
                 <PlusCircle size={12} /> Add Area
               </button>
-              <button style={{ height: '32px', width: '32px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(15, 23, 42, 0.8)', color: '#fff', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} type="button">
+              <button onClick={() => addToast('Audio alerts toggled.', 'info')} style={{ height: '32px', width: '32px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(15, 23, 42, 0.8)', color: '#fff', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} type="button">
                 <VolumeX size={14} />
               </button>
             </div>
@@ -214,7 +217,11 @@ export default function ServiceAreas({ mode = 'areas' }) {
                 <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 6px' }}>Growth Insight</h3>
                 <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.8)', margin: '0 0 16px', lineHeight: '1.4' }}>This area shows a 14% month-over-month increase in demand. Recommendation: Add 2 field agents.</p>
               </div>
-              <button style={{ width: '100%', height: '34px', background: '#4f46e5', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }} type="button">
+              <button 
+                onClick={() => addToast('Generating and loading GIS demand heatmap...', 'success')}
+                style={{ width: '100%', height: '34px', background: '#4f46e5', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }} 
+                type="button"
+              >
                 VIEW HEATMAP
               </button>
             </div>
@@ -345,14 +352,20 @@ export default function ServiceAreas({ mode = 'areas' }) {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                 <tr>
                   <td><span style={{ color: '#4f46e5', fontWeight: '700' }}>ARE-101</span></td>
                   <td style={{ fontWeight: '700' }}>Downtown Zone A</td>
                   <td>Central Metro</td>
                   <td>12.4</td>
                   <td>142,500</td>
                   <td><span style={{ fontSize: '9px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px', background: '#ecfdf5', color: '#059669' }}>ACTIVE</span></td>
-                  <td><button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}><Settings size={14} /></button></td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-start', alignItems: 'center' }}>
+                      <button onClick={() => addToast('Viewing area ARE-101 details.', 'info')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#4f46e5', padding: 0 }} title="View"><Eye size={14} /></button>
+                      <button onClick={() => addToast('Editing area ARE-101 properties.', 'success')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#0ea5e9', padding: 0 }} title="Edit"><Edit size={14} /></button>
+                      <button onClick={() => addToast('Deleting service area ARE-101...', 'warning')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#ef4444', padding: 0 }} title="Delete"><Trash2 size={14} /></button>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
                   <td><span style={{ color: '#4f46e5', fontWeight: '700' }}>ARE-102</span></td>
@@ -361,7 +374,13 @@ export default function ServiceAreas({ mode = 'areas' }) {
                   <td>8.2</td>
                   <td>65,200</td>
                   <td><span style={{ fontSize: '9px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px', background: '#ecfdf5', color: '#059669' }}>ACTIVE</span></td>
-                  <td><button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}><Settings size={14} /></button></td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-start', alignItems: 'center' }}>
+                      <button onClick={() => addToast('Viewing area ARE-102 details.', 'info')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#4f46e5', padding: 0 }} title="View"><Eye size={14} /></button>
+                      <button onClick={() => addToast('Editing area ARE-102 properties.', 'success')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#0ea5e9', padding: 0 }} title="Edit"><Edit size={14} /></button>
+                      <button onClick={() => addToast('Deleting service area ARE-102...', 'warning')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#ef4444', padding: 0 }} title="Delete"><Trash2 size={14} /></button>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
                   <td><span style={{ color: '#4f46e5', fontWeight: '700' }}>ARE-103</span></td>
@@ -370,7 +389,13 @@ export default function ServiceAreas({ mode = 'areas' }) {
                   <td>24.5</td>
                   <td>32,100</td>
                   <td><span style={{ fontSize: '9px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px', background: '#fef3c7', color: '#d97706' }}>PENDING</span></td>
-                  <td><button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}><Settings size={14} /></button></td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-start', alignItems: 'center' }}>
+                      <button onClick={() => addToast('Viewing area ARE-103 details.', 'info')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#4f46e5', padding: 0 }} title="View"><Eye size={14} /></button>
+                      <button onClick={() => addToast('Editing area ARE-103 properties.', 'success')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#0ea5e9', padding: 0 }} title="Edit"><Edit size={14} /></button>
+                      <button onClick={() => addToast('Deleting service area ARE-103...', 'warning')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#ef4444', padding: 0 }} title="Delete"><Trash2 size={14} /></button>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table></div>

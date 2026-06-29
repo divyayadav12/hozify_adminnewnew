@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import PartnerExportButton from "../../components/ui/PartnerExportButton";
 import PartnerExportModal from "../../components/ui/PartnerExportModal";
@@ -12,6 +12,9 @@ import {
   TrendingUp,
   Download,
   MoreVertical,
+  Eye,
+  Settings,
+  AlertCircle,
 } from "lucide-react";
 
 const bankingStats = [
@@ -86,12 +89,23 @@ export default function PartnerBanking() {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [topCardMode, setTopCardMode] = useState("overview");
+  const [activeDropdownMenu, setActiveDropdownMenu] = useState(null);
+
+  useEffect(() => {
+    const handleClickOutside = () => setActiveDropdownMenu(null);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   const activeCard = bankingStats[activeCardIndex];
 
   const handleReviewPayoutQueue = () => {
-    setTopCardMode("queue");
-    setActiveCardIndex(1);
+    if (topCardMode === "queue") {
+      alert("Redirecting to the comprehensive Payout Processing Queue...");
+    } else {
+      setTopCardMode("queue");
+      setActiveCardIndex(1);
+    }
   };
 
   const upcomingPayoutCopy =
@@ -357,9 +371,44 @@ export default function PartnerBanking() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <button className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-500 transition hover:border-indigo-300 hover:text-indigo-600 active:scale-95">
-                        <MoreVertical size={16} />
-                      </button>
+                      <div className="relative inline-block text-left" onClick={(e) => e.stopPropagation()}>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveDropdownMenu(activeDropdownMenu === partner.id ? null : partner.id);
+                          }}
+                          className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition active:scale-95 ${activeDropdownMenu === partner.id ? 'border-indigo-300 bg-slate-50 text-indigo-600' : 'border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'}`}
+                        >
+                          <MoreVertical size={16} />
+                        </button>
+                        
+                        {activeDropdownMenu === partner.id && (
+                          <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-100 bg-white shadow-lg shadow-slate-200/50 z-50 py-2">
+                            <button
+                              onClick={() => { setActiveDropdownMenu(null); alert(`Viewing financial ledger for ${partner.id}`); }}
+                              className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                            >
+                              <Eye size={14} /> View Ledger
+                            </button>
+                            <button
+                              onClick={() => { setActiveDropdownMenu(null); alert(`Modifying payout configuration for ${partner.id}`); }}
+                              className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                            >
+                              <Settings size={14} /> Payout Config
+                            </button>
+                            <div className="h-px bg-slate-100 my-1"></div>
+                            <button
+                              onClick={() => {
+                                setActiveDropdownMenu(null);
+                                alert(`Flagging ${partner.id} for financial review!`);
+                              }}
+                              className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-orange-600 hover:bg-orange-50 transition"
+                            >
+                              <AlertCircle size={14} /> Flag Account
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}

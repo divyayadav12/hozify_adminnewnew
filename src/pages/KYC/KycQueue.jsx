@@ -215,15 +215,15 @@ export default function KycQueue() {
       case 'Review':
         return <ReviewSection profile={selectedProfile} note={note} setNote={setNote} updateProfileStatus={updateProfileStatus} showToast={showToast} />;
       case 'Aadhaar':
-        return <AadhaarSection showToast={showToast} />;
+        return <AadhaarSection showToast={showToast} setActiveSection={setActiveSection} />;
       case 'PAN':
-        return <PanSection showToast={showToast} />;
+        return <PanSection showToast={showToast} setActiveSection={setActiveSection} />;
       case 'GST':
-        return <GstSection showToast={showToast} />;
+        return <GstSection showToast={showToast} setActiveSection={setActiveSection} />;
       case 'Driving License':
-        return <DrivingSection showToast={showToast} />;
+        return <DrivingSection showToast={showToast} setActiveSection={setActiveSection} />;
       case 'Voter ID':
-        return <VoterSection showToast={showToast} />;
+        return <VoterSection showToast={showToast} setActiveSection={setActiveSection} />;
       case 'Selfie':
         return <SelfieSection showToast={showToast} />;
       case 'Face Match':
@@ -231,7 +231,7 @@ export default function KycQueue() {
       case 'Video KYC':
         return <VideoSection showToast={showToast} />;
       case 'Bulk Approval':
-        return <BulkSection profiles={profiles} selectedIds={selectedIds} toggleSelected={toggleSelected} bulkUpdate={bulkUpdate} />;
+        return <BulkSection profiles={profiles} selectedIds={selectedIds} toggleSelected={toggleSelected} bulkUpdate={bulkUpdate} setActiveSection={setActiveSection} />;
       case 'Reuploads':
         return <ReuploadSection showToast={showToast} />;
       case 'Risk Center':
@@ -241,7 +241,7 @@ export default function KycQueue() {
       case 'Analytics':
         return <AnalyticsSection metrics={metrics} />;
       case 'Audit Logs':
-        return <AuditSection />;
+        return <AuditSection showToast={showToast} />;
       case 'Reviewers':
         return <ReviewerSection showToast={showToast} />;
       case 'Rejections':
@@ -525,24 +525,24 @@ function ReviewSection({ profile, note, setNote, updateProfileStatus, showToast 
   );
 }
 
-function AadhaarSection({ showToast }) {
-  return <DocumentVerification title="Aadhaar Verification" docLabel="AADHAAR_FRONT.JPG" fields={[['Aadhaar Number', 'XXXX 3201 8234'], ['Name', 'Arjun Vardhan'], ['DOB', '15/08/1982'], ['Address', 'Mumbai, Maharashtra']]} checks={['Name Match 100%', 'DOB Match 100%', 'Address Match 84%', 'OCR Confidence 98.4%']} showToast={showToast} />;
+function AadhaarSection({ showToast, setActiveSection }) {
+  return <DocumentVerification title="Aadhaar Verification" docLabel="AADHAAR_FRONT.JPG" fields={[['Aadhaar Number', 'XXXX 3201 8234'], ['Name', 'Arjun Vardhan'], ['DOB', '15/08/1982'], ['Address', 'Mumbai, Maharashtra']]} checks={['Name Match 100%', 'DOB Match 100%', 'Address Match 84%', 'OCR Confidence 98.4%']} showToast={showToast} setActiveSection={setActiveSection} />;
 }
 
-function PanSection({ showToast }) {
-  return <DocumentVerification title="PAN Verification" docLabel="PAN_CARD.JPG" fields={[['PAN Number', 'ABCDE1234F'], ['Full Name', 'Aditya Sharma'], ['Date of Birth', '12/05/1992']]} checks={['Format Check Passed', 'Duplicate Case Check Low Risk', 'PAN Database Mapping Matched']} showToast={showToast} />;
+function PanSection({ showToast, setActiveSection }) {
+  return <DocumentVerification title="PAN Verification" docLabel="PAN_CARD.JPG" fields={[['PAN Number', 'ABCDE1234F'], ['Full Name', 'Aditya Sharma'], ['Date of Birth', '12/05/1992']]} checks={['Format Check Passed', 'Duplicate Case Check Low Risk', 'PAN Database Mapping Matched']} showToast={showToast} setActiveSection={setActiveSection} />;
 }
 
-function GstSection({ showToast }) {
-  return <DocumentVerification title="GST Verification & Analytics" docLabel="GST_CERTIFICATE.PDF" business fields={[['GST Number', '27AACCP3912B1ZS'], ['Business Name', 'Chronos Logistics Private Limited'], ['Registration Type', 'Regular'], ['Status', 'Active']]} checks={['GST Match Validated', 'Registration Match 98%', 'Aggregated Risk Score 24']} showToast={showToast} />;
+function GstSection({ showToast, setActiveSection }) {
+  return <DocumentVerification title="GST Verification & Analytics" docLabel="GST_CERTIFICATE.PDF" business fields={[['GST Number', '27AACCP3912B1ZS'], ['Business Name', 'Chronos Logistics Private Limited'], ['Registration Type', 'Regular'], ['Status', 'Active']]} checks={['GST Match Validated', 'Registration Match 98%', 'Aggregated Risk Score 24']} showToast={showToast} setActiveSection={setActiveSection} />;
 }
 
-function DrivingSection({ showToast }) {
-  return <DocumentVerification title="Driving License Verification" docLabel="LICENSE_FRONT.JPG" fields={[['License No.', 'L-1984-893-281'], ['Expiry Date', '24 Oct 2028'], ['Full Name', 'Jonathan W. Caldwell'], ['OCR Status', 'Character mismatch detected']]} checks={['Validity Check Active', 'Document Match 99%', 'Face Match 98.4%', 'Security Watermark Visible']} showToast={showToast} />;
+function DrivingSection({ showToast, setActiveSection }) {
+  return <DocumentVerification title="Driving License Verification" docLabel="LICENSE_FRONT.JPG" fields={[['License No.', 'L-1984-893-281'], ['Expiry Date', '24 Oct 2028'], ['Full Name', 'Jonathan W. Caldwell'], ['OCR Status', 'Character mismatch detected']]} checks={['Validity Check Active', 'Document Match 99%', 'Face Match 98.4%', 'Security Watermark Visible']} showToast={showToast} setActiveSection={setActiveSection} />;
 }
 
-function VoterSection({ showToast }) {
-  return <DocumentVerification title="Voter ID Identity Match" docLabel="VOTER_ID.JPG" fields={[['EPIC Number', 'WJD1290384'], ['Full Name', 'Arjun S. Deshmukh'], ['Relation Name', 'Shivaji Deshmukh'], ['DOB', '12/05/1988']]} checks={['NVSP Database Match', 'De-duplication Check Passed', 'Address History Cross-ref Pending']} showToast={showToast} />;
+function VoterSection({ showToast, setActiveSection }) {
+  return <DocumentVerification title="Voter ID Identity Match" docLabel="VOTER_ID.JPG" fields={[['EPIC Number', 'WJD1290384'], ['Full Name', 'Arjun S. Deshmukh'], ['Relation Name', 'Shivaji Deshmukh'], ['DOB', '12/05/1988']]} checks={['NVSP Database Match', 'De-duplication Check Passed', 'Address History Cross-ref Pending']} showToast={showToast} setActiveSection={setActiveSection} />;
 }
 
 function SelfieSection({ showToast }) {
@@ -603,13 +603,13 @@ function VideoSection({ showToast }) {
   );
 }
 
-function BulkSection({ profiles, selectedIds, toggleSelected, bulkUpdate }) {
+function BulkSection({ profiles, selectedIds, toggleSelected, bulkUpdate, setActiveSection }) {
   return (
     <Panel title="KYC Approval Center" action={<Badge>{selectedIds.length} Profiles Selected</Badge>}>
       <div className="kyc-flow-filters"><button type="button">Risk Level: Low</button><button type="button">Doc Type: All</button><button type="button">Batch Size: 25 Profiles</button><button type="button"><Filter size={14} />Advanced Filters</button></div>
       <div className="kyc-bulk-bar"><span>{selectedIds.length} Profiles Selected</span><button type="button" onClick={() => bulkUpdate('Approved')}>Approve Selected</button><button type="button" className="danger" onClick={() => bulkUpdate('Rejected')}>Reject Selected</button><button type="button">Assign Reviewer</button></div>
       <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table"><thead><tr><th></th><th>Profile</th><th>Risk Score</th><th>Documents</th><th>Verification Score</th><th>Last Updated</th><th>Actions</th></tr></thead><tbody>
-        {profiles.slice(0, 5).map((row, index) => <tr key={row.id}><td><input type="checkbox" checked={selectedIds.includes(row.id)} onChange={() => toggleSelected(row.id)} /></td><td><span className="kyc-person"><i>{row.avatar}</i>{row.name}</span></td><td><Progress value={row.risk} danger={row.risk > 70} /></td><td><FileText size={18} /></td><td><Badge tone="success">{98 - index}%</Badge></td><td>{20 + index * 8} mins ago</td><td><button type="button">Review</button></td></tr>)}
+        {profiles.slice(0, 5).map((row, index) => <tr key={row.id}><td><input type="checkbox" checked={selectedIds.includes(row.id)} onChange={() => toggleSelected(row.id)} /></td><td><span className="kyc-person"><i>{row.avatar}</i>{row.name}</span></td><td><Progress value={row.risk} danger={row.risk > 70} /></td><td><FileText size={18} /></td><td><Badge tone="success">{98 - index}%</Badge></td><td>{20 + index * 8} mins ago</td><td><button type="button" onClick={() => setActiveSection('Review')}>Review</button></td></tr>)}
       </tbody></table></div>
     </Panel>
   );
@@ -688,13 +688,27 @@ function AnalyticsSection({ metrics }) {
   );
 }
 
-function AuditSection() {
+function AuditSection({ showToast }) {
   return (
     <>
       <Panel title="Audit Logs">
-        <div className="kyc-flow-filters"><button type="button">Oct 12, 2023 - Oct 19, 2023</button><button type="button">All Reviewers</button><button type="button">All Actions</button><button type="button" className="primary"><Filter size={14} />Apply Filters</button><button type="button"><Download size={14} />Export CSV</button></div>
+        <div className="kyc-flow-filters">
+          <button type="button" onClick={() => showToast('Opening calendar to select date range...')}>Oct 12, 2023 - Oct 19, 2023</button>
+          <button type="button" onClick={() => showToast('Opening reviewers dropdown...')}>All Reviewers</button>
+          <button type="button" onClick={() => showToast('Opening actions filter...')}>All Actions</button>
+          <button type="button" className="primary" onClick={() => showToast('Applying selected filters to audit logs...')}><Filter size={14} />Apply Filters</button>
+          <button type="button" onClick={() => showToast('Exporting audit logs to CSV...')}><Download size={14} />Export CSV</button>
+        </div>
         <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table"><thead><tr><th>Timestamp</th><th>Action</th><th>Performed By</th><th>IP Address</th><th>Entity ID</th><th>Remarks</th></tr></thead><tbody>{auditRows.map((row) => <tr key={row.join('-')}>{row.map((cell, index) => <td key={index}>{index === 1 ? <Badge tone={cell.includes('REJECTED') || cell.includes('FLAG') ? 'danger' : 'neutral'}>{cell}</Badge> : cell}</td>)}</tr>)}</tbody></table></div>
-        <div className="kyc-pagination"><button type="button">‹</button><button className="active" type="button">1</button><button type="button">2</button><button type="button">3</button><span>...</span><button type="button">50</button><button type="button">›</button></div>
+        <div className="kyc-pagination">
+          <button type="button" onClick={() => showToast('Navigating to previous page...')}>‹</button>
+          <button className="active" type="button" onClick={() => showToast('Navigating to page 1...')}>1</button>
+          <button type="button" onClick={() => showToast('Navigating to page 2...')}>2</button>
+          <button type="button" onClick={() => showToast('Navigating to page 3...')}>3</button>
+          <span>...</span>
+          <button type="button" onClick={() => showToast('Navigating to page 50...')}>50</button>
+          <button type="button" onClick={() => showToast('Navigating to next page...')}>›</button>
+        </div>
       </Panel>
       <div className="kyc-flow-stats three"><StatCard label="Audit Integrity" value="SHA-256 verified" /><StatCard label="Average Daily Logs" value="4,812" /><StatCard label="Critical Warnings" value="0 Issues" tone="success" /></div>
     </>
@@ -720,7 +734,7 @@ function RejectionSection({ showToast }) {
   );
 }
 
-function DocumentVerification({ title, docLabel, fields, checks, showToast, business = false }) {
+function DocumentVerification({ title, docLabel, fields, checks, showToast, business = false, setActiveSection }) {
   return (
     <div className="kyc-doc-review">
       <Panel title={title}>
@@ -733,7 +747,21 @@ function DocumentVerification({ title, docLabel, fields, checks, showToast, busi
           {fields.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}
         </div>
         <h3 className="kyc-mini-heading">Validation Engine</h3>
-        {checks.map((item, index) => <div className="kyc-check-line" key={item}><span>{item}</span>{index === checks.length - 1 ? <Badge>Review</Badge> : <CheckCircle2 size={16} />}</div>)}
+        {checks.map((item, index) => (
+          <div className="kyc-check-line" key={item}>
+            <span>{item}</span>
+            {index === checks.length - 1 ? (
+              <span 
+                onClick={() => setActiveSection && setActiveSection('Review')} 
+                style={{ cursor: 'pointer' }}
+              >
+                <Badge>Review</Badge>
+              </span>
+            ) : (
+              <CheckCircle2 size={16} />
+            )}
+          </div>
+        ))}
         <textarea placeholder="Optional: Add notes for the audit trail..." />
         <div className="kyc-flow-actions"><button type="button" className="danger" onClick={() => showToast(`${title} rejected.`)}>Reject</button><button type="button" className="primary" onClick={() => showToast(`${title} approved.`)}>Approve Verification</button></div>
       </Panel>
@@ -744,7 +772,11 @@ function DocumentVerification({ title, docLabel, fields, checks, showToast, busi
 function DocumentCard({ title, small = false }) {
   return (
     <div className={`kyc-document-card ${small ? 'small' : ''}`}>
-      <div className="kyc-doc-toolbar"><Search size={13} /><RefreshCcw size={13} /><Download size={13} /></div>
+      <div className="kyc-doc-toolbar">
+        <Search size={13} style={{ cursor: 'pointer' }} onClick={() => alert(`Zooming in on ${title}`)} />
+        <RefreshCcw size={13} style={{ cursor: 'pointer' }} onClick={() => alert(`Rotating ${title}`)} />
+        <Download size={13} style={{ cursor: 'pointer' }} onClick={() => alert(`Downloading ${title}`)} />
+      </div>
       <div className="kyc-id-card">
         <IdCard size={34} />
         <strong>{title}</strong>

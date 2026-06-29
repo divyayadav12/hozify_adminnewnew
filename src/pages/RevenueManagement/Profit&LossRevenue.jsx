@@ -44,103 +44,9 @@ export default function ProfitAndLossRevenue() {
         onClick={() => setShowCalendarDropdown(false)}
       >
         
-        {/* ==========================================
-            1. HEADER FILTER BAR WITH INTEGRATED CALENDAR DROPDOWN
-           ========================================== */}
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">Profit & Loss Statement</h1>
-            <p className="text-xs text-slate-400 mt-0.5 font-medium">Consolidated view for Hozify Global Entities</p>
-          </div>
-
-          <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-            {/* COMPACT ALL-IN-ONE CALENDAR DROPDOWN */}
-            <div className="relative">
-              <button 
-                type="button"
-                onClick={() => setShowCalendarDropdown(!showCalendarDropdown)}
-                className={`px-3 py-1.5 bg-white border text-slate-600 rounded-lg text-xs font-bold flex items-center gap-2 transition-all shadow-sm cursor-pointer ${
-                  showCalendarDropdown ? 'border-indigo-600 text-indigo-600 ring-1 ring-indigo-500' : 'border-slate-200 hover:bg-slate-50'
-                }`}
-              >
-                <Calendar className="h-3.5 w-3.5 text-slate-400" />
-                <span>{selectedPeriod}</span>
-                <ChevronDown className={`h-3 w-3 text-slate-400 transition-transform ${showCalendarDropdown ? 'rotate-180 text-indigo-600' : ''}`} />
-              </button>
-
-              {showCalendarDropdown && (
-                <div className="absolute top-full right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-lg p-2 min-w-[200px] z-50 max-h-[280px] overflow-y-auto space-y-1.5">
-                  {/* Quarters Tier */}
-                  <div>
-                    <p className="text-[9px] font-extrabold text-slate-400 px-2 tracking-wider uppercase mb-1">QUARTERS</p>
-                    {["Q1 FY 2026", "Q2 FY 2026", "Q3 FY 2026", "Q4 FY 2026"].map((period) => (
-                      <button
-                        key={period}
-                        type="button"
-                        onClick={() => {
-                          setSelectedPeriod(period);
-                          setShowCalendarDropdown(false);
-                        }}
-                        className={`w-full text-left px-2 py-1 rounded-lg text-xs font-semibold block ${selectedPeriod === period ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-50'}`}
-                      >
-                        {period}
-                      </button>
-                    ))}
-                  </div>
-
-                  <hr className="border-slate-100" />
-
-                  {/* Months Tier */}
-                  <div>
-                    <p className="text-[9px] font-extrabold text-slate-400 px-2 tracking-wider uppercase mb-1">MONTHS</p>
-                    {["July 2026", "August 2026", "September 2026"].map((period) => (
-                      <button
-                        key={period}
-                        type="button"
-                        onClick={() => {
-                          setSelectedPeriod(period);
-                          setShowCalendarDropdown(false);
-                        }}
-                        className={`w-full text-left px-2 py-1 rounded-lg text-xs font-semibold block ${selectedPeriod === period ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-50'}`}
-                      >
-                        {period}
-                      </button>
-                    ))}
-                  </div>
-
-                  <hr className="border-slate-100" />
-
-                  {/* Years Tier */}
-                  <div>
-                    <p className="text-[9px] font-extrabold text-slate-400 px-2 tracking-wider uppercase mb-1">FULL YEAR</p>
-                    {["Full Year 2025", "Full Year 2026"].map((period) => (
-                      <button
-                        key={period}
-                        type="button"
-                        onClick={() => {
-                          setSelectedPeriod(period);
-                          setShowCalendarDropdown(false);
-                        }}
-                        className={`w-full text-left px-2 py-1 rounded-lg text-xs font-semibold block ${selectedPeriod === period ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-50'}`}
-                      >
-                        {period}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Downloader Action */}
-            <button className="p-1.5 bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors shadow-sm cursor-pointer">
-              <Download className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* ==========================================
-            2. TOP ROW METRIC BLOCKS
-           ========================================== */}
+        {/* ========================================== */}
+        {/*     2. TOP ROW METRIC BLOCKS              */}
+        {/* ========================================== */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {metrics.map((item, idx) => (
             <div key={idx} className="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between shadow-sm min-h-[105px]">
@@ -269,53 +175,8 @@ export default function ProfitAndLossRevenue() {
 
         </div>
 
-        {/* ==========================================
-            5. WORKING QUARTERLY PROJECTION MODAL
-           ========================================== */}
-        {showProjectionModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowProjectionModal(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              
-              <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                  <BarChart3 className="h-4 w-4 text-indigo-600" /> Financial Projections (Q4 FY2026)
-                </h4>
-                <button type="button" onClick={() => setShowProjectionModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-
-              <div className="p-5 space-y-4">
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                  Based on Q1-Q3 velocity data streams, the predictive core calculates a continuing upward trend for the upcoming settlement ledger matrix:
-                </p>
-
-                <div className="space-y-2.5">
-                  <div className="flex justify-between items-center p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold">
-                    <span className="text-slate-600 flex items-center gap-1.5">🎯 Target Revenue Forecast</span>
-                    <span className="text-slate-900 font-extrabold">$4,890.5M</span>
-                  </div>
-                  <div className="flex justify-between items-center p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold">
-                    <span className="text-slate-600 flex items-center gap-1.5">📊 Expected Margin Threshold</span>
-                    <span className="text-indigo-600 font-extrabold">69.2%</span>
-                  </div>
-                  <div className="flex justify-between items-center p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold">
-                    <span className="text-slate-600 flex items-center gap-1.5">🚀 Core Growth Catalysts</span>
-                    <span className="text-emerald-600 font-extrabold">+4.5% QoQ</span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-indigo-50 border border-indigo-100 text-indigo-950 rounded-lg text-[11px] font-medium leading-relaxed flex gap-2">
-                  <span className="text-xs">💡</span>
-                  <span><strong>Strategic Note:</strong> R&D cost-cutting measures coupled with optimized server footprints are expected to produce an additional 40bps optimization buffer in OpEx pipelines.</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-
-      </div>
-    </AdminShell>
+        {/* =================================== */}
+    </div>
+</AdminShell>
   );
 }

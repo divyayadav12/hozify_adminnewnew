@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 
 import {
@@ -9,6 +9,9 @@ import {
   Briefcase,
   ShieldCheck,
   MoreVertical,
+  Eye,
+  Edit,
+  Trash2
 } from "lucide-react";
 
 const employeeStats = [
@@ -86,6 +89,15 @@ const employees = [
 ];
 export default function PartnerEmployees() {
   const [activeStatIndex, setActiveStatIndex] = useState(0);
+  const [activeDropdownMenu, setActiveDropdownMenu] = useState(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => setActiveDropdownMenu(null);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const activeStat = employeeStats[activeStatIndex];
 
   const filteredEmployees = useMemo(() => {
@@ -259,9 +271,44 @@ export default function PartnerEmployees() {
 
           <td>
 
-            <button className="p-2 rounded-lg hover:bg-slate-100">
-              <MoreVertical size={18} />
-            </button>
+            <div className="relative inline-block text-left" onClick={(e) => e.stopPropagation()}>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveDropdownMenu(activeDropdownMenu === employee.id ? null : employee.id);
+                }}
+                className={`p-2 rounded-lg transition-colors ${activeDropdownMenu === employee.id ? "bg-slate-100 text-slate-800" : "hover:bg-slate-100 text-slate-500"}`}
+              >
+                <MoreVertical size={18} />
+              </button>
+
+              {activeDropdownMenu === employee.id && (
+                <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-100 bg-white shadow-lg shadow-slate-200/50 z-50 py-2">
+                  <button
+                    onClick={() => { setActiveDropdownMenu(null); alert(`Viewing profile for ${employee.name}`); }}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                  >
+                    <Eye size={14} /> View Profile
+                  </button>
+                  <button
+                    onClick={() => { setActiveDropdownMenu(null); alert(`Editing record for ${employee.name}`); }}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                  >
+                    <Edit size={14} /> Edit Record
+                  </button>
+                  <div className="h-px bg-slate-100 my-1"></div>
+                  <button
+                    onClick={() => {
+                      setActiveDropdownMenu(null);
+                      alert(`Deleting ${employee.name} from the system!`);
+                    }}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 transition"
+                  >
+                    <Trash2 size={14} /> Delete
+                  </button>
+                </div>
+              )}
+            </div>
 
           </td>
 

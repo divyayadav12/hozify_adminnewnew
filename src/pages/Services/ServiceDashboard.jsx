@@ -12,6 +12,7 @@ import {
   MessageCircleQuestion,
   Info
 } from 'lucide-react';
+import { useToast } from '../../components/common/ToastNotification';
 
 const topServices = [
   { name: 'Premium On-Demand Support', value: '$842k', label: 'Excellent', progress: 85 },
@@ -26,6 +27,7 @@ const watchlist = [
 ];
 
 export default function ServiceDashboard() {
+  const { addToast } = useToast();
   const [trajectoryMode, setTrajectoryMode] = useState('Quarterly');
 
   return (
@@ -57,6 +59,7 @@ export default function ServiceDashboard() {
           </div>
         </div>
         <button
+          onClick={() => addToast('Emergency SLA action initiated successfully!', 'success')}
           style={{
             height: '34px',
             padding: '0 16px',
@@ -297,6 +300,7 @@ export default function ServiceDashboard() {
           </div>
           
           <button
+            onClick={() => addToast('Opening interactive global logistics network map...', 'info')}
             style={{
               height: '36px',
               padding: '0 16px',
@@ -375,6 +379,7 @@ export default function ServiceDashboard() {
 
           {/* Floated support button bottom right */}
           <button
+            onClick={() => addToast('Loading Help & Support panel...', 'info')}
             style={{
               position: 'absolute',
               bottom: '16px',

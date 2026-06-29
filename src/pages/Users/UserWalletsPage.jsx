@@ -1,5 +1,7 @@
 import React from "react";
+import { useApp } from "../../hooks/useApp";
 import AdminShell from "../../components/layouts/AdminShell";
+import { ROUTES } from "../../config/routes";
 import {
   Wallet,
   ArrowUpRight,
@@ -10,6 +12,8 @@ import {
 } from "lucide-react";
 
 export default function UserWalletPage() {
+  const { navigate } = useApp();
+
   return (
     <AdminShell
       activeTab="User Wallets"
@@ -26,7 +30,10 @@ export default function UserWalletPage() {
             </p>
           </div>
 
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+          <button 
+            onClick={() => navigate(ROUTES.reportsWallet)}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
             <Wallet size={16} /> Wallet Report
           </button>
         </div>

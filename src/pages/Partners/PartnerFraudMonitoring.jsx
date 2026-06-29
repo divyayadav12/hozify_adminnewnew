@@ -242,7 +242,10 @@ export default function PartnerFraudMonitoring() {
       </p>
     </div>
 
-    <button className="px-4 py-2 rounded-xl bg-blue-50 text-blue-600 font-medium">
+    <button 
+      onClick={() => alert("Loading full list of all at-risk partners for investigation...")}
+      className="px-4 py-2 rounded-xl bg-blue-50 text-blue-600 font-medium hover:bg-blue-100 transition"
+    >
       View All
     </button>
   </div>
@@ -251,8 +254,8 @@ export default function PartnerFraudMonitoring() {
 
     <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full">
 
-      <thead className="bg-slate-50">
-        <tr className="text-left text-sm text-slate-500">
+      <thead className="bg-[#111166]">
+        <tr className="text-left text-xs font-bold uppercase tracking-wider text-white">
           <th className="px-6 py-4">Partner</th>
           <th>Risk Level</th>
           <th>Risk Score</th>
@@ -351,7 +354,10 @@ export default function PartnerFraudMonitoring() {
 
             <td>
 
-              <button className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm">
+              <button 
+                onClick={() => alert(`Initiating manual fraud review for ${partner.name} (Risk: ${partner.risk})`)}
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 transition"
+              >
                 Review
               </button>
 

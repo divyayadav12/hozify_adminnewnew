@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Calendar, SlidersHorizontal, Plus, Clock, ShieldAlert, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -5,6 +6,7 @@ import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
 export default function BranchSchedule() {
+  const { addToast } = useToast();
   const { navigate, currentBranchId } = useApp();
   const [viewMode, setViewMode] = useState('Month');
 
@@ -81,17 +83,17 @@ export default function BranchSchedule() {
             <div className="panel" style={{ padding: '16px 24px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} aria-label="Previous month"><ChevronLeft size={18} /></button>
+                  <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', cursor: 'pointer' }} aria-label="Previous month" onClick={() => addToast('Previous month performed successfully.', 'success')}><ChevronLeft size={18} /></button>
                   <strong style={{ fontSize: '16px', color: 'var(--text)' }}>October 2024</strong>
-                  <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} aria-label="Next month"><ChevronRight size={18} /></button>
+                  <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', cursor: 'pointer' }} aria-label="Next month" onClick={() => addToast('Next month performed successfully.', 'success')}><ChevronRight size={18} /></button>
                 </div>
 
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <button className="secondary-action-btn font-bold" type="button" style={{ height: '32px' }}>
-                    <SlidersHorizontal size={14} style={{ marginRight: '4px' }} />
+                  <button className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '32px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                    <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><SlidersHorizontal size={14} style={{ marginRight: '4px' }}  /></button>
                     <span>Filters</span>
                   </button>
-                  <button className="primary-action-btn font-bold" type="button" style={{ height: '32px', backgroundColor: '#0f172a', color: '#fff' }}>
+                  <button className="primary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '32px', backgroundColor: '#0f172a', color: '#fff' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                     <Plus size={14} style={{ marginRight: '4px' }} />
                     <span>New Event</span>
                   </button>
@@ -249,7 +251,7 @@ export default function BranchSchedule() {
                 </div>
               </div>
 
-              <button className="secondary-action-btn font-bold" style={{ width: '100%', height: '36px', justifyContent: 'center', marginTop: '16px', fontSize: '12px' }} type="button">
+              <button className="secondary-action-btn font-bold" style={{ cursor: 'pointer',  width: '100%', height: '36px', justifyContent: 'center', marginTop: '16px', fontSize: '12px' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
                 Edit Global Hours
               </button>
             </div>
@@ -275,9 +277,9 @@ export default function BranchSchedule() {
                 </button>
 
                 <button
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', border: '1px solid #f1f5f9', borderRadius: '8px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }}
+                  style={{ cursor: 'pointer',  display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', border: '1px solid #f1f5f9', borderRadius: '8px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }}
                   type="button"
-                >
+                 onClick={() => addToast('Action performed successfully.', 'success')}>
                   <span style={{ color: '#0ea5e9', display: 'flex', padding: '6px', borderRadius: '6px', background: '#e0f2fe' }}><Clock size={16} /></span>
                   <div style={{ flex: 1 }}>
                     <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>Manage Leaves</strong>
@@ -287,9 +289,9 @@ export default function BranchSchedule() {
                 </button>
 
                 <button
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', border: '1px solid #f1f5f9', borderRadius: '8px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }}
+                  style={{ cursor: 'pointer',  display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', border: '1px solid #f1f5f9', borderRadius: '8px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }}
                   type="button"
-                >
+                 onClick={() => addToast('Action performed successfully.', 'success')}>
                   <span style={{ color: '#eab308', display: 'flex', padding: '6px', borderRadius: '6px', background: '#fef3c7' }}><Calendar size={16} /></span>
                   <div style={{ flex: 1 }}>
                     <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>Holiday Calendar</strong>
@@ -309,10 +311,10 @@ export default function BranchSchedule() {
                 You have 2 overlapping leave requests on Oct 14th that may result in service delays.
               </p>
               <div style={{ display: 'flex', gap: '8px' }}>
-                <button style={{ border: 'none', background: '#fff', color: '#0f172a', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }} type="button">
+                <button style={{ cursor: 'pointer',  border: 'none', background: '#fff', color: '#0f172a', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
                   View Conflict
                 </button>
-                <button style={{ border: 'none', background: 'rgba(255,255,255,0.1)', color: '#fff', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }} type="button">
+                <button style={{ cursor: 'pointer',  border: 'none', background: 'rgba(255,255,255,0.1)', color: '#fff', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
                   Dismiss
                 </button>
               </div>

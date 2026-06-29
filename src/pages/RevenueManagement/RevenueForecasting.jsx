@@ -445,46 +445,8 @@ export default function RevenueForecasting() {
           </div>
         </div>
 
-        {/* ==========================================
-            5. METHODOLOGY POPUP MODAL SCREEN
-           ========================================== */}
-        {showMethodology && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowMethodology(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-md w-full overflow-hidden" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                  <Cpu className="h-4 w-4 text-indigo-600" /> Statistical Modeling Parameters
-                </h4>
-                <button type="button" onClick={() => setShowMethodology(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-5 space-y-4">
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                  Calculations leverage a distributed hybrid **Autoregressive Integrated Moving Average (ARIMA)** module layered with customized enterprise runtime variables:
-                </p>
-                <div className="space-y-2">
-                  <div className="flex gap-2.5 items-start p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs">
-                    <Activity className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                    <div>
-                      <span className="block font-bold text-slate-800">Monte Carlo Confidence Intervals</span>
-                      <span className="text-[11px] text-slate-400 font-medium">Simulates over 10,000 distinct probability distribution runs per segment.</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-2.5 items-start p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs">
-                    <Lightbulb className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <span className="block font-bold text-slate-800">Dynamic Multi-Factor Scaling</span>
-                      <span className="text-[11px] text-slate-400 font-medium">Weights input inputs dynamically across running operational vectors.</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-      </div>
-    </AdminShell>
+        {/* =================================== */}
+    </div>
+</AdminShell>
   );
 }

@@ -472,6 +472,7 @@ export default function OperationalReports() {
 
                 </tbody>
               </table></div>
+              
             </div>
           </div>
 

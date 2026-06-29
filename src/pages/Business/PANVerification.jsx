@@ -11,83 +11,12 @@ import {
   CheckCircle2,
   XCircle,
   AlertTriangle,
+  Check,
+  X
 } from "lucide-react";
 
-const MOCK_PAN_RECORDS = [
-  {
-    id: "1",
-    panNumber: "ABCDE1234F",
-    holderName: "HOZIFY ENTERPRISES PRIVATE LIMITED",
-    issueDate: "12/05/2021",
-    category: "Company (C)",
-    fileName: "pan_card_biz_7782.jpg",
-    fileSize: "1.2 MB",
-    scanAccuracy: "98%",
-    partnerName: "Hozify Global Pvt Ltd",
-    partnerId: "#HZ-99812-B",
-    submittedBy: "Rahul Sharma",
-    submissionDate: "Oct 24, 2023 | 14:32",
-    accountTier: "Premium Merchant",
-    checks: {
-      format: "PASSED",
-      nsdl: "PASSED",
-      tamper: "WARN: SLIGHT BLUR"
-    },
-    timeline: [
-      { id: 't1', title: 'OCR Process Completed', desc: '2 minutes ago', active: true },
-      { id: 't2', title: 'Document Uploaded', desc: '5 minutes ago', active: false }
-    ]
-  },
-  {
-    id: "2",
-    panNumber: "XYZPD9876C",
-    holderName: "LUMINA TECH SOLUTIONS PVT LTD",
-    issueDate: "18/09/2022",
-    category: "Company (C)",
-    fileName: "pan_lumina_9921.png",
-    fileSize: "850 KB",
-    scanAccuracy: "95%",
-    partnerName: "Lumina Tech Solutions",
-    partnerId: "#HZ-10877-D",
-    submittedBy: "Alok Gupta",
-    submissionDate: "Jan 12, 2024 | 09:15",
-    accountTier: "Enterprise Tier",
-    checks: {
-      format: "PASSED",
-      nsdl: "PASSED",
-      tamper: "PASSED"
-    },
-    timeline: [
-      { id: 't1', title: 'OCR Process Completed', desc: '3 minutes ago', active: true },
-      { id: 't2', title: 'Document Uploaded', desc: '10 minutes ago', active: false }
-    ]
-  },
-  {
-    id: "3",
-    panNumber: "MNOPS4321A",
-    holderName: "AMIT KUMAR SINGH",
-    issueDate: "05/11/2019",
-    category: "Individual (P)",
-    fileName: "pan_amit_v2.jpg",
-    fileSize: "1.7 MB",
-    scanAccuracy: "88%",
-    partnerName: "Amit Service Provider",
-    partnerId: "#HZ-22904-A",
-    submittedBy: "Amit Kumar Singh",
-    submissionDate: "Mar 05, 2024 | 18:45",
-    accountTier: "Standard Merchant",
-    checks: {
-      format: "PASSED",
-      nsdl: "WARN: INACTIVE PAN",
-      tamper: "WARN: REFLECTION"
-    },
-    timeline: [
-      { id: 't1', title: 'NSDL Match Warning Raised', desc: '1 minute ago', active: true },
-      { id: 't2', title: 'OCR Process Completed', desc: '4 minutes ago', active: false },
-      { id: 't3', title: 'Document Uploaded', desc: '12 minutes ago', active: false }
-    ]
-  }
-];
+import { MOCK_PAN_RECORDS } from "./mockMetadata";
+
 
 export default function KycVerificationPage() {
   const { addToast } = useToast();
@@ -105,8 +34,14 @@ export default function KycVerificationPage() {
   const [customTimelines, setCustomTimelines] = useState({});
   const [customMetadata, setCustomMetadata] = useState({}); // allows editing fields via Pencil icon!
 
+  const [editingField, setEditingField] = useState(null);
+  const [editValue, setEditValue] = useState("");
+  const [editError, setEditError] = useState("");
+
   const activePan = customMetadata[selectedRecord.id]?.panNumber || selectedRecord.panNumber;
   const activeHolder = customMetadata[selectedRecord.id]?.holderName || selectedRecord.holderName;
+  const activeIssueDate = customMetadata[selectedRecord.id]?.issueDate || selectedRecord.issueDate;
+  const activeCategory = customMetadata[selectedRecord.id]?.category || selectedRecord.category;
   const activeNotes = notesState[selectedRecord.id] || "";
   const activeStatus = statuses[selectedRecord.id] || "pending";
   
@@ -141,20 +76,81 @@ export default function KycVerificationPage() {
     addToast(`Downloading file ${selectedRecord.fileName}...`, "success");
   };
 
-  const handleEditField = (field, label) => {
-    const currentValue = customMetadata[selectedRecord.id]?.[field] || selectedRecord[field];
-    const newValue = prompt(`Edit ${label}:`, currentValue);
-    if (newValue !== null && newValue.trim() !== "") {
-      setCustomMetadata(prev => ({
-        ...prev,
-        [selectedRecord.id]: {
-          ...prev[selectedRecord.id],
-          [field]: newValue.trim()
-        }
-      }));
-      addToast(`${label} updated!`, 'success');
+  const validateField = (field, value) => {
+    if (!value || value.trim() === "") return "Field is required";
+    if (field === 'panNumber' && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)) {
+      return "Invalid PAN format (e.g. ABCDE1234F)";
     }
+    if (field === 'issueDate' && !/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
+      return "Invalid date format (DD/MM/YYYY)";
+    }
+    return "";
   };
+
+  const handleStartEdit = (field, currentValue) => {
+    setEditingField(field);
+    setEditValue(currentValue);
+    setEditError("");
+  };
+
+  const handleCancelEdit = () => {
+    setEditingField(null);
+    setEditValue("");
+    setEditError("");
+  };
+
+  const handleSaveEdit = (field) => {
+    const error = validateField(field, editValue);
+    if (error) {
+      setEditError(error);
+      return;
+    }
+
+    setCustomMetadata(prev => ({
+      ...prev,
+      [selectedRecord.id]: {
+        ...(prev[selectedRecord.id] || {}),
+        [field]: editValue
+      }
+    }));
+    
+    setEditingField(null);
+    addToast("Metadata updated successfully", "success");
+  };
+
+  const renderMetadataField = (fieldKey, label, activeValue) => (
+    <div>
+      <label className="mb-2 block text-[14px] font-medium uppercase tracking-wide text-[#666]">
+        {label}
+      </label>
+      <div className="flex items-start gap-3">
+        {editingField === fieldKey ? (
+          <div className="flex-1 flex flex-col gap-1">
+            <div className="flex items-center gap-2 w-full">
+              <input 
+                type="text" 
+                value={editValue} 
+                onChange={(e) => { setEditValue(e.target.value); setEditError(""); }}
+                className="w-full flex-1 rounded border border-[#2614B8] bg-white px-4 py-3 text-[18px] font-semibold text-[#222] outline-none"
+              />
+              <button onClick={() => handleSaveEdit(fieldKey)} className="rounded bg-[#E8F5E9] p-3 text-[#2E7D32] hover:bg-[#C8E6C9] transition" title="Save"><Check size={20} /></button>
+              <button onClick={handleCancelEdit} className="rounded bg-[#FFEBEE] p-3 text-[#C62828] hover:bg-[#FFCDD2] transition" title="Cancel"><X size={20} /></button>
+            </div>
+            {editError && <span className="text-[13px] text-red-600 font-medium">{editError}</span>}
+          </div>
+        ) : (
+          <div className="flex w-full items-center gap-3">
+            <div className="flex-1 rounded border border-[#D4D6DA] bg-[#F7F7F8] px-4 py-3 text-[18px] font-semibold text-[#222]">
+              {activeValue}
+            </div>
+            <button onClick={() => handleStartEdit(fieldKey, activeValue)} title={`Edit ${label}`}>
+              <Pencil size={22} className="text-[#111] hover:text-[#2614B8] transition" />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 
   const handleApproveCard = () => {
     setStatuses(prev => ({ ...prev, [selectedRecord.id]: "approved" }));
@@ -211,7 +207,7 @@ export default function KycVerificationPage() {
   };
 
   return (
-    <AdminShell>
+    <AdminShell activeTab="PAN Verification">
 
       <div className="min-h-screen px-6 py-8 relative">
 
@@ -265,7 +261,7 @@ export default function KycVerificationPage() {
           <button
             onClick={handleSaveDraft}
             className="
-              h-14
+              h-10
               px-8
               rounded
               bg-white
@@ -284,7 +280,7 @@ export default function KycVerificationPage() {
           <button
             onClick={handleSubmitReview}
             className="
-              h-14
+              h-10
               px-8
               rounded
               bg-[#2614B8]
@@ -403,7 +399,7 @@ export default function KycVerificationPage() {
                         <div className="flex gap-3">
 
                           {/* Avatar/Photo */}
-                          <div className="h-14 w-11 rounded bg-zinc-400/80 flex items-center justify-center text-[8px] text-zinc-700 font-bold border border-zinc-500">
+                          <div className="h-10 w-11 rounded bg-zinc-400/80 flex items-center justify-center text-[8px] text-zinc-700 font-bold border border-zinc-500">
                             PHOTO
                           </div>
 
@@ -620,133 +616,19 @@ export default function KycVerificationPage() {
               </div>
 
               {/* PAN NUMBER */}
-
               <div className="mb-5">
-
-                <label className="mb-2 block text-[14px] font-medium uppercase tracking-wide text-[#666]">
-                  PAN Number
-                </label>
-
-                <div className="flex items-center gap-3">
-
-                  <div
-                    className="
-                      flex-1
-                      rounded
-                      border
-                      border-[#D4D6DA]
-                      bg-[#F7F7F8]
-                      px-4
-                      py-3
-                      text-[18px]
-                      font-semibold
-                      text-[#222]
-                    "
-                  >
-                    {activePan}
-                  </div>
-
-                  <button onClick={() => handleEditField('panNumber', 'PAN Number')} title="Edit PAN Number">
-                    <Pencil
-                      size={22}
-                      className="text-[#111] hover:text-[#2614B8] transition"
-                    />
-                  </button>
-
-                </div>
-
+                {renderMetadataField('panNumber', 'PAN Number', activePan)}
               </div>
 
               {/* HOLDER NAME */}
-
               <div className="mb-5">
-
-                <label className="mb-2 block text-[14px] font-medium uppercase tracking-wide text-[#666]">
-                  Business Name / Holder Name
-                </label>
-
-                <div className="flex items-center gap-3">
-
-                  <div
-                    className="
-                      flex-1
-                      rounded
-                      border
-                      border-[#D4D6DA]
-                      bg-[#F7F7F8]
-                      px-4
-                      py-3
-                      text-[18px]
-                      font-semibold
-                      text-[#222]
-                    "
-                  >
-                    {activeHolder}
-                  </div>
-
-                  <button onClick={() => handleEditField('holderName', 'Holder Name')} title="Edit Holder Name">
-                    <Pencil
-                      size={22}
-                      className="text-[#111] hover:text-[#2614B8] transition"
-                    />
-                  </button>
-
-                </div>
-
+                {renderMetadataField('holderName', 'Business Name / Holder Name', activeHolder)}
               </div>
 
               {/* DATE + CATEGORY */}
-
               <div className="mb-8 grid grid-cols-2 gap-4">
-
-                <div>
-
-                  <label className="mb-2 block text-[14px] font-medium uppercase tracking-wide text-[#666]">
-                    Date Of Issue
-                  </label>
-
-                  <div
-                    className="
-                      rounded
-                      border
-                      border-[#D4D6DA]
-                      bg-[#F7F7F8]
-                      px-4
-                      py-3
-                      text-[18px]
-                      font-semibold
-                      text-[#222]
-                    "
-                  >
-                    {selectedRecord.issueDate}
-                  </div>
-
-                </div>
-
-                <div>
-
-                  <label className="mb-2 block text-[14px] font-medium uppercase tracking-wide text-[#666]">
-                    Category
-                  </label>
-
-                  <div
-                    className="
-                      rounded
-                      border
-                      border-[#D4D6DA]
-                      bg-[#F7F7F8]
-                      px-4
-                      py-3
-                      text-[18px]
-                      font-semibold
-                      text-[#222]
-                    "
-                  >
-                    {selectedRecord.category}
-                  </div>
-
-                </div>
-
+                {renderMetadataField('issueDate', 'Date Of Issue', activeIssueDate)}
+                {renderMetadataField('category', 'Category', activeCategory)}
               </div>
 
               {/* Divider */}
@@ -871,7 +753,7 @@ export default function KycVerificationPage() {
 
               <div className="mb-7 flex items-center gap-4">
 
-                <div className="flex h-14 w-14 items-center justify-center bg-[#4B39C7]">
+                <div className="flex h-10 w-14 items-center justify-center bg-[#4B39C7]">
                   <Building2
                     size={28}
                     className="text-white"

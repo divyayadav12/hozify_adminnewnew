@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from '../../components/common/ToastNotification';
 
 const MOCK_LOGS = [
   { id: 'LOG-99201', user: 'Admin (System)', action: 'Firewall Policy Update', module: 'Security', severity: 'CRITICAL', time: '10 mins ago', ip: '192.168.1.1', status: 'SUCCESS', statusBg: '#ecfdf5', statusColor: '#059669' },
@@ -24,8 +25,27 @@ const MOCK_EVENTS = [
 ];
 
 export default function BranchAuditLogs() {
+  const { addToast } = useToast();
   const { navigate } = useApp();
   const [search, setSearch] = useState('');
+  
+  const handleExportLogs = () => {
+    addToast('Generating branch audit logs CSV...', 'success');
+    const headers = "Log ID,User/Actor,Action,Module,Severity,Time,IP Address,Status";
+    const csvRows = MOCK_LOGS.map(l => 
+      `"${l.id}","${l.user}","${l.action}","${l.module}","${l.severity}","${l.time}","${l.ip}","${l.status}"`
+    );
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'branch_audit_logs.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   const [logs, setLogs] = useState(MOCK_LOGS);
   const [severityFilter, setSeverityFilter] = useState('');
   const [moduleFilter, setModuleFilter] = useState('');
@@ -81,30 +101,15 @@ export default function BranchAuditLogs() {
             <p className="page-subtitle">Monitor system activities, security events, and administrative actions.</p>
           </div>
           <div className="partners-header-buttons">
-            <button 
-              className={`secondary-action-btn font-bold ${isRefreshing ? 'opacity-50' : ''}`} 
-              type="button" 
-              style={{ height: '36px' }}
-              onClick={handleRefresh}
-            >
-              <RefreshCw size={14} style={{ marginRight: '6px' }} className={isRefreshing ? 'animate-spin' : ''} />
-              <span>{isRefreshing ? 'Analyzing...' : 'Refresh'}</span>
+            <button onClick={() => addToast('System logs refreshed.', 'success')} className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer', height: '36px' }}>
+              <RefreshCw size={14} style={{ marginRight: '6px' }} />
+              <span>Refresh</span>
             </button>
-            <button 
-              className="secondary-action-btn font-bold" 
-              type="button" 
-              style={{ height: '36px' }}
-              onClick={handleToggleSort}
-            >
+            <button onClick={() => addToast('Filters panel toggled.', 'info')} className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer', height: '36px' }}>
               <SlidersHorizontal size={14} style={{ marginRight: '6px' }} />
-              <span>Toggle Sort</span>
+              <span>Filters</span>
             </button>
-            <button 
-              className="primary-action-btn font-bold" 
-              type="button" 
-              style={{ height: '36px' }}
-              onClick={handleExportExcel}
-            >
+            <button onClick={handleExportLogs} className="primary-action-btn font-bold" type="button" style={{ cursor: 'pointer', height: '36px' }}>
               <Download size={14} style={{ marginRight: '6px' }} />
               <span>Export Logs</span>
             </button>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 import {
   Search,
   Download,
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 
 export default function BusinessReviews() {
+  const { addToast } = useToast();
   // 1. Pagination & Sorting States
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("Most Recent");
@@ -70,18 +72,18 @@ export default function BusinessReviews() {
     setReviews(prev =>
       prev.map(r => r.id === id ? { ...r, actionRequired: false, badge: "RESOLVED", badgeColor: "bg-slate-100 text-slate-700" } : r)
     );
-    alert(`Review #${id} marked as Resolved!`);
+    addToast(`Review #${id} marked as Resolved!`, 'success');
   };
 
   const handleFlag = (id) => {
-    alert(`Review #${id} has been flagged for moderation.`);
+    addToast(`Review #${id} has been flagged for moderation.`, 'warning');
   };
 
   const handleQuickApprove = (id) => {
     setReviews(prev =>
       prev.map(r => r.id === id ? { ...r, actionRequired: false, badge: "APPROVED", badgeColor: "bg-emerald-100 text-emerald-700" } : r)
     );
-    alert(`Review #${id} instantly approved.`);
+    addToast(`Review #${id} instantly approved.`, 'success');
   };
 
   const toggleSort = () => {
@@ -110,15 +112,31 @@ export default function BusinessReviews() {
 
           <div className="flex gap-3">
             <button 
-              onClick={() => alert("Filter drawer toggled")}
-              className="h-11 px-5 border border-gray-300 bg-white rounded-md flex items-center gap-2 hover:bg-gray-50 cursor-pointer"
+              onClick={() => addToast("Filter drawer toggled", "info")}
+              className="h-9 px-5 border border-gray-300 bg-white rounded-md flex items-center gap-2 hover:bg-gray-50 cursor-pointer"
             >
               <Filter size={16} />
               Filter
             </button>
             <button 
-              onClick={() => alert("Exporting reviews dataset as CSV...")}
-              className="h-11 px-5 border border-gray-300 bg-white rounded-md flex items-center gap-2 hover:bg-gray-50 cursor-pointer"
+              onClick={() => {
+                addToast('Generating reviews CSV...', 'success');
+                const headers = "Review ID,Author,Rating,Time,Review,Branch,Category";
+                const csvRows = reviews.map(r => 
+                  `"${r.id}","${r.name}","${r.rating}","${r.time}","${r.review.replace(/"/g, '""')}","${r.branch}","${r.category}"`
+                );
+                const csvContent = [headers, ...csvRows].join('\n');
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'business_reviews_report.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              className="h-9 px-5 border border-gray-300 bg-white rounded-md flex items-center gap-2 hover:bg-gray-50 cursor-pointer"
             >
               <Download size={16} />
               Export Report
@@ -135,8 +153,8 @@ export default function BusinessReviews() {
               Sentiment Score
             </h3>
             <div className="flex items-end gap-2">
-              <span className="text-6xl font-light">4.8</span>
-              <span className="text-gray-400 text-2xl mb-2">/ 5.0</span>
+              <span className="text-2xl font-bold">4.8</span>
+              <span className="text-gray-400 text-sm mb-0.5">/ 5.0</span>
             </div>
             <div className="flex mt-4 text-yellow-400">
               {[1, 2, 3, 4, 5].map((item) => (
@@ -159,28 +177,28 @@ export default function BusinessReviews() {
               Sentiment Analysis Distribution
             </h3>
             <div className="space-y-8">
-              <div className="flex items-center gap-6">
-                <span className="w-24 text-2xl">Positive</span>
-                <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+              <div className="flex items-center gap-4">
+                <span className="w-20 text-sm font-medium">Positive</span>
+                <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full bg-green-500 w-[82%]" />
                 </div>
-                <span className="text-gray-500 text-2xl">82%</span>
+                <span className="text-gray-500 text-sm">82%</span>
               </div>
 
-              <div className="flex items-center gap-6">
-                <span className="w-24 text-2xl">Neutral</span>
-                <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+              <div className="flex items-center gap-4">
+                <span className="w-20 text-sm font-medium">Neutral</span>
+                <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full bg-blue-500 w-[12%]" />
                 </div>
-                <span className="text-gray-500 text-2xl">12%</span>
+                <span className="text-gray-500 text-sm">12%</span>
               </div>
 
-              <div className="flex items-center gap-6">
-                <span className="w-24 text-2xl">Negative</span>
-                <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+              <div className="flex items-center gap-4">
+                <span className="w-20 text-sm font-medium">Negative</span>
+                <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full bg-red-500 w-[6%]" />
                 </div>
-                <span className="text-gray-500 text-2xl">6%</span>
+                <span className="text-gray-500 text-sm">6%</span>
               </div>
             </div>
           </div>
@@ -189,7 +207,7 @@ export default function BusinessReviews() {
         {/* REVIEWS SECTION */}
         <div className="border border-gray-200 bg-white">
           <div className="flex items-center justify-between px-6 py-6 border-b border-gray-200">
-            <h2 className="text-3xl font-medium">All Reviews</h2>
+            <h2 className="text-lg font-semibold">All Reviews</h2>
             <button 
               onClick={toggleSort}
               className="flex items-center gap-2 text-2xl text-gray-700 cursor-pointer hover:text-indigo-700 transition-colors"
@@ -203,7 +221,7 @@ export default function BusinessReviews() {
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="px-6 py-7 border-b border-gray-200 last:border-b-0"
+                className="px-6 py-4 border-b border-gray-200 last:border-b-0"
               >
                 <div className="flex justify-between items-start">
                   {/* LEFT SIDE */}
@@ -211,12 +229,12 @@ export default function BusinessReviews() {
                     <img
                       src={review.image}
                       alt={review.name}
-                      className="w-16 h-16 rounded-xl object-cover border"
+                      className="w-10 h-10 rounded-full object-cover border"
                     />
 
                     <div className="flex-1">
                       {/* NAME */}
-                      <h3 className="text-[30px] font-medium text-gray-900">
+                      <h3 className="text-sm font-semibold text-gray-900">
                         {review.name}
                       </h3>
 
@@ -242,7 +260,7 @@ export default function BusinessReviews() {
                       </div>
 
                       {/* REVIEW TEXT */}
-                      <p className="mt-5 text-[18px] leading-8 text-gray-700 max-w-6xl">
+                      <p className="mt-3 text-sm leading-relaxed text-gray-700 max-w-6xl">
                         {review.review}
                       </p>
 
@@ -265,21 +283,21 @@ export default function BusinessReviews() {
                     <div className="flex items-center gap-3 ml-8">
                       <button 
                         onClick={() => handleFlag(review.id)}
-                        className="w-11 h-11 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-50 cursor-pointer"
+                        className="w-11 h-9 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-50 cursor-pointer"
                         title="Flag Review"
                       >
                         <Flag size={18} />
                       </button>
                       <button 
                         onClick={() => handleQuickApprove(review.id)}
-                        className="w-11 h-11 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-50 cursor-pointer"
+                        className="w-11 h-9 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-50 cursor-pointer"
                         title="Approve Clear"
                       >
                         <CheckCircle2 size={18} />
                       </button>
                       <button 
                         onClick={() => handleResolve(review.id)}
-                        className="bg-indigo-700 hover:bg-indigo-800 text-white px-6 h-11 rounded flex items-center gap-2 font-medium cursor-pointer"
+                        className="bg-indigo-700 hover:bg-indigo-800 text-white px-6 h-9 rounded flex items-center gap-2 font-medium cursor-pointer"
                       >
                         Resolve
                         <Pencil size={15} />

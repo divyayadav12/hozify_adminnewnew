@@ -167,6 +167,22 @@ export default function FraudInvestigation() {
       setDownloading(false);
       setDownloadDone(true);
       addToast("Evidence logs downloaded successfully!", "success");
+      
+      const headers = "Evidence ID,Title,Details,Time,Severity,Reviewed";
+      const csvRows = evidence.map(e => 
+        `"${e.id}","${e.title}","${e.sub}","${e.time}","${e.severity}","${e.reviewed}"`
+      );
+      const csvContent = [headers, ...csvRows].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'fraud_evidence_logs.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
       setTimeout(() => setDownloadDone(false), 3000);
     }, 1500);
   };
@@ -191,7 +207,7 @@ export default function FraudInvestigation() {
             <div className="text-gray-500 text-base font-medium mb-3">
               Risk Center › Fraud Investigations ›
             </div>
-            <h1 className="text-4xl font-bold text-gray-900">Fraud Investigation Case</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Fraud Investigation Case</h1>
             <p className="text-gray-500 mt-2 text-lg">
               Review evidence, analyze entity relationships, and manage escalation workflows.
             </p>
@@ -256,7 +272,7 @@ export default function FraudInvestigation() {
             <div className="flex justify-center mt-8">
               <div className={`w-44 h-44 rounded-full border-[12px] flex items-center justify-center transition-all duration-700 ${riskColor}`}>
                 <div className="text-center">
-                  <div className={`text-6xl font-bold transition-all duration-700 ${riskColor.split(" ")[1]}`}>
+                  <div className={`text-3xl font-bold transition-all duration-700 ${riskColor.split(" ")[1]}`}>
                     {riskScore}
                   </div>
                   <div className="text-gray-500 mt-2">{riskLevel}</div>
@@ -351,7 +367,7 @@ export default function FraudInvestigation() {
             </p>
 
             <button
-              className={`mt-8 w-full h-14 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 ${
+              className={`mt-8 w-full h-10 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 ${
                 analysisDone
                   ? "bg-green-600 text-white"
                   : runningAnalysis
@@ -515,7 +531,7 @@ export default function FraudInvestigation() {
                 onChange={(e) => { setAnalystNote(e.target.value); setNoteSaved(false); }}
               />
               <button
-                className={`w-full mt-4 h-14 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 ${
+                className={`w-full mt-4 h-10 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 ${
                   noteSaved
                     ? "bg-green-600 text-white"
                     : "bg-slate-700 text-white hover:bg-slate-800"

@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Plus, Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, Star, MessageSquare, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -12,6 +13,7 @@ const mockReviews = [
 ];
 
 export default function BranchReviews() {
+  const { addToast } = useToast();
   const { navigate } = useApp();
   const [search, setSearch] = useState('');
 
@@ -35,11 +37,11 @@ export default function BranchReviews() {
             <p className="page-subtitle">Monitor customer satisfaction, feedback, and branch reputation.</p>
           </div>
           <div className="partners-header-buttons">
-            <button className="primary-action-btn font-bold" style={{ height: '36px' }}>
+            <button className="primary-action-btn font-bold" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <MessageSquare size={14} style={{ marginRight: '4px' }} />
               <span>Request Review</span>
             </button>
-            <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+            <button className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <Download size={14} style={{ marginRight: '4px' }} />
               <span>Export Report</span>
             </button>
@@ -144,17 +146,17 @@ export default function BranchReviews() {
                   style={{ fontSize: '12px', paddingLeft: '8px' }}
                 />
               </div>
-              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <SlidersHorizontal size={14} />
+              <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><SlidersHorizontal size={14}  /></button>
               </button>
-              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <MoreVertical size={14} />
+              <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={14}  /></button>
               </button>
             </div>
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+            <table className="partner-table">
               <thead>
                 <tr>
                   <th>DATE</th>
@@ -201,14 +203,14 @@ export default function BranchReviews() {
                       </span>
                     </td>
                     <td>
-                      <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}>
-                        <MoreVertical size={14} />
+                      <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                        <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={14}  /></button>
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
 
             {filteredReviews.length === 0 && (
               <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
@@ -220,15 +222,15 @@ export default function BranchReviews() {
           <div className="directory-table-footer" style={{ marginTop: '16px' }}>
             <span className="footer-results-text">Showing {filteredReviews.length} of 8,420 reviews</span>
             <div className="pagination-wrap">
-              <button className="pag-nav-btn" type="button" disabled>
+              <button className="pag-nav-btn" type="button" disabled style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                 <ChevronLeft size={16} />
               </button>
-              <button className="pag-num-btn active" type="button">1</button>
-              <button className="pag-num-btn" type="button">2</button>
-              <button className="pag-num-btn" type="button">3</button>
+              <button className="pag-num-btn active" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>1</button>
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>2</button>
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>3</button>
               <span style={{ margin: '0 4px', color: 'var(--muted)' }}>...</span>
-              <button className="pag-num-btn" type="button">168</button>
-              <button className="pag-nav-btn" type="button">
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>168</button>
+              <button className="pag-nav-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                 <ChevronRight size={16} />
               </button>
             </div>

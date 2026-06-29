@@ -129,53 +129,9 @@ export default function Expenses() {
         onClick={() => setShowCalendarDropdown(false)}
       >
         
-        {/* ==========================================
-            1. HEADER NAVIGATION & INTERACTIVE DROPDOWN
-           ========================================== */}
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">Expenses Management</h1>
-            <p className="text-xs text-slate-400 mt-0.5 font-medium">Real-time breakdown of organizational operational costs and spending efficiency.</p>
-          </div>
-
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              onClick={() => setShowCalendarDropdown(!showCalendarDropdown)}
-              className={`px-3 py-1.5 bg-white border text-slate-600 rounded-lg text-xs font-bold flex items-center gap-2 transition-all shadow-sm cursor-pointer ${
-                showCalendarDropdown ? 'border-indigo-600 text-indigo-600 ring-1 ring-indigo-500' : 'border-slate-200 hover:bg-slate-50'
-              }`}
-            >
-              <Calendar className="h-3.5 w-3.5 text-slate-400" />
-              <span>{activeTimeframe}</span>
-              <ChevronDown className={`h-3 w-3 text-slate-400 transition-transform ${showCalendarDropdown ? 'rotate-180 text-indigo-600' : ''}`} />
-            </button>
-
-            {showCalendarDropdown && (
-              <div className="absolute top-full right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-lg p-2 min-w-[180px] z-50 space-y-1">
-                {["Monthly View", "Quarterly View", "Annual Statement"].map((view) => (
-                  <button
-                    key={view}
-                    type="button"
-                    onClick={() => {
-                      setActiveTimeframe(view);
-                      setShowCalendarDropdown(false);
-                    }}
-                    className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs font-semibold block transition-colors ${
-                      activeTimeframe === view ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    {view}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* ==========================================
-            2. TOP ROW PERFORMANCE WRAPPERS
-           ========================================== */}
+        {/* ========================================== */}
+        {/*     2. TOP ROW PERFORMANCE WRAPPERS       */}
+        {/* ========================================== */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {metrics.map((item, idx) => (
             <div key={idx} className="bg-white border border-indigo-100/80 rounded-xl p-4 flex flex-col justify-between shadow-xs relative overflow-hidden min-h-[96px]">
@@ -223,10 +179,6 @@ export default function Expenses() {
         </div>
 
         {/* ==========================================
-            3. MIDDLE CONTENT TRACKING TILES
-           ========================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          
           {/* Allocation Progress Component */}
           <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
             <div className="flex justify-between items-center mb-6">
@@ -364,53 +316,7 @@ export default function Expenses() {
           </div>
         </div>
 
-        {/* ==========================================
-            5. DYNAMIC SIMULATION MODAL
-           ========================================== */}
-        {showSimulation && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowSimulation(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-md w-full overflow-hidden" onClick={(e) => e.stopPropagation()}>
-              
-              <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                  <LineChart className="h-4 w-4 text-indigo-600" /> End of Month Burn Simulation
-                </h4>
-                <button type="button" onClick={() => setShowSimulation(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-
-              <div className="p-5 space-y-4">
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                  Predictive spending analysis calculated with continuous running ledger streams for {activeTimeframe}:
-                </p>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold">
-                    <span className="text-slate-600 flex items-center gap-1.5">📈 Target Ceiling Baseline</span>
-                    <span className="text-slate-900 font-extrabold">$3,250,000</span>
-                  </div>
-                  <div className="flex justify-between items-center p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold">
-                    <span className="text-slate-600 flex items-center gap-1.5">⚡ Projected Burn Rate</span>
-                    <span className="text-indigo-600 font-extrabold">$82.4K / Day</span>
-                  </div>
-                  <div className="flex justify-between items-center p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold">
-                    <span className="text-slate-600 flex items-center gap-1.5">🛡️ Safety Buffer Variance</span>
-                    <span className="text-emerald-600 font-extrabold">4.15% Optimized</span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-indigo-50 border border-indigo-100 text-indigo-950 rounded-lg text-[11px] font-medium flex gap-2">
-                  <Activity className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                  <span><strong>System Note:</strong> Logistics optimization indices show that regular fleet operations are successfully mitigating high structural marketing spillovers.</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-
-      </div>
+        {/* =================================== */}
     </AdminShell>
   );
 }

@@ -193,75 +193,7 @@ export default function DailyRevenue() {
           </div>
         </div>
 
-        {/* ==========================================
-            SLIDE-OUT LEDGER SIDE PANEL (DRAWER MODULE)
-           ========================================== */}
-        {isLedgerOpen && (
-          <>
-            {/* Backdrop blur effect */}
-            <div 
-              onClick={() => setIsLedgerOpen(false)}
-              className="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-40 transition-opacity" 
-            />
-            
-            {/* Right Side Drawer */}
-            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl border-l border-slate-200 z-50 flex flex-col justify-between p-5 animate-in slide-in-from-right duration-200">
-              <div>
-                <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-                  <div className="flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-indigo-600" />
-                    <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wider">Enterprise Ledger</h3>
-                  </div>
-                  <button 
-                    onClick={() => setIsLedgerOpen(false)}
-                    className="p-1 rounded-md text-slate-400 hover:bg-slate-50 hover:text-slate-700 transition-colors"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-
-                <p className="text-xs text-slate-400 font-medium mb-4">
-                  Detailed real-time breakdown of current ledger entries.
-                </p>
-
-                {/* List inside Ledger Panel */}
-                <div className="space-y-3 overflow-y-auto max-h-[75vh] pr-1">
-                  {transactions.map((txn) => (
-                    <div key={txn.id} className="p-3 border border-slate-100 rounded-lg hover:border-slate-200 bg-slate-50/30 transition-all">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">
-                            {txn.id}
-                          </span>
-                          <h4 className="font-bold text-xs text-slate-800 mt-1.5">{txn.entity}</h4>
-                          <p className="text-[11px] text-slate-500 mt-0.5">{txn.service}</p>
-                        </div>
-                        <span className="font-extrabold text-xs text-slate-900">{txn.amount}</span>
-                      </div>
-                      <div className="mt-2.5 flex items-center justify-between text-[10px] text-slate-400 font-semibold border-t border-slate-100/70 pt-2">
-                        <span className="flex items-center gap-1">
-                          <Clock className="h-3 w-3 text-slate-300" /> {txn.time}
-                        </span>
-                        <span className="text-emerald-600 font-bold">● Authorized</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom Quick Audit Action */}
-              <div className="border-t border-slate-100 pt-3">
-                <button 
-                  onClick={() => alert("Full CSV Audit Trail Download Triggered.")}
-                  className="w-full py-2 bg-indigo-950 text-white rounded-lg text-xs font-bold hover:bg-indigo-900 transition-colors shadow-sm"
-                >
-                  Export Audit Trail
-                </button>
-              </div>
-            </div>
-          </>
-        )}
-
+        {/* =================================== */}
       </div>
     </AdminShell>
   );

@@ -360,72 +360,8 @@ export default function EmployeeRevenue() {
 
         </div>
 
-        {/* ==========================================
-            6. MODAL SYSTEM IMPLEMENTATION
-           ========================================== */}
-        
-        {/* DETAILED FORECAST MODAL */}
-        {showForecastModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowForecastModal(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-                  <TrendingUp className="h-4 w-4 text-indigo-600" /> Enterprise Revenue Forecast
-                </h4>
-                <button type="button" onClick={() => setShowForecastModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-5 space-y-4">
-                <p className="text-xs text-slate-500 leading-relaxed">Structural calculations show strong momentum heading into next quarter:</p>
-                <div className="space-y-2.5">
-                  <div className="p-3 bg-indigo-50/40 border border-indigo-100 rounded-lg flex justify-between items-center">
-                    <span className="text-xs font-bold text-slate-700">Q3 Enterprise Forecast</span>
-                    <span className="text-xs font-extrabold text-indigo-600">+$14.2M Variance</span>
-                  </div>
-                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg flex justify-between items-center">
-                    <span className="text-xs font-bold text-slate-700">Retail Integration Segment</span>
-                    <span className="text-xs font-extrabold text-emerald-600">↗ On Track (94%)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* PERFORMANCE CRITERIA MODAL */}
-        {showCriteriaModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowCriteriaModal(false)}>
-            <div className="bg-white rounded-xl shadow-xl border border-slate-200 max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-                  <Award className="h-4 w-4 text-purple-600" /> Bonus Allocation Matrix
-                </h4>
-                <button type="button" onClick={() => setShowCriteriaModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-5 space-y-3">
-                <div className="flex gap-3 items-start p-2.5 border-b border-slate-100">
-                  <CheckCircle className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="text-xs font-bold text-slate-800">Elite Tier Treshold</h5>
-                    <p className="text-[11px] text-slate-400 font-medium">Requires individual pipeline generation value exceeding $2,000,000.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3 items-start p-2.5">
-                  <Users className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="text-xs font-bold text-slate-800">High Performer Allocation</h5>
-                    <p className="text-[11px] text-slate-400 font-medium">Requires cross-regional tracking nodes exceeding 100% core target velocity.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-      </div>
-    </AdminShell>
+        {/* =================================== */}
+    </div>
+</AdminShell>
   );
 }

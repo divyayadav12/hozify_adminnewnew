@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Star, Download, Edit3, ArrowUpRight, Map, SlidersHorizontal, Plus, Clock, ShieldAlert, AlertCircle, ChevronRight, History } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -11,6 +12,7 @@ const timelineEvents = [
 ];
 
 export default function BranchProfile() {
+  const { addToast } = useToast();
   const { navigate, currentBranchId } = useApp();
   const [activeSubTab, setActiveSubTab] = useState('Overview');
 
@@ -58,10 +60,10 @@ export default function BranchProfile() {
             </div>
 
             <div style={{ display: 'flex', gap: '10px' }}>
-              <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+              <button className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                 <span>Export Data</span>
               </button>
-              <button className="primary-action-btn font-bold" type="button" style={{ height: '36px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <button className="primary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '36px', display: 'flex', alignItems: 'center', gap: '6px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                 <Edit3 size={14} />
                 <span>Edit Branch</span>
               </button>
@@ -236,8 +238,8 @@ export default function BranchProfile() {
                     <circle cx="100" cy="55" r="4" fill="#4f46e5" />
                   </svg>
                   <div style={{ position: 'absolute', right: '8px', bottom: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <button style={{ width: '20px', height: '20px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }}>+</button>
-                    <button style={{ width: '20px', height: '20px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }}>-</button>
+                    <button style={{ cursor: 'pointer',  width: '20px', height: '20px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }} onClick={() => addToast('Action performed successfully.', 'success')}>+</button>
+                    <button style={{ cursor: 'pointer',  width: '20px', height: '20px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }} onClick={() => addToast('Action performed successfully.', 'success')}>-</button>
                   </div>
                 </div>
 
@@ -259,7 +261,7 @@ export default function BranchProfile() {
                 </h2>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <button style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', border: '1px solid #f1f5f9', borderRadius: '6px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }} type="button">
+                  <button style={{ cursor: 'pointer',  display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', border: '1px solid #f1f5f9', borderRadius: '6px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
                     <div>
                       <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>Compliance Audit</strong>
                       <span style={{ fontSize: '10px', color: '#ef4444' }}>Expiring in 12 days</span>
@@ -267,7 +269,7 @@ export default function BranchProfile() {
                     <ChevronRight size={14} style={{ color: 'var(--muted)' }} />
                   </button>
 
-                  <button style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', border: '1px solid #f1f5f9', borderRadius: '6px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }} type="button">
+                  <button style={{ cursor: 'pointer',  display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', border: '1px solid #f1f5f9', borderRadius: '6px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
                     <div>
                       <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>Safety Inspection</strong>
                       <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: 'normal' }}>Scheduled for Oct 30</span>
@@ -275,7 +277,7 @@ export default function BranchProfile() {
                     <ChevronRight size={14} style={{ color: 'var(--muted)' }} />
                   </button>
 
-                  <button style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', border: '1px solid #f1f5f9', borderRadius: '6px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }} type="button">
+                  <button style={{ cursor: 'pointer',  display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', border: '1px solid #f1f5f9', borderRadius: '6px', background: '#fff', textAlign: 'left', width: '100%', cursor: 'pointer' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
                     <div>
                       <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>Tax Certification</strong>
                       <span style={{ fontSize: '10px', color: '#10b981' }}>Approved - Download available</span>
@@ -290,7 +292,7 @@ export default function BranchProfile() {
                   </a>
                   
                   {/* Floating Action Button */}
-                  <button style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#4f46e5', color: '#fff', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(79, 70, 229, 0.3)' }} type="button">
+                  <button style={{ cursor: 'pointer',  width: '32px', height: '32px', borderRadius: '50%', background: '#4f46e5', color: '#fff', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(79, 70, 229, 0.3)' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
                     <Plus size={16} />
                   </button>
                 </div>

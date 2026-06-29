@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
 import AdminShell from '../../components/layouts/AdminShell';
 import BusinessHeaderTabs from './BusinessHeaderTabs';
 import {
@@ -23,26 +24,27 @@ import {
 
 export default function BusinessDocReview() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
 
   const entityName = 'Lumina Tech Solutions PVT LTD';
   const gstin = '27AAAAA0000A1Z5';
 
   const handleApprove = () => {
-    alert('Document validation successful. GST Form approved.');
+    addToast('Document validation successful. GST Form approved.', 'success');
     navigate(ROUTES.businessReview);
   };
 
   const handleReject = () => {
     const reason = prompt('Please enter the reason for rejection:');
     if (reason) {
-      alert(`Document rejected: ${reason}`);
+      addToast(`Document rejected: ${reason}`, 'error');
       navigate(ROUTES.businessReview);
     }
   };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(gstin);
-    alert('GSTIN copied to clipboard!');
+    addToast('GSTIN copied to clipboard!', 'success');
   };
 
   return (

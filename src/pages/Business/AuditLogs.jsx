@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 import { 
   Download, 
   SlidersHorizontal, 
@@ -131,6 +132,7 @@ function statusStyle(s) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function AuditLogs() {
+  const { addToast } = useToast();
   const [currentPage, setCurrentPage] = useState(1);
 
   // Read selected business from localStorage
@@ -165,8 +167,34 @@ export default function AuditLogs() {
 
   const totalPages = Math.ceil((seed % 200 + 50) / logs.length);
 
+  const handleExportCSV = () => {
+    addToast('Generating Audit Logs CSV...', 'success');
+    if (!logs || logs.length === 0) {
+      addToast('No logs available to export.', 'error');
+      return;
+    }
+    const headers = "Log ID,Date,Time,Admin,Category,Action,IP Address,Status";
+    const csvRows = logs.map(l => 
+      `"${l.id}","${l.date}","${l.time}","${l.admin}","${l.category}","${l.action.replace(/"/g, '""')}","${l.ip}","${l.status}"`
+    );
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `audit_logs_${business.id}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleAdvancedFilters = () => {
+    addToast('Advanced filters panel opened.', 'success');
+  };
+
   return (
-    <AdminShell>
+    <AdminShell activeTab="Audit Logs">
       <div className="min-h-screen bg-[#F9FAFB] p-8 text-[#111827]">
 
         {/* ── BREADCRUMB ── */}
@@ -193,11 +221,19 @@ export default function AuditLogs() {
           </div>
 
           <div className="flex gap-3">
-            <button className="h-[40px] rounded border border-[#E4E4E7] bg-white px-4 text-[14px] font-medium text-black inline-flex items-center gap-2 hover:bg-[#F4F4F5] transition-colors shadow-sm">
+            <button 
+              className="h-[40px] rounded border border-[#E4E4E7] bg-white px-4 text-[14px] font-medium text-black inline-flex items-center gap-2 hover:bg-[#F4F4F5] transition-colors shadow-sm"
+              onClick={handleExportCSV}
+              type="button"
+            >
               <Download size={16} />
               Export CSV
             </button>
-            <button className="h-[40px] rounded bg-[#1D1B84] px-4 text-[14px] font-medium text-white inline-flex items-center gap-2 hover:bg-[#2522A6] transition-colors shadow-sm">
+            <button 
+              className="h-[40px] rounded bg-[#1D1B84] px-4 text-[14px] font-medium text-white inline-flex items-center gap-2 hover:bg-[#2522A6] transition-colors shadow-sm"
+              onClick={handleAdvancedFilters}
+              type="button"
+            >
               <SlidersHorizontal size={16} />
               Advanced Filters
             </button>

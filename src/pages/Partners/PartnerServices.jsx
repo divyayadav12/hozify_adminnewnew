@@ -412,10 +412,10 @@ export default function PartnerServices() {
               </div>
               <button
                 type="button"
-                onClick={() => setShowServiceInfo(true)}
+                onClick={() => setShowServiceInfo(!showServiceInfo)}
                 className="rounded-2xl bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-200"
               >
-                View Service Info
+                {showServiceInfo ? "Hide Service Info" : "View Service Info"}
               </button>
             </div>
 

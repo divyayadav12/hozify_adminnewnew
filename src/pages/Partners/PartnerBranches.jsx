@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 
 import {
@@ -8,6 +8,9 @@ import {
   Activity,
   ArrowUpRight,
   MoreVertical,
+  Eye,
+  Edit,
+  Trash2
 } from "lucide-react";
 import PartnerExportButton from "../../components/ui/PartnerExportButton";
 import PartnerExportModal from "../../components/ui/PartnerExportModal";
@@ -102,6 +105,14 @@ export default function PartnerBranches() {
   const [actionMode, setActionMode] = useState("default");
   const [selectedExportOptions, setSelectedExportOptions] = useState(["all"]);
   const [isExportOpen, setIsExportOpen] = useState(false);
+  const [activeDropdownMenu, setActiveDropdownMenu] = useState(null);
+
+  useEffect(() => {
+    const handleClickOutside = () => setActiveDropdownMenu(null);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const activeStat = branchStats[activeStatIndex];
   const activeAction = actionInfo[actionMode] || actionInfo.default;
 
@@ -635,11 +646,44 @@ export default function PartnerBranches() {
             </td>
 
             <td>
+              <div className="relative inline-block text-left" onClick={(e) => e.stopPropagation()}>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveDropdownMenu(activeDropdownMenu === branch.code ? null : branch.code);
+                  }}
+                  className={`rounded-xl p-2 transition-colors ${activeDropdownMenu === branch.code ? "bg-slate-100 text-slate-800" : "hover:bg-slate-100 text-slate-500"}`}
+                >
+                  <MoreVertical size={18} />
+                </button>
 
-              <button className="rounded-xl p-2 hover:bg-slate-100">
-                <MoreVertical size={18} />
-              </button>
-
+                {activeDropdownMenu === branch.code && (
+                  <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-100 bg-white shadow-lg shadow-slate-200/50 z-50 py-2">
+                    <button
+                      onClick={() => { setActiveDropdownMenu(null); alert(`Viewing details for ${branch.name}`); }}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                    >
+                      <Eye size={14} /> View Details
+                    </button>
+                    <button
+                      onClick={() => { setActiveDropdownMenu(null); alert(`Editing configuration for ${branch.name}`); }}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                    >
+                      <Edit size={14} /> Edit Config
+                    </button>
+                    <div className="h-px bg-slate-100 my-1"></div>
+                    <button
+                      onClick={() => {
+                        setActiveDropdownMenu(null);
+                        alert(`Deactivating branch ${branch.name}!`);
+                      }}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 transition"
+                    >
+                      <Trash2 size={14} /> Deactivate
+                    </button>
+                  </div>
+                )}
+              </div>
             </td>
 
           </tr>

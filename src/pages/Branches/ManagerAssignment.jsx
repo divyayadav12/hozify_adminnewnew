@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Star, MoreVertical, ChevronLeft, ChevronRight, SlidersHorizontal, Search } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -12,6 +13,7 @@ const initialCandidates = [
 ];
 
 export default function ManagerAssignment() {
+  const { addToast } = useToast();
   const { navigate } = useApp();
   const [candidates, setCandidates] = useState(initialCandidates);
   const [experience, setExperience] = useState('All Experience Levels');
@@ -144,7 +146,7 @@ export default function ManagerAssignment() {
             
             <div>
               <div className="table-wrap">
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+                <table className="partner-table">
                   <thead>
                     <tr>
                       <th>MANAGER IDENTITY</th>
@@ -208,24 +210,24 @@ export default function ManagerAssignment() {
                                 Remove
                               </button>
                             )}
-                            <button className="table-row-action-btn" type="button" aria-label="Action list">
-                              <MoreVertical size={16} />
+                            <button className="table-row-action-btn" type="button" aria-label="Action list" style={{ cursor: 'pointer' }} onClick={() => addToast('Action list performed successfully.', 'success')}>
+                              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={16}  /></button>
                             </button>
                           </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
-                </table></div>
+                </table>
               </div>
 
               {/* Table Footer */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '13px', borderTop: '1px solid var(--line)', paddingTop: '14px' }}>
                 <span style={{ color: 'var(--muted)' }}>Showing 4 of 124 potential candidates</span>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', fontWeight: '700' }}>
-                  <button disabled style={{ border: 'none', background: 'transparent', color: '#cbd5e1', cursor: 'not-allowed' }}>&lt;</button>
+                  <button disabled style={{ cursor: 'pointer',  border: 'none', background: 'transparent', color: '#cbd5e1', cursor: 'not-allowed' }} onClick={() => addToast('Action performed successfully.', 'success')}>&lt;</button>
                   <span>1</span>
-                  <button style={{ border: 'none', background: 'transparent', color: 'var(--primary)', cursor: 'pointer' }}>&gt;</button>
+                  <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', color: 'var(--primary)', cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>&gt;</button>
                 </div>
               </div>
             </div>

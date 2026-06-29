@@ -338,52 +338,7 @@ export default function BusinessIntelligence() {
           </div>
         </div>
 
-        {/* ==========================================
-            5. DYNAMIC POPUP MODAL: SIMULATION SYSTEM LOGS
-           ========================================== */}
-        {showSimulationModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={() => setShowSimulationModal(false)}>
-            <div className="bg-slate-950 text-slate-200 rounded-xl shadow-2xl border border-slate-800 max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
-              <div className="px-5 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
-                <h3 className="font-mono text-xs font-bold text-indigo-400 flex items-center gap-2">
-                  <Server className="h-3.5 w-3.5 text-indigo-400" /> Neural Compute Node Simulation Logs
-                </h3>
-                <button type="button" onClick={() => setShowSimulationModal(false)} className="text-slate-500 hover:text-slate-300 cursor-pointer">
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              
-              <div className="p-5 font-mono text-[11px] space-y-2 max-h-[300px] overflow-y-auto bg-slate-950 text-emerald-400">
-                {simulationLogs.map((log, index) => (
-                  <div key={index} className="leading-relaxed">
-                    <span className="text-slate-600 mr-2">&gt;&gt;</span> {log}
-                  </div>
-                ))}
-                {isSimulating && (
-                  <div className="flex items-center gap-2 text-indigo-400 mt-3 animate-pulse">
-                    <RefreshCw className="h-3.5 w-3.5 animate-spin" />
-                    <span>Processing live matrix arrays...</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="px-5 py-3 bg-slate-900/40 border-t border-slate-800 flex justify-end">
-                <button 
-                  type="button" 
-                  disabled={isSimulating}
-                  onClick={() => setShowSimulationModal(false)} 
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer font-sans transition-colors ${
-                    isSimulating ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-indigo-600 text-white hover:bg-indigo-500'
-                  }`}
-                >
-                  Close Terminal
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Footer legal notes link */}
+        {/* ===================================        {/* Footer legal notes link */}
         <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-[10px] text-slate-400 font-medium">
           <span>© 2026 Hozify Predictive Business Intelligence Stack.</span>
           <div className="flex items-center gap-3">

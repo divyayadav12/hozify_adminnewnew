@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Users,
   CheckSquare,
@@ -10,7 +10,10 @@ import {
   Layers,
   MoreVertical,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Eye,
+  Edit,
+  Trash2
 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
@@ -121,6 +124,13 @@ export default function Partners() {
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [activeDropdownMenu, setActiveDropdownMenu] = useState(null);
+
+  useEffect(() => {
+    const handleClickOutside = () => setActiveDropdownMenu(null);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   const handlePartnerClick = (partner) => {
     // Save the clicked partner context (use fixed ID to showcase the precise detailed mockup)
@@ -259,10 +269,59 @@ export default function Partners() {
                       {partner.status}
                     </span>
                   </td>
-                  <td className="partner-actions-cell" onClick={(e) => e.stopPropagation()}>
-                    <button className="table-row-action-btn" type="button">
+                  <td className="partner-actions-cell" style={{ position: 'relative' }} onClick={(e) => e.stopPropagation()}>
+                    <button 
+                      className="table-row-action-btn" 
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveDropdownMenu(activeDropdownMenu === partner.id ? null : partner.id);
+                      }}
+                    >
                       <MoreVertical size={16} />
                     </button>
+                    {activeDropdownMenu === partner.id && (
+                      <div 
+                        className="absolute right-0 mt-1 w-44 bg-white border border-slate-200 rounded-lg shadow-lg z-10 py-1" 
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button 
+                          className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                          onClick={() => {
+                            handlePartnerClick(partner);
+                            setActiveDropdownMenu(null);
+                          }}
+                        >
+                          <Eye size={14} /> View Details
+                        </button>
+                        <button 
+                          className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                          onClick={() => {
+                            setActiveDropdownMenu(null);
+                          }}
+                        >
+                          <Edit size={14} /> Edit Partner
+                        </button>
+                        <button 
+                          className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-slate-50 ${partner.status === 'Suspended' ? 'text-green-600' : 'text-orange-600'}`}
+                          onClick={() => {
+                            setActiveDropdownMenu(null);
+                          }}
+                        >
+                          {partner.status === 'Suspended' ? <CheckSquare size={14} /> : <AlertTriangle size={14} />}
+                          {partner.status === 'Suspended' ? 'Activate' : 'Suspend'}
+                        </button>
+                        <div className="h-px bg-slate-100 my-1"></div>
+                        <button 
+                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                          onClick={() => {
+                            setActiveDropdownMenu(null);
+                          }}
+                        >
+                          <Trash2 size={14} /> Delete
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}

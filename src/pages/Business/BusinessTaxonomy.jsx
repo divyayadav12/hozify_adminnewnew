@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
 import AdminShell from '../../components/layouts/AdminShell';
 import BusinessHeaderTabs from './BusinessHeaderTabs';
 import {
@@ -26,6 +27,7 @@ import {
 
 export default function BusinessTaxonomy() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
 
   // Hardcoded categories list data
@@ -68,12 +70,14 @@ export default function BusinessTaxonomy() {
         statusBg: '#ecfdf5'
       };
       setCategories([...categories, newCat]);
+      addToast(`Category "${name}" added successfully.`, 'success');
     }
   };
 
   const handleRemoveCategory = (name) => {
     if (window.confirm(`Delete category ${name}?`)) {
       setCategories(categories.filter(c => c.name !== name));
+      addToast(`Category "${name}" removed successfully.`, 'success');
     }
   };
 
@@ -162,7 +166,7 @@ export default function BusinessTaxonomy() {
                       <td style={{ textAlign: 'right' }}>
                         <div style={{ display: 'inline-flex', gap: '6px' }}>
                           <button
-                            onClick={() => alert(`Edit category: ${cat.name}`)}
+                            onClick={() => addToast(`Edit mode for category: ${cat.name}`, 'success')}
                             className="btn-action-circle"
                             style={{ height: '26px', width: '26px', background: '#f1f5f9', color: '#475569', border: 'none' }}
                             title="Edit"
@@ -282,7 +286,7 @@ export default function BusinessTaxonomy() {
                 <Tag size={20} style={{ color: 'var(--muted)', flexShrink: 0 }} />
                 <div>
                   <strong style={{ display: 'block', fontSize: '11px' }}>Need a custom tag logic?</strong>
-                  <a href="#logic" onClick={(e) => { e.preventDefault(); alert('Custom tag rules builder'); }} style={{ fontSize: '11px', color: '#4f46e5', textDecoration: 'underline', fontWeight: '700', marginTop: '2px', display: 'block' }}>
+                  <a href="#logic" onClick={(e) => { e.preventDefault(); addToast('Custom tag rules builder launched.', 'success'); }} style={{ fontSize: '11px', color: '#4f46e5', textDecoration: 'underline', fontWeight: '700', marginTop: '2px', display: 'block' }}>
                     Configure Logic
                   </a>
                 </div>

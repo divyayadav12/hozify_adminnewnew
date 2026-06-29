@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Plus, Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, Star, Settings } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
@@ -12,25 +13,14 @@ const mockServices = [
 ];
 
 export default function BranchServices() {
+  const { addToast } = useToast();
   const { navigate } = useApp();
   const [search, setSearch] = useState('');
-  const [showExportModal, setShowExportModal] = useState(false); // State to handle English pop-up
 
   const filteredServices = mockServices.filter(s =>
     s.name.toLowerCase().includes(search.toLowerCase()) ||
     s.category.toLowerCase().includes(search.toLowerCase())
   );
-
-  // Click handler for Add Service button
-  const handleAddService = () => {
-    alert('Add Service clicked! Opening service creation form...');
-  };
-
-  // Function to handle actual document generation/download
-  const triggerDownload = (format) => {
-    alert(`Preparing your download...\nYour data is being exported as an ${format} document.`);
-    setShowExportModal(false);
-  };
 
   return (
     <AdminShell
@@ -38,84 +28,22 @@ export default function BranchServices() {
       headerTitle="Branch Services"
       searchPlaceholder="Search services..."
     >
-      <div className="branch-inventory-container" style={{ position: 'relative' }}>
+      <div className="branch-inventory-container">
         {/* Page Header */}
         <div className="partners-page-header">
           <div>
             <h1 className="page-title">Branch Services</h1>
             <p className="page-subtitle">Manage and monitor service offerings across all branches.</p>
           </div>
-          <div className="partners-header-buttons" style={{ position: 'relative' }}>
-            <button 
-              className="primary-action-btn font-bold" 
-              style={{ height: '36px', cursor: 'pointer' }}
-              onClick={handleAddService}
-            >
+          <div className="partners-header-buttons">
+            <button className="primary-action-btn font-bold" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <Plus size={14} style={{ marginRight: '4px' }} />
               <span>Add Service</span>
             </button>
-            
-            <button 
-              className="secondary-action-btn font-bold" 
-              type="button" 
-              style={{ height: '36px', cursor: 'pointer' }}
-              onClick={() => setShowExportModal(!showExportModal)}
-            >
+            <button className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '36px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <Download size={14} style={{ marginRight: '4px' }} />
-              <span>Export Data</span>
+              <span>Export</span>
             </button>
-
-            {/* Custom English Pop-up / Dropdown Menu for Export Document Formats */}
-            {showExportModal && (
-              <div style={{
-                position: 'absolute',
-                top: '42px',
-                right: '0',
-                backgroundColor: '#ffffff',
-                border: '1px solid #d1d5db',
-                borderRadius: '6px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                zIndex: 100,
-                width: '240px',
-                padding: '8px 0'
-              }}>
-                <div style={{ padding: '8px 16px', fontSize: '11px', fontWeight: '700', color: '#6b7280', textTransform: 'uppercase', borderBottom: '1px solid #f3f4f6' }}>
-                  Select Document Format
-                </div>
-                <button 
-                  onClick={() => triggerDownload('Excel Spreadsheet (.xlsx)')}
-                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  📊 <span>Excel Spreadsheet (.xlsx)</span>
-                </button>
-                <button 
-                  onClick={() => triggerDownload('CSV Delimited (.csv)')}
-                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  📝 <span>CSV Document (.csv)</span>
-                </button>
-                <button 
-                  onClick={() => triggerDownload('PDF Report (.pdf)')}
-                  style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  📕 <span>PDF Print Report (.pdf)</span>
-                </button>
-                <div style={{ borderTop: '1px solid #f3f4f6', marginTop: '4px', padding: '4px 8px 0 8px' }}>
-                  <button 
-                    onClick={() => setShowExportModal(false)}
-                    style={{ width: '100%', border: 'none', background: '#f3f4f6', borderRadius: '4px', padding: '6px', fontSize: '12px', fontWeight: '600', color: '#4b5563', cursor: 'pointer' }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
@@ -145,40 +73,7 @@ export default function BranchServices() {
             text-overflow: ellipsis;
             display: block;
           }
-
-          /* Excel Spreadsheet Formatting Styling */
-          .excel-style-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 13px;
-            background-color: #ffffff;
-          }
-          .excel-style-table th {
-            background-color: #f3f4f6;
-            color: #374151;
-            font-weight: 600;
-            text-align: left;
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.05em;
-          }
-          .excel-style-table td {
-            padding: 8px 12px;
-            border: 1px solid #e5e7eb;
-            color: #4b5563;
-            vertical-align: middle;
-          }
-          .excel-style-table tbody tr:nth-child(even) {
-            background-color: #f9fafb;
-          }
-          .excel-style-table tbody tr:hover {
-            background-color: #f0fdf4; /* Light green sheet row select effect */
-          }
         `}</style>
-        
         <section className="branch-kpi-grid">
           <div className="branch-kpi-card">
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between' }}>
@@ -250,17 +145,17 @@ export default function BranchServices() {
                   style={{ fontSize: '12px', paddingLeft: '8px' }}
                 />
               </div>
-              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <SlidersHorizontal size={14} />
+              <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><SlidersHorizontal size={14}  /></button>
               </button>
-              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <MoreVertical size={14} />
+              <button className="secondary-action-btn" style={{ cursor: 'pointer',  height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={14}  /></button>
               </button>
             </div>
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+            <table className="partner-table">
               <thead>
                 <tr>
                   <th>SERVICE ID</th>
@@ -279,10 +174,10 @@ export default function BranchServices() {
                     <td>
                       <span style={{ color: '#4f46e5', fontWeight: '700' }}>{row.id}</span>
                     </td>
-                    <td style={{ fontWeight: '600' }}>{row.name}</td>
-                    <td>{row.category}</td>
-                    <td>{row.branch}</td>
-                    <td style={{ fontWeight: '700', color: '#111827' }}>{row.price}</td>
+                    <td style={{ color: 'var(--text)', fontWeight: '700' }}>{row.name}</td>
+                    <td style={{ color: 'var(--muted)' }}>{row.category}</td>
+                    <td style={{ color: 'var(--text)' }}>{row.branch}</td>
+                    <td style={{ color: 'var(--text)', fontWeight: '800' }}>{row.price}</td>
                     <td>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '700', fontSize: '12px' }}>
                         <Star size={12} fill="#eab308" stroke="#eab308" />
@@ -304,17 +199,17 @@ export default function BranchServices() {
                       </span>
                     </td>
                     <td>
-                      <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}>
+                      <button style={{ cursor: 'pointer',  border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                         <Settings size={14} />
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
             
             {filteredServices.length === 0 && (
-              <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px', borderTop: '1px solid #e5e7eb' }}>
+              <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
                 No services found matching your criteria.
               </div>
             )}
@@ -323,13 +218,13 @@ export default function BranchServices() {
           <div className="directory-table-footer" style={{ marginTop: '16px' }}>
             <span className="footer-results-text">Showing {filteredServices.length} of 458 services</span>
             <div className="pagination-wrap">
-              <button className="pag-nav-btn" type="button" disabled>
+              <button className="pag-nav-btn" type="button" disabled style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                 <ChevronLeft size={16} />
               </button>
-              <button className="pag-num-btn active" type="button">1</button>
-              <button className="pag-num-btn" type="button">2</button>
-              <button className="pag-num-btn" type="button">3</button>
-              <button className="pag-nav-btn" type="button">
+              <button className="pag-num-btn active" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>1</button>
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>2</button>
+              <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>3</button>
+              <button className="pag-nav-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
                 <ChevronRight size={16} />
               </button>
             </div>

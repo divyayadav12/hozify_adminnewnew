@@ -13,19 +13,64 @@ import {
   Minimize2
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
+import DateRangePicker from '../../components/common/DateRangePicker';
 
 export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
   const [selectedRange, setSelectedRange] = useState('Oct 24 - Oct 30');
-  const [timeTab, setTimeTab] = useState('Daily');
+  const [timeTab, setTimeTab] = useState('Weekly');
 
-  const kpis = [
-    { title: "PENDING", value: "1,284", trend: "+12%", positive: true },
-    { title: "ASSIGNED", value: "842", trend: "+8%", positive: true },
-    { title: "IN PROGRESS", value: "256", trend: "-0%", neutral: true },
-    { title: "COMPLETED", value: "15,402", trend: "+24%", positive: true },
-    { title: "CANCELLED", value: "112", trend: "-3%", positive: false },
-    { title: "REFUNDED", value: "42", trend: "-2%", positive: false }
-  ];
+  const tabData = {
+    Daily: {
+      range: 'Today, Oct 30',
+      kpis: [
+        { title: "PENDING", value: "184", trend: "+5%", positive: true },
+        { title: "ASSIGNED", value: "142", trend: "+2%", positive: true },
+        { title: "IN PROGRESS", value: "56", trend: "-1%", neutral: true },
+        { title: "COMPLETED", value: "402", trend: "+14%", positive: true },
+        { title: "CANCELLED", value: "12", trend: "-1%", positive: false },
+        { title: "REFUNDED", value: "4", trend: "0%", neutral: true }
+      ]
+    },
+    Weekly: {
+      range: 'Oct 24 - Oct 30',
+      kpis: [
+        { title: "PENDING", value: "1,284", trend: "+12%", positive: true },
+        { title: "ASSIGNED", value: "842", trend: "+8%", positive: true },
+        { title: "IN PROGRESS", value: "256", trend: "-0%", neutral: true },
+        { title: "COMPLETED", value: "15,402", trend: "+24%", positive: true },
+        { title: "CANCELLED", value: "112", trend: "-3%", positive: false },
+        { title: "REFUNDED", value: "42", trend: "-2%", positive: false }
+      ]
+    },
+    Monthly: {
+      range: 'October 2026',
+      kpis: [
+        { title: "PENDING", value: "5,284", trend: "+22%", positive: true },
+        { title: "ASSIGNED", value: "3,842", trend: "+18%", positive: true },
+        { title: "IN PROGRESS", value: "856", trend: "+4%", positive: true },
+        { title: "COMPLETED", value: "65,402", trend: "+34%", positive: true },
+        { title: "CANCELLED", value: "512", trend: "-8%", positive: false },
+        { title: "REFUNDED", value: "142", trend: "-5%", positive: false }
+      ]
+    }
+  };
+
+  const handleTabChange = (tab) => {
+    setTimeTab(tab);
+    setSelectedRange(tabData[tab].range);
+  };
+
+  const handleDateRangeChange = (range) => {
+    setSelectedRange(range.label);
+    // Remove active tab styling if a custom range is picked that doesn't match the tabs exactly
+    setTimeTab('Custom');
+  };
+
+  // Generate dynamic KPIs based on the time tab or custom range
+  const kpis = timeTab !== 'Custom' && tabData[timeTab] ? tabData[timeTab].kpis : tabData['Weekly'].kpis.map(k => ({
+    ...k,
+    value: (parseInt(k.value.replace(/,/g, '')) * 1.5).toLocaleString('en-US'),
+  }));
 
   const funnelStages = [
     { label: "Impression to View (92%)", name: "Booking Landing Page", count: "245k", width: "92%", color: "#c8c0d7" },
@@ -65,7 +110,7 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
               {['Daily', 'Weekly', 'Monthly'].map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setTimeTab(tab)}
+                  onClick={() => handleTabChange(tab)}
                   style={{
                     border: 'none',
                     background: timeTab === tab ? '#25108f' : 'transparent',
@@ -82,11 +127,30 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
               ))}
             </div>
 
-            {/* Custom Range Picker button */}
-            <button style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', padding: '7px 14px', borderRadius: '6px', fontSize: '13px', fontWeight: '750', cursor: 'pointer' }}>
-              <Calendar size={14} style={{ color: 'var(--muted)' }} />
-              <span>{selectedRange}</span>
-            </button>
+            {/* Custom Range Picker */}
+            <DateRangePicker 
+              onChange={handleDateRangeChange}
+              buttonContent={(currentLabel) => (
+                <button 
+                  style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '8px', 
+                    border: '1px solid var(--line)', 
+                    background: '#fff', 
+                    padding: '7px 14px', 
+                    borderRadius: '6px', 
+                    fontSize: '13px', 
+                    fontWeight: '750', 
+                    cursor: 'pointer' 
+                  }}
+                  type="button"
+                >
+                  <Calendar size={14} style={{ color: 'var(--muted)' }} />
+                  <span>{selectedRange}</span>
+                </button>
+              )}
+            />
           </div>
         </div>
 

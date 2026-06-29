@@ -1,3 +1,4 @@
+import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Download, SlidersHorizontal, TrendingUp, HelpCircle, Star, ArrowUpRight } from 'lucide-react';
 
@@ -15,6 +16,7 @@ const employeePerformers = [
 ];
 
 export default function BranchAnalytics() {
+  const { addToast } = useToast();
   const [dateRange, setDateRange] = useState('Last 30 Days');
   const [serviceType, setServiceType] = useState('All Services');
   const [employee, setEmployee] = useState('All Staff');
@@ -76,8 +78,8 @@ export default function BranchAnalytics() {
             </div>
           </div>
 
-          <button className="secondary-action-btn font-bold" type="button" style={{ height: '32px', marginTop: '16px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <SlidersHorizontal size={12} />
+          <button className="secondary-action-btn font-bold" type="button" style={{ cursor: 'pointer',  height: '32px', marginTop: '16px', display: 'flex', alignItems: 'center', gap: '4px' }} onClick={() => addToast('Action performed successfully.', 'success')}>
+            <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><SlidersHorizontal size={12}  /></button>
             <span>More Filters</span>
           </button>
         </div>
@@ -224,7 +226,7 @@ export default function BranchAnalytics() {
             </div>
           </div>
 
-          <button className="secondary-action-btn" style={{ width: '100%', height: '36px', border: '1px solid rgba(255,255,255,0.15)', background: 'transparent', color: '#fff', fontSize: '12px', fontWeight: '700', justifyContent: 'center', cursor: 'pointer', marginTop: '16px' }} type="button">
+          <button className="secondary-action-btn" style={{ cursor: 'pointer',  width: '100%', height: '36px', border: '1px solid rgba(255,255,255,0.15)', background: 'transparent', color: '#fff', fontSize: '12px', fontWeight: '700', justifyContent: 'center', cursor: 'pointer', marginTop: '16px' }} type="button" onClick={() => addToast('Action performed successfully.', 'success')}>
             View Detailed Log
           </button>
         </div>
@@ -244,7 +246,7 @@ export default function BranchAnalytics() {
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="approval-queue-table" style={{ width: '100%', minWidth: 'auto' }}>
+            <table className="approval-queue-table" style={{ width: '100%', minWidth: 'auto' }}>
               <thead>
                 <tr>
                   <th style={{ padding: '10px 14px', fontSize: '10px' }}>SERVICE NAME</th>
@@ -267,7 +269,7 @@ export default function BranchAnalytics() {
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
           </div>
         </div>
 

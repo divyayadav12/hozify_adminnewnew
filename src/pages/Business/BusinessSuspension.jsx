@@ -291,7 +291,7 @@ export default function BusinessSuspension() {
             <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)' }}>Top Affected Nodes</span>
-                <span style={{ fontSize: '11px', color: '#25108f', fontWeight: '800', cursor: 'pointer' }} onClick={() => alert('Viewing all affected nodes...')}>View All</span>
+                <span style={{ fontSize: '11px', color: '#25108f', fontWeight: '800', cursor: 'pointer' }} onClick={() => addToast('Opening affected nodes dashboard...', 'info')}>View All</span>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

@@ -118,6 +118,20 @@ export default function BusinessBranches() {
 
   const handleExportCSV = () => {
     addToast("Exporting branch directory as CSV...", "success");
+    const headers = "Branch ID,Branch Name,Address,Manager,Staff Count,Status,Region,Capacity,On Site";
+    const csvRows = branches.map(b => 
+      `"${b.id}","${b.name}","${b.address}","${b.manager}","${b.staff}","${b.statusLabel}","${b.region}","${b.capacity}","${b.onSite}"`
+    );
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'branch_directory.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleZoomIn = () => {
@@ -148,7 +162,7 @@ export default function BusinessBranches() {
   const activeBranchCount = branches.filter((b) => b.active).length;
 
   return (
-    <AdminShell>
+    <AdminShell activeTab="Branch Management">
       {/* Main Full-Screen Layout Container */}
       <div className="flex h-screen w-full overflow-hidden bg-[#F5F6F8]">
 
@@ -284,7 +298,7 @@ export default function BusinessBranches() {
                 title={branch.name}
               >
                 <div
-                  className={`rounded-full flex items-center justify-center border-2 border-white shadow-md transition-all duration-200 group-active:scale-75 group-hover:scale-110 ${isSelected ? "w-12 h-12" : "w-10 h-10"}`}
+                  className={`rounded-full flex items-center justify-center border-2 border-white shadow-md transition-all duration-200 group-active:scale-75 group-hover:scale-110 ${isSelected ? "w-9 h-9" : "w-10 h-10"}`}
                   style={{ background: isSelected ? "#1E1B4B" : branch.active ? "#70707A" : "#CBD5E1" }}
                 >
                   {branch.id % 2 === 0

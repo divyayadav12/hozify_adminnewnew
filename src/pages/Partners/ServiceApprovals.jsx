@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell"; // Aapka AdminShell
 
 import {
@@ -12,7 +12,10 @@ import {
   Check,
   ChevronRight,
   Sliders,
-  MoreVertical
+  MoreVertical,
+  Eye,
+  RefreshCw,
+  Trash2
 } from "lucide-react";
 
 export default function ServiceApprovals() {
@@ -59,6 +62,14 @@ export default function ServiceApprovals() {
   // States for Live Searching and Tier Filtering
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTier, setSelectedTier] = useState("All");
+  const [activeDropdownMenu, setActiveDropdownMenu] = useState(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => setActiveDropdownMenu(null);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   // Dynamically pull unique tiers for filter dropdown options
   const uniqueTiers = useMemo(() => {
@@ -212,15 +223,15 @@ export default function ServiceApprovals() {
           
           {/* DESKTOP TABLE VIEW */}
           <div className="hidden lg:block">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse table-fixed">
+            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse min-w-[1000px]">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
-                  <th className="w-[24%] px-6 py-4">Partner Details</th>
-                  <th className="w-[20%] px-6 py-4">Current Active Catalog</th>
-                  <th className="w-[22%] px-6 py-4">Requested New Service</th>
-                  <th className="w-[12%] px-6 py-4">Training Academy Score</th>
-                  <th className="w-[10%] px-6 py-4">Request Status</th>
-                  <th className="w-[12%] px-6 py-4 text-center">Action Controls</th>
+                  <th className="px-6 py-4">Partner Details</th>
+                  <th className="px-6 py-4">Current Active Catalog</th>
+                  <th className="px-6 py-4">Requested New Service</th>
+                  <th className="px-6 py-4">Training Academy Score</th>
+                  <th className="px-6 py-4">Request Status</th>
+                  <th className="px-6 py-4 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-600">
@@ -294,12 +305,44 @@ export default function ServiceApprovals() {
                             </button>
                           </div>
                         ) : (
-                          <button 
-                            onClick={() => alert(`Audit Logs: Expansion item ${item.id} status modified to "${item.status}"`)}
-                            className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
-                          >
-                            <MoreVertical size={16} />
-                          </button>
+                          <div className="relative inline-block text-left" onClick={(e) => e.stopPropagation()}>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveDropdownMenu(activeDropdownMenu === item.id ? null : item.id);
+                              }}
+                              className={`p-1 rounded-lg transition-colors ${activeDropdownMenu === item.id ? "bg-slate-100 text-slate-800" : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"}`}
+                            >
+                              <MoreVertical size={16} />
+                            </button>
+                            
+                            {activeDropdownMenu === item.id && (
+                              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-100 bg-white shadow-lg shadow-slate-200/50 z-50 py-2">
+                                <button
+                                  onClick={() => { setActiveDropdownMenu(null); alert(`Viewing details for ${item.id}`); }}
+                                  className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                                >
+                                  <Eye size={14} /> View Details
+                                </button>
+                                <button
+                                  onClick={() => { setActiveDropdownMenu(null); handleStatusChange(item.id, "Pending"); }}
+                                  className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
+                                >
+                                  <RefreshCw size={14} /> Re-evaluate
+                                </button>
+                                <div className="h-px bg-slate-100 my-1"></div>
+                                <button
+                                  onClick={() => {
+                                    setActiveDropdownMenu(null);
+                                    setServiceRequests(prev => prev.filter(r => r.id !== item.id));
+                                  }}
+                                  className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 transition"
+                                >
+                                  <Trash2 size={14} /> Delete Record
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         )}
                       </td>
                     </tr>

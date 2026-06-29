@@ -95,15 +95,7 @@ export default function QRManagementPage() {
           </div>
         </div>
 
-        {/* =========================================================
-            UPGRADED ACTIVE QR CODES GALLERY WITH REAL DYNAMIC QRs
-           ========================================================= */}
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#58647a]">Active QR Codes Gallery</h3>
-            <button className="text-xs font-bold text-[#1a0dab] hover:underline flex items-center gap-1">
-              View All <span>➔</span>
-            </button>
+        {/* =================================== */}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
@@ -150,9 +142,7 @@ export default function QRManagementPage() {
               </div>
               <h4 className="text-xs font-bold text-slate-800">Generate New Code</h4>
               <p className="text-[10px] text-gray-400 mt-1 max-w-[140px] leading-snug">Create a custom tracking QR for your next campaign</p>
-            </div>
           </div>
-        </div>
 
         {/* DETAILED DATA TABLE REGION */}
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">

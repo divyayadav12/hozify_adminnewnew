@@ -213,15 +213,15 @@ export default function KYCApprovals() {
           
           {/* DESKTOP VIEW */}
           <div className="hidden lg:block">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse table-fixed">
+            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse min-w-[900px]">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
-                  <th className="w-[25%] px-6 py-4">Partner Details</th>
-                  <th className="w-[18%] px-6 py-4">Document Type</th>
-                  <th className="w-[17%] px-6 py-4">Submission Time</th>
-                  <th className="w-[12%] px-6 py-4">Risk Profile</th>
-                  <th className="w-[13%] px-6 py-4">Status</th>
-                  <th className="w-[15%] px-6 py-4 text-center">Verification Actions</th>
+                  <th className="px-6 py-4">Partner Details</th>
+                  <th className="px-6 py-4">Document Type</th>
+                  <th className="px-6 py-4">Submission Time</th>
+                  <th className="px-6 py-4">Risk Profile</th>
+                  <th className="px-6 py-4">Status</th>
+                  <th className="px-6 py-4 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-600">

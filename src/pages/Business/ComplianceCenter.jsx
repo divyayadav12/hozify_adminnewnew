@@ -130,6 +130,22 @@ export default function ComplianceCenter() {
       setExporting(false);
       setExportDone(true);
       addToast("Compliance report exported successfully!", "success");
+      
+      const headers = "Renewal ID,Title,Details,Status,Note";
+      const csvRows = renewals.map(r => 
+        `"${r.id}","${r.title}","${r.sub}","${r.badge}","${r.note}"`
+      );
+      const csvContent = [headers, ...csvRows].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'compliance_report.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
       // reset after 3s so user can export again
       setTimeout(() => setExportDone(false), 3000);
     }, 1500);
@@ -150,7 +166,7 @@ export default function ComplianceCenter() {
         {/* HEADER */}
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-4xl font-bold">Compliance Center</h1>
+            <h1 className="text-2xl font-bold">Compliance Center</h1>
             <p className="text-gray-500 mt-2 transition-all duration-300">
               Real-time oversight of your enterprise regulatory standing.
               {auditDone && (
@@ -375,7 +391,7 @@ export default function ComplianceCenter() {
           {/* UPCOMING RENEWALS */}
           <div className="col-span-7 bg-white border rounded-xl overflow-hidden">
 
-            <div className="flex items-center justify-between px-6 py-5 border-b">
+            <div className="flex items-center justify-between px-6 py-4 border-b">
               <h2 className="text-2xl font-semibold">
                 Upcoming Renewals & Deadlines
                 {resolvedCount > 0 && (
@@ -403,7 +419,7 @@ export default function ComplianceCenter() {
                   onClick={() => !r.resolved && setSelectedRenewal(isSelected ? null : r.id)}
                 >
                   <div
-                    className={`flex items-center justify-between px-6 py-5 transition-all duration-150 ${
+                    className={`flex items-center justify-between px-6 py-4 transition-all duration-150 ${
                       r.resolved
                         ? "bg-green-50 opacity-70"
                         : isSelected
@@ -413,7 +429,7 @@ export default function ComplianceCenter() {
                   >
                     <div className="flex gap-4 items-center">
                       <div
-                        className={`w-14 h-14 border rounded-lg flex flex-col items-center justify-center transition-all duration-200 ${
+                        className={`w-10 h-10 border rounded-lg flex flex-col items-center justify-center transition-all duration-200 ${
                           r.resolved ? "border-green-300 bg-green-50" : isSelected ? "border-indigo-400 bg-indigo-50" : ""
                         }`}
                       >
@@ -502,7 +518,7 @@ export default function ComplianceCenter() {
                   <img
                     src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=100"
                     alt="policy"
-                    className="w-14 h-14 rounded object-cover shrink-0"
+                    className="w-10 h-10 rounded object-cover shrink-0"
                   />
                   <div>
                     <h4 className={`font-semibold transition-colors ${auditDone ? "text-green-700" : ""}`}>

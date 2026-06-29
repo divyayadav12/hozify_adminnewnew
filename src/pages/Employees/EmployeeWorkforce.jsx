@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Filter
 } from 'lucide-react';
+import { useToast } from '../../components/common/ToastNotification';
 
 const initialWorkforce = [
   {
@@ -74,11 +75,30 @@ const initialWorkforce = [
 ];
 
 export default function EmployeeWorkforce({ onSelectEmployee }) {
+  const { addToast } = useToast();
   const [branchFilter, setBranchFilter] = useState('All Branches');
   const [cityFilter, setCityFilter] = useState('All Cities');
   const [typeFilter, setTypeFilter] = useState('All Types');
   const [kycFilter, setKycFilter] = useState('All Status');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleExportCSV = () => {
+    addToast('Generating and downloading employees directory CSV...', 'success');
+    const headers = "Employee ID,Name,Phone,Branch,City,Rating,Bookings,Availability,KYC,Status";
+    const csvRows = initialWorkforce.map(emp => 
+      `"${emp.id}","${emp.name}","${emp.phone}","${emp.branch}","${emp.city}","${emp.rating}","${emp.bookings}","${emp.availability}","${emp.kyc}","${emp.status}"`
+    );
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'employees_list.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Handle local filter logic
   const filteredList = initialWorkforce.filter(emp => {
@@ -99,7 +119,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           <p className="page-subtitle">Manage, filter, and track performance of 1,240 registered staff members.</p>
         </div>
         <div className="partners-header-buttons">
-          <button className="secondary-action-btn" type="button">
+          <button onClick={handleExportCSV} className="secondary-action-btn" type="button" style={{ cursor: 'pointer' }}>
             <Download size={16} />
             <span>Export CSV</span>
           </button>
@@ -268,7 +288,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
                     </div>
                   </td>
                   <td className="partner-actions-cell" onClick={(e) => e.stopPropagation()}>
-                    <button className="table-row-action-btn" type="button" aria-label="More actions">
+                    <button onClick={() => addToast(`Actions menu opened for employee: ${emp.name}`, 'info')} className="table-row-action-btn" type="button" aria-label="More actions" style={{ cursor: 'pointer' }}>
                       <MoreVertical size={16} />
                     </button>
                   </td>

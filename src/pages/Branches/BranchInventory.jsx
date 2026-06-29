@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Download, SlidersHorizontal, MoreVertical, ChevronLeft, ChevronRight, Star, Map, ShieldCheck } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
 
 const branchData = [
   { id: 'BR-8821', name: 'Downtown Hub', business: 'Global Logistics Inc.', city: 'Chicago', employees: 42, revenue: '$124,500', rating: 4.8, status: 'APPROVED', statusBg: '#ecfdf5', statusColor: '#059669' },
@@ -13,11 +14,42 @@ const branchData = [
 
 export default function BranchInventory() {
   const { navigate, setCurrentBranchId } = useApp();
+  const { addToast } = useToast();
   const [search, setSearch] = useState('');
 
   const handleRowClick = (branchId) => {
     setCurrentBranchId(branchId);
     navigate(ROUTES.branchProfile);
+  };
+
+  const handleExport = () => {
+    addToast('Generating branch inventory CSV...', 'success');
+    const headers = "Branch ID,Branch Name,Business Name,City,Employees,Revenue,Rating,Status";
+    const csvRows = branchData.map(b => 
+      `"${b.id}","${b.name}","${b.business}","${b.city}","${b.employees}","${b.revenue}","${b.rating}","${b.status}"`
+    );
+    const csvContent = [headers, ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'branch_inventory.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleBulkActions = () => {
+    addToast('Bulk actions menu opened.', 'info');
+  };
+
+  const handleFilterToggle = () => {
+    addToast('Filters toggled.', 'info');
+  };
+
+  const handleMoreOptions = () => {
+    addToast('More Options menu opened.', 'info');
   };
 
   const filteredBranches = branchData.filter(b =>
@@ -37,12 +69,12 @@ export default function BranchInventory() {
         <div className="partners-header-buttons">
 
           
-          <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          <button onClick={handleExport} className="secondary-action-btn font-bold" type="button" style={{ height: '36px', cursor: 'pointer' }}>
             <Download size={14} style={{ marginRight: '4px' }} />
             <span>Export</span>
           </button>
 
-          <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          <button onClick={handleBulkActions} className="secondary-action-btn font-bold" type="button" style={{ height: '36px', cursor: 'pointer' }}>
             <span>Bulk Actions</span>
           </button>
         </div>
@@ -155,17 +187,17 @@ export default function BranchInventory() {
                 aria-label="Search branches"
               />
             </div>
-            <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Filters">
-              <SlidersHorizontal size={14} />
+            <button onClick={handleFilterToggle} className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Filters">
+              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><SlidersHorizontal size={14}  /></button>
             </button>
-            <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="More Options">
-              <MoreVertical size={14} />
+            <button onClick={handleMoreOptions} className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="More Options">
+              <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => addToast('More Options menu opened.', 'info')} type="button"><MoreVertical size={14}  /></button>
             </button>
           </div>
         </div>
 
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+          <table className="partner-table">
             <thead>
               <tr>
                 <th>BRANCH ID</th>
@@ -212,22 +244,22 @@ export default function BranchInventory() {
                 </tr>
               ))}
             </tbody>
-          </table></div>
+          </table>
         </div>
 
         {/* Table Footer */}
         <div className="directory-table-footer" style={{ marginTop: '16px' }}>
           <span className="footer-results-text">Showing 5 of 1,240 branches</span>
           <div className="pagination-wrap">
-            <button className="pag-nav-btn" type="button" disabled>
+            <button className="pag-nav-btn" type="button" disabled style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <ChevronLeft size={16} />
             </button>
-            <button className="pag-num-btn active" type="button">1</button>
-            <button className="pag-num-btn" type="button">2</button>
-            <button className="pag-num-btn" type="button">3</button>
+            <button className="pag-num-btn active" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>1</button>
+            <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>2</button>
+            <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>3</button>
             <span style={{ color: 'var(--muted)', margin: '0 4px' }}>...</span>
-            <button className="pag-num-btn" type="button">248</button>
-            <button className="pag-nav-btn" type="button">
+            <button className="pag-num-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>248</button>
+            <button className="pag-nav-btn" type="button" style={{ cursor: 'pointer' }} onClick={() => addToast('Action performed successfully.', 'success')}>
               <ChevronRight size={16} />
             </button>
           </div>
