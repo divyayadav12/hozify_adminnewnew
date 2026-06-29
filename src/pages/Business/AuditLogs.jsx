@@ -299,7 +299,7 @@ export default function AuditLogs() {
             <div className="flex items-center gap-2">
               <span className="text-[#71717A]">Rows per page:</span>
               <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white font-bold inline-flex items-center gap-3">
-                <span>40</span>
+                <span>50</span>
                 <ChevronDown size={14} className="text-[#71717A]" />
               </button>
             </div>
