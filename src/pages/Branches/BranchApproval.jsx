@@ -15,6 +15,7 @@ export default function BranchApproval() {
   const [queue, setQueue] = useState(initialQueue);
   const [filter, setFilter] = useState('All Approvals');
   const [search, setSearch] = useState('');
+  const [showExportModal, setShowExportModal] = useState(false);
 
   const handleAction = (id, nextStatus) => {
     setQueue(queue.map(item => item.id === id ? {
@@ -40,6 +41,15 @@ export default function BranchApproval() {
     navigate(ROUTES.branchSchedule);
   };
 
+  const handleFilterClick = () => {
+    alert('Advanced Filters sidepanel/dropdown option clicked!');
+  };
+
+  const triggerDownload = (format) => {
+    alert(`Preparing report download...\nYour data is being exported as an ${format} file.`);
+    setShowExportModal(false);
+  };
+
   return (
     <div className="branch-approval-container">
       {/* Page Header */}
@@ -48,20 +58,117 @@ export default function BranchApproval() {
           <h1 className="page-title">Branch Approval Queue</h1>
           <p className="page-subtitle">Verify and manage high-stakes operational requests across all active regions.</p>
         </div>
-        <div className="partners-header-buttons">
-          <button className="secondary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+        <div className="partners-header-buttons" style={{ position: 'relative' }}>
+          <button 
+            className="secondary-action-btn font-bold" 
+            type="button" 
+            style={{ height: '36px', cursor: 'pointer' }}
+            onClick={handleFilterClick}
+          >
             <SlidersHorizontal size={14} style={{ marginRight: '4px' }} />
             <span>Filter</span>
           </button>
-          <button className="primary-action-btn font-bold" type="button" style={{ height: '36px' }}>
+          
+          <button 
+            className="primary-action-btn font-bold" 
+            type="button" 
+            style={{ height: '36px', cursor: 'pointer' }}
+            onClick={() => setShowExportModal(!showExportModal)}
+          >
             <FileText size={14} style={{ marginRight: '4px' }} />
             <span>Export Report</span>
           </button>
+
+          {/* Export Document English Pop-up/Modal */}
+          {showExportModal && (
+            <div style={{
+              position: 'absolute',
+              top: '42px',
+              right: '0',
+              backgroundColor: '#ffffff',
+              border: '1px solid #d1d5db',
+              borderRadius: '6px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              zIndex: 100,
+              width: '245px',
+              padding: '8px 0'
+            }}>
+              <div style={{ padding: '8px 16px', fontSize: '11px', fontWeight: '700', color: '#6b7280', textTransform: 'uppercase', borderBottom: '1px solid #f3f4f6' }}>
+                Select Document Format
+              </div>
+              <button 
+                onClick={() => triggerDownload('Excel Spreadsheet (.xlsx)')}
+                style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+              >
+                📊 <span>Excel Spreadsheet (.xlsx)</span>
+              </button>
+              <button 
+                onClick={() => triggerDownload('CSV Delimited (.csv)')}
+                style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+              >
+                📝 <span>CSV Document (.csv)</span>
+              </button>
+              <button 
+                onClick={() => triggerDownload('PDF Report (.pdf)')}
+                style={{ width: '100%', border: 'none', background: 'none', textAlign: 'left', padding: '10px 16px', fontSize: '13px', color: '#1f2937', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#f3f4f6'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+              >
+                📕 <span>PDF Print Report (.pdf)</span>
+              </button>
+              <div style={{ borderTop: '1px solid #f3f4f6', marginTop: '4px', padding: '4px 8px 0 8px' }}>
+                <button 
+                  onClick={() => setShowExportModal(false)}
+                  style={{ width: '100%', border: 'none', background: '#f3f4f6', borderRadius: '4px', padding: '6px', fontSize: '12px', fontWeight: '600', color: '#4b5563', cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       {/* KPI Summary Cards */}
-      <section className="kpi-grid" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginBottom: '24px', gap: '20px' }}>
+      <style>{`
+        /* Excel Spreadsheet Formatting Styling */
+        .excel-style-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          font-size: 13px;
+          background-color: #ffffff;
+        }
+        .excel-style-table th {
+          background-color: #f3f4f6;
+          color: #374151;
+          font-weight: 600;
+          text-align: left;
+          padding: 10px 12px;
+          border: 1px solid #d1d5db;
+          text-transform: uppercase;
+          font-size: 11px;
+          letter-spacing: 0.05em;
+        }
+        .excel-style-table td {
+          padding: 10px 12px;
+          border: 1px solid #e5e7eb;
+          color: #4b5563;
+          vertical-align: middle;
+        }
+        .excel-style-table tbody tr:nth-child(even) {
+          background-color: #f9fafb;
+        }
+        .excel-style-table tbody tr:hover {
+          background-color: #f0fdf4; /* Light sheet selection look */
+        }
+      `}</style>
+
+      <section className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginBottom: '24px', gap: '20px' }}>
         {/* Pending Branches */}
         <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
           <div>
@@ -112,7 +219,6 @@ export default function BranchApproval() {
 
       {/* Directory Table Panel */}
       <section className="panel partner-directory-panel" style={{ padding: '24px' }}>
-        
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', borderBottom: '1px solid #f1f5f9', paddingBottom: '14px' }}>
           <div style={{ display: 'flex', gap: '24px' }}>
             {['All Approvals', 'New Branches', 'Compliance Update'].map((tab) => (
@@ -128,13 +234,13 @@ export default function BranchApproval() {
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div className="dash-search" style={{ width: '200px', height: '32px', margin: 0 }}>
-              <Search size={14} />
+            <div className="dash-search" style={{ width: '200px', height: '32px', margin: 0, display: 'flex', alignItems: 'center', paddingLeft: '8px', border: '1px solid #d1d5db', borderRadius: '4px' }}>
+              <Search size={14} style={{ color: '#9ca3af', marginRight: '6px' }} />
               <input
                 placeholder="Search approvals..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                style={{ fontSize: '12px' }}
+                style={{ fontSize: '12px', border: 'none', outline: 'none', width: '100%' }}
                 aria-label="Search approvals"
               />
             </div>
@@ -160,15 +266,15 @@ export default function BranchApproval() {
                 <tr key={row.id}>
                   <td>
                     <div>
-                      <strong style={{ display: 'block', fontSize: '13px' }}>{row.branchName}</strong>
-                      <span style={{ fontSize: '11px', color: 'var(--muted)' }}>ID: {row.id}</span>
+                      <strong style={{ display: 'block', fontSize: '13px', color: '#111827' }}>{row.branchName}</strong>
+                      <span style={{ fontSize: '11px', color: '#4f46e5', fontWeight: '600' }}>ID: {row.id}</span>
                     </div>
                   </td>
-                  <td style={{ color: 'var(--text)', fontSize: '13px' }}>{row.business}</td>
+                  <td style={{ color: 'var(--text)', fontSize: '13px', fontWeight: '500' }}>{row.business}</td>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <img src={row.managerAvatar} alt={row.manager} style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }} />
-                      <span style={{ fontSize: '13px', fontWeight: '700' }}>{row.manager}</span>
+                      <span style={{ fontSize: '13px', fontWeight: '600', color: '#374151' }}>{row.manager}</span>
                     </div>
                   </td>
                   <td style={{ color: 'var(--text)', fontSize: '13px' }}>{row.city}</td>
@@ -215,7 +321,7 @@ export default function BranchApproval() {
                           </button>
                         </>
                       ) : (
-                        <span style={{ fontSize: '11px', color: 'var(--muted)', minWidth: '64px', textAlign: 'center' }}>Processed</span>
+                        <span style={{ fontSize: '11px', color: 'var(--muted)', minWidth: '64px', textAlign: 'center', fontWeight: '600' }}>Processed</span>
                       )}
                     </div>
                   </td>

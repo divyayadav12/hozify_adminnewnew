@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
@@ -15,9 +15,13 @@ import {
   Plus,
   Compass
 } from 'lucide-react';
+import { useToast } from '../../components/common/ToastNotification';
 
 export default function BusinessRisk() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
+
+  const [riskStatus, setRiskStatus] = useState('HIGH RISK ENTITY'); // HIGH RISK ENTITY | ESCALATED | CLEARED | FROZEN
 
   const entityName = 'Global Zenith Holdings Ltd.';
   const entityId = 'INVEST-8821-X';
@@ -43,8 +47,12 @@ export default function BusinessRisk() {
         <div className="panel" style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '9px', fontWeight: '900', color: '#ef4444', background: '#fee2e2', padding: '3px 8px', borderRadius: '4px' }}>
-                HIGH RISK ENTITY
+              <span style={{
+                fontSize: '9px', fontWeight: '900', padding: '3px 8px', borderRadius: '4px',
+                color: riskStatus === 'CLEARED' ? '#065f46' : riskStatus === 'FROZEN' ? '#fff' : riskStatus === 'ESCALATED' ? '#b45309' : '#ef4444',
+                background: riskStatus === 'CLEARED' ? '#d1fae5' : riskStatus === 'FROZEN' ? '#1e293b' : riskStatus === 'ESCALATED' ? '#fef3c7' : '#fee2e2'
+              }}>
+                {riskStatus}
               </span>
               <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>ID: {entityId}</span>
             </div>
@@ -57,28 +65,28 @@ export default function BusinessRisk() {
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
               style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
-              onClick={() => alert('Marked Safe')}
+              onClick={() => { setRiskStatus('CLEARED'); addToast(`${entityName} has been marked as Safe. Risk cleared.`, 'success'); }}
               type="button"
             >
               Mark Safe
             </button>
             <button
               style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
-              onClick={() => alert('Escalating...')}
+              onClick={() => { setRiskStatus('ESCALATED'); addToast(`${entityName} escalated to Senior Risk Officer.`, 'info'); }}
               type="button"
             >
               Escalate
             </button>
             <button
               style={{ border: 'none', background: '#fee2e2', color: '#ef4444', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
-              onClick={() => navigate(ROUTES.businessSuspension)}
+              onClick={() => { addToast(`Initiating suspension workflow for ${entityName}...`, 'error'); navigate(ROUTES.businessSuspension); }}
               type="button"
             >
               Suspend
             </button>
             <button
               style={{ border: 'none', background: '#991b1b', color: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
-              onClick={() => alert('Account Frozen.')}
+              onClick={() => { setRiskStatus('FROZEN'); addToast(`CRITICAL: ${entityName} account has been FROZEN. All transactions blocked.`, 'error'); }}
               type="button"
             >
               Freeze Account
@@ -126,8 +134,8 @@ export default function BusinessRisk() {
 
                 {/* Add Marker Button */}
                 <button
-                  style={{ border: '1px dashed var(--line)', background: 'transparent', color: 'var(--muted)', fontSize: '11px', fontWeight: '800', borderRadius: '4px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px', minHeight: '68px' }}
-                  onClick={() => alert('Add marker dialog')}
+                  style={{ border: '1px dashed var(--line)', background: 'transparent', color: 'var(--muted)', fontSize: '11px', fontWeight: '800', borderRadius: '4px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px', minHeight: '68px', cursor: 'pointer' }}
+                  onClick={() => addToast('Custom risk marker added to investigation log.', 'info')}
                   type="button"
                 >
                   <Plus size={16} /> ADD MARKER

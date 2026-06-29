@@ -1,113 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 import BusinessHeaderTabs from './BusinessHeaderTabs';
+import { useToast } from '../../components/common/ToastNotification';
 import {
   Eye,
   Check,
   X,
   Search,
   SlidersHorizontal,
-  Download,
-  Printer,
   Plus,
   ArrowRight,
   ShieldAlert,
-  FileText,
   Building2,
   CheckCircle2,
   XCircle,
-  HelpCircle,
   RefreshCw,
   MoreVertical,
   Edit2,
-  UserCheck,
-  Ban,
-  Clock,
-  RotateCcw,
-  AlertOctagon
+  AlertOctagon,
+  RotateCcw
 } from 'lucide-react';
 
 export default function BusinessRegistry() {
   const { route, navigate } = useApp();
+  const { addToast } = useToast();
   const isComplianceTab = route === ROUTES.businessApproval;
-  
+
   // Local toggles and filters
   const [showApprovalQueueOnly, setShowApprovalQueueOnly] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [businessType, setBusinessType] = useState('All');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([]);
 
-  // Hardcoded Directory List Data (All active businesses)
-  const directoryBusinesses = [
+  // States for lists
+  const [directoryBusinesses, setDirectoryBusinesses] = useState([
     { id: 'BIZ-8829', name: 'Global Logistics Ltd', owner: 'Marcus Thorne', category: 'Logistics', regDate: 'Oct 12, 2023', score: 98, status: 'Active', location: 'Rotterdam, NL' },
     { id: 'BIZ-8849', name: 'Global Logistics Partners Inc.', owner: 'Sarah Jenkins', category: 'Logistics', regDate: 'Oct 14, 2021', score: 98, status: 'Active', location: 'Rotterdam, NL' },
     { id: 'BIZ-9901', name: 'Veridian Tech Solutions', owner: 'Sarah Chen', category: 'SaaS', regDate: 'Jan 15, 2022', score: 92, status: 'Active', location: 'Singapore' },
     { id: 'BIZ-4412', name: 'Apex Retail Partners', owner: 'Michael Rodriguez', category: 'Retail', regDate: 'Mar 10, 2023', score: 95, status: 'Active', location: 'London, UK' }
-  ];
+  ]);
 
-  // Screen 1 Business Management Grid Data
-  const businessManagementList = [
-    {
-      id: '#ENT-99201',
-      name: 'Luminary Systems',
-      subCategory: 'Technology & AI',
-      owner: 'Sarah Jenkins',
-      location: 'Austin, TX',
-      gstStatus: 'Verified',
-      revenue: '$842,000',
-      status: 'Active',
-      logoColor: '#6366f1',
-      logoBg: '#e0e7ff'
-    },
-    {
-      id: '#ENT-88412',
-      name: 'Aura Living',
-      subCategory: 'Furniture / Retail',
-      owner: 'Marcus Thorne',
-      location: 'Portland, OR',
-      gstStatus: 'Pending',
-      revenue: '$156,200',
-      status: 'Pending',
-      logoColor: '#f59e0b',
-      logoBg: '#fef3c7'
-    },
-    {
-      id: '#ENT-44102',
-      name: 'Velox Logistics',
-      subCategory: 'Transport',
-      owner: 'Elena Rodriguez',
-      location: 'Miami, FL',
-      gstStatus: 'Suspended',
-      revenue: '$2,400,000',
-      status: 'Suspended',
-      logoColor: '#ef4444',
-      logoBg: '#fee2e2'
-    },
-    {
-      id: '#ENT-55231',
-      name: 'BioStream Labs',
-      subCategory: 'Healthcare',
-      owner: 'David Chen',
-      location: 'San Jose, CA',
-      gstStatus: 'Verified',
-      revenue: '$1,120,500',
-      status: 'Active',
-      logoColor: '#10b981',
-      logoBg: '#d1fae5'
-    }
-  ];
+  const [businessManagementList, setBusinessManagementList] = useState([
+    { id: '#ENT-99201', name: 'Luminary Systems', subCategory: 'Technology & AI', owner: 'Sarah Jenkins', location: 'Austin, TX', gstStatus: 'Verified', revenue: '$842,000', status: 'Active', logoColor: '#6366f1', logoBg: '#e0e7ff' },
+    { id: '#ENT-88412', name: 'Aura Living', subCategory: 'Furniture / Retail', owner: 'Marcus Thorne', location: 'Portland, OR', gstStatus: 'Pending', revenue: '$156,200', status: 'Pending', logoColor: '#f59e0b', logoBg: '#fef3c7' },
+    { id: '#ENT-44102', name: 'Velox Logistics', subCategory: 'Transport', owner: 'Elena Rodriguez', location: 'Miami, FL', gstStatus: 'Suspended', revenue: '$2,400,000', status: 'Suspended', logoColor: '#ef4444', logoBg: '#fee2e2' },
+    { id: '#ENT-55231', name: 'BioStream Labs', subCategory: 'Healthcare', owner: 'David Chen', location: 'San Jose, CA', gstStatus: 'Verified', revenue: '$1,120,500', status: 'Active', logoColor: '#10b981', logoBg: '#d1fae5' }
+  ]);
 
-  // Pending queue registration requests (Screen 5 from turn 1)
-  const pendingBusinesses = [
+  const [pendingBusinesses, setPendingBusinesses] = useState([
     { id: 'QL-8829-X', name: 'Quantum Logistics Ltd', owner: 'Jonathan Miller', category: 'LOGISTICS', date: '2023-10-24', risk: 'High Risk', riskColor: '#ef4444', riskBg: '#fee2e2' },
     { id: 'VT-1033-A', name: 'Veridian Tech Solutions', owner: 'Sarah Chen', category: 'SAAS', date: '2023-10-25', risk: 'Medium Risk', riskColor: '#f59e0b', riskBg: '#fef3c7' },
     { id: 'AR-4412-M', name: 'Apex Retail Partners', owner: 'Michael Rodriguez', category: 'RETAIL', date: '2023-10-26', risk: 'Low Risk', riskColor: '#10b981', riskBg: '#ecfdf5' },
     { id: 'HC-9901-C', name: 'Helios Crypto Hedge', owner: 'Elena Volkov', category: 'FINTECH', date: '2023-10-26', risk: 'High Risk', riskColor: '#ef4444', riskBg: '#fee2e2' },
     { id: 'NH-2245-D', name: 'Nova Healthcare Corp', owner: 'David Brooks', category: 'HEALTHCARE', date: '2023-10-27', risk: 'Medium Risk', riskColor: '#f59e0b', riskBg: '#fef3c7' }
-  ];
+  ]);
+
+  // Derived metrics
+  const activeCount = businessManagementList.filter(b => b.status === 'Active').length + directoryBusinesses.length;
+  const pendingCount = pendingBusinesses.length + businessManagementList.filter(b => b.status === 'Pending').length;
+  const suspendedCount = businessManagementList.filter(b => b.status === 'Suspended').length;
+  const totalCount = activeCount + pendingCount + suspendedCount + 10300; // Static offset for high fidelity
 
   const handleRowClick = (bus) => {
     localStorage.setItem('selectedBusiness', JSON.stringify({
@@ -130,7 +87,89 @@ export default function BusinessRegistry() {
 
   const handleReviewClick = (e, bus) => {
     e.stopPropagation();
+    localStorage.setItem('selectedBusiness', JSON.stringify({
+      id: bus.id,
+      name: bus.name,
+      category: bus.category || 'Logistics',
+      location: 'HQ Sector',
+      status: 'Pending',
+      owner: bus.owner
+    }));
     navigate(ROUTES.businessReview);
+  };
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    addToast('Refreshing business registry listings...', 'info');
+    setTimeout(() => {
+      setIsRefreshing(false);
+      addToast('Business registry database up to date.', 'success');
+    }, 800);
+  };
+
+  const handleExport = () => {
+    addToast('Exporting business registry CSV...', 'success');
+  };
+
+  const handleApprove = (busId, name) => {
+    if (pendingBusinesses.some(b => b.id === busId)) {
+      setPendingBusinesses(prev => prev.filter(b => b.id !== busId));
+      setBusinessManagementList(prev => [
+        ...prev,
+        {
+          id: busId.startsWith('#') ? busId : '#' + busId,
+          name,
+          subCategory: 'Logistics & Supply',
+          owner: 'Alex Sterling',
+          location: 'HQ Region',
+          gstStatus: 'Verified',
+          revenue: '$0',
+          status: 'Active',
+          logoColor: '#10b981',
+          logoBg: '#d1fae5'
+        }
+      ]);
+    } else {
+      setBusinessManagementList(prev =>
+        prev.map(b => b.id === busId ? { ...b, status: 'Active', gstStatus: 'Verified' } : b)
+      );
+    }
+    addToast(`Approved registration for ${name}!`, 'success');
+  };
+
+  const handleReject = (busId, name) => {
+    if (pendingBusinesses.some(b => b.id === busId)) {
+      setPendingBusinesses(prev => prev.filter(b => b.id !== busId));
+    } else {
+      setBusinessManagementList(prev => prev.filter(b => b.id !== busId));
+    }
+    addToast(`Rejected registration request for ${name}.`, 'error');
+  };
+
+  const handleEditName = (busId, oldName) => {
+    const newName = prompt('Edit Business Name:', oldName);
+    if (newName !== null && newName.trim() !== '') {
+      setBusinessManagementList(prev =>
+        prev.map(b => b.id === busId ? { ...b, name: newName.trim() } : b)
+      );
+      setDirectoryBusinesses(prev =>
+        prev.map(b => b.id === busId ? { ...b, name: newName.trim() } : b)
+      );
+      addToast('Business name updated successfully!', 'success');
+    }
+  };
+
+  const handleSelectToggle = (id) => {
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  };
+
+  const handleSelectAll = (list) => {
+    const listIds = list.map(b => b.id);
+    if (listIds.every(id => selectedIds.includes(id))) {
+      setSelectedIds(prev => prev.filter(id => !listIds.includes(id)));
+    } else {
+      setSelectedIds(prev => Array.from(new Set([...prev, ...listIds])));
+    }
   };
 
   return (
@@ -143,7 +182,7 @@ export default function BusinessRegistry() {
       <div className="business-registry-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         
         {isComplianceTab ? (
-          /* ================= COMPLIANCE VIEW (SCREEN 1 & SCREEN 5 TOGGLE) ================= */
+          /* ================= COMPLIANCE VIEW ================= */
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
               <div>
@@ -160,31 +199,32 @@ export default function BusinessRegistry() {
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 <button
                   className="secondary-action-btn"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px' }}
-                  onClick={() => window.location.reload()}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                  onClick={handleRefresh}
+                  disabled={isRefreshing}
                   type="button"
                 >
-                  <RefreshCw size={14} /> Refresh
+                  <RefreshCw size={14} className={isRefreshing ? "animate-spin" : ""} /> Refresh
                 </button>
                 <button
                   className="secondary-action-btn"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px' }}
-                  onClick={() => alert('Exporting data...')}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                  onClick={handleExport}
                   type="button"
                 >
                   Export
                 </button>
                 <button
                   className="secondary-action-btn"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px' }}
-                  onClick={() => alert('Bulk Actions menu opened.')}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                  onClick={() => addToast('Opening bulk tools context...', 'info')}
                   type="button"
                 >
                   Bulk Actions
                 </button>
                 <button
                   className="primary-btn"
-                  style={{ height: '36px', width: 'auto', padding: '0 16px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '6px' }}
+                  style={{ height: '36px', width: 'auto', padding: '0 16px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
                   onClick={() => navigate(ROUTES.addBusiness)}
                   type="button"
                 >
@@ -193,35 +233,35 @@ export default function BusinessRegistry() {
               </div>
             </div>
 
-            {/* KPI Cards Row (Screen 1 Dashboard Overview) */}
+            {/* KPI Cards Row */}
             <div className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
               
-              {/* Total Businesses */}
               <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px' }}>
                 <div>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Total Businesses</span>
-                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>12,450</strong>
+                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>{totalCount.toLocaleString()}</strong>
                 </div>
                 <span style={{ fontSize: '10px', color: '#4f46e5', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   📈 8.2% vs last month
                 </span>
               </div>
 
-              {/* Active */}
               <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px' }}>
                 <div>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Active</span>
-                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>10,200</strong>
+                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>{activeCount}</strong>
                 </div>
                 <div style={{ height: '4px', width: '100%', background: '#e2e8f0', borderRadius: '2px', overflow: 'hidden' }}>
                   <div style={{ width: '82%', height: '100%', background: '#10b981' }} />
                 </div>
               </div>
 
-              {/* Pending - Triggers toggle to verification queue view */}
               <div 
                 className="panel" 
-                onClick={() => setShowApprovalQueueOnly(!showApprovalQueueOnly)}
+                onClick={() => {
+                  setShowApprovalQueueOnly(!showApprovalQueueOnly);
+                  setSelectedIds([]);
+                }}
                 style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px', cursor: 'pointer', border: showApprovalQueueOnly ? '2px solid #4f46e5' : '1px solid var(--line)', transition: 'all 0.2s ease' }}
               >
                 <div>
@@ -229,25 +269,23 @@ export default function BusinessRegistry() {
                     <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Pending</span>
                     <span style={{ fontSize: '7px', fontWeight: '900', color: '#b45309', background: '#fef3c7', padding: '1px 4px', borderRadius: '3px' }}>Queue</span>
                   </div>
-                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>850</strong>
+                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>{pendingCount}</strong>
                 </div>
                 <span style={{ fontSize: '10px', color: '#b45309', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '3px' }}>
                   ⏳ Action required soon
                 </span>
               </div>
 
-              {/* Suspended */}
               <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px' }}>
                 <div>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Suspended</span>
-                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>120</strong>
+                  <strong style={{ display: 'block', fontSize: '24px', color: 'var(--text)', marginTop: '6px' }}>{suspendedCount}</strong>
                 </div>
                 <span style={{ fontSize: '10px', color: '#ef4444', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '3px' }}>
                   ⚠ Critical status
                 </span>
               </div>
 
-              {/* Top Revenue */}
               <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px' }}>
                 <div>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Top Revenue</span>
@@ -257,14 +295,9 @@ export default function BusinessRegistry() {
                   <div style={{ height: '4px', width: '100%', background: '#e2e8f0', borderRadius: '2px', overflow: 'hidden' }}>
                     <div style={{ width: '80%', height: '100%', background: '#4f46e5' }} />
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '8px', color: 'var(--muted)', marginTop: '4px', fontWeight: '700' }}>
-                    <span>Current Target</span>
-                    <span>$3.0M</span>
-                  </div>
                 </div>
               </div>
 
-              {/* New Registrations */}
               <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px' }}>
                 <div>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>New Registrations</span>
@@ -275,8 +308,43 @@ export default function BusinessRegistry() {
 
             </div>
 
+            {/* Bulk Actions Header */}
+            {selectedIds.length > 0 && (
+              <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '8px', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                <span style={{ fontSize: '13px', fontWeight: '700', color: '#1e40af' }}>{selectedIds.length} entities selected</span>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button 
+                    onClick={() => {
+                      setBusinessManagementList(prev => prev.map(b => selectedIds.includes(b.id) ? { ...b, status: 'Active', gstStatus: 'Verified' } : b));
+                      setSelectedIds([]);
+                      addToast(`Bulk approved ${selectedIds.length} entities!`, 'success');
+                    }}
+                    style={{ background: '#10b981', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}
+                  >
+                    Approve Selected
+                  </button>
+                  <button 
+                    onClick={() => {
+                      setBusinessManagementList(prev => prev.map(b => selectedIds.includes(b.id) ? { ...b, status: 'Suspended', gstStatus: 'Suspended' } : b));
+                      setSelectedIds([]);
+                      addToast(`Bulk suspended ${selectedIds.length} entities!`, 'error');
+                    }}
+                    style={{ background: '#ef4444', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}
+                  >
+                    Suspend Selected
+                  </button>
+                  <button 
+                    onClick={() => setSelectedIds([])}
+                    style={{ background: 'transparent', border: '1px solid #cbd5e1', color: '#475569', padding: '6px 12px', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}
+                  >
+                    Deselect
+                  </button>
+                </div>
+              </div>
+            )}
+
             {showApprovalQueueOnly ? (
-              /* COMPLIANCE SUBVIEW: PENDING REGISTRATION QUEUE (SCREEN 5 TURN 1) */
+              /* COMPLIANCE SUBVIEW: PENDING REGISTRATION QUEUE */
               <section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -296,6 +364,14 @@ export default function BusinessRegistry() {
                   <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="approval-queue-table">
                     <thead>
                       <tr>
+                        <th style={{ width: '40px', padding: '12px 16px' }}>
+                          <input 
+                            type="checkbox" 
+                            aria-label="Select all pending" 
+                            checked={pendingBusinesses.length > 0 && pendingBusinesses.every(b => selectedIds.includes(b.id))}
+                            onChange={() => handleSelectAll(pendingBusinesses)}
+                          />
+                        </th>
                         <th>BUSINESS NAME</th>
                         <th>OWNER</th>
                         <th>CATEGORY</th>
@@ -307,6 +383,14 @@ export default function BusinessRegistry() {
                     <tbody>
                       {pendingBusinesses.map((bus) => (
                         <tr key={bus.id} className="partner-row-clickable" onClick={() => handleRowClick(bus)} style={{ cursor: 'pointer' }}>
+                          <td style={{ padding: '14px 16px' }} onClick={(e) => e.stopPropagation()}>
+                            <input 
+                              type="checkbox" 
+                              checked={selectedIds.includes(bus.id)}
+                              onChange={() => handleSelectToggle(bus.id)}
+                              aria-label={`Select ${bus.name}`} 
+                            />
+                          </td>
                           <td>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                               <span style={{ height: '32px', width: '32px', borderRadius: '6px', background: '#dbeafe', color: '#1e40af', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '800' }}>
@@ -336,8 +420,8 @@ export default function BusinessRegistry() {
                               <button onClick={(e) => handleReviewClick(e, bus)} className="btn-action-circle" style={{ height: '28px', width: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9', border: 'none', color: '#334155' }} title="Review Page" type="button">
                                 <Eye size={13} />
                               </button>
-                              <button onClick={() => alert(`${bus.name} Approved.`)} className="btn-action-circle approve-green" type="button"><Check size={13} /></button>
-                              <button onClick={() => alert(`${bus.name} Rejected.`)} className="btn-action-circle reject-red" type="button"><X size={13} /></button>
+                              <button onClick={() => handleApprove(bus.id, bus.name)} className="btn-action-circle approve-green" type="button" title="Approve"><Check size={13} /></button>
+                              <button onClick={() => handleReject(bus.id, bus.name)} className="btn-action-circle reject-red" type="button" title="Reject"><X size={13} /></button>
                             </div>
                           </td>
                         </tr>
@@ -347,13 +431,11 @@ export default function BusinessRegistry() {
                 </div>
               </section>
             ) : (
-              /* MAIN COMPLIANCE DASHBOARD: BUSINESS MANAGEMENT VIEW (SCREEN 1) */
+              /* MAIN COMPLIANCE DASHBOARD: BUSINESS MANAGEMENT VIEW */
               <section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 
-                {/* Search & Filters row (Screen 1) */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 1fr 1fr auto', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   
-                  {/* Search input */}
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Search</label>
                     <div className="input-wrap" style={{ minHeight: '38px', padding: '0 10px' }}>
@@ -367,7 +449,6 @@ export default function BusinessRegistry() {
                     </div>
                   </div>
 
-                  {/* Business Type */}
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Business Type</label>
                     <select
@@ -382,7 +463,6 @@ export default function BusinessRegistry() {
                     </select>
                   </div>
 
-                  {/* Category */}
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Category</label>
                     <select
@@ -395,12 +475,11 @@ export default function BusinessRegistry() {
                       <option value="Retail">Retail</option>
                       <option value="Logistics">Logistics</option>
                       <option value="SaaS">SaaS</option>
-                      <option value="Tech">Tech</option>
+                      <option value="Tech">Tech / AI</option>
                       <option value="Healthcare">Healthcare</option>
                     </select>
                   </div>
 
-                  {/* Status */}
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Status</label>
                     <select
@@ -416,11 +495,10 @@ export default function BusinessRegistry() {
                     </select>
                   </div>
 
-                  {/* Advanced Filters */}
                   <button
                     className="secondary-action-btn"
-                    style={{ height: '38px', display: 'flex', alignItems: 'center', gap: '6px', padding: '0 12px', border: '1px solid #4f46e5', color: '#4f46e5', background: '#fff', fontWeight: '700', fontSize: '12px', borderRadius: '6px' }}
-                    onClick={() => alert('Advanced filters toggled.')}
+                    style={{ height: '38px', display: 'flex', alignItems: 'center', gap: '6px', padding: '0 12px', border: '1px solid #4f46e5', color: '#4f46e5', background: '#fff', fontWeight: '700', fontSize: '12px', borderRadius: '6px', cursor: 'pointer' }}
+                    onClick={() => addToast('Displaying detailed filters...', 'info')}
                     type="button"
                   >
                     <SlidersHorizontal size={14} /> Advanced Filters
@@ -428,12 +506,18 @@ export default function BusinessRegistry() {
 
                 </div>
 
-                {/* Table list */}
                 <div className="table-wrap">
                   <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="approval-queue-table">
                     <thead>
                       <tr>
-                        <th style={{ width: '40px', padding: '12px 16px' }}><input type="checkbox" aria-label="Select all businesses" /></th>
+                        <th style={{ width: '40px', padding: '12px 16px' }}>
+                          <input 
+                            type="checkbox" 
+                            aria-label="Select all management" 
+                            checked={businessManagementList.length > 0 && businessManagementList.every(b => selectedIds.includes(b.id))}
+                            onChange={() => handleSelectAll(businessManagementList)}
+                          />
+                        </th>
                         <th>BUSINESS ID</th>
                         <th>BUSINESS NAME</th>
                         <th>OWNER</th>
@@ -448,13 +532,20 @@ export default function BusinessRegistry() {
                       {businessManagementList
                         .filter(b => {
                           const matchesSearch = b.name.toLowerCase().includes(searchTerm.toLowerCase()) || b.owner.toLowerCase().includes(searchTerm.toLowerCase()) || b.id.toLowerCase().includes(searchTerm.toLowerCase());
-                          const matchesCategory = categoryFilter === 'All' || b.subCategory.includes(categoryFilter);
+                          const matchesCategory = categoryFilter === 'All' || b.subCategory.includes(categoryFilter) || (categoryFilter === 'Tech' && b.subCategory.includes('Technology'));
                           const matchesStatus = statusFilter === 'All' || b.status === statusFilter;
                           return matchesSearch && matchesCategory && matchesStatus;
                         })
                         .map((bus) => (
                           <tr key={bus.id} className="partner-row-clickable" onClick={() => handleRowClick(bus)} style={{ cursor: 'pointer' }}>
-                            <td style={{ padding: '14px 16px' }} onClick={(e) => e.stopPropagation()}><input type="checkbox" aria-label={`Select ${bus.name}`} /></td>
+                            <td style={{ padding: '14px 16px' }} onClick={(e) => e.stopPropagation()}>
+                              <input 
+                                type="checkbox" 
+                                checked={selectedIds.includes(bus.id)}
+                                onChange={() => handleSelectToggle(bus.id)}
+                                aria-label={`Select ${bus.name}`} 
+                              />
+                            </td>
                             <td style={{ color: 'var(--muted)', fontWeight: '700', fontSize: '12px' }}>{bus.id}</td>
                             <td>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -498,21 +589,21 @@ export default function BusinessRegistry() {
                               <div style={{ display: 'inline-flex', gap: '6px' }}>
                                 {bus.status === 'Pending' ? (
                                   <>
-                                    <button onClick={() => navigate(ROUTES.businessReview)} className="btn-action-circle approve-green" type="button" title="Approve"><Check size={13} /></button>
-                                    <button onClick={() => alert('Rejected.')} className="btn-action-circle reject-red" type="button" title="Reject"><X size={13} /></button>
+                                    <button onClick={() => handleApprove(bus.id, bus.name)} className="btn-action-circle approve-green" type="button" title="Approve"><Check size={13} /></button>
+                                    <button onClick={() => handleReject(bus.id, bus.name)} className="btn-action-circle reject-red" type="button" title="Reject"><X size={13} /></button>
                                   </>
                                 ) : bus.status === 'Suspended' ? (
                                   <>
                                     <button onClick={() => navigate(ROUTES.businessSuspension)} className="btn-action-circle" style={{ background: '#f1f5f9', border: 'none', color: '#475569' }} type="button" title="Audit/History"><RotateCcw size={13} /></button>
-                                    <button onClick={() => alert('Critical Review Alerts')} className="btn-action-circle reject-red" type="button" title="Alerts"><AlertOctagon size={13} /></button>
+                                    <button onClick={() => addToast(`Critical Warning: GSTIN validation failed on ${bus.name}`, 'error')} className="btn-action-circle reject-red" type="button" title="Alerts"><AlertOctagon size={13} /></button>
                                   </>
                                 ) : (
                                   <>
-                                    <button onClick={(e) => { e.stopPropagation(); handleRowClick(bus); }} className="btn-action-circle" style={{ background: '#f1f5f9', border: 'none', color: '#475569' }} type="button" title="View details"><Eye size={13} /></button>
-                                    <button onClick={() => alert('Editing details...')} className="btn-action-circle" style={{ background: '#f1f5f9', border: 'none', color: '#475569' }} type="button" title="Edit"><Edit2 size={13} /></button>
+                                    <button onClick={() => handleRowClick(bus)} className="btn-action-circle" style={{ background: '#f1f5f9', border: 'none', color: '#475569' }} type="button" title="View details"><Eye size={13} /></button>
+                                    <button onClick={() => handleEditName(bus.id, bus.name)} className="btn-action-circle" style={{ background: '#f1f5f9', border: 'none', color: '#475569' }} type="button" title="Edit"><Edit2 size={13} /></button>
                                   </>
                                 )}
-                                <button className="btn-action-circle" style={{ background: 'transparent', border: 'none', color: 'var(--muted)' }} type="button"><MoreVertical size={13} /></button>
+                                <button className="btn-action-circle" onClick={() => addToast('More Actions options.', 'info')} style={{ background: 'transparent', border: 'none', color: 'var(--muted)' }} type="button"><MoreVertical size={13} /></button>
                               </div>
                             </td>
                           </tr>
@@ -521,17 +612,15 @@ export default function BusinessRegistry() {
                   </table></div>
                 </div>
 
-                {/* Footer details */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '16px', flexWrap: 'wrap', gap: '12px' }}>
-                  <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>Showing 1 to 10 of 12,450 entries</span>
+                  <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>Showing 1 to {businessManagementList.length} of {totalCount.toLocaleString()} entries</span>
                   <div className="pagination-wrap" style={{ display: 'flex', gap: '6px' }}>
                     <button className="pag-nav-btn" disabled type="button">Previous</button>
                     <button className="pag-num-btn active" type="button">1</button>
-                    <button className="pag-num-btn" type="button">2</button>
-                    <button className="pag-num-btn" type="button">3</button>
+                    <button className="pag-num-btn" type="button" onClick={() => addToast('Opening page 2...', 'info')}>2</button>
+                    <button className="pag-num-btn" type="button" onClick={() => addToast('Opening page 3...', 'info')}>3</button>
                     <span style={{ alignSelf: 'center', color: 'var(--muted)', padding: '0 4px' }}>...</span>
-                    <button className="pag-num-btn" type="button">1,245</button>
-                    <button className="pag-nav-btn" type="button">Next</button>
+                    <button className="pag-nav-btn" type="button" onClick={() => addToast('Opening next page...', 'info')}>Next</button>
                   </div>
                 </div>
 
@@ -539,7 +628,7 @@ export default function BusinessRegistry() {
             )}
           </>
         ) : (
-          /* ================= DIRECTORY VIEW (FROM TURN 1) ================= */
+          /* ================= DIRECTORY VIEW ================= */
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
               <div>
@@ -548,17 +637,25 @@ export default function BusinessRegistry() {
               </div>
             </div>
 
-            {/* Directory list panel */}
             <section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               
-              <div className="input-wrap" style={{ maxWidth: '400px', minHeight: '38px', padding: '0 10px' }}>
-                <Search size={16} />
-                <input
-                  placeholder="Search active businesses..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  style={{ fontSize: '13px' }}
-                />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                <div className="input-wrap" style={{ width: '400px', minHeight: '38px', padding: '0 10px' }}>
+                  <Search size={16} />
+                  <input
+                    placeholder="Search active businesses..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={{ fontSize: '13px' }}
+                  />
+                </div>
+                <button 
+                  onClick={handleExport}
+                  className="secondary-action-btn"
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                >
+                  Export CSV
+                </button>
               </div>
 
               <div className="table-wrap">
@@ -576,7 +673,7 @@ export default function BusinessRegistry() {
                   </thead>
                   <tbody>
                     {directoryBusinesses
-                      .filter(b => b.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                      .filter(b => b.name.toLowerCase().includes(searchTerm.toLowerCase()) || b.id.toLowerCase().includes(searchTerm.toLowerCase()))
                       .map((bus) => (
                         <tr
                           key={bus.id}
@@ -606,7 +703,7 @@ export default function BusinessRegistry() {
                           <td style={{ padding: '14px 16px', fontSize: '12px', color: 'var(--muted)' }}>{bus.regDate}</td>
                           <td style={{ padding: '14px 16px', textAlign: 'right' }}>
                             <button
-                              style={{ border: 'none', background: 'transparent', color: '#4f46e5', fontWeight: '700', fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                              style={{ border: 'none', background: 'transparent', color: '#4f46e5', fontWeight: '700', fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
                               onClick={(e) => { e.stopPropagation(); handleRowClick(bus); }}
                               type="button"
                             >
