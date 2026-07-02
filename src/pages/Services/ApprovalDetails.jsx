@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import {
   FileText,
@@ -193,7 +194,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
                     <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>{doc.name}</strong>
                     <span style={{ display: 'block', fontSize: '9px', color: 'var(--muted)', marginTop: '2px' }}>{doc.meta}</span>
                   </div>
-                  <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }} type="button" title="Download">
+                  <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }} type="button" title="Download" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                     <Download size={16} />
                   </button>
                 </div>

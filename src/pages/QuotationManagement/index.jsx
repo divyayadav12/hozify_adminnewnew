@@ -152,7 +152,7 @@ function TrendChart({ months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] }) {
   return <div className="quote-trend"><div className="quote-line" /><div className="quote-axis">{months.map((m) => <span key={m}>{m}</span>)}</div></div>;
 }
 
-function Modal({ title, body, onClose }) {
+function Modal({ title, body, onClose, onConfirm }) {
   if (!title) return null;
   return (
     <div className="quote-modal-backdrop" role="presentation" onClick={onClose}>
@@ -160,7 +160,13 @@ function Modal({ title, body, onClose }) {
         <h3>{title}</h3>
         <p>{body}</p>
         <textarea placeholder="Approval notes..." />
-        <div className="quote-actions"><Btn onClick={onClose}>Cancel</Btn><Btn variant="primary" onClick={onClose}>Confirm</Btn></div>
+        <div className="quote-actions">
+          <Btn onClick={onClose}>Cancel</Btn>
+          <Btn variant="primary" onClick={() => {
+            if (onConfirm) onConfirm();
+            onClose();
+          }}>Confirm</Btn>
+        </div>
       </section>
     </div>
   );
@@ -208,7 +214,8 @@ function Dashboard({ nav }) {
   );
 }
 
-function QuotationTable({ nav, compact = false }) {
+function QuotationTable({ nav, compact = false, rows, setModal, toast }) {
+  const dataRows = rows || (compact ? quotations.slice(0, 3) : quotations);
   return <Table columns={[
     { key: 'id', label: 'Quote ID', render: (q) => <button className="quote-link" onClick={() => nav(ROUTES.quotationDetails)}>{q.id}</button> },
     { key: 'rfq', label: 'RFQ ID' },
@@ -217,33 +224,219 @@ function QuotationTable({ nav, compact = false }) {
     ...(compact ? [] : [{ key: 'delivery', label: 'Delivery Time' }]),
     { key: 'status', label: 'Status', render: (q) => <Badge status={q.status}>{q.status}</Badge> },
     ...(compact ? [] : [{ key: 'submitted', label: 'Submitted Date' }])
-  ]} rows={compact ? quotations.slice(0, 3) : quotations} renderActions={(q) => (
+  ]} rows={dataRows} renderActions={(q) => (
     <>
       <button title="View" onClick={() => nav(ROUTES.quotationDetails)}><Eye size={15} /></button>
       <button title="Compare" onClick={() => nav(ROUTES.quotationComparison)}><BarChart3 size={15} /></button>
-      <button title="Approve"><CheckCircle2 size={15} /></button>
-      <button title="Reject"><XCircle size={15} /></button>
+      <button title="Approve" onClick={() => setModal ? setModal(['Approve Quotation', `Are you sure you want to approve quotation ${q.id} for ${inr(q.amount)}?`]) : toast('Quotation approved')}><CheckCircle2 size={15} /></button>
+      <button title="Reject" onClick={() => setModal ? setModal(['Reject Quotation', `Are you sure you want to reject quotation ${q.id}?`]) : toast('Quotation rejected')}><XCircle size={15} /></button>
     </>
   )} />;
 }
 
-function SellerListing({ nav }) {
+function SellerListing({ nav, toast, setModal }) {
+  const [sellerFilter, setSellerFilter] = useState('ALL');
+  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [rfqFilter, setRfqFilter] = useState('');
+  const [amountRange, setAmountRange] = useState('ALL');
+
+  const filteredQuotes = useMemo(() => {
+    return quotations.filter((q) => {
+      // Seller
+      if (sellerFilter !== 'ALL' && q.seller !== sellerFilter) return false;
+      // Status
+      if (statusFilter !== 'ALL' && q.status.toUpperCase() !== statusFilter.toUpperCase()) return false;
+      // RFQ ID
+      if (rfqFilter.trim() !== '' && !q.rfq.toLowerCase().includes(rfqFilter.toLowerCase())) return false;
+      // Amount Range
+      if (amountRange !== 'ALL') {
+        if (amountRange === 'UNDER_5L' && q.amount >= 500000) return false;
+        if (amountRange === '5L_TO_20L' && (q.amount < 500000 || q.amount > 2000000)) return false;
+        if (amountRange === 'OVER_20L' && q.amount <= 2000000) return false;
+      }
+      return true;
+    });
+  }, [sellerFilter, statusFilter, rfqFilter, amountRange]);
+
+  const handleReset = () => {
+    setSellerFilter('ALL');
+    setStatusFilter('ALL');
+    setRfqFilter('');
+    setAmountRange('ALL');
+    toast('Filters reset successfully.');
+  };
+
+  const avgBid = useMemo(() => {
+    const total = filteredQuotes.reduce((acc, curr) => acc + curr.amount, 0);
+    return filteredQuotes.length > 0 ? Math.round(total / filteredQuotes.length) : 0;
+  }, [filteredQuotes]);
+
+  const pendingCount = useMemo(() => {
+    return filteredQuotes.filter(q => q.status === 'Pending').length;
+  }, [filteredQuotes]);
+
   return (
     <>
-      <section className="quote-kpi-grid"><Kpi label="Total Active Quotes" value="1,284" note="+12% vs last month" /><Kpi label="Avg. Bid Amount" value="₹4,120" note="-2.4% vs last month" danger /><Kpi label="Avg. Delivery Time" value="3.2 Days" note="Stable Trend" /><Kpi label="Pending Approval" value="42" note="18 urgent requests" danger /></section>
-      <div className="quote-filterbar"><Filter size={18} /><span>Filters</span><select><option>All Sellers</option></select><select><option>All Statuses</option></select><input placeholder="Booking ID" /><input placeholder="Amount Range" /><Btn icon={RefreshCcw}>Reset All</Btn></div>
-      <QuotationTable nav={nav} />
+      <section className="quote-kpi-grid">
+        <Kpi label="Total Active Quotes" value={filteredQuotes.length} note="+12% vs last month" />
+        <Kpi label="Avg. Bid Amount" value={inr(avgBid)} note="-2.4% vs last month" danger={avgBid > 1000000} />
+        <Kpi label="Avg. Delivery Time" value="3.2 Days" note="Stable Trend" />
+        <Kpi label="Pending Approval" value={pendingCount} note="Requires attention" danger={pendingCount > 0} />
+      </section>
+      <div className="quote-filterbar">
+        <Filter size={18} />
+        <span>Filters</span>
+        <select value={sellerFilter} onChange={(e) => setSellerFilter(e.target.value)}>
+          <option value="ALL">All Sellers</option>
+          {sellers.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
+        </select>
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <option value="ALL">All Statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
+          <option value="Negotiation">Negotiation</option>
+          <option value="Suspended">Suspended</option>
+        </select>
+        <input 
+          placeholder="RFQ ID" 
+          value={rfqFilter} 
+          onChange={(e) => setRfqFilter(e.target.value)} 
+          style={{ 
+            border: '1px solid #cbd5e1', 
+            borderRadius: '6px', 
+            padding: '4px 10px', 
+            fontSize: '13px', 
+            outline: 'none',
+            color: '#1c2536' 
+          }}
+        />
+        <select value={amountRange} onChange={(e) => setAmountRange(e.target.value)}>
+          <option value="ALL">All Amounts</option>
+          <option value="UNDER_5L">Under ₹5 Lakhs</option>
+          <option value="5L_TO_20L">₹5 Lakhs - ₹20 Lakhs</option>
+          <option value="OVER_20L">Over ₹20 Lakhs</option>
+        </select>
+        <Btn icon={RefreshCcw} onClick={handleReset}>Reset All</Btn>
+      </div>
+      <QuotationTable nav={nav} rows={filteredQuotes} setModal={setModal} toast={toast} />
       <section className="quote-two-col"><article className="quote-image-card large">Network Status<br /><span>All regions operating at 100% capacity.</span></article><article className="quote-image-card large alt">Market Insights<br /><span>Quote acceptance rates increased by 4.2% today.</span></article></section>
     </>
   );
 }
 
-function RfqListing({ nav }) {
+function RfqListing({ nav, toast, setModal }) {
+  const [rfqTab, setRfqTab] = useState('LIVE');
+  const [rfqStatusFilter, setRfqStatusFilter] = useState('ALL');
+  const [activeRfqFilter, setActiveRfqFilter] = useState(false);
+
+  const displayedRfqs = useMemo(() => {
+    return rfqs.filter((r) => {
+      // Tab filter
+      if (rfqTab === 'LIVE' && r.status === 'Suspended') return false;
+      if (rfqTab === 'ARCHIVED' && r.status !== 'Suspended') return false;
+
+      // Status filter
+      if (rfqStatusFilter !== 'ALL' && r.status !== rfqStatusFilter) return false;
+
+      return true;
+    });
+  }, [rfqTab, rfqStatusFilter]);
+
+  const handleExportRfqs = () => {
+    const data = [
+      ["RFQ ID", "Booking ID", "Material Request", "Quantity", "Sellers Sent", "Deadline", "Status"],
+      ...rfqs.map(r => [r.id, r.booking, r.material, r.qty, r.sellers, r.deadline, r.status])
+    ];
+    const csvContent = generateCSV(data[0], data.slice(1));
+    triggerDownload(csvContent, "rfqs_list.csv", "text/csv");
+    toast("RFQ list downloaded successfully!");
+  };
+
   return (
     <>
-      <section className="quote-kpi-grid"><Kpi label="Active RFQs" value="124" note="+12%" /><Kpi label="Avg. Response Time" value="4.2h" note="-0.5h" /><Kpi label="Pending Quotes" value="48" note="In queue" /><Kpi label="Conversion Rate" value="82%" note="Target" /></section>
+      <section className="quote-kpi-grid">
+        <Kpi label="Active RFQs" value={rfqs.filter(r => r.status !== 'Suspended').length} note="+12%" />
+        <Kpi label="Avg. Response Time" value="4.2h" note="-0.5h" />
+        <Kpi label="Pending Quotes" value="48" note="In queue" />
+        <Kpi label="Conversion Rate" value="82%" note="Target" />
+      </section>
       <article className="quote-card">
-        <div className="quote-card-head"><div><h3>Request for Quotations</h3><span className="quote-chip">Live</span><span className="quote-chip">Archived</span></div><div className="quote-actions"><Btn icon={Filter}>Filter</Btn><Btn icon={Download} onClick={() => downloadDummyPDF('RFQ_Export', 'Dummy RFQ Data')}>Export</Btn></div></div>
+        <div className="quote-card-head">
+          <div>
+            <h3>Request for Quotations</h3>
+            <button 
+              className={`quote-chip ${rfqTab === 'LIVE' ? 'active' : ''}`}
+              style={{ border: 'none', background: rfqTab === 'LIVE' ? '#25108f' : '#f1f5f9', color: rfqTab === 'LIVE' ? '#fff' : '#565365', cursor: 'pointer', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '800' }}
+              onClick={() => setRfqTab('LIVE')}
+            >
+              Live
+            </button>
+            <button 
+              className={`quote-chip ${rfqTab === 'ARCHIVED' ? 'active' : ''}`}
+              style={{ border: 'none', background: rfqTab === 'ARCHIVED' ? '#25108f' : '#f1f5f9', color: rfqTab === 'ARCHIVED' ? '#fff' : '#565365', cursor: 'pointer', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', marginLeft: '6px' }}
+              onClick={() => setRfqTab('ARCHIVED')}
+            >
+              Archived
+            </button>
+          </div>
+          <div className="quote-actions" style={{ position: 'relative' }}>
+            <Btn icon={Filter} onClick={() => setActiveRfqFilter(!activeRfqFilter)}>
+              Filter: {rfqStatusFilter === 'ALL' ? 'All' : rfqStatusFilter}
+            </Btn>
+
+            {activeRfqFilter && (
+              <>
+                <div 
+                  onClick={() => setActiveRfqFilter(false)}
+                  style={{ position: 'fixed', inset: 0, zIndex: 999 }}
+                />
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    right: '100px', 
+                    top: '36px', 
+                    width: '160px', 
+                    background: '#ffffff', 
+                    border: '1px solid #cbd5e1', 
+                    borderRadius: '8px', 
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)', 
+                    zIndex: 1000, 
+                    padding: '6px 0',
+                    textAlign: 'left'
+                  }}
+                >
+                  {['ALL', 'Pending', 'Verified', 'Suspended'].map((status) => (
+                    <button
+                      key={status}
+                      onClick={() => {
+                        setRfqStatusFilter(status);
+                        setActiveRfqFilter(false);
+                        toast(`Filtered RFQs by ${status}`);
+                      }}
+                      style={{
+                        width: '100%',
+                        border: 'none',
+                        background: 'transparent',
+                        padding: '8px 12px',
+                        fontSize: '12px',
+                        color: '#1c2536',
+                        fontWeight: rfqStatusFilter === status ? '800' : '500',
+                        textAlign: 'left',
+                        cursor: 'pointer'
+                      }}
+                      className="hover:bg-slate-50"
+                    >
+                      {status}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <Btn icon={Download} onClick={handleExportRfqs}>Export</Btn>
+          </div>
+        </div>
         <Table columns={[
           { key: 'id', label: 'RFQ ID', render: (r) => <button className="quote-link" onClick={() => nav(ROUTES.quotationCreateRfq)}>{r.id}</button> },
           { key: 'booking', label: 'Booking ID' },
@@ -251,34 +444,341 @@ function RfqListing({ nav }) {
           { key: 'sellers', label: 'Sellers Sent', render: (r) => <span className="quote-avatar">+{r.sellers}</span> },
           { key: 'deadline', label: 'Deadline' },
           { key: 'status', label: 'Status', render: (r) => <Badge status={r.status}>{r.status}</Badge> }
-        ]} rows={rfqs} renderActions={() => <><button><Eye size={15} /></button><button><Edit3 size={15} /></button><button><XCircle size={15} /></button></>} />
+        ]} rows={displayedRfqs} renderActions={(r) => <><button title="View RFQ" onClick={() => setModal([`RFQ Details: ${r.id}`, `Booking Ref: ${r.booking}\n\nMaterial: ${r.material}\nQuantity: ${r.qty}\nSellers Contacted: ${r.sellers}\nDeadline: ${r.deadline}\nStatus: ${r.status}`])}><Eye size={15} /></button><button title="Edit RFQ" onClick={() => nav(ROUTES.quotationCreateRfq)}><Edit3 size={15} /></button><button title="Delete RFQ" onClick={() => setModal(['Delete RFQ', `Are you sure you want to delete RFQ ${r.id} for booking ${r.booking}?`])}><XCircle size={15} /></button></>} />
       </article>
-      <section className="quote-two-col"><article className="quote-card"><h3>Response Distribution</h3><MiniBars values={[45, 66, 30, 78, 55]} /></article><article className="quote-dark-card"><h3>Automate RFQs</h3><p>Match materials with verified local sellers instantly.</p><Btn variant="primary">Enable Auto-Pilot</Btn></article></section>
+      <section className="quote-two-col"><article className="quote-card"><h3>Response Distribution</h3><MiniBars values={[45, 66, 30, 78, 55]} /></article><article className="quote-dark-card"><h3>Automate RFQs</h3><p>Match materials with verified local sellers instantly.</p><Btn variant="primary" onClick={() => toast('RFQ automation autopilot enabled!')}>Enable Auto-Pilot</Btn></article></section>
     </>
   );
 }
 
-function CreateRfq({ toast }) {
+function CreateRfq({ toast, nav }) {
   const [step, setStep] = useState(1);
   const steps = ['Booking Info', 'Materials', 'Sellers', 'Deadline', 'Send RFQ'];
+
+  // Form Field States
+  const [projectName, setProjectName] = useState('Skyline Tower Phase II');
+  const [costCenter, setCostCenter] = useState('ENG-2024-CAPEX');
+  const [deliveryDate, setDeliveryDate] = useState('2023-11-15');
+  const [priority, setPriority] = useState('Normal');
+  const [handling, setHandling] = useState('');
+
+  // Step 2: Materials State
+  const [selectedMaterials, setSelectedMaterials] = useState([
+    { item: 'High-Grade Concrete (C30/37)', qty: '500 Cubic Meters' },
+    { item: 'Structural Steel Beams (I-Section)', qty: '12 Tons' }
+  ]);
+  const [newMaterialItem, setNewMaterialItem] = useState('');
+  const [newMaterialQty, setNewMaterialQty] = useState('');
+
+  const handleAddMaterial = () => {
+    if (!newMaterialItem.trim() || !newMaterialQty.trim()) {
+      toast('Please enter material name and quantity.');
+      return;
+    }
+    setSelectedMaterials(prev => [...prev, { item: newMaterialItem, qty: newMaterialQty }]);
+    setNewMaterialItem('');
+    setNewMaterialQty('');
+    toast('Material added to RFQ.');
+  };
+
+  const handleRemoveMaterial = (index) => {
+    setSelectedMaterials(prev => prev.filter((_, i) => i !== index));
+    toast('Material removed.');
+  };
+
+  // Step 3: Sellers State
+  const [checkedSellers, setCheckedSellers] = useState(['Nexus Systems Intl.', 'Global Logistics Pro']);
+
+  const handleToggleSeller = (sellerName) => {
+    if (checkedSellers.includes(sellerName)) {
+      setCheckedSellers(prev => prev.filter(s => s !== sellerName));
+    } else {
+      setCheckedSellers(prev => [...prev, sellerName]);
+    }
+  };
+
+  // Step 4: Deadline & Terms
+  const [deadlineDate, setDeadlineDate] = useState('2023-10-28T17:00');
+  const [paymentTerms, setPaymentTerms] = useState('Net-30');
+  const [deliveryTerms, setDeliveryTerms] = useState('DAP - Delivered at Place');
+
+  // Submit Handler
+  const handleSendRFQ = () => {
+    if (selectedMaterials.length === 0) {
+      toast('Please add at least one material to the RFQ.');
+      setStep(2);
+      return;
+    }
+    if (checkedSellers.length === 0) {
+      toast('Please select at least one seller to receive the RFQ.');
+      setStep(3);
+      return;
+    }
+
+    toast('RFQ successfully sent to selected sellers!');
+    // Redirect to RFQ Listing after 1.5 seconds
+    setTimeout(() => {
+      nav(ROUTES.quotationRfq);
+    }, 1500);
+  };
+
+  const renderStepContent = () => {
+    switch (step) {
+      case 1:
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="quote-form-grid">
+              <label>
+                Project Name
+                <input 
+                  type="text" 
+                  value={projectName} 
+                  onChange={(e) => setProjectName(e.target.value)} 
+                  placeholder="e.g. Skyline Tower Phase II" 
+                />
+              </label>
+              <label>
+                Cost Center
+                <select value={costCenter} onChange={(e) => setCostCenter(e.target.value)}>
+                  <option value="ENG-2024-CAPEX">ENG-2024-CAPEX</option>
+                  <option value="MNT-2024-OPEX">MNT-2024-OPEX</option>
+                  <option value="PROJ-ALPHA-CAPEX">PROJ-ALPHA-CAPEX</option>
+                </select>
+              </label>
+              <label>
+                Preferred Delivery Date
+                <input 
+                  type="date" 
+                  value={deliveryDate} 
+                  onChange={(e) => setDeliveryDate(e.target.value)} 
+                />
+              </label>
+              <label>
+                Priority Level
+                <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+                  <option value="Normal">Normal</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Special Handling Instructions
+              <textarea 
+                value={handling} 
+                onChange={(e) => setHandling(e.target.value)} 
+                placeholder="Mention site access or unloading requirements..." 
+              />
+            </label>
+          </div>
+        );
+      case 2:
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ fontSize: '13px', color: '#565365', fontWeight: '500' }}>
+              Add the materials, specifications, and quantities required for this request.
+            </div>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+              <label style={{ flex: 2, minWidth: '150px' }}>
+                Item Description
+                <input 
+                  type="text" 
+                  placeholder="e.g. High-Grade Concrete (C30/37)" 
+                  value={newMaterialItem}
+                  onChange={(e) => setNewMaterialItem(e.target.value)}
+                />
+              </label>
+              <label style={{ flex: 1, minWidth: '100px' }}>
+                Quantity
+                <input 
+                  type="text" 
+                  placeholder="e.g. 500 Cubic Meters" 
+                  value={newMaterialQty}
+                  onChange={(e) => setNewMaterialQty(e.target.value)}
+                />
+              </label>
+              <Btn variant="primary" onClick={handleAddMaterial}>+ Add</Btn>
+            </div>
+
+            <div style={{ marginTop: '10px' }}>
+              <strong style={{ fontSize: '11px', color: '#7a7688', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
+                RFQ Materials list ({selectedMaterials.length})
+              </strong>
+              {selectedMaterials.length === 0 ? (
+                <div style={{ padding: '16px', background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '8px', textAlign: 'center', fontSize: '12.5px', color: '#7a7688' }}>
+                  No materials added yet. Please use the form above to add materials.
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {selectedMaterials.map((m, idx) => (
+                    <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+                      <div>
+                        <strong style={{ fontSize: '13px', color: '#1c2536', display: 'block' }}>{m.item}</strong>
+                        <span style={{ fontSize: '11.5px', color: '#565365' }}>Quantity: {m.qty}</span>
+                      </div>
+                      <button 
+                        onClick={() => handleRemoveMaterial(idx)}
+                        style={{ border: 'none', background: 'transparent', color: '#dc2626', cursor: 'pointer', fontSize: '11.5px', fontWeight: '750' }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      case 3:
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ fontSize: '13px', color: '#565365', fontWeight: '500' }}>
+              Select the suppliers to invite to this Request for Quotation.
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {sellers.map((s) => {
+                const isChecked = checkedSellers.includes(s.name);
+                return (
+                  <div 
+                    key={s.name} 
+                    onClick={() => handleToggleSeller(s.name)}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '12px', 
+                      padding: '12px 16px', 
+                      background: isChecked ? '#f5f3ff' : '#ffffff', 
+                      border: isChecked ? '1px solid #25108f' : '1px solid #e2e8f0', 
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    <input 
+                      type="checkbox" 
+                      checked={isChecked}
+                      onChange={() => {}} 
+                      style={{ pointerEvents: 'none' }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <strong style={{ fontSize: '13.5px', color: '#1c2536', display: 'block' }}>{s.name}</strong>
+                      <span style={{ fontSize: '11px', color: '#7a7688' }}>{s.type} | Rating: {s.rating} ★ | Risk: {s.risk}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      case 4:
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="quote-form-grid">
+              <label>
+                Response Deadline Date & Time
+                <input 
+                  type="datetime-local" 
+                  value={deadlineDate}
+                  onChange={(e) => setDeadlineDate(e.target.value)}
+                />
+              </label>
+              <label>
+                Payment Terms
+                <select value={paymentTerms} onChange={(e) => setPaymentTerms(e.target.value)}>
+                  <option value="Net-30">Net-30 schedule</option>
+                  <option value="50% Advance / 50% Delivery">50% Advance / 50% Delivery</option>
+                  <option value="Net-60">Net-60 schedule</option>
+                </select>
+              </label>
+              <label>
+                Delivery Terms
+                <select value={deliveryTerms} onChange={(e) => setDeliveryTerms(e.target.value)}>
+                  <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
+                  <option value="FOB Origin">FOB Origin</option>
+                  <option value="FOB Destination">FOB Destination</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        );
+      case 5:
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ fontSize: '13px', color: '#07956f', fontWeight: '800', background: '#ecfdf5', padding: '10px 14px', borderRadius: '8px', border: '1px solid #a7f3d0' }}>
+              ✓ All fields are configured. Please review the summary below before sending the RFQ.
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '13px' }}>
+                <div><strong>Project Name:</strong> {projectName || 'N/A'}</div>
+                <div><strong>Cost Center:</strong> {costCenter}</div>
+                <div><strong>Delivery Date:</strong> {deliveryDate || 'N/A'}</div>
+                <div><strong>Priority:</strong> {priority}</div>
+                <div><strong>Deadline:</strong> {deadlineDate.replace('T', ' ')}</div>
+                <div><strong>Payment Terms:</strong> {paymentTerms}</div>
+                <div><strong>Delivery Terms:</strong> {deliveryTerms}</div>
+              </div>
+
+              <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px' }}>
+                <strong style={{ fontSize: '11px', color: '#7a7688', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                  Materials ({selectedMaterials.length})
+                </strong>
+                <ul style={{ paddingLeft: '20px', margin: 0, fontSize: '13px', color: '#1c2536' }}>
+                  {selectedMaterials.map((m, idx) => (
+                    <li key={idx}>{m.item} (Qty: {m.qty})</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '10px' }}>
+                <strong style={{ fontSize: '11px', color: '#7a7688', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                  Selected Sellers ({checkedSellers.length})
+                </strong>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {checkedSellers.map((s, idx) => (
+                    <span key={idx} style={{ background: '#f5f3ff', border: '1px solid #cbd5e1', padding: '4px 10px', borderRadius: '16px', fontSize: '11.5px', color: '#25108f', fontWeight: '600' }}>
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <div className="quote-stepper">{steps.map((label, index) => <button className={step === index + 1 ? 'active' : ''} key={label} onClick={() => setStep(index + 1)}><span>{index + 1}</span>{label}</button>)}</div>
       <section className="quote-layout-main">
         <article className="quote-card quote-form-card">
           <h3>{steps[step - 1]}</h3>
-          <div className="quote-form-grid">
-            <label>Project Name<input placeholder="e.g. Skyline Tower Phase II" /></label>
-            <label>Cost Center<select><option>ENG-2024-CAPEX</option></select></label>
-            <label>Preferred Delivery Date<input placeholder="mm/dd/yyyy" /></label>
-            <label>Priority Level<select><option>Normal</option><option>Urgent</option></select></label>
-          </div>
-          <label>Special Handling Instructions<textarea placeholder="Mention site access or unloading requirements..." /></label>
-          <div className="quote-summary-strip"><strong>Selected seller preview</strong><span>Nexus Systems Intl. + 3 verified sellers</span></div>
+          {renderStepContent()}
+          {step === 1 && (
+            <div className="quote-summary-strip" style={{ marginTop: '20px' }}>
+              <strong>Selected seller preview</strong>
+              <span>{checkedSellers.join(', ') || 'No sellers selected'}</span>
+            </div>
+          )}
         </article>
-        <aside className="quote-dark-card"><h3>Compliance Note</h3><p>Please ensure all RFQ documents comply with ISO 9001:2015 procurement guidelines.</p><div className="quote-dark-panel"><ShieldCheck size={22} /> Audit-Ready State</div></aside>
+        <aside className="quote-dark-card">
+          <h3>Compliance Note</h3>
+          <p>Please ensure all RFQ documents comply with ISO 9001:2015 procurement guidelines.</p>
+          <div className="quote-dark-panel">
+            <ShieldCheck size={22} /> Audit-Ready State
+          </div>
+        </aside>
       </section>
-      <div className="quote-footer-actions"><Btn onClick={() => toast('Draft saved.')}>Save Draft</Btn><Btn onClick={() => setStep(Math.max(1, step - 1))}>Back</Btn><Btn variant="primary" onClick={() => step === 5 ? toast('RFQ sent to selected sellers.') : setStep(step + 1)}>{step === 5 ? 'Send RFQ' : 'Next'}</Btn></div>
+      <div className="quote-footer-actions">
+        <Btn onClick={() => toast('Draft saved.')}>Save Draft</Btn>
+        <Btn onClick={() => setStep(Math.max(1, step - 1))} disabled={step === 1}>Back</Btn>
+        <Btn variant="primary" onClick={() => step === 5 ? handleSendRFQ() : setStep(step + 1)}>
+          {step === 5 ? 'Send RFQ' : 'Next'}
+        </Btn>
+      </div>
     </>
   );
 }
@@ -299,8 +799,8 @@ function Details({ nav }) {
   return <><div className="quote-actions"><Btn icon={Download} onClick={() => downloadDummyPDF('Quotation_Export', 'Dummy Quotation Data')}>Export PDF</Btn><Btn variant="primary" icon={CheckCircle2} onClick={() => nav(ROUTES.quotationApprovalDetail)}>Approve Quote</Btn></div><div className="quote-tabs">{tabs.map((t) => <button key={t} className={tab === t ? 'active' : ''} onClick={() => setTab(t)}>{t}</button>)}</div>{renderTab()}<section className="quote-kpi-grid"><article className="quote-card"><PackageCheck /><h3>Contract Terms</h3><p>Net-30 schedule requested by seller.</p></article><article className="quote-card"><PackageCheck /><h3>Shipping Details</h3><p>FOB origin with insured priority tracking.</p></article><article className="quote-card"><ShieldCheck /><h3>Compliance Checks</h3><p>All documentation attached in Materials tab.</p></article></section></>;
 }
 
-function ApprovalQueue({ nav }) {
-  return <><section className="quote-kpi-grid three"><Kpi label="Pending Review" value="24" note="+12.5%" icon={ClipboardCheck} /><Kpi label="High Value Quotes" value="₹412.8k" note="Active Pipeline" icon={FileText} /><Kpi label="Urgent Approvals" value="09" note="Expiring Soon" icon={AlertTriangle} danger /></section><article className="quote-card"><div className="quote-card-head"><h3>Live Approval Queue</h3><span className="quote-legend">Pending Approved</span></div><Table columns={[{ key: 'id', label: 'Quote / Service', render: (q) => <div><strong>{q.id}</strong><small>{q.material}</small></div> }, { key: 'seller', label: 'Seller Entity' }, { key: 'amount', label: 'Amount', render: (q) => inr(q.amount) }, { key: 'deadline', label: 'Deadline' }, { key: 'status', label: 'Status', render: (q) => <Badge status={q.status}>{q.status} Review</Badge> }]} rows={quotations.slice(0, 4)} renderActions={(q) => <><Btn onClick={() => nav(ROUTES.quotationApprovalDetail)}>Review</Btn><button><CheckCircle2 size={15} /></button><button><XCircle size={15} /></button></>} /></article><section className="quote-two-col"><article className="quote-card"><h3>Approval Pipeline Analysis</h3><Progress label="Technical Services" value={65} /><Progress label="Software Licenses" value={22} /><Progress label="Facilities & Maintenance" value={13} /></article><article className="quote-alert"><AlertTriangle />Compliance update required for 3 quotations from Global Logistix.</article></section></>;
+function ApprovalQueue({ nav, toast, setModal }) {
+  return <><section className="quote-kpi-grid three"><Kpi label="Pending Review" value="24" note="+12.5%" icon={ClipboardCheck} /><Kpi label="High Value Quotes" value="₹412.8k" note="Active Pipeline" icon={FileText} /><Kpi label="Urgent Approvals" value="09" note="Expiring Soon" icon={AlertTriangle} danger /></section><article className="quote-card"><div className="quote-card-head"><h3>Live Approval Queue</h3><span className="quote-legend">Pending Approved</span></div><Table columns={[{ key: 'id', label: 'Quote / Service', render: (q) => <div><strong>{q.id}</strong><small>{q.material}</small></div> }, { key: 'seller', label: 'Seller Entity' }, { key: 'amount', label: 'Amount', render: (q) => inr(q.amount) }, { key: 'deadline', label: 'Deadline' }, { key: 'status', label: 'Status', render: (q) => <Badge status={q.status}>{q.status} Review</Badge> }]} rows={quotations.slice(0, 4)} renderActions={(q) => <><Btn onClick={() => nav(ROUTES.quotationApprovalDetail)}>Review</Btn><button title="Approve" onClick={() => setModal(['Approve Quotation', `Are you sure you want to approve quotation ${q.id} for ${inr(q.amount)}?`])}><CheckCircle2 size={15} /></button><button title="Reject" onClick={() => setModal(['Reject Quotation', `Are you sure you want to reject quotation ${q.id}?`])}><XCircle size={15} /></button></>} /></article><section className="quote-two-col"><article className="quote-card"><h3>Approval Pipeline Analysis</h3><Progress label="Technical Services" value={65} /><Progress label="Software Licenses" value={22} /><Progress label="Facilities & Maintenance" value={13} /></article><article className="quote-alert"><AlertTriangle />Compliance update required for 3 quotations from Global Logistix.</article></section></>;
 }
 
 function ApprovalDetail({ setModal }) {
@@ -322,17 +822,172 @@ function ComparisonMatrix({ compact = false, setModal = () => {} }) {
   return <><div className="quote-matrix-wrap"><div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="quote-matrix"><thead><tr><th>Key Performance Indicators</th>{['Seller A', 'Seller B', 'Seller C', 'Seller D'].map((s, i) => <th className={i === 1 ? 'winner' : ''} key={s}>{i === 1 && <span className="quote-ribbon">Recommended</span>}<span className="quote-avatar"><Star size={18} /></span><strong>{s}</strong><small>{sellers[i].type}</small></th>)}</tr></thead><tbody>{rows.map((r) => <tr key={r[0]}><td>{r[0]}</td>{r.slice(1).map((v, i) => <td className={i === 1 ? 'winner' : ''} key={i}>{v}</td>)}</tr>)}{!compact && <tr><td>Winner Recommendation</td>{['View Profile', 'Approve Seller', 'View Profile', 'View Profile'].map((v, i) => <td className={i === 1 ? 'winner' : ''} key={v + i}><Btn variant={i === 1 ? 'primary' : 'ghost'} onClick={() => i === 1 && setModal(['Approve Seller B', 'Seller B will become the winning supplier.'])}>{v}</Btn><Btn>Negotiate</Btn></td>)}</tr>}</tbody></table></div></div>{!compact && <section className="quote-kpi-grid three"><article className="quote-card"><h3>Optimization Hint</h3><p>Choosing Seller B could reduce procurement cycle time by 65%.</p></article><article className="quote-card"><h3>Budget Impact</h3><p>Lead offer is 4.5% below allocated budget ceiling.</p></article><article className="quote-card"><h3>Risk Assessment</h3><p>Seller C has lowest price but limited historical data.</p></article></section>}</>;
 }
 
-function Winner({ setModal }) {
-  return <section className="quote-layout-main"><div className="quote-stack">{sellers.slice(0, 3).map((s, i) => <article className="quote-winner-card" key={s.name}><div><span className="quote-avatar"><Trophy size={20} /></span><h3>{s.name}</h3><p>{s.type} • EST. {i ? 2012 + i : 2004}</p><div className="quote-metric-row"><span>Final Quote <b>{inr([42250000, 39800000, 45500000][i])}</b></span><span>Est. Savings <b className="good">{[14.2, 18.5, 6.8][i]}%</b></span><span>Risk <b>{s.risk}</b></span></div></div><Donut value={[90, 82, 60][i]} label="Score" /><div className="quote-actions vertical"><Btn variant={i === 0 ? 'primary' : 'dark'} onClick={() => setModal(['Select winner', `${s.name} will be selected as final supplier.`])}>Select Winner</Btn><Btn onClick={() => setModal(['Final negotiation', 'Open negotiation drawer for final terms.'])}>Final Negotiation</Btn></div></article>)}</div><aside className="quote-side-stack"><article className="quote-card"><h3>Market Context</h3><Kpi label="Market Average" value="₹448.2k" note="5.4% below index" /><Progress label="Quality Compliance" value={98} /><Progress label="Financial Stability" value={85} /></article><article className="quote-dark-card"><h3>Intelligence</h3><p>Nexus Systems currently holds preferred status due to recent successful delivery.</p><Badge status="success">Approvers Ready</Badge></article></aside></section>;
+function Winner({ setModal, toast }) {
+  return <section className="quote-layout-main"><div className="quote-stack">{sellers.slice(0, 3).map((s, i) => <article className="quote-winner-card" key={s.name}><div><span className="quote-avatar"><Trophy size={20} /></span><h3>{s.name}</h3><p>{s.type} • EST. {i ? 2012 + i : 2004}</p><div className="quote-metric-row"><div className="quote-metric-col"><small>Final Quote</small><b>{inr([42250000, 39800000, 45500000][i])}</b></div><div className="quote-metric-col"><small>Est. Savings</small><b className="good">{[14.2, 18.5, 6.8][i]}%</b></div><div className="quote-metric-col"><small>Risk</small><b>{s.risk}</b></div></div></div><Donut value={[90, 82, 60][i]} label="Score" /><div className="quote-actions vertical"><Btn variant={i === 0 ? 'primary' : 'dark'} onClick={() => setModal(['Select winner', `${s.name} will be selected as final supplier.`, () => toast(`${s.name} successfully selected as winner!`)])}>Select Winner</Btn><Btn onClick={() => setModal(['Final negotiation', 'Open negotiation drawer for final terms.', () => toast(`Opened final negotiation channel for ${s.name}.`)])}>Final Negotiation</Btn></div></article>)}</div><aside className="quote-side-stack"><article className="quote-card"><h3>Market Context</h3><Kpi label="Market Average" value="₹448.2k" note="5.4% below index" /><Progress label="Quality Compliance" value={98} /><Progress label="Financial Stability" value={85} /></article><article className="quote-dark-card"><h3>Intelligence</h3><p>Nexus Systems currently holds preferred status due to recent successful delivery.</p><Badge status="success">Approvers Ready</Badge></article></aside></section>;
 }
 
-function NegotiationCenter() {
+function NegotiationCenter({ toast }) {
+  const [chatOpen, setChatOpen] = useState(true);
+  const [messages, setMessages] = useState([
+    { sender: 'seller', text: 'Hello Alex, current market volatility makes $42,500 our best pricing.', time: '10:30 AM' },
+    { sender: 'admin', text: 'We can sign immediately at $41,500 if logistics cost improves.', time: '10:32 AM' },
+    { sender: 'seller', text: 'We might bridge the gap. shipping_quote_v2.pdf attached.', time: '10:35 AM' }
+  ]);
+  const [newMessage, setNewMessage] = useState('');
+
+  const handleSendMessage = () => {
+    if (!newMessage.trim()) return;
+    setMessages(prev => [...prev, { sender: 'admin', text: newMessage, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+    setNewMessage('');
+    toast('Message sent to supplier.');
+  };
+
   const columns = ['Requested', 'Counter Offered', 'Under Review', 'Accepted', 'Rejected'];
-  return <section className="quote-negotiation"><div className="quote-kanban">{columns.map((col, index) => <article className="quote-kanban-col" key={col}><h3>{col} <span>{index + 1}</span></h3>{quotations.slice(index, index + 2).map((q) => <div className="quote-kanban-card" key={q.id}><strong>{q.id}</strong><p>{q.material}</p><small>Supplier: {q.seller}</small><b>{inr(q.amount)}</b><Badge status={q.status}>{q.status}</Badge></div>)}</article>)}</div><aside className="quote-chat"><h3>QT-8821</h3><p>MetalCorp Intl. Negotiations</p><div className="quote-offer">Current Offer <strong>$42,500.00</strong><Btn variant="primary">Counter</Btn></div><NegotiationFeed /><div className="quote-composer"><input placeholder="Write a message or counter offer..." /><button><Send size={18} /></button></div></aside></section>;
+
+  return (
+    <section 
+      className="quote-negotiation" 
+      style={{ 
+        display: 'grid', 
+        gap: 0, 
+        gridTemplateColumns: chatOpen ? 'minmax(0, 1fr) 420px' : '1fr 0px', 
+        minHeight: '720px',
+        position: 'relative',
+        transition: 'grid-template-columns 0.3s ease'
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', background: '#edf3ff', paddingTop: '24px', flex: 1, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', padding: '0 24px' }}>
+          <h2 style={{ fontSize: '18px', color: '#172033', margin: 0, fontWeight: '700' }}>Negotiation Kanban Board</h2>
+          {!chatOpen && (
+            <Btn 
+              icon={MessageSquare} 
+              onClick={() => setChatOpen(true)}
+              variant="primary"
+            >
+              Open Chat
+            </Btn>
+          )}
+        </div>
+
+        <div className="quote-kanban" style={{ flex: 1, padding: '24px 24px 16px 24px' }}>
+          {columns.map((col, index) => (
+            <article className="quote-kanban-col" key={col} style={{ minWidth: '240px' }}>
+              <h3 style={{ borderBottom: '2px solid #cbd5e1', paddingBottom: '8px', marginBottom: '12px' }}>
+                {col} <span>{index + 1}</span>
+              </h3>
+              {quotations.slice(index, index + 2).map((q) => (
+                <div 
+                  className="quote-kanban-card" 
+                  key={q.id}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => toast(`Selected quote ${q.id} for negotiation.`)}
+                >
+                  <strong>{q.id}</strong>
+                  <p>{q.material}</p>
+                  <small>Supplier: {q.seller}</small>
+                  <b>{inr(q.amount)}</b>
+                  <Badge status={q.status}>{q.status}</Badge>
+                </div>
+              ))}
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {chatOpen && (
+        <aside 
+          className="quote-chat" 
+          style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            borderLeft: '1px solid #d1ccd8', 
+            background: '#ffffff',
+            height: '100%',
+            overflow: 'hidden'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '10px' }}>
+            <div>
+              <h3 style={{ margin: 0 }}>QT-8821</h3>
+              <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>MetalCorp Intl. Negotiations</p>
+            </div>
+            <button 
+              onClick={() => setChatOpen(false)}
+              style={{ 
+                background: '#f1f5f9', 
+                border: 'none', 
+                borderRadius: '6px', 
+                padding: '6px 10px', 
+                cursor: 'pointer',
+                fontSize: '12px',
+                fontWeight: '600',
+                color: '#475569'
+              }}
+            >
+              Hide Chat
+            </button>
+          </div>
+
+          <div className="quote-offer" style={{ marginTop: '16px' }}>
+            <div>
+              Current Offer <strong>$42,500.00</strong>
+            </div>
+            <Btn variant="primary" onClick={() => toast('Counter offer submitted!')}>Counter</Btn>
+          </div>
+
+          <div 
+            className="quote-feed" 
+            style={{ 
+              flex: 1, 
+              overflowY: 'auto', 
+              padding: '10px 0', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '12px' 
+            }}
+          >
+            {messages.map((m, idx) => (
+              <div 
+                key={idx} 
+                style={{ 
+                  borderRadius: '7px', 
+                  maxWidth: '85%', 
+                  padding: '10px 14px',
+                  alignSelf: m.sender === 'admin' ? 'flex-end' : 'flex-start',
+                  background: m.sender === 'admin' ? '#25108f' : '#edf3ff',
+                  color: m.sender === 'admin' ? '#ffffff' : '#1c2536',
+                  border: m.sender === 'admin' ? 'none' : '1px solid #cfd8e8',
+                  fontSize: '13px'
+                }}
+              >
+                <div>{m.text}</div>
+                <div style={{ fontSize: '10px', color: m.sender === 'admin' ? '#c0b6f2' : '#64748b', textAlign: 'right', marginTop: '4px' }}>
+                  {m.time}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="quote-composer" style={{ marginTop: 'auto', paddingTop: '10px' }}>
+            <input 
+              placeholder="Write a message or counter offer..." 
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSendMessage();
+              }}
+            />
+            <button onClick={handleSendMessage}><Send size={18} /></button>
+          </div>
+        </aside>
+      )}
+    </section>
+  );
 }
 
 function NegotiationFeed() {
-  return <div className="quote-feed"><div className="seller">Hello Alex, current market volatility makes $42,500 our best pricing.</div><div className="admin">We can sign immediately at $41,500 if logistics cost improves.</div><div className="seller">We might bridge the gap. shipping_quote_v2.pdf attached.</div></div>;
+  return null;
 }
 
 function GenericList({ kind, nav }) {
@@ -352,18 +1007,18 @@ function GenericList({ kind, nav }) {
   ]} rows={rows} renderActions={() => <><Btn onClick={() => nav(ROUTES.quotationDetails)}>View</Btn><button><CheckCircle2 size={15} /></button><button><XCircle size={15} /></button></>} /></article><section className="quote-two-col"><article className="quote-card"><h3>Status Distribution Trends</h3><MiniBars values={[52, 38, 78, 62, 31]} /></article><article className="quote-dark-card"><h3>Archive Optimization</h3><p>AI suggests archiving 15 additional expired quotes to improve system performance.</p><Btn variant="primary">Review Suggestions</Btn></article></section></>;
 }
 
-function CustomerQuotes({ nav }) {
+function CustomerQuotes({ nav, toast, setModal }) {
   const rows = quotations.slice(0, 5).map((q, i) => ({ ...q, status: ['Sent', 'Accepted', 'Expired', 'Rejected', 'Sent'][i], expiry: ['Oct 30, 2023', 'Accepted', 'Sep 30, 2023', 'Oct 22, 2023', 'Nov 01, 2023'][i] }));
-  return <><section className="quote-kpi-grid"><Kpi label="Sent" value="42" note="+12%" /><Kpi label="Accepted" value="28" note="+5.2%" /><Kpi label="Rejected" value="06" note="-2%" danger /><Kpi label="Expired" value="11" note="Action Req." /></section><article className="quote-card"><div className="quote-card-head"><h3>Active Quotations</h3><span className="quote-legend">Sent Accepted Rejected Expired</span></div><Table columns={[{ key: 'id', label: 'Quote ID' }, { key: 'customer', label: 'Customer Name' }, { key: 'submitted', label: 'Date Sent' }, { key: 'amount', label: 'Amount', render: (q) => inr(q.amount) }, { key: 'status', label: 'Status', render: (q) => <Badge status={q.status}>{q.status}</Badge> }, { key: 'expiry', label: 'Expiry Date' }]} rows={rows} renderActions={() => <><button onClick={() => nav(ROUTES.quotationCustomerDetails)}><Eye size={15} /></button><button><RefreshCcw size={15} /></button><button><XCircle size={15} /></button></>} /></article><section className="quote-two-col"><article className="quote-dark-card"><h3>Automated Resend is Active</h3><p>3 quotations are nearing expiry. System will notify customers in 24 hours.</p><Btn>Review Near Expiry</Btn></article><article className="quote-card"><h3>Pro Tip</h3><p>Custom terms increase acceptance rates by 14% this quarter.</p></article></section></>;
+  return <><section className="quote-kpi-grid"><Kpi label="Sent" value="42" note="+12%" /><Kpi label="Accepted" value="28" note="+5.2%" /><Kpi label="Rejected" value="06" note="-2%" danger /><Kpi label="Expired" value="11" note="Action Req." /></section><article className="quote-card"><div className="quote-card-head"><h3>Active Quotations</h3><span className="quote-legend">Sent Accepted Rejected Expired</span></div><Table columns={[{ key: 'id', label: 'Quote ID' }, { key: 'customer', label: 'Customer Name' }, { key: 'submitted', label: 'Date Sent' }, { key: 'amount', label: 'Amount', render: (q) => inr(q.amount) }, { key: 'status', label: 'Status', render: (q) => <Badge status={q.status}>{q.status}</Badge> }, { key: 'expiry', label: 'Expiry Date' }]} rows={rows} renderActions={(q) => <><button title="View Quote" onClick={() => nav(ROUTES.quotationCustomerDetails)}><Eye size={15} /></button><button title="Resend Notification" onClick={() => toast(`Resent quotation notification to ${q.customer} successfully.`)}><RefreshCcw size={15} /></button><button title="Cancel Quote" onClick={() => setModal(['Cancel Customer Quotation', `Are you sure you want to cancel customer quotation ${q.id} sent to ${q.customer}?`])}><XCircle size={15} /></button></>} /></article><section className="quote-two-col"><article className="quote-dark-card"><h3>Automated Resend is Active</h3><p>3 quotations are nearing expiry. System will notify customers in 24 hours.</p><Btn onClick={() => toast('Reviewing near-expiry client quotations...')}>Review Near Expiry</Btn></article><article className="quote-card"><h3>Pro Tip</h3><p>Custom terms increase acceptance rates by 14% this quarter.</p></article></section></>;
 }
 
 function CustomerDetails() {
   return <section className="quote-layout-main"><div className="quote-stack"><article className="quote-card"><h3>Summary of Services & Materials</h3><Table columns={[{ key: 'item', label: 'Item Description' }, { key: 'qty', label: 'Quantity' }, { key: 'unit', label: 'Unit Price', render: (m) => inr(m.unit) }, { key: 'total', label: 'Total', render: (m) => inr(m.total) }]} rows={materials.map((m, i) => ({ ...m, id: i }))} /><div className="quote-note">Vendor Note: Includes priority shipping for all racking units if approved before Friday.</div></article><article className="quote-card"><h3>Terms & Conditions</h3><div className="quote-grid-2"><p><b>Validity Period</b><br />Valid for 30 days from issue.</p><p><b>Payment Schedule</b><br />50% upfront, 40% delivery, 10% sign-off.</p><p><b>Cancellation Policy</b><br />5% handling fee within 7 days.</p><p><b>Compliance & Warranty</b><br />ISO-9001 standards and 12-month warranty.</p></div></article></div><aside className="quote-side-stack"><article className="quote-dark-card"><h3>Quote Total</h3><p>Subtotal ₹36,200</p><p>Tax ₹2,896</p><strong className="quote-total">₹39,639.00</strong></article><article className="quote-card"><h3>Your Response</h3><textarea placeholder="Add comment..." /><Btn variant="primary" icon={CheckCircle2}>Accept Quotation</Btn><div className="quote-actions"><Btn>Inquiry</Btn><Btn variant="danger">Reject</Btn></div></article></aside></section>;
 }
 
-function AnalyticsPage({ type }) {
+function AnalyticsPage({ type, toast, setModal }) {
   const advanced = type === 'advanced';
-  return <><section className="quote-kpi-grid"><Kpi label={advanced ? 'Active RFQs' : 'Potential Savings'} value={advanced ? '142' : '₹42,850'} note="+12%" icon={TrendingUp} /><Kpi label={advanced ? 'Avg. Savings %' : 'Avg Quotation Value'} value={advanced ? '18.4%' : '₹12,400'} note={advanced ? '+4%' : '-4.2%'} icon={TrendingDown} /><Kpi label={advanced ? 'Response Time' : 'Active RFQs'} value={advanced ? '2.4d' : '156'} note="Active" icon={BarChart3} /><Kpi label={advanced ? 'Win Rate' : 'Market Variance'} value={advanced ? '64%' : '+1.8%'} note="Stable" icon={ShieldCheck} /></section><section className="quote-layout-main"><article className="quote-card quote-chart-card"><div className="quote-card-head"><div><h3>{advanced ? 'Approval Funnel' : 'Overall Cost Trend'}</h3><p>{advanced ? 'Conversion from RFQ creation to final approval' : 'Monthly procurement expenditure across all categories'}</p></div></div>{advanced ? <Funnel /> : <TrendChart months={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']} />}</article><aside className="quote-dark-card"><h3>{advanced ? 'Negotiation Funnel' : 'Savings Impact'}</h3>{advanced ? <><Progress label="Initial Quote Total" value={100} /><Progress label="Counter-Offer Avg." value={82} /><Progress label="Final Settlement" value={74} /><strong className="quote-total">$720k</strong></> : <><Donut value={75} /><LogList items={['Negotiated Savings ₹18.2k', 'Bulk Discounts ₹12.4k', 'Logistics Optimization ₹12.2k']} /></>}</aside></section><section className="quote-two-col"><article className="quote-card"><h3>{advanced ? 'Cost Reduction Distribution' : 'Seller Pricing Performance'}</h3><MiniBars /></article><article className="quote-dark-card"><h3>Strategic Recommendation</h3><p>Consolidating office supply RFQs could yield an additional 15% saving.</p><Btn>Apply Strategy</Btn></article></section></>;
+  return <><section className="quote-kpi-grid"><Kpi label={advanced ? 'Active RFQs' : 'Potential Savings'} value={advanced ? '142' : '₹42,850'} note="+12%" icon={TrendingUp} /><Kpi label={advanced ? 'Avg. Savings %' : 'Avg Quotation Value'} value={advanced ? '18.4%' : '₹12,400'} note={advanced ? '+4%' : '-4.2%'} icon={TrendingDown} /><Kpi label={advanced ? 'Response Time' : 'Active RFQs'} value={advanced ? '2.4d' : '156'} note="Active" icon={BarChart3} /><Kpi label={advanced ? 'Win Rate' : 'Market Variance'} value={advanced ? '64%' : '+1.8%'} note="Stable" icon={ShieldCheck} /></section><section className="quote-layout-main"><article className="quote-card quote-chart-card"><div className="quote-card-head"><div><h3>{advanced ? 'Approval Funnel' : 'Overall Cost Trend'}</h3><p>{advanced ? 'Conversion from RFQ creation to final approval' : 'Monthly procurement expenditure across all categories'}</p></div></div>{advanced ? <Funnel /> : <TrendChart months={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']} />}</article><aside className="quote-dark-card"><h3>{advanced ? 'Negotiation Funnel' : 'Savings Impact'}</h3>{advanced ? <><Progress label="Initial Quote Total" value={100} /><Progress label="Counter-Offer Avg." value={82} /><Progress label="Final Settlement" value={74} /><strong className="quote-total">$720k</strong></> : <><Donut value={75} /><LogList items={['Negotiated Savings ₹18.2k', 'Bulk Discounts ₹12.4k', 'Logistics Optimization ₹12.2k']} /></>}</aside></section><section className="quote-two-col"><article className="quote-card"><h3>{advanced ? 'Cost Reduction Distribution' : 'Seller Pricing Performance'}</h3><MiniBars /></article><article className="quote-dark-card"><h3>Strategic Recommendation</h3><p>Consolidating office supply RFQs could yield an additional 15% saving.</p><Btn onClick={() => setModal(['Apply Cost Strategy', 'Are you sure you want to consolidate office supply RFQs to apply the 15% savings strategy?', () => toast('Cost reduction strategy applied successfully!')])}>Apply Strategy</Btn></article></section></>;
 }
 
 function SellerPerformanceMini() {
@@ -378,8 +1033,113 @@ function GeneratePo() {
   return <section className="quote-layout-main"><div className="quote-stack"><article className="quote-hero-dark"><div><span className="quote-chip purple">Verified Quotation</span><h2>Finalize PO for Industrial Steel Supplies</h2><p>Review seller information and material quantities before generation.</p></div><Btn variant="primary" icon={FileText}>Generate PO</Btn></article><section className="quote-two-col"><article className="quote-card"><h3>Seller Information</h3><p>Metals Global Ltd.<br />Vendor ID: V-992104</p></article><article className="quote-card"><h3>Delivery Destination</h3><p>Main Warehouse B<br />900 Commerce Blvd, Dock 4</p></article></section><article className="quote-card"><h3>Material List</h3><Table columns={[{ key: 'item', label: 'Item Description' }, { key: 'qty', label: 'Quantity' }, { key: 'unit', label: 'Unit Price', render: (m) => inr(m.unit) }, { key: 'total', label: 'Total', render: (m) => inr(m.total) }]} rows={materials.map((m, i) => ({ ...m, id: i }))} /></article></div><aside className="quote-side-stack"><article className="quote-card"><h3>Delivery Terms</h3><select><option>DAP - Delivered at Place</option></select><h3>Payment Terms</h3><label className="quote-radio"><input type="radio" defaultChecked /> Net 30</label><label className="quote-radio"><input type="radio" /> 50% Advance</label><textarea placeholder="Notes for seller..." /></article><article className="quote-info-panel"><h3>Approvals Required</h3><Timeline items={['Purchasing Dept: Approved', 'Finance Dept: Pending Generation']} /><Btn>Preview Draft</Btn></article></aside></section>;
 }
 
-function PoList({ nav }) {
-  return <><section className="quote-kpi-grid"><Kpi label="Total Active POs" value="1,284" note="+12%" /><Kpi label="Total Commitment" value="$4.2M" note="+2.4%" /><Kpi label="Pending Delivery" value="42" note="5 Late" danger /><Kpi label="Avg. Lead Time" value="14d" note="-2d vs LY" /></section><article className="quote-card"><div className="quote-filterbar inline"><span>All Orders</span><span>Active</span><span>Completed</span><span>Status: Any</span><span>Date Range: Last 30 Days</span></div><Table columns={[{ key: 'id', label: 'PO ID' }, { key: 'seller', label: 'Seller Name' }, { key: 'amount', label: 'Total Amount', render: (p) => inr(p.amount) }, { key: 'date', label: 'Issue Date' }, { key: 'delivery', label: 'Expected Delivery' }, { key: 'status', label: 'Status', render: (p) => <Badge status={p.status}>{p.status}</Badge> }]} rows={purchaseOrders} renderActions={() => <><button onClick={() => nav(ROUTES.quotationOrderDetails)}><Eye size={15} /></button><button><Download size={15} /></button><button><PackageCheck size={15} /></button></>} /></article><section className="quote-two-col"><article className="quote-dark-card"><h3>Optimization Opportunity</h3><p>Combining 4 pending POs could save ₹1,200 in logistics fees.</p><Btn>Apply Consolidation</Btn></article><article className="quote-card"><h3>Quarterly Budget Progress</h3><Donut value={75} /></article></section></>;
+function PoList({ nav, toast, setModal }) {
+  const [filterType, setFilterType] = useState('ALL');
+
+  const filteredOrders = useMemo(() => {
+    return purchaseOrders.filter((p) => {
+      if (filterType === 'ACTIVE') return p.status !== 'Delivered';
+      if (filterType === 'COMPLETED') return p.status === 'Delivered';
+      return true;
+    });
+  }, [filterType]);
+
+  return (
+    <>
+      <section className="quote-kpi-grid">
+        <Kpi label="Total Active POs" value={purchaseOrders.length} note="+12%" />
+        <Kpi label="Total Commitment" value="$4.2M" note="+2.4%" />
+        <Kpi label="Pending Delivery" value="42" note="5 Late" danger />
+        <Kpi label="Avg. Lead Time" value="14d" note="-2d vs LY" />
+      </section>
+      <article className="quote-card">
+        <div className="quote-filterbar inline" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 14px' }}>
+          <button 
+            onClick={() => setFilterType('ALL')}
+            style={{ 
+              background: filterType === 'ALL' ? '#25108f' : 'transparent', 
+              color: filterType === 'ALL' ? '#ffffff' : '#475569',
+              border: 'none',
+              padding: '6px 12px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '12px'
+            }}
+          >
+            All Orders
+          </button>
+          <button 
+            onClick={() => setFilterType('ACTIVE')}
+            style={{ 
+              background: filterType === 'ACTIVE' ? '#25108f' : 'transparent', 
+              color: filterType === 'ACTIVE' ? '#ffffff' : '#475569',
+              border: 'none',
+              padding: '6px 12px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '12px'
+            }}
+          >
+            Active
+          </button>
+          <button 
+            onClick={() => setFilterType('COMPLETED')}
+            style={{ 
+              background: filterType === 'COMPLETED' ? '#25108f' : 'transparent', 
+              color: filterType === 'COMPLETED' ? '#ffffff' : '#475569',
+              border: 'none',
+              padding: '6px 12px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '12px'
+            }}
+          >
+            Completed
+          </button>
+          <span style={{ fontSize: '12px', color: '#64748b', marginLeft: 'auto' }}>
+            Showing {filteredOrders.length} orders
+          </span>
+        </div>
+        <Table 
+          columns={[
+            { key: 'id', label: 'PO ID' }, 
+            { key: 'seller', label: 'Seller Name' }, 
+            { key: 'amount', label: 'Total Amount', render: (p) => inr(p.amount) }, 
+            { key: 'date', label: 'Issue Date' }, 
+            { key: 'delivery', label: 'Expected Delivery' }, 
+            { key: 'status', label: 'Status', render: (p) => <Badge status={p.status}>{p.status}</Badge> }
+          ]} 
+          rows={filteredOrders} 
+          renderActions={(p) => (
+            <>
+              <button title="View Details" onClick={() => nav(ROUTES.quotationOrderDetails)}><Eye size={15} /></button>
+              <button title="Download PO" onClick={() => {
+                const header = ["PO ID", "Seller Name", "Amount", "Issue Date", "Expected Delivery", "Status"];
+                const row = [p.id, p.seller, p.amount, p.date, p.delivery, p.status];
+                triggerDownload(generateCSV(header, [row]), `PO_${p.id}.csv`, 'text/csv');
+                toast(`Purchase Order ${p.id} downloaded successfully!`);
+              }}><Download size={15} /></button>
+              <button title="Mark Delivered" onClick={() => setModal(['Confirm Delivery', `Are you sure you want to mark Purchase Order ${p.id} from ${p.seller} as Delivered?`, () => toast(`Purchase Order ${p.id} marked as Delivered!`)])}><PackageCheck size={15} /></button>
+            </>
+          )} 
+        />
+      </article>
+      <section className="quote-two-col">
+        <article className="quote-dark-card">
+          <h3>Optimization Opportunity</h3>
+          <p>Combining 4 pending POs could save ₹1,200 in logistics fees.</p>
+          <Btn onClick={() => setModal(['Apply Consolidation', 'Are you sure you want to combine 4 pending POs to save ₹1,200 in logistics fees?', () => toast('Consolidation strategy applied successfully!')])}>Apply Consolidation</Btn>
+        </article>
+        <article className="quote-card">
+          <h3>Quarterly Budget Progress</h3>
+          <Donut value={75} />
+        </article>
+      </section>
+    </>
+  );
 }
 
 function PoDetails() {
@@ -391,14 +1151,178 @@ function Communication() {
   return <section className="quote-layout-main"><article className="quote-card"><h3>Channel Selection</h3><div className="quote-kpi-grid four">{['Email', 'SMS', 'WhatsApp', 'Push'].map((c) => <button className={`quote-channel ${channel === c ? 'active' : ''}`} key={c} onClick={() => setChannel(c)}>{c}</button>)}</div><div className="quote-form-grid"><label>Template<select><option>RFQ Invitation</option><option>Approval Notice</option><option>Rejection Notice</option><option>Negotiation Request</option></select></label><label>Recipient<select><option>Selected Sellers</option><option>Customers</option><option>Approvers</option></select></label></div><textarea defaultValue={`Hello {{name}}, you have a new RFQ invitation for {{material}}. Please respond before {{deadline}}.`} /><label className="quote-radio"><input type="checkbox" /> Schedule for later</label><Btn variant="primary" icon={Send}>Send Message</Btn></article><aside className="quote-card"><h3>Message Preview</h3><div className="quote-preview-phone"><strong>{channel}</strong><p>Hello Nexus Systems, you have a new RFQ invitation for Structural Steel Beams.</p></div></aside></section>;
 }
 
-function Reports() {
+function Reports({ toast }) {
+  const [timeRange, setTimeRange] = useState('Last 30 Days');
+  const [statusFilter, setStatusFilter] = useState('ALL');
+
+  const filteredExports = useMemo(() => {
+    const list = quotations.slice(0, 4).map((q, idx) => ({
+      id: idx === 0 ? 'Quotation Report' : idx === 1 ? 'Seller Report' : idx === 2 ? 'RFQ Report' : 'Cost Saving Report',
+      seller: q.seller,
+      submitted: q.submitted,
+      status: idx % 2 === 0 ? 'Ready' : 'In Review'
+    }));
+    
+    return list.filter((r) => {
+      if (statusFilter === 'Ready' && r.status !== 'Ready') return false;
+      if (statusFilter === 'In Review' && r.status !== 'In Review') return false;
+      return true;
+    });
+  }, [statusFilter]);
+
   const reports = ['Quotation Report', 'Seller Report', 'RFQ Report', 'Cost Saving Report', 'Purchase Order Report'];
-  return <><div className="quote-filterbar"><Calendar size={18} style={{cursor: 'pointer'}} onClick={() => alert('Calendar picker opened!')} /><select><option>Last 30 Days</option></select><select><option>All Statuses</option></select><Btn icon={Download} onClick={() => downloadDummyPDF('Report_Export', 'Dummy Report Data')}>Export PDF</Btn><Btn icon={Download} onClick={() => triggerDownload(generateCSV(['ID', 'Status'], [{ID: 1, Status: 'Dummy'}, {ID: 2, Status: 'Data'}]), 'Report_Export.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')}>Export Excel</Btn><Btn icon={Download} onClick={() => triggerDownload(generateCSV(['ID', 'Status'], [{ID: 1, Status: 'Dummy'}, {ID: 2, Status: 'Data'}]), 'Report_Export.csv', 'text/csv')}>Export CSV</Btn></div><section className="quote-kpi-grid">{reports.map((r) => <article className="quote-card" key={r}><FileText /><h3>{r}</h3><p>Ready for executive and procurement review.</p><div className="quote-actions"><Btn onClick={() => downloadDummyPDF(r, 'Dummy PDF Data for ' + r)}>PDF</Btn><Btn onClick={() => triggerDownload(generateCSV(['Report', 'Data'], [{Report: r, Data: 'Dummy'}]), r.replace(/ /g, '_') + '.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')}>Excel</Btn><Btn onClick={() => triggerDownload(generateCSV(['Report', 'Data'], [{Report: r, Data: 'Dummy'}]), r.replace(/ /g, '_') + '.csv', 'text/csv')}>CSV</Btn></div></article>)}</section><article className="quote-card"><h3>Recent Exports</h3><Table columns={[{ key: 'id', label: 'Report' }, { key: 'seller', label: 'Owner' }, { key: 'submitted', label: 'Date' }, { key: 'status', label: 'Status', render: () => <Badge status="Approved">Ready</Badge> }]} rows={quotations.slice(0, 4)} /></article></>;
+
+  return (
+    <>
+      <div className="quote-filterbar">
+        <Calendar 
+          size={18} 
+          style={{ cursor: 'pointer', color: '#25108f' }} 
+          onClick={() => toast('Date range filter picker activated.')} 
+        />
+        <select value={timeRange} onChange={(e) => { setTimeRange(e.target.value); toast(`Report timeline set to ${e.target.value}`); }}>
+          <option value="Last 30 Days">Last 30 Days</option>
+          <option value="Last 7 Days">Last 7 Days</option>
+          <option value="This Month">This Month</option>
+          <option value="This Year">This Year</option>
+        </select>
+        <select value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); toast(`Filtering report exports by: ${e.target.value}`); }}>
+          <option value="ALL">All Statuses</option>
+          <option value="Ready">Ready</option>
+          <option value="In Review">In Review</option>
+        </select>
+        <Btn icon={Download} onClick={() => downloadDummyPDF('Report_Export', 'Dummy Report Data')}>Export PDF</Btn>
+        <Btn icon={Download} onClick={() => triggerDownload(generateCSV(['ID', 'Status'], [{ID: 1, Status: 'Dummy'}, {ID: 2, Status: 'Data'}]), 'Report_Export.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')}>Export Excel</Btn>
+        <Btn icon={Download} onClick={() => triggerDownload(generateCSV(['ID', 'Status'], [{ID: 1, Status: 'Dummy'}, {ID: 2, Status: 'Data'}]), 'Report_Export.csv', 'text/csv')}>Export CSV</Btn>
+      </div>
+
+      <section className="quote-kpi-grid">
+        {reports.map((r) => (
+          <article className="quote-card" key={r}>
+            <FileText />
+            <h3>{r}</h3>
+            <p>Ready for executive and procurement review.</p>
+            <div className="quote-actions">
+              <Btn onClick={() => downloadDummyPDF(r, 'Dummy PDF Data for ' + r)}>PDF</Btn>
+              <Btn onClick={() => triggerDownload(generateCSV(['Report', 'Data'], [{Report: r, Data: 'Dummy'}]), r.replace(/ /g, '_') + '.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')}>Excel</Btn>
+              <Btn onClick={() => triggerDownload(generateCSV(['Report', 'Data'], [{Report: r, Data: 'Dummy'}]), r.replace(/ /g, '_') + '.csv', 'text/csv')}>CSV</Btn>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <article className="quote-card">
+        <h3>Recent Exports</h3>
+        <Table 
+          columns={[
+            { key: 'id', label: 'Report' }, 
+            { key: 'seller', label: 'Owner' }, 
+            { key: 'submitted', label: 'Date' }, 
+            { key: 'status', label: 'Status', render: (r) => <Badge status={r.status === 'Ready' ? 'success' : 'warning'}>{r.status}</Badge> }
+          ]} 
+          rows={filteredExports} 
+        />
+      </article>
+    </>
+  );
 }
 
-function Disputes({ setModal }) {
-  const disputes = ['Pricing Dispute', 'Delivery Dispute', 'Material Quality Dispute', 'Contract Dispute'];
-  return <section className="quote-layout-main"><article className="quote-card"><h3>Active Disputes</h3>{disputes.map((d, i) => <div className="quote-dispute" key={d}><div><strong>{d}</strong><small>QT-88{i}2 • Evidence package attached</small></div><Badge status={i > 1 ? 'danger' : 'warning'}>{i > 1 ? 'High' : 'Medium'}</Badge><Btn onClick={() => setModal(['Resolve dispute', `${d} resolution will be recorded.`])}>Resolve</Btn><Btn>Escalate</Btn><Btn>Close</Btn></div>)}</article><aside className="quote-side-stack"><article className="quote-card"><h3>Evidence Viewer</h3><div className="quote-evidence">contracts.pdf<br />delivery-log.csv<br />photo-proof.png</div></article><article className="quote-dark-card"><h3>Resolution Notes</h3><textarea placeholder="Write resolution notes..." /><Btn variant="primary">Save Resolution</Btn></article></aside></section>;
+function Disputes({ toast, setModal }) {
+  const [disputeList, setDisputeList] = useState([
+    { id: 'QT-8802', title: 'Pricing Dispute', severity: 'warning', status: 'Active' },
+    { id: 'QT-8812', title: 'Delivery Dispute', severity: 'warning', status: 'Active' },
+    { id: 'QT-8822', title: 'Material Quality Dispute', severity: 'danger', status: 'Active' },
+    { id: 'QT-8832', title: 'Contract Dispute', severity: 'danger', status: 'Active' }
+  ]);
+  const [notesText, setNotesText] = useState('');
+
+  const handleSaveNotes = () => {
+    if (!notesText.trim()) {
+      toast('Please write resolution notes first.');
+      return;
+    }
+    toast('Resolution notes saved successfully!');
+    setNotesText('');
+  };
+
+  return (
+    <section className="quote-layout-main">
+      <article className="quote-card">
+        <h3>Active Disputes</h3>
+        {disputeList.length === 0 ? (
+          <div style={{ padding: '24px', textAlign: 'center', color: '#64748b', fontSize: '14px' }}>
+            No active disputes found. All issues resolved!
+          </div>
+        ) : (
+          disputeList.map((d) => (
+            <div className="quote-dispute" key={d.id}>
+              <div>
+                <strong>{d.title}</strong>
+                <small>{d.id} • Evidence package attached</small>
+              </div>
+              <Badge status={d.severity === 'danger' ? 'danger' : 'warning'}>
+                {d.severity === 'danger' ? 'High' : 'Medium'}
+              </Badge>
+              <Btn 
+                onClick={() => setModal([
+                  'Resolve Dispute', 
+                  `Are you sure you want to resolve the ${d.title} (${d.id})?`, 
+                  () => {
+                    setDisputeList(prev => prev.filter(item => item.id !== d.id));
+                    toast(`${d.title} resolved successfully!`);
+                  }
+                ])}
+              >
+                Resolve
+              </Btn>
+              <Btn 
+                onClick={() => setModal([
+                  'Escalate Dispute', 
+                  `Are you sure you want to escalate the ${d.title} (${d.id}) to senior management?`, 
+                  () => {
+                    toast(`${d.title} escalated successfully.`);
+                  }
+                ])}
+              >
+                Escalate
+              </Btn>
+              <Btn 
+                onClick={() => setModal([
+                  'Close Dispute', 
+                  `Are you sure you want to close the ${d.title} (${d.id})?`, 
+                  () => {
+                    setDisputeList(prev => prev.filter(item => item.id !== d.id));
+                    toast(`${d.title} closed.`);
+                  }
+                ])}
+              >
+                Close
+              </Btn>
+            </div>
+          ))
+        )}
+      </article>
+      <aside className="quote-side-stack">
+        <article className="quote-card">
+          <h3>Evidence Viewer</h3>
+          <div className="quote-evidence">
+            contracts.pdf<br />
+            delivery-log.csv<br />
+            photo-proof.png
+          </div>
+        </article>
+        <article className="quote-dark-card">
+          <h3>Resolution Notes</h3>
+          <textarea 
+            placeholder="Write resolution notes..." 
+            value={notesText}
+            onChange={(e) => setNotesText(e.target.value)}
+          />
+          <Btn variant="primary" onClick={handleSaveNotes}>Save Resolution</Btn>
+        </article>
+      </aside>
+    </section>
+  );
 }
 
 function HighValue({ nav }) {
@@ -492,7 +1416,15 @@ export default function QuotationManagement() {
             <p>{meta.subtitle}</p>
           </div>
           <div className="quote-actions">
-            <Btn icon={Download} onClick={() => toast('Export queued locally.')}>Export Report</Btn>
+            <Btn icon={Download} onClick={() => {
+              const data = [
+                ["Quote ID", "RFQ ID", "Seller Name", "Customer", "Amount", "Delivery Time", "Status", "Submitted Date"],
+                ...quotations.map(q => [q.id, q.rfq, q.seller, q.customer, q.amount, q.delivery, q.status, q.submitted])
+              ];
+              const csvContent = generateCSV(data[0], data.slice(1));
+              triggerDownload(csvContent, "quotations_report.csv", "text/csv");
+              toast("Quotations report downloaded successfully!");
+            }}>Export Report</Btn>
             <Btn icon={Plus} variant="primary" onClick={() => navigate(ROUTES.quotationCreateRfq)}>Create RFQ</Btn>
           </div>
         </div>
@@ -529,7 +1461,7 @@ export default function QuotationManagement() {
         </div>
         {content}
       </section>
-      <Modal title={modal?.[0]} body={modal?.[1]} onClose={() => setModal(null)} />
+      <Modal title={modal?.[0]} body={modal?.[1]} onClose={() => setModal(null)} onConfirm={modal?.[2]} />
     </AdminShell>
   );
 }

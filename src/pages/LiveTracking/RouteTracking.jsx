@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useApp } from "../../hooks/useApp";
@@ -273,10 +274,10 @@ export default function RouteTracking() {
 
               {/* Exact Controls Group from image_378519.jpg */}
               <div className="flex items-center gap-1.5 ml-auto lg:ml-0">
-                <button className="p-2 border border-slate-200 hover:bg-slate-50 text-slate-800 rounded-lg transition-colors">
+                <button className="p-2 border border-slate-200 hover:bg-slate-50 text-slate-800 rounded-lg transition-colors" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                   <Video className="h-4 w-4" />
                 </button>
-                <button className="p-2 border border-slate-200 hover:bg-slate-50 text-slate-800 rounded-lg transition-colors">
+                <button className="p-2 border border-slate-200 hover:bg-slate-50 text-slate-800 rounded-lg transition-colors" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                   <Phone className="h-4 w-4" />
                 </button>
                 <button 

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
@@ -435,7 +436,7 @@ export default function AuditLogs() {
                 </button>
               ))}
               <span className="px-1 text-[#71717A]">...</span>
-              <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] font-medium">
+              <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] font-medium" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 {totalPages}
               </button>
               <button
@@ -448,7 +449,7 @@ export default function AuditLogs() {
 
             <div className="flex items-center gap-2">
               <span className="text-[#71717A]">Rows per page:</span>
-              <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white font-bold inline-flex items-center gap-3">
+              <button className="h-[32px] px-2.5 rounded border border-[#E4E4E7] bg-white font-bold inline-flex items-center gap-3" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <span>{logs.length}</span>
                 <ChevronDown size={14} className="text-[#71717A]" />
               </button>

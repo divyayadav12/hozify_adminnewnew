@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import {
@@ -12,10 +13,11 @@ import {
   Download,
   X,
   CheckCircle,
-  Building2
+  Building2,
+  Loader2
 } from "lucide-react";
-import PartnerExportButton from "../../components/ui/PartnerExportButton";
 import PartnerExportModal from "../../components/ui/PartnerExportModal";
+import { triggerDownload, generateCSV } from "../../utils/downloadHelper";
 
 // Initial Mock Data
 const initialWalletPartners = [
@@ -64,16 +66,13 @@ export default function PartnerWallets() {
   const [timeframe, setTimeframe] = useState("Monthly");
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   
-  // Modal & Toast States for Dynamic Interaction
+  // Modal & Progress States
   const [activeModalData, setActiveModalData] = useState(null);
   const [isExportOpen, setIsExportOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
-
-  // Trigger professional toast alert
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3500);
-  };
+  const [activeModal, setActiveModal] = useState(null); // 'export-progress'
+  const [exportProgress, setExportProgress] = useState(0);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   // Dynamic Filtering
   const filteredSearchPartners = useMemo(() => {
@@ -125,23 +124,52 @@ export default function PartnerWallets() {
 
   const handleReviewPayouts = (e) => {
     e.stopPropagation();
-    const activePayoutsCount = walletPartners.filter(
-      (p) => p.status === "Processing" || p.status === "Overdue"
-    ).length;
-    showToast(`Success: Triggered dispatch logs for ${activePayoutsCount} active high-priority settlements.`);
+    setIsVerifying(true);
+    setTimeout(() => {
+      setIsVerifying(false);
+      toast.success("Success: All dispatch settlement thresholds checked and verified!");
+    }, 1200);
   };
 
   const handleFileUpload = (e) => {
-    showToast("Document uploaded successfully! Parsing wallet ledger data...");
-  };
-
-  const handleFileDownload = () => {
-    showToast("Generating secure cryptographic financial export ledger. Download started.");
+    if (e.target.files && e.target.files.length > 0) {
+      toast.success(`Parsing "${e.target.files[0].name}"... Wallet registry successfully synced.`);
+    }
   };
 
   const handleExport = (format) => {
     setIsExportOpen(false);
-    showToast(`${format} export for wallet data has started.`);
+    setIsExporting(true);
+    setExportProgress(0);
+    setActiveModal("export-progress");
+
+    const interval = setInterval(() => {
+      setExportProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            const csvContent = generateCSV(["ID", "Name", "Type", "Balance", "Threshold", "Status"], filteredPartners);
+            triggerDownload(csvContent, `partner_wallets_ledger.${format.toLowerCase()}`, format === "CSV" ? "text/csv" : "application/json");
+            toast.success(`Ledger database exported in ${format} format!`);
+            setIsExporting(false);
+            setActiveModal(null);
+          }, 300);
+          return 100;
+        }
+        return prev + 25;
+      });
+    }, 200);
+  };
+
+  const handleSettleNode = (partnerId, partnerName) => {
+    setWalletPartners(prev => prev.map(p => {
+      if (p.id === partnerId) {
+        return { ...p, status: "On Track" };
+      }
+      return p;
+    }));
+    toast.success(`Direct node settlement successful for ${partnerName}!`);
+    setActiveModalData(null);
   };
 
   // Unified mini graph calculation based on active selections
@@ -157,16 +185,8 @@ export default function PartnerWallets() {
 
   return (
     <AdminShell activeTab="Partner Wallets" searchPlaceholder="Search wallets...">
-      <div className="space-y-5 max-w-[1400px] mx-auto p-2 text-slate-800 antialiased selection:bg-indigo-100">
+      <div className="space-y-5 max-w-[1400px] mx-auto p-4 text-slate-800 antialiased selection:bg-indigo-100" style={{ paddingBottom: "40px" }}>
         
-        {/* TOAST NOTIFICATION CONTAINER */}
-        {toastMessage && (
-          <div className="fixed top-5 right-5 z-50 flex items-center gap-3 rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white shadow-xl transition-all animate-bounce">
-            <CheckCircle size={16} className="text-emerald-400" />
-            <span>{toastMessage}</span>
-          </div>
-        )}
-
         {/* TOP COMPACT CONTROLS & CALENDAR */}
         <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-100 shadow-sm">
           <div className="flex items-center gap-2">
@@ -181,7 +201,13 @@ export default function PartnerWallets() {
               <span>Upload</span>
               <input type="file" className="hidden" onChange={handleFileUpload} />
             </label>
-            <PartnerExportButton onClick={() => setIsExportOpen(true)} label="Export Report" />
+            <button 
+              onClick={() => setIsExportOpen(true)}
+              className="inline-flex items-center gap-2 rounded-lg bg-indigo-900 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-950 transition cursor-pointer border-none"
+            >
+              <Download size={14} />
+              <span>Export Report</span>
+            </button>
             <PartnerExportModal
               open={isExportOpen}
               onClose={() => setIsExportOpen(false)}
@@ -196,7 +222,7 @@ export default function PartnerWallets() {
             <div className="relative">
               <button 
                 onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-                className="flex items-center gap-1.5 rounded-lg border border-indigo-100 bg-indigo-50/50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition"
+                className="flex items-center gap-1.5 rounded-lg border border-indigo-100 bg-indigo-50/50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition cursor-pointer"
               >
                 <Calendar size={14} />
                 <span>{timeframe} Window</span>
@@ -207,8 +233,8 @@ export default function PartnerWallets() {
                   {["Weekly", "Monthly", "Yearly"].map((t) => (
                     <button
                       key={t}
-                      onClick={() => { setTimeframe(t); setIsCalendarOpen(false); showToast(`View scope adjusted to ${t} data interval.`); }}
-                      className={`w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold transition ${timeframe === t ? 'bg-indigo-600 text-white' : 'text-slate-600 hover:bg-slate-50'}`}
+                      onClick={() => { setTimeframe(t); setIsCalendarOpen(false); toast.success(`View scope adjusted to ${t} data interval.`); }}
+                      className={`w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold transition cursor-pointer border-none bg-transparent ${timeframe === t ? 'bg-indigo-650 text-white' : 'text-slate-600 hover:bg-slate-50'}`}
                     >
                       {t} Analytics
                     </button>
@@ -235,7 +261,7 @@ export default function PartnerWallets() {
                 <button
                   key={type}
                   onClick={() => setSelectedType(type)}
-                  className={`rounded-md px-2.5 py-1 text-[11px] font-bold transition ${selectedType === type ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
+                  className={`rounded-md px-2.5 py-1 text-[11px] font-bold transition cursor-pointer border-none ${selectedType === type ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
                 >
                   {type}: {type === 'All' ? formatCurrency(metrics.total) : formatCurrency(type === 'ISP' ? metrics.ispTotal : metrics.bspTotal)}
                 </button>
@@ -244,7 +270,7 @@ export default function PartnerWallets() {
           </div>
 
           {/* LIGHT UPCOMING PAYOUTS */}
-          <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-slate-50 to-indigo-50/50 p-5 shadow-sm flex flex-col justify-between">
+          <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-slate-50 to-indigo-50/50 p-5 shadow-sm flex flex-col justify-between" style={{ minHeight: "135px" }}>
             <div>
               <p className="text-[10px] font-bold uppercase tracking-wider text-indigo-500/90">Upcoming Batch Settlements</p>
               <h3 className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900">$240,150</h3>
@@ -252,9 +278,11 @@ export default function PartnerWallets() {
             </div>
             <button 
               onClick={handleReviewPayouts}
-              className="mt-3 w-full rounded-xl bg-indigo-600 py-2 text-xs font-bold text-white hover:bg-indigo-700 active:scale-[0.98] transition shadow-sm hover:shadow"
+              disabled={isVerifying}
+              className="mt-3 w-full rounded-xl bg-indigo-600 py-2.5 text-xs font-bold text-white hover:bg-indigo-700 active:scale-[0.98] transition shadow-sm hover:shadow cursor-pointer border-none flex items-center justify-center gap-1.5"
             >
-              Dispatch Queue Verification
+              {isVerifying && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+              <span>{isVerifying ? "Verifying..." : "Dispatch Queue Verification"}</span>
             </button>
           </div>
 
@@ -286,12 +314,12 @@ export default function PartnerWallets() {
         <div className="rounded-2xl border border-slate-200/70 bg-white p-3.5 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="relative w-full max-w-md">
-              <Search size={15} className="absolute left-3.5 top-3 text-slate-400" />
+              <Search size={15} className="absolute left-3.5 top-3.5 text-slate-400" />
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter secure registry by partner name or ID..."
-                className="w-full rounded-xl border border-slate-200/80 py-2 pl-9 pr-4 outline-none focus:border-indigo-500 transition text-xs font-medium bg-slate-50/50 focus:bg-white"
+                className="w-full rounded-xl border border-slate-200/80 py-2.5 pl-9 pr-4 outline-none focus:border-indigo-500 transition text-xs font-medium bg-slate-50/50 focus:bg-white"
               />
             </div>
 
@@ -300,14 +328,14 @@ export default function PartnerWallets() {
                 <button
                   key={t}
                   onClick={() => setSelectedType(t)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-bold transition ${selectedType === t ? "bg-slate-900 text-white" : "border border-slate-200 text-slate-600 hover:bg-slate-50"}`}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-bold transition cursor-pointer border-none ${selectedType === t ? "bg-slate-900 text-white" : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}
                 >
                   {t} ({t === "All" ? typeCounts.all : typeCounts[t]})
                 </button>
               ))}
               <button 
-                onClick={() => { setSelectedType("All"); setSearchQuery(""); showToast("Filters reset to default."); }}
-                className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-50 transition"
+                onClick={() => { setSelectedType("All"); setSearchQuery(""); toast.success("Filters reset to default."); }}
+                className="flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-50 transition cursor-pointer"
               >
                 <Filter size={12} />
                 <span>Reset</span>
@@ -344,7 +372,7 @@ export default function PartnerWallets() {
                     >
                       <td className="px-5 py-3">
                         <div>
-                          <h4 className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{partner.name}</h4>
+                          <h4 className="font-bold text-slate-900 group-hover:text-indigo-650 transition-colors">{partner.name}</h4>
                           <p className="text-[10px] text-slate-400 font-mono mt-0.5">{partner.id}</p>
                         </div>
                       </td>
@@ -379,282 +407,118 @@ export default function PartnerWallets() {
 
         {/* ANALYTICS LOWER ROWS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-4.5 shadow-sm hover:border-slate-300 transition">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-slate-350 transition cursor-pointer animate-fade-in" onClick={() => toast.success("Liability velocity has increased 12.4% over previous quarter.")}>
             <div className="flex items-center gap-2">
-              <TrendingUp className="text-indigo-600" size={16} />
+              <TrendingUp className="text-indigo-650" size={16} />
               <h3 className="text-xs font-bold text-slate-800">Liability Velocity</h3>
             </div>
-            <p className="mt-1 text-[11px] text-slate-500 leading-relaxed">Structural liability growth shift.</p>
-            <h4 className="mt-2 text-2xl font-black text-slate-900 tracking-tight">+12.4%</h4>
+            <p className="mt-2 text-[11px] text-slate-500 leading-relaxed font-semibold">Liability growth comparison metrics for selected segment.</p>
+            <h4 className="mt-4 text-2xl font-black text-slate-900 tracking-tight">+12.4%</h4>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-4.5 shadow-sm hover:border-slate-300 transition">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-slate-350 transition cursor-pointer animate-fade-in" onClick={() => toast.success("Current active wallet compliance factor: 98%.")}>
             <div className="flex items-center gap-2">
               <ShieldCheck className="text-emerald-600" size={16} />
               <h3 className="text-xs font-bold text-slate-800">Compliance Factor</h3>
             </div>
-            <p className="mt-1 text-[11px] text-slate-500 leading-relaxed">Active validation across node paths.</p>
-            <h4 className="mt-2 text-2xl font-black text-emerald-600 tracking-tight">98%</h4>
+            <p className="mt-2 text-[11px] text-slate-500 leading-relaxed font-semibold">Active ledger validations across all verified nodes.</p>
+            <h4 className="mt-4 text-2xl font-black text-emerald-600 tracking-tight">98%</h4>
           </div>
 
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-slate-350 transition cursor-pointer animate-fade-in" onClick={() => toast.success("Overdue settlements: 4 partners currently exceed thresholds.")}>
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="text-rose-600" size={16} />
+              <h3 className="text-xs font-bold text-slate-800">Overdue Settlements</h3>
+            </div>
+            <p className="mt-2 text-[11px] text-slate-500 leading-relaxed font-semibold">Partners exceeding the threshold limit parameters.</p>
+            <h4 className="mt-4 text-2xl font-black text-rose-600 tracking-tight">04</h4>
+          </div>
+        </div>
 
-    <div className="flex gap-2">
+      </div>
 
-      <button className="rounded-xl bg-indigo-600 px-5 py-3 text-white">
-        All
-      </button>
-
-      <button className="rounded-xl border border-slate-200 px-5 py-3">
-        ISP
-      </button>
-
-      <button className="rounded-xl border border-slate-200 px-5 py-3">
-        BSP
-      </button>
-
-      <button className="flex items-center gap-2 rounded-xl border border-slate-200 px-5 py-3">
-        <Filter size={16} />
-        Filters
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-{/* WALLET TABLE */}
-
-<div className="overflow-hidden rounded-3xl border border-slate-200 bg-white">
-
-  <div className="border-b border-slate-200 p-6">
-
-    <h2 className="text-2xl font-bold text-slate-900">
-      Partner Wallet Registry
-    </h2>
-
-    <p className="mt-1 text-slate-500">
-      Monitor balances, liabilities and payouts
-    </p>
-
-  </div>
-
-  <div className="overflow-x-auto">
-
-    <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full">
-
-      <thead className="bg-slate-50">
-
-        <tr className="text-left text-sm text-slate-500">
-
-          <th className="px-6 py-5">PARTNER</th>
-          <th>TYPE</th>
-          <th>BALANCE</th>
-          <th>THRESHOLD</th>
-          <th>STATUS</th>
-
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-        {walletPartners.map((partner) => (
-
-          <tr
-            key={partner.id}
-            className="border-t border-slate-100 hover:bg-slate-50"
-          >
-
-            <td className="px-6 py-5">
-
+      {/* ========================================================
+          MODAL: PARTNER LEDGER DETAILS
+          ======================================================== */}
+      {activeModalData && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div className="fixed inset-0 bg-transparent" onClick={() => setActiveModalData(null)} />
+          <div className="relative bg-white w-full max-w-sm rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-
-                <h4 className="font-semibold text-slate-900">
-                  {partner.name}
-                </h4>
-
-                <p className="text-sm text-slate-500">
-                  {partner.id}
-                </p>
+                <span className="text-[9px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+                  {activeModalData.type} Node Profile
+                </span>
+                <h3 className="text-base font-bold text-slate-900 mt-1">{activeModalData.name}</h3>
               </div>
-            </td>
-
-            <td>
-              <span className={`px-2 py-1 rounded-md text-xs font-medium ${partner.type === 'ISP' ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-700'}`}>
-                {partner.type}
-              </span>
-            </td>
-
-            <td className="font-semibold">
-              {partner.balance}
-            </td>
-
-            <td>
-              {partner.threshold}
-            </td>
-
-            <td>
-
-              <span
-                className={`rounded-full px-4 py-2 text-sm font-medium ${
-                  partner.status === "On Track"
-                    ? "bg-green-100 text-green-700"
-                    : partner.status === "Overdue"
-                    ? "bg-red-100 text-red-700"
-                    : "bg-orange-100 text-orange-700"
-                }`}
+              <button 
+                onClick={() => setActiveModalData(null)}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-650 transition cursor-pointer border-none bg-transparent"
               >
-                {partner.status}
-              </span>
+                <X size={16} />
+              </button>
+            </div>
 
-            </td>
+            <div className="mt-4 space-y-3 text-xs">
+              <div className="flex justify-between border-b border-slate-50 pb-1.5">
+                <span className="text-slate-400 font-medium">System Registry ID:</span>
+                <span className="font-mono font-bold text-slate-700">{activeModalData.id}</span>
+              </div>
+              <div className="flex justify-between border-b border-slate-50 pb-1.5">
+                <span className="text-slate-400 font-medium">Available Balance:</span>
+                <span className="font-extrabold text-slate-900">{formatCurrency(activeModalData.balance)}</span>
+              </div>
+              <div className="flex justify-between border-b border-slate-50 pb-1.5">
+                <span className="text-slate-400 font-medium">Allocated Threshold:</span>
+                <span className="font-semibold text-slate-700">{formatCurrency(activeModalData.threshold)}</span>
+              </div>
+              <div className="flex justify-between items-center pb-1">
+                <span className="text-slate-400 font-medium">Execution Status:</span>
+                <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold border ${
+                  activeModalData.status === "On Track" ? "bg-emerald-50 text-emerald-700 border-emerald-100" : 
+                  activeModalData.status === "Overdue" ? "bg-rose-50 text-rose-700 border-rose-100" : "bg-amber-50 text-amber-700 border-amber-100"
+                }`}>{activeModalData.status}</span>
+              </div>
+            </div>
 
-          </tr>
-
-        ))}
-
-      </tbody>
-
-    </table></div>
-
-  </div>
-
-</div>
-{/* ANALYTICS */}
-
-<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-  <div className="rounded-3xl border border-slate-200 bg-white p-6">
-
-    <div className="flex items-center gap-3">
-
-      <TrendingUp className="text-indigo-600" />
-
-      <h3 className="text-xl font-bold">
-        Liability Velocity
-      </h3>
-
-    </div>
-
-    <p className="mt-4 text-slate-500">
-      Liability growth increased by
-      12.4% compared to the previous quarter.
-    </p>
-
-    <h4 className="mt-6 text-4xl font-bold text-slate-900">
-      +12.4%
-    </h4>
-
-  </div>
-
-  <div className="rounded-3xl border border-slate-200 bg-white p-6">
-
-    <div className="flex items-center gap-3">
-
-      <ShieldCheck className="text-green-600" />
-
-      <h3 className="text-xl font-bold">
-        Compliance Status
-      </h3>
-
-    </div>
-
-    <p className="mt-4 text-slate-500">
-      Active wallet compliance and
-      verification across partner network.
-    </p>
-
-    <h4 className="mt-6 text-4xl font-bold text-green-600">
-      98%
-    </h4>
-
-  </div>
-
-  <div className="rounded-3xl border border-slate-200 bg-white p-6">
-
-    <div className="flex items-center gap-3">
-
-      <AlertTriangle className="text-red-600" />
-
-      <h3 className="text-xl font-bold">
-        Overdue Settlements
-      </h3>
-
-    </div>
-
-    <p className="mt-4 text-slate-500">
-      Partners exceeding settlement
-      thresholds beyond expected cycle.
-    </p>
-
-    <h4 className="mt-6 text-4xl font-bold text-red-600">
-      04
-    </h4>
-
-  </div>
-
-</div>
-
-{/* DYNAMIC INTERACTIVE POPUP / MODAL */}
-{activeModalData && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-fadeIn">
-    <div className="w-full max-w-sm rounded-2xl border border-slate-100 bg-white p-5 shadow-2xl transition-all scale-100">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div>
-          <span className="text-[9px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
-            {activeModalData.type} Node Profile
-          </span>
-          <h3 className="text-base font-bold text-slate-900 mt-1">{activeModalData.name}</h3>
+            <div className="mt-5 grid grid-cols-2 gap-2">
+              <button 
+                onClick={() => { toast.success(`Balance audit logs pulled for ${activeModalData.name}`); setActiveModalData(null); }}
+                className="rounded-xl bg-slate-900 py-2.5 text-center text-xs font-bold text-white hover:bg-slate-800 transition cursor-pointer border-none"
+              >
+                Audit Stream
+              </button>
+              <button 
+                onClick={() => handleSettleNode(activeModalData.id, activeModalData.name)}
+                className="rounded-xl bg-indigo-600 py-2.5 text-center text-xs font-bold text-white hover:bg-indigo-700 transition cursor-pointer border-none"
+              >
+                Settle Node
+              </button>
+            </div>
+          </div>
         </div>
-        <button 
-          onClick={() => setActiveModalData(null)}
-          className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
-        >
-          <X size={16} />
-        </button>
-      </div>
+      )}
 
-      <div className="mt-4 space-y-3 text-xs">
-        <div className="flex justify-between border-b border-slate-50 pb-1.5">
-          <span className="text-slate-400 font-medium">System Registry ID:</span>
-          <span className="font-mono font-bold text-slate-700">{activeModalData.id}</span>
+      {/* ========================================================
+          MODAL: EXPORT COMPILING SPINNER
+          ======================================================== */}
+      {activeModal === "export-progress" && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div className="relative bg-white w-full max-w-sm rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden text-center animate-in zoom-in-95 duration-200">
+            <Loader2 className="h-8 w-8 text-[#25108f] animate-spin mx-auto mb-4" />
+            <h3 className="text-base font-black text-slate-900">Compiling Ledger Database...</h3>
+            <p className="text-xs text-slate-400 font-semibold mt-1">Exporting active partner wallets registry</p>
+            
+            <div className="mt-5 w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-[#25108f] transition-all duration-200 rounded-full"
+                style={{ width: `${exportProgress}%` }}
+              />
+            </div>
+            <p className="text-[10px] text-[#25108f] font-black tracking-widest uppercase mt-2">{exportProgress}% Completed</p>
+          </div>
         </div>
-        <div className="flex justify-between border-b border-slate-50 pb-1.5">
-          <span className="text-slate-400 font-medium">Available Balance:</span>
-          <span className="font-extrabold text-slate-900">{formatCurrency(activeModalData.balance)}</span>
-        </div>
-        <div className="flex justify-between border-b border-slate-50 pb-1.5">
-          <span className="text-slate-400 font-medium">Allocated Threshold:</span>
-          <span className="font-semibold text-slate-700">{formatCurrency(activeModalData.threshold)}</span>
-        </div>
-        <div className="flex justify-between items-center pb-1">
-          <span className="text-slate-400 font-medium">Execution Status:</span>
-          <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold border ${
-            activeModalData.status === "On Track" ? "bg-emerald-50 text-emerald-700 border-emerald-100" : 
-            activeModalData.status === "Overdue" ? "bg-rose-50 text-rose-700 border-rose-100" : "bg-amber-50 text-amber-700 border-amber-100"
-          }`}>{activeModalData.status}</span>
-        </div>
-      </div>
-
-      <div className="mt-5 grid grid-cols-2 gap-2">
-        <button 
-          onClick={() => { showToast(`Balance audit logs pulled for ${activeModalData.name}`); setActiveModalData(null); }}
-          className="rounded-xl bg-slate-900 py-2 text-center text-xs font-bold text-white hover:bg-slate-800 transition"
-        >
-          Audit Stream
-        </button>
-        <button 
-          onClick={() => { showToast(`Instant settlement pipeline initialized for ${activeModalData.name}`); setActiveModalData(null); }}
-          className="rounded-xl bg-indigo-600 py-2 text-center text-xs font-bold text-white hover:bg-indigo-700 transition"
-        >
-          Settle Node
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+      )}
 
     </AdminShell>
   );

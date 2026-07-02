@@ -40,19 +40,42 @@ export default function SettlementReport() {
           <div className="flex items-center gap-2 relative">
             {/* DATE PICKER */}
             <div className="relative group">
-              <input 
-                type="date" 
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              <select
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold border border-gray-200 bg-white rounded text-slate-600 hover:bg-gray-50 shadow-sm cursor-pointer outline-none appearance-auto"
+                value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-              />
-              <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold border border-gray-200 bg-white rounded text-slate-600 hover:bg-gray-50 shadow-sm">
-                {selectedDate}
-              </button>
+              >
+                <option value="Last 30 Days">Last 30 Days</option>
+                <option value="Last 7 Days">Last 7 Days</option>
+                <option value="Today">Today</option>
+                <option value="All Time">All Time</option>
+              </select>
             </div>
 
-            <button onClick={() => setShowFilter(!showFilter)} className="px-3 py-1.5 text-xs font-semibold border border-gray-200 bg-white rounded text-slate-600 shadow-sm">
-              Filters
-            </button>
+            <div className="relative">
+              <button onClick={() => setShowFilter(!showFilter)} className="px-3 py-1.5 text-xs font-semibold border border-gray-200 bg-white rounded text-slate-600 shadow-sm hover:bg-gray-50">
+                Filters
+              </button>
+              {showFilter && (
+                <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg p-2 z-50">
+                  <label className="block text-[10px] font-bold text-gray-400 uppercase mb-2">Filter by Status</label>
+                  <div className="flex flex-col space-y-1">
+                    {["ALL", "SUCCESS", "PENDING", "FAILED"].map(status => (
+                      <button
+                        key={status}
+                        className={`text-left px-2 py-1.5 text-xs rounded ${selectedStatus === status ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-gray-50'}`}
+                        onClick={() => {
+                          setSelectedStatus(status);
+                          setShowFilter(false);
+                        }}
+                      >
+                        {status === "ALL" ? "All Statuses" : status}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

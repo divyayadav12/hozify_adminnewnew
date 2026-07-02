@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import { 
   ShieldCheck, 
@@ -153,16 +154,16 @@ export default function ServiceAreaCoverage() {
             {/* Float Toolbar */}
             <div style={{ position: 'absolute', top: '16px', left: '16px', display: 'flex', flexDirection: 'column', gap: '8px', background: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)' }}>
               {['↗', '⚙', '☉', '📍', '+', '-', '☷'].map((icon, i) => (
-                <button key={i} style={{ width: '24px', height: '24px', border: 'none', background: 'transparent', color: '#fff', fontSize: '12px', cursor: 'pointer' }} type="button">{icon}</button>
+                <button key={i} style={{ width: '24px', height: '24px', border: 'none', background: 'transparent', color: '#fff', fontSize: '12px', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>{icon}</button>
               ))}
             </div>
 
             {/* Map Actions */}
             <div style={{ position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', width: 'max-content' }}>
-              <button style={{ height: '32px', padding: '0 12px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(15, 23, 42, 0.9)', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button">
+              <button style={{ height: '32px', padding: '0 12px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(15, 23, 42, 0.9)', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <Edit size={12} /> Edit Boundary
               </button>
-              <button style={{ height: '32px', padding: '0 12px', border: 'none', background: '#4f46e5', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button">
+              <button style={{ height: '32px', padding: '0 12px', border: 'none', background: '#4f46e5', color: '#fff', fontSize: '11px', fontWeight: '800', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <PlusCircle size={12} /> Add Zone
               </button>
             </div>

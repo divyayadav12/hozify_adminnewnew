@@ -1,6 +1,9 @@
+import toast from 'react-hot-toast';
 import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import BusinessHeaderTabs from "./BusinessHeaderTabs";
 import { useToast } from "../../components/common/ToastNotification";
+import { triggerDownload, generateCSV } from "../../utils/downloadHelper";
 import {
   Search,
   Bell,
@@ -10,6 +13,15 @@ import {
   Download,
   Building2,
   ShieldCheck,
+  Plus,
+  Minus,
+  Cpu,
+  Clock,
+  ClipboardCopy,
+  AlertTriangle,
+  CheckCircle,
+  Check,
+  X
 } from "lucide-react";
 
 const MOCK_BUSINESSES = [
@@ -36,7 +48,7 @@ const MOCK_BUSINESSES = [
   {
     id: "2",
     legalName: "Apex Retailers & Distributors",
-    gstin: "27APEXD0987K2Z8",
+    gstin: "27AAAAA0000B2Y6",
     regDate: "Jan 08, 2023",
     taxpayerType: "Regular",
     constitution: "Partnership Firm",
@@ -56,7 +68,7 @@ const MOCK_BUSINESSES = [
   {
     id: "3",
     legalName: "Vortex Digital Agency",
-    gstin: "27VRTXD1234F1Z0",
+    gstin: "27AAAAA0000C3X7",
     regDate: "Mar 19, 2024",
     taxpayerType: "Composition",
     constitution: "Proprietorship",
@@ -81,9 +93,10 @@ export default function GSTVerification() {
   const [selectedBusiness, setSelectedBusiness] = useState(MOCK_BUSINESSES[0]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-  const [zoom, setZoom] = useState(1);
+  const [zoomScale, setZoomScale] = useState(1);
   const [rejectionModalOpen, setRejectionModalOpen] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [statuses, setStatuses] = useState({});
   const [feeds, setFeeds] = useState({});
@@ -101,17 +114,30 @@ export default function GSTVerification() {
   }, [searchQuery]);
 
   const handleZoomIn = () => {
-    setZoom(prev => Math.min(prev + 0.1, 1.5));
+    setZoomScale(prev => Math.min(prev + 0.15, 1.6));
     addToast("Zoomed in", "success");
   };
 
   const handleZoomOut = () => {
-    setZoom(prev => Math.max(prev - 0.1, 0.7));
+    setZoomScale(prev => Math.max(prev - 0.15, 0.7));
     addToast("Zoomed out", "success");
   };
 
   const handleDownload = () => {
-    addToast(`Downloading document for ${selectedBusiness.legalName}...`, "success");
+    const data = [
+      ["Field", "Value"],
+      ["Legal Name", selectedBusiness.legalName],
+      ["GSTIN", selectedBusiness.gstin],
+      ["Reg Date", selectedBusiness.regDate],
+      ["Taxpayer Type", selectedBusiness.taxpayerType],
+      ["Constitution", selectedBusiness.constitution],
+      ["AI Confidence", `${selectedBusiness.aiScore}%`],
+      ["Verification Status", currentStatus.state.toUpperCase()],
+      ["Rejection Reason", currentStatus.reason || "N/A"]
+    ];
+    const csvContent = generateCSV(data[0], data.slice(1));
+    triggerDownload(csvContent, `gst_verification_${selectedBusiness.id}.csv`, "text/csv");
+    addToast(`Verification report downloaded for ${selectedBusiness.legalName}.`, "success");
   };
 
   const handleCopyGSTIN = () => {
@@ -120,22 +146,26 @@ export default function GSTVerification() {
   };
 
   const handleApprove = () => {
-    setStatuses(prev => ({
-      ...prev,
-      [selectedBusiness.id]: { state: 'approved', reason: '' }
-    }));
-    setFeeds(prev => {
-      const originalFeed = feeds[selectedBusiness.id] || selectedBusiness.activityFeed;
-      if (originalFeed.some(f => f.title === 'GSTIN Validation Approved')) return prev;
-      return {
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({
         ...prev,
-        [selectedBusiness.id]: [
-          { id: 'approved_' + Date.now(), title: 'GSTIN Validation Approved', desc: 'Approved by Compliance Auditor.', status: 'success' },
-          ...originalFeed
-        ]
-      };
-    });
-    addToast(`Approved GST for ${selectedBusiness.legalName}!`, 'success');
+        [selectedBusiness.id]: { state: 'approved', reason: '' }
+      }));
+      setFeeds(prev => {
+        const originalFeed = feeds[selectedBusiness.id] || selectedBusiness.activityFeed;
+        if (originalFeed.some(f => f.title === 'GSTIN Validation Approved')) return prev;
+        return {
+          ...prev,
+          [selectedBusiness.id]: [
+            { id: 'approved_' + Date.now(), title: 'GSTIN Validation Approved', desc: 'Approved by Compliance Auditor.', status: 'success' },
+            ...originalFeed
+          ]
+        };
+      });
+      addToast(`Approved GST for ${selectedBusiness.legalName}!`, 'success');
+    }, 800);
   };
 
   const handleRejectConfirm = () => {
@@ -143,23 +173,27 @@ export default function GSTVerification() {
       addToast('Please enter a rejection reason.', 'error');
       return;
     }
-    setStatuses(prev => ({
-      ...prev,
-      [selectedBusiness.id]: { state: 'rejected', reason: rejectionReason }
-    }));
-    setFeeds(prev => {
-      const originalFeed = feeds[selectedBusiness.id] || selectedBusiness.activityFeed;
-      return {
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({
         ...prev,
-        [selectedBusiness.id]: [
-          { id: 'rejected_' + Date.now(), title: 'GSTIN Validation Rejected', desc: `Reason: ${rejectionReason}`, status: 'error' },
-          ...originalFeed
-        ]
-      };
-    });
-    addToast(`Rejected GST for ${selectedBusiness.legalName}.`, 'error');
-    setRejectionModalOpen(false);
-    setRejectionReason('');
+        [selectedBusiness.id]: { state: 'rejected', reason: rejectionReason }
+      }));
+      setFeeds(prev => {
+        const originalFeed = feeds[selectedBusiness.id] || selectedBusiness.activityFeed;
+        return {
+          ...prev,
+          [selectedBusiness.id]: [
+            { id: 'rejected_' + Date.now(), title: 'GSTIN Validation Rejected', desc: `Reason: ${rejectionReason}`, status: 'error' },
+            ...originalFeed
+          ]
+        };
+      });
+      addToast(`Rejected GST for ${selectedBusiness.legalName}.`, 'error');
+      setRejectionModalOpen(false);
+      setRejectionReason('');
+    }, 800);
   };
 
   const handleReset = () => {
@@ -179,7 +213,7 @@ export default function GSTVerification() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'success': return 'bg-green-500';
+      case 'success': return 'bg-emerald-500';
       case 'error': return 'bg-rose-500';
       case 'warning': return 'bg-amber-500';
       case 'info':
@@ -190,592 +224,473 @@ export default function GSTVerification() {
 
   return (
     <AdminShell
-      activeTab="Compliance"
+      activeTab="Business"
+      headerTitle="Business Registry"
+      headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
       searchPlaceholder="Search entity, GSTN, or owner..."
     >
-      <div className="min-h-screen bg-[#F5F6FB] flex flex-col relative">
-
-        {/* ================= TOP HEADER ================= */}
-
-        <div className="h-[78px] bg-[#F5F6FB] border-b border-[#D9DCE8] flex items-center justify-between px-8">
-
-          {/* Left Logo */}
-
-          <div className="flex items-center">
-            <h1 className="text-[20px] leading-7 font-black text-[#0F172A]">
-              Business
-              <br />
-              Registry
-            </h1>
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '90px' }}>
+        
+        {/* Selection pills and Search Block */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px', position: 'relative' }}>
+          <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', maxWidth: '100%', paddingBottom: '4px' }}>
+            {MOCK_BUSINESSES.map(b => {
+              const isSelected = selectedBusiness.id === b.id;
+              const status = statuses[b.id]?.state || 'pending';
+              return (
+                <button
+                  key={b.id}
+                  onClick={() => setSelectedBusiness(b)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+                    isSelected 
+                      ? 'bg-indigo-900 text-white border-indigo-900 shadow-md' 
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                  }`}
+                  type="button"
+                >
+                  <span>{b.legalName}</span>
+                  <span className={`w-2 h-2 rounded-full ${
+                    status === 'approved' ? 'bg-emerald-500' : status === 'rejected' ? 'bg-rose-500' : 'bg-amber-400'
+                  }`} />
+                </button>
+              );
+            })}
+          </div>
+          
+          {/* Clean Search Input */}
+          <div style={{ display: 'flex', alignItems: 'center', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '10px', padding: '6px 12px', width: '320px', gap: '8px' }}>
+            <Search size={16} className="text-slate-400" />
+            <input
+              type="text"
+              placeholder="Filter list by name or GSTIN..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setShowDropdown(true);
+              }}
+              onFocus={() => setShowDropdown(true)}
+              style={{ border: 'none', outline: 'none', background: 'transparent', width: '100%', fontSize: '12px' }}
+            />
+            {searchQuery && (
+              <button 
+                onClick={() => { setSearchQuery(''); setShowDropdown(false); }} 
+                style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}
+                type="button"
+              >
+                ×
+              </button>
+            )}
           </div>
 
-          {/* Center Navigation */}
-
-          <div className="flex items-center gap-10">
-
-            {/* Search */}
-
-            <div className="relative">
-              <div className="w-[390px] h-[44px] bg-[#EEF1F9] rounded-2xl flex items-center px-4 gap-3">
-                <Search size={18} className="text-slate-500" />
-
-                <input
-                  type="text"
-                  placeholder="Search entity, GSTN, or owner..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setShowDropdown(true);
-                  }}
-                  onFocus={() => setShowDropdown(true)}
-                  className="bg-transparent outline-none w-full text-[15px] text-slate-700 placeholder:text-slate-500"
-                />
-                {searchQuery && (
-                  <button 
-                    onClick={() => { setSearchQuery(''); setShowDropdown(false); }} 
-                    className="text-slate-400 hover:text-slate-600 font-bold text-lg"
+          {/* Search Dropdown Overlay */}
+          {showDropdown && (
+            <>
+              <div className="fixed inset-0 z-40 bg-transparent" onClick={() => setShowDropdown(false)} />
+              <div className="absolute right-0 top-[50px] bg-white border border-[#D9DCE8] rounded-xl shadow-xl z-50 py-2 w-[320px] max-h-48 overflow-y-auto">
+                {filteredBusinesses.map(b => (
+                  <button
+                    key={b.id}
+                    onClick={() => {
+                      setSelectedBusiness(b);
+                      setSearchQuery('');
+                      setShowDropdown(false);
+                    }}
+                    className="w-full text-left px-4 py-2 hover:bg-slate-50 transition flex flex-col border-none bg-transparent cursor-pointer"
+                    type="button"
                   >
-                    ×
+                    <span className="font-bold text-[#0F172A] text-xs">{b.legalName}</span>
+                    <span className="text-[10px] text-slate-400 mt-0.5">{b.gstin}</span>
                   </button>
+                ))}
+                {filteredBusinesses.length === 0 && (
+                  <div className="px-4 py-2 text-xs text-slate-400 italic">No business found</div>
                 )}
               </div>
-
-              {showDropdown && (
-                <>
-                  <div className="fixed inset-0 z-10" onClick={() => setShowDropdown(false)} />
-                  <div className="absolute top-[50px] left-0 w-full bg-white border border-[#D9DCE8] rounded-xl shadow-xl z-20 py-2">
-                    {filteredBusinesses.length > 0 ? (
-                      filteredBusinesses.map(b => (
-                        <button
-                          key={b.id}
-                          onClick={() => {
-                            setSelectedBusiness(b);
-                            setSearchQuery('');
-                            setShowDropdown(false);
-                          }}
-                          className="w-full text-left px-4 py-3 hover:bg-[#EEF1F9] transition flex flex-col"
-                        >
-                          <span className="font-bold text-[#0F172A] text-sm">{b.legalName}</span>
-                          <span className="text-xs text-slate-500 tracking-wider mt-0.5">{b.gstin}</span>
-                        </button>
-                      ))
-                    ) : (
-                      <div className="px-4 py-3 text-sm text-slate-500 italic">No business found</div>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Menu */}
-
-            <div className="flex items-center gap-8 text-[16px] font-medium">
-
-              <button className="text-slate-700 hover:text-[#4F46E5]" onClick={() => addToast('Navigating to Directory...', 'info')}>
-                Directory
-              </button>
-
-              <button className="text-[#312E81] border-b-[3px] border-[#312E81] pb-[14px] font-semibold">
-                Compliance
-              </button>
-
-              <button className="text-slate-700 hover:text-[#4F46E5]" onClick={() => addToast('Navigating to Risk Management...', 'info')}>
-                Risk Management
-              </button>
-
-            </div>
-          </div>
-
-          {/* Right Actions */}
-
-          <div className="flex items-center gap-6">
-
-            <button onClick={() => addToast('No new notifications.', 'info')}>
-              <Bell
-                size={22}
-                className="text-slate-700"
-              />
-            </button>
-
-            <button onClick={() => addToast('Opening Workspace grid...', 'info')}>
-              <Grid3X3
-                size={22}
-                className="text-slate-700"
-              />
-            </button>
-
-            <div 
-              onClick={() => addToast('Auditor Profile options.', 'info')}
-              className="w-9 h-9 rounded-full bg-[#E4E1FF] flex items-center justify-center text-[#312E81] font-bold cursor-pointer hover:opacity-95"
-            >
-              AU
-            </div>
-
-          </div>
-
+            </>
+          )}
         </div>
 
-        {/* ================= PAGE BODY START ================= */}
+        {/* Task Tag */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: '800', color: '#4f46e5', background: '#e0e7ff', padding: '6px 12px', borderRadius: '20px', alignSelf: 'flex-start', border: '1px solid #c7d2fe' }}>
+          <ShieldCheck size={14} />
+          <span style={{ letterSpacing: '0.5px' }}>TASK: GST VALIDATION</span>
+        </div>
 
-        <div className="flex flex-1">
-          {/* ================= LEFT PANEL ================= */}
+        {/* Title Block */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+          <div>
+            <h1 className="page-title" style={{ margin: 0, fontSize: '24px', fontWeight: '900', letterSpacing: '-0.5px', color: '#0f172a' }}>Review Document: Form GST REG-06</h1>
+            <p className="page-subtitle" style={{ margin: '6px 0 0', color: '#64748b', fontSize: '14px', fontWeight: '500' }}>Awaiting administrative verify check for {selectedBusiness.legalName}.</p>
+          </div>
 
-          <div className="flex-1 border-r border-[#D9DCE8] p-10">
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginRight: '4px' }}>Zoom: {Math.round(zoomScale * 100)}%</span>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom In" 
+              onClick={handleZoomIn}
+            >
+              <Plus size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom Out" 
+              onClick={handleZoomOut}
+            >
+              <Minus size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Download Report" 
+              onClick={handleDownload}
+            >
+              <Download size={16} />
+            </button>
+          </div>
+        </div>
 
-            {/* Task Label */}
-
-            <div className="flex items-center gap-3 mb-4">
-
-              <ShieldCheck
-                size={20}
-                className="text-[#4F46E5]"
-              />
-
-              <span className="text-[14px] tracking-[3px] font-bold text-[#312E81] uppercase">
-                Task: GST Validation
-              </span>
-
-            </div>
-
-            {/* Title + Actions */}
-
-            <div className="flex items-center justify-between mb-8">
-
-              <h2 className="text-[37px] leading-[60px] font-bold text-[#0F172A]">
-                Review Document:
-                <br />
-                Form GST REG-06
-              </h2>
-
-              <div className="flex items-center gap-6">
-
-                <button onClick={handleZoomIn} className="hover:text-[#4F46E5] transition-colors">
-                  <ZoomIn size={26} />
-                </button>
-
-                <button onClick={handleZoomOut} className="hover:text-[#4F46E5] transition-colors">
-                  <ZoomOut size={26} />
-                </button>
-
-                <button onClick={handleDownload} className="hover:text-[#4F46E5] transition-colors">
-                  <Download size={24} />
-                </button>
-
+        {/* 2-Column main content layout */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+          
+          {/* Column 1: Document canvas visual (Left) */}
+          <div className="panel" style={{ background: '#0f172a', padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
+            
+            {/* Scanned Document simulator mock */}
+            <div style={{ 
+              width: '100%', 
+              maxWidth: '520px', 
+              background: '#fff', 
+              border: '1px solid #e2e8f0', 
+              borderRadius: '8px', 
+              padding: '32px', 
+              position: 'relative', 
+              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.5)',
+              transform: `scale(${zoomScale})`,
+              transformOrigin: 'top center',
+              transition: 'transform 0.2s ease-out-in'
+            }}>
+              
+              {/* Box highlighter for GSTIN detected */}
+              <div style={{ position: 'absolute', top: '90px', left: '170px', right: '40px', height: '26px', border: '1.5px solid #4f46e5', background: 'rgba(79, 70, 229, 0.06)', borderRadius: '4px', zIndex: 10, display: 'flex', alignItems: 'center', padding: '0 8px' }}>
+                <span style={{ background: '#4f46e5', color: '#fff', fontSize: '7px', fontWeight: '900', padding: '2px 4px', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>GSTIN DETECTED</span>
               </div>
 
-            </div>
+              {/* Box highlighter for Name detected */}
+              <div style={{ position: 'absolute', top: '168px', left: '120px', right: '40px', height: '26px', border: '1.5px solid #06b6d4', background: 'rgba(6, 182, 212, 0.06)', borderRadius: '4px', zIndex: 10, display: 'flex', alignItems: 'center', padding: '0 8px' }}>
+                <span style={{ background: '#06b6d4', color: '#fff', fontSize: '7px', fontWeight: '900', padding: '2px 4px', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>LEGAL NAME MATCH</span>
+              </div>
 
-            {/* Document Preview */}
+              {/* Header document scan */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', borderBottom: '2px solid #0f172a', paddingBottom: '16px', marginBottom: '20px' }}>
+                <strong style={{ fontSize: '12px', letterSpacing: '1px', color: '#0f172a', fontWeight: '900' }}>GOVERNMENT OF INDIA</strong>
+                <span style={{ fontSize: '9px', color: '#475569', marginTop: '4px', fontWeight: '700' }}>Form GST REG-06 - Registration Certificate</span>
+              </div>
 
-            <div className="bg-[#0D1525] rounded-2xl overflow-hidden border border-[#1E293B] shadow-xl">
-
-              <div className="relative h-[760px] w-full">
-
-                {/* Background Glow */}
-
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#243B55,transparent_70%)] opacity-90" />
-
-                {/* Laptop Mockup */}
-
-                <div className="absolute inset-0 flex items-center justify-center">
-
-                  <div className="w-[88%]">
-
-                    {/* Screen */}
-
-                    <div className="relative bg-black rounded-[28px] p-5 shadow-2xl border-[3px] border-[#0F172A] overflow-hidden">
-
-                      {/* Detection Box Top */}
-
-                      <div className="absolute top-8 left-1/2 -translate-x-1/2 border-4 border-[#6366F1] w-[360px] h-[70px] flex items-center justify-center z-10">
-
-                        <span className="bg-white px-3 py-1 text-[#6366F1] font-bold text-sm tracking-wider">
-                          GSTIN DETECTED
-                        </span>
-
-                      </div>
-
-                      {/* Fake Document */}
-
-                      <div 
-                        className="bg-[#E8EEF8] h-[520px] rounded-lg mt-10 overflow-hidden select-none"
-                        style={{
-                          transform: `scale(${zoom})`,
-                          transformOrigin: 'center center',
-                          transition: 'transform 0.15s ease-out'
-                        }}
-                      >
-
-                        <div className="h-16 bg-[#4A667D] flex items-center justify-center text-white font-bold text-sm tracking-wide">
-                          FORM GST REG-06
-                        </div>
-
-                        <div className="p-8 space-y-4">
-
-                          <div className="text-center font-bold text-[#1E293B] text-[16px] mb-4">
-                            GOVERNMENT OF INDIA
-                            <br />
-                            <span className="text-[12px] font-normal text-slate-500">Registration Certificate</span>
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-4 text-[12px] text-slate-700 bg-white/60 p-4 rounded-xl border border-slate-200">
-                            <div>
-                              <span className="font-bold block text-slate-500 text-[10px] tracking-wider uppercase">Registration Number</span>
-                              <span className="font-mono font-semibold text-slate-800">{selectedBusiness.gstin}</span>
-                            </div>
-                            <div>
-                              <span className="font-bold block text-slate-500 text-[10px] tracking-wider uppercase">Legal Name</span>
-                              <span className="font-semibold text-slate-800">{selectedBusiness.legalName}</span>
-                            </div>
-                            <div>
-                              <span className="font-bold block text-slate-500 text-[10px] tracking-wider uppercase">Taxpayer Type</span>
-                              <span className="font-semibold text-slate-800">{selectedBusiness.taxpayerType}</span>
-                            </div>
-                            <div>
-                              <span className="font-bold block text-slate-500 text-[10px] tracking-wider uppercase">Constitution</span>
-                              <span className="font-semibold text-slate-800">{selectedBusiness.constitution}</span>
-                            </div>
-                          </div>
-
-                          {/* Legal Name Match */}
-
-                          <div className="mt-8 border-4 border-[#6366F1] h-[70px] flex items-center justify-center bg-white/40">
-
-                            <span className="bg-white px-4 py-1 text-[#6366F1] font-bold tracking-wider">
-                              LEGAL NAME MATCH
-                            </span>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                    {/* Laptop Base */}
-
-                    <div className="h-6 bg-gradient-to-b from-slate-200 to-slate-500 rounded-b-full shadow-lg" />
-
-                  </div>
-
+              {/* Body lines scanned */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '10px', color: '#334155' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
+                  <span style={{ fontWeight: '500', color: '#64748b' }}>Registration Number:</span>
+                  <strong style={{ color: '#0f172a', fontFamily: 'monospace', fontSize: '11px' }}>{selectedBusiness.gstin}</strong>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
+                  <span style={{ fontWeight: '500', color: '#64748b' }}>Legal Name:</span>
+                  <strong style={{ color: '#0f172a' }}>{selectedBusiness.legalName}</strong>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
+                  <span style={{ fontWeight: '500', color: '#64748b' }}>Trade Name:</span>
+                  <strong style={{ color: '#0f172a' }}>{selectedBusiness.legalName.replace(" PVT LTD", "").replace(" & Distributors", "")}</strong>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
+                  <span style={{ fontWeight: '500', color: '#64748b' }}>Constitution of Business:</span>
+                  <strong style={{ color: '#0f172a' }}>{selectedBusiness.constitution}</strong>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
+                  <span style={{ fontWeight: '500', color: '#64748b' }}>Date of Liability:</span>
+                  <strong style={{ color: '#0f172a' }}>{selectedBusiness.regDate}</strong>
                 </div>
 
+                {/* Seal & Sign visual element */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '24px', paddingTop: '16px', borderTop: '1px dashed #cbd5e1' }}>
+                  {/* Seal */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '70px', height: '70px', borderRadius: '50%', border: '2px double #0284c7', background: 'rgba(2, 132, 199, 0.03)', color: '#0284c7', fontSize: '7px', fontWeight: '800', textAlign: 'center', transform: 'rotate(-10deg)', lineHeight: '1.2' }}>
+                    GST COUNCIL<br/>MUMBAI<br/>★ INDIA ★
+                  </div>
+
+                  {/* Sign */}
+                  <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <span style={{ fontSize: '7px', color: '#94a3b8', fontStyle: 'italic', marginBottom: '4px' }}>Digitally signed by system</span>
+                    <div style={{ width: '90px', height: '1.5px', background: '#334155' }} />
+                    <span style={{ fontSize: '8px', fontWeight: '800', color: '#1e293b', marginTop: '4px' }}>Superintendent</span>
+                    <span style={{ fontSize: '7px', color: '#64748b' }}>Mumbai Ward-4 Center</span>
+                  </div>
+                </div>
               </div>
 
             </div>
 
           </div>
-          {/* ================= RIGHT SIDEBAR ================= */}
 
-          <div className="w-[430px] bg-[#F5F6FB] p-7 space-y-7">
+          {/* Column 2: Metadata details, AI Verification, Activity Feed (Right) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            {/* Legal details card */}
+            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '16px' }}>
+                <div style={{ height: '44px', width: '44px', borderRadius: '10px', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3b82f6', flexShrink: 0 }}>
+                  <Building2 size={22} />
+                </div>
+                <div>
+                  <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#3b82f6', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Business Profile</span>
+                  <strong style={{ display: 'block', fontSize: '15px', color: '#0f172a', fontWeight: '800', marginTop: '2px' }}>{selectedBusiness.legalName}</strong>
+                </div>
+              </div>
+                
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '12px', color: '#64748b' }}>
+                <div>
+                  <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#94a3b8' }}>GSTIN Number</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+                    <strong style={{ color: '#0f172a', fontSize: '13px', fontFamily: 'monospace' }}>{selectedBusiness.gstin}</strong>
+                    <button onClick={handleCopyGSTIN} style={{ border: 'none', background: 'transparent', color: '#4f46e5', cursor: 'pointer', display: 'inline-flex', padding: 0 }} title="Copy GSTIN" type="button">
+                      <ClipboardCopy size={14} className="hover:text-indigo-905" />
+                    </button>
+                  </div>
+                </div>
 
-            {/* Business Details Card */}
-
-            <div className="bg-white border border-[#D7DCEA] rounded-2xl p-6">
-
-              <div className="flex gap-5">
-
-                <div className="w-16 h-16 rounded-lg bg-[#07132B] flex items-center justify-center">
-                  <Building2
-                    size={30}
-                    className="text-white"
-                  />
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div>
+                    <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#94a3b8' }}>Registration Date</span>
+                    <strong style={{ color: '#0f172a', marginTop: '4px', display: 'block', fontWeight: '700' }}>{selectedBusiness.regDate}</strong>
+                  </div>
+                  <div>
+                    <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#94a3b8' }}>Taxpayer Type</span>
+                    <strong style={{ color: '#0f172a', marginTop: '4px', display: 'block', fontWeight: '700' }}>{selectedBusiness.taxpayerType}</strong>
+                  </div>
                 </div>
 
                 <div>
-                  <p className="text-[13px] font-bold tracking-[2px] uppercase text-slate-500">
-                    Business Legal Name
-                  </p>
-
-                  <h3 className="text-[20px] font-bold text-[#0F172A] mt-1 leading-snug">
-                    {selectedBusiness.legalName}
-                  </h3>
+                  <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#94a3b8' }}>Constitution of Business</span>
+                  <strong style={{ color: '#0f172a', marginTop: '4px', display: 'block', fontWeight: '700' }}>{selectedBusiness.constitution}</strong>
                 </div>
-
               </div>
-
-              {/* GST Number */}
-
-              <div className="mt-8">
-
-                <p className="text-[13px] font-bold tracking-[2px] uppercase text-slate-500 mb-2">
-                  GST Number
-                </p>
-
-                <div 
-                  onClick={handleCopyGSTIN}
-                  className="h-[52px] bg-[#EEF1F8] border border-[#DCE1EC] rounded flex items-center justify-between px-4 cursor-pointer hover:bg-[#E2E8F0] transition"
-                  title="Click to copy GSTIN"
-                >
-
-                  <span className="font-medium tracking-wide text-[#334155]">
-                    {selectedBusiness.gstin}
-                  </span>
-
-                  <svg
-                    className="w-5 h-5 text-slate-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    />
-                  </svg>
-
-                </div>
-
-              </div>
-
-              {/* Details Grid */}
-
-              <div className="grid grid-cols-2 gap-y-8 gap-x-6 mt-8">
-
-                <div>
-                  <p className="text-[13px] font-bold tracking-[2px] uppercase text-slate-500">
-                    Reg. Date
-                  </p>
-
-                  <p className="mt-2 text-[18px] font-medium text-[#0F172A]">
-                    {selectedBusiness.regDate}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-[13px] font-bold tracking-[2px] uppercase text-slate-500">
-                    Taxpayer Type
-                  </p>
-
-                  <p className="mt-2 text-[18px] font-medium text-[#0F172A]">
-                    {selectedBusiness.taxpayerType}
-                  </p>
-                </div>
-
-                <div className="col-span-2">
-                  <p className="text-[13px] font-bold tracking-[2px] uppercase text-slate-500">
-                    Constitution
-                  </p>
-
-                  <p className="mt-2 text-[18px] font-medium text-[#0F172A]">
-                    {selectedBusiness.constitution}
-                  </p>
-                </div>
-
-              </div>
-
             </div>
-            {/* ================= AI VERIFICATION CARD ================= */}
 
-            <div className="bg-[#F4F2FF] border border-[#CFCBFF] rounded-2xl p-6 relative overflow-hidden">
-
-              {/* Bot Icon */}
-
-              <div className="absolute top-5 right-5 opacity-20">
-
-                <svg
-                  className="w-16 h-16 text-slate-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M9 3h6m-3 0v3m-7 4h14a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2zm3 4h.01M16 16h.01"
-                  />
-                </svg>
-
-              </div>
-
-              {/* Heading */}
-
-              <div className="flex items-center gap-2 mb-5">
-
-                <span className="text-[#6366F1] text-xl">✦</span>
-
-                <h4 className="text-[14px] font-bold tracking-[2px] uppercase text-[#6366F1]">
-                  AI Verification Result
-                </h4>
-
-              </div>
-
-              {/* Score */}
-
-              <div className="flex items-end gap-3 mb-6">
-
-                <span className="text-[58px] leading-none font-black text-[#5B5CEB]">
-                  {selectedBusiness.aiScore}%
-                </span>
-
-                <span className="text-[18px] text-slate-600 mb-2">
-                  Confidence
-                </span>
-
-              </div>
-
-              {/* Checks */}
-
-              <div className="bg-white rounded-xl p-5 border border-[#E5E7EB] space-y-4">
-
-                <div className="flex items-center justify-between">
-
-                  <span className="text-[18px] text-slate-700">
-                    GSTIN Match
-                  </span>
-
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center ${selectedBusiness.checks.gstinMatch ? 'bg-green-100 text-green-600' : 'bg-rose-100 text-rose-600'}`}>
-                    <span className="text-sm font-bold">
-                      {selectedBusiness.checks.gstinMatch ? '✓' : '✗'}
-                    </span>
-                  </div>
-
+            {/* AI Verification result */}
+            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <Cpu size={18} style={{ color: '#4f46e5' }} />
+                  <strong style={{ fontSize: '14px', color: '#0f172a', fontWeight: '800' }}>AI Verification Checks</strong>
                 </div>
-
-                <div className="flex items-center justify-between">
-
-                  <span className="text-[18px] text-slate-700">
-                    Logo Integrity
-                  </span>
-
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center ${selectedBusiness.checks.logoIntegrity ? 'bg-green-100 text-green-600' : 'bg-rose-100 text-rose-600'}`}>
-                    <span className="text-sm font-bold">
-                      {selectedBusiness.checks.logoIntegrity ? '✓' : '✗'}
-                    </span>
-                  </div>
-
+                <div style={{ textAlign: 'right' }}>
+                  <span style={{ fontSize: '11px', fontWeight: '700', color: '#64748b' }}>Confidence Score</span>
+                  <strong style={{ display: 'block', fontSize: '18px', color: selectedBusiness.aiScore >= 80 ? '#10b981' : '#f59e0b', fontWeight: '900' }}>{selectedBusiness.aiScore}%</strong>
                 </div>
-
-                <div className="flex items-center justify-between">
-
-                  <span className="text-[18px] text-slate-700">
-                    Date Alignment
-                  </span>
-
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center ${selectedBusiness.checks.dateAlignment ? 'bg-green-100 text-green-600' : 'bg-rose-100 text-rose-600'}`}>
-                    <span className="text-sm font-bold">
-                      {selectedBusiness.checks.dateAlignment ? '✓' : '✗'}
-                    </span>
-                  </div>
-
-                </div>
-
               </div>
 
-              {/* Description */}
+              {/* Checklist */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '12px', fontWeight: '700', color: '#334155' }}>
+                  <CheckCircle size={14} style={{ color: selectedBusiness.checks.gstinMatch ? '#10b981' : '#f43f5e' }} />
+                  <span>GSTIN Signature Code Validation</span>
+                </div>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '12px', fontWeight: '700', color: '#334155' }}>
+                  <CheckCircle size={14} style={{ color: selectedBusiness.checks.logoIntegrity ? '#10b981' : '#f43f5e' }} />
+                  <span>Ashoka Pillar Emblem OCR Check</span>
+                </div>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '12px', fontWeight: '700', color: '#334155' }}>
+                  <CheckCircle size={14} style={{ color: selectedBusiness.checks.dateAlignment ? '#10b981' : '#f43f5e' }} />
+                  <span>Registration Validity & Liability Alignment</span>
+                </div>
+              </div>
 
-              <p className="mt-6 text-[15px] italic leading-7 text-slate-600">
-                "{selectedBusiness.aiDescription}"
+              <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5', margin: 0 }}>
+                {selectedBusiness.aiDescription}
               </p>
-
             </div>
-            {/* ================= ACTIVITY FEED ================= */}
 
-            <div className="bg-white border border-[#D7DCEA] rounded-2xl p-6">
+            {/* Activity Feed */}
+            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h2 style={{ fontSize: '14px', fontWeight: '850', color: '#0f172a', margin: '0 0 16px', letterSpacing: '-0.3px' }}>Document Audit History</h2>
 
-              <h4 className="text-[14px] font-bold tracking-[2px] uppercase text-slate-500 mb-6">
-                Activity Feed
-              </h4>
-
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {currentFeed.map((item) => (
-                  <div key={item.id} className="flex gap-4">
-                    <div className={`w-3 h-3 rounded-full mt-2 shrink-0 ${getStatusColor(item.status)}`} />
+                  <div key={item.id} className="flex gap-4 text-xs">
+                    <div className={`w-2.5 h-2.5 rounded-full mt-1.5 shrink-0 ${getStatusColor(item.status)}`} />
                     <div>
                       <p className="font-semibold text-slate-800 leading-none">
                         {item.title}
                       </p>
-                      <p className="text-sm text-slate-500 mt-1 leading-normal">
+                      <p className="text-xs text-slate-500 mt-1.5 leading-normal">
                         {item.desc}
                       </p>
                     </div>
                   </div>
                 ))}
               </div>
-
             </div>
 
           </div>
+
         </div>
 
-        {/* ================= BOTTOM ACTION BAR ================= */}
-
+        {/* Bottom Verification Actions bar */}
         {currentStatus.state === 'approved' ? (
-          <div className="sticky bottom-0 bg-emerald-50 border-t border-emerald-200 px-8 py-5 flex items-center justify-between z-30">
-            <div className="flex items-center gap-2 text-emerald-800 font-bold">
-              <span className="text-xl">✓</span> GST Verification Approved
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#ecfdf5',
+            borderTop: '1px solid #a7f3d0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#065f46' }}>
+              <CheckCircle size={16} />
+              <span>GST Validation Approved successfully!</span>
             </div>
-            <button 
-              onClick={handleReset} 
-              className="h-12 px-6 rounded-xl border border-emerald-300 text-emerald-700 hover:bg-emerald-100/50 font-semibold transition"
+            <button
+              onClick={handleReset}
+              style={{ border: '1px solid #6ee7b7', background: '#fff', color: '#065f46', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
             >
               Reset Decision
             </button>
           </div>
         ) : currentStatus.state === 'rejected' ? (
-          <div className="sticky bottom-0 bg-rose-50 border-t border-rose-200 px-8 py-5 flex items-center justify-between z-30">
-            <div className="flex items-center gap-2 text-rose-800 font-bold">
-              <span className="text-xl">✗</span> Rejected: {currentStatus.reason}
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#fff5f5',
+            borderTop: '1px solid #fecaca',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#991b1b' }}>
+              <AlertTriangle size={16} />
+              <span>GST Validation Rejected. Reason: {currentStatus.reason}</span>
             </div>
-            <button 
-              onClick={handleReset} 
-              className="h-12 px-6 rounded-xl border border-rose-300 text-rose-700 hover:bg-rose-100/50 font-semibold transition"
+            <button
+              onClick={handleReset}
+              style={{ border: '1px solid #fca5a5', background: '#fff', color: '#991b1b', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
             >
               Reset Decision
             </button>
           </div>
         ) : (
-          <div className="sticky bottom-0 bg-white border-t border-[#D7DCEA] px-8 py-5 flex items-center justify-end gap-4 z-30">
-            <button 
-              onClick={() => setRejectionModalOpen(true)}
-              className="h-12 px-8 rounded-xl border border-red-300 text-red-600 font-semibold hover:bg-red-50 transition"
-            >
-              Reject With Reason
-            </button>
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px', // Matches sidebar width
+            right: 0,
+            background: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(8px)',
+            borderTop: '1px solid #e2e8f0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>
+              <AlertTriangle size={15} className="text-amber-500" />
+              <span>Awaiting final decision check. Click verify to register changes.</span>
+            </div>
 
-            <button 
-              onClick={handleApprove}
-              className="h-12 px-10 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] text-white font-semibold shadow-lg transition"
-            >
-              Verify & Approve
-            </button>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                style={{ border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+                onClick={() => setRejectionModalOpen(true)}
+                type="button"
+                className="hover:bg-rose-50"
+              >
+                Reject With Reason
+              </button>
+              <button
+                style={{ border: 'none', background: '#4f46e5', color: '#fff', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+                onClick={handleApprove}
+                disabled={isSubmitting}
+                type="button"
+                className="hover:bg-indigo-700 shadow-md"
+              >
+                {isSubmitting ? 'Processing...' : (
+                  <>
+                    <Check size={16} /> 
+                    <span>Verify & Approve</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            MODAL: REJECT WITH REASON DIALOG
+            ======================================================== */}
+        {rejectionModalOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setRejectionModalOpen(false); setRejectionReason(''); }} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject GST Verification</h3>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginTop: '2px', margin: 0 }}>Document validation query for {selectedBusiness.legalName}</p>
+                </div>
+                <button onClick={() => { setRejectionModalOpen(false); setRejectionReason(''); }} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8' }} type="button">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#64748b', display: 'block', marginBottom: '6px' }}>Reason for Rejection</label>
+                  <textarea
+                    rows="4"
+                    value={rejectionReason}
+                    onChange={(e) => setRejectionReason(e.target.value)}
+                    placeholder="E.g., GST certificate signature is blurry, mismatching taxpayer address, incorrect filing date range..."
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setRejectionModalOpen(false); setRejectionReason(''); }}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRejectConfirm}
+                    disabled={isSubmitting}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#ef4444', border: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    {isSubmitting ? 'Rejecting...' : 'Confirm Reject'}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
       </div>
-
-      {/* ================= REJECTION MODAL ================= */}
-      {rejectionModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl p-6 w-[400px] border border-[#D7DCEA] shadow-2xl animate-in fade-in zoom-in-95">
-            <h3 className="text-lg font-bold text-[#0F172A] mb-4">Reject GST Document</h3>
-            <textarea
-              className="w-full h-24 p-3 border border-[#DCE1EC] rounded-xl outline-none focus:border-[#4F46E5] text-[15px] resize-none"
-              placeholder="Enter rejection reason..."
-              value={rejectionReason}
-              onChange={(e) => setRejectionReason(e.target.value)}
-            />
-            <div className="flex justify-end gap-3 mt-5">
-              <button
-                onClick={() => { setRejectionModalOpen(false); setRejectionReason(''); }}
-                className="px-4 py-2 text-slate-500 hover:bg-slate-50 rounded-lg text-sm font-semibold transition"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleRejectConfirm}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-semibold transition"
-              >
-                Reject
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </AdminShell>
   );
 }

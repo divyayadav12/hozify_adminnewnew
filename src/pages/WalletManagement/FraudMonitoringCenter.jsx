@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import {
   AlertTriangle,
@@ -6,14 +6,77 @@ import {
   TrendingUp,
   Bell,
   Globe,
+  ShieldX,
+  ShieldCheck,
+  Eye,
+  PauseCircle,
 } from "lucide-react";
 
+const FRAUD_WALLETS = [
+  { id: 'WL-8291-XX', amount: '-$42,500.00', risk: 'Critical', riskColor: 'rose', pattern: 'Rapid Outflow Burst', owner: 'Anonymous #4421', date: '2026-10-24' },
+  { id: 'WL-0112-AB', amount: '-$1,200.00', risk: 'High', riskColor: 'amber', pattern: 'Geolocation Mismatch', owner: 'Marcus Rodriguez', date: '2026-10-23' },
+  { id: 'WL-5521-CX', amount: '-$8,800.00', risk: 'Critical', riskColor: 'rose', pattern: 'Account Takeover Attempt', owner: 'Unknown IP #8812', date: '2026-10-22' },
+];
+
 export default function FraudMonitoringCenter() {
+  const [timeRange, setTimeRange] = useState('24H');
+  const [toasts, setToasts] = useState([]);
+  const [modal, setModal] = useState(null);
+  const [alerts, setAlerts] = useState([
+    { id: 1, level: 'Critical', color: 'rose', time: '12:44:01', title: 'Mass Login Failure Sequence', desc: 'IP: 192.168.1.42 attempted 45 auth calls in 2s.', blocked: false, ignored: false },
+    { id: 2, level: 'High Risk', color: 'amber', time: '12:42:33', title: 'Large Cross-Border Transfer', desc: 'Amount: $18,200.00 to Bank of Russia.', held: false },
+  ]);
+
+  const toast = (message) => {
+    const id = Date.now();
+    setToasts(prev => [...prev, { id, message }]);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3500);
+  };
+
   return (
+    <>
+    {/* Toast Notifications */}
+    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 10001, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {toasts.map(t => (
+        <div key={t.id} style={{ background: '#1e293b', color: '#fff', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', boxShadow: '0 4px 16px rgba(0,0,0,0.2)', maxWidth: '320px' }}>{t.message}</div>
+      ))}
+    </div>
+
+    {/* Confirm/Detail Modal */}
+    {modal && (
+      <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ background: '#fff', borderRadius: '12px', padding: '28px 32px', maxWidth: '480px', width: '90%', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
+          <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', marginBottom: '8px' }}>{modal.title}</h3>
+          {modal.details && (
+            <div style={{ background: '#f8fafc', borderRadius: '8px', padding: '12px 14px', marginBottom: '14px', fontSize: '13px', lineHeight: '1.9' }}>
+              {Object.entries(modal.details).map(([k,v]) => (
+                <div key={k} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ fontWeight: '600', color: '#94a3b8', fontSize: '11px', textTransform: 'uppercase' }}>{k}</span>
+                  <span style={{ fontWeight: '700', color: '#1e293b' }}>{v}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          {modal.message && <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px' }}>{modal.message}</p>}
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+            <button onClick={() => setModal(null)} style={{ padding: '8px 18px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#f8fafc', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}>
+              {modal.onConfirm ? 'Cancel' : 'Close'}
+            </button>
+            {modal.onConfirm && (
+              <button onClick={() => { modal.onConfirm(); setModal(null); }} style={{ padding: '8px 18px', borderRadius: '6px', border: 'none', background: '#b91c1c', color: '#fff', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}>
+                Confirm
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
+
     <AdminShell
       activeTab="Fraud"
       searchPlaceholder="Search Wallet IDs or Hash..."
     >
+
       <div className="min-h-screen max-w-full text-slate-800 p-6 space-y-6 font-sans overflow-x-hidden">
 
         {/* ================= TOP METRIC CARDS GRID ================= */}
@@ -125,15 +188,15 @@ export default function FraudMonitoringCenter() {
               </h3>
 
               <div className="flex border border-slate-200 rounded text-[10px] font-bold text-slate-500 overflow-hidden">
-                <button className="px-2.5 py-1 bg-white hover:bg-slate-50">
-                  1H
-                </button>
-                <button className="px-2.5 py-1 bg-white hover:bg-slate-50">
-                  24H
-                </button>
-                <button className="px-2.5 py-1 bg-white hover:bg-slate-50">
-                  7D
-                </button>
+                {['1H', '24H', '7D'].map(r => (
+                  <button
+                    key={r}
+                    onClick={() => { setTimeRange(r); toast(`Fraud trend view changed to ${r}`); }}
+                    className={`px-2.5 py-1 transition-colors ${timeRange === r ? 'bg-[#1e1591] text-white' : 'bg-white hover:bg-slate-50'}`}
+                  >
+                    {r}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -190,83 +253,55 @@ export default function FraudMonitoringCenter() {
             {/* SCROLL REMOVED HERE */}
 
             <div className="space-y-4 pt-4">
-                            <div className="border-l-2 border-rose-600 pl-3 space-y-1.5">
-
+              {/* Alert 1: Critical - Mass Login */}
+              <div className="border-l-2 border-rose-600 pl-3 space-y-1.5">
                 <div className="flex justify-between text-[10px] font-bold">
-                  <span className="text-rose-600 uppercase tracking-wider">
-                    Critical Priority
-                  </span>
+                  <span className="text-rose-600 uppercase tracking-wider">Critical Priority</span>
                   <span className="text-slate-400">12:44:01</span>
                 </div>
-
-                <h4 className="text-xs font-black text-slate-900">
-                  Mass Login Failure Sequence
-                </h4>
-
-                <p className="text-[11px] text-slate-500 leading-normal">
-                  IP: 192.168.1.42 attempted 45 auth calls in 2s.
-                </p>
-
+                <h4 className="text-xs font-black text-slate-900">Mass Login Failure Sequence</h4>
+                <p className="text-[11px] text-slate-500 leading-normal">IP: 192.168.1.42 attempted 45 auth calls in 2s.</p>
                 <div className="flex gap-2 pt-1">
-                  <button className="flex-1 text-center bg-[#b91c1c] hover:bg-rose-700 text-white font-bold text-[10px] py-1 rounded uppercase tracking-wider">
+                  <button
+                    onClick={() => setModal({ title: 'Block IP Address', message: 'Are you sure you want to block IP 192.168.1.42? All traffic from this address will be immediately suspended.', onConfirm: () => toast('IP 192.168.1.42 blocked successfully!') })}
+                    className="flex-1 text-center bg-[#b91c1c] hover:bg-rose-700 text-white font-bold text-[10px] py-1 rounded uppercase tracking-wider"
+                  >
                     Block IP
                   </button>
-
-                  <button className="flex-1 text-center bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 font-bold text-[10px] py-1 rounded uppercase tracking-wider">
+                  <button
+                    onClick={() => { toast('Alert dismissed — marked as monitored.'); }}
+                    className="flex-1 text-center bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 font-bold text-[10px] py-1 rounded uppercase tracking-wider"
+                  >
                     Ignore
                   </button>
                 </div>
-
               </div>
 
+              {/* Alert 2: High Risk - Cross-Border Transfer */}
               <div className="border-l-2 border-amber-500 pl-3 space-y-1.5">
-
                 <div className="flex justify-between text-[10px] font-bold">
-                  <span className="text-amber-600 uppercase tracking-wider">
-                    High Risk
-                  </span>
-
-                  <span className="text-slate-400">
-                    12:42:33
-                  </span>
+                  <span className="text-amber-600 uppercase tracking-wider">High Risk</span>
+                  <span className="text-slate-400">12:42:33</span>
                 </div>
-
-                <h4 className="text-xs font-black text-slate-900">
-                  Large Cross-Border Transfer
-                </h4>
-
-                <p className="text-[11px] text-slate-500 leading-normal">
-                  Amount: $18,200.00 to Bank of Russia.
-                </p>
-
-                <button className="w-full text-center bg-white border border-indigo-900 hover:bg-indigo-50 text-[#1e1591] font-black text-[10px] py-1.5 rounded uppercase tracking-wide">
+                <h4 className="text-xs font-black text-slate-900">Large Cross-Border Transfer</h4>
+                <p className="text-[11px] text-slate-500 leading-normal">Amount: $18,200.00 to Bank of Russia.</p>
+                <button
+                  onClick={() => setModal({ title: 'Hold Funds', message: 'Are you sure you want to place a hold on this $18,200.00 cross-border transfer? Funds will be frozen pending compliance review.', onConfirm: () => toast('Funds held successfully! Compliance team notified.') })}
+                  className="w-full text-center bg-white border border-indigo-900 hover:bg-indigo-50 text-[#1e1591] font-black text-[10px] py-1.5 rounded uppercase tracking-wide"
+                >
                   Hold Funds
                 </button>
-
               </div>
 
+              {/* Alert 3: Investigation Log */}
               <div className="bg-slate-50/80 p-2 border-l-2 border-slate-400 pl-3 space-y-1">
-
                 <div className="flex justify-between text-[10px] font-bold">
-                  <span className="text-slate-500 uppercase tracking-wider">
-                    Investigation Log
-                  </span>
-
-                  <span className="text-slate-400">
-                    12:35:12
-                  </span>
+                  <span className="text-slate-500 uppercase tracking-wider">Investigation Log</span>
+                  <span className="text-slate-400">12:35:12</span>
                 </div>
-
-                <h4 className="text-xs font-bold text-slate-700">
-                  Agent J. Doe closed case #9921
-                </h4>
-
-                <p className="text-[10px] text-slate-400 italic">
-                  "False positive triggered by VPN change."
-                </p>
-
+                <h4 className="text-xs font-bold text-slate-700">Agent J. Doe closed case #9921</h4>
+                <p className="text-[10px] text-slate-400 italic">"False positive triggered by VPN change."</p>
               </div>
-
             </div>
           </div>
 
@@ -294,63 +329,37 @@ export default function FraudMonitoringCenter() {
                 </thead>
 
                 <tbody className="divide-y divide-slate-100 font-medium text-slate-600">
-
-                  <tr className="hover:bg-slate-50/60 transition-colors">
-
-                    <td className="px-5 py-4 font-mono font-bold text-slate-900">
-                      WL-8291-XX
-                    </td>
-
-                    <td className="px-5 py-4 text-right font-black text-rose-600">
-                      -$42,500.00
-                    </td>
-
-                    <td className="px-5 py-4">
-                      <span className="text-[9px] font-extrabold bg-rose-50 text-rose-700 px-2 py-0.5 rounded-xs uppercase">
-                        Critical
-                      </span>
-                    </td>
-
-                    <td className="px-5 py-4 text-slate-500">
-                      Rapid Outflow Burst
-                    </td>
-
-                    <td className="px-5 py-4 text-center">
-                      <button className="text-[#1e1591] hover:underline font-bold text-xs">
-                        Review
-                      </button>
-                    </td>
-
-                  </tr>
-
-                  <tr className="hover:bg-slate-50/60 transition-colors">
-
-                    <td className="px-5 py-4 font-mono font-bold text-slate-900">
-                      WL-0112-AB
-                    </td>
-
-                    <td className="px-5 py-4 text-right font-black text-rose-600">
-                      -$1,200.00
-                    </td>
-
-                    <td className="px-5 py-4">
-                      <span className="text-[9px] font-extrabold bg-amber-50 text-amber-700 px-2 py-0.5 rounded-xs uppercase">
-                        High
-                      </span>
-                    </td>
-
-                    <td className="px-5 py-4 text-slate-500">
-                      Geolocation Mismatch
-                    </td>
-
-                    <td className="px-5 py-4 text-center">
-                      <button className="text-[#1e1591] hover:underline font-bold text-xs">
-                        Review
-                      </button>
-                    </td>
-
-                  </tr>
-
+                  {FRAUD_WALLETS.map(w => (
+                    <tr key={w.id} className="hover:bg-slate-50/60 transition-colors">
+                      <td className="px-5 py-4 font-mono font-bold text-slate-900">{w.id}</td>
+                      <td className="px-5 py-4 text-right font-black text-rose-600">{w.amount}</td>
+                      <td className="px-5 py-4">
+                        <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-xs uppercase ${
+                          w.riskColor === 'rose' ? 'bg-rose-50 text-rose-700' : 'bg-amber-50 text-amber-700'
+                        }`}>{w.risk}</span>
+                      </td>
+                      <td className="px-5 py-4 text-slate-500">{w.pattern}</td>
+                      <td className="px-5 py-4 text-center">
+                        <button
+                          onClick={() => setModal({
+                            title: `Fraud Review — ${w.id}`,
+                            details: {
+                              'Wallet ID': w.id,
+                              'Owner': w.owner,
+                              'Amount': w.amount,
+                              'Risk Level': w.risk,
+                              'Pattern': w.pattern,
+                              'Flagged Date': w.date,
+                            },
+                            onConfirm: () => toast(`Wallet ${w.id} flagged and sent to compliance team!`)
+                          })}
+                          className="text-[#1e1591] hover:underline font-bold text-xs"
+                        >
+                          Review
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
 
               </table></div>
@@ -426,6 +435,6 @@ export default function FraudMonitoringCenter() {
 
       </div>
     </AdminShell>
+    </>
   );
-}
-            
+}

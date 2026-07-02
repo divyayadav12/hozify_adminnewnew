@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 
 export default function SettlementReport() {
   const settlementLogs = [
@@ -46,6 +47,7 @@ export default function SettlementReport() {
   ];
 
   // Logic Added:
+  const { addToast } = useToast();
   const [showCalendar, setShowCalendar] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("ALL");
@@ -206,10 +208,10 @@ export default function SettlementReport() {
           <div className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
             <h3 className="text-xs font-bold text-slate-900">Settlement Logs</h3>
             <div className="flex items-center gap-3 text-gray-400">
-              <button className="hover:text-gray-600">
+              <button className="hover:text-gray-600" type="button" onClick={() => addToast('Refreshing Logs...', 'success')}>
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19" /></svg>
               </button>
-              <button className="hover:text-gray-600 font-bold text-sm">•••</button>
+              <button className="hover:text-gray-600 font-bold text-sm" type="button" onClick={() => addToast('Options Menu Opened', 'info')}>•••</button>
             </div>
           </div>
 
@@ -242,7 +244,7 @@ export default function SettlementReport() {
                         {log.status}
                       </span>
                     </td>
-                    <td className="p-4 text-center pr-6 text-gray-300 group-hover:text-gray-500 transition-colors cursor-pointer">
+                    <td className="p-4 text-center pr-6 text-gray-300 group-hover:text-gray-500 transition-colors cursor-pointer" onClick={() => addToast(`Opening details for ${log.id}`, 'info')}>
                       ➔
                     </td>
                   </tr>
@@ -254,8 +256,8 @@ export default function SettlementReport() {
           <div className="flex justify-between items-center px-6 py-4 border-t border-gray-100 text-xs text-gray-400 font-medium">
             <span>Showing {filteredLogs.length} of {settlementLogs.length} results</span>
             <div className="flex items-center gap-1">
-              <button className="p-1 border border-gray-200 bg-white rounded text-gray-400 hover:bg-gray-50 cursor-not-allowed">🡨</button>
-              <button className="p-1 border border-gray-200 bg-white rounded text-slate-600 hover:bg-gray-50 shadow-sm">🡪</button>
+              <button className="p-1 border border-gray-200 bg-white rounded text-gray-400 hover:bg-gray-50 cursor-not-allowed" type="button" onClick={() => addToast('Already on first page', 'warning')}>🡨</button>
+              <button className="p-1 border border-gray-200 bg-white rounded text-slate-600 hover:bg-gray-50 shadow-sm" type="button" onClick={() => addToast('Loading next page...', 'info')}>🡪</button>
             </div>
           </div>
         </div>

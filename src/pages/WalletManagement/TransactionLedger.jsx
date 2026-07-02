@@ -27,15 +27,24 @@ export default function TransactionLedger() {
     sourceChannel: "All Sources",
   });
 
-  // Export Action Handler Engine
+  // Export Action Handler Engine — generates and downloads a proper CSV
   const handleExportCSV = () => {
-    alert(`⚡ Core System Engine Status: Exporting CSV pipeline active!\nPassing current state rows dataset: ${filteredTransactions.length} records processed.`);
-    console.log("Exported Payload: ", filteredTransactions);
+    const headers = ["Transaction ID", "Owner", "Credit", "Debit", "Balance", "Source", "Reference", "Status", "Date"];
+    const rows = filteredTransactions.map(t => [
+      t.id, t.ownerName, t.credit, t.debit, t.balance, t.source, t.reference, t.status, t.date
+    ]);
+    const csvContent = [headers, ...rows].map(r => r.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Transaction_Ledger_Export.csv";
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   // Print Action Handler Engine
   const handlePrintLedger = () => {
-    alert("🖨️ Printing layout generated. Intercepting window standard print driver subsystem context.");
     window.print();
   };
 
@@ -113,23 +122,30 @@ export default function TransactionLedger() {
         {/* ================= FILTER TOOLBAR CONTAINER ================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
           
-          {/* Date Range Block */}
+          {/* Date Range Block — stacked so both date pickers are fully visible */}
           <div className="bg-white rounded p-3 border border-slate-200 shadow-xs">
-            <label className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Date Range (YYYY-MM-DD)</label>
-            <div className="flex items-center gap-1 text-slate-700 text-xs">
-              <input 
-                type="date" 
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-center outline-none focus:border-indigo-500 transition-all font-semibold" 
-              />
-              <span className="text-slate-400 font-medium">to</span>
-              <input 
-                type="date" 
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-center outline-none focus:border-indigo-500 transition-all font-semibold" 
-              />
+            <label className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-400 mb-2">Date Range (YYYY-MM-DD)</label>
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[9px] font-bold text-slate-400 uppercase">From</span>
+                <input 
+                  type="date" 
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs text-slate-700 outline-none focus:border-indigo-500 transition-all font-semibold"
+                  style={{ minWidth: 0 }}
+                />
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[9px] font-bold text-slate-400 uppercase">To</span>
+                <input 
+                  type="date" 
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs text-slate-700 outline-none focus:border-indigo-500 transition-all font-semibold"
+                  style={{ minWidth: 0 }}
+                />
+              </div>
             </div>
           </div>
 

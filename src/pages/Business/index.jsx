@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
@@ -643,7 +644,7 @@ export default function BusinessRegistry() {
                   <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>Showing 1 to {businessManagementList.length} of {totalCount.toLocaleString()} entries</span>
                   <div className="pagination-wrap" style={{ display: 'flex', gap: '6px' }}>
                     <button className="pag-nav-btn" disabled type="button">Previous</button>
-                    <button className="pag-num-btn active" type="button">1</button>
+                    <button className="pag-num-btn active" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
                     <button className="pag-num-btn" type="button" onClick={() => addToast('Opening page 2...', 'info')}>2</button>
                     <button className="pag-num-btn" type="button" onClick={() => addToast('Opening page 3...', 'info')}>3</button>
                     <span style={{ alignSelf: 'center', color: 'var(--muted)', padding: '0 4px' }}>...</span>

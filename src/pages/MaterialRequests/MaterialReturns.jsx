@@ -17,9 +17,12 @@ import {
 import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
+import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 
 export default function MaterialReturns() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
 
   // Return ledger list matching Screen 4
   const [returns, setReturns] = useState([
@@ -83,10 +86,25 @@ export default function MaterialReturns() {
   const [condition, setCondition] = useState('Unused');
   const [reason, setReason] = useState('');
 
+  // Filtering & Pagination States
+  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [activeFilterMenu, setActiveFilterMenu] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedTrackingId, setSelectedTrackingId] = useState('RT-9021');
+
+  // Log Return Modal Form States
+  const [logReturnModalOpen, setLogReturnModalOpen] = useState(false);
+  const [modalVendor, setModalVendor] = useState('SteelFab Inc.');
+  const [modalMaterial, setModalMaterial] = useState('');
+  const [modalPoRef, setModalPoRef] = useState('');
+  const [modalQty, setModalQty] = useState(1);
+  const [modalCondition, setModalCondition] = useState('Unused');
+  const [modalReason, setModalReason] = useState('');
+
   const handleProcessReturn = (e) => {
     e.preventDefault();
     if (!poRef.trim() || !reason.trim()) {
-      alert('Please fill out the PO Reference Number and Return Reason.');
+      addToast('Please fill out the PO Reference Number and Return Reason.', 'error');
       return;
     }
 
@@ -95,10 +113,7 @@ export default function MaterialReturns() {
     
     let condBg = '#f1f5f9';
     let condCol = '#475569';
-    if (conditionUpper === 'DAMAGED') {
-      condBg = '#fef2f2';
-      condCol = '#dc2626';
-    } else if (conditionUpper === 'DEFECTIVE') {
+    if (conditionUpper === 'DAMAGED' || conditionUpper === 'DEFECTIVE') {
       condBg = '#fef2f2';
       condCol = '#dc2626';
     }
@@ -118,7 +133,8 @@ export default function MaterialReturns() {
     };
 
     setReturns((prev) => [newReturnItem, ...prev]);
-    alert(`Return logic initiated successfully! Logged as Return ID: ${newReturnId}`);
+    setSelectedTrackingId(newReturnId);
+    addToast(`Return logic initiated successfully! Logged as Return ID: ${newReturnId}`, 'success');
     
     // Reset inputs
     setPoRef('');
@@ -127,8 +143,52 @@ export default function MaterialReturns() {
     setReason('');
   };
 
+  const handleModalProcessReturn = (e) => {
+    e.preventDefault();
+    if (!modalPoRef.trim() || !modalMaterial.trim() || !modalReason.trim()) {
+      addToast('Please fill out all required fields.', 'error');
+      return;
+    }
+
+    const newReturnId = `RT-${Math.floor(1000 + Math.random() * 9000)}`;
+    const conditionUpper = modalCondition.toUpperCase();
+    
+    let condBg = '#f1f5f9';
+    let condCol = '#475569';
+    if (conditionUpper === 'DAMAGED' || conditionUpper === 'DEFECTIVE') {
+      condBg = '#fef2f2';
+      condCol = '#dc2626';
+    }
+
+    const newReturnItem = {
+      id: newReturnId,
+      vendor: modalVendor,
+      vendorId: `ID: ${Math.floor(10000 + Math.random() * 90000)}`,
+      material: modalMaterial,
+      qty: `Qty: ${modalQty} units`,
+      condition: conditionUpper,
+      conditionBg: condBg,
+      conditionColor: condCol,
+      status: 'INITIATED',
+      statusBg: '#fef3c7',
+      statusColor: '#d97706'
+    };
+
+    setReturns((prev) => [newReturnItem, ...prev]);
+    setSelectedTrackingId(newReturnId);
+    addToast(`New return logged: ${newReturnId}`, 'success');
+    setLogReturnModalOpen(false);
+
+    // Reset inputs
+    setModalMaterial('');
+    setModalPoRef('');
+    setModalQty(1);
+    setModalCondition('Unused');
+    setModalReason('');
+  };
+
   const handleLogNewReturnButton = () => {
-    alert('Opening full screen Returns flow manager...');
+    setLogReturnModalOpen(true);
   };
 
   return (
@@ -152,9 +212,9 @@ export default function MaterialReturns() {
               Manage unused or damaged material workflow and track refund status.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div style={{ display: 'flex', gap: '12px', position: 'relative' }}>
             <button
-              onClick={() => alert('Filtering returns ledger...')}
+              onClick={() => setActiveFilterMenu(!activeFilterMenu)}
               style={{
                 background: '#ffffff',
                 color: '#565365',
@@ -171,8 +231,59 @@ export default function MaterialReturns() {
               type="button"
             >
               <Filter size={15} />
-              <span>Filter</span>
+              <span>Filter: {statusFilter === 'ALL' ? 'All' : statusFilter}</span>
             </button>
+
+            {activeFilterMenu && (
+              <>
+                <div 
+                  onClick={() => setActiveFilterMenu(false)}
+                  style={{ position: 'fixed', inset: 0, zIndex: 999 }}
+                />
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    left: '0', 
+                    top: '40px', 
+                    width: '160px', 
+                    background: '#ffffff', 
+                    border: '1px solid #cbd5e1', 
+                    borderRadius: '8px', 
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)', 
+                    zIndex: 1000, 
+                    padding: '6px 0',
+                    textAlign: 'left'
+                  }}
+                >
+                  {['ALL', 'INITIATED', 'SHIPPED', 'IN REVIEW', 'REFUNDED', 'WAITING PICKUP'].map((status) => (
+                    <button
+                      key={status}
+                      onClick={() => {
+                        setStatusFilter(status);
+                        setCurrentPage(1);
+                        setActiveFilterMenu(false);
+                        addToast(`Filtered returns by ${status}`, 'info');
+                      }}
+                      style={{
+                        width: '100%',
+                        border: 'none',
+                        background: 'transparent',
+                        padding: '8px 12px',
+                        fontSize: '12px',
+                        color: '#1c2536',
+                        fontWeight: statusFilter === status ? '800' : '500',
+                        textAlign: 'left',
+                        cursor: 'pointer'
+                      }}
+                      className="hover:bg-slate-50"
+                    >
+                      {status === 'ALL' ? 'All' : status}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
             <button
               onClick={handleLogNewReturnButton}
               style={{
@@ -203,7 +314,7 @@ export default function MaterialReturns() {
           {/* KPI 1 */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
             <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Pending Returns</span>
-            <strong style={{ display: 'block', fontSize: '24px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>14</strong>
+            <strong style={{ display: 'block', fontSize: '24px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>{returns.filter(r => r.status !== 'REFUNDED').length}</strong>
             <span style={{ display: 'block', fontSize: '11px', color: '#dc2626', fontWeight: '700', marginTop: '4px' }}>~12% vs last month</span>
           </div>
 
@@ -240,7 +351,15 @@ export default function MaterialReturns() {
                 Active Returns
               </h2>
               <button
-                onClick={() => alert('Downloading active returns manifest...')}
+                onClick={() => {
+                  const data = [
+                    ["Return ID", "Vendor", "Material", "Quantity", "Condition", "Status"],
+                    ...returns.map(r => [r.id, r.vendor, r.material, r.qty, r.condition, r.status])
+                  ];
+                  const csvContent = generateCSV(data[0], data.slice(1));
+                  triggerDownload(csvContent, "material_returns_ledger.csv", "text/csv");
+                  addToast("Returns ledger downloaded successfully!", "success");
+                }}
                 style={{ background: 'transparent', border: 'none', color: '#7a7688', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
                 aria-label="Download CSV report"
                 type="button"
@@ -262,75 +381,131 @@ export default function MaterialReturns() {
                   </tr>
                 </thead>
                 <tbody>
-                  {returns.map((row) => (
-                    <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                      <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: '#25108f' }}>
-                        {row.id}
-                      </td>
-                      <td style={{ padding: '16px 8px' }}>
-                        <div>
-                          <strong style={{ display: 'block', fontSize: '13px', color: '#1c2536' }}>{row.vendor}</strong>
-                          <span style={{ display: 'block', fontSize: '11px', color: '#7a7688', marginTop: '2px' }}>{row.vendorId}</span>
-                        </div>
-                      </td>
-                      <td style={{ padding: '16px 8px' }}>
-                        <div>
-                          <strong style={{ display: 'block', fontSize: '13px', color: '#1c2536' }}>{row.material}</strong>
-                          <span style={{ display: 'block', fontSize: '11px', color: '#7a7688', marginTop: '2px' }}>{row.qty}</span>
-                        </div>
-                      </td>
-                      <td style={{ padding: '16px 8px' }}>
-                        <span style={{
-                          fontSize: '10px',
-                          fontWeight: '800',
-                          padding: '3px 8px',
-                          borderRadius: '4px',
-                          background: row.conditionBg,
-                          color: row.conditionColor
-                        }}>
-                          {row.condition}
-                        </span>
-                      </td>
-                      <td style={{ padding: '16px 8px' }}>
-                        <span style={{
-                          fontSize: '10px',
-                          fontWeight: '800',
-                          padding: '3px 8px',
-                          borderRadius: '4px',
-                          background: row.statusBg,
-                          color: row.statusColor
-                        }}>
-                          {row.status}
-                        </span>
-                      </td>
-                      <td style={{ padding: '16px 8px' }}>
-                        <button
-                          onClick={() => alert(`Launching tracking detail for return ${row.id}...`)}
-                          style={{ background: 'transparent', border: 'none', color: '#7a7688', cursor: 'pointer' }}
-                          aria-label="View return tracking"
-                          type="button"
+                  {(() => {
+                    const filtered = returns.filter(r => statusFilter === 'ALL' || r.status === statusFilter);
+                    const itemsPerPage = 3;
+                    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+                    const activePage = Math.min(currentPage, totalPages || 1);
+                    const displayed = filtered.slice((activePage - 1) * itemsPerPage, activePage * itemsPerPage);
+                    
+                    if (displayed.length === 0) {
+                      return (
+                        <tr>
+                          <td colSpan="6" style={{ padding: '32px', textAlign: 'center', color: '#7a7688', fontSize: '13px', fontWeight: '600' }}>
+                            No return records found matching the status filter.
+                          </td>
+                        </tr>
+                      );
+                    }
+
+                    return displayed.map((row) => {
+                      const isSelected = selectedTrackingId === row.id;
+                      return (
+                        <tr 
+                          key={row.id} 
+                          onClick={() => setSelectedTrackingId(row.id)}
+                          style={{ 
+                            borderBottom: '1px solid #f1f5f9', 
+                            background: isSelected ? '#f8fafc' : 'transparent',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s'
+                          }}
                         >
-                          <ChevronRight size={16} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                          <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: '#25108f' }}>
+                            {row.id}
+                          </td>
+                          <td style={{ padding: '16px 8px' }}>
+                            <div>
+                              <strong style={{ display: 'block', fontSize: '13px', color: '#1c2536' }}>{row.vendor}</strong>
+                              <span style={{ display: 'block', fontSize: '11px', color: '#7a7688', marginTop: '2px' }}>{row.vendorId}</span>
+                            </div>
+                          </td>
+                          <td style={{ padding: '16px 8px' }}>
+                            <div>
+                              <strong style={{ display: 'block', fontSize: '13px', color: '#1c2536' }}>{row.material}</strong>
+                              <span style={{ display: 'block', fontSize: '11px', color: '#7a7688', marginTop: '2px' }}>{row.qty}</span>
+                            </div>
+                          </td>
+                          <td style={{ padding: '16px 8px' }}>
+                            <span style={{
+                              fontSize: '10px',
+                              fontWeight: '800',
+                              padding: '3px 8px',
+                              borderRadius: '4px',
+                              background: row.conditionBg,
+                              color: row.conditionColor
+                            }}>
+                              {row.condition}
+                            </span>
+                          </td>
+                          <td style={{ padding: '16px 8px' }}>
+                            <span style={{
+                              fontSize: '10px',
+                              fontWeight: '800',
+                              padding: '3px 8px',
+                              borderRadius: '4px',
+                              background: row.statusBg,
+                              color: row.statusColor
+                            }}>
+                              {row.status}
+                            </span>
+                          </td>
+                          <td style={{ padding: '16px 8px' }}>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedTrackingId(row.id);
+                                addToast(`Selected ${row.id} for tracking`, 'info');
+                              }}
+                              style={{ background: 'transparent', border: 'none', color: isSelected ? '#25108f' : '#7a7688', cursor: 'pointer' }}
+                              aria-label="View return tracking"
+                              type="button"
+                            >
+                              <ChevronRight size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    });
+                  })()}
                 </tbody>
               </table></div>
             </div>
 
             {/* Pagination */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px' }}>
-              <span style={{ fontSize: '13px', color: '#7a7688' }}>Showing 1-4 of 14 returns</span>
-              <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Previous Page" type="button">
-                  <ChevronLeft size={16} />
-                </button>
-                <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Next Page" type="button">
-                  <ChevronRight size={16} />
-                </button>
-              </div>
-            </div>
+            {(() => {
+              const filtered = returns.filter(r => statusFilter === 'ALL' || r.status === statusFilter);
+              const itemsPerPage = 3;
+              const totalPages = Math.ceil(filtered.length / itemsPerPage);
+              const activePage = Math.min(currentPage, totalPages || 1);
+              return (
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px' }}>
+                  <span style={{ fontSize: '13px', color: '#7a7688' }}>
+                    Showing {filtered.length > 0 ? (activePage - 1) * itemsPerPage + 1 : 0}-{Math.min(activePage * itemsPerPage, filtered.length)} of {filtered.length} returns
+                  </span>
+                  <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                    <button 
+                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      disabled={activePage === 1}
+                      style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: activePage === 1 ? 'default' : 'pointer', opacity: activePage === 1 ? 0.5 : 1 }} 
+                      aria-label="Previous Page" 
+                      type="button"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <button 
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                      disabled={activePage === totalPages || totalPages === 0}
+                      style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: (activePage === totalPages || totalPages === 0) ? 'default' : 'pointer', opacity: (activePage === totalPages || totalPages === 0) ? 0.5 : 1 }} 
+                      aria-label="Next Page" 
+                      type="button"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })()}
 
           </div>
 
@@ -482,73 +657,132 @@ export default function MaterialReturns() {
 
         {/* Workflow progress line */}
         <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
-          <strong style={{ display: 'block', fontSize: '14px', color: '#1c2536', marginBottom: '20px' }}>Return Workflow Tracking</strong>
+          <strong style={{ display: 'block', fontSize: '14px', color: '#1c2536', marginBottom: '20px' }}>
+            Return Workflow Tracking: {selectedTrackingId} ({returns.find(r => r.id === selectedTrackingId)?.vendor || 'Generic'})
+          </strong>
           
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px', position: 'relative' }}>
-            {/* Step 1 */}
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '140px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f5f3ff', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #25108f' }}>
-                <CheckCircle2 size={16} />
-              </div>
-              <div>
-                <strong style={{ display: 'block', fontSize: '12.5px', color: '#1c2536' }}>Initiated</strong>
-                <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>Oct 12, 09:00</span>
-              </div>
-            </div>
+          {(() => {
+            const selectedReturn = returns.find(r => r.id === selectedTrackingId) || returns[0] || { status: 'INITIATED' };
+            const status = selectedReturn.status;
+            
+            const getStatusStyle = (stepIdx) => {
+              let isCompleted = false;
+              let isActive = false;
+              
+              if (status === 'COMPLETED') {
+                isCompleted = true;
+              } else if (status === 'REFUNDED') {
+                if (stepIdx <= 4) isCompleted = true;
+                else if (stepIdx === 5) isActive = true;
+              } else if (status === 'IN REVIEW') {
+                if (stepIdx <= 3) isCompleted = true;
+                else if (stepIdx === 4) isActive = true;
+              } else if (status === 'SHIPPED') {
+                if (stepIdx <= 2) isCompleted = true;
+                else if (stepIdx === 3) isActive = true;
+              } else {
+                if (stepIdx <= 1) isCompleted = true;
+                else if (stepIdx === 2) isActive = true;
+              }
+              
+              if (isCompleted) {
+                return {
+                  bg: '#f5f3ff',
+                  color: '#25108f',
+                  border: '2px solid #25108f',
+                  textColor: '#1c2536'
+                };
+              }
+              if (isActive) {
+                return {
+                  bg: '#eff6ff',
+                  color: '#2563eb',
+                  border: '2px solid #2563eb',
+                  textColor: '#2563eb',
+                  pulse: true
+                };
+              }
+              return {
+                bg: '#f8fafc',
+                color: '#94a3b8',
+                border: '2px solid #e2e8f0',
+                textColor: '#7a7688'
+              };
+            };
 
-            <div style={{ flex: 0.5, height: '2px', background: '#25108f', minWidth: '20px' }} />
+            const step1 = getStatusStyle(1);
+            const step2 = getStatusStyle(2);
+            const step3 = getStatusStyle(3);
+            const step4 = getStatusStyle(4);
+            const step5 = getStatusStyle(5);
 
-            {/* Step 2 */}
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '140px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f5f3ff', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #25108f' }}>
-                <Truck size={16} />
-              </div>
-              <div>
-                <strong style={{ display: 'block', fontSize: '12.5px', color: '#1c2536' }}>Shipped</strong>
-                <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>Oct 14, 14:30</span>
-              </div>
-            </div>
+            return (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px', position: 'relative', width: '100%' }}>
+                {/* Step 1 */}
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '140px' }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: step1.bg, color: step1.color, display: 'flex', alignItems: 'center', justifyContent: 'center', border: step1.border }}>
+                    <CheckCircle2 size={16} />
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '12.5px', color: step1.textColor }}>Initiated</strong>
+                    <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>Oct 12, 09:00</span>
+                  </div>
+                </div>
 
-            <div style={{ flex: 0.5, height: '2px', background: '#cbd5e1', minWidth: '20px' }} />
+                <div style={{ flex: 0.5, height: '2px', background: step2.bg === '#f5f3ff' ? '#25108f' : '#e2e8f0', minWidth: '20px' }} />
 
-            {/* Step 3 */}
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '160px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #2563eb' }}>
-                <RefreshCw size={14} className="spin" />
-              </div>
-              <div>
-                <strong style={{ display: 'block', fontSize: '12.5px', color: '#2563eb' }}>Vendor Inspection</strong>
-                <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>In Progress</span>
-              </div>
-            </div>
+                {/* Step 2 */}
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '140px' }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: step2.bg, color: step2.color, display: 'flex', alignItems: 'center', justifyContent: 'center', border: step2.border }}>
+                    <Truck size={16} />
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '12.5px', color: step2.textColor }}>Shipped</strong>
+                    <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>Oct 14, 14:30</span>
+                  </div>
+                </div>
 
-            <div style={{ flex: 0.5, height: '2px', background: '#e2e8f0', minWidth: '20px' }} />
+                <div style={{ flex: 0.5, height: '2px', background: step3.bg === '#f5f3ff' ? '#25108f' : '#e2e8f0', minWidth: '20px' }} />
 
-            {/* Step 4 */}
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '130px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f8fafc', color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #e2e8f0' }}>
-                <span>4</span>
-              </div>
-              <div>
-                <strong style={{ display: 'block', fontSize: '12.5px', color: '#7a7688' }}>Refund Issued</strong>
-                <span style={{ display: 'block', fontSize: '10px', color: '#cbd5e1', marginTop: '2px' }}>Pending...</span>
-              </div>
-            </div>
+                {/* Step 3 */}
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '160px' }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: step3.bg, color: step3.color, display: 'flex', alignItems: 'center', justifyContent: 'center', border: step3.border }}>
+                    <RefreshCw size={14} className={step3.pulse ? 'spin' : ''} />
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '12.5px', color: step3.textColor }}>Vendor Inspection</strong>
+                    <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>{status === 'IN REVIEW' ? 'Completed' : (status === 'SHIPPED' ? 'In Progress' : 'Pending')}</span>
+                  </div>
+                </div>
 
-            <div style={{ flex: 0.5, height: '2px', background: '#e2e8f0', minWidth: '20px' }} />
+                <div style={{ flex: 0.5, height: '2px', background: step4.bg === '#f5f3ff' ? '#25108f' : '#e2e8f0', minWidth: '20px' }} />
 
-            {/* Step 5 */}
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '110px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f8fafc', color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #e2e8f0' }}>
-                <span>5</span>
-              </div>
-              <div>
-                <strong style={{ display: 'block', fontSize: '12.5px', color: '#7a7688' }}>Completed</strong>
-                <span style={{ display: 'block', fontSize: '10px', color: '#cbd5e1', marginTop: '2px' }}>--</span>
-              </div>
-            </div>
+                {/* Step 4 */}
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '130px' }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: step4.bg, color: step4.color, display: 'flex', alignItems: 'center', justifyContent: 'center', border: step4.border }}>
+                    <span>4</span>
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '12.5px', color: step4.textColor }}>Refund Issued</strong>
+                    <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>{status === 'REFUNDED' || status === 'COMPLETED' ? 'Completed' : (status === 'IN REVIEW' ? 'Processing...' : 'Pending')}</span>
+                  </div>
+                </div>
 
-          </div>
+                <div style={{ flex: 0.5, height: '2px', background: step5.bg === '#f5f3ff' ? '#25108f' : '#e2e8f0', minWidth: '20px' }} />
+
+                {/* Step 5 */}
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flex: 1, minWidth: '110px' }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: step5.bg, color: step5.color, display: 'flex', alignItems: 'center', justifyContent: 'center', border: step5.border }}>
+                    <span>5</span>
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '12.5px', color: step5.textColor }}>Completed</strong>
+                    <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', marginTop: '2px' }}>{status === 'COMPLETED' ? 'Finished' : 'Pending'}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
 
           <style>{`
             @keyframes spin {
@@ -560,6 +794,114 @@ export default function MaterialReturns() {
             }
           `}</style>
         </div>
+
+        {/* Log Return Modal Dialog */}
+        {logReturnModalOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => setLogReturnModalOpen(false)} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '440px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Log New Return</h3>
+                <button onClick={() => setLogReturnModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
+                  Cancel
+                </button>
+              </div>
+
+              <form onSubmit={handleModalProcessReturn} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Vendor</label>
+                  <select
+                    value={modalVendor}
+                    onChange={(e) => setModalVendor(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                  >
+                    <option value="SteelFab Inc.">SteelFab Inc.</option>
+                    <option value="Lumber Metrics">Lumber Metrics</option>
+                    <option value="Global Circuits">Global Circuits</option>
+                    <option value="PipeMaster Ltd.">PipeMaster Ltd.</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Material Description</label>
+                  <input
+                    type="text"
+                    value={modalMaterial}
+                    onChange={(e) => setModalMaterial(e.target.value)}
+                    placeholder="e.g. Cedar Planks 2x4"
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                    required
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div>
+                    <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>PO Reference</label>
+                    <input
+                      type="text"
+                      value={modalPoRef}
+                      onChange={(e) => setModalPoRef(e.target.value)}
+                      placeholder="e.g. PO-8921"
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Quantity</label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={modalQty}
+                      onChange={(e) => setModalQty(parseInt(e.target.value, 10) || 1)}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Condition</label>
+                  <select
+                    value={modalCondition}
+                    onChange={(e) => setModalCondition(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                  >
+                    <option value="Unused">Unused</option>
+                    <option value="Damaged">Damaged</option>
+                    <option value="Defective">Defective</option>
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Return Reason</label>
+                  <textarea
+                    placeholder="Describe the reason for return..."
+                    value={modalReason}
+                    onChange={(e) => setModalReason(e.target.value)}
+                    style={{ minHeight: '60px', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', outline: 'none', resize: 'none' }}
+                    required
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setLogReturnModalOpen(false)}
+                    style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    Process Return
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
       </div>
     </AdminShell>

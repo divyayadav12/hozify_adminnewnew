@@ -475,6 +475,141 @@ export default function Targets() {
         </div>
 
         {/* =================================== */}
+        {/* MODALS */}
+        {/* NEW TARGET MODAL */}
+        {showNewTargetModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 className="font-bold text-slate-900">Create New Target</h3>
+                <button onClick={() => setShowNewTargetModal(false)} className="text-slate-400 hover:text-slate-600">
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="p-6 space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Region / Department</label>
+                  <input type="text" className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="e.g. LATAM East" value={newTargetForm.region} onChange={e => setNewTargetForm({...newTargetForm, region: e.target.value})} />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Target Metric</label>
+                  <input type="text" className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="e.g. Enterprise Licenses" value={newTargetForm.metric} onChange={e => setNewTargetForm({...newTargetForm, metric: e.target.value})} />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Goal Value</label>
+                    <input type="text" className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="$0" value={newTargetForm.goal} onChange={e => setNewTargetForm({...newTargetForm, goal: e.target.value})} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Actual Value</label>
+                    <input type="text" className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="$0" value={newTargetForm.actual} onChange={e => setNewTargetForm({...newTargetForm, actual: e.target.value})} />
+                  </div>
+                </div>
+              </div>
+              <div className="px-6 py-4 bg-slate-50 flex justify-end gap-2 border-t border-slate-100">
+                <button onClick={() => setShowNewTargetModal(false)} className="px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer">Cancel</button>
+                <button onClick={() => {
+                  setManagementRows([...managementRows, {
+                    id: Date.now(),
+                    region: newTargetForm.region || "New Region",
+                    metric: newTargetForm.metric || "New Metric",
+                    goal: newTargetForm.goal || "$0",
+                    actual: newTargetForm.actual || "$0",
+                    status: newTargetForm.status,
+                    statusStyle: "bg-blue-50 text-blue-600 border border-blue-100",
+                    icon: <TrendingUp className="h-3.5 w-3.5 text-white" />
+                  }]);
+                  setShowNewTargetModal(false);
+                }} className="px-4 py-2 text-sm font-bold bg-indigo-950 text-white hover:bg-indigo-900 rounded-lg transition-colors shadow-sm cursor-pointer">Save Target</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* RANKINGS MODAL */}
+        {showRankingsModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[80vh]">
+              <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 shrink-0">
+                <div className="flex items-center gap-2">
+                  <Trophy className="h-5 w-5 text-amber-500" />
+                  <h3 className="font-bold text-slate-900">Complete Leaderboard</h3>
+                </div>
+                <button onClick={() => setShowRankingsModal(false)} className="text-slate-400 hover:text-slate-600">
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="p-6 overflow-y-auto space-y-4">
+                {leaderboard.map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                    <span className="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 rounded-full text-xs font-extrabold text-slate-700 shrink-0 shadow-sm">
+                      #{item.rank}
+                    </span>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-center font-bold text-sm mb-1">
+                        <span className="text-slate-800">{item.name}</span>
+                        <span className="text-indigo-950">{item.progress}%</span>
+                      </div>
+                      <div className="flex justify-between items-center text-xs text-slate-500 mb-2">
+                        <span>Revenue: {item.revenue}</span>
+                        <span>Target: On Track</span>
+                      </div>
+                      <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                        <div className={`h-full rounded-full ${item.progress >= 100 ? 'bg-emerald-500' : 'bg-indigo-600'}`} style={{ width: `${Math.min(item.progress, 100)}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* EDIT KPI MODAL */}
+        {editingRow && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 className="font-bold text-slate-900">Edit KPI: {editingRow.region}</h3>
+                <button onClick={() => setEditingRow(null)} className="text-slate-400 hover:text-slate-600">
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="p-6 space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Goal Value</label>
+                  <input type="text" className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" value={editingRow.goal} onChange={e => setEditingRow({...editingRow, goal: e.target.value})} />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Actual Value</label>
+                  <input type="text" className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" value={editingRow.actual} onChange={e => setEditingRow({...editingRow, actual: e.target.value})} />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Status</label>
+                  <select className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" value={editingRow.status} onChange={e => {
+                    const status = e.target.value;
+                    let style = "bg-blue-50 text-blue-600 border border-blue-100";
+                    if(status === "At Risk") style = "bg-rose-50 text-rose-600 border border-rose-100";
+                    if(status === "Exceeded") style = "bg-emerald-50 text-emerald-600 border border-emerald-100";
+                    setEditingRow({...editingRow, status, statusStyle: style});
+                  }}>
+                    <option>Near Target</option>
+                    <option>Exceeded</option>
+                    <option>At Risk</option>
+                  </select>
+                </div>
+              </div>
+              <div className="px-6 py-4 bg-slate-50 flex justify-end gap-2 border-t border-slate-100">
+                <button onClick={() => setEditingRow(null)} className="px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer">Cancel</button>
+                <button onClick={() => {
+                  setManagementRows(rows => rows.map(r => r.id === editingRow.id ? editingRow : r));
+                  setEditingRow(null);
+                }} className="px-4 py-2 text-sm font-bold bg-indigo-950 text-white hover:bg-indigo-900 rounded-lg transition-colors shadow-sm cursor-pointer">Update KPI</button>
+              </div>
+            </div>
+          </div>
+        )}
+
     </div>
 </AdminShell>
   );

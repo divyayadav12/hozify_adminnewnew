@@ -13,14 +13,20 @@ import {
   X,
   Layers,
   Video,
-  MoreVertical
+  MoreVertical,
+  Eye,
+  SlidersHorizontal,
+  Plus,
+  Edit3
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
 
 export default function ConsumptionTracking() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
   const [velocityFrame, setVelocityFrame] = useState('Last 14 Days');
   const [activeView, setActiveView] = useState('Table'); // Table or Analytics
   const [showSuccessToast, setShowSuccessToast] = useState(true);
@@ -33,13 +39,40 @@ export default function ConsumptionTracking() {
     { id: 'MAT-331-WIR', name: 'Copper Wiring 2.5mm', unit: 'm', allocated: 2500, used: 2100, wasted: 18, status: 'IN RANGE', statusBg: '#ecfdf5', statusColor: '#059669' }
   ]);
 
+  // Dropdown & Modal States
+  const [activeMenuId, setActiveMenuId] = useState(null);
+  
+  const [adjustAllocationModalOpen, setAdjustAllocationModalOpen] = useState(false);
+  const [selectedRowForAllocation, setSelectedRowForAllocation] = useState(null);
+  const [newAllocationValue, setNewAllocationValue] = useState('');
+
+  const [editStatusModalOpen, setEditStatusModalOpen] = useState(false);
+  const [selectedRowForStatus, setSelectedRowForStatus] = useState(null);
+  const [newStatusValue, setNewStatusValue] = useState('IN RANGE');
+
+  const [addMaterialModalOpen, setAddMaterialModalOpen] = useState(false);
+  const [newMaterialName, setNewMaterialName] = useState('');
+  const [newMaterialId, setNewMaterialId] = useState('');
+  const [newMaterialUnit, setNewMaterialUnit] = useState('kg');
+  const [newMaterialAllocated, setNewMaterialAllocated] = useState('');
+  const [newMaterialUsed, setNewMaterialUsed] = useState('');
+  const [newMaterialWasted, setNewMaterialWasted] = useState('');
+  const [newMaterialStatus, setNewMaterialStatus] = useState('IN RANGE');
+
   const handleInputChange = (idx, field, value) => {
     const nextVal = parseInt(value, 10) || 0;
     setRows(prev => prev.map((r, i) => i === idx ? { ...r, [field]: nextVal } : r));
   };
 
   const handleAddMaterial = () => {
-    alert('Search and add material vertical to this project booking...');
+    setNewMaterialName('');
+    setNewMaterialId('MAT-' + Math.floor(100 + Math.random() * 900) + '-CON');
+    setNewMaterialUnit('kg');
+    setNewMaterialAllocated('1000');
+    setNewMaterialUsed('0');
+    setNewMaterialWasted('0');
+    setNewMaterialStatus('IN RANGE');
+    setAddMaterialModalOpen(true);
   };
 
   const handleSubmit = () => {
@@ -284,10 +317,100 @@ export default function ConsumptionTracking() {
                         {row.status}
                       </span>
                     </td>
-                    <td style={{ padding: '14px 8px', textAlign: 'center' }}>
-                      <button style={{ border: 'none', background: 'transparent', color: '#7a7688', cursor: 'pointer' }} type="button">
+                    <td style={{ padding: '14px 8px', textAlign: 'center', position: 'relative' }}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveMenuId(activeMenuId === row.id ? null : row.id);
+                        }}
+                        style={{ border: 'none', background: 'transparent', color: '#7a7688', cursor: 'pointer', padding: '6px' }}
+                        type="button"
+                        aria-label="More actions"
+                      >
                         <MoreVertical size={16} />
                       </button>
+
+                      {/* Actions 3-dot dropdown menu */}
+                      {activeMenuId === row.id && (
+                        <>
+                          <div 
+                            onClick={(e) => { e.stopPropagation(); setActiveMenuId(null); }}
+                            style={{ position: 'fixed', inset: 0, zIndex: 999 }}
+                          />
+                          <div 
+                            style={{ 
+                              position: 'absolute', 
+                              right: '10px', 
+                              top: '34px', 
+                              width: '160px', 
+                              background: '#ffffff', 
+                              border: '1px solid var(--line, #e2e8f0)', 
+                              borderRadius: '8px', 
+                              boxShadow: '0 4px 12px rgba(0,0,0,0.15)', 
+                              zIndex: 1000, 
+                              padding: '4px 0',
+                              textAlign: 'left'
+                            }}
+                          >
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveMenuId(null);
+                                navigate(ROUTES.materialDetails);
+                              }}
+                              style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#111827', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                              className="hover:bg-slate-50"
+                            >
+                              <Eye size={14} />
+                              <span>View Details</span>
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveMenuId(null);
+                                setSelectedRowForAllocation(row);
+                                setNewAllocationValue(row.allocated);
+                                setAdjustAllocationModalOpen(true);
+                              }}
+                              style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#111827', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                              className="hover:bg-slate-50"
+                            >
+                              <SlidersHorizontal size={14} />
+                              <span>Adjust Allocation</span>
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveMenuId(null);
+                                setSelectedRowForStatus(row);
+                                setNewStatusValue(row.status);
+                                setEditStatusModalOpen(true);
+                              }}
+                              style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#111827', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                              className="hover:bg-slate-50"
+                            >
+                              <Edit3 size={14} />
+                              <span>Edit Variance Status</span>
+                            </button>
+                            <div style={{ borderTop: '1px solid #f1f5f9', margin: '4px 0' }} />
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveMenuId(null);
+                                if (confirm(`Are you sure you want to remove ${row.name} from the log?`)) {
+                                  setRows(prev => prev.filter(m => m.id !== row.id));
+                                  addToast(`${row.name} removed successfully`, 'success');
+                                }
+                              }}
+                              style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#ef4444', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                              className="hover:bg-slate-50"
+                            >
+                              <Trash2 size={14} />
+                              <span>Remove Item</span>
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -455,6 +578,281 @@ export default function ConsumptionTracking() {
             >
               <X size={16} />
             </button>
+          </div>
+        )}
+
+        {/* Modal containers */}
+        {adjustAllocationModalOpen && selectedRowForAllocation && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => setAdjustAllocationModalOpen(false)} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Adjust Allocation</h3>
+                <button onClick={() => setAdjustAllocationModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
+                  Cancel
+                </button>
+              </div>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <p style={{ fontSize: '13px', color: '#565365', margin: 0 }}>
+                  Adjust the allocated quantity for <strong>{selectedRowForAllocation.name}</strong>.
+                </p>
+
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Allocated Quantity ({selectedRowForAllocation.unit})</label>
+                  <input
+                    type="number"
+                    value={newAllocationValue}
+                    onChange={(e) => setNewAllocationValue(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setAdjustAllocationModalOpen(false)}
+                    style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const val = parseInt(newAllocationValue, 10);
+                      if (isNaN(val) || val < 0) {
+                        addToast('Please enter a valid allocation quantity.', 'error');
+                        return;
+                      }
+                      setRows(prev => prev.map(m => m.id === selectedRowForAllocation.id ? {
+                        ...m,
+                        allocated: val
+                      } : m));
+                      addToast(`Allocation for ${selectedRowForAllocation.name} updated!`, 'success');
+                      setAdjustAllocationModalOpen(false);
+                    }}
+                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {editStatusModalOpen && selectedRowForStatus && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => setEditStatusModalOpen(false)} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Edit Variance Status</h3>
+                <button onClick={() => setEditStatusModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
+                  Cancel
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <p style={{ fontSize: '13px', color: '#565365', margin: 0 }}>
+                  Select the alert variance status for <strong>{selectedRowForStatus.name}</strong>.
+                </p>
+
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Variance Alert Status</label>
+                  <select
+                    value={newStatusValue}
+                    onChange={(e) => setNewStatusValue(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                  >
+                    <option value="IN RANGE">IN RANGE</option>
+                    <option value="OPTIMAL">OPTIMAL</option>
+                    <option value="CRITICAL">CRITICAL</option>
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setEditStatusModalOpen(false)}
+                    style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      let statusBg = '#ecfdf5';
+                      let statusColor = '#059669';
+                      if (newStatusValue === 'CRITICAL') {
+                        statusBg = '#fffbeb';
+                        statusColor = '#d97706';
+                      } else if (newStatusValue === 'OPTIMAL') {
+                        statusBg = '#ecfdf5';
+                        statusColor = '#059669';
+                      }
+
+                      setRows(prev => prev.map(m => m.id === selectedRowForStatus.id ? {
+                        ...m,
+                        status: newStatusValue,
+                        statusBg,
+                        statusColor
+                      } : m));
+                      addToast(`Variance Alert for ${selectedRowForStatus.name} updated to ${newStatusValue}!`, 'success');
+                      setEditStatusModalOpen(false);
+                    }}
+                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    Save Status
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {addMaterialModalOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => setAddMaterialModalOpen(false)} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Add Material to Booking</h3>
+                <button onClick={() => setAddMaterialModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
+                  Cancel
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Material Name</label>
+                  <input
+                    type="text"
+                    value={newMaterialName}
+                    onChange={(e) => setNewMaterialName(e.target.value)}
+                    placeholder="e.g. Portland Cement"
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div>
+                    <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>SKU/ID</label>
+                    <input
+                      type="text"
+                      value={newMaterialId}
+                      onChange={(e) => setNewMaterialId(e.target.value)}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Unit</label>
+                    <select
+                      value={newMaterialUnit}
+                      onChange={(e) => setNewMaterialUnit(e.target.value)}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                    >
+                      <option value="kg">kg</option>
+                      <option value="units">units</option>
+                      <option value="L">L</option>
+                      <option value="m">m</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+                  <div>
+                    <label style={{ fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Allocated</label>
+                    <input
+                      type="number"
+                      value={newMaterialAllocated}
+                      onChange={(e) => setNewMaterialAllocated(e.target.value)}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Used</label>
+                    <input
+                      type="number"
+                      value={newMaterialUsed}
+                      onChange={(e) => setNewMaterialUsed(e.target.value)}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Wasted</label>
+                    <input
+                      type="number"
+                      value={newMaterialWasted}
+                      onChange={(e) => setNewMaterialWasted(e.target.value)}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Variance Alert Status</label>
+                  <select
+                    value={newMaterialStatus}
+                    onChange={(e) => setNewMaterialStatus(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                  >
+                    <option value="IN RANGE">IN RANGE</option>
+                    <option value="OPTIMAL">OPTIMAL</option>
+                    <option value="CRITICAL">CRITICAL</option>
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setAddMaterialModalOpen(false)}
+                    style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!newMaterialName.trim() || !newMaterialId.trim()) {
+                        addToast('Please enter a valid name and ID.', 'error');
+                        return;
+                      }
+                      const allocated = parseInt(newMaterialAllocated, 10) || 0;
+                      const used = parseInt(newMaterialUsed, 10) || 0;
+                      const wasted = parseInt(newMaterialWasted, 10) || 0;
+                      
+                      let statusBg = '#ecfdf5';
+                      let statusColor = '#059669';
+                      if (newMaterialStatus === 'CRITICAL') {
+                        statusBg = '#fffbeb';
+                        statusColor = '#d97706';
+                      } else if (newMaterialStatus === 'OPTIMAL') {
+                        statusBg = '#ecfdf5';
+                        statusColor = '#059669';
+                      }
+
+                      const newRow = {
+                        id: newMaterialId,
+                        name: newMaterialName,
+                        unit: newMaterialUnit,
+                        allocated,
+                        used,
+                        wasted,
+                        status: newMaterialStatus,
+                        statusBg,
+                        statusColor
+                      };
+
+                      setRows(prev => [...prev, newRow]);
+                      addToast(`${newMaterialName} added successfully`, 'success');
+                      setAddMaterialModalOpen(false);
+                    }}
+                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    Add Material
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

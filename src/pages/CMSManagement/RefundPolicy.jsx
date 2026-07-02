@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from '../../components/common/ToastNotification';
 import { 
   FileText, History, Clock, CheckCircle2, AlertTriangle, X, 
   Bold, Italic, List as ListIcon, Link as LinkIcon, Plus
 } from 'lucide-react';
 
 export default function RefundPolicy() {
+  const { addToast } = useToast();
   const [legalHeader, setLegalHeader] = useState('This Refund Policy ("Policy") governs the financial obligations and reimbursement procedures for Enterprise CMS services...');
   const [refundWindow, setRefundWindow] = useState('30');
   const [processingFee, setProcessingFee] = useState('2.5');
@@ -18,6 +20,13 @@ export default function RefundPolicy() {
 
   const removeClause = (idToRemove) => {
     setClauses(clauses.filter(c => c.id !== idToRemove));
+    addToast('Sub-clause removed successfully', 'success');
+  };
+
+  const addClause = () => {
+    const newId = clauses.length > 0 ? Math.max(...clauses.map(c => c.id)) + 1 : 1;
+    setClauses([...clauses, { id: newId, title: `SECTION ${newId}.0: NEW CLAUSE`, content: 'Enter the details for this new sub-clause here...' }]);
+    addToast('New sub-clause added to the editor', 'success');
   };
 
   return (
@@ -52,13 +61,13 @@ export default function RefundPolicy() {
           </div>
           
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <button onClick={() => alert('Generating PDF preview...')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button onClick={() => addToast('Generating PDF preview document...', 'info')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Preview PDF
             </button>
-            <button onClick={() => alert('Changes discarded.')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button onClick={() => addToast('Changes discarded', 'info')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Discard Changes
             </button>
-            <button onClick={() => alert('Changes published successfully!')} style={{ padding: '8px 16px', background: '#312e81', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button onClick={() => addToast('Policy changes published successfully!', 'success')} style={{ padding: '8px 16px', background: '#312e81', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Publish Changes
             </button>
           </div>
@@ -119,13 +128,13 @@ export default function RefundPolicy() {
                   </h3>
                   <div style={{ width: '1px', height: '24px', background: 'var(--line)' }} />
                   <div style={{ display: 'flex', gap: '4px' }}>
-                    <button onClick={() => alert('Bold format applied')} className="editor-btn"><Bold size={16} /></button>
-                    <button onClick={() => alert('Italic format applied')} className="editor-btn"><Italic size={16} /></button>
-                    <button onClick={() => alert('List format applied')} className="editor-btn"><ListIcon size={16} /></button>
-                    <button onClick={() => alert('Link format applied')} className="editor-btn"><LinkIcon size={16} /></button>
+                    <button onClick={() => addToast('Bold formatting applied', 'info')} className="editor-btn"><Bold size={16} /></button>
+                    <button onClick={() => addToast('Italic formatting applied', 'info')} className="editor-btn"><Italic size={16} /></button>
+                    <button onClick={() => addToast('List formatting applied', 'info')} className="editor-btn"><ListIcon size={16} /></button>
+                    <button onClick={() => addToast('Link formatting applied', 'info')} className="editor-btn"><LinkIcon size={16} /></button>
                   </div>
                 </div>
-                <button onClick={() => alert('Adding new sub-clause...')} style={{ background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                <button onClick={addClause} style={{ background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                   <Plus size={14} /> Add Sub-clause
                 </button>
               </div>
@@ -143,13 +152,14 @@ export default function RefundPolicy() {
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                         <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{clause.title}</span>
-                        <button onClick={() => removeClause(clause.id)} style={{ background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: '2px' }}>
+                        <button onClick={() => removeClause(clause.id)} style={{ background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: '2px' }} title="Remove this clause">
                           <X size={14} />
                         </button>
                       </div>
-                      <p style={{ margin: 0, fontSize: '13px', color: idx === 1 ? 'var(--muted)' : 'var(--text)', fontStyle: idx === 1 ? 'italic' : 'normal', lineHeight: '1.6' }}>
-                        {clause.content}
-                      </p>
+                      <textarea
+                        style={{ margin: 0, fontSize: '13px', color: idx === 1 ? 'var(--muted)' : 'var(--text)', fontStyle: idx === 1 ? 'italic' : 'normal', lineHeight: '1.6', width: '100%', border: 'none', outline: 'none', resize: 'vertical', background: 'transparent' }}
+                        defaultValue={clause.content}
+                      />
                     </div>
                   </div>
                 ))}
@@ -228,7 +238,7 @@ export default function RefundPolicy() {
                 <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Version History
                 </h3>
-                <button onClick={() => alert('Viewing all version history...')} style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }}>View All</button>
+                <button onClick={() => addToast('Opening full version history records...', 'info')} style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }}>View All</button>
               </div>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import AdminShell from "../../components/layouts/AdminShell"; // Direct layout path import as requested
+import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 
 export default function EmployeeReportPage() {
+  const { addToast } = useToast();
   // --- UI Interactivity States ---
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
@@ -266,7 +268,7 @@ export default function EmployeeReportPage() {
               ))}
             </div>
 
-            <button className="w-full bg-[#f8fafd] border-t border-gray-100 py-3 text-center text-xs font-bold text-[#1d0094] hover:bg-slate-100/50 transition-colors">
+            <button className="w-full bg-[#f8fafd] border-t border-gray-100 py-3 text-center text-xs font-bold text-[#1d0094] hover:bg-slate-100/50 transition-colors" type="button" onClick={() => addToast('Full Leaderboard opened (Mock)', 'info')}>
               View Full Leaderboard
             </button>
           </div>

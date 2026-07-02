@@ -16,50 +16,89 @@ import {
   AlertTriangle,
   FileText,
   Check,
-  X
+  X,
+  Filter
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from "../../components/common/ToastNotification";
+
+const INITIAL_QUEUE = [
+  { id: '1', type: 'Email', recipient: 'a.smith@techflow.io', subtext: 'Campaign: Q4 Growth', error: '429: Too Many Requests', attempts: '2 / 5', nextRetry: '04:12 mins', status: 'Pending', errorColor: '#ef4444', errorBg: '#fee2e2' },
+  { id: '2', type: 'SMS', recipient: '+1 (555) 092-1142', subtext: 'Alert: System Maintenance', error: 'Timeout: Provider Delay', attempts: '1 / 3', nextRetry: '12:45 mins', status: 'Pending', errorColor: '#1e40af', errorBg: '#eff6ff' },
+  { id: '3', type: 'Push', recipient: 'User_92104 (Push)', subtext: 'Promo: Flash Sale', error: 'Invalid Token', attempts: '5 / 5', nextRetry: 'Stopped', status: 'Stopped', errorColor: '#ef4444', errorBg: '#fee2e2' },
+  { id: '4', type: 'Email', recipient: 'billing@corp-x.com', subtext: 'Invoice: INV-2023', error: 'SMTP Unreachable', attempts: '3 / 5', nextRetry: '08:20 mins', status: 'Pending', errorColor: '#ef4444', errorBg: '#fee2e2' },
+  { id: '5', type: 'SMS', recipient: '+1 (555) 112-9988', subtext: 'Promo: Flash Sale', error: 'Carrier Blocked', attempts: '1 / 3', nextRetry: '02:10 mins', status: 'Pending', errorColor: '#ef4444', errorBg: '#fee2e2' }
+];
 
 export default function DeliveryReports({ activeTab = 'Notification Center' }) {
-  const [toastMsg, setToastMsg] = useState('');
-  const [showToast, setShowToast] = useState(false);
+  const { addToast } = useToast();
   const [searchQuery, setSearchQuery] = useState('');
-  const [attemptsFilter, setAttemptsFilter] = useState('All');
+  
+  const [queue, setQueue] = useState(INITIAL_QUEUE);
+  const [filterType, setFilterType] = useState('All');
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
-  const [queue, setQueue] = useState([
-    { id: '1', type: 'Email', recipient: 'a.smith@techflow.io', subtext: 'Campaign: Q4 Growth', error: '429: Too Many Requests', attempts: '2 / 5', nextRetry: '04:12 mins', status: 'Pending', errorColor: '#ef4444', errorBg: '#fee2e2' },
-    { id: '2', type: 'SMS', recipient: '+1 (555) 092-1142', subtext: 'Alert: System Maintenance', error: 'Timeout: Provider Delay', attempts: '1 / 3', nextRetry: '12:45 mins', status: 'Pending', errorColor: '#1e40af', errorBg: '#eff6ff' },
-    { id: '3', type: 'Push', recipient: 'User_92104 (Push)', subtext: 'Promo: Flash Sale', error: 'Invalid Token', attempts: '5 / 5', nextRetry: 'Stopped', status: 'Stopped', errorColor: '#ef4444', errorBg: '#fee2e2' }
-  ]);
-
-  const handleRetry = (recipient) => {
-    setToastMsg(`Manual retry triggered for ${recipient}`);
-    setShowToast(true);
+  const handleRetry = (id, recipient) => {
+    addToast(`Manual retry triggered for ${recipient}`, "success");
+    setQueue(queue.map(item => item.id === id ? { ...item, status: 'Retrying...', nextRetry: 'Now' } : item));
   };
 
   const handleCancel = (id, recipient) => {
     setQueue(queue.filter(item => item.id !== id));
-    setToastMsg(`Cancelled delivery attempt for ${recipient}`);
-    setShowToast(true);
+    addToast(`Cancelled delivery attempt for ${recipient}`, "success");
+    if (currentItems.length === 1 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   const handleRetryAll = () => {
-    setToastMsg('Manual retry triggered for all failed attempts in queue');
-    setShowToast(true);
+    if (queue.length === 0) return addToast("Queue is empty.", "warning");
+    addToast(`Triggered manual retry for all ${queue.length} failed attempts`, "success");
+    setQueue(queue.map(item => ({ ...item, status: 'Retrying...', nextRetry: 'Now' })));
   };
 
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
+  const handleExportCSV = () => {
+    if (filteredQueue.length === 0) return addToast("No data to export.", "warning");
+    
+    const headers = ['Type', 'Recipient', 'Subtext', 'Error', 'Attempts', 'Status'];
+    const csvContent = [
+      headers.join(','),
+      ...filteredQueue.map(item => 
+        `"${item.type}","${item.recipient}","${item.subtext}","${item.error}","${item.attempts}","${item.status}"`
+      )
+    ].join('\n');
 
-  const filteredQueue = queue.filter(item => 
-    item.recipient.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.subtext.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.error.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'delivery_retry_queue.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    addToast(`Exported ${filteredQueue.length} records to CSV!`, "success");
+  };
+
+  const filteredQueue = queue.filter(item => {
+    const matchesSearch = item.recipient.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          item.subtext.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          item.error.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = filterType === 'All' || item.type === filterType;
+    return matchesSearch && matchesFilter;
+  });
+
+  const totalPages = Math.max(1, Math.ceil(filteredQueue.length / itemsPerPage));
+  const currentItems = filteredQueue.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <AdminShell
@@ -69,7 +108,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
       headerTitle="Delivery Monitoring"
       searchPlaceholder="Search notification IDs or recipients..."
       searchValue={searchQuery}
-      onSearchChange={setSearchQuery}
+      onSearchChange={(val) => { setSearchQuery(val); setCurrentPage(1); }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
         
@@ -173,7 +212,11 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>362</strong>
               <button
-                onClick={() => alert('Filtering table to view failed attempts')}
+                onClick={() => {
+                  setFilterType('All'); 
+                  setSearchQuery('Timeout'); 
+                  addToast('Filtering table to view timeout errors', "info");
+                }}
                 style={{
                   fontSize: '11px',
                   fontWeight: '700',
@@ -196,7 +239,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
           
           {/* Retry Queue Card (Left) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'visible' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 style={{ fontSize: '16px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -209,7 +252,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
 
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button
-                  onClick={() => alert('Exporting queue CSV...')}
+                  onClick={handleExportCSV}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -221,32 +264,73 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                     padding: '0 12px',
                     borderRadius: '6px',
                     fontSize: '12.5px',
-                    fontWeight: '700'
+                    fontWeight: '700',
+                    cursor: 'pointer'
                   }}
                 >
                   <Download size={14} />
                   <span>Export CSV</span>
                 </button>
 
-                <button
-                  onClick={() => alert('Opening filter options...')}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    border: '1px solid var(--line)',
-                    background: '#fff',
-                    color: 'var(--text)',
-                    height: '34px',
-                    padding: '0 12px',
-                    borderRadius: '6px',
-                    fontSize: '12.5px',
-                    fontWeight: '700'
-                  }}
-                >
-                  <Sliders size={14} />
-                  <span>Filter</span>
-                </button>
+                <div style={{ position: 'relative' }}>
+                  <button
+                    onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      border: '1px solid var(--line)',
+                      background: filterType !== 'All' ? 'var(--soft)' : '#fff',
+                      color: filterType !== 'All' ? 'var(--primary)' : 'var(--text)',
+                      height: '34px',
+                      padding: '0 12px',
+                      borderRadius: '6px',
+                      fontSize: '12.5px',
+                      fontWeight: '700',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <Sliders size={14} />
+                    <span>{filterType === 'All' ? 'Filter' : `Type: ${filterType}`}</span>
+                  </button>
+
+                  {showFilterDropdown && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '100%',
+                      right: 0,
+                      marginTop: '8px',
+                      background: '#fff',
+                      border: '1px solid var(--line)',
+                      borderRadius: '6px',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      zIndex: 50,
+                      minWidth: '150px',
+                      overflow: 'hidden'
+                    }}>
+                      {['All', 'Email', 'SMS', 'Push'].map((type) => (
+                        <button
+                          key={type}
+                          onClick={() => { setFilterType(type); setShowFilterDropdown(false); setCurrentPage(1); }}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            padding: '10px 16px',
+                            textAlign: 'left',
+                            background: filterType === type ? 'var(--soft)' : 'transparent',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '13px',
+                            fontWeight: '600',
+                            color: filterType === type ? 'var(--primary)' : 'var(--text)'
+                          }}
+                        >
+                          {type}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -262,8 +346,8 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredQueue.map((item, idx) => (
-                    <tr key={idx} style={{ borderBottom: '1px solid var(--lavender)' }}>
+                  {currentItems.map((item, idx) => (
+                    <tr key={item.id} style={{ borderBottom: '1px solid var(--lavender)' }}>
                       <td style={{ padding: '16px' }}>
                         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                           <div style={{
@@ -298,15 +382,16 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                       </td>
                       <td style={{ padding: '16px', fontWeight: '700', color: 'var(--text)' }}>{item.attempts}</td>
                       <td style={{ padding: '16px' }}>
-                        <div style={{ display: 'flex', gap: '4px', alignItems: 'center', color: item.status === 'Stopped' ? '#ef4444' : 'var(--text)' }}>
-                          {item.status !== 'Stopped' && <Clock size={13} style={{ color: 'var(--muted)' }} />}
-                          <span style={{ fontWeight: '700', fontSize: '12px' }}>{item.nextRetry}</span>
+                        <div style={{ display: 'flex', gap: '4px', alignItems: 'center', color: item.status === 'Stopped' ? '#ef4444' : item.status === 'Retrying...' ? 'var(--primary)' : 'var(--text)' }}>
+                          {item.status !== 'Stopped' && item.status !== 'Retrying...' && <Clock size={13} style={{ color: 'var(--muted)' }} />}
+                          <span style={{ fontWeight: '700', fontSize: '12px' }}>{item.status === 'Retrying...' ? 'Retrying...' : item.nextRetry}</span>
                         </div>
                       </td>
                       <td style={{ padding: '16px', textAlign: 'right' }}>
                         <div style={{ display: 'inline-flex', gap: '6px' }}>
                           <button
-                            onClick={() => handleRetry(item.recipient)}
+                            onClick={() => handleRetry(item.id, item.recipient)}
+                            disabled={item.status === 'Retrying...'}
                             style={{
                               height: '30px',
                               width: '30px',
@@ -316,7 +401,8 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              cursor: 'pointer'
+                              cursor: item.status === 'Retrying...' ? 'not-allowed' : 'pointer',
+                              opacity: item.status === 'Retrying...' ? 0.5 : 1
                             }}
                             title="Retry now"
                           >
@@ -356,19 +442,45 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
             </div>
 
             {/* Footer / Pagination info */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--lavender)', paddingTop: '16px', marginTop: '12px' }}>
-              <span style={{ fontSize: '12px', color: 'var(--muted)' }}>
-                Showing 3 of 362 failed attempts
-              </span>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                  <ChevronLeft size={16} />
-                </button>
-                <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                  <ChevronRight size={16} />
-                </button>
+            {filteredQueue.length > 0 && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--lavender)', paddingTop: '16px', marginTop: '12px' }}>
+                <span style={{ fontSize: '12px', color: 'var(--muted)' }}>
+                  Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredQueue.length)} of {filteredQueue.length} failed attempts
+                </span>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button 
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    style={{ 
+                      border: '1px solid var(--line)', 
+                      background: currentPage === 1 ? 'var(--soft)' : '#fff', 
+                      cursor: currentPage === 1 ? 'not-allowed' : 'pointer', 
+                      display: 'flex', 
+                      alignItems: 'center',
+                      padding: '4px',
+                      borderRadius: '4px'
+                    }}
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <button 
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    style={{ 
+                      border: '1px solid var(--line)', 
+                      background: currentPage === totalPages ? 'var(--soft)' : '#fff', 
+                      cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', 
+                      display: 'flex', 
+                      alignItems: 'center',
+                      padding: '4px',
+                      borderRadius: '4px'
+                    }}
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
           </div>
 
@@ -427,7 +539,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
               </div>
 
               <button
-                onClick={() => alert('Redirecting to detailed logs...')}
+                onClick={() => addToast('Opening detailed failure analytics logs...', "info")}
                 style={{
                   width: '100%',
                   height: '36px',
@@ -487,45 +599,6 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
         </div>
 
       </div>
-
-      {/* Floating Refresh Alert Toast */}
-      {showToast && (
-        <div style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          background: '#111827',
-          color: '#fff',
-          padding: '12px 18px',
-          borderRadius: '8px',
-          boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          zIndex: 10000,
-          animation: 'fadeInUp 0.2s ease-out'
-        }}>
-          <div style={{ height: '18px', width: '18px', borderRadius: '50%', background: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Check size={12} style={{ color: '#fff' }} />
-          </div>
-          <span style={{ fontSize: '13px', fontWeight: '600' }}>{toastMsg}</span>
-          <button
-            onClick={() => setShowToast(false)}
-            style={{
-              border: 'none',
-              background: 'transparent',
-              color: '#9ca3af',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '2px',
-              marginLeft: '8px'
-            }}
-          >
-            <X size={14} />
-          </button>
-        </div>
-      )}
 
     </AdminShell>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
 import {
@@ -12,12 +12,15 @@ import {
   Wallet,
 } from "lucide-react";
 
-const trafficSources = [
+const allTrafficSources = [
   { source: "Monthly Newsletter", category: "EMAIL", referrals: "2,419", rate: "14.2%", trend: "📈" },
   { source: "Instagram Stories", category: "SOCIAL", referrals: "1,852", rate: "9.8%", trend: "📈" },
   { source: "In-Store Display", category: "QR CODE", referrals: "1,105", rate: "18.5%", trend: "📉" },
   { source: "Main Landing Page", category: "DIRECT", referrals: "984", rate: "11.1%", trend: "📈" },
   { source: "YouTube Sponsorship", category: "SOCIAL", referrals: "842", rate: "7.4%", trend: "➖" },
+  { source: "Welcome Email Flow", category: "EMAIL", referrals: "750", rate: "12.0%", trend: "📈" },
+  { source: "Twitter Promo", category: "SOCIAL", referrals: "620", rate: "6.5%", trend: "📉" },
+  { source: "Checkout Page Link", category: "DIRECT", referrals: "450", rate: "15.3%", trend: "📈" },
 ];
 
 function StatCard({
@@ -59,6 +62,63 @@ function StatCard({
 export default function ReferralSourcesPage() {
   const { addToast } = useToast();
   const [activeRange, setActiveRange] = useState("Last 30 Days");
+  
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("All");
+  
+  const [showAllSources, setShowAllSources] = useState(false);
+  const filterRef = useRef(null);
+
+  // Close filter dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleExportPDF = () => {
+    addToast("Generating detailed traffic sources matrix PDF...", "success");
+    setTimeout(() => {
+      window.print();
+    }, 500);
+  };
+
+  let displayedSources = [...allTrafficSources];
+  
+  if (activeRange === "Quarterly") {
+      displayedSources = displayedSources.map(s => ({ ...s, referrals: (parseInt(s.referrals.replace(',','')) * 3).toLocaleString() }));
+  } else if (activeRange === "Yearly") {
+      displayedSources = displayedSources.map(s => ({ ...s, referrals: (parseInt(s.referrals.replace(',','')) * 12).toLocaleString() }));
+  }
+
+  if (activeFilter !== "All") {
+      displayedSources = displayedSources.filter(s => s.category === activeFilter);
+  }
+
+  if (searchQuery) {
+      displayedSources = displayedSources.filter(s => s.source.toLowerCase().includes(searchQuery.toLowerCase()));
+  }
+
+  const visibleSources = showAllSources ? displayedSources : displayedSources.slice(0, 5);
+
+  const getKPIStats = () => {
+    if (activeRange === "Quarterly") {
+      return { total: "42,876", ctr: "26.1%", conv: "13.5%", payout: "$72.1k" };
+    }
+    if (activeRange === "Yearly") {
+      return { total: "171,504", ctr: "25.8%", conv: "14.2%", payout: "$295.4k" };
+    }
+    return { total: "14,292", ctr: "24.8%", conv: "12.1%", payout: "$24.5k" };
+  };
+
+  const kpi = getKPIStats();
 
   return (
     <AdminShell
@@ -77,28 +137,30 @@ export default function ReferralSourcesPage() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <button 
-              onClick={() => { setActiveRange("Last 30 Days"); addToast("Filtered timeline: Last 30 Days", "success"); }}
-              className={`px-3 py-1.5 border rounded-lg text-xs font-bold transition-all cursor-pointer ${activeRange === "Last 30 Days" ? "bg-indigo-900 border-indigo-900 text-white" : "bg-white border-slate-300 hover:bg-slate-50 text-slate-700"}`}
-            >
-              Last 30 Days
-            </button>
-            {/* <button 
-              onClick={() => { setActiveRange("Quarterly"); addToast("Filtered timeline: Quarterly", "success"); }}
-              className={`px-3 py-1.5 border rounded-lg text-xs font-bold transition-all cursor-pointer ${activeRange === "Quarterly" ? "bg-indigo-900 border-indigo-900 text-white" : "bg-white border-slate-300 hover:bg-slate-50 text-slate-700"}`}
-            >
-              Quarterly
-            </button>
-            <button 
-              onClick={() => { setActiveRange("Yearly"); addToast("Filtered timeline: Yearly", "success"); }}
-              className={`px-3 py-1.5 border rounded-lg text-xs font-bold transition-all cursor-pointer ${activeRange === "Yearly" ? "bg-indigo-900 border-indigo-900 text-white" : "bg-white border-slate-300 hover:bg-slate-50 text-slate-700"}`}
-            >
-              Yearly
-            </button> */}
+            <div className="flex bg-white border border-slate-300 rounded-lg overflow-hidden shadow-sm">
+              <button 
+                onClick={() => { setActiveRange("Last 30 Days"); addToast("Filtered timeline: Last 30 Days", "success"); }}
+                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer border-r border-slate-200 ${activeRange === "Last 30 Days" ? "bg-indigo-900 text-white" : "hover:bg-slate-50 text-slate-700"}`}
+              >
+                Last 30 Days
+              </button>
+              <button 
+                onClick={() => { setActiveRange("Quarterly"); addToast("Filtered timeline: Quarterly", "success"); }}
+                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer border-r border-slate-200 ${activeRange === "Quarterly" ? "bg-indigo-900 text-white" : "hover:bg-slate-50 text-slate-700"}`}
+              >
+                Quarterly
+              </button>
+              <button 
+                onClick={() => { setActiveRange("Yearly"); addToast("Filtered timeline: Yearly", "success"); }}
+                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${activeRange === "Yearly" ? "bg-indigo-900 text-white" : "hover:bg-slate-50 text-slate-700"}`}
+              >
+                Yearly
+              </button>
+            </div>
 
             <button 
-              onClick={() => addToast("Exporting detailed traffic sources matrix PDF...", "success")}
-              className="px-3 py-1.5 bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg text-xs font-bold flex items-center gap-2 transition-all cursor-pointer"
+              onClick={handleExportPDF}
+              className="px-3 py-1.5 bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm"
             >
               <Download size={13} />
               <span>Export PDF</span>
@@ -111,7 +173,7 @@ export default function ReferralSourcesPage() {
           <StatCard
             icon={Share2}
             title="Total Referrals"
-            value="14,292"
+            value={kpi.total}
             change="+12.5%"
             onClick={() => addToast("Card clicked: Total Referrals conversion split", "success")}
           />
@@ -119,7 +181,7 @@ export default function ReferralSourcesPage() {
           <StatCard
             icon={MousePointerClick}
             title="Click Through Rate"
-            value="24.8%"
+            value={kpi.ctr}
             change="+8.2%"
             onClick={() => addToast("Card clicked: Click Through Rate details", "success")}
           />
@@ -127,7 +189,7 @@ export default function ReferralSourcesPage() {
           <StatCard
             icon={BadgeCheck}
             title="Conversion Rate"
-            value="12.1%"
+            value={kpi.conv}
             change="-1.4%"
             color="text-red-500"
             onClick={() => addToast("Card clicked: Source Conversion Rate details", "success")}
@@ -136,7 +198,7 @@ export default function ReferralSourcesPage() {
           <StatCard
             icon={Wallet}
             title="Total Payouts"
-            value="$24.5k"
+            value={kpi.payout}
             change="+22%"
             onClick={() => addToast("Card clicked: Traffic Source Payouts ledger", "success")}
           />
@@ -176,64 +238,96 @@ export default function ReferralSourcesPage() {
                   <h2 className="text-3xl font-black text-slate-900">Global</h2>
                   <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1">Traffic Sources</p>
                   <span className="mt-2.5 px-3 py-0.5 bg-indigo-50 text-indigo-700 rounded-full text-[9px] font-extrabold border border-indigo-100">
-                    14,292 Referrals
+                    {kpi.total} Referrals
                   </span>
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-6 mt-6 text-xs font-semibold text-slate-650">
-              <div onClick={() => addToast("Focused traffic: Social segment details", "success")} className="cursor-pointer hover:text-indigo-900 transition-all">
+              <div onClick={() => { setActiveFilter('SOCIAL'); setShowAllSources(true); addToast("Filtered table by Social", "success"); }} className="cursor-pointer hover:text-indigo-900 transition-all">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 bg-indigo-900 rounded-full" />
                   <span>Social</span>
                 </div>
-                <p className="mt-1 text-slate-500 pl-4.5 font-bold">45% (6,431)</p>
+                <p className="mt-1 text-slate-500 pl-4.5 font-bold">45%</p>
               </div>
 
-              <div onClick={() => addToast("Focused traffic: Email segment details", "success")} className="cursor-pointer hover:text-indigo-900 transition-all">
+              <div onClick={() => { setActiveFilter('EMAIL'); setShowAllSources(true); addToast("Filtered table by Email", "success"); }} className="cursor-pointer hover:text-indigo-900 transition-all">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 bg-indigo-700 rounded-full" />
                   <span>Email</span>
                 </div>
-                <p className="mt-1 text-slate-500 pl-4.5 font-bold">25% (3,573)</p>
+                <p className="mt-1 text-slate-500 pl-4.5 font-bold">25%</p>
               </div>
 
-              <div onClick={() => addToast("Focused traffic: Direct segment details", "success")} className="cursor-pointer hover:text-indigo-900 transition-all">
+              <div onClick={() => { setActiveFilter('DIRECT'); setShowAllSources(true); addToast("Filtered table by Direct", "success"); }} className="cursor-pointer hover:text-indigo-900 transition-all">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 bg-[#6366f1] rounded-full" />
                   <span>Direct</span>
                 </div>
-                <p className="mt-1 text-slate-500 pl-4.5 font-bold">20% (2,858)</p>
+                <p className="mt-1 text-slate-500 pl-4.5 font-bold">20%</p>
               </div>
 
-              <div onClick={() => addToast("Focused traffic: QR Codes segment details", "success")} className="cursor-pointer hover:text-indigo-900 transition-all">
+              <div onClick={() => { setActiveFilter('QR CODE'); setShowAllSources(true); addToast("Filtered table by QR Codes", "success"); }} className="cursor-pointer hover:text-indigo-900 transition-all">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 bg-[#a5b4fc] rounded-full" />
                   <span>QR Codes</span>
                 </div>
-                <p className="mt-1 text-slate-500 pl-4.5 font-bold">10% (1,430)</p>
+                <p className="mt-1 text-slate-500 pl-4.5 font-bold">10%</p>
               </div>
             </div>
           </div>
 
           {/* RIGHT CARD */}
-          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-            <div className="p-5 flex justify-between items-center border-b border-slate-200">
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col">
+            <div className="p-5 flex justify-between items-center border-b border-slate-200 relative">
               <h2 className="font-bold text-lg text-slate-900">
                 Top Traffic Sources
               </h2>
-              <div className="flex gap-3">
+              <div className="flex gap-3 items-center">
+                {isSearchOpen && (
+                  <input
+                    type="text"
+                    placeholder="Search sources..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="border border-slate-300 rounded-md px-3 py-1 text-xs w-40 focus:outline-none focus:border-indigo-500"
+                    autoFocus
+                  />
+                )}
+                
+                <div ref={filterRef} className="relative">
+                  <button 
+                    onClick={() => setIsFilterOpen(!isFilterOpen)}
+                    className={`hover:text-indigo-850 cursor-pointer ${activeFilter !== 'All' ? 'text-indigo-700 font-bold' : ''}`}
+                    aria-label="Filter traffic sources"
+                  >
+                    <Filter size={15} />
+                  </button>
+                  {isFilterOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-32 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-10">
+                      <div className="p-2">
+                        {['All', 'EMAIL', 'SOCIAL', 'DIRECT', 'QR CODE'].map(cat => (
+                          <button 
+                            key={cat}
+                            onClick={() => { setActiveFilter(cat); setIsFilterOpen(false); }}
+                            className={`w-full text-left px-3 py-2 text-xs font-bold rounded-lg transition-all ${activeFilter === cat ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                          >
+                            {cat}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 <button 
-                  onClick={() => addToast("Opening traffic sources filter dialog...", "success")}
-                  className="hover:text-indigo-850 cursor-pointer"
-                  aria-label="Filter traffic sources"
-                >
-                  <Filter size={15} />
-                </button>
-                <button 
-                  onClick={() => addToast("Opening traffic sources search...", "success")}
-                  className="hover:text-indigo-850 cursor-pointer"
+                  onClick={() => {
+                    setIsSearchOpen(!isSearchOpen);
+                    if (isSearchOpen) setSearchQuery(""); 
+                  }}
+                  className={`hover:text-indigo-850 cursor-pointer ${isSearchOpen ? 'text-indigo-700 font-bold' : ''}`}
                   aria-label="Search traffic sources"
                 >
                   <Search size={15} />
@@ -241,7 +335,7 @@ export default function ReferralSourcesPage() {
               </div>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto flex-1">
               <table className="w-full min-w-[500px] border-collapse">
                 <thead className="bg-slate-50">
                   <tr className="text-left text-[10px] font-bold text-slate-500 uppercase border-b border-slate-200">
@@ -254,33 +348,49 @@ export default function ReferralSourcesPage() {
                 </thead>
 
                 <tbody>
-                  {trafficSources.map((item, index) => (
-                    <tr
-                      key={index}
-                      onClick={() => addToast(`Opening detailed analytics review for ${item.source}`, "success")}
-                      className="border-t border-slate-100 hover:bg-slate-50 cursor-pointer transition-all font-semibold text-xs"
-                    >
-                      <td className="p-4 font-bold text-slate-905">{item.source}</td>
-                      <td>
-                        <span className="bg-indigo-50 text-indigo-700 text-[9px] px-2 py-0.5 rounded font-extrabold uppercase border border-indigo-100">
-                          {item.category}
-                        </span>
+                  {visibleSources.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" className="p-8 text-center text-slate-500 font-semibold text-xs">
+                        No traffic sources found matching criteria.
                       </td>
-                      <td className="font-bold text-slate-900">{item.referrals}</td>
-                      <td className="text-slate-650">{item.rate}</td>
-                      <td className="text-base">{item.trend}</td>
                     </tr>
-                  ))}
+                  ) : (
+                    visibleSources.map((item, index) => (
+                      <tr
+                        key={index}
+                        onClick={() => addToast(`Opening detailed analytics review for ${item.source}`, "success")}
+                        className="border-t border-slate-100 hover:bg-slate-50 cursor-pointer transition-all font-semibold text-xs"
+                      >
+                        <td className="p-4 font-bold text-slate-905">{item.source}</td>
+                        <td>
+                          <span className={`text-[9px] px-2 py-0.5 rounded font-extrabold uppercase border ${
+                            item.category === 'EMAIL' ? 'bg-blue-50 text-blue-700 border-blue-100' :
+                            item.category === 'SOCIAL' ? 'bg-purple-50 text-purple-700 border-purple-100' :
+                            item.category === 'DIRECT' ? 'bg-emerald-50 text-emerald-700 border-emerald-100' :
+                            'bg-orange-50 text-orange-700 border-orange-100'
+                          }`}>
+                            {item.category}
+                          </span>
+                        </td>
+                        <td className="font-bold text-slate-900">{item.referrals}</td>
+                        <td className="text-slate-650">{item.rate}</td>
+                        <td className="text-base">{item.trend}</td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
 
             <div className="text-center p-5 border-t border-slate-200">
               <button 
-                onClick={() => addToast("Navigating to full comprehensive traffic sources directory...", "success")}
+                onClick={() => {
+                  setShowAllSources(!showAllSources);
+                  if (!showAllSources) addToast("Expanded to show all traffic sources", "success");
+                }}
                 className="text-indigo-700 hover:text-indigo-900 font-bold text-xs cursor-pointer transition-all"
               >
-                View All Traffic Sources
+                {showAllSources ? "View Less" : "View All Traffic Sources"}
               </button>
             </div>
           </div>

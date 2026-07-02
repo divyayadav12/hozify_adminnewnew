@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import toast from 'react-hot-toast';
+import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import BusinessHeaderTabs from "./BusinessHeaderTabs";
 import { useToast } from "../../components/common/ToastNotification";
+import { triggerDownload, generateCSV } from "../../utils/downloadHelper";
 import {
-  Search,
   ZoomIn,
   ZoomOut,
   RotateCw,
@@ -16,7 +18,12 @@ import {
   Pencil,
   ChevronDown,
   X,
-  Clock
+  Clock,
+  ShieldCheck,
+  Building2,
+  Check,
+  Plus,
+  Minus
 } from "lucide-react";
 
 const RECORDS = [
@@ -101,24 +108,30 @@ const RECORDS = [
 ];
 
 const STATUS_ICONS = {
-  verified: <CheckCircle2 size={28} className="mt-1 text-[#10B981]" />,
-  urgent: <AlertCircle size={28} className="mt-1 text-[#DC2626]" />,
-  pending: <Circle size={24} className="mt-1 fill-[#111827] text-[#111827]" />,
+  verified: <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />,
+  urgent: <AlertCircle size={16} className="text-rose-500 shrink-0 mt-0.5" />,
+  pending: <Circle size={14} className="text-slate-400 shrink-0 mt-0.5" />,
 };
 
 export default function RegistrationVerification() {
   const { addToast } = useToast();
 
   const [selectedRecord, setSelectedRecord] = useState(RECORDS[0]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scale, setScale] = useState(1);
   const [rotation, setRotation] = useState(0);
+  
   const [checklistStatus, setChecklistStatus] = useState(selectedRecord.checklistStatus);
   const [progress, setProgress] = useState(selectedRecord.progress);
   const [verifiedCount, setVerifiedCount] = useState(selectedRecord.verified);
-  const [overallStatus, setOverallStatus] = useState("pending"); // pending / approved / rejected
+  
+  const [statuses, setStatuses] = useState({}); // { id: 'pending' | 'approved' | 'rejected' | 'flagged' }
+  const [rejectionReasons, setRejectionReasons] = useState({});
   const [rejectModalOpen, setRejectModalOpen] = useState(false);
   const [rejectReason, setRejectReason] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const activeStatus = statuses[selectedRecord.id] || "pending";
+
   const [customItems, setCustomItems] = useState([]);
   const [timeline, setTimeline] = useState([
     { label: "Queue Assignment", time: "Today • 09:10 AM", done: true },
@@ -132,8 +145,7 @@ export default function RegistrationVerification() {
     setVerifiedCount(rec.verified);
     setScale(1);
     setRotation(0);
-    setOverallStatus("pending");
-    setDropdownOpen(false);
+    setCustomItems([]);
     addToast(`Switched to record: ${rec.id}`, "info");
   };
 
@@ -158,27 +170,48 @@ export default function RegistrationVerification() {
   };
 
   const handleApprove = () => {
-    if (overallStatus === "approved") return;
-    setOverallStatus("approved");
-    setProgress(100);
-    setVerifiedCount(selectedRecord.total);
-    setChecklistStatus({ entityName: "verified", licenseValidity: "verified", addressAudit: "verified", uboReview: "verified" });
-    setTimeline((prev) => [{ label: "Registration Approved", time: "Just now", done: true }, ...prev]);
-    addToast(`Registration ${selectedRecord.id} approved successfully!`, "success");
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({ ...prev, [selectedRecord.id]: "approved" }));
+      setProgress(100);
+      setVerifiedCount(selectedRecord.total);
+      setChecklistStatus({ entityName: "verified", licenseValidity: "verified", addressAudit: "verified", uboReview: "verified" });
+      setTimeline((prev) => [{ label: "Registration Approved", time: "Just now", done: true }, ...prev]);
+      addToast(`Registration ${selectedRecord.id} approved successfully!`, "success");
+    }, 800);
   };
 
   const handleRejectSubmit = () => {
-    if (!rejectReason.trim()) { addToast("Please enter a rejection reason.", "error"); return; }
-    setOverallStatus("rejected");
-    setRejectModalOpen(false);
-    setTimeline((prev) => [{ label: `Rejected: "${rejectReason}"`, time: "Just now", done: false }, ...prev]);
-    addToast(`Registration ${selectedRecord.id} rejected.`, "error");
-    setRejectReason("");
+    if (!rejectReason.trim()) { 
+      addToast("Please enter a rejection reason.", "error"); 
+      return; 
+    }
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({ ...prev, [selectedRecord.id]: "rejected" }));
+      setRejectionReasons(prev => ({ ...prev, [selectedRecord.id]: rejectReason }));
+      setRejectModalOpen(false);
+      setTimeline((prev) => [{ label: `Rejected: "${rejectReason}"`, time: "Just now", done: false }, ...prev]);
+      addToast(`Registration ${selectedRecord.id} rejected.`, "error");
+      setRejectReason("");
+    }, 800);
   };
 
   const handleFlag = () => {
+    setStatuses(prev => ({ ...prev, [selectedRecord.id]: "flagged" }));
     setTimeline((prev) => [{ label: `Flagged for senior review`, time: "Just now", done: false }, ...prev]);
     addToast(`${selectedRecord.id} flagged for senior reviewer.`, "info");
+  };
+
+  const handleResetDecision = () => {
+    setStatuses(prev => ({ ...prev, [selectedRecord.id]: "pending" }));
+    setProgress(selectedRecord.progress);
+    setVerifiedCount(selectedRecord.verified);
+    setChecklistStatus(selectedRecord.checklistStatus);
+    setTimeline((prev) => [{ label: `Decision reset to pending`, time: "Just now", done: true }, ...prev]);
+    addToast("Decision status reset to pending.", "success");
   };
 
   const handleAddCustomItem = () => {
@@ -189,328 +222,324 @@ export default function RegistrationVerification() {
     }
   };
 
+  const handleDownload = () => {
+    const data = [
+      ["Field", "Value"],
+      ["Record ID", selectedRecord.id],
+      ["Company Name", selectedRecord.name],
+      ["License No", selectedRecord.licenseNo],
+      ["Establish Date", selectedRecord.establishDate],
+      ["Address", selectedRecord.address],
+      ["Legal Status", selectedRecord.legalStatus],
+      ["Expiry Date", selectedRecord.expiryDate],
+      ["Progress Complete", `${progress}%`],
+      ["Verification Status", activeStatus.toUpperCase()]
+    ];
+    const csvContent = generateCSV(data[0], data.slice(1));
+    triggerDownload(csvContent, `registration_verify_${selectedRecord.id}.csv`, "text/csv");
+    addToast(`Report downloaded successfully for ${selectedRecord.name}`, "success");
+  };
+
   return (
-    <AdminShell activeTab="Registration Verification">
-      {rejectModalOpen && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ background: "#fff", borderRadius: "12px", padding: "28px", width: "420px", boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-              <h2 style={{ margin: 0, fontSize: "16px", fontWeight: "800" }}>Reject Registration</h2>
-              <button onClick={() => setRejectModalOpen(false)} style={{ background: "none", border: "none", cursor: "pointer" }}><X size={18} /></button>
-            </div>
-            <p style={{ fontSize: "13px", color: "#6B7280", marginBottom: "12px" }}>Provide the reason for rejecting registration <strong>{selectedRecord.id}</strong>.</p>
-            <textarea
-              style={{ width: "100%", height: "100px", border: "1px solid #D1D5DB", borderRadius: "8px", padding: "10px", fontSize: "13px", resize: "vertical", outline: "none", boxSizing: "border-box" }}
-              placeholder="e.g. Trade license is expired and renewal application not submitted..."
-              value={rejectReason}
-              onChange={(e) => setRejectReason(e.target.value)}
-            />
-            <div style={{ display: "flex", gap: "10px", marginTop: "16px", justifyContent: "flex-end" }}>
-              <button onClick={() => setRejectModalOpen(false)} style={{ padding: "8px 16px", border: "1px solid #D1D5DB", borderRadius: "6px", background: "#fff", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>Cancel</button>
-              <button onClick={handleRejectSubmit} style={{ padding: "8px 20px", border: "none", borderRadius: "6px", background: "#D7191C", color: "#fff", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>Confirm Reject</button>
-            </div>
+    <AdminShell
+      activeTab="Business"
+      headerTitle="Business Registry"
+      headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
+      searchPlaceholder="Search registry..."
+    >
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '90px' }}>
+        
+        {/* Selection pills row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
+          <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', maxWidth: '100%', paddingBottom: '4px' }}>
+            {RECORDS.map(r => {
+              const isSelected = selectedRecord.id === r.id;
+              const status = statuses[r.id] || "pending";
+              return (
+                <button
+                  key={r.id}
+                  onClick={() => switchRecord(r)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+                    isSelected 
+                      ? 'bg-indigo-900 text-white border-indigo-900 shadow-md' 
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                  }`}
+                  type="button"
+                >
+                  <span>{r.name.replace(" Solutions Ltd.", "").replace(" Partners Inc.", "").replace(" Labs Pvt. Ltd.", "")}</span>
+                  <span className={`w-2 h-2 rounded-full ${
+                    status === 'approved' ? 'bg-emerald-500' : status === 'rejected' ? 'bg-rose-500' : status === 'flagged' ? 'bg-indigo-500' : 'bg-amber-400'
+                  }`} />
+                </button>
+              );
+            })}
           </div>
         </div>
-      )}
 
-      <div className="min-h-screen bg-[#F3F4F6] p-8">
-
-        {/* Breadcrumb */}
-        <div className="mb-3 flex items-center gap-2 text-sm text-[#6B7280]">
-          <span>KYC</span><span>›</span><span>Verification Queue</span><span>›</span>
-          <span className="font-semibold text-[#111827]">{selectedRecord.id}</span>
+        {/* Task Tag */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: '800', color: '#4f46e5', background: '#e0e7ff', padding: '6px 12px', borderRadius: '20px', alignSelf: 'flex-start', border: '1px solid #c7d2fe' }}>
+          <ShieldCheck size={14} />
+          <span style={{ letterSpacing: '0.5px' }}>TASK: REGISTRATION VALIDATION</span>
         </div>
 
-        {/* Header + record switcher */}
-        <div className="mb-7 flex justify-end gap-4">
-          <div className="heading mr-auto">
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <h1 className="mb-0.5 text-[22px] font-bold text-[#1F2937]">{selectedRecord.name}</h1>
-              {overallStatus !== "pending" && (
-                <span style={{
-                  fontSize: "11px", fontWeight: "800", padding: "3px 10px", borderRadius: "4px",
-                  background: overallStatus === "approved" ? "#d1fae5" : "#fee2e2",
-                  color: overallStatus === "approved" ? "#065f46" : "#991b1b"
-                }}>
-                  {overallStatus === "approved" ? "✓ APPROVED" : "✗ REJECTED"}
-                </span>
-              )}
-            </div>
+        {/* Title Block */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+          <div>
+            <h1 className="page-title" style={{ margin: 0, fontSize: '24px', fontWeight: '900', letterSpacing: '-0.5px', color: '#0f172a' }}>Review Document: Trade License</h1>
+            <p className="page-subtitle" style={{ margin: '6px 0 0', color: '#64748b', fontSize: '14px', fontWeight: '500' }}>Awaiting administrative check for {selectedRecord.name}.</p>
           </div>
 
-          {/* Record selector dropdown */}
-          <div style={{ position: "relative" }}>
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              style={{ height: "48px", display: "flex", alignItems: "center", gap: "8px", padding: "0 16px", border: "1px solid #CFCFCF", background: "#fff", borderRadius: "6px", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}
-              type="button"
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginRight: '4px' }}>Zoom: {Math.round(scale * 100)}%</span>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom In" 
+              onClick={() => setScale(s => Math.min(s + 0.15, 1.6))}
             >
-              Switch Record <ChevronDown size={14} />
+              <Plus size={16} />
             </button>
-            {dropdownOpen && (
-              <div style={{ position: "absolute", top: "52px", right: 0, background: "#fff", border: "1px solid #E5E7EB", borderRadius: "8px", boxShadow: "0 8px 24px rgba(0,0,0,0.12)", zIndex: 50, minWidth: "280px" }}>
-                {RECORDS.map((rec) => (
-                  <button
-                    key={rec.id}
-                    onClick={() => switchRecord(rec)}
-                    style={{
-                      width: "100%",
-                      textAlign: "left",
-                      padding: "12px 16px",
-                      border: "none",
-                      background: rec.id === selectedRecord.id ? "#f1f5f9" : "#fff",
-                      cursor: "pointer",
-                      borderBottom: "1px solid #f1f5f9",
-                      fontSize: "13px"
-                    }}
-                    type="button"
-                  >
-                    <strong style={{ display: "block", fontSize: "12px" }}>{rec.id}</strong>
-                    <span style={{ color: "#6B7280", fontSize: "11px" }}>{rec.name}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom Out" 
+              onClick={() => setScale(s => Math.max(s - 0.15, 0.7))}
+            >
+              <Minus size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Rotate Clockwise" 
+              onClick={() => setRotation(r => (r + 90) % 360)}
+            >
+              <RotateCw size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Download Report" 
+              onClick={handleDownload}
+            >
+              <Download size={16} />
+            </button>
           </div>
-
-          <button className="h-12 rounded-md border border-[#CFCFCF] bg-white px-8 text-[16px] font-medium" onClick={handleFlag} type="button">Flag for Review</button>
-          <button className="h-12 rounded-md bg-[#D7191C] px-8 text-white text-[16px] font-medium" onClick={() => setRejectModalOpen(true)} type="button">Reject Application</button>
-          <button
-            className="h-12 rounded-md bg-[#2517B8] px-8 text-white text-[16px] font-medium"
-            onClick={handleApprove}
-            style={{ opacity: overallStatus === "approved" ? 0.6 : 1 }}
-            type="button"
-          >
-            {overallStatus === "approved" ? "Approved ✓" : "Approve Registration"}
-          </button>
         </div>
 
-        {/* Main Layout */}
-        <div className="grid grid-cols-12 gap-7">
-
-          {/* LEFT COLUMN */}
-          <div className="col-span-12 xl:col-span-7">
-            <div className="overflow-hidden rounded-xl border border-[#D1D5DB] bg-white shadow-sm">
-
-              {/* Toolbar */}
-              <div className="flex h-[88px] items-center justify-between border-b border-[#D1D5DB] px-7">
-                <div className="flex items-center">
-                  <div className="flex h-[52px] items-center rounded-md border border-[#C9CED6] px-3 gap-3">
-                    <button onClick={() => setScale(s => Math.min(s + 0.2, 2))} title="Zoom In" type="button" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                      <ZoomIn size={20} className="text-[#111827]" />
-                    </button>
-                    <button onClick={() => setScale(s => Math.max(s - 0.2, 0.5))} title="Zoom Out" type="button" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                      <ZoomOut size={20} className="text-[#111827]" />
-                    </button>
-                    <div className="mx-1 h-6 w-px bg-[#D1D5DB]" />
-                    <button onClick={() => setRotation(r => r + 90)} title="Rotate" type="button" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                      <RotateCw size={20} className="text-[#111827]" />
-                    </button>
-                  </div>
-                  <span className="ml-6 text-[16px] font-medium text-[#4B5563]">
-                    Trade_License_2024_{selectedRecord.name.split(" ")[0]}.pdf
-                  </span>
-                  <span className="ml-4 text-[12px] text-[#9CA3AF]">{Math.round(scale * 100)}%</span>
-                </div>
-                <div className="flex items-center gap-6">
-                  <button onClick={() => addToast("Document downloaded!", "success")} title="Download" type="button" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                    <Download size={26} className="cursor-pointer text-[#111827]" />
-                  </button>
-                  <button onClick={() => addToast("Sending to printer...", "info")} title="Print" type="button" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                    <Printer size={26} className="cursor-pointer text-[#111827]" />
-                  </button>
-                  <button onClick={() => addToast("Full-screen view opened.", "info")} title="Expand" type="button" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                    <Expand size={26} className="cursor-pointer text-[#111827]" />
-                  </button>
-                </div>
+        {/* 2-Column main content layout */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+          
+          {/* Column 1: Document canvas visual (Left) */}
+          <div className="panel" style={{ background: '#0f172a', padding: '24px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
+            
+            {/* Scanned Document simulator mock */}
+            <div style={{ 
+              width: '100%', 
+              maxWidth: '420px', 
+              background: '#fff', 
+              border: '1px solid #e2e8f0', 
+              borderRadius: '8px', 
+              padding: '24px', 
+              position: 'relative', 
+              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.5)',
+              transform: `scale(${scale}) rotate(${rotation}deg)`,
+              transformOrigin: 'top center',
+              transition: 'transform 0.2s ease-out-in'
+            }}>
+              
+              {/* Box highlighter for License detected */}
+              <div style={{ position: 'absolute', top: '75px', left: '135px', right: '15px', height: '24px', border: '1.5px solid #4f46e5', background: 'rgba(79, 70, 229, 0.06)', borderRadius: '4px', zIndex: 10, display: 'flex', alignItems: 'center', padding: '0 6px' }}>
+                <span style={{ background: '#4f46e5', color: '#fff', fontSize: '6px', fontWeight: '900', padding: '1.5px 3px', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>LICENSE DETECTED</span>
               </div>
 
-              {/* PDF Viewer */}
-              <div className="bg-[#F5F5F5] p-10">
-                <div className="flex min-h-[900px] justify-center">
-                  <div
-                    style={{ transform: `scale(${scale}) rotate(${rotation}deg)`, transformOrigin: "top center", transition: "transform 0.3s ease" }}
-                    className="w-[560px] bg-white border border-[#D1D5DB] shadow-lg px-14 py-14"
-                  >
-                    <div className="mb-14 flex justify-between">
-                      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#EEF2F7]">
-                        <div className="text-2xl text-[#94A3B8]">🏢</div>
-                      </div>
-                      <div className="text-right">
-                        <h2 className="text-[22px] font-bold text-[#111827]">TRADE LICENSE</h2>
-                        <p className="text-[15px] text-[#6B7280]">License No: {selectedRecord.licenseNo}</p>
-                      </div>
-                    </div>
+              {/* Header document scan */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', borderBottom: '1.5px solid #0f172a', paddingBottom: '10px', marginBottom: '14px' }}>
+                <strong style={{ fontSize: '9px', letterSpacing: '0.8px', color: '#0f172a', fontWeight: '900' }}>DEPARTMENT OF CONSUMER AFFAIRS</strong>
+                <span style={{ fontSize: '7px', color: '#475569', marginTop: '2px', fontWeight: '700' }}>MUNICIPAL TRADE REGISTER LICENSE</span>
+              </div>
 
-                    <div className="mb-12 grid grid-cols-2 gap-10">
-                      <div>
-                        <p className="mb-2 text-xs font-bold uppercase text-[#6B7280]">Commercial Name</p>
-                        <p className="text-[18px] font-semibold text-[#111827]">{selectedRecord.name}</p>
-                      </div>
-                      <div>
-                        <p className="mb-2 text-xs font-bold uppercase text-[#6B7280]">Establishment Date</p>
-                        <p className="text-[18px] font-semibold text-[#111827]">{selectedRecord.establishDate}</p>
-                      </div>
-                    </div>
-
-                    <div className="mb-10">
-                      <p className="mb-3 text-xs font-bold uppercase text-[#6B7280]">Registered Address</p>
-                      <p className="text-[16px] leading-9 text-[#1F2937]">{selectedRecord.address}</p>
-                    </div>
-
-                    <div className="my-10 border-t border-[#D1D5DB]" />
-
-                    <div className="grid grid-cols-3 gap-8">
-                      <div>
-                        <p className="mb-2 text-xs font-bold uppercase text-[#6B7280]">Legal Status</p>
-                        <p className="text-[16px] text-[#111827]">{selectedRecord.legalStatus}</p>
-                      </div>
-                      <div>
-                        <p className="mb-2 text-xs font-bold uppercase text-[#6B7280]">Issue Date</p>
-                        <p className="text-[16px] text-[#111827]">{selectedRecord.issueDate}</p>
-                      </div>
-                      <div>
-                        <p className="mb-2 text-xs font-bold uppercase text-[#6B7280]">Expiry Date</p>
-                        <p className="text-[18px] font-bold" style={{ color: selectedRecord.expiryColor }}>{selectedRecord.expiryDate}</p>
-                      </div>
-                    </div>
-
-                    <div className="my-10 border-t border-[#D1D5DB]" />
-                    <div>
-                      <p className="mb-5 text-xs font-bold uppercase text-[#6B7280]">Licensed Activities</p>
-                      <ul className="space-y-4 text-[16px] text-[#111827]">
-                        {selectedRecord.activities.map((act, i) => (
-                          <li key={i} className="flex items-start gap-3">
-                            <span className="mt-2 h-2 w-2 rounded-full bg-black" />
-                            <span>{act}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+              {/* Body lines scanned */}
+              <div style={{ display: 'flex', gap: '14px', marginBottom: '16px' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '4px', background: '#eff6ff', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', color: '#2563eb', flexShrink: 0 }}>
+                  <Building2 size={24} />
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '8px', color: '#334155', flex: 1 }}>
+                  <div>
+                    <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>License Number</span>
+                    <strong style={{ color: '#0f172a', fontFamily: 'monospace', fontSize: '9.5px' }}>{selectedRecord.licenseNo}</strong>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Commercial Name / Trade Entity</span>
+                    <strong style={{ color: '#0f172a', fontSize: '8.5px' }}>{selectedRecord.name}</strong>
                   </div>
                 </div>
               </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '8px', color: '#475569', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px', marginBottom: '12px' }}>
+                <div>
+                  <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Registered Address</span>
+                  <strong style={{ color: '#0f172a' }}>{selectedRecord.address}</strong>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px' }}>
+                  <div>
+                    <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Legal Status</span>
+                    <strong style={{ color: '#334155' }}>{selectedRecord.legalStatus}</strong>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Issue Date</span>
+                    <strong style={{ color: '#334155' }}>{selectedRecord.issueDate}</strong>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Expiry Date</span>
+                    <strong style={{ color: selectedRecord.expiryColor }}>{selectedRecord.expiryDate}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase', marginBottom: '4px' }}>Licensed Trade Activities</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  {selectedRecord.activities.map((act, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '7px', color: '#334155' }}>
+                      <span style={{ height: '3px', width: '3px', borderRadius: '50%', background: '#64748b' }} />
+                      <span>{act}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Card stamp/seal */}
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', borderTop: '1px dashed #cbd5e1', paddingTop: '10px' }}>
+                <div style={{ border: '1.5px solid #059669', color: '#059669', borderRadius: '4px', fontSize: '6px', padding: '2px 4px', fontWeight: '950', transform: 'rotate(-5deg)' }}>
+                  REGISTERED & STAMPED
+                </div>
+                <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                  <div style={{ width: '40px', height: '1px', background: '#64748b' }} />
+                  <span style={{ fontSize: '5px', color: '#94a3b8', marginTop: '2px' }}>Licensing Authority</span>
+                </div>
+              </div>
+
             </div>
+
           </div>
 
-          {/* RIGHT COLUMN */}
-          <div className="col-span-12 xl:col-span-5 space-y-6">
-
+          {/* Column 2: Metadata details, AI Verification, Activity Feed (Right) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
             {/* Application Progress */}
-            <div className="rounded-xl border border-[#D1D5DB] bg-white p-7 shadow-sm">
-              <h2 className="mb-8 text-[18px] font-medium uppercase tracking-wider text-[#6B7280]">Application Progress</h2>
-              <div className="mb-8 flex items-center gap-5">
-                <div className="h-3 flex-1 overflow-hidden rounded-full bg-[#E5E7EB]">
-                  <div className="h-full bg-black transition-all duration-500" style={{ width: `${progress}%` }} />
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h2 style={{ fontSize: '11px', fontWeight: '900', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 12px' }}>Application Progress</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                <div style={{ height: '8px', flex: 1, background: '#e2e8f0', borderRadius: '10px', overflow: 'hidden' }}>
+                  <div style={{ height: '100%', background: '#0f172a', width: `${progress}%`, borderRadius: '10px', transition: 'width 0.3s' }} />
                 </div>
-                <span className="text-[18px] font-bold text-[#111827]">{progress}% Complete</span>
+                <span style={{ fontSize: '12px', fontWeight: '850', color: '#0f172a' }}>{progress}%</span>
               </div>
-              <div className="grid grid-cols-2 gap-5">
-                <div className="rounded-md bg-[#F3F4F6] p-5">
-                  <p className="mb-3 text-xs font-bold uppercase text-[#6B7280]">Items Verified</p>
-                  <h3 className="text-[20px] font-bold text-[#111827]">{verifiedCount}/{selectedRecord.total}</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div style={{ background: '#f8fafc', padding: '10px 14px', borderRadius: '8px', border: '1px solid #f1f5f9' }}>
+                  <span style={{ display: 'block', fontSize: '9px', fontWeight: '750', color: '#94a3b8', textTransform: 'uppercase' }}>Items Verified</span>
+                  <strong style={{ fontSize: '14px', color: '#0f172a', display: 'block', marginTop: '2px' }}>{verifiedCount}/{selectedRecord.total}</strong>
                 </div>
-                <div className="rounded-md bg-[#F3F4F6] p-5">
-                  <p className="mb-3 text-xs font-bold uppercase text-[#6B7280]">Time In Queue</p>
-                  <h3 className="text-[20px] font-bold text-[#111827]">{selectedRecord.queueTime}</h3>
+                <div style={{ background: '#f8fafc', padding: '10px 14px', borderRadius: '8px', border: '1px solid #f1f5f9' }}>
+                  <span style={{ display: 'block', fontSize: '9px', fontWeight: '750', color: '#94a3b8', textTransform: 'uppercase' }}>Time In Queue</span>
+                  <strong style={{ fontSize: '14px', color: '#0f172a', display: 'block', marginTop: '2px' }}>{selectedRecord.queueTime}</strong>
                 </div>
               </div>
             </div>
 
             {/* Verification Checklist */}
-            <div className="overflow-hidden rounded-xl border border-[#D1D5DB] bg-white shadow-sm">
-              <div className="flex items-center justify-between border-b border-[#D1D5DB] px-7 py-5">
-                <h2 className="text-[18px] font-bold text-[#111827]">Verification Checklist</h2>
-                <div className="rounded bg-[#DCE7F8] px-3 py-2 text-xs font-bold uppercase text-[#51637D]">Action Required</div>
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px', marginBottom: '14px' }}>
+                <h2 style={{ fontSize: '13px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.3px', margin: 0 }}>Verification Checklist</h2>
+                <span style={{ background: '#dbeafe', px: '8px', py: '3px', borderRadius: '12px', fontSize: '10px', fontWeight: '750', color: '#1e40af', padding: '3px 8px' }}>
+                  ACTION REQUIRED
+                </span>
               </div>
 
-              <div className="p-7">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {/* Entity Name */}
-                <div className="mb-8">
-                  <div className="flex items-start justify-between">
-                    <div className="flex gap-4">
+                <div>
+                  <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start' }}>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                       {STATUS_ICONS[checklistStatus.entityName]}
-                      <div>
-                        <h3 className="text-[18px] font-bold text-[#111827]">Entity Name Verification</h3>
-                      </div>
+                      <strong style={{ fontSize: '12px', color: '#0f172a' }}>Entity Name Verification</strong>
                     </div>
-                    <button onClick={() => handleChecklistAction("entityName", checklistStatus.entityName === "verified" ? "pending" : "verified")} type="button" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                      <Pencil size={20} className="text-[#6B7280]" />
+                    <button onClick={() => handleChecklistAction("entityName", checklistStatus.entityName === "verified" ? "pending" : "verified")} type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer', padding: 0 }}>
+                      <Pencil size={14} className="text-slate-400 hover:text-indigo-900" />
                     </button>
                   </div>
-                  <div className={`mt-4 ml-11 rounded-md border p-5 ${checklistStatus.entityName === "verified" ? "border-[#B7E4C7] bg-[#EAF8EF]" : "border-[#E5E7EB] bg-[#F9FAFB]"}`}>
-                    <p className={`text-[16px] leading-7 ${checklistStatus.entityName === "verified" ? "text-[#166534]" : "text-[#6B7280]"}`}>
+                  <div style={{ marginLeft: '24px', marginTop: '6px', background: checklistStatus.entityName === "verified" ? '#ecfdf5' : '#f8fafc', padding: '8px 12px', borderRadius: '8px', border: checklistStatus.entityName === "verified" ? '1px solid #d1fae5' : '1px solid #f1f5f9' }}>
+                    <span style={{ fontSize: '11px', color: checklistStatus.entityName === "verified" ? '#065f46' : '#64748b', lineHeight: '1.4', display: 'block' }}>
                       {checklistStatus.entityName === "verified" ? "Match found in National Registry. No discrepancies detected." : "Pending national registry cross-check."}
-                    </p>
+                    </span>
                   </div>
                 </div>
 
                 {/* License Validity */}
-                <div className="mb-8">
-                  <div className="flex items-start justify-between">
-                    <div className="flex gap-4">
+                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
+                  <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                       {STATUS_ICONS[checklistStatus.licenseValidity]}
-                      <h3 className="text-[18px] font-bold text-[#111827]">License Validity Period</h3>
+                      <strong style={{ fontSize: '12px', color: '#0f172a' }}>License Validity Period</strong>
                     </div>
                     {checklistStatus.licenseValidity === "urgent" && (
-                      <span className="rounded bg-[#FDE2E2] px-3 py-1 text-xs font-bold uppercase text-[#DC2626]">URGENT</span>
+                      <span style={{ background: '#fee2e2', color: '#ef4444', fontSize: '9px', fontWeight: '800', padding: '2px 6px', borderRadius: '4px' }}>URGENT</span>
                     )}
                   </div>
-
-                  <div className="ml-11 mt-4">
-                    <p className="mb-6 text-[16px] leading-8 text-[#4B5563]">
+                  <div style={{ marginLeft: '24px' }}>
+                    <p style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4', margin: '0 0 10px' }}>
                       {checklistStatus.licenseValidity === "urgent"
                         ? "Document expiry date is within 90 days. Check for renewal application or flag for review."
                         : "License validity period confirmed and within acceptable range."}
                     </p>
-                    <div className="flex gap-3">
-                      <button onClick={() => handleChecklistAction("licenseValidity", "urgent")} type="button" className="h-9 min-w-[130px] rounded bg-[#D7191C] px-6 text-[16px] font-semibold text-white">Invalid</button>
-                      <button onClick={() => handleChecklistAction("licenseValidity", "pending")} type="button" className="h-9 min-w-[130px] rounded bg-[#D1D5DB] px-6 text-[16px] font-semibold text-[#1F2937]">Flag</button>
-                      <button onClick={() => handleChecklistAction("licenseValidity", "verified")} type="button" className="h-9 min-w-[130px] rounded border border-[#D1D5DB] bg-white px-6 text-[16px] font-semibold text-[#1F2937]">Verified</button>
+                    <div style={{ display: 'flex', gap: '6px' }}>
+                      <button onClick={() => handleChecklistAction("licenseValidity", "urgent")} type="button" style={{ height: '26px', padding: '0 10px', borderRadius: '6px', background: '#ef4444', border: 'none', color: '#fff', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }}>Invalid</button>
+                      <button onClick={() => handleChecklistAction("licenseValidity", "pending")} type="button" style={{ height: '26px', padding: '0 10px', borderRadius: '6px', background: '#cbd5e1', border: 'none', color: '#334155', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }}>Flag</button>
+                      <button onClick={() => handleChecklistAction("licenseValidity", "verified")} type="button" style={{ height: '26px', padding: '0 10px', borderRadius: '6px', background: '#fff', border: '1px solid #cbd5e1', color: '#334155', fontSize: '10px', fontWeight: '800', cursor: 'pointer' }}>Verified</button>
                     </div>
                   </div>
                 </div>
 
                 {/* Registered Address Audit */}
-                <div className="mb-8 border-t border-[#E5E7EB] pt-8">
-                  <div className="flex items-start justify-between">
-                    <div className="flex gap-4">
+                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
+                  <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start' }}>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'start' }}>
                       {STATUS_ICONS[checklistStatus.addressAudit]}
                       <div>
-                        <h3 className="text-[18px] font-bold text-[#111827]">Registered Address Audit</h3>
-                        <p className="mt-2 text-[15px] text-[#6B7280]">Verify address against utility bill and government registry records.</p>
+                        <strong style={{ fontSize: '12px', color: '#0f172a', display: 'block' }}>Registered Address Audit</strong>
+                        <span style={{ fontSize: '10px', color: '#64748b', display: 'block', marginTop: '2px' }}>Verify address against utility bill registry records.</span>
                       </div>
                     </div>
                     <button
                       onClick={() => handleChecklistAction("addressAudit", checklistStatus.addressAudit === "verified" ? "pending" : "verified")}
                       type="button"
-                      className="rounded-md border border-[#D1D5DB] px-4 py-2 text-sm font-medium text-[#374151]"
+                      style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', fontSize: '10px', fontWeight: '800', height: '26px', padding: '0 10px', borderRadius: '6px', cursor: 'pointer' }}
                     >
-                      {checklistStatus.addressAudit === "verified" ? "Revert" : "Compare"}
+                      {checklistStatus.addressAudit === "verified" ? "Revert" : "Verify"}
                     </button>
                   </div>
                 </div>
 
                 {/* UBO Review */}
-                <div className="mb-8 border-t border-[#E5E7EB] pt-8">
-                  <div className="flex items-start gap-4">
+                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'start' }}>
                     {STATUS_ICONS[checklistStatus.uboReview]}
-                    <div className="flex-1">
-                      <h3 className="text-[18px] font-bold text-[#111827]">UBO & Shareholders Review</h3>
-                      <div className="mt-5 rounded-md bg-[#F9FAFB] p-5">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-[17px] font-semibold text-[#111827]">Marcus J. Thorne</p>
-                            <p className="mt-1 text-[#6B7280]">Beneficial Ownership: 45%</p>
-                          </div>
-                          <button
-                            onClick={() => handleChecklistAction("uboReview", checklistStatus.uboReview === "verified" ? "urgent" : "verified")}
-                            type="button"
-                            style={{ background: "none", border: "none", cursor: "pointer" }}
-                          >
-                            {STATUS_ICONS[checklistStatus.uboReview]}
-                          </button>
+                    <div style={{ flex: 1 }}>
+                      <strong style={{ fontSize: '12px', color: '#0f172a', display: 'block' }}>UBO & Shareholders Review</strong>
+                      
+                      <div style={{ marginTop: '8px', background: '#f8fafc', padding: '8px 12px', borderRadius: '8px', border: '1px solid #f1f5f9', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <strong style={{ fontSize: '11px', color: '#0f172a', display: 'block' }}>Marcus J. Thorne</strong>
+                          <span style={{ fontSize: '10px', color: '#64748b', display: 'block', marginTop: '1px' }}>Beneficial Ownership: 45%</span>
                         </div>
+                        <button
+                          onClick={() => handleChecklistAction("uboReview", checklistStatus.uboReview === "verified" ? "urgent" : "verified")}
+                          type="button"
+                          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                        >
+                          <Pencil size={14} className="text-slate-400 hover:text-indigo-900" />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -518,37 +547,38 @@ export default function RegistrationVerification() {
 
                 {/* Custom Items */}
                 {customItems.map((item, idx) => (
-                  <div key={idx} className="mb-4 border-t border-[#E5E7EB] pt-6 flex items-center gap-4">
-                    <Circle size={20} className="fill-[#6B7280] text-[#6B7280]" />
-                    <p className="text-[16px] font-semibold text-[#111827]">{item.label}</p>
+                  <div key={idx} style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px', display: 'flex', items: 'center', gap: '8px', fontSize: '12px' }}>
+                    <Circle size={14} className="text-slate-400 shrink-0 mt-0.5" />
+                    <span style={{ fontWeight: '700', color: '#0f172a' }}>{item.label}</span>
                   </div>
                 ))}
 
                 {/* Add Custom Item */}
-                <div className="border-t border-[#E5E7EB] pt-8">
+                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
                   <button
                     onClick={handleAddCustomItem}
                     type="button"
-                    className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-dashed border-[#D1D5DB] bg-[#FAFAFA] py-5 text-[16px] font-medium text-[#4B5563]"
+                    style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1.5px dashed #cbd5e1', background: '#fafafa', borderRadius: '8px', height: '40px', fontSize: '11px', fontWeight: '800', color: '#475569', cursor: 'pointer' }}
                   >
-                    <PlusCircle size={20} />
-                    Add Custom Checklist Item
+                    <PlusCircle size={14} />
+                    <span>Add Custom Checklist Item</span>
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Activity Timeline */}
-            <div className="rounded-xl border border-[#D1D5DB] bg-white p-7 shadow-sm">
-              <h2 className="mb-6 text-[18px] font-bold text-[#111827]">Activity Log</h2>
+            {/* Activity Log */}
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h3 style={{ fontSize: '11px', fontWeight: '900', color: '#334155', textTransform: 'uppercase', letterSpacing: '0.3px', margin: '0 0 12px' }}>Activity Log</h3>
+              
               <div className="relative">
-                <div className="absolute left-[9px] top-2 h-full w-[2px] bg-[#E5E7EB]" />
+                <div style={{ position: 'absolute', left: '4px', top: '6px', bottom: '6px', width: '2px', background: '#f1f5f9' }} />
                 {timeline.map((item, i) => (
-                  <div key={i} className="relative mb-6 flex gap-5">
-                    <div style={{ zIndex: 10, width: "20px", height: "20px", borderRadius: "50%", background: item.done ? "#111827" : "#9CA3AF", flexShrink: 0, marginTop: "2px" }} />
-                    <div>
-                      <h3 className="text-[16px] font-semibold text-[#111827]">{item.label}</h3>
-                      <p className="text-[#6B7280] text-sm">{item.time}</p>
+                  <div key={i} style={{ display: 'flex', gap: '10px', position: 'relative', marginBottom: '12px' }} className="last:mb-0">
+                    <div style={{ height: '8px', width: '8px', borderRadius: '50%', background: item.done ? '#4f46e5' : '#cbd5e1', zIndex: 10, marginTop: '4px', flexShrink: 0 }} />
+                    <div style={{ fontSize: '11px' }}>
+                      <strong style={{ display: 'block', color: item.done ? '#0f172a' : '#64748b', fontWeight: '700' }}>{item.label}</strong>
+                      <span style={{ color: '#94a3b8', fontSize: '10px', marginTop: '1px', display: 'block' }}>{item.time}</span>
                     </div>
                   </div>
                 ))}
@@ -556,7 +586,196 @@ export default function RegistrationVerification() {
             </div>
 
           </div>
+
         </div>
+
+        {/* Bottom Verification Actions bar */}
+        {activeStatus === 'approved' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#ecfdf5',
+            borderTop: '1px solid #a7f3d0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#065f46' }}>
+              <CheckCircle2 size={16} />
+              <span>Registration approved successfully!</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #6ee7b7', background: '#fff', color: '#065f46', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Decision
+            </button>
+          </div>
+        ) : activeStatus === 'rejected' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#fff5f5',
+            borderTop: '1px solid #fecaca',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#991b1b' }}>
+              <AlertCircle size={16} />
+              <span>Registration rejected. Reason: {rejectionReasons[selectedRecord.id]}</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #fca5a5', background: '#fff', color: '#991b1b', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Decision
+            </button>
+          </div>
+        ) : activeStatus === 'flagged' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#eff6ff',
+            borderTop: '1px solid #bfdbfe',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#1e40af' }}>
+              <AlertCircle size={16} />
+              <span>Application currently FLAGGED for Senior Review.</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #93c5fd', background: '#fff', color: '#1e40af', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Status
+            </button>
+          </div>
+        ) : (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px', // Matches sidebar width
+            right: 0,
+            background: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(8px)',
+            borderTop: '1px solid #e2e8f0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>
+              <AlertCircle size={15} className="text-amber-500" />
+              <span>Awaiting final decision check. Click verify to register changes.</span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#475569', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+                onClick={handleFlag}
+                type="button"
+              >
+                Flag for Review
+              </button>
+              <button
+                style={{ border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+                onClick={() => setRejectModalOpen(true)}
+                type="button"
+              >
+                Reject Application
+              </button>
+              <button
+                style={{ border: 'none', background: '#4f46e5', color: '#fff', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+                onClick={handleApprove}
+                disabled={isSubmitting}
+                type="button"
+                className="hover:bg-indigo-700 shadow-md"
+              >
+                {isSubmitting ? 'Processing...' : (
+                  <>
+                    <Check size={16} /> 
+                    <span>Approve Registration</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            MODAL: REJECT WITH REASON DIALOG
+            ======================================================== */}
+        {rejectModalOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setRejectModalOpen(false); setRejectReason(''); }} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject Registration</h3>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginTop: '2px', margin: 0 }}>Document validation query for {selectedRecord.name}</p>
+                </div>
+                <button onClick={() => { setRejectModalOpen(false); setRejectReason(''); }} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8' }} type="button">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#64748b', display: 'block', marginBottom: '6px' }}>Reason for Rejection</label>
+                  <textarea
+                    rows="4"
+                    value={rejectReason}
+                    onChange={(e) => setRejectReason(e.target.value)}
+                    placeholder="E.g., Expired trade license period, legal registered address mismatch, failed UBO background check..."
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setRejectModalOpen(false); setRejectReason(''); }}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRejectSubmit}
+                    disabled={isSubmitting}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#ef4444', border: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    {isSubmitting ? 'Rejecting...' : 'Confirm Reject'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </AdminShell>
   );

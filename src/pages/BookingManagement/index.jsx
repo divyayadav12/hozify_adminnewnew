@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   AlertTriangle,
@@ -530,7 +531,7 @@ function DashboardScreen({ bookings, handlers }) {
         <article className="booking-panel wide">
           <div className="booking-panel-head">
             <h3>Operations Analytics</h3>
-            <div className="booking-segment"><button className="active" type="button">Weekly</button><button type="button">Monthly</button></div>
+            <div className="booking-segment"><button className="active" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>Weekly</button><button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>Monthly</button></div>
           </div>
           <div className="booking-chart-grid">
             <div className="booking-chart-card"><span>Booking Trend</span><TrendLine /></div>

@@ -53,6 +53,7 @@ import WalletAnalytics from '../../pages/WalletManagement/WalletAnalytics';
 import TransactionLedger from '../../pages/WalletManagement/TransactionLedger';
 import FraudMonitoringCenter from '../../pages/WalletManagement/FraudMonitoringCenter';
 import SettlementRequestQueue from '../../pages/WalletManagement/SettlementRequestQueue';
+import ChargebackManagement from '../../pages/WalletManagement/ChargebackManagement';
 import FinancialReconciliation from '../../pages/WalletManagement/FinancialReconciliation';
 import RefundApprovalQueue from '../../pages/WalletManagement/RefundApprovalQueue';
 import TransactionDetail from '../../pages/WalletManagement/TransactionDetail';
@@ -854,7 +855,7 @@ export function Router() {
     case ROUTES.riskInvestigation:
       return <FraudMonitoringCenter />;
     case ROUTES.chargebackManagement:
-      return <WalletAnalytics activeTab="Wallet Management" />;
+      return <ChargebackManagement />;
     case ROUTES.walletReports:
       return <Placeholder title="Wallet Reports" activeTab="Wallet Management" />;
     case ROUTES.walletCommunication:
@@ -1242,7 +1243,7 @@ export function Router() {
       return <PartnerReportPage/>
     case ROUTES.reportsEmployee:
       return <EmployeeReportPage/>
-    // case ROUTES.reportsFinancial:
+    case ROUTES.reportsFinancial:
     case ROUTES.reportsRevenue:
       return <RevenueReportspage/>
 

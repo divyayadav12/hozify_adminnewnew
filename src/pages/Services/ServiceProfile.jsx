@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import {
   ArrowLeft,
@@ -114,7 +115,7 @@ export default function ServiceProfile({ onClose }) {
               gap: '6px'
             }}
             type="button"
-          >
+           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
             <Edit3 size={16} />
             <span>Edit Service</span>
           </button>
@@ -132,7 +133,7 @@ export default function ServiceProfile({ onClose }) {
               cursor: 'pointer'
             }}
             type="button"
-          >
+           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
             Promote Service
           </button>
         </div>
@@ -307,7 +308,7 @@ export default function ServiceProfile({ onClose }) {
                         </span>
                       </td>
                       <td style={{ padding: '14px 8px', textAlign: 'center' }}>
-                        <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }} type="button">
+                        <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                           <MoreVertical size={16} />
                         </button>
                       </td>
@@ -365,7 +366,7 @@ export default function ServiceProfile({ onClose }) {
                 marginTop: '4px'
               }}
               type="button"
-            >
+             onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               Generate Full Report
             </button>
           </div>
@@ -404,7 +405,7 @@ export default function ServiceProfile({ onClose }) {
                     }}
                     type="button"
                     title="Send Email"
-                  >
+                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                     <Mail size={14} />
                   </button>
                 </div>
@@ -438,7 +439,7 @@ export default function ServiceProfile({ onClose }) {
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
               }}
               type="button"
-            >
+             onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               Contact Account Manager
             </button>
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from '../../components/common/ToastNotification';
 import {
   Download,
   ChevronDown,
@@ -94,6 +95,7 @@ function SourceIcon({ type, color }) {
 
 /* ─────────────── MAIN PAGE ─────────────── */
 export default function MarketingReports() {
+  const { addToast } = useToast();
   const maxRev = Math.max(...REVENUE_DATA.map(d => d.val));
 
   return (
@@ -107,10 +109,10 @@ export default function MarketingReports() {
             <p style={{ margin: '4px 0 0', color: '#64748b', fontSize: '13px' }}>Real-time analysis of banner and referral network ROI.</p>
           </div>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <button style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', cursor: 'pointer' }}>
+            <button type="button" onClick={() => addToast('Opening Date Range Picker...', 'info')} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', cursor: 'pointer' }}>
               Last 30 Days <ChevronDown size={14} color="#64748b" />
             </button>
-            <button style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', cursor: 'pointer' }}>
+            <button type="button" onClick={() => addToast('Opening Filters...', 'info')} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', fontWeight: '600', color: '#334155', cursor: 'pointer' }}>
               <Filter size={14} color="#64748b" /> Filters
             </button>
           </div>
@@ -201,9 +203,9 @@ export default function MarketingReports() {
           
           {/* Active Campaigns Table */}
           <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ margin: 0, fontSize: '15px', fontWeight: '700', color: '#0f172a' }}>Active Campaigns</h2>
-              <span style={{ fontSize: '12px', fontWeight: '600', color: '#4f46e5', cursor: 'pointer' }}>View All →</span>
+              <span onClick={() => addToast('Opening all campaigns...', 'info')} style={{ fontSize: '12px', fontWeight: '600', color: '#4f46e5', cursor: 'pointer' }}>View All →</span>
             </div>
             
             <div style={{ overflowX: 'auto' }}>
@@ -269,9 +271,9 @@ export default function MarketingReports() {
           
           {/* Top Referral Sources Table */}
           <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <h2 style={{ margin: 0, fontSize: '15px', fontWeight: '700', color: '#0f172a' }}>Top Referral Sources</h2>
-              <span style={{ fontSize: '12px', fontWeight: '600', color: '#4f46e5', cursor: 'pointer' }}>View All →</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ margin: 0, fontSize: '15px', fontWeight: '700', color: '#0f172a' }}>Referral Sources</h2>
+              <span onClick={() => addToast('Opening all referral sources...', 'info')} style={{ fontSize: '12px', fontWeight: '600', color: '#4f46e5', cursor: 'pointer' }}>View All →</span>
             </div>
             
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
@@ -315,9 +317,9 @@ export default function MarketingReports() {
                     {anom.type === 'critical' ? <AlertTriangle size={16} color="#ef4444" /> : <Info size={16} color="#64748b" />}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: '700', color: anom.type === 'critical' ? '#991b1b' : '#0f172a' }}>{anom.title}</span>
-                      <span style={{ fontSize: '11px', fontWeight: '600', color: anom.type === 'critical' ? '#ef4444' : '#64748b', cursor: 'pointer' }}>{anom.action}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '600', color: '#64748b' }}>System Action:</span>
+                      <span onClick={() => addToast(`Executing action: ${anom.action}`, 'success')} style={{ fontSize: '11px', fontWeight: '600', color: anom.type === 'critical' ? '#ef4444' : '#64748b', cursor: 'pointer' }}>{anom.action}</span>
                     </div>
                     <p style={{ margin: 0, fontSize: '12px', color: anom.type === 'critical' ? '#b91c1c' : '#475569', lineHeight: 1.4 }}>
                       {anom.desc}

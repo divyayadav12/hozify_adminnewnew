@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import toast from 'react-hot-toast';
+import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import BusinessHeaderTabs from "./BusinessHeaderTabs";
 import { useToast } from "../../components/common/ToastNotification";
+import { triggerDownload, generateCSV } from "../../utils/downloadHelper";
 import {
   ShieldCheck,
-  TriangleAlert,
   CheckCircle2,
   Lock,
   ChevronDown,
@@ -12,6 +14,10 @@ import {
   ZoomIn,
   ZoomOut,
   Download,
+  Check,
+  Plus,
+  Minus,
+  AlertTriangle
 } from "lucide-react";
 
 const RECORDS = [
@@ -93,393 +99,633 @@ const RECORDS = [
 
 const STAKEHOLDER_BORDER = { verified: "#D9E7FF", alert: "#FFD5D5" };
 const STAKEHOLDER_ICON = {
-  verified: <ShieldCheck size={18} className="text-[#94A3B8]" />,
-  alert: <TriangleAlert size={18} className="text-[#DC2626]" />,
+  verified: <ShieldCheck size={14} className="text-indigo-650" />,
+  alert: <AlertTriangle size={14} className="text-[#DC2626]" />,
 };
 
 export default function OwnershipVerification() {
   const { addToast } = useToast();
 
   const [selectedRecord, setSelectedRecord] = useState(RECORDS[0]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [activePersonIdx, setActivePersonIdx] = useState(0);
-  const [overallStatus, setOverallStatus] = useState("pending");
+  const [statuses, setStatuses] = useState({}); // { id: 'pending' | 'approved' | 'rejected' | 'flagged' }
+  const [rejectionReasons, setRejectionReasons] = useState({});
+  const overallStatus = statuses[selectedRecord.id] || "pending";
   const [flagModalOpen, setFlagModalOpen] = useState(false);
   const [flagReason, setFlagReason] = useState("");
+  const [rejectModalOpen, setRejectModalOpen] = useState(false);
+  const [rejectReason, setRejectReason] = useState("");
   const [docScale, setDocScale] = useState(1);
   const [docRotation, setDocRotation] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [timeline, setTimeline] = useState([
     { label: "Identity Documents Reviewed", time: "Today • 09:42 AM", done: true },
     { label: "Shareholding Structure Confirmed", time: "Oct 14, 2023", done: true },
     { label: "Initial Ownership Filing", time: "Oct 12, 2023", done: false },
   ]);
 
-  const activePerson = selectedRecord.stakeholders[activePersonIdx];
+  const activePerson = selectedRecord.stakeholders[activePersonIdx] || selectedRecord.stakeholders[0];
 
   const switchRecord = (rec) => {
     setSelectedRecord(rec);
     setActivePersonIdx(0);
-    setOverallStatus("pending");
     setDocScale(1);
     setDocRotation(0);
-    setDropdownOpen(false);
     addToast(`Switched audit to: ${rec.id}`, "info");
   };
 
   const handleApprove = () => {
-    if (overallStatus === "approved") return;
-    setOverallStatus("approved");
-    setTimeline((prev) => [{ label: "Identity Set Approved", time: "Just now", done: true }, ...prev]);
-    addToast(`Identity set for ${selectedRecord.company} approved!`, "success");
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({ ...prev, [selectedRecord.id]: "approved" }));
+      setTimeline((prev) => [{ label: "Identity Set Approved", time: "Just now", done: true }, ...prev]);
+      addToast(`Identity set for ${selectedRecord.company} approved!`, "success");
+    }, 800);
   };
 
   const handleFlagSubmit = () => {
-    if (!flagReason.trim()) { addToast("Please enter a revision reason.", "error"); return; }
-    setOverallStatus("flagged");
-    setFlagModalOpen(false);
-    setTimeline((prev) => [{ label: `Flagged for revision: "${flagReason}"`, time: "Just now", done: false }, ...prev]);
-    addToast(`${selectedRecord.id} flagged for revision.`, "info");
-    setFlagReason("");
+    if (!flagReason.trim()) { 
+      addToast("Please enter a revision reason.", "error"); 
+      return; 
+    }
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({ ...prev, [selectedRecord.id]: "flagged" }));
+      setFlagModalOpen(false);
+      setTimeline((prev) => [{ label: `Flagged for revision: "${flagReason}"`, time: "Just now", done: false }, ...prev]);
+      addToast(`${selectedRecord.id} flagged for revision.`, "info");
+      setFlagReason("");
+    }, 800);
+  };
+
+  const handleRejectSubmit = () => {
+    if (!rejectReason.trim()) {
+      addToast("Please enter a rejection reason.", "error");
+      return;
+    }
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({ ...prev, [selectedRecord.id]: "rejected" }));
+      setRejectionReasons(prev => ({ ...prev, [selectedRecord.id]: rejectReason }));
+      setRejectModalOpen(false);
+      setTimeline((prev) => [{ label: `Rejected: "${rejectReason}"`, time: "Just now", done: false }, ...prev]);
+      addToast(`Identity set for ${selectedRecord.company} rejected.`, "error");
+      setRejectReason("");
+    }, 800);
+  };
+
+  const handleResetDecision = () => {
+    setStatuses(prev => ({ ...prev, [selectedRecord.id]: "pending" }));
+    setTimeline((prev) => [{ label: "Audit status reset", time: "Just now", done: true }, ...prev]);
+    addToast("Decision status reset to pending.", "success");
+  };
+
+  const handleDownload = () => {
+    const data = [
+      ["Field", "Value"],
+      ["Company Name", selectedRecord.company],
+      ["Stakeholder Name", activePerson.name],
+      ["Ownership Stakes", activePerson.ownership],
+      ["Doc Number", activePerson.docNumber],
+      ["Date of Birth", activePerson.dob],
+      ["Expiry Date", activePerson.expiry],
+      ["OCR Accuracy", activePerson.ocrScore],
+      ["Liveness Status", activePerson.livenessCheck],
+      ["Verification Status", overallStatus.toUpperCase()]
+    ];
+    const csvContent = generateCSV(data[0], data.slice(1));
+    triggerDownload(csvContent, `ownership_audit_${selectedRecord.id}.csv`, "text/csv");
+    addToast(`Audit logs downloaded for ${selectedRecord.company}`, "success");
   };
 
   return (
-    <AdminShell activeTab="Ownership Verification">
-      {/* Revision Modal */}
-      {flagModalOpen && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ background: "#fff", borderRadius: "12px", padding: "28px", width: "420px", boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-              <h2 style={{ margin: 0, fontSize: "16px", fontWeight: "800" }}>Flag for Revision</h2>
-              <button onClick={() => setFlagModalOpen(false)} style={{ background: "none", border: "none", cursor: "pointer" }}><X size={18} /></button>
-            </div>
-            <p style={{ fontSize: "13px", color: "#6B7280", marginBottom: "12px" }}>
-              Describe the discrepancy found for <strong>{selectedRecord.id}</strong> — {selectedRecord.company}.
-            </p>
-            <textarea
-              style={{ width: "100%", height: "100px", border: "1px solid #D1D5DB", borderRadius: "8px", padding: "10px", fontSize: "13px", resize: "vertical", outline: "none", boxSizing: "border-box" }}
-              placeholder="e.g. Elena Rodriguez's passport has expired. Require updated identity documents..."
-              value={flagReason}
-              onChange={(e) => setFlagReason(e.target.value)}
-            />
-            <div style={{ display: "flex", gap: "10px", marginTop: "16px", justifyContent: "flex-end" }}>
-              <button onClick={() => setFlagModalOpen(false)} style={{ padding: "8px 16px", border: "1px solid #D1D5DB", borderRadius: "6px", background: "#fff", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>Cancel</button>
-              <button onClick={handleFlagSubmit} style={{ padding: "8px 20px", border: "none", borderRadius: "6px", background: "#2417B8", color: "#fff", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>Submit Flag</button>
-            </div>
+    <AdminShell
+      activeTab="Business"
+      headerTitle="Business Registry"
+      headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
+      searchPlaceholder="Search registry..."
+    >
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '90px' }}>
+        
+        {/* Selection pills row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
+          <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', maxWidth: '100%', paddingBottom: '4px' }}>
+            {RECORDS.map(r => {
+              const isSelected = selectedRecord.id === r.id;
+              const status = statuses[r.id] || "pending";
+              return (
+                <button
+                  key={r.id}
+                  onClick={() => switchRecord(r)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+                    isSelected 
+                      ? 'bg-indigo-900 text-white border-indigo-900 shadow-md' 
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                  }`}
+                  type="button"
+                >
+                  <span>{r.company.replace(" Solutions Ltd", "").replace(" Partners Inc.", "")}</span>
+                  <span className={`w-2 h-2 rounded-full ${
+                    status === 'approved' ? 'bg-emerald-500' : status === 'rejected' ? 'bg-rose-500' : status === 'flagged' ? 'bg-indigo-500' : 'bg-amber-400'
+                  }`} />
+                </button>
+              );
+            })}
           </div>
         </div>
-      )}
 
-      <div className="min-h-screen bg-[#F5F6F8] p-8">
-
-        {/* Breadcrumb */}
-        <div className="mb-4 flex items-center gap-2 text-[14px] text-[#70707A]">
-          <span>Partners</span><span>/</span>
-          <span>{selectedRecord.company}</span><span>/</span>
-          <span className="font-semibold text-[#111827]">Ownership Verification</span>
+        {/* Task Tag */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: '800', color: '#4f46e5', background: '#e0e7ff', padding: '6px 12px', borderRadius: '20px', alignSelf: 'flex-start', border: '1px solid #c7d2fe' }}>
+          <ShieldCheck size={14} />
+          <span style={{ letterSpacing: '0.5px' }}>TASK: BENEFICIAL OWNERSHIP AUDIT</span>
         </div>
 
-        {/* Header */}
-        <div className="mb-8 flex items-start justify-between">
+        {/* Title Block */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <h1 className="text-[37px] font-bold leading-none text-[#111827]">Ultimate Beneficial Owner (UBO) Audit</h1>
-              {overallStatus !== "pending" && (
-                <span style={{
-                  fontSize: "12px", fontWeight: "800", padding: "4px 12px", borderRadius: "6px",
-                  background: overallStatus === "approved" ? "#d1fae5" : "#fef3c7",
-                  color: overallStatus === "approved" ? "#065f46" : "#b45309"
-                }}>
-                  {overallStatus === "approved" ? "✓ APPROVED" : "⚑ FLAGGED FOR REVISION"}
-                </span>
-              )}
-            </div>
-            <p className="mt-4 text-[18px] text-[#5E6470]">
-              ID: {selectedRecord.id} • Reviewing significant control and shareholding structures.
-            </p>
+            <h1 className="page-title" style={{ margin: 0, fontSize: '24px', fontWeight: '900', letterSpacing: '-0.5px', color: '#0f172a' }}>UBO & Shareholding Structure</h1>
+            <p className="page-subtitle" style={{ margin: '6px 0 0', color: '#64748b', fontSize: '14px', fontWeight: '500' }}>Reviewing significant control and shareholding structures for {selectedRecord.company}.</p>
           </div>
 
-          <div className="flex gap-4">
-            {/* Record Switcher */}
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                style={{ height: "54px", display: "flex", alignItems: "center", gap: "8px", padding: "0 16px", border: "1px solid #CFCFD4", background: "#fff", borderRadius: "6px", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}
-                type="button"
-              >
-                Switch Record <ChevronDown size={14} />
-              </button>
-              {dropdownOpen && (
-                <div style={{ position: "absolute", top: "58px", right: 0, background: "#fff", border: "1px solid #E5E7EB", borderRadius: "8px", boxShadow: "0 8px 24px rgba(0,0,0,0.12)", zIndex: 50, minWidth: "280px" }}>
-                  {RECORDS.map((rec) => (
-                    <button key={rec.id} onClick={() => switchRecord(rec)} type="button"
-                      style={{ width: "100%", textAlign: "left", padding: "12px 16px", border: "none", background: rec.id === selectedRecord.id ? "#f1f5f9" : "#fff", cursor: "pointer", borderBottom: "1px solid #f1f5f9", fontSize: "13px" }}
-                    >
-                      <strong style={{ display: "block", fontSize: "12px" }}>{rec.id}</strong>
-                      <span style={{ color: "#6B7280", fontSize: "11px" }}>{rec.company}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={() => setFlagModalOpen(true)}
-              className="h-[54px] rounded-md border border-[#CFCFD4] bg-white px-10 text-[18px] font-medium text-[#333]"
-              type="button"
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginRight: '4px' }}>Zoom: {Math.round(docScale * 100)}%</span>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom In" 
+              onClick={() => setDocScale(s => Math.min(s + 0.15, 1.6))}
             >
-              Flag for Revision
+              <Plus size={16} />
             </button>
-            <button
-              onClick={handleApprove}
-              className="h-[54px] rounded-md bg-[#2417B8] px-10 text-[18px] font-medium text-white"
-              style={{ opacity: overallStatus === "approved" ? 0.6 : 1 }}
-              type="button"
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom Out" 
+              onClick={() => setDocScale(s => Math.max(s - 0.15, 0.7))}
             >
-              {overallStatus === "approved" ? "Approved ✓" : "Approve Identity Set"}
+              <Minus size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Rotate" 
+              onClick={() => setDocRotation(r => (r + 90) % 360)}
+            >
+              <RotateCw size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Download Report" 
+              onClick={handleDownload}
+            >
+              <Download size={16} />
             </button>
           </div>
         </div>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-12 gap-7">
-
-          {/* LEFT COLUMN */}
-          <div className="col-span-12 xl:col-span-7 space-y-7">
-
-            {/* Shareholding Hierarchy */}
-            <div className="rounded-xl border border-[#D7D9E0] bg-white p-7 shadow-sm">
-              <div className="mb-8 flex items-center justify-between">
-                <h2 className="text-[24px] font-bold text-[#111827]">Shareholding Hierarchy</h2>
-                <div className="flex gap-3">
-                  <div className="rounded bg-[#EEF2FF] px-4 py-2 text-[14px] font-semibold text-[#64748B]">
-                    Total Stakes: {selectedRecord.stakeholders.reduce((acc, s) => acc + parseInt(s.ownership), 0) + parseInt(selectedRecord.minorStakeholders)}%
-                  </div>
-                  <div className="rounded bg-[#FFF1F1] px-4 py-2 text-[14px] font-semibold text-[#DC2626]">
+        {/* 2-Column main content layout */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+          
+          {/* Column 1: Document canvas visual (Left) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {/* Shareholding Hierarchy panel */}
+            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '13px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.3px', margin: 0 }}>Shareholding Hierarchy</h2>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <span style={{ background: '#eff6ff', color: '#2563eb', fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '12px' }}>
+                    Total: {selectedRecord.stakeholders.reduce((acc, s) => acc + parseInt(s.ownership), 0) + parseInt(selectedRecord.minorStakeholders)}%
+                  </span>
+                  <span style={{ background: '#fff5f5', color: '#ef4444', fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '12px' }}>
                     Unverified: {selectedRecord.minorStakeholders}
-                  </div>
+                  </span>
                 </div>
               </div>
 
-              <div className="relative h-[620px] rounded-xl border border-dashed border-[#D7D9E0] bg-[#FAFAFB] p-8">
-                {/* Parent Company */}
-                <div className="flex justify-center">
-                  <div className="w-[380px] rounded-md bg-[#2417B8] py-6 text-center shadow-lg">
-                    <h3 className="text-[18px] font-bold text-white">{selectedRecord.company}</h3>
-                    <p className="text-[15px] text-[#D7D5FF]">Holding Entity</p>
-                  </div>
+              {/* Dynamic Organizational flow visual */}
+              <div style={{ position: 'relative', minHeight: '380px', background: '#fafafa', border: '1px dashed #cbd5e1', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                {/* Parent Block */}
+                <div style={{ width: '220px', background: '#312e81', color: '#fff', borderRadius: '8px', padding: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
+                  <strong style={{ fontSize: '11px', display: 'block' }}>{selectedRecord.company}</strong>
+                  <span style={{ fontSize: '9px', color: '#c7d2fe', marginTop: '2px', display: 'block' }}>Holding Entity</span>
                 </div>
 
-                {/* Connector */}
-                <div className="flex justify-center">
-                  <div className="mt-6 h-[80px] w-[4px] bg-[#D9D9DF]" />
-                </div>
+                {/* Connector Line */}
+                <div style={{ height: '32px', width: '2px', background: '#cbd5e1' }} />
 
-                {/* Split Line */}
-                <div className="relative mx-auto -mt-2 h-[4px] w-[420px] bg-[#D9D9DF]">
-                  <div className="absolute left-0 top-0 h-[80px] w-[4px] bg-[#D9D9DF]" />
-                  {selectedRecord.stakeholders.length > 1 && (
-                    <div className="absolute left-1/2 top-0 h-[80px] w-[4px] -translate-x-1/2 bg-[#D9D9DF]" />
-                  )}
-                  <div className="absolute right-0 top-0 h-[80px] w-[4px] bg-[#D9D9DF]" />
-                </div>
-
-                {/* Stakeholders */}
-                <div className={`mt-[80px] grid gap-8`} style={{ gridTemplateColumns: `repeat(${Math.min(selectedRecord.stakeholders.length + 1, 3)}, 1fr)` }}>
+                {/* Connector Split Row */}
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'start', justifySelf: 'stretch', justifyContent: 'center', width: '100%' }}>
                   {selectedRecord.stakeholders.map((s, i) => (
-                    <div key={i}
-                      onClick={() => setActivePersonIdx(i)}
-                      style={{ borderColor: STAKEHOLDER_BORDER[s.status], cursor: "pointer", transform: activePersonIdx === i ? "scale(1.04)" : "scale(1)", transition: "transform 0.2s ease", boxShadow: activePersonIdx === i ? "0 4px 20px rgba(0,0,0,0.12)" : "none" }}
-                      className="rounded-lg border-2 bg-white p-6 text-center shadow-sm"
-                    >
-                      <h3 className="text-[18px] font-bold text-[#111827]">{s.name}</h3>
-                      <p className="mt-2 text-[16px] text-[#6B7280]">{s.ownership} Ownership</p>
-                      <div className="mt-4 flex justify-center">{STAKEHOLDER_ICON[s.status]}</div>
-                    </div>
-                  ))}
-
-                  {/* Minor Stakeholders */}
-                  <div className="rounded-lg border border-[#E5E7EB] bg-[#FAFAFA] p-6 text-center">
-                    <h3 className="text-[18px] font-bold text-[#666]">Minor Stakeholders</h3>
-                    <p className="mt-2 text-[16px] text-[#9CA3AF]">{selectedRecord.minorStakeholders} Aggregate</p>
-                    <div className="mt-4 flex justify-center"><Lock size={18} className="text-[#9CA3AF]" /></div>
-                  </div>
-                </div>
-
-                <p className="mt-8 italic text-[14px] text-[#6B7280] text-center">
-                  Visualization based on company registry filing date: Oct 12, 2023.
-                </p>
-              </div>
-            </div>
-
-            {/* Screening & Sanctions */}
-            <div className="rounded-xl border border-[#D7D9E0] bg-white p-7 shadow-sm">
-              <div className="mb-7 flex items-center justify-between">
-                <h2 className="text-[24px] font-bold text-[#111827]">Screening & Sanctions</h2>
-                <div className="rounded bg-[#EEF2FF] px-4 py-2 text-sm font-semibold text-[#64748B]">
-                  {selectedRecord.stakeholders.length} Records
-                </div>
-              </div>
-
-              {selectedRecord.stakeholders.map((s, i) => (
-                <div
-                  key={i}
-                  className="mb-4 rounded-lg border p-5"
-                  style={{ background: s.screenBg, borderColor: s.screenBorder }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-[18px] font-semibold text-[#111827]">{s.name}</h3>
-                      <p className="mt-1 text-[#6B7280]">Global Watchlist Screening</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {s.status === "verified"
-                        ? <CheckCircle2 size={20} style={{ color: s.screenColor }} />
-                        : <TriangleAlert size={20} style={{ color: s.screenColor }} />
-                      }
-                      <span className="font-bold" style={{ color: s.screenColor }}>{s.screenStatus}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN */}
-          <div className="col-span-12 xl:col-span-5 space-y-7">
-
-            {/* Identity Documents */}
-            <div className="rounded-xl border border-[#D7D9E0] bg-white shadow-sm">
-              <div className="p-7">
-                <h2 className="mb-8 text-[24px] font-bold text-[#111827]">Identity Documents</h2>
-
-                {/* Person Tabs */}
-                <div className="mb-8 flex gap-6 border-b border-[#D7D9E0]">
-                  {selectedRecord.stakeholders.map((s, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        setActivePersonIdx(i);
-                        setDocScale(1);
-                        setDocRotation(0);
-                        addToast(`Viewing documents for ${s.name}`, "info");
-                      }}
-                      type="button"
-                      style={{
-                        paddingBottom: "16px",
-                        fontSize: "18px",
-                        fontWeight: activePersonIdx === i ? "600" : "500",
-                        color: activePersonIdx === i ? "#111827" : "#8B8B95",
-                        borderBottom: activePersonIdx === i ? "4px solid #111827" : "4px solid transparent",
-                        background: "none",
-                        border: "none",
-                        borderBottom: activePersonIdx === i ? "4px solid #111827" : "4px solid transparent",
-                        cursor: "pointer",
-                        paddingBottom: "16px",
-                        transition: "all 0.15s ease"
-                      }}
-                    >
-                      {s.name}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Document Viewer Controls */}
-                <div style={{ display: "flex", gap: "8px", marginBottom: "12px", alignItems: "center" }}>
-                  <button onClick={() => setDocScale(s => Math.min(s + 0.15, 2))} type="button" style={{ background: "#f1f5f9", border: "none", borderRadius: "4px", padding: "6px 8px", cursor: "pointer" }} title="Zoom In"><ZoomIn size={16} /></button>
-                  <button onClick={() => setDocScale(s => Math.max(s - 0.15, 0.5))} type="button" style={{ background: "#f1f5f9", border: "none", borderRadius: "4px", padding: "6px 8px", cursor: "pointer" }} title="Zoom Out"><ZoomOut size={16} /></button>
-                  <button onClick={() => setDocRotation(r => r + 90)} type="button" style={{ background: "#f1f5f9", border: "none", borderRadius: "4px", padding: "6px 8px", cursor: "pointer" }} title="Rotate"><RotateCw size={16} /></button>
-                  <button onClick={() => addToast(`Downloading ${activePerson.name} passport...`, "success")} type="button" style={{ background: "#f1f5f9", border: "none", borderRadius: "4px", padding: "6px 8px", cursor: "pointer" }} title="Download"><Download size={16} /></button>
-                  <span style={{ fontSize: "11px", color: "var(--muted)", marginLeft: "auto" }}>{Math.round(docScale * 100)}%</span>
-                </div>
-
-                {/* Passport Preview */}
-                <div
-                  className="relative mb-5 overflow-hidden rounded-xl border border-[#D7D9E0] bg-[#F9F4EC]"
-                  style={{ transition: "all 0.3s ease" }}
-                >
-                  {activePerson.expiry < "2024-01-01" && (
-                    <div className="absolute right-5 top-5 rounded bg-[#D7191C] px-4 py-2 text-sm font-bold text-white">
-                      EXPIRING SOON
-                    </div>
-                  )}
-                  <div
-                    style={{
-                      height: "270px",
-                      transform: `scale(${docScale}) rotate(${docRotation}deg)`,
-                      transition: "transform 0.3s ease",
-                      transformOrigin: "center center"
-                    }}
-                  >
                     <div
+                      key={i}
+                      onClick={() => setActivePersonIdx(i)}
                       style={{
-                        width: "100%",
-                        height: "100%",
-                        background: "linear-gradient(135deg, #F6D7B8, #F8F1E7, #D9F0E2)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center"
+                        width: '120px',
+                        background: '#fff',
+                        border: activePersonIdx === i ? '2px solid #4f46e5' : '1px solid #e2e8f0',
+                        borderRadius: '8px',
+                        padding: '12px',
+                        textAlign: 'center',
+                        cursor: 'pointer',
+                        transform: activePersonIdx === i ? 'scale(1.05)' : 'scale(1)',
+                        boxShadow: activePersonIdx === i ? '0 10px 15px -3px rgba(0,0,0,0.1)' : '0 1px 3px 0 rgba(0,0,0,0.05)',
+                        transition: 'all 0.2s'
                       }}
                     >
-                      <div style={{ textAlign: "center", opacity: 0.7 }}>
-                        <div style={{ fontSize: "48px", marginBottom: "8px" }}>🪪</div>
-                        <p style={{ fontSize: "16px", fontWeight: "800", color: "#1F2937" }}>{activePerson.name}</p>
-                        <p style={{ fontSize: "13px", color: "#6B7280" }}>PASSPORT</p>
-                      </div>
+                      <strong style={{ fontSize: '10px', display: 'block', color: '#0f172a' }}>{s.name}</strong>
+                      <span style={{ fontSize: '9px', color: '#64748b', display: 'block', marginTop: '2px' }}>{s.ownership} Stakes</span>
+                      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '6px' }}>{STAKEHOLDER_ICON[s.status]}</div>
                     </div>
-                  </div>
-                </div>
+                  ))}
 
-                {/* OCR Status Cards */}
-                <div className="mb-8 grid grid-cols-2 gap-4">
-                  <div className="rounded-md border border-[#D7D9E0] bg-[#F8F8F9] p-5">
-                    <p className="mb-3 text-xs font-bold uppercase text-[#6B7280]">OCR Status</p>
-                    <p className="text-[18px] font-semibold text-[#16A34A]">⊙ {activePerson.ocrScore} Match</p>
-                  </div>
-                  <div className="rounded-md border border-[#D7D9E0] bg-[#F8F8F9] p-5">
-                    <p className="mb-3 text-xs font-bold uppercase text-[#6B7280]">Liveness Check</p>
-                    <p className={`text-[18px] font-semibold ${activePerson.livenessCheck === "Verified" ? "text-[#16A34A]" : "text-[#f59e0b]"}`}>
-                      ⊙ {activePerson.livenessCheck}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Details */}
-                <div className="space-y-5">
-                  <div className="flex justify-between">
-                    <span className="text-[16px] text-[#6B7280]">Document Number</span>
-                    <span className="text-[18px] font-bold text-[#111827]">{activePerson.docNumber}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[16px] text-[#6B7280]">Date of Birth</span>
-                    <span className="text-[18px] font-bold text-[#111827]">{activePerson.dob}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[16px] text-[#6B7280]">Expiry Date</span>
-                    <span className="text-[18px] font-bold" style={{ color: activePerson.expiryColor }}>{activePerson.expiry}</span>
+                  {/* Minor Stakeholders block */}
+                  <div style={{ width: '120px', background: '#fafafa', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px', textAlign: 'center', color: '#94a3b8' }}>
+                    <strong style={{ fontSize: '10px', display: 'block', color: '#64748b' }}>Minor Stakes</strong>
+                    <span style={{ fontSize: '9px', display: 'block', marginTop: '2px' }}>{selectedRecord.minorStakeholders} Agg.</span>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '6px' }}><Lock size={12} /></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Verification Audit Timeline */}
-            <div className="rounded-xl border border-[#D7D9E0] bg-white p-7 shadow-sm">
-              <h2 className="mb-8 text-[24px] font-bold text-[#111827]">Verification Audit</h2>
-              <div className="relative">
-                <div className="absolute left-[10px] top-2 h-full w-[2px] bg-[#E5E7EB]" />
-                {timeline.map((item, i) => (
-                  <div key={i} className="relative mb-8 flex gap-5">
-                    <div style={{ zIndex: 10, height: "20px", width: "20px", borderRadius: "50%", background: item.done ? "#111827" : "#D1D5DB", flexShrink: 0 }} />
+            {/* Screening & Watchlist panel */}
+            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h2 style={{ fontSize: '13px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.3px', margin: '0 0 16px' }}>Screening & Watchlists</h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {selectedRecord.stakeholders.map((s, i) => (
+                  <div
+                    key={i}
+                    style={{ background: s.screenBg, borderColor: s.screenBorder, borderStyle: 'solid', borderWidth: '1px', padding: '12px 16px', borderRadius: '8px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}
+                  >
                     <div>
-                      <h3 className="text-[18px] font-semibold text-[#111827]">{item.label}</h3>
-                      <p className="text-[#6B7280]">{item.time}</p>
+                      <strong style={{ fontSize: '11px', color: '#0f172a', display: 'block' }}>{s.name}</strong>
+                      <span style={{ fontSize: '9px', color: '#64748b', display: 'block', marginTop: '1px' }}>Global Watchlist Screening check</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', fontWeight: '850', color: s.screenColor }}>
+                      <ShieldCheck size={14} />
+                      <span>{s.screenStatus}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
+
+          {/* Column 2: Metadata details, Passport PDF visual (Right) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {/* Identity documents visual check */}
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h2 style={{ fontSize: '13px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.3px', margin: '0 0 16px' }}>Identity Verification</h2>
+
+              {/* Person Sub-Tabs */}
+              <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px', marginBottom: '16px' }}>
+                {selectedRecord.stakeholders.map((s, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setActivePersonIdx(i);
+                      setDocScale(1);
+                      setDocRotation(0);
+                    }}
+                    style={{
+                      border: 'none',
+                      background: 'transparent',
+                      paddingBottom: '8px',
+                      fontSize: '11px',
+                      fontWeight: '800',
+                      color: activePersonIdx === i ? '#4f46e5' : '#94a3b8',
+                      borderBottom: activePersonIdx === i ? '2px solid #4f46e5' : '2px solid transparent',
+                      cursor: 'pointer'
+                    }}
+                    type="button"
+                  >
+                    {s.name.split(" ")[0]}
+                  </button>
+                ))}
+              </div>
+
+              {/* Passport Document Canvas visual */}
+              <div style={{ background: '#0f172a', borderRadius: '8px', padding: '16px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', minHeight: '200px', overflow: 'hidden', position: 'relative', marginBottom: '16px' }}>
+                <div style={{
+                  width: '100%',
+                  maxWidth: '280px',
+                  background: 'linear-gradient(135deg, #fce7f3, #e0e7ff)',
+                  borderRadius: '6px',
+                  padding: '16px',
+                  boxShadow: '0 4px 6px -1px rgba(0,0,0,0.5)',
+                  transform: `scale(${docScale}) rotate(${docRotation}deg)`,
+                  transition: 'all 0.2s'
+                }}>
+                  <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', borderBottom: '1px solid rgba(15,23,42,0.1)', paddingBottom: '6px', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '6px', fontWeight: '900', color: '#1e3a8a' }}>PASSPORT / ID CARD</span>
+                    <span style={{ fontSize: '6px', color: '#64748b' }}>No: {activePerson.docNumber}</span>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <div style={{ height: '40px', width: '32px', background: '#cbd5e1', borderRadius: '2px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', fontSize: '6px', color: '#475569' }}>PHOTO</div>
+                    <div style={{ fontSize: '6px', color: '#1e293b' }}>
+                      <strong style={{ display: 'block' }}>{activePerson.name}</strong>
+                      <span style={{ display: 'block', marginTop: '1px' }}>DOB: {activePerson.dob}</span>
+                      <span style={{ display: 'block', color: activePerson.expiryColor }}>EXP: {activePerson.expiry}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* OCR Checkboxes */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+                <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #f1f5f9' }}>
+                  <span style={{ display: 'block', fontSize: '9px', fontWeight: '750', color: '#94a3b8', textTransform: 'uppercase' }}>OCR Match</span>
+                  <strong style={{ fontSize: '12px', color: '#059669', display: 'block', marginTop: '2px' }}>{activePerson.ocrScore}</strong>
+                </div>
+                <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '8px', border: '1px solid #f1f5f9' }}>
+                  <span style={{ display: 'block', fontSize: '9px', fontWeight: '750', color: '#94a3b8', textTransform: 'uppercase' }}>Liveness Check</span>
+                  <strong style={{ fontSize: '12px', color: activePerson.livenessCheck === 'Verified' ? '#059669' : '#f59e0b', display: 'block', marginTop: '2px' }}>{activePerson.livenessCheck}</strong>
+                </div>
+              </div>
+
+              {/* Details table list */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px', color: '#64748b' }}>
+                <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+                  <span>Document Number:</span>
+                  <strong style={{ color: '#0f172a' }}>{activePerson.docNumber}</strong>
+                </div>
+                <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+                  <span>Date of Birth:</span>
+                  <strong style={{ color: '#0f172a' }}>{activePerson.dob}</strong>
+                </div>
+                <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+                  <span>Expiry Date:</span>
+                  <strong style={{ color: activePerson.expiryColor }}>{activePerson.expiry}</strong>
+                </div>
+              </div>
+            </div>
+
+            {/* Verification audit timeline */}
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h3 style={{ fontSize: '11px', fontWeight: '900', color: '#334155', textTransform: 'uppercase', letterSpacing: '0.3px', margin: '0 0 12px' }}>Verification Audit</h3>
+              
+              <div className="relative">
+                <div style={{ position: 'absolute', left: '4px', top: '6px', bottom: '6px', width: '2px', background: '#f1f5f9' }} />
+                {timeline.map((item, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '10px', position: 'relative', marginBottom: '12px' }} className="last:mb-0">
+                    <div style={{ height: '8px', width: '8px', borderRadius: '50%', background: item.done ? '#4f46e5' : '#cbd5e1', zIndex: 10, marginTop: '4px', flexShrink: 0 }} />
+                    <div style={{ fontSize: '11px' }}>
+                      <strong style={{ display: 'block', color: item.done ? '#0f172a' : '#64748b', fontWeight: '700' }}>{item.label}</strong>
+                      <span style={{ color: '#94a3b8', fontSize: '10px', marginTop: '1px', display: 'block' }}>{item.time}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
+
+        {/* Bottom Verification Actions bar */}
+        {overallStatus === 'approved' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#ecfdf5',
+            borderTop: '1px solid #a7f3d0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#065f46' }}>
+              <CheckCircle2 size={16} />
+              <span>Identity Set Approved successfully!</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #6ee7b7', background: '#fff', color: '#065f46', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Decision
+            </button>
+          </div>
+        ) : overallStatus === 'rejected' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#fff5f5',
+            borderTop: '1px solid #fecaca',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#991b1b' }}>
+              <AlertTriangle size={16} />
+              <span>Identity Set Rejected. Reason: {rejectionReasons[selectedRecord.id]}</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #fca5a5', background: '#fff', color: '#991b1b', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Decision
+            </button>
+          </div>
+        ) : overallStatus === 'flagged' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#eff6ff',
+            borderTop: '1px solid #bfdbfe',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#1e40af' }}>
+              <AlertTriangle size={16} />
+              <span>Identity Set Flagged for revision review.</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #93c5fd', background: '#fff', color: '#1e40af', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Status
+            </button>
+          </div>
+        ) : (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px', // Matches sidebar width
+            right: 0,
+            background: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(8px)',
+            borderTop: '1px solid #e2e8f0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>
+              <AlertTriangle size={15} className="text-amber-500" />
+              <span>Awaiting final decision check. Click verify to register changes.</span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#475569', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+                onClick={() => setFlagModalOpen(true)}
+                type="button"
+              >
+                Flag for Revision
+              </button>
+              <button
+                style={{ border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+                onClick={() => setRejectModalOpen(true)}
+                type="button"
+              >
+                Reject Application
+              </button>
+              <button
+                style={{ border: 'none', background: '#4f46e5', color: '#fff', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+                onClick={handleApprove}
+                disabled={isSubmitting}
+                type="button"
+                className="hover:bg-indigo-700 shadow-md"
+              >
+                {isSubmitting ? 'Processing...' : (
+                  <>
+                    <Check size={16} /> 
+                    <span>Approve Identity Set</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            MODAL: FLAG FOR REVISION
+            ======================================================== */}
+        {flagModalOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setFlagModalOpen(false); setFlagReason(''); }} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Flag for Revision</h3>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginTop: '2px', margin: 0 }}>Describe the discrepancy found for {selectedRecord.company}</p>
+                </div>
+                <button onClick={() => { setFlagModalOpen(false); setFlagReason(''); }} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8' }} type="button">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#64748b', display: 'block', marginBottom: '6px' }}>Revision Details</label>
+                  <textarea
+                    rows="4"
+                    value={flagReason}
+                    onChange={(e) => setFlagReason(e.target.value)}
+                    placeholder="e.g. Elena Rodriguez's passport has expired. Require updated identity documents..."
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setFlagModalOpen(false); setFlagReason(''); }}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleFlagSubmit}
+                    disabled={isSubmitting}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#4f46e5', border: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Flag'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            MODAL: REJECT DIALOG
+            ======================================================== */}
+        {rejectModalOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setRejectModalOpen(false); setRejectReason(''); }} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject Identity Set</h3>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginTop: '2px', margin: 0 }}>UBO audit rejection query for {selectedRecord.company}</p>
+                </div>
+                <button onClick={() => { setRejectModalOpen(false); setRejectReason(''); }} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8' }} type="button">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#64748b', display: 'block', marginBottom: '6px' }}>Reason for Rejection</label>
+                  <textarea
+                    rows="4"
+                    value={rejectReason}
+                    onChange={(e) => setRejectReason(e.target.value)}
+                    placeholder="E.g., Failed sanctions screening check, invalid beneficial owner registration details..."
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setRejectModalOpen(false); setRejectReason(''); }}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRejectSubmit}
+                    disabled={isSubmitting}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#ef4444', border: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    {isSubmitting ? 'Rejecting...' : 'Confirm Reject'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </AdminShell>
   );

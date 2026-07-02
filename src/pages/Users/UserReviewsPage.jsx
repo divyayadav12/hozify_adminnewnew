@@ -10,6 +10,8 @@ import {
   Filter,
   Download,
   Send,
+  X,
+  Check,
 } from "lucide-react";
 
 const initialReviews = [
@@ -47,6 +49,10 @@ export default function UserReviewsPage() {
   const { addToast } = useToast();
   const [filterRating, setFilterRating] = useState("All");
 
+  const [activeModalId, setActiveModalId] = useState(null);
+  const [selectedReviewText, setSelectedReviewText] = useState("");
+  const [responseText, setResponseText] = useState("");
+  const [submittedResponses, setSubmittedResponses] = useState({});
 
   const handleExportReviews = () => {
     const csvContent = generateCSV(
@@ -62,8 +68,21 @@ export default function UserReviewsPage() {
     addToast("Customer reviews catalog exported successfully!", "success");
   };
 
-  const handleRespond = (bookingId) => {
-    addToast(`Response channel initialized for booking ${bookingId}.`, "success");
+  const handleRespond = (review) => {
+    setActiveModalId(review.id);
+    setSelectedReviewText(review.review);
+    setResponseText(submittedResponses[review.id] || "");
+  };
+
+  const submitResponse = () => {
+    if (!responseText.trim()) {
+      addToast("Please enter a response message.", "error");
+      return;
+    }
+    setSubmittedResponses(prev => ({ ...prev, [activeModalId]: responseText }));
+    addToast(`Response successfully submitted for booking ${activeModalId}!`, "success");
+    setActiveModalId(null);
+    setResponseText("");
   };
 
   const filteredReviews = initialReviews.filter(
@@ -225,21 +244,32 @@ export default function UserReviewsPage() {
                       </td>
                       <td className="max-w-md text-slate-600">{item.review}</td>
                       <td>
-                        <button
-                          onClick={() => handleRespond(item.id)}
-                          style={{
-                            border: "none",
-                            background: "none",
-                            color: "#2A2454",
-                            fontWeight: "800",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "4px",
-                          }}
-                        >
-                          <Send size={12} /> Respond
-                        </button>
+                        {submittedResponses[item.id] ? (
+                          <div 
+                            onClick={() => handleRespond(item)}
+                            className="flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100 font-black text-[11px] cursor-pointer hover:bg-emerald-100/70 w-fit"
+                            title="Click to view or edit response"
+                          >
+                            <Check size={12} />
+                            <span>Responded</span>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleRespond(item)}
+                            style={{
+                              border: "none",
+                              background: "none",
+                              color: "#2A2454",
+                              fontWeight: "800",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Send size={12} /> Respond
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -268,6 +298,71 @@ export default function UserReviewsPage() {
           </div>
         </div>
       </div>
+
+      {/* RESPOND TO FEEDBACK MODAL */}
+      {activeModalId && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div 
+            className="fixed inset-0 bg-transparent" 
+            onClick={() => setActiveModalId(null)}
+          />
+          <div className="relative bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Modal Header */}
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">Respond to Review</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">Booking ID: {activeModalId}</p>
+              </div>
+              <button 
+                onClick={() => setActiveModalId(null)}
+                className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Original Feedback Details */}
+            <div className="mb-4 space-y-2 text-xs">
+              <label className="font-bold text-slate-400">Original Review:</label>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 font-semibold italic">
+                "{selectedReviewText}"
+              </div>
+            </div>
+
+            {/* Response Input */}
+            <div className="space-y-4">
+              <div>
+                <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Your Response</label>
+                <textarea
+                  rows={4}
+                  placeholder="e.g. Thank you for your feedback! We are thrilled you had a great experience."
+                  value={responseText}
+                  onChange={(e) => setResponseText(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 focus:outline-none focus:border-[#25108f] resize-none"
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveModalId(null)}
+                  className="flex-1 py-2 text-center border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={submitResponse}
+                  className="flex-1 py-2 text-center bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md active:scale-98 transition-transform"
+                >
+                  Send Response
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

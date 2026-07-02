@@ -59,6 +59,10 @@ export default function UserAppPage({ defaultTab = 'config' }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [warningAction, setWarningAction] = useState(null);
 
+  // App Version Tab Toggles State
+  const [androidForceUpdate, setAndroidForceUpdate] = useState(true);
+  const [iosForceUpdate, setIosForceUpdate] = useState(true);
+
   // Statistics
   const totalKeys = configs.length;
   const activeKeys = configs.filter(c => c.status === 'Active').length;
@@ -454,7 +458,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
                   <span style={{ fontSize: '12px', fontWeight: '700', color: '#475569' }}>FORCE MIN VERSION UPDATE</span>
-                  <Toggle checked={true} onChange={() => {}} />
+                  <Toggle checked={androidForceUpdate} onChange={setAndroidForceUpdate} />
                 </div>
               </div>
               <button onClick={() => { setSuccessMessage('Android release requirements updated on production gateway!'); setIsSuccessOpen(true); }} className="custom-btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
@@ -482,7 +486,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
                   <span style={{ fontSize: '12px', fontWeight: '700', color: '#475569' }}>FORCE MIN VERSION UPDATE</span>
-                  <Toggle checked={true} onChange={() => {}} />
+                  <Toggle checked={iosForceUpdate} onChange={setIosForceUpdate} />
                 </div>
               </div>
               <button onClick={() => { setSuccessMessage('iOS App Store release requirements updated on production gateway!'); setIsSuccessOpen(true); }} className="custom-btn-primary" style={{ width: '100%', justifyContent: 'center' }}>

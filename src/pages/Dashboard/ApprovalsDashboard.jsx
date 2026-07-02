@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useToast } from '../../components/common/ToastNotification';
 import { 
   ClipboardList, 
   Clock, 
@@ -16,6 +17,7 @@ import {
 import AdminShell from '../../components/layouts/AdminShell';
 
 export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
+  const { addToast } = useToast();
   const [currentSubTab, setCurrentSubTab] = useState('Pending KYC');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,15 +32,23 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
     'Material Requests'
   ];
 
-  const pendingItems = [
-    { priority: "High", owner: "Sarah Johnson", id: "USR-9283-KYC", date: "Oct 24, 2023 11:20 AM", type: "Individual KYC", status: "UNDER REVIEW", statusColor: "#1e3a8a", statusBg: "#dbeafe" },
-    { priority: "Medium", owner: "Michael Zhang", id: "USR-1102-KYC", date: "Oct 24, 2023 09:15 AM", type: "Partner KYC", status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
-    { priority: "High", owner: "Priya Sharma", id: "USR-8821-KYC", date: "Oct 23, 2023 04:50 PM", type: "Individual KYC", status: "RE-SUBMITTED", statusColor: "#25108f", statusBg: "#f4eff8" },
-    { priority: "Medium", owner: "Urban Styles Ltd", id: "BIZ-4491-REG", date: "Oct 23, 2023 02:10 PM", type: "Business License", status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" }
+  const allItems = [
+    { priority: "High", owner: "Sarah Johnson", id: "USR-9283-KYC", date: "Oct 24, 2023 11:20 AM", type: "Individual KYC", tab: 'Pending KYC', status: "UNDER REVIEW", statusColor: "#1e3a8a", statusBg: "#dbeafe" },
+    { priority: "Medium", owner: "Michael Zhang", id: "USR-1102-KYC", date: "Oct 24, 2023 09:15 AM", type: "Partner KYC", tab: 'Pending KYC', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
+    { priority: "High", owner: "Priya Sharma", id: "USR-8821-KYC", date: "Oct 23, 2023 04:50 PM", type: "Individual KYC", tab: 'Pending KYC', status: "RE-SUBMITTED", statusColor: "#25108f", statusBg: "#f4eff8" },
+    { priority: "Medium", owner: "Urban Styles Ltd", id: "BIZ-4491-REG", date: "Oct 23, 2023 02:10 PM", type: "Business License", tab: 'Pending Partner', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
+    { priority: "High", owner: "Nexis Logistics", id: "PRT-99201", date: "Oct 23, 2023 01:10 PM", type: "Partner Agreement", tab: 'Pending Partner', status: "UNDER REVIEW", statusColor: "#1e3a8a", statusBg: "#dbeafe" },
+    { priority: "Low", owner: "London Branch", id: "BRN-5531", date: "Oct 22, 2023 10:00 AM", type: "Branch Approval", tab: 'Pending Branch', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
+    { priority: "Medium", owner: "Cloud Hosting", id: "SRV-2291", date: "Oct 24, 2023 08:30 AM", type: "Service Provision", tab: 'Pending Service', status: "UNDER REVIEW", statusColor: "#1e3a8a", statusBg: "#dbeafe" },
+    { priority: "High", owner: "James Smith", id: "WDL-1109", date: "Oct 25, 2023 11:45 AM", type: "Withdrawal Request", tab: 'Withdrawals', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
+    { priority: "Medium", owner: "TechCorp Inc.", id: "QUO-4492", date: "Oct 25, 2023 01:20 PM", type: "Enterprise Quote", tab: 'Quotations', status: "UNDER REVIEW", statusColor: "#1e3a8a", statusBg: "#dbeafe" },
+    { priority: "Low", owner: "Warehouse B", id: "MAT-9921", date: "Oct 25, 2023 03:10 PM", type: "Material Restock", tab: 'Material Requests', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" }
   ];
 
+  const pendingItems = allItems.filter(item => item.tab === currentSubTab);
+
   const handleAction = (id, action) => {
-    alert(`Approvals action "${action}" executed for entity ID: ${id}`);
+    addToast(`Approvals action "${action}" executed for entity ID: ${id}`, action === 'Approve' ? 'success' : 'error');
   };
 
   return (
@@ -134,11 +144,12 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
                 </tr>
               </thead>
               <tbody>
-                {pendingItems.map((item, idx) => {
-                  const isHigh = item.priority === 'High';
-                  const isBusiness = item.type.includes('Business');
-                  return (
-                    <tr key={idx} style={{ borderBottom: '1px solid var(--lavender)' }}>
+                {pendingItems.length > 0 ? (
+                  pendingItems.map((item, idx) => {
+                    const isHigh = item.priority === 'High';
+                    const isBusiness = item.type.includes('Business');
+                    return (
+                      <tr key={idx} style={{ borderBottom: '1px solid var(--lavender)' }}>
                       <td style={{ padding: '16px' }}>
                         <span style={{
                           fontSize: '10px',
@@ -207,8 +218,15 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
                         </div>
                       </td>
                     </tr>
-                  );
-                })}
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="6" style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
+                      No pending items found for this category.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table></div>
           </div>
@@ -227,9 +245,9 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
                 <ChevronLeft size={14} />
               </button>
               
-              <button style={{ height: '28px', width: '28px', border: 'none', background: '#25108f', color: '#fff', borderRadius: '4px', fontWeight: '800', fontSize: '12px', cursor: 'pointer' }}>1</button>
-              <button onClick={() => alert('Navigate to page 2')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>2</button>
-              <button onClick={() => alert('Navigate to page 3')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>3</button>
+              <button style={{ height: '28px', width: '28px', border: 'none', background: '#25108f', color: '#fff', borderRadius: '4px', fontWeight: '800', fontSize: '12px', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToast("Navigating to page 1", "info"); }}>1</button>
+              <button onClick={() => addToast('Navigate to page 2', 'info')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>2</button>
+              <button onClick={() => addToast('Navigate to page 3', 'info')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>3</button>
 
               <button
                 onClick={() => setCurrentPage(2)}

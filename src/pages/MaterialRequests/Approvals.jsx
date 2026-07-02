@@ -8,7 +8,10 @@ import {
   CheckCircle2, 
   XCircle, 
   MoreVertical,
-  ChevronDown
+  ChevronDown,
+  X,
+  Loader2,
+  Search
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
@@ -22,11 +25,36 @@ const initialRequests = [
   { id: '#PR-8799', name: 'Elena Vance', dept: 'Procurement Analyst', initial: 'EL', category: 'Office Electronics', amount: '$85,300.00', status: 'HIGH VALUE CHECK', statusColor: '#d97706', timeline: 'Under verification', barColor: '#111827' }
 ];
 
+// Helper for downloading files
+const downloadFile = (content, filename, contentType) => {
+  const blob = new Blob([content], { type: contentType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
 export default function ApprovalPipeline() {
   const { navigate, setSelectedRequestId } = useApp();
   const { addToast } = useToast();
   const [activeSegment, setActiveSegment] = useState('All');
   const [requestsList, setRequestsList] = useState(initialRequests);
+
+  // Filter popup and context menu states
+  const [showFiltersModal, setShowFiltersModal] = useState(false);
+  const [filterDept, setFilterDept] = useState("All");
+  const [filterStatus, setFilterStatus] = useState("All");
+  const [filterMinAmount, setFilterMinAmount] = useState("");
+
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [exportFormat, setExportFormat] = useState("CSV");
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportProgress, setExportProgress] = useState(0);
+  const [exportStatusText, setExportStatusText] = useState("");
+
+  const [activeMenuId, setActiveMenuId] = useState(null);
 
   const handleRowClick = (reqId) => {
     if (setSelectedRequestId) {
@@ -39,26 +67,17 @@ export default function ApprovalPipeline() {
     e.stopPropagation();
     
     if (action === 'Menu Open') {
-      addToast(`Opening context menu for ${reqId}`, 'info');
+      setActiveMenuId(activeMenuId === reqId ? null : reqId);
       return;
     }
 
-    const itemIndex = initialRequests.findIndex(r => r.id === reqId);
+    const itemIndex = requestsList.findIndex(r => r.id === reqId);
     if (itemIndex > -1) {
-      initialRequests[itemIndex].status = action === 'Approve' ? 'APPROVED' : 'REJECTED';
-      initialRequests[itemIndex].statusColor = action === 'Approve' ? '#059669' : '#dc2626';
+      const updatedList = [...requestsList];
+      updatedList[itemIndex].status = action === 'Approve' ? 'APPROVED' : 'REJECTED';
+      updatedList[itemIndex].statusColor = action === 'Approve' ? '#059669' : '#dc2626';
+      setRequestsList(updatedList);
     }
-    
-    setRequestsList(prev => prev.map(req => {
-      if (req.id === reqId) {
-        return { 
-          ...req, 
-          status: action === 'Approve' ? 'APPROVED' : 'REJECTED',
-          statusColor: action === 'Approve' ? '#059669' : '#dc2626'
-        };
-      }
-      return req;
-    }));
 
     if (action === 'Approve') {
       addToast(`Successfully approved ${reqId}.`, 'success');
@@ -67,15 +86,92 @@ export default function ApprovalPipeline() {
     }
   };
 
-  // Filter queue items based on Bulk / Urgent tabs
+  // Filter queue items based on Segment + Dialog Filter options
   const filteredRequests = requestsList.filter(item => {
-    if (activeSegment === 'Urgent') return item.status === 'URGENT ACTION';
+    // 1. Segment Tabs
+    if (activeSegment === 'Urgent' && item.status !== 'URGENT ACTION') return false;
     if (activeSegment === 'Bulk') {
       const numericVal = parseFloat(item.amount.replace(/[^0-9.-]+/g, ''));
-      return numericVal > 20000; // treat over $20k as bulk
+      if (numericVal <= 20000) return false;
     }
-    return true; // 'All'
+
+    // 2. Department Filter
+    if (filterDept !== 'All' && item.dept !== filterDept) return false;
+
+    // 3. Status Filter
+    if (filterStatus !== 'All' && item.status !== filterStatus) return false;
+
+    // 4. Min Amount Filter
+    if (filterMinAmount) {
+      const numericVal = parseFloat(item.amount.replace(/[^0-9.-]+/g, ''));
+      if (numericVal < parseFloat(filterMinAmount)) return false;
+    }
+
+    return true;
   });
+
+  // Export report execution
+  const handleStartExport = () => {
+    setIsExporting(true);
+    setExportProgress(0);
+    setExportStatusText("Initializing compiler...");
+    
+    const steps = [
+      { progress: 25, text: "Formatting dataset headers..." },
+      { progress: 50, text: "Consolidating approvals audit ledger..." },
+      { progress: 75, text: "Generating CSV container data..." },
+      { progress: 100, text: "Ready to transfer container..." }
+    ];
+
+    let currentStep = 0;
+    const interval = setInterval(() => {
+      if (currentStep < steps.length) {
+        setExportProgress(steps[currentStep].progress);
+        setExportStatusText(steps[currentStep].text);
+        currentStep++;
+      } else {
+        clearInterval(interval);
+        
+        let fileContent = "";
+        let filename = "";
+        
+        if (exportFormat === "CSV") {
+          fileContent = "ID,Requester,Department,Category,Amount,Status,Timeline\n" +
+            filteredRequests.map(r => `"${r.id}","${r.name}","${r.dept}","${r.category}","${r.amount}","${r.status}","${r.timeline}"`).join("\n") + "\n";
+          filename = `Hozify_Approvals_Report.csv`;
+          downloadFile(fileContent, filename, "text/csv;charset=utf-8;");
+        } else if (exportFormat === "JSON") {
+          fileContent = JSON.stringify({
+            report: "Material Requests Approval Pipeline",
+            exportedAt: new Date().toISOString(),
+            filterDepartment: filterDept,
+            filterStatus,
+            minAmount: filterMinAmount || "None",
+            requests: filteredRequests
+          }, null, 2);
+          filename = `Hozify_Approvals_Report.json`;
+          downloadFile(fileContent, filename, "application/json;charset=utf-8;");
+        } else {
+          // TXT Report Sim
+          fileContent = "==================================================\n" +
+            "            HOZIFY PROCUREMENT AUDIT REPORT\n" +
+            "==================================================\n" +
+            `Export Date: ${new Date().toLocaleString()}\n` +
+            `Scope: ${filterDept === "All" ? "All Departments" : filterDept}\n` +
+            `Status Filter: ${filterStatus}\n` +
+            "--------------------------------------------------\n\n" +
+            filteredRequests.map(r => `[${r.id}] ${r.name} (${r.dept}) - ${r.category} - ${r.amount} - ${r.status}`).join("\n") + "\n\n" +
+            "==================================================\n";
+          filename = `Hozify_Approvals_Report.txt`;
+          downloadFile(fileContent, filename, "text/plain;charset=utf-8;");
+        }
+        
+        addToast(`Report successfully generated as ${exportFormat}!`, 'success');
+        setIsExporting(false);
+        setShowExportModal(false);
+      }
+    }, 450);
+  };
 
   return (
     <AdminShell
@@ -100,6 +196,7 @@ export default function ApprovalPipeline() {
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
             <button
+              onClick={() => setShowFiltersModal(true)}
               style={{
                 background: '#ffffff',
                 color: 'var(--text)',
@@ -117,8 +214,12 @@ export default function ApprovalPipeline() {
             >
               <SlidersHorizontal size={14} />
               <span>Filters</span>
+              {(filterDept !== "All" || filterStatus !== "All" || filterMinAmount) && (
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#dc2626' }} />
+              )}
             </button>
             <button
+              onClick={() => setShowExportModal(true)}
               style={{
                 background: '#0b1329',
                 color: '#ffffff',
@@ -284,11 +385,12 @@ export default function ApprovalPipeline() {
                         <div style={{ height: '3px', background: req.barColor, borderRadius: '1.5px', marginTop: '6px', width: '50px' }} />
                       </div>
                     </td>
-                    <td style={{ padding: '16px 8px', textAlign: 'right' }}>
-                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                    <td style={{ padding: '16px 8px', textAlign: 'right', position: 'relative' }}>
+                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <button 
                           onClick={(e) => handleAction(e, req.id, 'Approve')}
-                          style={{ border: 'none', background: 'transparent', color: '#07956f', cursor: 'pointer', padding: '4px' }}
+                          style={{ border: 'none', background: 'transparent', color: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? '#07956f' : '#cbd5e1', cursor: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? 'pointer' : 'default', padding: '4px' }}
+                          disabled={req.status === 'APPROVED' || req.status === 'REJECTED'}
                           title="Approve"
                           type="button"
                         >
@@ -296,7 +398,8 @@ export default function ApprovalPipeline() {
                         </button>
                         <button 
                           onClick={(e) => handleAction(e, req.id, 'Reject')}
-                          style={{ border: 'none', background: 'transparent', color: '#d32929', cursor: 'pointer', padding: '4px' }}
+                          style={{ border: 'none', background: 'transparent', color: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? '#d32929' : '#cbd5e1', cursor: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? 'pointer' : 'default', padding: '4px' }}
+                          disabled={req.status === 'APPROVED' || req.status === 'REJECTED'}
                           title="Reject"
                           type="button"
                         >
@@ -310,6 +413,76 @@ export default function ApprovalPipeline() {
                         >
                           <MoreVertical size={16} />
                         </button>
+
+                        {/* Actions 3-dot dropdown menu */}
+                        {activeMenuId === req.id && (
+                          <>
+                            <div 
+                              className="fixed inset-0 z-40" 
+                              onClick={(e) => { e.stopPropagation(); setActiveMenuId(null); }}
+                            />
+                            <div 
+                              style={{ 
+                                position: 'absolute', 
+                                right: '10px', 
+                                top: '34px', 
+                                width: '150px', 
+                                background: '#ffffff', 
+                                border: '1px solid var(--line)', 
+                                borderRadius: '8px', 
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.15)', 
+                                zIndex: 50, 
+                                padding: '4px 0',
+                                textAlign: 'left'
+                              }}
+                            >
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveMenuId(null);
+                                  handleRowClick(req.id);
+                                }}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#111827', fontWeight: '700', textAlign: 'left', cursor: 'pointer' }}
+                                className="hover:bg-slate-50"
+                              >
+                                View Details
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  setActiveMenuId(null);
+                                  handleAction(e, req.id, 'Approve');
+                                }}
+                                disabled={req.status === 'APPROVED' || req.status === 'REJECTED'}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? '#059669' : '#cbd5e1', fontWeight: '700', textAlign: 'left', cursor: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? 'pointer' : 'default' }}
+                                className="hover:bg-slate-50"
+                              >
+                                Approve Request
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  setActiveMenuId(null);
+                                  handleAction(e, req.id, 'Reject');
+                                }}
+                                disabled={req.status === 'APPROVED' || req.status === 'REJECTED'}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? '#dc2626' : '#cbd5e1', fontWeight: '700', textAlign: 'left', cursor: (req.status !== 'APPROVED' && req.status !== 'REJECTED') ? 'pointer' : 'default' }}
+                                className="hover:bg-slate-50"
+                              >
+                                Reject Request
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveMenuId(null);
+                                  addToast(`Forwarded request ${req.id} to Procurement Manager`, 'success');
+                                }}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#6b7280', fontWeight: '700', textAlign: 'left', cursor: 'pointer' }}
+                                className="hover:bg-slate-50"
+                              >
+                                Forward to Lead
+                              </button>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -321,13 +494,17 @@ export default function ApprovalPipeline() {
           {/* Table Footer */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', flexWrap: 'wrap', gap: '12px' }}>
             <span style={{ fontSize: '13px', color: '#565365' }}>
-              Showing 1-{filteredRequests.length} of 24 requests
+              Showing {filteredRequests.length > 0 ? 1 : 0}-{filteredRequests.length} of {filteredRequests.length} requests
             </span>
             <div style={{ display: 'flex', gap: '8px' }}>
-              <button style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+              <button 
+                onClick={() => addToast("You are already on the first page.", "info")}
+                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
                 Previous
               </button>
-              <button style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+              <button 
+                onClick={() => addToast("No more pages available.", "info")}
+                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
                 Next
               </button>
             </div>
@@ -460,6 +637,218 @@ export default function ApprovalPipeline() {
         </div>
 
       </div>
+
+      {/* ==========================================
+          DYNAMIC FILTERS MODAL LAYER
+         ========================================== */}
+      {showFiltersModal && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div 
+            className="fixed inset-0 bg-transparent" 
+            onClick={() => setShowFiltersModal(false)}
+          />
+          <div className="relative bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Modal Header */}
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">Filter Approval Queue</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">Narrow down pending requisitions in the pipeline.</p>
+              </div>
+              <button 
+                onClick={() => setShowFiltersModal(false)}
+                className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Modal Form */}
+            <div className="space-y-4">
+              {/* Department Option */}
+              <div>
+                <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Department</label>
+                <select
+                  value={filterDept}
+                  onChange={(e) => setFilterDept(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 font-bold focus:outline-none focus:border-[#25108f]"
+                >
+                  <option value="All">All Departments</option>
+                  <option value="Infrastructure Div.">Infrastructure Div.</option>
+                  <option value="Maintenance">Maintenance</option>
+                  <option value="Logistics Ops.">Logistics Ops.</option>
+                  <option value="Procurement Analyst">Procurement Analyst</option>
+                </select>
+              </div>
+
+              {/* Status Option */}
+              <div>
+                <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Status</label>
+                <select
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 font-bold focus:outline-none focus:border-[#25108f]"
+                >
+                  <option value="All">All Statuses</option>
+                  <option value="PENDING REVIEW">PENDING REVIEW</option>
+                  <option value="URGENT ACTION">URGENT ACTION</option>
+                  <option value="HIGH VALUE CHECK">HIGH VALUE CHECK</option>
+                  <option value="APPROVED">APPROVED</option>
+                  <option value="REJECTED">REJECTED</option>
+                </select>
+              </div>
+
+              {/* Minimum Value Input */}
+              <div>
+                <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Min Requisition Amount ($)</label>
+                <input
+                  type="number"
+                  placeholder="e.g. 10000"
+                  value={filterMinAmount}
+                  onChange={(e) => setFilterMinAmount(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-850 placeholder-slate-400 focus:outline-none focus:border-[#25108f]"
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFilterDept("All");
+                    setFilterStatus("All");
+                    setFilterMinAmount("");
+                    setShowFiltersModal(false);
+                    addToast("Filters reset to default.", "info");
+                  }}
+                  className="flex-1 py-2 text-center border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowFiltersModal(false);
+                    addToast("Filters applied successfully.", "success");
+                  }}
+                  className="flex-1 py-2 text-center bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md active:scale-98 transition-transform"
+                >
+                  Apply Filters
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==========================================
+          DYNAMIC EXPORT MODAL LAYER
+         ========================================== */}
+      {showExportModal && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div 
+            className="fixed inset-0 bg-transparent" 
+            onClick={() => !isExporting && setShowExportModal(false)}
+          />
+          <div className="relative bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Modal Header */}
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">Export Procurement Report</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">Package approval data for offline accounting audit.</p>
+              </div>
+              {!isExporting && (
+                <button 
+                  onClick={() => setShowExportModal(false)}
+                  className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              )}
+            </div>
+
+            {/* Modal Body */}
+            {!isExporting ? (
+              <div className="space-y-4">
+                {/* Format selection */}
+                <div>
+                  <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-2">Export Format</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: "CSV", title: "Spreadsheet", label: "CSV" },
+                      { id: "PDF", title: "Summary Doc", label: "PDF" },
+                      { id: "JSON", title: "Raw Data", label: "JSON" }
+                    ].map((fmt) => (
+                      <button
+                        key={fmt.id}
+                        type="button"
+                        onClick={() => setExportFormat(fmt.id)}
+                        className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center cursor-pointer transition-all ${
+                          exportFormat === fmt.id 
+                            ? "bg-[#25108f]/5 border-[#25108f] ring-1 ring-[#25108f]" 
+                            : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                        }`}
+                      >
+                        <span className={`text-xs font-black ${exportFormat === fmt.id ? "text-[#25108f]" : "text-slate-800"}`}>{fmt.label}</span>
+                        <span className="text-[9px] font-bold text-slate-400 mt-0.5">{fmt.title}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Scope parameters */}
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-2">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-bold text-slate-500">Filtered Records:</span>
+                    <span className="font-black text-slate-900 bg-white px-2 py-0.5 rounded-md border border-slate-200 shadow-3xs">{filteredRequests.length} of {requestsList.length}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-bold text-slate-500">Selected Segment:</span>
+                    <span className="font-black text-slate-900">{activeSegment}</span>
+                  </div>
+                </div>
+
+                {/* Footer Buttons */}
+                <div className="flex gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowExportModal(false)}
+                    className="flex-1 py-2 text-center border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleStartExport}
+                    className="flex-1 py-2 text-center bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/90 cursor-pointer flex items-center justify-center gap-1.5 shadow-md active:scale-98 transition-transform"
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    <span>Generate Report</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* Export Processing View */
+              <div className="py-8 space-y-6 flex flex-col items-center text-center">
+                <Loader2 className="h-8 w-8 text-[#25108f] animate-spin" />
+                
+                <div className="w-full space-y-2">
+                  <div className="flex justify-between items-center text-xs font-bold px-1">
+                    <span className="text-slate-500">Compiling Report...</span>
+                    <span className="text-[#25108f]">{exportProgress}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-[#25108f] transition-all duration-300 rounded-full"
+                      style={{ width: `${exportProgress}%` }}
+                    />
+                  </div>
+                  <p className="text-[11px] font-semibold text-slate-400 animate-pulse">{exportStatusText}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

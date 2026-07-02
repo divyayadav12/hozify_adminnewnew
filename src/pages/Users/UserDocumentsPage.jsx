@@ -10,6 +10,11 @@ import {
   Clock,
   AlertTriangle,
   MoreHorizontal,
+  X,
+  Loader2,
+  Check,
+  Eye,
+  AlertCircle
 } from "lucide-react";
 
 function DocumentRow({
@@ -43,7 +48,7 @@ function DocumentRow({
       </td>
 
       <td className="px-4 py-3">
-        <button onClick={onClick} className="bg-indigo-950 text-white text-[10px] px-3 py-1 rounded-lg font-bold cursor-pointer">
+        <button onClick={onClick} className="bg-indigo-950 hover:bg-indigo-900 text-white text-[10px] px-3 py-1 rounded-lg font-bold cursor-pointer transition-colors">
           {action}
         </button>
       </td>
@@ -55,30 +60,66 @@ export default function UserDocumentsPage() {
   const { navigate } = useApp();
   const { addToast } = useToast();
 
+  const [accountStatus, setAccountStatus] = useState("Active Account");
+  const [accountStatusColor, setAccountStatusColor] = useState("text-emerald-600");
+  const [kycScore, setKycScore] = useState(82);
+  const [isExpediting, setIsExpediting] = useState(false);
+
+  // Modal Control States
+  const [activeModal, setActiveModal] = useState(null); // 'message' | 'view-doc' | 'review-doc' | 'all-docs'
+  const [modalDocName, setModalDocName] = useState("");
+  const [modalDocId, setModalDocId] = useState("");
+  const [messageText, setMessageText] = useState("");
+  const [remindStatus, setRemindStatus] = useState({});
+
   const handleVerifyIdentity = () => {
+    setAccountStatus("Active & Verified");
+    setAccountStatusColor("text-indigo-650 font-black");
     addToast("Marcus Richardson's KYC profile and uploaded identities marked as Verified!", "success");
   };
 
   const handleSendMessage = () => {
-    addToast("Message thread initialized. Redirecting to platform communication center...", "success");
+    setActiveModal("message");
   };
 
-  const handleDocAction = (actionType, docName) => {
+  const submitMessage = () => {
+    if (!messageText.trim()) {
+      addToast("Please enter a message to send.", "error");
+      return;
+    }
+    addToast(`Message sent to Marcus Richardson: "${messageText.substring(0, 30)}..."`, "success");
+    setMessageText("");
+    setActiveModal(null);
+  };
+
+  const handleDocAction = (actionType, docName, docId) => {
+    setModalDocName(docName);
+    setModalDocId(docId);
+    
     if (actionType === "VIEW") {
-      addToast(`Document file "${docName}" fetched from secure storage and rendered successfully.`, "success");
+      setActiveModal("view-doc");
     } else if (actionType === "REVIEW") {
-      addToast(`KYC manual review request submitted for "${docName}".`, "success");
+      setActiveModal("review-doc");
     } else if (actionType === "REMIND") {
-      addToast(`Notification alert sent to customer to re-upload document: "${docName}".`, "success");
+      setRemindStatus(prev => ({ ...prev, [docId]: "sending" }));
+      setTimeout(() => {
+        setRemindStatus(prev => ({ ...prev, [docId]: "sent" }));
+        addToast(`Notification alert sent to customer to re-upload document: "${docName}".`, "success");
+      }, 1000);
     }
   };
 
   const handleViewAllDocs = () => {
-    addToast("Displaying all 8 indexed verification documents.", "success");
+    setActiveModal("all-docs");
   };
 
   const handleExpedite = () => {
-    addToast("KYC verification request escalated to high-priority verification queue!", "success");
+    setIsExpediting(true);
+    setTimeout(() => {
+      setKycScore(95);
+      setIsExpediting(false);
+      addToast("KYC verification request escalated to high-priority verification queue! Health score optimized.", "success");
+    }, 1200);
   };
 
   return (
@@ -110,11 +151,11 @@ export default function UserDocumentsPage() {
                   Business Account • User ID: MZ-9721
                 </p>
                 <div className="flex gap-3 mt-3">
-                  <button onClick={handleVerifyIdentity} className="bg-indigo-950 text-white px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 cursor-pointer">
+                  <button onClick={handleVerifyIdentity} className="bg-indigo-950 hover:bg-indigo-900 text-white px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 cursor-pointer transition-colors">
                     <ShieldCheck size={14} />
                     Verify Identity
                   </button>
-                  <button onClick={handleSendMessage} className="border border-slate-300 px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 cursor-pointer">
+                  <button onClick={handleSendMessage} className="border border-slate-300 hover:bg-slate-50 px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 cursor-pointer transition-colors bg-white">
                     <Send size={14} />
                     Send Message
                   </button>
@@ -125,8 +166,8 @@ export default function UserDocumentsPage() {
               <p className="text-xs text-slate-400 uppercase font-bold">
                 Account Status
               </p>
-              <p className="text-sm font-bold text-emerald-600">
-                Active Account
+              <p className={`text-sm font-bold ${accountStatusColor}`}>
+                {accountStatus}
               </p>
             </div>
           </div>
@@ -210,7 +251,7 @@ export default function UserDocumentsPage() {
                       expiry="12 Dec 2028"
                       action="VIEW"
                       statusColor="bg-emerald-100 text-emerald-700"
-                      onClick={() => handleDocAction("VIEW", "National Identity Card")}
+                      onClick={() => handleDocAction("VIEW", "National Identity Card", "ID-992871")}
                     />
                     <DocumentRow
                       name="International Passport"
@@ -219,16 +260,19 @@ export default function UserDocumentsPage() {
                       expiry="14 Jan 2030"
                       action="REVIEW"
                       statusColor="bg-amber-100 text-amber-700"
-                      onClick={() => handleDocAction("REVIEW", "International Passport")}
+                      onClick={() => handleDocAction("REVIEW", "International Passport", "PASS-778281")}
                     />
                     <DocumentRow
                       name="Business License"
                       id="LIC-218819"
                       status="EXPIRED"
                       expiry="01 Nov 2024"
-                      action="REMIND"
+                      action={
+                        remindStatus["LIC-218819"] === "sending" ? "SENDING..." :
+                        remindStatus["LIC-218819"] === "sent" ? "SENT" : "REMIND"
+                      }
                       statusColor="bg-rose-100 text-rose-700"
-                      onClick={() => handleDocAction("REMIND", "Business License")}
+                      onClick={() => handleDocAction("REMIND", "Business License", "LIC-218819")}
                     />
                     <DocumentRow
                       name="Utility Bill"
@@ -237,7 +281,7 @@ export default function UserDocumentsPage() {
                       expiry="10 Jul 2027"
                       action="VIEW"
                       statusColor="bg-emerald-100 text-emerald-700"
-                      onClick={() => handleDocAction("VIEW", "Utility Bill")}
+                      onClick={() => handleDocAction("VIEW", "Utility Bill", "UB-112920")}
                     />
                   </tbody>
                 </table>
@@ -309,27 +353,239 @@ export default function UserDocumentsPage() {
               <div className="flex items-center justify-between mt-5">
                 <div>
                   <h2 className="text-5xl font-black">
-                    82%
+                    {kycScore}%
                   </h2>
                   <p className="text-xs text-indigo-200 mt-2">
                     +5% This Month
                   </p>
                 </div>
                 <div className="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center font-black text-xl">
-                  82
+                  {kycScore}
                 </div>
               </div>
               <p className="text-sm text-indigo-100 mt-5 leading-relaxed">
-                Verification almost complete. Only passport review remains pending.
+                {kycScore === 95 ? "Verification complete! All records optimized." : "Verification almost complete. Only passport review remains pending."}
               </p>
-              <button onClick={handleExpedite} className="w-full mt-5 bg-white text-indigo-950 py-3 rounded-xl font-bold text-sm cursor-pointer border-none">
-                Expedite Process
+              <button onClick={handleExpedite} disabled={isExpediting || kycScore === 95} className="w-full mt-5 bg-white text-indigo-950 py-3 rounded-xl font-bold text-sm cursor-pointer border-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 hover:bg-slate-50">
+                {isExpediting && <Loader2 className="h-4 w-4 animate-spin" />}
+                <span>{kycScore === 95 ? "Escalated" : "Expedite Process"}</span>
               </button>
             </div>
           </div>
         </div>
 
       </div>
+
+      {/* ========================================================
+          MODAL: SEND MESSAGE
+          ======================================================== */}
+      {activeModal === "message" && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div className="fixed inset-0 bg-transparent" onClick={() => setActiveModal(null)} />
+          <div className="relative bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">Send Message</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">Send a notification to Marcus Richardson.</p>
+              </div>
+              <button onClick={() => setActiveModal(null)} className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Your Message</label>
+                <textarea
+                  rows={4}
+                  placeholder="e.g. Please update your expired Business License to proceed with verification."
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 focus:outline-none focus:border-[#25108f] resize-none"
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveModal(null)}
+                  className="flex-1 py-2 text-center border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={submitMessage}
+                  className="flex-1 py-2 text-center bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md active:scale-98 transition-transform"
+                >
+                  Send Message
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL: VIEW DOCUMENT
+          ======================================================== */}
+      {activeModal === "view-doc" && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div className="fixed inset-0 bg-transparent" onClick={() => setActiveModal(null)} />
+          <div className="relative bg-white w-full max-w-lg rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">{modalDocName}</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">Reference ID: {modalDocId} • Verified Audit</p>
+              </div>
+              <button onClick={() => setActiveModal(null)} className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Document Mock View */}
+            <div className="my-4 bg-slate-100 rounded-xl border border-slate-200 p-8 flex flex-col items-center justify-center text-slate-400 min-h-[220px]">
+              <FileText className="h-16 w-16 text-[#2a2454] mb-3" />
+              <p className="text-xs font-bold text-slate-800">{modalDocName}</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">SHA-256 Verified Crypto Checksum: OK</p>
+              
+              <div className="mt-4 flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase px-3 py-1 rounded-full border border-emerald-100">
+                <Check size={12} />
+                <span>Auto OCR Match Approved</span>
+              </div>
+            </div>
+
+            <div className="flex gap-2 justify-end pt-2">
+              <button
+                type="button"
+                onClick={() => setActiveModal(null)}
+                className="px-6 py-2 bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md"
+              >
+                Close View
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL: MANUAL REVIEW DOCUMENT
+          ======================================================== */}
+      {activeModal === "review-doc" && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div className="fixed inset-0 bg-transparent" onClick={() => setActiveModal(null)} />
+          <div className="relative bg-white w-full max-w-lg rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">Manual Requisition Audit: {modalDocName}</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">Reference ID: {modalDocId} • Review Queue</p>
+              </div>
+              <button onClick={() => setActiveModal(null)} className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Document Mock View */}
+            <div className="my-4 bg-slate-50 rounded-xl border border-slate-200 p-6 space-y-4">
+              <div className="flex items-center gap-3">
+                <Eye className="h-10 w-10 text-amber-500" />
+                <div>
+                  <p className="text-xs font-bold text-slate-800">Pending Manual Review</p>
+                  <p className="text-[10px] text-slate-400">OCR threshold score reached 79%. Requires admin override check.</p>
+                </div>
+              </div>
+              
+              <div className="space-y-2 text-xs border-t border-slate-200 pt-3">
+                <div className="flex justify-between">
+                  <span className="font-bold text-slate-400">Expiration Date Match:</span>
+                  <span className="font-black text-slate-700">14 Jan 2030 (Valid)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-bold text-slate-400">Name Match Score:</span>
+                  <span className="font-black text-slate-700">Marcus Richardson (Match)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-2 justify-end pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveModal(null);
+                  addToast(`Document "${modalDocName}" has been rejected.`, "error");
+                }}
+                className="px-4 py-2 border border-rose-200 text-rose-600 rounded-xl text-xs font-bold hover:bg-rose-50 cursor-pointer"
+              >
+                Reject Document
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveModal(null);
+                  addToast(`Document "${modalDocName}" manually approved!`, "success");
+                }}
+                className="px-4 py-2 bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md"
+              >
+                Approve Document
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL: VIEW ALL DOCUMENTS CHECKLIST
+          ======================================================== */}
+      {activeModal === "all-docs" && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div className="fixed inset-0 bg-transparent" onClick={() => setActiveModal(null)} />
+          <div className="relative bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">Indexed Documents Vault</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">All 8 documents for Marcus Richardson</p>
+              </div>
+              <button onClick={() => setActiveModal(null)} className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="my-4 space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
+              {[
+                { name: "National Identity Card", id: "ID-992871", status: "VERIFIED", color: "text-green-600 bg-green-50" },
+                { name: "International Passport", id: "PASS-778281", status: "PENDING", color: "text-amber-600 bg-amber-50" },
+                { name: "Business License", id: "LIC-218819", status: "EXPIRED", color: "text-rose-600 bg-rose-50" },
+                { name: "Utility Bill", id: "UB-112920", status: "VERIFIED", color: "text-green-600 bg-green-50" },
+                { name: "Tax Audit Certificate", id: "TAX-1920", status: "VERIFIED", color: "text-green-600 bg-green-50" },
+                { name: "VAT Registration Certificate", id: "VAT-8911", status: "VERIFIED", color: "text-green-600 bg-green-50" },
+                { name: "Articles of Association", id: "ART-8211", status: "VERIFIED", color: "text-green-600 bg-green-50" },
+                { name: "Shareholder Agreement", id: "SHA-9021", status: "VERIFIED", color: "text-green-600 bg-green-50" }
+              ].map((doc, idx) => (
+                <div key={idx} className="flex justify-between items-center p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                  <div>
+                    <p className="font-bold text-slate-900">{doc.name}</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">{doc.id}</p>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${doc.color}`}>
+                    {doc.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex gap-2 justify-end pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setActiveModal(null)}
+                className="px-6 py-2 bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md"
+              >
+                Close Vault
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </AdminShell>
   );
 }

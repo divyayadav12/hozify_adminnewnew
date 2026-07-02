@@ -225,13 +225,14 @@ export default function CancellationPolicy() {
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                         <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{clause.title}</span>
-                        <button onClick={() => removeClause(clause.id)} style={{ background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: '2px' }}>
+                        <button onClick={() => removeClause(clause.id)} style={{ background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: '2px' }} title="Remove this clause">
                           <X size={14} />
                         </button>
                       </div>
-                      <p style={{ margin: 0, fontSize: '13px', color: 'var(--text)', lineHeight: '1.6' }}>
-                        {clause.content}
-                      </p>
+                      <textarea
+                        style={{ margin: 0, fontSize: '13px', color: 'var(--text)', lineHeight: '1.6', width: '100%', border: 'none', outline: 'none', resize: 'vertical', background: 'transparent' }}
+                        defaultValue={clause.content}
+                      />
                     </div>
                   </div>
                 ))}

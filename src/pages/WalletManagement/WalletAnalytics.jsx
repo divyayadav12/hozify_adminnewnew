@@ -1,15 +1,90 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { 
   MoreVertical, 
   SlidersHorizontal, 
   Download, 
-  Building2 
+  Building2,
+  X
 } from "lucide-react";
 
+const SETTLEMENT_DATA = [
+  { id: '#SET-99021-X', merchant: 'Blue-Chip Retail Hub', volume: '$450,200.00', velocity: 80, status: 'Settled', statusColor: 'emerald', yield: '+$12,400.00', yieldColor: 'emerald' },
+  { id: '#SET-99022-P', merchant: 'Quantum Tech APAC', volume: '$1,290,000.50', velocity: 92, status: 'Settled', statusColor: 'emerald', yield: '+$38,210.15', yieldColor: 'emerald' },
+  { id: '#SET-99025-F', merchant: 'Neo-Bank Liquidity', volume: '$85,400.00', velocity: 33, status: 'Frozen', statusColor: 'rose', yield: '-$1,250.00', yieldColor: 'rose' },
+  { id: '#SET-99028-W', merchant: 'Luxe Global Logistics', volume: '$310,000.00', velocity: 50, status: 'Pending', statusColor: 'slate', yield: '$0.00', yieldColor: 'slate' },
+];
+
 export default function WalletAnalytics() {
+  const [timeRange, setTimeRange] = useState('30d');
+  const [toasts, setToasts] = useState([]);
+  const [modal, setModal] = useState(null);
+  const [filterStatus, setFilterStatus] = useState('All');
+
+  const toast = (message) => {
+    const id = Date.now();
+    setToasts(prev => [...prev, { id, message }]);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3500);
+  };
+
+  const handleExportCSV = () => {
+    const headers = ['Settlement ID', 'Merchant Group', 'Volume', 'Status', 'Net Yield'];
+    const rows = SETTLEMENT_DATA.map(r => [r.id, r.merchant, r.volume, r.status, r.yield]);
+    const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Wallet_Analytics_${timeRange}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('Settlement ledger exported successfully!');
+  };
+
+  const filteredData = filterStatus === 'All' ? SETTLEMENT_DATA : SETTLEMENT_DATA.filter(r => r.status === filterStatus);
+
+  const statusBadgeClass = (color) => ({
+    emerald: 'bg-emerald-50 text-emerald-700',
+    rose: 'bg-rose-50 text-rose-600',
+    slate: 'bg-slate-100 text-slate-500'
+  })[color] || 'bg-slate-100 text-slate-500';
+
+  const yieldClass = (color) => ({
+    emerald: 'text-emerald-600',
+    rose: 'text-rose-600',
+    slate: 'text-slate-400'
+  })[color] || 'text-slate-400';
+
   return (
+    <>
+    {/* Toast Notifications */}
+    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 10001, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {toasts.map(t => (
+        <div key={t.id} style={{ background: '#1e293b', color: '#fff', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', boxShadow: '0 4px 16px rgba(0,0,0,0.2)', maxWidth: '320px' }}>{t.message}</div>
+      ))}
+    </div>
+
+    {/* Modal Overlay */}
+    {modal && (
+      <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ background: '#fff', borderRadius: '12px', padding: '28px 32px', maxWidth: '460px', width: '90%', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: 0 }}>{modal.title}</h3>
+            <button onClick={() => setModal(null)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', lineHeight: 1 }}><X size={18} /></button>
+          </div>
+          {modal.content}
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '20px' }}>
+            <button onClick={() => setModal(null)} style={{ padding: '8px 18px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#f8fafc', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}>Close</button>
+            {modal.onConfirm && (
+              <button onClick={() => { modal.onConfirm(); setModal(null); }} style={{ padding: '8px 18px', borderRadius: '6px', border: 'none', background: '#1d1880', color: '#fff', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}>Apply</button>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
+
     <AdminShell activeTab="Analytics" searchPlaceholder="Search metrics...">
+
       
       {/* Light slate layout framework matching standard floating layout card templates */}
       <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-6 space-y-6 font-sans">
@@ -23,10 +98,33 @@ export default function WalletAnalytics() {
           
           {/* Timeframe Selector Button Group */}
           <div className="flex bg-white p-1 rounded border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm">
-            <button className="px-3 py-1.5 rounded hover:bg-slate-50">24h</button>
-            <button className="px-3 py-1.5 rounded hover:bg-slate-50">7d</button>
-            <button className="px-3 py-1.5 rounded bg-[#1d1880] text-white shadow-xs">30d</button>
-            <button className="px-3 py-1.5 rounded hover:bg-slate-50">Custom</button>
+            {['24h', '7d', '30d', 'Custom'].map(r => (
+              <button
+                key={r}
+                onClick={() => {
+                  if (r === 'Custom') {
+                    setModal({
+                      title: 'Custom Date Range',
+                      content: (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                          <div><label style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>From</label><input type="date" style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', outline: 'none' }} /></div>
+                          <div><label style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>To</label><input type="date" style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', outline: 'none' }} /></div>
+                        </div>
+                      ),
+                      onConfirm: () => { setTimeRange('Custom'); toast('Custom date range applied!'); }
+                    });
+                  } else {
+                    setTimeRange(r);
+                    toast(`Analytics view changed to ${r}`);
+                  }
+                }}
+                className={`px-3 py-1.5 rounded transition-colors ${
+                  timeRange === r ? 'bg-[#1d1880] text-white shadow-xs' : 'hover:bg-slate-50'
+                }`}
+              >
+                {r}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -103,7 +201,21 @@ export default function WalletAnalytics() {
                 <h3 className="text-sm font-bold text-slate-900">Wallet Growth Trend</h3>
                 <p className="text-[11px] text-slate-400 mt-0.5">Cumulative deposit and withdrawal volume</p>
               </div>
-              <button className="text-slate-400 hover:text-slate-600"><MoreVertical size={16} /></button>
+              <button
+                className="text-slate-400 hover:text-slate-600"
+                onClick={() => setModal({
+                  title: 'Chart Options',
+                  content: (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {['Download as PNG', 'Download as SVG', 'View Full Screen', 'Compare Periods'].map(opt => (
+                        <button key={opt} onClick={() => { setModal(null); toast(`${opt} triggered!`); }} style={{ textAlign: 'left', padding: '10px 14px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{opt}</button>
+                      ))}
+                    </div>
+                  )
+                })}
+              >
+                <MoreVertical size={16} />
+              </button>
             </div>
 
             <div className="my-6 relative h-48 w-full border-b border-slate-100">
@@ -183,10 +295,26 @@ export default function WalletAnalytics() {
           <div className="p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100">
             <h3 className="text-sm font-bold text-slate-900">Settlement Performance Ledger</h3>
             <div className="flex gap-2 w-full sm:w-auto">
-              <button className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded border border-slate-200 text-xs font-semibold hover:bg-slate-50 text-slate-600">
-                <SlidersHorizontal size={13} /> Filter
+              <button
+                className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded border border-slate-200 text-xs font-semibold hover:bg-slate-50 text-slate-600"
+                onClick={() => setModal({
+                  title: 'Filter Settlements',
+                  content: (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px' }}>Filter by settlement status:</p>
+                      {['All', 'Settled', 'Frozen', 'Pending'].map(s => (
+                        <button key={s} onClick={() => { setFilterStatus(s); setModal(null); toast(`Filter applied: ${s}`); }} style={{ textAlign: 'left', padding: '10px 14px', borderRadius: '8px', border: `1px solid ${filterStatus === s ? '#1d1880' : '#e2e8f0'}`, background: filterStatus === s ? '#eff6ff' : '#f8fafc', cursor: 'pointer', fontSize: '13px', fontWeight: '600', color: filterStatus === s ? '#1d1880' : '#1e293b' }}>{s}</button>
+                      ))}
+                    </div>
+                  )
+                })}
+              >
+                <SlidersHorizontal size={13} /> Filter {filterStatus !== 'All' && `(${filterStatus})`}
               </button>
-              <button className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded bg-[#1d1880] text-white text-xs font-bold shadow-xs">
+              <button
+                className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded bg-[#1d1880] text-white text-xs font-bold shadow-xs"
+                onClick={handleExportCSV}
+              >
                 <Download size={13} /> Export CSV
               </button>
             </div>
@@ -205,67 +333,25 @@ export default function WalletAnalytics() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 font-medium text-slate-600">
-                
-                <tr className="hover:bg-slate-50/60 transition-colors">
-                  <td className="px-6 py-4 font-mono text-slate-400">#SET-99021-X</td>
-                  <td className="px-6 py-4 font-bold text-indigo-900">Blue-Chip Retail Hub</td>
-                  <td className="px-6 py-4 font-bold text-slate-900">$450,200.00</td>
-                  <td className="px-6 py-4">
-                    <div className="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-emerald-600 h-full w-4/5" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-[9px] font-extrabold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-xs uppercase">Settled</span>
-                  </td>
-                  <td className="px-6 py-4 text-right font-bold text-emerald-600">+$12,400.00</td>
-                </tr>
-
-                <tr className="hover:bg-slate-50/60 transition-colors">
-                  <td className="px-6 py-4 font-mono text-slate-400">#SET-99022-P</td>
-                  <td className="px-6 py-4 font-bold text-indigo-900">Quantum Tech APAC</td>
-                  <td className="px-6 py-4 font-bold text-slate-900">$1,290,000.50</td>
-                  <td className="px-6 py-4">
-                    <div className="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-emerald-600 h-full w-11/12" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-[9px] font-extrabold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-xs uppercase">Settled</span>
-                  </td>
-                  <td className="px-6 py-4 text-right font-bold text-emerald-600">+$38,210.15</td>
-                </tr>
-
-                <tr className="hover:bg-slate-50/60 transition-colors">
-                  <td className="px-6 py-4 font-mono text-slate-400">#SET-99025-F</td>
-                  <td className="px-6 py-4 font-bold text-indigo-900">Neo-Bank Liquidity</td>
-                  <td className="px-6 py-4 font-bold text-slate-900">$85,400.00</td>
-                  <td className="px-6 py-4">
-                    <div className="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-rose-600 h-full w-1/3" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-[9px] font-extrabold bg-rose-50 text-rose-600 px-2 py-0.5 rounded-xs uppercase">Frozen</span>
-                  </td>
-                  <td className="px-6 py-4 text-right font-bold text-rose-600">-$1,250.00</td>
-                </tr>
-
-                <tr className="hover:bg-slate-50/60 transition-colors">
-                  <td className="px-6 py-4 font-mono text-slate-400">#SET-99028-W</td>
-                  <td className="px-6 py-4 font-bold text-indigo-900">Luxe Global Logistics</td>
-                  <td className="px-6 py-4 font-bold text-slate-900">$310,000.00</td>
-                  <td className="px-6 py-4">
-                    <div className="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-slate-300 h-full w-1/2" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-[9px] font-extrabold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-xs uppercase">Pending</span>
-                  </td>
-                  <td className="px-6 py-4 text-right font-bold text-slate-400">$0.00</td>
-                </tr>
-
+                {filteredData.map(row => (
+                  <tr key={row.id} className="hover:bg-slate-50/60 transition-colors">
+                    <td className="px-6 py-4 font-mono text-slate-400">{row.id}</td>
+                    <td className="px-6 py-4 font-bold text-indigo-900">{row.merchant}</td>
+                    <td className="px-6 py-4 font-bold text-slate-900">{row.volume}</td>
+                    <td className="px-6 py-4">
+                      <div className="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div className={`h-full ${row.statusColor === 'emerald' ? 'bg-emerald-600' : row.statusColor === 'rose' ? 'bg-rose-600' : 'bg-slate-300'}`} style={{ width: `${row.velocity}%` }} />
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-xs uppercase ${statusBadgeClass(row.statusColor)}`}>{row.status}</span>
+                    </td>
+                    <td className={`px-6 py-4 text-right font-bold ${yieldClass(row.yieldColor)}`}>{row.yield}</td>
+                  </tr>
+                ))}
+                {filteredData.length === 0 && (
+                  <tr><td colSpan="6" className="px-6 py-8 text-center text-slate-400 font-bold">No records match the current filter.</td></tr>
+                )}
               </tbody>
             </table></div>
           </div>
@@ -317,5 +403,6 @@ export default function WalletAnalytics() {
 
       </div>
     </AdminShell>
+    </>
   );
 }

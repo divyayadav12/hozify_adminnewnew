@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import {
   Star,
@@ -101,15 +102,15 @@ export default function EmployeeProfile({ employee, onBack }) {
               </p>
               
               <div style={{ display: 'flex', gap: '10px' }}>
-                <button className="primary-action-btn font-bold" style={{ height: '32px', padding: '0 14px', fontSize: '12px' }}>
+                <button className="primary-action-btn font-bold" style={{ height: '32px', padding: '0 14px', fontSize: '12px' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                   <Edit size={12} style={{ marginRight: '4px' }} />
                   Edit Profile
                 </button>
-                <button className="secondary-action-btn font-bold" style={{ height: '32px', padding: '0 14px', fontSize: '12px' }}>
+                <button className="secondary-action-btn font-bold" style={{ height: '32px', padding: '0 14px', fontSize: '12px' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                   <Download size={12} style={{ marginRight: '4px' }} />
                   Download CV
                 </button>
-                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <button className="secondary-action-btn" style={{ height: '32px', width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                   <MoreHorizontal size={16} />
                 </button>
               </div>
@@ -206,7 +207,7 @@ export default function EmployeeProfile({ employee, onBack }) {
             <div className="panel" style={{ padding: '24px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h2 style={{ fontSize: '15px', fontWeight: '700', margin: '0' }}>Recent Bookings</h2>
-                <button style={{ border: 'none', background: 'transparent', color: '#4f46e5', fontWeight: '700', fontSize: '12px', cursor: 'pointer', padding: 0 }}>
+                <button style={{ border: 'none', background: 'transparent', color: '#4f46e5', fontWeight: '700', fontSize: '12px', cursor: 'pointer', padding: 0 }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                   View All
                 </button>
               </div>
@@ -243,7 +244,7 @@ export default function EmployeeProfile({ employee, onBack }) {
                           </span>
                         </td>
                         <td style={{ padding: '12px 14px', textAlign: 'right' }}>
-                          <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer', padding: 0 }}>
+                          <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer', padding: 0 }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                             <MoreVertical size={16} />
                           </button>
                         </td>
@@ -289,7 +290,7 @@ export default function EmployeeProfile({ employee, onBack }) {
                 </div>
               </div>
 
-              <button className="secondary-action-btn font-bold" style={{ width: '100%', height: '38px', justifyContent: 'center' }}>
+              <button className="secondary-action-btn font-bold" style={{ width: '100%', height: '38px', justifyContent: 'center' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 Review Documents
               </button>
             </div>

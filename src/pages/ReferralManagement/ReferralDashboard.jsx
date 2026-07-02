@@ -96,6 +96,9 @@ export default function ReferralDashboard() {
 
   // Modal aur Input States
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDateFilter, setShowDateFilter] = useState(false);
+  const [dateRange, setDateRange] = useState("Last 30 Days");
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     user: "",
     campaign: "Summer Growth",
@@ -137,7 +140,7 @@ export default function ReferralDashboard() {
         {/* HEADER */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-black text-indigo-955">
+            <h1 className="text-3xl font-black text-indigo-950">
               Referral Management
             </h1>
             <p className="text-slate-500 mt-2">
@@ -146,10 +149,34 @@ export default function ReferralDashboard() {
           </div>
 
           <div className="flex flex-wrap gap-3 w-full lg:w-auto">
-            <button type="button" onClick={() => addToast("Filtering data for Last 30 Days", "info")} className="flex items-center gap-2 px-4 py-2 bg-white border rounded-xl font-medium text-sm hover:bg-slate-50 transition-colors">
-              <Calendar size={14} />
-              Last 30 Days
-            </button>
+            <div className="relative">
+              <button 
+                type="button" 
+                onClick={() => setShowDateFilter(!showDateFilter)} 
+                className="flex items-center gap-2 px-4 py-2 bg-white border rounded-xl font-medium text-sm hover:bg-slate-50 transition-colors"
+              >
+                <Calendar size={14} />
+                {dateRange}
+              </button>
+              {showDateFilter && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-white border rounded-xl shadow-lg z-50 py-2">
+                  {["Today", "Last 7 Days", "Last 30 Days", "This Month", "Last Year"].map(range => (
+                    <button
+                      key={range}
+                      type="button"
+                      onClick={() => {
+                        setDateRange(range);
+                        setShowDateFilter(false);
+                        addToast(`Date range set to ${range}`, "success");
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm hover:bg-slate-50 cursor-pointer"
+                    >
+                      {range}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <button type="button" onClick={() => addToast("Exporting Dashboard as PDF...", "info")} className="flex items-center gap-2 px-4 py-2 bg-white border rounded-xl font-medium text-sm hover:bg-slate-50 transition-colors">
               <Download size={14} />
@@ -216,25 +243,21 @@ export default function ReferralDashboard() {
             </div>
 
             <div className="h-[320px] md:h-[380px] flex items-end justify-between px-2 md:px-6">
-              {[40, 55, 80, 65, 58, 90, 76].map((h, index) => (
-                <div
-                  key={index}
-                  className={`w-10 rounded-t ${
-                    index === 2 ? "bg-indigo-800" : "bg-indigo-100"
-                  }`}
-                  style={{ height: `${h}%` }}
-                />
-              ))}
+              {chartView === "Daily" 
+                ? [40, 55, 80, 65, 58, 90, 76].map((h, index) => (
+                    <div key={`d-${index}`} className={`w-10 rounded-t ${index === 2 ? "bg-indigo-800" : "bg-indigo-100"}`} style={{ height: `${h}%` }} />
+                  ))
+                : [30, 45, 80, 95].map((h, index) => (
+                    <div key={`w-${index}`} className={`w-16 rounded-t ${index === 3 ? "bg-indigo-800" : "bg-indigo-100"}`} style={{ height: `${h}%` }} />
+                  ))
+              }
             </div>
 
             <div className="flex justify-between mt-3 text-[10px] font-bold text-slate-500 px-3">
-              <span>MON</span>
-              <span>TUE</span>
-              <span>WED</span>
-              <span>THU</span>
-              <span>FRI</span>
-              <span>SAT</span>
-              <span>SUN</span>
+              {chartView === "Daily" 
+                ? <><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></>
+                : <><span>WEEK 1</span><span>WEEK 2</span><span>WEEK 3</span><span>WEEK 4</span></>
+              }
             </div>
           </div>
 
@@ -280,8 +303,8 @@ export default function ReferralDashboard() {
             <h3 className="font-black text-indigo-950">
               Recent Transactions
             </h3>
-            <button type="button" onClick={() => addToast("Navigating to full transaction history", "info")} className="font-bold text-indigo-700 hover:text-indigo-900 text-sm cursor-pointer">
-              View History
+            <button type="button" onClick={() => setIsHistoryModalOpen(true)} className="font-bold text-indigo-700 hover:text-indigo-900 text-sm cursor-pointer">
+              View All History
             </button>
           </div>
 
@@ -298,7 +321,7 @@ export default function ReferralDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {transactions.map((tx) => (
+                {transactions.slice(0, 3).map((tx) => (
                   <tr key={tx.id} className="border-t hover:bg-slate-50 transition-colors">
                     <td className="p-4 text-sm font-semibold text-slate-800">{tx.user}</td>
                     <td className="p-4 text-sm text-slate-600">{tx.campaign}</td>
@@ -326,7 +349,7 @@ export default function ReferralDashboard() {
 
       {/* CREATE REFERRAL MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[999] p-4 animate-in fade-in duration-200">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-slate-100 overflow-hidden">
             <div className="flex justify-between items-center px-6 py-4 border-b border-slate-100 bg-slate-50">
               <h3 className="font-black text-indigo-950 text-lg">Create New Referral</h3>
@@ -399,6 +422,59 @@ export default function ReferralDashboard() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* HISTORY MODAL */}
+      {isHistoryModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[999] p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl w-full max-w-4xl shadow-2xl border border-slate-100 overflow-hidden flex flex-col max-h-[80vh]">
+            <div className="flex justify-between items-center px-6 py-4 border-b border-slate-100 bg-slate-50 shrink-0">
+              <h3 className="font-black text-indigo-950 text-lg">Complete Transaction History</h3>
+              <button 
+                onClick={() => setIsHistoryModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/50 transition-all cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="overflow-auto p-4">
+              <table className="w-full text-left border-collapse">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="p-4 text-xs font-bold text-slate-500">USER</th>
+                    <th className="p-4 text-xs font-bold text-slate-500">CAMPAIGN</th>
+                    <th className="p-4 text-xs font-bold text-slate-500">REFERRAL CODE</th>
+                    <th className="p-4 text-xs font-bold text-slate-500">STATUS</th>
+                    <th className="p-4 text-xs font-bold text-slate-500">REWARD</th>
+                    <th className="p-4 text-xs font-bold text-slate-500">DATE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactions.map((tx) => (
+                    <tr key={tx.id} className="border-t hover:bg-slate-50 transition-colors">
+                      <td className="p-4 text-sm font-semibold text-slate-800">{tx.user}</td>
+                      <td className="p-4 text-sm text-slate-600">{tx.campaign}</td>
+                      <td className="p-4 text-sm font-mono text-indigo-600 font-bold">{tx.code}</td>
+                      <td className="p-4">
+                        <span
+                          className={`px-2 py-1 rounded text-xs font-bold ${
+                            tx.status === "COMPLETED"
+                              ? "bg-emerald-100 text-emerald-700"
+                              : "bg-yellow-100 text-yellow-700"
+                          }`}
+                        >
+                          {tx.status}
+                        </span>
+                      </td>
+                      <td className="p-4 text-sm font-bold text-slate-900">{tx.reward}</td>
+                      <td className="p-4 text-sm text-slate-400">{tx.date}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

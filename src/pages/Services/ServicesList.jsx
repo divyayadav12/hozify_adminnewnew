@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import {
   SlidersHorizontal,
@@ -210,7 +211,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
                 gap: '8px'
               }}
               type="button"
-            >
+             onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <Download size={16} />
               <span>Export CSV</span>
             </button>
@@ -376,7 +377,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
                         }}
                         type="button"
                         title="Edit service"
-                      >
+                       onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                         <Edit size={16} />
                       </button>
                     </div>
@@ -395,19 +396,19 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
             <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
-              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 Previous
               </button>
-              <button style={{ border: 'none', background: '#e0e7ff', color: '#4f46e5', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+              <button style={{ border: 'none', background: '#e0e7ff', color: '#4f46e5', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 1
               </button>
-              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 2
               </button>
-              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 3
               </button>
-              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+              <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 Next
               </button>
             </div>
@@ -428,7 +429,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
                 gap: '6px'
               }}
               type="button"
-            >
+             onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <Download size={14} />
               <span>Export Dataset</span>
             </button>

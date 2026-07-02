@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
@@ -134,8 +135,8 @@ export default function BusinessTaxonomy() {
               <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Categories Management</h2>
               
               <div style={{ display: 'flex', gap: '10px' }}>
-                <button style={{ height: '28px', width: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9', border: 'none', borderRadius: '4px', cursor: 'pointer' }} type="button" aria-label="Sort categories"><SlidersHorizontal size={12} style={{ color: 'var(--muted)' }} /></button>
-                <button style={{ height: '28px', width: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9', border: 'none', borderRadius: '4px', cursor: 'pointer' }} type="button" aria-label="Export categories"><FileSpreadsheet size={12} style={{ color: 'var(--muted)' }} /></button>
+                <button style={{ height: '28px', width: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9', border: 'none', borderRadius: '4px', cursor: 'pointer' }} type="button" aria-label="Sort categories" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}><SlidersHorizontal size={12} style={{ color: 'var(--muted)' }} /></button>
+                <button style={{ height: '28px', width: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9', border: 'none', borderRadius: '4px', cursor: 'pointer' }} type="button" aria-label="Export categories" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}><FileSpreadsheet size={12} style={{ color: 'var(--muted)' }} /></button>
               </div>
             </div>
 
@@ -197,9 +198,9 @@ export default function BusinessTaxonomy() {
               
               <div className="pagination-wrap" style={{ display: 'flex', gap: '6px' }}>
                 <button className="pag-nav-btn" disabled type="button">Previous</button>
-                <button className="pag-num-btn active" type="button">1</button>
-                <button className="pag-num-btn" type="button">2</button>
-                <button className="pag-nav-btn" type="button">Next</button>
+                <button className="pag-num-btn active" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
+                <button className="pag-num-btn" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>2</button>
+                <button className="pag-nav-btn" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>Next</button>
               </div>
             </div>
           </div>

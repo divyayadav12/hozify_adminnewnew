@@ -14,12 +14,14 @@ import {
   Download,
   Filter,
   Eye,
+  X,
 } from "lucide-react";
 
 export default function UserWalletPage() {
   const { navigate } = useApp();
   const { addToast } = useToast();
   const [filterType, setFilterType] = useState("All");
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   // Flatten transactions from mock users data
   const allTransactions = useMemo(() => {
@@ -58,7 +60,7 @@ export default function UserWalletPage() {
   };
 
   const handleViewDetails = (txn) => {
-    addToast(`Transaction details: ID ${txn.id}, Amount ₹${txn.amount}, User: ${txn.userName}`, "success");
+    setSelectedTransaction(txn);
   };
 
 
@@ -249,6 +251,90 @@ export default function UserWalletPage() {
           Showing {filteredTransactions.length} transactions • Auto-updated every 5 min
         </div>
       </div>
+
+      {/* TRANSACTION DETAILS MODAL */}
+      {selectedTransaction && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div 
+            className="fixed inset-0 bg-transparent" 
+            onClick={() => setSelectedTransaction(null)}
+          />
+          <div className="relative bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-2xl p-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Modal Header */}
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">Transaction Details</h3>
+                <p className="text-xs font-semibold text-slate-400 mt-0.5">Reference ID: {selectedTransaction.id}</p>
+              </div>
+              <button 
+                onClick={() => setSelectedTransaction(null)}
+                className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Modal Details list */}
+            <div className="space-y-3.5 text-xs">
+              <div className="flex justify-between py-2 border-b border-slate-50">
+                <span className="font-bold text-slate-400">User:</span>
+                <span className="font-black text-slate-900">{selectedTransaction.userName}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-slate-50">
+                <span className="font-bold text-slate-400">Mobile:</span>
+                <span className="font-black text-slate-900">{selectedTransaction.userMobile}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-slate-50">
+                <span className="font-bold text-slate-400">Type:</span>
+                <span className={`font-black uppercase tracking-wider text-[10px] px-2 py-0.5 rounded ${
+                  selectedTransaction.type === "Credit" ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
+                }`}>{selectedTransaction.type}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-slate-50">
+                <span className="font-bold text-slate-400">Amount:</span>
+                <span className="font-black text-slate-900 text-sm">₹{selectedTransaction.amount.toLocaleString("en-IN")}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-slate-50">
+                <span className="font-bold text-slate-400">Remarks:</span>
+                <span className="font-black text-slate-900 text-right">{selectedTransaction.remarks}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-slate-50">
+                <span className="font-bold text-slate-400">Transaction Date:</span>
+                <span className="font-black text-slate-900">{selectedTransaction.date}</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="font-bold text-slate-400">Fulfillment Status:</span>
+                <span className="font-black text-green-600 flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-green-500" /> Success
+                </span>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 pt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedTransaction(null);
+                    addToast("Transaction record marked as verified.", "success");
+                  }}
+                  className="flex-1 py-2 text-center bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md active:scale-98 transition-transform"
+                >
+                  Verify Audit Record
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedTransaction(null);
+                  }}
+                  className="flex-1 py-2 text-center border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

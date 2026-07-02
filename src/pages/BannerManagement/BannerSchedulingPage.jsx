@@ -1,20 +1,24 @@
 import React, { useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import AdminShell from "../../components/layouts/AdminShell";
 import { 
   ChevronLeft, ChevronRight, Calendar, AlertTriangle, 
   ExternalLink, MoreVertical, Plus 
 } from "lucide-react";
+import { useToast } from '../../components/common/ToastNotification';
 
 // Bottom section me dikhne wale slots cards
 function ScheduledSlotCard({ title, status, zone, dateRange, bgImg }) {
+  const { addToast } = useToast();
   return (
-<div className="bg-white border border-slate-100 p-4 rounded-xl shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow min-h-[110px]">
-  <div className="w-32 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-slate-200">  <img
-    src={bgImg}
-    alt={title}
-    className="w-full h-full object-cover"
-  />
-</div>  
+    <div className="bg-white border border-slate-100 p-4 rounded-xl shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow min-h-[110px]">
+      <div className="w-32 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-slate-200">
+        <img
+          src={bgImg}
+          alt={title}
+          className="w-full h-full object-cover"
+        />
+      </div>  
       <div className="flex-1 min-w-0">
         <div className="flex items-center space-x-2">
           <h4 className="text-xs font-bold text-slate-900 truncate">{title}</h4>
@@ -29,7 +33,7 @@ function ScheduledSlotCard({ title, status, zone, dateRange, bgImg }) {
           <Calendar size={10} /> <span>{dateRange}</span>
         </p>
       </div>
-      <button onClick={() => alert(`Opening options for ${title}`)} className="text-slate-400 hover:text-slate-600 shrink-0">
+      <button onClick={() => addToast(`Opening configuration options for ${title}...`, 'info')} className="text-slate-400 hover:text-slate-600 shrink-0 cursor-pointer">
         <MoreVertical size={14} />
       </button>
     </div>
@@ -49,10 +53,11 @@ function FilterCheckbox({ label, colorClass, checked }) {
   );
 }
 // ========================================================================
-// 2. MAIN DASHBOARD ELEMENT ROUTE CONTAINER (PART A - SCHEDULING CALENDAR GRID)
+// 2. MAIN DASHBOARD ELEMENT ROUTE CONTAINER
 // ========================================================================
 
 export default function BannerSchedulingPage() {
+  const { addToast } = useToast();
   const [viewTab, setViewTab] = useState("Timeline");
   const [currentDate, setCurrentDate] = useState(new Date(2024, 10, 1));
   const quickScheduleRef = useRef(null);
@@ -67,13 +72,12 @@ export default function BannerSchedulingPage() {
   const [newStartDate, setNewStartDate] = useState("");
   const [newEndDate, setNewEndDate] = useState("");
   const [showAllSlotsModal, setShowAllSlotsModal] = useState(false);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
 
   const handlePrevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
   const handleNextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   const monthName = currentDate.toLocaleString('default', { month: 'long' });
   const year = currentDate.getFullYear();
-
-  const [showScheduleModal, setShowScheduleModal] = useState(false);
 
   const handleScheduleNewBanner = () => {
     setShowScheduleModal(true);
@@ -81,7 +85,7 @@ export default function BannerSchedulingPage() {
 
   const handleCreateSchedule = () => {
     if (!newCampaignName || !newStartDate || !newEndDate) {
-      alert("Please fill all fields");
+      addToast("Please fill all fields to create a schedule.", "error");
       return;
     }
     const newSlot = {
@@ -97,12 +101,12 @@ export default function BannerSchedulingPage() {
     setNewStartDate("");
     setNewEndDate("");
     setShowScheduleModal(false);
-    alert("Schedule created successfully!");
+    addToast("New campaign schedule created successfully!", "success");
   };
 
   return (
     <AdminShell activeTab="Banners" searchPlaceholder="Search campaigns or users...">
-      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto font-sans antialiased">
+      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto font-sans antialiased relative">
         
         {/* HEADER TOOLBAR TITLE ROW */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -117,7 +121,7 @@ export default function BannerSchedulingPage() {
                 <button
                   key={tab}
                   onClick={() => setViewTab(tab)}
-                  className={`px-3 py-1.5 rounded-md transition-all ${
+                  className={`px-3 py-1.5 rounded-md transition-all cursor-pointer ${
                     viewTab === tab ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-800"
                   }`}
                 >
@@ -125,7 +129,7 @@ export default function BannerSchedulingPage() {
                 </button>
               ))}
             </div>
-            <button onClick={handleScheduleNewBanner} className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all">
+            <button onClick={handleScheduleNewBanner} className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer">
               <Plus size={18} />
               <span>Schedule New Banner</span>
             </button>
@@ -133,7 +137,7 @@ export default function BannerSchedulingPage() {
         </div>
 
         {/* MAIN SIDEBAR + MAIN VIEW WORKSPACE SPLIT LAYOUT GRID */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">          
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">          
           {/* LEFT 3 COLUMNS AREA: CRITICAL ALERTS & TIMELINE VISUAL DATA BLOCK */}
           <div className="lg:col-span-3 space-y-6">
             
@@ -150,7 +154,7 @@ export default function BannerSchedulingPage() {
                   </p>
                 </div>
               </div>
-              <button onClick={() => alert('Opening conflict resolution tool...')} className="whitespace-nowrap bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors shadow-sm">
+              <button onClick={() => addToast('Opening conflict resolution modal...', 'warning')} className="whitespace-nowrap bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors shadow-sm cursor-pointer">
                 Resolve Now
               </button>
             </div>
@@ -161,9 +165,9 @@ export default function BannerSchedulingPage() {
               {/* MONTH NAVIGATION + FILTER PILLS GROUP BAR */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-50">
                 <div className="flex items-center space-x-3 bg-slate-50 border border-slate-100 px-3 py-1.5 rounded-xl">
-                  <button onClick={handlePrevMonth} className="text-slate-500 hover:text-slate-800 p-0.5"><ChevronLeft size={14} /></button>
+                  <button onClick={handlePrevMonth} className="text-slate-500 hover:text-slate-800 p-0.5 cursor-pointer"><ChevronLeft size={14} /></button>
                   <span className="text-xs font-bold text-slate-800 min-w-[90px] text-center">{monthName} {year}</span>
-                  <button onClick={handleNextMonth} className="text-slate-500 hover:text-slate-800 p-0.5"><ChevronRight size={18} /></button>
+                  <button onClick={handleNextMonth} className="text-slate-500 hover:text-slate-800 p-0.5 cursor-pointer"><ChevronRight size={18} /></button>
                 </div>
                 
                 {/* Horizontal custom interactive filters checklist checkboxes group box */}
@@ -280,7 +284,7 @@ export default function BannerSchedulingPage() {
                   </div>
                 </div>
 
-                <button onClick={handleCreateSchedule} className="w-full bg-indigo-950 hover:bg-indigo-900 text-white font-bold py-2.5 rounded-xl mt-2 transition-colors shadow-sm text-center">
+                <button onClick={handleCreateSchedule} className="w-full bg-indigo-950 hover:bg-indigo-900 text-white font-bold py-2.5 rounded-xl mt-2 transition-colors shadow-sm text-center cursor-pointer">
                   Create Schedule
                 </button>
               </div>
@@ -310,45 +314,45 @@ export default function BannerSchedulingPage() {
               </div>
             </div>
 
-{/* LATEST INTERACTIVE ASSET UPLOAD CARD LINK BOX ELEMENT CONTAINER */}
-<div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 space-y-3">
-  <div className="flex justify-between items-center">
-    <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest">
-      Latest Asset Upload
-    </h3>
-    <ExternalLink
-      size={16}
-      className="text-slate-400 cursor-pointer hover:text-slate-600"
-      onClick={() => alert("Opening latest asset in new tab...")}
-    />
-  </div>
+            {/* LATEST INTERACTIVE ASSET UPLOAD CARD LINK BOX ELEMENT CONTAINER */}
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 space-y-3">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest">
+                  Latest Asset Upload
+                </h3>
+                <ExternalLink
+                  size={16}
+                  className="text-slate-400 cursor-pointer hover:text-slate-600"
+                  onClick={() => window.open('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200', '_blank')}
+                />
+              </div>
 
-  <div className="h-24 rounded-xl overflow-hidden border border-slate-200 shadow-sm">
-    <img
-      src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200"
-      alt="Latest Asset"
-      className="w-full h-full object-cover"
-    />
-  </div>
+              <div className="h-24 rounded-xl overflow-hidden border border-slate-200 shadow-sm">
+                <img
+                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200"
+                  alt="Latest Asset"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-  <div>
-    <p className="text-sm font-bold text-slate-800 truncate">
-      hero_banner_winter_final.jpg
-    </p>
-    <p className="text-[10px] text-slate-400 mt-0.5">
-      1920×600 • 2.4 MB
-    </p>
-  </div>
-</div>
+              <div>
+                <p className="text-sm font-bold text-slate-800 truncate">
+                  hero_banner_winter_final.jpg
+                </p>
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  1920×600 • 2.4 MB
+                </p>
+              </div>
+            </div>
 
           </div>
         </div>
 
         {/* BOTTOM SECTION FOOTER: LIVE SCHEDULED SLOTS GRID PREVIEW GROUPS */}
-       <div className="space-y-4 -mt-60">
+        <div className="space-y-4 -mt-60">
           <div className="flex justify-between items-center">
             <h3 className="text-sm font-bold text-gray-900">Scheduled Slots Detail</h3>
-            <button onClick={() => setShowAllSlotsModal(true)} className="text-xs font-bold text-indigo-600 hover:underline">View All</button>
+            <button onClick={() => setShowAllSlotsModal(true)} className="text-xs font-bold text-indigo-600 hover:underline cursor-pointer">View All</button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
@@ -360,12 +364,12 @@ export default function BannerSchedulingPage() {
 
       </div>
 
-      {showAllSlotsModal && (
-        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[80vh] flex flex-col">
+      {showAllSlotsModal && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 bg-slate-900/60 z-[99999] flex items-center justify-center p-6 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[80vh] flex flex-col animate-in fade-in zoom-in duration-200">
             <div className="p-6 border-b border-slate-100 flex justify-between items-center">
               <h2 className="text-xl font-bold text-slate-900">All Scheduled Slots</h2>
-              <button onClick={() => setShowAllSlotsModal(false)} className="text-slate-400 hover:text-slate-600 font-bold text-3xl">&times;</button>
+              <button onClick={() => setShowAllSlotsModal(false)} className="text-slate-400 hover:text-slate-600 font-bold text-3xl cursor-pointer">&times;</button>
             </div>
             <div className="p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {scheduledSlots.map(slot => (
@@ -373,18 +377,19 @@ export default function BannerSchedulingPage() {
               ))}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
-      {showScheduleModal && (
-        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md flex flex-col p-6 space-y-4">
+      {showScheduleModal && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 bg-slate-900/60 z-[99999] flex items-center justify-center p-6 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md flex flex-col p-6 space-y-4 animate-in fade-in zoom-in duration-200">
             <div className="flex justify-between items-center border-b border-slate-100 pb-4">
               <div>
                 <h2 className="text-lg font-bold text-slate-900">Schedule New Banner</h2>
                 <p className="text-xs text-slate-500 mt-1">Configure and deploy a new promotional asset.</p>
               </div>
-              <button onClick={() => setShowScheduleModal(false)} className="text-slate-400 hover:text-slate-600 font-bold text-2xl">&times;</button>
+              <button onClick={() => setShowScheduleModal(false)} className="text-slate-400 hover:text-slate-600 font-bold text-2xl cursor-pointer">&times;</button>
             </div>
             
             <div className="space-y-4 pt-2">
@@ -395,7 +400,7 @@ export default function BannerSchedulingPage() {
               
               <div className="space-y-1">
                 <label className="font-bold text-slate-600 block text-sm">Zone Placement</label>
-                <select value={newZone} onChange={(e) => setNewZone(e.target.value)} className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl outline-none font-medium text-slate-700">
+                <select value={newZone} onChange={(e) => setNewZone(e.target.value)} className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl outline-none font-medium text-slate-700 bg-white">
                   <option>Homepage Hero</option>
                   <option>Offers Sidebar</option>
                   <option>Category Header</option>
@@ -413,12 +418,18 @@ export default function BannerSchedulingPage() {
                 </div>
               </div>
 
-              <button onClick={handleCreateSchedule} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl mt-4 transition-colors shadow-sm text-center">
-                Create Schedule
-              </button>
+              <div className="flex gap-3 pt-2">
+                <button onClick={() => setShowScheduleModal(false)} className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-xl transition-colors text-center cursor-pointer">
+                  Cancel
+                </button>
+                <button onClick={handleCreateSchedule} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition-colors shadow-sm text-center cursor-pointer">
+                  Create Schedule
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </AdminShell>
   );

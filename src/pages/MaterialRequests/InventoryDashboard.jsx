@@ -9,15 +9,75 @@ import {
   Download,
   Plus,
   SlidersHorizontal,
-  MoreVertical
+  MoreVertical,
+  Trash2,
+  Edit3,
+  Eye
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
+import { useToast } from '../../components/common/ToastNotification';
 
 export default function InventoryDashboard() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
   const [timeframe, setTimeframe] = useState('Last 30 Days');
+
+  // Materials State for dynamic table
+  const [materials, setMaterials] = useState([
+    {
+      id: 1,
+      name: 'Cold Rolled Steel Sheets',
+      sku: 'STE-2940-CR',
+      stock: 4200,
+      unit: 'Units',
+      status: 'Approved',
+      updated: '2h ago',
+      img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=100&h=100&q=80'
+    },
+    {
+      id: 2,
+      name: 'Industrial Grade Polymer',
+      sku: 'POL-1120-HD',
+      stock: 850,
+      unit: 'Reorder',
+      status: 'Pending',
+      updated: '15m ago',
+      img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=100&h=100&q=80'
+    },
+    {
+      id: 3,
+      name: 'Aluminum Alloy Rods',
+      sku: 'ALU-8821-EX',
+      stock: 2150,
+      unit: 'Units',
+      status: 'Approved',
+      updated: 'Yesterday',
+      img: 'https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&w=100&h=100&q=80'
+    },
+    {
+      id: 4,
+      name: 'Micro-Control Units',
+      sku: 'MCU-4512-P',
+      stock: 12,
+      unit: 'Critical',
+      status: 'Suspended',
+      updated: '5m ago',
+      img: 'https://images.unsplash.com/photo-1591453089816-0fbb971b454c?auto=format&fit=crop&w=100&h=100&q=80'
+    }
+  ]);
+
+  // Dropdown & Modal States
+  const [activeMenuId, setActiveMenuId] = useState(null);
+  const [adjustStockModalOpen, setAdjustStockModalOpen] = useState(false);
+  const [selectedMaterialForStock, setSelectedMaterialForStock] = useState(null);
+  const [newStockValue, setNewStockValue] = useState('');
+  const [newStockUnit, setNewStockUnit] = useState('Units');
+
+  const [editStatusModalOpen, setEditStatusModalOpen] = useState(false);
+  const [selectedMaterialForStatus, setSelectedMaterialForStatus] = useState(null);
+  const [newStatusValue, setNewStatusValue] = useState('Approved');
 
   const handleAddMaterial = () => {
     navigate(ROUTES.materialCreate);
@@ -316,87 +376,154 @@ export default function InventoryDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  {
-                    name: 'Cold Rolled Steel Sheets',
-                    sku: 'STE-2940-CR',
-                    stock: '4,200 Units',
-                    stockColor: '#1c2536',
-                    status: 'Approved',
-                    statusBg: '#ecfdf5',
-                    statusColor: '#059669',
-                    updated: '2h ago',
-                    img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=100&h=100&q=80'
-                  },
-                  {
-                    name: 'Industrial Grade Polymer',
-                    sku: 'POL-1120-HD',
-                    stock: '850 Reorder',
-                    stockColor: '#d97706',
-                    status: 'Pending',
-                    statusBg: '#fffbeb',
-                    statusColor: '#d97706',
-                    updated: '15m ago',
-                    img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=100&h=100&q=80'
-                  },
-                  {
-                    name: 'Aluminum Alloy Rods',
-                    sku: 'ALU-8821-EX',
-                    stock: '2,150 Units',
-                    stockColor: '#1c2536',
-                    status: 'Approved',
-                    statusBg: '#ecfdf5',
-                    statusColor: '#059669',
-                    updated: 'Yesterday',
-                    img: 'https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&w=100&h=100&q=80'
-                  },
-                  {
-                    name: 'Micro-Control Units',
-                    sku: 'MCU-4512-P',
-                    stock: '12 Critical',
-                    stockColor: '#dc2626',
-                    status: 'Suspended',
-                    statusBg: '#fef2f2',
-                    statusColor: '#dc2626',
-                    updated: '5m ago',
-                    img: 'https://images.unsplash.com/photo-1591453089816-0fbb971b454c?auto=format&fit=crop&w=100&h=100&q=80'
+                {materials.map((row, idx) => {
+                  // Compute stock styles dynamically
+                  let stockColor = '#1c2536';
+                  if (row.unit === 'Critical') {
+                    stockColor = '#dc2626';
+                  } else if (row.unit === 'Reorder') {
+                    stockColor = '#d97706';
                   }
-                ].map((row, idx) => (
-                  <tr key={idx} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '14px 8px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <img src={row.img} alt={row.name} style={{ width: '36px', height: '36px', borderRadius: '6px', objectFit: 'cover' }} />
-                        <strong style={{ fontSize: '13px', color: '#1c2536' }}>{row.name}</strong>
-                      </div>
-                    </td>
-                    <td style={{ padding: '14px 8px', fontSize: '12px', color: '#565365', fontWeight: '600' }}>
-                      {row.sku}
-                    </td>
-                    <td style={{ padding: '14px 8px', fontSize: '13px', fontWeight: '700', color: row.stockColor }}>
-                      {row.stock}
-                    </td>
-                    <td style={{ padding: '14px 8px' }}>
-                      <span style={{
-                        fontSize: '11px',
-                        fontWeight: '800',
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        background: row.statusBg,
-                        color: row.statusColor
-                      }}>
-                        {row.status}
-                      </span>
-                    </td>
-                    <td style={{ padding: '14px 8px', fontSize: '12px', color: '#7a7688' }}>
-                      {row.updated}
-                    </td>
-                    <td style={{ padding: '14px 8px', textAlign: 'right' }}>
-                      <button style={{ border: 'none', background: 'transparent', color: '#7a7688', cursor: 'pointer' }} type="button">
-                        <MoreVertical size={16} />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+
+                  // Compute status styles dynamically
+                  let statusBg = '#ecfdf5';
+                  let statusColor = '#059669';
+                  if (row.status === 'Pending') {
+                    statusBg = '#fffbeb';
+                    statusColor = '#d97706';
+                  } else if (row.status === 'Suspended') {
+                    statusBg = '#fef2f2';
+                    statusColor = '#dc2626';
+                  }
+
+                  return (
+                    <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                      <td style={{ padding: '14px 8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <img src={row.img} alt={row.name} style={{ width: '36px', height: '36px', borderRadius: '6px', objectFit: 'cover' }} />
+                          <strong style={{ fontSize: '13px', color: '#1c2536' }}>{row.name}</strong>
+                        </div>
+                      </td>
+                      <td style={{ padding: '14px 8px', fontSize: '12px', color: '#565365', fontWeight: '600' }}>
+                        {row.sku}
+                      </td>
+                      <td style={{ padding: '14px 8px', fontSize: '13px', fontWeight: '700', color: stockColor }}>
+                        {row.stock.toLocaleString()} {row.unit}
+                      </td>
+                      <td style={{ padding: '14px 8px' }}>
+                        <span style={{
+                          fontSize: '11px',
+                          fontWeight: '800',
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: statusBg,
+                          color: statusColor
+                        }}>
+                          {row.status}
+                        </span>
+                      </td>
+                      <td style={{ padding: '14px 8px', fontSize: '12px', color: '#7a7688' }}>
+                        {row.updated}
+                      </td>
+                      <td style={{ padding: '14px 8px', textAlign: 'right', position: 'relative' }}>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveMenuId(activeMenuId === row.id ? null : row.id);
+                          }}
+                          style={{ border: 'none', background: 'transparent', color: '#7a7688', cursor: 'pointer', padding: '6px' }}
+                          type="button"
+                          aria-label="More actions"
+                        >
+                          <MoreVertical size={16} />
+                        </button>
+
+                        {/* Actions 3-dot dropdown menu */}
+                        {activeMenuId === row.id && (
+                          <>
+                            <div 
+                              onClick={(e) => { e.stopPropagation(); setActiveMenuId(null); }}
+                              style={{ position: 'fixed', inset: 0, zIndex: 999 }}
+                            />
+                            <div 
+                              style={{ 
+                                position: 'absolute', 
+                                right: '10px', 
+                                top: '34px', 
+                                width: '150px', 
+                                background: '#ffffff', 
+                                border: '1px solid var(--line, #e2e8f0)', 
+                                borderRadius: '8px', 
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.15)', 
+                                zIndex: 1000, 
+                                padding: '4px 0',
+                                textAlign: 'left'
+                              }}
+                            >
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveMenuId(null);
+                                  navigate(ROUTES.materialDetails);
+                                }}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#111827', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                                className="hover:bg-slate-50"
+                              >
+                                <Eye size={14} />
+                                <span>View Details</span>
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveMenuId(null);
+                                  setSelectedMaterialForStock(row);
+                                  setNewStockValue(row.stock);
+                                  setNewStockUnit(row.unit);
+                                  setAdjustStockModalOpen(true);
+                                }}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#111827', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                                className="hover:bg-slate-50"
+                              >
+                                <SlidersHorizontal size={14} />
+                                <span>Adjust Stock</span>
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveMenuId(null);
+                                  setSelectedMaterialForStatus(row);
+                                  setNewStatusValue(row.status);
+                                  setEditStatusModalOpen(true);
+                                }}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#111827', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                                className="hover:bg-slate-50"
+                              >
+                                <Edit3 size={14} />
+                                <span>Edit Status</span>
+                              </button>
+                              <div style={{ borderTop: '1px solid #f1f5f9', margin: '4px 0' }} />
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveMenuId(null);
+                                  if (confirm(`Are you sure you want to delete ${row.name}?`)) {
+                                    setMaterials(prev => prev.filter(m => m.id !== row.id));
+                                    addToast(`${row.name} deleted successfully`, 'success');
+                                  }
+                                }}
+                                style={{ width: '100%', border: 'none', background: 'transparent', padding: '8px 12px', fontSize: '12px', color: '#ef4444', fontWeight: '700', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                                className="hover:bg-slate-50"
+                              >
+                                <Trash2 size={14} />
+                                <span>Delete</span>
+                              </button>
+                            </div>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table></div>
           </div>
@@ -417,6 +544,137 @@ export default function InventoryDashboard() {
           </div>
 
         </div>
+
+        {/* Modal containers */}
+        {adjustStockModalOpen && selectedMaterialForStock && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => setAdjustStockModalOpen(false)} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Adjust Stock Level</h3>
+                <button onClick={() => setAdjustStockModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
+                  Cancel
+                </button>
+              </div>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <p style={{ fontSize: '13px', color: '#565365', margin: 0 }}>
+                  Adjust the stock quantity and classification category for <strong>{selectedMaterialForStock.name}</strong>.
+                </p>
+
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Quantity</label>
+                  <input
+                    type="number"
+                    value={newStockValue}
+                    onChange={(e) => setNewStockValue(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none' }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Stock Alert Category</label>
+                  <select
+                    value={newStockUnit}
+                    onChange={(e) => setNewStockUnit(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                  >
+                    <option value="Units">Normal (Units)</option>
+                    <option value="Reorder">Low Stock Alert (Reorder)</option>
+                    <option value="Critical">Critical Alert (Critical)</option>
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setAdjustStockModalOpen(false)}
+                    style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const val = parseInt(newStockValue, 10);
+                      if (isNaN(val) || val < 0) {
+                        addToast('Please enter a valid stock level.', 'error');
+                        return;
+                      }
+                      setMaterials(prev => prev.map(m => m.id === selectedMaterialForStock.id ? {
+                        ...m,
+                        stock: val,
+                        unit: newStockUnit
+                      } : m));
+                      addToast(`Stock for ${selectedMaterialForStock.name} updated!`, 'success');
+                      setAdjustStockModalOpen(false);
+                    }}
+                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {editStatusModalOpen && selectedMaterialForStatus && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => setEditStatusModalOpen(false)} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Edit Material Status</h3>
+                <button onClick={() => setEditStatusModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
+                  Cancel
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <p style={{ fontSize: '13px', color: '#565365', margin: 0 }}>
+                  Select the status for <strong>{selectedMaterialForStatus.name}</strong>.
+                </p>
+
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Status</label>
+                  <select
+                    value={newStatusValue}
+                    onChange={(e) => setNewStatusValue(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                  >
+                    <option value="Approved">Approved</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Suspended">Suspended</option>
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setEditStatusModalOpen(false)}
+                    style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMaterials(prev => prev.map(m => m.id === selectedMaterialForStatus.id ? {
+                        ...m,
+                        status: newStatusValue
+                      } : m));
+                      addToast(`Status of ${selectedMaterialForStatus.name} updated to ${newStatusValue}!`, 'success');
+                      setEditStatusModalOpen(false);
+                    }}
+                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    Save Status
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
     </AdminShell>

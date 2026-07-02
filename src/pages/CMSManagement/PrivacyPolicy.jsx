@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from '../../components/common/ToastNotification';
 import { 
   Bold, Italic, List as ListIcon, Link as LinkIcon,
   ChevronDown, ShieldCheck, Cookie, RefreshCw
 } from 'lucide-react';
 
 export default function PrivacyPolicy() {
+  const { addToast } = useToast();
   const [activeLang, setActiveLang] = useState('English');
   const [docTitle, setDocTitle] = useState('Global Privacy & Data Governance Policy');
   const [effectiveDate, setEffectiveDate] = useState('11/24/2023');
@@ -107,7 +109,8 @@ export default function PrivacyPolicy() {
                       padding: '6px 12px', fontSize: '11px', fontWeight: '600', border: 'none', cursor: 'pointer',
                       background: activeLang === lang ? '#312e81' : '#fff',
                       color: activeLang === lang ? '#fff' : '#64748b',
-                      borderRight: lang !== 'French' ? '1px solid #e2e8f0' : 'none'
+                      borderRight: lang !== 'French' ? '1px solid #e2e8f0' : 'none',
+                      transition: 'background-color 0.2s'
                     }}
                   >
                     {lang}
@@ -172,8 +175,8 @@ export default function PrivacyPolicy() {
               </div>
               {openDropdown === 'lastEdited1' && (
                 <div style={{ position: 'absolute', right: 0, top: '24px', width: '130px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '4px', zIndex: 10, boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}>
-                  <button onClick={() => { setOpenDropdown(null); alert("View History"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>View History</button>
-                  <button onClick={() => { setOpenDropdown(null); alert("Restore Version"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>Restore Version</button>
+                  <button onClick={() => { setOpenDropdown(null); addToast("Fetching version history...", "info"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>View History</button>
+                  <button onClick={() => { setOpenDropdown(null); addToast("Version restored successfully", "success"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>Restore Version</button>
                 </div>
               )}
             </div>
@@ -187,10 +190,10 @@ export default function PrivacyPolicy() {
 
           <div style={{ border: '1px solid #e2e8f0', borderRadius: '6px', overflow: 'hidden' }}>
             <div style={{ display: 'flex', gap: '12px', padding: '8px 12px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
-              <Bold size={16} color="#475569" style={{ cursor: 'pointer' }} />
-              <Italic size={16} color="#475569" style={{ cursor: 'pointer' }} />
-              <ListIcon size={16} color="#475569" style={{ cursor: 'pointer' }} />
-              <LinkIcon size={16} color="#475569" style={{ cursor: 'pointer' }} />
+              <Bold size={16} color="#475569" style={{ cursor: 'pointer' }} onClick={() => addToast("Bold formatting applied", "info")} />
+              <Italic size={16} color="#475569" style={{ cursor: 'pointer' }} onClick={() => addToast("Italic formatting applied", "info")} />
+              <ListIcon size={16} color="#475569" style={{ cursor: 'pointer' }} onClick={() => addToast("List formatting applied", "info")} />
+              <LinkIcon size={16} color="#475569" style={{ cursor: 'pointer' }} onClick={() => addToast("Link inserted", "info")} />
             </div>
             <textarea 
               style={{ width: '100%', minHeight: '120px', padding: '16px', border: 'none', outline: 'none', fontSize: '13px', color: '#334155', lineHeight: '1.6', resize: 'vertical' }}
@@ -214,8 +217,8 @@ export default function PrivacyPolicy() {
               </div>
               {openDropdown === 'lastEdited2' && (
                 <div style={{ position: 'absolute', right: 0, top: '24px', width: '130px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '4px', zIndex: 10, boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}>
-                  <button onClick={() => { setOpenDropdown(null); alert("View History"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>View History</button>
-                  <button onClick={() => { setOpenDropdown(null); alert("Restore Version"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>Restore Version</button>
+                  <button onClick={() => { setOpenDropdown(null); addToast("Fetching version history...", "info"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>View History</button>
+                  <button onClick={() => { setOpenDropdown(null); addToast("Version restored successfully", "success"); }} style={{ width: '100%', padding: '6px 12px', textAlign: 'left', background: 'transparent', border: 'none', fontSize: '12px', cursor: 'pointer', color: '#0f172a' }}>Restore Version</button>
                 </div>
               )}
             </div>
@@ -241,9 +244,9 @@ export default function PrivacyPolicy() {
 
           <div style={{ border: '1px solid #e2e8f0', borderRadius: '6px', overflow: 'hidden' }}>
             <div style={{ display: 'flex', gap: '12px', padding: '8px 12px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
-              <Bold size={16} color="#475569" style={{ cursor: 'pointer' }} />
-              <Italic size={16} color="#475569" style={{ cursor: 'pointer' }} />
-              <ListIcon size={16} color="#475569" style={{ cursor: 'pointer' }} />
+              <Bold size={16} color="#475569" style={{ cursor: 'pointer' }} onClick={() => addToast("Bold formatting applied", "info")} />
+              <Italic size={16} color="#475569" style={{ cursor: 'pointer' }} onClick={() => addToast("Italic formatting applied", "info")} />
+              <ListIcon size={16} color="#475569" style={{ cursor: 'pointer' }} onClick={() => addToast("List formatting applied", "info")} />
             </div>
             <textarea 
               style={{ width: '100%', minHeight: '100px', padding: '16px', border: 'none', outline: 'none', fontSize: '13px', color: '#334155', lineHeight: '1.6', resize: 'vertical' }}
@@ -301,7 +304,7 @@ export default function PrivacyPolicy() {
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
                 <span style={{ fontSize: '11px', color: '#64748b' }}>Auto-resets on policy update</span>
-                <span onClick={() => alert("Previewing Cookie Banner...")} style={{ fontSize: '12px', fontWeight: '700', color: '#0f172a', cursor: 'pointer', textDecoration: 'underline' }}>Preview Banner</span>
+                <span onClick={() => addToast("Previewing Cookie Banner in a new window...", "info")} style={{ fontSize: '12px', fontWeight: '700', color: '#0f172a', cursor: 'pointer', textDecoration: 'underline' }}>Preview Banner</span>
               </div>
             </div>
 
@@ -310,13 +313,13 @@ export default function PrivacyPolicy() {
 
         {/* Bottom Actions */}
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '16px', marginTop: '16px' }}>
-          <button onClick={() => alert('Draft discarded successfully!')} style={{ padding: '10px 24px', background: '#fff', border: '1px solid #e2e8f0', color: '#475569', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+          <button onClick={() => addToast('Draft discarded successfully', "info")} style={{ padding: '10px 24px', background: '#fff', border: '1px solid #e2e8f0', color: '#475569', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
             Discard Draft
           </button>
-          <button onClick={() => alert('Privacy policy saved as draft!')} style={{ padding: '10px 24px', background: '#fff', border: '1px solid #312e81', color: '#312e81', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+          <button onClick={() => addToast('Privacy policy saved as draft!', "success")} style={{ padding: '10px 24px', background: '#fff', border: '1px solid #312e81', color: '#312e81', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
             Save as Draft
           </button>
-          <button onClick={() => alert('Privacy policy scheduled for release!')} style={{ padding: '10px 24px', background: '#1e1b4b', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+          <button onClick={() => addToast('Privacy policy scheduled for release!', "success")} style={{ padding: '10px 24px', background: '#1e1b4b', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
             Schedule for Release
           </button>
         </div>

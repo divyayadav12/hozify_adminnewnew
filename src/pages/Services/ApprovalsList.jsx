@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import {
   SlidersHorizontal,
@@ -349,19 +350,19 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
           </span>
 
           <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
-            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center' }} type="button">
+            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <ChevronLeft size={16} />
             </button>
-            <button style={{ border: 'none', background: '#25108f', color: '#ffffff', padding: '8px 14px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }} type="button">
+            <button style={{ border: 'none', background: '#25108f', color: '#ffffff', padding: '8px 14px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               1
             </button>
-            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               2
             </button>
-            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               3
             </button>
-            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center' }} type="button">
+            <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <ChevronRight size={16} />
             </button>
           </div>

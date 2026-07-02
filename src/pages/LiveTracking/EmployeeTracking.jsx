@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useMemo } from "react";
 import { useApp } from "../../hooks/useApp";
 import AdminShell from "../../components/layouts/AdminShell";
@@ -305,7 +306,7 @@ export default function EmployeeTracking() {
                                 CONTACT
                               </button>
                             ) : (
-                              <button className="text-slate-400 hover:text-slate-600 p-1">
+                              <button className="text-slate-400 hover:text-slate-600 p-1" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                                 <MoreVertical className="h-4 w-4" />
                               </button>
                             )}

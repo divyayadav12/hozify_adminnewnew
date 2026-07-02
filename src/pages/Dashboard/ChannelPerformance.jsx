@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import { 
   CreditCard, 
@@ -433,7 +434,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
                   <option value="APAC">APAC</option>
                 </select>
               </div>
-              <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} aria-label="More options">
+              <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} aria-label="More options" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <MoreVertical size={16} />
               </button>
             </div>

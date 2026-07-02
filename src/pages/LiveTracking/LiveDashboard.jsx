@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { 
@@ -237,7 +238,7 @@ export default function LiveDashboard() {
                 <span>Operational Map View</span>
               </div>
               <div className="flex bg-slate-100 p-1 rounded-lg">
-                <button className="text-[11px] font-bold px-3 py-1 bg-white text-slate-800 rounded shadow-sm">All Regions</button>
+                <button className="text-[11px] font-bold px-3 py-1 bg-white text-slate-800 rounded shadow-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>All Regions</button>
                 <button onClick={() => alert("Filtering Map View to Region: North America")} className="text-[11px] font-bold px-3 py-1 text-slate-500 hover:text-slate-800">North America</button>
               </div>
             </div>

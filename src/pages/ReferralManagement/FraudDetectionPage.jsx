@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
 import {
@@ -8,10 +8,52 @@ import {
   Shield,
   WifiOff,
   Copy,
+  XCircle,
+  Filter,
 } from "lucide-react";
+
+const allFlaggedRecords = [
+  { id: "user_8921_beta", ip: "192.168.1.104", trigger: "Rapid Referral Spiking", risk: "CRITICAL 94", time: "2 mins ago", riskType: "CRITICAL", colorClass: "bg-red-50 text-red-600 border-red-100" },
+  { id: "referral_vortex_77", ip: "email mismatch", trigger: "Duplicate Account", risk: "HIGH 72", time: "14 mins ago", riskType: "HIGH", colorClass: "bg-yellow-50 text-yellow-600 border-yellow-100" },
+  { id: "shadow_walker_01", ip: "proxy detected", trigger: "VPN Usage", risk: "MEDIUM 45", time: "1 hour ago", riskType: "MEDIUM", colorClass: "bg-orange-50 text-orange-500 border-orange-100" },
+  { id: "guest_9912", ip: "10.0.0.52", trigger: "Velocity Check Failed", risk: "HIGH 80", time: "2 hours ago", riskType: "HIGH", colorClass: "bg-yellow-50 text-yellow-600 border-yellow-100" },
+  { id: "promo_abuser_z", ip: "multiple accounts", trigger: "Sybil Attack", risk: "CRITICAL 98", time: "3 hours ago", riskType: "CRITICAL", colorClass: "bg-red-50 text-red-600 border-red-100" },
+  { id: "bot_net_33", ip: "aws datacenter", trigger: "Datacenter IP", risk: "MEDIUM 50", time: "5 hours ago", riskType: "MEDIUM", colorClass: "bg-orange-50 text-orange-500 border-orange-100" },
+];
 
 export default function FraudDetectionPage() {
   const { addToast } = useToast();
+  
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [showAllRecords, setShowAllRecords] = useState(false);
+  const [isConfigureModalOpen, setIsConfigureModalOpen] = useState(false);
+  
+  const filterRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleExportPDF = () => {
+    addToast("Exporting detailed fraud analysis report...", "success");
+    setTimeout(() => {
+      window.print();
+    }, 500);
+  };
+
+  let displayedRecords = [...allFlaggedRecords];
+  if (activeFilter !== "All") {
+    displayedRecords = displayedRecords.filter(r => r.riskType === activeFilter);
+  }
+
+  const visibleRecords = showAllRecords ? displayedRecords : displayedRecords.slice(0, 3);
 
   return (
     <AdminShell activeTab="Referrals">
@@ -28,16 +70,36 @@ export default function FraudDetectionPage() {
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 relative">
+            <div ref={filterRef} className="relative">
+              <button 
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-bold border border-slate-300 rounded-lg bg-white hover:bg-gray-100 cursor-pointer transition-all shadow-sm h-full"
+              >
+                <Filter size={13} />
+                <span>Filters {activeFilter !== 'All' && `(${activeFilter})`}</span>
+              </button>
+
+              {isFilterOpen && (
+                <div className="absolute right-0 top-full mt-2 w-32 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-10">
+                  <div className="p-2">
+                    {['All', 'CRITICAL', 'HIGH', 'MEDIUM'].map(risk => (
+                      <button 
+                        key={risk}
+                        onClick={() => { setActiveFilter(risk); setIsFilterOpen(false); }}
+                        className={`w-full text-left px-3 py-2 text-xs font-bold rounded-lg transition-all ${activeFilter === risk ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                      >
+                        {risk}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
             <button 
-              onClick={() => addToast("Opening fraud analytics filter panel...", "success")}
-              className="px-3 py-1.5 text-xs font-bold border border-slate-300 rounded-lg bg-white hover:bg-gray-100 cursor-pointer transition-all shadow-sm"
-            >
-              Filters
-            </button>
-            <button 
-              onClick={() => addToast("Exporting detailed fraud analysis report...", "success")}
-              className="px-3 py-1.5 text-xs font-bold bg-indigo-650 hover:bg-indigo-700 text-white rounded-lg cursor-pointer transition-all shadow-sm"
+              onClick={handleExportPDF}
+              className="px-3 py-1.5 text-xs font-bold bg-indigo-650 hover:bg-indigo-700 text-black bg-slate-200 hover:bg-slate-300 rounded-lg cursor-pointer transition-all shadow-sm border border-slate-300"
             >
               Export Report
             </button>
@@ -113,83 +175,73 @@ export default function FraudDetectionPage() {
         {/* MIDDLE */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
           {/* TABLE */}
-          <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+          <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col">
             <div className="flex justify-between items-center mb-4">
               <h2 className="font-bold text-sm text-slate-900">Recently Flagged Items</h2>
               <button 
-                onClick={() => addToast("Opening full audit records logs page...", "success")}
-                className="text-xs font-bold text-indigo-700 hover:text-indigo-900 cursor-pointer"
+                onClick={() => {
+                  setShowAllRecords(!showAllRecords);
+                  if (!showAllRecords) addToast("Expanded to show all full audit records...", "success");
+                }}
+                className="text-xs font-bold text-indigo-700 hover:text-indigo-900 cursor-pointer transition-colors"
               >
-                View All Records
+                {showAllRecords ? "View Less" : "View All Records"}
               </button>
             </div>
 
-            <table className="w-full text-left text-xs border-collapse">
-              <thead className="text-slate-500 border-b border-slate-100 font-bold uppercase text-[10px]">
-                <tr>
-                  <th className="py-2.5">Entity</th>
-                  <th>Trigger</th>
-                  <th>Risk</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
+            <div className="overflow-x-auto flex-1">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead className="text-slate-500 border-b border-slate-100 font-bold uppercase text-[10px]">
+                  <tr>
+                    <th className="py-2.5">Entity</th>
+                    <th>Trigger</th>
+                    <th>Risk</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                {/* ROW 1 */}
-                <tr 
-                  onClick={() => addToast("Opening threat review for user_8921_beta", "success")}
-                  className="border-b border-slate-100 hover:bg-slate-50 transition-all cursor-pointer"
-                >
-                  <td className="py-3 font-bold text-slate-800">
-                    user_8921_beta
-                    <p className="text-[10px] text-gray-400 font-normal mt-0.5">192.168.1.104</p>
-                  </td>
-                  <td className="font-semibold text-slate-650">Rapid Referral Spiking</td>
-                  <td>
-                    <span className="bg-red-50 text-red-600 px-2 py-0.5 rounded text-[9px] font-extrabold border border-red-100">
-                      CRITICAL 94
-                    </span>
-                  </td>
-                  <td className="text-gray-400 font-semibold">2 mins ago</td>
-                </tr>
-
-                {/* ROW 2 */}
-                <tr 
-                  onClick={() => addToast("Opening threat review for referral_vortex_77", "success")}
-                  className="border-b border-slate-100 hover:bg-slate-50 transition-all cursor-pointer"
-                >
-                  <td className="py-3 font-bold text-slate-800">
-                    referral_vortex_77
-                    <p className="text-[10px] text-gray-400 font-normal mt-0.5">email mismatch</p>
-                  </td>
-                  <td className="font-semibold text-slate-650">Duplicate Account</td>
-                  <td>
-                    <span className="bg-yellow-50 text-yellow-600 px-2 py-0.5 rounded text-[9px] font-extrabold border border-yellow-100">
-                      HIGH 72
-                    </span>
-                  </td>
-                  <td className="text-gray-400 font-semibold">14 mins ago</td>
-                </tr>
-
-                {/* ROW 3 */}
-                <tr 
-                  onClick={() => addToast("Opening threat review for shadow_walker_01", "success")}
-                  className="hover:bg-slate-50 transition-all cursor-pointer"
-                >
-                  <td className="py-3 font-bold text-slate-800">
-                    shadow_walker_01
-                    <p className="text-[10px] text-gray-400 font-normal mt-0.5">proxy detected</p>
-                  </td>
-                  <td className="font-semibold text-slate-650">VPN Usage</td>
-                  <td>
-                    <span className="bg-orange-50 text-orange-500 px-2 py-0.5 rounded text-[9px] font-extrabold border border-orange-100">
-                      MEDIUM 45
-                    </span>
-                  </td>
-                  <td className="text-gray-400 font-semibold">1 hour ago</td>
-                </tr>
-              </tbody>
-            </table>
+                <tbody>
+                  {visibleRecords.length === 0 ? (
+                    <tr>
+                      <td colSpan="4" className="py-8 text-center text-slate-500 font-semibold text-xs border-b border-slate-100">
+                        No flagged items matching this filter.
+                      </td>
+                    </tr>
+                  ) : (
+                    visibleRecords.map((item, index) => (
+                      <tr 
+                        key={index}
+                        onClick={() => addToast(`Opening threat review for ${item.id}`, "success")}
+                        className="border-b border-slate-100 hover:bg-slate-50 transition-all cursor-pointer"
+                      >
+                        <td className="py-3 font-bold text-slate-800">
+                          {item.id}
+                          <p className="text-[10px] text-gray-400 font-normal mt-0.5">{item.ip}</p>
+                        </td>
+                        <td className="font-semibold text-slate-650">{item.trigger}</td>
+                        <td>
+                          <span className={`${item.colorClass} px-2 py-0.5 rounded text-[9px] font-extrabold border`}>
+                            {item.risk}
+                          </span>
+                        </td>
+                        <td className="text-gray-400 font-semibold">{item.time}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+            
+            {showAllRecords && visibleRecords.length > 3 && (
+               <div className="mt-4 flex justify-center border-t border-slate-100 pt-3">
+                 <button 
+                    onClick={() => setShowAllRecords(false)}
+                    className="text-[10px] font-bold text-slate-500 hover:text-indigo-700 uppercase tracking-wider transition-colors"
+                  >
+                    Collapse Records
+                  </button>
+               </div>
+            )}
           </div>
 
           {/* RIGHT PANEL */}
@@ -249,7 +301,7 @@ export default function FraudDetectionPage() {
               </div>
 
               <button 
-                onClick={() => addToast("Opening automated threat rules configuration console...", "success")}
+                onClick={() => setIsConfigureModalOpen(true)}
                 className="mt-3 w-full bg-white hover:bg-slate-50 text-slate-900 font-bold py-2 rounded-lg text-xs transition-all cursor-pointer shadow-sm"
               >
                 Configure Rules
@@ -258,6 +310,103 @@ export default function FraudDetectionPage() {
           </div>
         </div>
       </div>
+
+      {/* Configure Rules Modal */}
+      {isConfigureModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+              <h2 className="font-black text-indigo-955 text-lg">Configure Automated Rules</h2>
+              <button onClick={() => setIsConfigureModalOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                <XCircle size={20} />
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div>
+                  <div className="font-bold text-slate-900 text-sm">Auto-Ban Critical Threats</div>
+                  <div className="text-[10px] text-slate-500 font-semibold mt-0.5">Automatically suspend accounts with risk score &gt; 90</div>
+                </div>
+                <div 
+                  className="w-10 h-5 bg-indigo-600 rounded-full relative cursor-pointer shadow-inner"
+                  onClick={(e) => {
+                    const el = e.currentTarget;
+                    if(el.classList.contains('bg-indigo-600')){
+                      el.classList.replace('bg-indigo-600', 'bg-slate-200');
+                      el.firstChild.classList.replace('right-0.5', 'left-0.5');
+                    } else {
+                      el.classList.replace('bg-slate-200', 'bg-indigo-600');
+                      el.firstChild.classList.replace('left-0.5', 'right-0.5');
+                    }
+                  }}
+                >
+                  <div className="w-4 h-4 bg-white rounded-full absolute top-0.5 right-0.5 shadow-sm transition-all duration-200 border border-slate-200"></div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div>
+                  <div className="font-bold text-slate-900 text-sm">Strict VPN Blocking</div>
+                  <div className="text-[10px] text-slate-500 font-semibold mt-0.5">Flag any traffic originating from known datacenter IPs</div>
+                </div>
+                <div 
+                  className="w-10 h-5 bg-slate-200 rounded-full relative cursor-pointer shadow-inner"
+                  onClick={(e) => {
+                    const el = e.currentTarget;
+                    if(el.classList.contains('bg-indigo-600')){
+                      el.classList.replace('bg-indigo-600', 'bg-slate-200');
+                      el.firstChild.classList.replace('right-0.5', 'left-0.5');
+                    } else {
+                      el.classList.replace('bg-slate-200', 'bg-indigo-600');
+                      el.firstChild.classList.replace('left-0.5', 'right-0.5');
+                    }
+                  }}
+                >
+                  <div className="w-4 h-4 bg-white rounded-full absolute top-0.5 left-0.5 shadow-sm transition-all duration-200 border border-slate-200"></div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div>
+                  <div className="font-bold text-slate-900 text-sm">Velocity Limits</div>
+                  <div className="text-[10px] text-slate-500 font-semibold mt-0.5">Alert when &gt;10 referrals occur within 5 minutes</div>
+                </div>
+                <div 
+                  className="w-10 h-5 bg-indigo-600 rounded-full relative cursor-pointer shadow-inner"
+                  onClick={(e) => {
+                    const el = e.currentTarget;
+                    if(el.classList.contains('bg-indigo-600')){
+                      el.classList.replace('bg-indigo-600', 'bg-slate-200');
+                      el.firstChild.classList.replace('right-0.5', 'left-0.5');
+                    } else {
+                      el.classList.replace('bg-slate-200', 'bg-indigo-600');
+                      el.firstChild.classList.replace('left-0.5', 'right-0.5');
+                    }
+                  }}
+                >
+                  <div className="w-4 h-4 bg-white rounded-full absolute top-0.5 right-0.5 shadow-sm transition-all duration-200 border border-slate-200"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
+              <button 
+                onClick={() => setIsConfigureModalOpen(false)}
+                className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-xl font-bold text-xs transition-all shadow-sm cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => { setIsConfigureModalOpen(false); addToast("Rules saved successfully", "success"); }}
+                className="bg-indigo-900 hover:bg-indigo-850 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all shadow-sm cursor-pointer"
+              >
+                Save Configuration
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

@@ -17,6 +17,8 @@ export function AppProvider({ children }) {
     if (stored?.authenticated && stored?.role) return ROUTES.dashboard;
     return ROUTES.roles;
   });
+  const [routeHistory, setRouteHistory] = useState([route]);
+  
   const [selectedRole, setSelectedRole] = useState(
     () => getPendingRole() || stored?.role || ''
   );
@@ -27,48 +29,56 @@ export function AppProvider({ children }) {
   const [currentBranchId, setCurrentBranchId] = useState('BR-90210');
   const [selectedRequestId, setSelectedRequestId] = useState('REQ-2024-0892');
 
+  const goBack = () => {
+    if (routeHistory.length > 1) {
+      const newHistory = [...routeHistory];
+      newHistory.pop(); // remove current route
+      const prevRoute = newHistory[newHistory.length - 1];
+      setRouteHistory(newHistory);
+      setRoute(prevRoute);
+    } else {
+      setRoute(ROUTES.dashboard);
+    }
+  };
+
   const navigate = (nextRoute) => {
+    let resolvedRoute = nextRoute;
     if (nextRoute === ROUTES.root) {
-      setRoute(ROUTES.roles);
-      return;
-    }
-    if (nextRoute === ROUTES.login && !selectedRole) {
-      setRoute(ROUTES.roles);
-      return;
-    }
-    if (nextRoute === ROUTES.otpVerification && !recovery.otpSent) {
-      setRoute(ROUTES.forgotPassword);
-      return;
-    }
-    if (nextRoute === ROUTES.resetPassword && !recovery.otpVerified) {
-      setRoute(ROUTES.forgotPassword);
-      return;
-    }
-    if (nextRoute === ROUTES.passwordResetSuccess && !recovery.resetDone) {
-      setRoute(ROUTES.login);
-      return;
-    }
-    const publicRoutes = [
-      ROUTES.root,
-      ROUTES.roles,
-      ROUTES.login,
-      ROUTES.forgotPassword,
-      ROUTES.otpVerification,
-      ROUTES.resetPassword,
-      ROUTES.passwordResetSuccess
-    ];
-    if (!publicRoutes.includes(nextRoute) && (!session.authenticated || !session.role)) {
-      setRoute(selectedRole ? ROUTES.login : ROUTES.roles);
-      return;
+      resolvedRoute = ROUTES.roles;
+    } else if (nextRoute === ROUTES.login && !selectedRole) {
+      resolvedRoute = ROUTES.roles;
+    } else if (nextRoute === ROUTES.otpVerification && !recovery.otpSent) {
+      resolvedRoute = ROUTES.forgotPassword;
+    } else if (nextRoute === ROUTES.resetPassword && !recovery.otpVerified) {
+      resolvedRoute = ROUTES.forgotPassword;
+    } else if (nextRoute === ROUTES.passwordResetSuccess && !recovery.resetDone) {
+      resolvedRoute = ROUTES.login;
+    } else {
+      const publicRoutes = [
+        ROUTES.root,
+        ROUTES.roles,
+        ROUTES.login,
+        ROUTES.forgotPassword,
+        ROUTES.otpVerification,
+        ROUTES.resetPassword,
+        ROUTES.passwordResetSuccess
+      ];
+      if (!publicRoutes.includes(nextRoute) && (!session.authenticated || !session.role)) {
+        resolvedRoute = selectedRole ? ROUTES.login : ROUTES.roles;
+      }
     }
 
-
-    setRoute(nextRoute);
+    setRoute(resolvedRoute);
+    setRouteHistory(prev => {
+      if (prev[prev.length - 1] === resolvedRoute) return prev;
+      return [...prev, resolvedRoute];
+    });
   };
 
   const chooseRole = (roleId) => {
     storePendingRole(roleId);
     setSelectedRole(roleId);
+    setRouteHistory(prev => [...prev, ROUTES.login]);
     setRoute(ROUTES.login);
   };
 
@@ -98,6 +108,7 @@ export function AppProvider({ children }) {
     storeSession(nextSession, remember);
     clearPendingRole();
     setSession(nextSession);
+    setRouteHistory([ROUTES.dashboard]);
     setRoute(ROUTES.dashboard);
   };
 
@@ -108,6 +119,7 @@ export function AppProvider({ children }) {
     setSession({ authenticated: false, role: '', user: null });
     setRecovery({ identifier: '', otpSent: false, otpVerified: false, resetDone: false });
     setCurrentPartnerId(null);
+    setRouteHistory([ROUTES.roles]);
     setRoute(ROUTES.roles);
   };
 
@@ -115,6 +127,8 @@ export function AppProvider({ children }) {
     () => ({
       route,
       navigate,
+      goBack,
+      canGoBack: routeHistory.length > 1,
       roles: ROLES,
       selectedRole,
       chooseRole,
@@ -132,7 +146,7 @@ export function AppProvider({ children }) {
       selectedRequestId,
       setSelectedRequestId
     }),
-    [route, selectedRole, session, recovery, theme, currentPartnerId, currentBranchId, selectedRequestId]
+    [route, routeHistory, selectedRole, session, recovery, theme, currentPartnerId, currentBranchId, selectedRequestId]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

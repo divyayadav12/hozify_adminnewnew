@@ -18,11 +18,31 @@ const campaignRates = [
   { name: "Loyalty v2", rate: "15.2%", width: "w-[45%]" },
 ];
 
-const trendBars = [35, 50, 40, 65, 60, 78, 85, 74, 55, 68, 78, 82];
-
 export default function ConversionAnalyticsPage() {
   const { addToast } = useToast();
   const [timeRange, setTimeRange] = useState("Last 30 Days");
+
+  const getTrendBars = () => {
+    if (timeRange === "Quarterly") return [65, 80, 50, 95, 70, 85, 90, 80, 65, 75, 85, 95];
+    if (timeRange === "Yearly") return [40, 45, 55, 60, 50, 75, 85, 90, 85, 95, 100, 95];
+    return [35, 50, 40, 65, 60, 78, 85, 74, 55, 68, 78, 82]; // Last 30 Days
+  };
+
+  const getStats = () => {
+    if (timeRange === "Quarterly") return { conv: "9,420", rate: "25.1%", time: "3.8 days", value: "$210,000" };
+    if (timeRange === "Yearly") return { conv: "38,500", rate: "28.5%", time: "3.2 days", value: "$950,200" };
+    return { conv: "3,204", rate: "22.4%", time: "4.2 days", value: "$84,500" };
+  };
+
+  const trendBars = getTrendBars();
+  const stats = getStats();
+
+  const handleExportPDF = () => {
+    addToast("Generating conversion deep dive PDF report...", "success");
+    setTimeout(() => {
+      window.print();
+    }, 500);
+  };
 
   return (
     <AdminShell
@@ -48,23 +68,23 @@ export default function ConversionAnalyticsPage() {
               >
                 Last 30 Days
               </button>
-              {/* <button 
+              <button 
                 onClick={() => { setTimeRange("Quarterly"); addToast("Filtered timeline: Quarterly", "success"); }}
-                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${timeRange === "Quarterly" ? "bg-indigo-900 text-white" : "hover:bg-slate-50 text-slate-700"}`}
+                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer border-l border-slate-200 ${timeRange === "Quarterly" ? "bg-indigo-900 text-white" : "hover:bg-slate-50 text-slate-700"}`}
               >
                 Quarterly
               </button>
               <button 
                 onClick={() => { setTimeRange("Yearly"); addToast("Filtered timeline: Yearly", "success"); }}
-                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${timeRange === "Yearly" ? "bg-indigo-900 text-white" : "hover:bg-slate-50 text-slate-700"}`}
+                className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer border-l border-slate-200 ${timeRange === "Yearly" ? "bg-indigo-900 text-white" : "hover:bg-slate-50 text-slate-700"}`}
               >
                 Yearly
-              </button> */}
+              </button>
             </div>
 
             <button 
-              onClick={() => addToast("Generating conversion deep dive PDF report...", "success")}
-              className="bg-indigo-900 hover:bg-indigo-800 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-bold transition-all cursor-pointer"
+              onClick={handleExportPDF}
+              className="bg-indigo-900 hover:bg-indigo-800 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-bold transition-all cursor-pointer shadow-sm"
             >
               <Download size={14} />
               <span>Export PDF</span>
@@ -85,7 +105,7 @@ export default function ConversionAnalyticsPage() {
                   Total Conversions
                 </p>
                 <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-                  3,204
+                  {stats.conv}
                 </h3>
               </div>
               <div className="text-indigo-700 mt-0.5">
@@ -111,7 +131,7 @@ export default function ConversionAnalyticsPage() {
                   Conversion Rate
                 </p>
                 <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-                  22.4%
+                  {stats.rate}
                 </h3>
               </div>
               <div className="text-indigo-700 mt-0.5">
@@ -137,7 +157,7 @@ export default function ConversionAnalyticsPage() {
                   Avg. Time To Convert
                 </p>
                 <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-                  4.2 days
+                  {stats.time}
                 </h3>
               </div>
               <div className="text-indigo-700 mt-0.5">
@@ -163,7 +183,7 @@ export default function ConversionAnalyticsPage() {
                   Conversion Value
                 </p>
                 <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-                  $84,500
+                  {stats.value}
                 </h3>
               </div>
               <div className="text-indigo-700 mt-0.5">
@@ -226,8 +246,8 @@ export default function ConversionAnalyticsPage() {
 
               <div onClick={() => addToast("Stage: First Transaction details", "success")} className="cursor-pointer hover:opacity-95 transition-all">
                 <div className="flex justify-between text-xs mb-1.5 font-bold text-slate-650">
-                  <span>First Transaction (3,204)</span>
-                  <span>22.4%</span>
+                  <span>First Transaction ({stats.conv})</span>
+                  <span>{stats.rate}</span>
                 </div>
                 <div className="h-10 bg-indigo-300 rounded-lg w-[55%] mx-auto flex items-center justify-center text-slate-900 text-xs font-extrabold shadow-sm">
                   First Transaction
@@ -273,7 +293,7 @@ export default function ConversionAnalyticsPage() {
                   Daily Conversion Trend
                 </h2>
                 <span className="text-[10px] uppercase font-bold text-slate-500">
-                  Last 12 Days
+                  {timeRange}
                 </span>
               </div>
 
@@ -281,7 +301,7 @@ export default function ConversionAnalyticsPage() {
                 {trendBars.map((h, index) => (
                   <div
                     key={index}
-                    onClick={() => addToast(`Conversions for Day ${index + 1}: ${h} referrals`, "success")}
+                    onClick={() => addToast(`Conversions for Period ${index + 1}: ${h} referrals`, "success")}
                     className="w-4 bg-indigo-900 rounded-t cursor-pointer hover:bg-indigo-700 transition-all"
                     style={{ height: `${h}%` }}
                   />

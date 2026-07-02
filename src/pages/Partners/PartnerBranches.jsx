@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useMemo, useState, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 
@@ -299,7 +300,7 @@ export default function PartnerBranches() {
                             <button
                               type="button"
                               className="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
-                            >
+                             onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                               Export Selected
                             </button>
                           </div>

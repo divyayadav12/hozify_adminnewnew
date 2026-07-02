@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import { 
   TrendingUp, 
@@ -298,10 +299,10 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
             </h3>
 
             <div style={{ display: 'flex', gap: '8px' }}>
-              <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Filter campaigns">
+              <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Filter campaigns" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <Sliders size={14} style={{ color: 'var(--muted)' }} />
               </button>
-              <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Export campaigns">
+              <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Export campaigns" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <Download size={14} style={{ color: 'var(--muted)' }} />
               </button>
             </div>

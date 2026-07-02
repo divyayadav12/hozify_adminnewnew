@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
 import {
@@ -10,10 +10,13 @@ import {
   DollarSign,
   ChevronLeft,
   ChevronRight,
+  AlertCircle,
+  TrendingUp,
 } from "lucide-react";
 
-const rewards = [
+const initialRewards = [
   {
+    id: 1,
     initials: "AS",
     name: "Alex Simmons",
     email: "alex.s@enterprise.com",
@@ -23,6 +26,7 @@ const rewards = [
     date: "Oct 12, 2023 14:32",
   },
   {
+    id: 2,
     initials: "MJ",
     name: "Marcus Johnson",
     email: "m.johnson@techflow.io",
@@ -32,6 +36,7 @@ const rewards = [
     date: "Oct 12, 2023 11:15",
   },
   {
+    id: 3,
     initials: "SL",
     name: "Sarah Lin",
     email: "slin88@gmail.com",
@@ -42,6 +47,7 @@ const rewards = [
     alert: true,
   },
   {
+    id: 4,
     initials: "DB",
     name: "David Brooks",
     email: "d.brooks@creative.co",
@@ -54,27 +60,67 @@ const rewards = [
 
 export default function RewardApprovalQueuePage() {
   const { addToast } = useToast();
+  const [rewardList, setRewardList] = useState(initialRewards);
   const [selectedItems, setSelectedItems] = useState({});
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filterType, setFilterType] = useState('all');
+  const filterRef = useRef(null);
 
-  const handleToggleSelect = (index) => {
+  // Close filter dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const displayedRewards = rewardList.filter(item => {
+    if (filterType === 'alerts') return item.alert;
+    if (filterType === 'high-value') {
+      const val = parseFloat(item.reward.replace(/[^0-9.-]+/g,""));
+      return val > 1000;
+    }
+    return true;
+  });
+
+  const handleToggleSelect = (id) => {
     setSelectedItems(prev => ({
       ...prev,
-      [index]: !prev[index]
+      [id]: !prev[id]
     }));
   };
 
   const handleToggleAll = (e) => {
     const isChecked = e.target.checked;
-    const updated = {};
+    const updated = { ...selectedItems };
+    
     if (isChecked) {
-      rewards.forEach((_, idx) => {
-        updated[idx] = true;
+      displayedRewards.forEach((item) => {
+        updated[item.id] = true;
+      });
+    } else {
+      displayedRewards.forEach((item) => {
+        updated[item.id] = false;
       });
     }
     setSelectedItems(updated);
   };
 
   const selectedCount = Object.values(selectedItems).filter(Boolean).length;
+  const isAllDisplayedSelected = displayedRewards.length > 0 && displayedRewards.every(item => selectedItems[item.id]);
+
+  const handleBulkApprove = () => {
+    if (selectedCount === 0) {
+      addToast("Please select items first to bulk approve", "success");
+      return;
+    }
+    addToast(`Bulk approved ${selectedCount} selected reward payouts successfully!`, "success");
+    setRewardList(prev => prev.filter(item => !selectedItems[item.id]));
+    setSelectedItems({});
+  };
 
   return (
     <AdminShell
@@ -93,28 +139,50 @@ export default function RewardApprovalQueuePage() {
             </p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 relative">
             <button 
-              onClick={() => {
-                if (selectedCount === 0) {
-                  addToast("Please select items first to bulk approve", "success");
-                } else {
-                  addToast(`Bulk approved ${selectedCount} selected reward payouts successfully!`, "success");
-                  setSelectedItems({});
-                }
-              }}
+              onClick={handleBulkApprove}
               className="bg-indigo-900 hover:bg-indigo-850 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all cursor-pointer shadow-sm"
             >
               Bulk Approve {selectedCount > 0 && `(${selectedCount})`}
             </button>
 
-            <button 
-              onClick={() => addToast("Opening approval queue filters...", "success")}
-              className="border border-slate-350 bg-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-slate-50 transition-all cursor-pointer shadow-sm text-slate-700"
-            >
-              <Filter size={13} />
-              <span>Filter</span>
-            </button>
+            <div ref={filterRef} className="relative">
+              <button 
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="border border-slate-350 bg-white px-3 py-1.5 h-full rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-slate-50 transition-all cursor-pointer shadow-sm text-slate-700"
+              >
+                <Filter size={13} />
+                <span>Filter {filterType !== 'all' && ' (Active)'}</span>
+              </button>
+
+              {isFilterOpen && (
+                <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-10">
+                  <div className="p-2">
+                    <button 
+                      onClick={() => { setFilterType('all'); setIsFilterOpen(false); }}
+                      className={`w-full text-left px-3 py-2 text-xs font-bold rounded-lg transition-all ${filterType === 'all' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                    >
+                      All Rewards
+                    </button>
+                    <button 
+                      onClick={() => { setFilterType('alerts'); setIsFilterOpen(false); }}
+                      className={`w-full text-left px-3 py-2 text-xs font-bold rounded-lg transition-all flex items-center gap-2 mt-1 ${filterType === 'alerts' ? 'bg-red-50 text-red-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                    >
+                      <AlertCircle size={13} />
+                      Requires Review
+                    </button>
+                    <button 
+                      onClick={() => { setFilterType('high-value'); setIsFilterOpen(false); }}
+                      className={`w-full text-left px-3 py-2 text-xs font-bold rounded-lg transition-all flex items-center gap-2 mt-1 ${filterType === 'high-value' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                    >
+                      <TrendingUp size={13} />
+                      High Value (&gt;$1k)
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -122,7 +190,10 @@ export default function RewardApprovalQueuePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {/* Card 1 */}
           <div 
-            onClick={() => addToast("Card clicked: Pending Approvals count details", "success")}
+            onClick={() => {
+              setFilterType('all');
+              addToast("Viewing all pending approvals", "success");
+            }}
             className="p-3 min-h-[80px] bg-white border border-slate-300 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all cursor-pointer"
           >
             <div className="flex justify-between items-start w-full">
@@ -131,7 +202,7 @@ export default function RewardApprovalQueuePage() {
                   Pending Approvals
                 </p>
                 <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-                  124
+                  {rewardList.length}
                 </h3>
               </div>
               <div className="text-indigo-700 mt-0.5">
@@ -191,7 +262,10 @@ export default function RewardApprovalQueuePage() {
 
           {/* Card 4 */}
           <div 
-            onClick={() => addToast("Card clicked: Fraud Risk Alerts list", "success")}
+            onClick={() => {
+              setFilterType('alerts');
+              addToast("Viewing alerts requiring review", "success");
+            }}
             className="p-3 min-h-[80px] bg-white border border-slate-300 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all cursor-pointer"
           >
             <div className="flex justify-between items-start w-full">
@@ -200,7 +274,7 @@ export default function RewardApprovalQueuePage() {
                   Fraud Risk Alerts
                 </p>
                 <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight text-red-500">
-                  3
+                  {rewardList.filter(r => r.alert).length}
                 </h3>
               </div>
               <div className="text-red-550 mt-0.5">
@@ -219,11 +293,12 @@ export default function RewardApprovalQueuePage() {
             <table className="w-full min-w-[1100px] border-collapse">
               <thead className="bg-slate-50">
                 <tr className="text-left text-[10px] font-bold text-slate-500 uppercase border-b border-slate-200">
-                  <th className="p-4 w-12">
+                  <th className="p-4 w-12 cursor-pointer" onClick={handleToggleAll}>
                     <input 
                       type="checkbox" 
                       onChange={handleToggleAll}
-                      checked={rewards.length > 0 && Object.keys(selectedItems).length === rewards.length}
+                      checked={isAllDisplayedSelected}
+                      className="cursor-pointer"
                     />
                   </th>
                   <th className="p-4">Referrer</th>
@@ -235,76 +310,107 @@ export default function RewardApprovalQueuePage() {
               </thead>
 
               <tbody>
-                {rewards.map((item, index) => (
-                  <tr
-                    key={index}
-                    onClick={() => addToast(`Opening audit history details for ${item.name}`, "success")}
-                    className="border-t border-slate-100 hover:bg-slate-50 transition-all cursor-pointer font-medium text-xs"
-                  >
-                    <td className="p-4" onClick={(e) => e.stopPropagation()}>
-                      <input 
-                        type="checkbox" 
-                        checked={!!selectedItems[index]}
-                        onChange={() => handleToggleSelect(index)}
-                      />
-                    </td>
-
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-[10px] font-extrabold text-indigo-700">
-                          {item.initials}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-slate-900">
-                            {item.name}
-                          </h4>
-                          <p className="text-[10px] text-slate-400 font-semibold">
-                            {item.email}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="p-4">
-                      <h4 className="font-bold text-slate-900">
-                        {item.achievement}
-                      </h4>
-                      <p className={`text-[10px] font-bold ${item.alert ? "text-red-500" : "text-indigo-650"}`}>
-                        {item.subtitle}
-                      </p>
-                    </td>
-
-                    <td className="p-4">
-                      <span className="bg-indigo-900 text-white px-3 py-1 rounded text-xs font-bold">
-                        {item.reward}
-                      </span>
-                    </td>
-
-                    <td className="p-4 text-slate-400 font-semibold">
-                      {item.date}
-                    </td>
-
-                    <td className="p-4 text-center pr-6" onClick={(e) => e.stopPropagation()}>
-                      <div className="flex justify-center gap-4">
-                        <button 
-                          onClick={() => addToast(`Successfully approved reward payout for ${item.name}!`, "success")}
-                          className="hover:text-indigo-900 transition-all cursor-pointer"
-                          aria-label={`Approve reward for ${item.name}`}
-                        >
-                          <CheckCircle2 size={18} className="text-indigo-700 hover:text-indigo-900" />
-                        </button>
-
-                        <button 
-                          onClick={() => addToast(`Rejected and flagged reward payout for ${item.name}`, "success")}
-                          className="hover:text-red-750 transition-all cursor-pointer"
-                          aria-label={`Reject reward for ${item.name}`}
-                        >
-                          <XCircle size={18} className="text-red-500 hover:text-red-700" />
-                        </button>
-                      </div>
+                {displayedRewards.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="p-8 text-center text-slate-500 font-medium">
+                      {rewardList.length === 0 ? 'No pending rewards in the queue.' : 'No pending rewards found for the current filter.'}
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  displayedRewards.map((item) => (
+                    <tr
+                      key={item.id}
+                      onClick={() => addToast(`Opening audit history details for ${item.name}`, "success")}
+                      className="border-t border-slate-100 hover:bg-slate-50 transition-all cursor-pointer font-medium text-xs"
+                    >
+                      <td className="p-4" onClick={(e) => {
+                        e.stopPropagation();
+                        handleToggleSelect(item.id);
+                      }}>
+                        <input 
+                          type="checkbox" 
+                          checked={!!selectedItems[item.id]}
+                          onChange={() => handleToggleSelect(item.id)}
+                          onClick={(e) => e.stopPropagation()}
+                          className="cursor-pointer"
+                        />
+                      </td>
+
+                      <td className="p-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-[10px] font-extrabold text-indigo-700">
+                            {item.initials}
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900">
+                              {item.name}
+                            </h4>
+                            <p className="text-[10px] text-slate-400 font-semibold">
+                              {item.email}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="p-4">
+                        <h4 className="font-bold text-slate-900">
+                          {item.achievement}
+                        </h4>
+                        <p className={`text-[10px] font-bold ${item.alert ? "text-red-500" : "text-indigo-650"}`}>
+                          {item.subtitle}
+                        </p>
+                      </td>
+
+                      <td className="p-4">
+                        <span className="bg-indigo-900 text-white px-3 py-1 rounded text-xs font-bold">
+                          {item.reward}
+                        </span>
+                      </td>
+
+                      <td className="p-4 text-slate-400 font-semibold">
+                        {item.date}
+                      </td>
+
+                      <td className="p-4 text-center pr-6" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex justify-center gap-4">
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToast(`Successfully approved reward payout for ${item.name}!`, "success");
+                              setRewardList(prev => prev.filter(r => r.id !== item.id));
+                              setSelectedItems(prev => {
+                                const newSelected = { ...prev };
+                                delete newSelected[item.id];
+                                return newSelected;
+                              });
+                            }}
+                            className="hover:text-indigo-900 transition-all cursor-pointer"
+                            aria-label={`Approve reward for ${item.name}`}
+                          >
+                            <CheckCircle2 size={18} className="text-indigo-700 hover:text-indigo-900" />
+                          </button>
+
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToast(`Rejected and flagged reward payout for ${item.name}`, "success");
+                              setRewardList(prev => prev.filter(r => r.id !== item.id));
+                              setSelectedItems(prev => {
+                                const newSelected = { ...prev };
+                                delete newSelected[item.id];
+                                return newSelected;
+                              });
+                            }}
+                            className="hover:text-red-750 transition-all cursor-pointer"
+                            aria-label={`Reject reward for ${item.name}`}
+                          >
+                            <XCircle size={18} className="text-red-500 hover:text-red-700" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -312,7 +418,7 @@ export default function RewardApprovalQueuePage() {
           {/* Footer */}
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 font-semibold">
             <p>
-              Showing 4 of 124 pending rewards
+              Showing {displayedRewards.length} of 124 pending rewards
             </p>
 
             <div className="flex gap-2">

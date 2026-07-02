@@ -18,7 +18,8 @@ import {
   Terminal,
   RefreshCw,
   LogOut,
-  X
+  X,
+  ArrowLeft
 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 import { sidebarNavigation } from '../../config/sidebarNavigation';
@@ -30,7 +31,7 @@ import brandLogo from '../../assets/logo.png';
 
 export default function GlobalAdminShell({ children }) {
   const { shellProps } = useShell();
-  const { session, logout, navigate, route } = useApp();
+  const { session, logout, navigate, route, goBack, canGoBack } = useApp();
 
   // Extract props from Context (set by the page proxies)
   const {
@@ -407,7 +408,7 @@ export default function GlobalAdminShell({ children }) {
       <section className="dashboard-main" style={{ background: '#f8fafc' }}>
         <header className="dash-header global-header" style={{ position: 'sticky', top: 0, zIndex: 90, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px', height: '64px', background: 'linear-gradient(90deg, #1B0B90 0%, #2F1DB8 100%)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)' }}>
           {/* Left Combo */}
-          <div className="header-left-combo" style={{ display: 'flex', alignItems: 'center', gap: '20px', flex: '1 1 0%', minWidth: 0 }}>
+          <div className="header-left-combo" style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '1 1 0%', minWidth: 0 }}>
             <button
               className="mobile-menu-btn"
               onClick={() => setSidebarOpen(true)}
@@ -415,6 +416,30 @@ export default function GlobalAdminShell({ children }) {
             >
               <Menu size={24} />
             </button>
+            {canGoBack && (
+              <button
+                onClick={(e) => { e.preventDefault(); goBack(); }}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.12)',
+                  border: 'none',
+                  color: '#ffffff',
+                  borderRadius: '50%',
+                  width: '30px',
+                  height: '30px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                  flexShrink: 0
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
+                title="Go Back"
+              >
+                <ArrowLeft size={16} />
+              </button>
+            )}
             {/* Always show the active module/tab name in navbar */}
             <span style={{ fontWeight: '800', fontSize: '20px', color: '#FFFFFF', whiteSpace: 'nowrap', letterSpacing: '-0.02em', fontFamily: 'Inter, sans-serif', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>
               {headerTitle || activeTab}

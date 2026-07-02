@@ -1,9 +1,10 @@
 import React from 'react';
 import { Info, Palette } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
-import toast from 'react-hot-toast';
+import { useToast } from '../../components/common/ToastNotification';
 
 export default function GeneralSettings() {
+  const { addToast } = useToast();
   return (
     <AdminShell
       activeTab="Settings"
@@ -83,8 +84,8 @@ export default function GeneralSettings() {
                     </div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Upload New</button>
-                    <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} type="button" style={{ padding: '0', background: 'none', border: 'none', fontSize: '12px', fontWeight: '700', color: '#ef4444', cursor: 'pointer', textAlign: 'left' }}>Remove</button>
+                    <button onClick={(e) => { e.preventDefault(); addToast("Opening file uploader...", "info"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Upload New</button>
+                    <button onClick={(e) => { e.preventDefault(); addToast("Logo removed.", "success"); }} type="button" style={{ padding: '0', background: 'none', border: 'none', fontSize: '12px', fontWeight: '700', color: '#ef4444', cursor: 'pointer', textAlign: 'left' }}>Remove</button>
                   </div>
                 </div>
               </div>
@@ -97,7 +98,7 @@ export default function GeneralSettings() {
                     <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)', margin: '0 0 2px' }}>#070235</strong>
                     <span style={{ display: 'block', fontSize: '12px', color: 'var(--muted)' }}>Midnight Navy</span>
                   </div>
-                  <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Edit</button>
+                  <button onClick={(e) => { e.preventDefault(); addToast("Opening color picker...", "info"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Edit</button>
                 </div>
               </div>
 
@@ -109,7 +110,7 @@ export default function GeneralSettings() {
                     <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)', margin: '0 0 2px' }}>#F8FAFC</strong>
                     <span style={{ display: 'block', fontSize: '12px', color: 'var(--muted)' }}>Ghost White</span>
                   </div>
-                  <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Edit</button>
+                  <button onClick={(e) => { e.preventDefault(); addToast("Opening color picker...", "info"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Edit</button>
                 </div>
               </div>
             </div>
@@ -169,7 +170,7 @@ export default function GeneralSettings() {
                     <span style={{ display: 'block', fontSize: '12px', color: 'var(--muted)' }}>admin@hozify.enterprise</span>
                   </div>
                 </div>
-                <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Update Profile</button>
+                <button onClick={(e) => { e.preventDefault(); addToast("Profile details updated!", "success"); }} type="button" style={{ padding: '6px 12px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>Update Profile</button>
               </div>
 
               <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -187,10 +188,10 @@ export default function GeneralSettings() {
 
           {/* Action Buttons */}
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '16px', borderTop: '1px solid #e2e8f0', paddingTop: '24px' }}>
-            <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} type="button" style={{ padding: '0 20px', height: '44px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '14px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>
+            <button onClick={(e) => { e.preventDefault(); addToast("Changes discarded.", "info"); }} type="button" style={{ padding: '0 20px', height: '44px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '14px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}>
               Discard Changes
             </button>
-            <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} type="button" style={{ padding: '0 24px', height: '44px', background: '#1e1b4b', border: 'none', borderRadius: '6px', fontSize: '14px', fontWeight: '700', color: '#fff', cursor: 'pointer' }}>
+            <button onClick={(e) => { e.preventDefault(); addToast("Configuration saved successfully!", "success"); }} type="button" style={{ padding: '0 24px', height: '44px', background: '#1e1b4b', border: 'none', borderRadius: '6px', fontSize: '14px', fontWeight: '700', color: '#fff', cursor: 'pointer' }}>
               Save Configuration
             </button>
           </div>

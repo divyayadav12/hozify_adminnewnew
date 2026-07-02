@@ -8563,10 +8563,11 @@ td:first-child strong {
 .quote-matrix .winner { background: #f6f8ff; box-shadow: inset 2px 0 0 var(--primary), inset -2px 0 0 var(--primary); color: var(--primary); font-weight: 900; }
 .quote-ribbon { background: var(--primary); border-radius: 0 0 10px 10px; color: #fff; font-size: 10px; left: 50%; padding: 5px 18px; position: absolute; text-transform: uppercase; top: 0; transform: translateX(-50%); }
 .quote-winner-card { align-items: center; display: grid; gap: 18px; grid-template-columns: minmax(0, 1.2fr) 170px 220px; }
-.quote-metric-row { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px; }
-.quote-metric-row span { color: #55515e; display: grid; font-size: 12px; font-weight: 900; text-transform: uppercase; }
-.quote-metric-row b { color: #111827; font-size: 18px; text-transform: none; }
-.quote-metric-row .good { color: #0b9f59; }
+.quote-metric-row { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px; width: 100%; }
+.quote-metric-col { display: flex; flex-direction: column; gap: 4px; }
+.quote-metric-col small { color: #55515e; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
+.quote-metric-col b { color: #111827; font-size: 16px; text-transform: none; line-height: 1.2; word-break: break-all; }
+.quote-metric-col .good { color: #0b9f59; }
 .quote-negotiation { display: grid; gap: 0; grid-template-columns: minmax(0, 1fr) 420px; min-height: 720px; }
 .quote-kanban { background: #edf3ff; display: grid; gap: 16px; grid-template-columns: repeat(5, minmax(240px, 1fr)); overflow-x: auto; padding: 24px; }
 .quote-kanban-col h3 { color: #4e4a59; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
@@ -8654,10 +8655,10 @@ td:first-child strong {
 .banking-kpi-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .banking-kpi-grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .banking-kpi-grid.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.banking-kpi { background: #fff; border: 1px solid var(--bank-line); border-radius: 7px; box-shadow: 0 1px 3px rgba(15, 23, 42, .06); display: grid; gap: 10px; min-height: 126px; padding: 20px; }
+.banking-kpi { background: #fff; border: 1px solid var(--bank-line); border-radius: 7px; box-shadow: 0 1px 3px rgba(15, 23, 42, .06); display: grid; gap: 10px; min-height: 126px; padding: 20px; min-width: 0; }
 .banking-kpi svg { background: #dce8ff; border-radius: 5px; color: var(--bank-primary); height: 36px; padding: 5px; width: 36px; }
 .banking-kpi span { color: #4f4d5a; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-.banking-kpi strong { color: var(--bank-ink); font-size: 34px; line-height: 1; }
+.banking-kpi strong { color: var(--bank-ink); font-size: clamp(20px, 2.2vw, 28px); line-height: 1; word-wrap: break-word; }
 .banking-kpi small { color: #0fa45c; font-weight: 650; }
 .banking-kpi.danger strong, .banking-kpi.danger small { color: #c51f1f; }
 .banking-card { background: #fff; border: 1px solid var(--bank-line); border-radius: 7px; box-shadow: 0 1px 3px rgba(15, 23, 42, .06); min-width: 0; overflow: hidden; padding: 22px; }

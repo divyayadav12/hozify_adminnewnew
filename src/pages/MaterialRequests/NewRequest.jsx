@@ -13,6 +13,61 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 
+const mockBookings = [
+  {
+    id: 'BOK-2023-089',
+    name: 'North Ridge Terminal expansion',
+    department: 'Infrastructure & Civil',
+    location: 'Sector 4-B, Industrial Hub',
+    manager: 'David Chen (Infrastructure Lead)',
+    startDate: 'Oct 12, 2023',
+    endDate: 'Mar 30, 2024',
+    progressPercent: 42,
+    priority: 'High Criticality',
+    sla: 'SLA: 24h Approval',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    id: 'BOK-2023-045',
+    name: 'South Runway Repair & Paving',
+    department: 'Infrastructure & Civil',
+    location: 'Runway 2, Commercial Zone',
+    manager: 'Robert Vance (Civil Lead)',
+    startDate: 'Nov 05, 2023',
+    endDate: 'May 15, 2024',
+    progressPercent: 28,
+    priority: 'Medium Criticality',
+    sla: 'SLA: 48h Approval',
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    id: 'BOK-2023-112',
+    name: 'HVAC System Maintenance',
+    department: 'Maintenance & Ops',
+    location: 'Main Terminal Building',
+    manager: 'Sarah Jenkins (Ops Manager)',
+    startDate: 'Dec 01, 2023',
+    endDate: 'Feb 28, 2024',
+    progressPercent: 75,
+    priority: 'Low Criticality',
+    sla: 'SLA: 72h Approval',
+    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    id: 'BOK-2023-144',
+    name: 'Cargo Fleet Electrification',
+    department: 'Logistics & Fleet',
+    location: 'Depot C, Logistics Park',
+    manager: 'Marcus Brody (Fleet Lead)',
+    startDate: 'Jan 10, 2024',
+    endDate: 'Jul 20, 2024',
+    progressPercent: 15,
+    priority: 'High Criticality',
+    sla: 'SLA: 24h Approval',
+    image: 'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=150&q=80'
+  }
+];
+
 export default function NewMaterialRequest() {
   const { navigate } = useApp();
   const [bookingRef, setBookingRef] = useState('');
@@ -38,6 +93,12 @@ export default function NewMaterialRequest() {
   const handlePrevStep = () => {
     if (currentStep > 1) setCurrentStep(prev => prev - 1);
   };
+
+  // Find dynamic booking based on search match first, then department, then default to first
+  const selectedBooking = mockBookings.find(b => 
+    (bookingRef && b.id.toLowerCase().includes(bookingRef.toLowerCase())) || 
+    (bookingRef && b.name.toLowerCase().includes(bookingRef.toLowerCase()))
+  ) || mockBookings.find(b => b.department === department) || mockBookings[0];
 
   return (
     <AdminShell
@@ -188,8 +249,8 @@ export default function NewMaterialRequest() {
 
             {/* Thumbnail Image */}
             <img 
-              src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=150&q=80" 
-              alt="Terminal Expansion Construction Site" 
+              src={selectedBooking.image} 
+              alt={selectedBooking.name} 
               style={{ width: '80px', height: '80px', borderRadius: '6px', objectFit: 'cover' }}
             />
 
@@ -205,14 +266,14 @@ export default function NewMaterialRequest() {
                 display: 'inline-block',
                 marginBottom: '6px'
               }}>
-                BOK-2023-089
+                {selectedBooking.id}
               </span>
               <strong style={{ display: 'block', fontSize: '15px', color: 'var(--text)', fontWeight: '800' }}>
-                North Ridge Terminal expansion
+                {selectedBooking.name}
               </strong>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '4px', fontSize: '12px', color: 'var(--muted)' }}>
-                <span>Location: Sector 4-B, Industrial Hub</span>
-                <span>Manager: David Chen (Infrastructure Lead)</span>
+                <span>Location: {selectedBooking.location}</span>
+                <span>Manager: {selectedBooking.manager}</span>
               </div>
             </div>
           </div>
@@ -230,34 +291,55 @@ export default function NewMaterialRequest() {
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                 <div>
                   <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)' }}>Start Date</span>
-                  <strong style={{ display: 'block', fontWeight: '700', color: 'var(--text)', marginTop: '2px' }}>Oct 12, 2023</strong>
+                  <strong style={{ display: 'block', fontWeight: '700', color: 'var(--text)', marginTop: '2px' }}>{selectedBooking.startDate}</strong>
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)' }}>End Date</span>
-                  <strong style={{ display: 'block', fontWeight: '700', color: 'var(--text)', marginTop: '2px' }}>Mar 30, 2024</strong>
+                  <strong style={{ display: 'block', fontWeight: '700', color: 'var(--text)', marginTop: '2px' }}>{selectedBooking.endDate}</strong>
                 </div>
               </div>
 
               {/* Progress Slider representation */}
               <div style={{ position: 'relative', height: '20px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ width: '100%', height: '4px', background: '#eee9f6', borderRadius: '2px' }} />
-                <div style={{ position: 'absolute', left: '42%', width: '12px', height: '12px', borderRadius: '50%', background: '#1d1b84', border: '2px solid #ffffff', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+                <div style={{ 
+                  position: 'absolute', 
+                  left: `${selectedBooking.progressPercent}%`, 
+                  width: '12px', 
+                  height: '12px', 
+                  borderRadius: '50%', 
+                  background: '#1d1b84', 
+                  border: '2px solid #ffffff', 
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                  transition: 'left 0.3s ease-out' 
+                }} />
               </div>
             </div>
           </div>
 
           {/* Priority Level Card */}
-          <div className="panel" style={{ background: '#1d1b84', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '124px' }}>
+          <div style={{ 
+            background: selectedBooking.priority === 'High Criticality' ? '#1d1b84' : selectedBooking.priority === 'Medium Criticality' ? '#ea580c' : '#059669', 
+            color: '#ffffff', 
+            border: 'none', 
+            borderRadius: '12px', 
+            padding: '24px', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyContent: 'space-between', 
+            minHeight: '124px',
+            transition: 'background-color 0.3s ease'
+          }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               PRIORITY LEVEL
             </span>
             <div>
               <strong style={{ display: 'block', fontSize: '22px', fontWeight: '800', margin: '4px 0' }}>
-                High Criticality
+                {selectedBooking.priority}
               </strong>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(255,255,255,0.7)', marginTop: '6px' }}>
                 <Clock size={14} />
-                <span>SLA: 24h Approval</span>
+                <span>{selectedBooking.sla}</span>
               </div>
             </div>
           </div>

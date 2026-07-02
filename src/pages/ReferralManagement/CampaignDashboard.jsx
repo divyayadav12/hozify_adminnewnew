@@ -11,6 +11,7 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { useToast } from "../../components/common/ToastNotification";
 
@@ -147,6 +148,9 @@ function CampaignRow({
 export default function CampaignDashboard() {
   const { addToast } = useToast();
   const [statusFilter, setStatusFilter] = useState("All Statuses");
+  const [showDateFilter, setShowDateFilter] = useState(false);
+  const [dateRange, setDateRange] = useState("Last 30 Days");
+  const [showInsightsModal, setShowInsightsModal] = useState(false);
 
   const filteredCampaigns = MOCK_CAMPAIGNS.filter(c => {
     return statusFilter === "All Statuses" || c.status === statusFilter;
@@ -169,13 +173,33 @@ export default function CampaignDashboard() {
           </div>
 
           <div className="flex gap-3">
-            <button 
-              onClick={() => addToast("Opening campaign date range selection...", "success")}
-              className="px-3 py-1.5 border border-slate-300 rounded-xl bg-white flex items-center gap-2 text-xs font-bold hover:bg-slate-50 transition-all cursor-pointer"
-            >
-              <Calendar size={14} />
-              <span>Last 30 Days</span>
-            </button>
+            <div className="relative">
+              <button 
+                onClick={() => setShowDateFilter(!showDateFilter)}
+                className="px-3 py-1.5 border border-slate-300 rounded-xl bg-white flex items-center gap-2 text-xs font-bold hover:bg-slate-50 transition-all cursor-pointer"
+              >
+                <Calendar size={14} />
+                <span>{dateRange}</span>
+              </button>
+              {showDateFilter && (
+                <div className="absolute top-full left-0 mt-2 w-40 bg-white border rounded-xl shadow-lg z-[100] py-2">
+                  {["Today", "Last 7 Days", "Last 30 Days", "This Month", "Last Year"].map(range => (
+                    <button
+                      key={range}
+                      type="button"
+                      onClick={() => {
+                        setDateRange(range);
+                        setShowDateFilter(false);
+                        addToast(`Date range set to ${range}`, "success");
+                      }}
+                      className="block w-full text-left px-4 py-2 text-xs hover:bg-slate-50 cursor-pointer"
+                    >
+                      {range}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <button 
               onClick={() => addToast("Exporting campaign performance metrics...", "success")}
@@ -312,7 +336,7 @@ export default function CampaignDashboard() {
             </div>
 
             <button 
-              onClick={() => addToast("Opening full performance insights dashboard...", "success")}
+              onClick={() => setShowInsightsModal(true)}
               className="w-full mt-6 text-indigo-700 hover:text-indigo-900 font-bold text-xs transition-all cursor-pointer"
             >
               View All Insights
@@ -390,6 +414,72 @@ export default function CampaignDashboard() {
           </div>
         </div>
       </div>
+
+      {/* INSIGHTS MODAL */}
+      {showInsightsModal && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[999] p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl w-full max-w-xl shadow-2xl border border-slate-100 overflow-hidden flex flex-col max-h-[80vh]">
+            <div className="flex justify-between items-center px-6 py-4 border-b border-slate-100 bg-slate-50 shrink-0">
+              <h3 className="font-black text-indigo-950 text-lg">All Optimization Insights</h3>
+              <button 
+                onClick={() => setShowInsightsModal(false)}
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/50 transition-all cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="overflow-auto p-6 space-y-6">
+              <div className="flex gap-4">
+                <div className="p-3 bg-blue-100 rounded-xl text-blue-700 h-12 w-12 flex items-center justify-center shrink-0">
+                  <ShieldCheck size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 text-sm">Lower CPA Opportunity</h4>
+                  <p className="text-sm text-slate-600 mt-1">Summer Blast has a 15% lower Cost Per Acquisition than average. Consider reallocating budget from underperforming campaigns to maximize this efficiency.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="p-3 bg-red-100 rounded-xl text-red-700 h-12 w-12 flex items-center justify-center shrink-0">
+                  <AlertTriangle size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 text-sm">High Fraud Alert</h4>
+                  <p className="text-sm text-slate-600 mt-1">Unusual referral spikes detected in "Global Growth v2" from identical IP addresses. Automation filters have paused 45 suspicious accounts.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="p-3 bg-purple-100 rounded-xl text-purple-700 h-12 w-12 flex items-center justify-center shrink-0">
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 text-sm">Top Performer Milestone</h4>
+                  <p className="text-sm text-slate-600 mt-1">"VIP Referral" just crossed 1,000 active participants with a phenomenal 22.1% conversion rate. This is our highest converting campaign this quarter!</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="p-3 bg-emerald-100 rounded-xl text-emerald-700 h-12 w-12 flex items-center justify-center shrink-0">
+                  <Users size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 text-sm">Audience Saturation</h4>
+                  <p className="text-sm text-slate-600 mt-1">"Holiday Tier" is experiencing audience fatigue. Click-through rates have dropped 8% over the past 72 hours. We recommend refreshing the creative assets.</p>
+                </div>
+              </div>
+            </div>
+            <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+              <button 
+                onClick={() => setShowInsightsModal(false)}
+                className="px-4 py-2 bg-indigo-950 text-white rounded-lg text-sm font-bold hover:bg-indigo-900 transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

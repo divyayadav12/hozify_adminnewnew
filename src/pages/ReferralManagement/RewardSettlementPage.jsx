@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
 import {
@@ -9,6 +9,7 @@ import {
   Clock,
   ChevronLeft,
   ChevronRight,
+  XCircle,
 } from "lucide-react";
 
 const settlements = [
@@ -91,6 +92,44 @@ function MetricCard({ title, value, change, color = "text-emerald-500", onClick 
 export default function RewardSettlementsPage() {
   const { addToast } = useToast();
   const [activeFilter, setActiveFilter] = useState("All");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [viewingTransaction, setViewingTransaction] = useState(null);
+  const filterRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const displayedSettlements = settlements.filter(item => {
+    if (activeFilter === "All") return true;
+    return item.status === activeFilter;
+  });
+
+  const handleExportCSV = () => {
+    const headers = ['Settlement ID', 'Recipient Name', 'Recipient Email', 'Amount', 'Status', 'Method', 'Date'];
+    const csvContent = [
+      headers.join(','),
+      ...displayedSettlements.map(item => 
+        `"${item.id}","${item.name}","${item.email}","${item.amount}","${item.status}","${item.method}","${item.date}"`
+      )
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'reward_settlements.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    addToast("Exported reward settlements successfully!", "success");
+  };
 
   return (
     <AdminShell
@@ -109,17 +148,35 @@ export default function RewardSettlementsPage() {
             </p>
           </div>
 
-          <div className="flex gap-3">
-            <button 
-              onClick={() => addToast("Opening reward settlement filters...", "success")}
-              className="bg-white border border-slate-350 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-slate-50 transition-all cursor-pointer shadow-sm text-slate-700"
-            >
-              <Filter size={13} />
-              <span>Filter</span>
-            </button>
+          <div className="flex gap-3 relative">
+            <div ref={filterRef} className="relative">
+              <button 
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="bg-white border border-slate-350 px-3 py-1.5 h-full rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-slate-50 transition-all cursor-pointer shadow-sm text-slate-700"
+              >
+                <Filter size={13} />
+                <span>Filter {activeFilter !== 'All' && `(${activeFilter})`}</span>
+              </button>
+
+              {isFilterOpen && (
+                <div className="absolute right-0 top-full mt-2 w-40 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-10">
+                  <div className="p-2">
+                    {['All', 'PAID', 'PROCESSING', 'FAILED'].map(status => (
+                      <button 
+                        key={status}
+                        onClick={() => { setActiveFilter(status); setIsFilterOpen(false); }}
+                        className={`w-full text-left px-3 py-2 text-xs font-bold rounded-lg transition-all ${activeFilter === status ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}
+                      >
+                        {status}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <button 
-              onClick={() => addToast("Exporting reward settlements ledger CSV...", "success")}
+              onClick={handleExportCSV}
               className="bg-white border border-slate-355 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-slate-50 transition-all cursor-pointer shadow-sm text-slate-700"
             >
               <Download size={13} />
@@ -134,7 +191,10 @@ export default function RewardSettlementsPage() {
             title="Total Disbursed"
             value="$128,450.00"
             change="↗ +12.5% vs last month"
-            onClick={() => addToast("Card clicked: Total disbursed settlements analytics", "success")}
+            onClick={() => {
+              setActiveFilter("PAID");
+              addToast("Viewing paid settlements", "success");
+            }}
           />
 
           <MetricCard
@@ -150,7 +210,10 @@ export default function RewardSettlementsPage() {
             value="$5,120.00"
             change="Awaiting bank confirmation"
             color="text-blue-600"
-            onClick={() => addToast("Card clicked: Processing settlements details", "success")}
+            onClick={() => {
+              setActiveFilter("PROCESSING");
+              addToast("Viewing processing settlements", "success");
+            }}
           />
 
           <MetricCard
@@ -158,7 +221,10 @@ export default function RewardSettlementsPage() {
             value="0.42%"
             change="6 transactions this week"
             color="text-red-500"
-            onClick={() => addToast("Card clicked: Failed settlements analytics", "success")}
+            onClick={() => {
+              setActiveFilter("FAILED");
+              addToast("Viewing failed settlements", "success");
+            }}
           />
         </div>
 
@@ -169,7 +235,7 @@ export default function RewardSettlementsPage() {
               Transaction History
             </h2>
             <span className="text-xs text-slate-500">
-              Showing 1-5 of 2,450 results
+              Showing {displayedSettlements.length} of 2,450 results
             </span>
           </div>
 
@@ -188,68 +254,76 @@ export default function RewardSettlementsPage() {
               </thead>
 
               <tbody>
-                {settlements.map((item, index) => (
-                  <tr
-                    key={index}
-                    onClick={() => addToast(`Opening detailed transaction logs for settlement ${item.id}`, "success")}
-                    className="border-t border-slate-100 hover:bg-slate-50 transition-all cursor-pointer font-medium text-xs text-slate-650"
-                  >
-                    <td className="p-4 pl-6 font-bold text-indigo-900">
-                      {item.id}
-                    </td>
-
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-extrabold text-slate-700">
-                          {item.initials}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-slate-900">
-                            {item.name}
-                          </h4>
-                          <p className="text-[10px] text-slate-400 font-semibold">
-                            {item.email}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="p-4 font-bold text-slate-900">
-                      {item.amount}
-                    </td>
-
-                    <td className="p-4 font-semibold">
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-[9px] font-extrabold ${
-                          item.status === "PAID"
-                            ? "bg-green-150 text-green-700 bg-green-50 border border-green-100"
-                            : item.status === "FAILED"
-                            ? "bg-red-150 text-red-700 bg-red-50 border border-red-100"
-                            : "bg-blue-150 text-blue-700 bg-blue-50 border border-blue-100"
-                        }`}
-                      >
-                        {item.status}
-                      </span>
-                    </td>
-
-                    <td className="p-4 text-slate-500 font-semibold">
-                      {item.method}
-                    </td>
-
-                    <td className="p-4 text-slate-400 font-semibold">
-                      {item.date}
-                    </td>
-
-                    <td className="p-4 text-right pr-6" onClick={(e) => e.stopPropagation()}>
-                      <button 
-                        onClick={() => addToast(`Opening detailed transaction logs for settlement ${item.id}`, "success")}
-                        className="text-indigo-700 hover:text-indigo-900 font-bold cursor-pointer text-xs"
-                      >
-                        View
-                      </button>
+                {displayedSettlements.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" className="p-8 text-center text-slate-500 font-medium">
+                      No settlements found for the selected filter.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  displayedSettlements.map((item, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => setViewingTransaction(item)}
+                      className="border-t border-slate-100 hover:bg-slate-50 transition-all cursor-pointer font-medium text-xs text-slate-650"
+                    >
+                      <td className="p-4 pl-6 font-bold text-indigo-900">
+                        {item.id}
+                      </td>
+
+                      <td className="p-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-extrabold text-slate-700">
+                            {item.initials}
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900">
+                              {item.name}
+                            </h4>
+                            <p className="text-[10px] text-slate-400 font-semibold">
+                              {item.email}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="p-4 font-bold text-slate-900">
+                        {item.amount}
+                      </td>
+
+                      <td className="p-4 font-semibold">
+                        <span
+                          className={`px-2.5 py-0.5 rounded-full text-[9px] font-extrabold ${
+                            item.status === "PAID"
+                              ? "bg-green-150 text-green-700 bg-green-50 border border-green-100"
+                              : item.status === "FAILED"
+                              ? "bg-red-150 text-red-700 bg-red-50 border border-red-100"
+                              : "bg-blue-150 text-blue-700 bg-blue-50 border border-blue-100"
+                          }`}
+                        >
+                          {item.status}
+                        </span>
+                      </td>
+
+                      <td className="p-4 text-slate-500 font-semibold">
+                        {item.method}
+                      </td>
+
+                      <td className="p-4 text-slate-400 font-semibold">
+                        {item.date}
+                      </td>
+
+                      <td className="p-4 text-right pr-6" onClick={(e) => e.stopPropagation()}>
+                        <button 
+                          onClick={() => setViewingTransaction(item)}
+                          className="text-indigo-700 hover:text-indigo-900 font-bold cursor-pointer text-xs"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -369,6 +443,65 @@ export default function RewardSettlementsPage() {
           </div>
         </div>
       </div>
+
+      {/* Transaction Details Modal */}
+      {viewingTransaction && (
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+              <h2 className="font-black text-indigo-955 text-lg">Transaction Details</h2>
+              <button onClick={() => setViewingTransaction(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                <XCircle size={20} />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <span className="text-xs font-bold text-slate-500 uppercase">Settlement ID</span>
+                <span className="font-black text-indigo-900">{viewingTransaction.id}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <span className="text-xs font-bold text-slate-500 uppercase">Recipient</span>
+                <div className="text-right">
+                  <div className="font-bold text-slate-900">{viewingTransaction.name}</div>
+                  <div className="text-[10px] font-semibold text-slate-500">{viewingTransaction.email}</div>
+                </div>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <span className="text-xs font-bold text-slate-500 uppercase">Amount</span>
+                <span className="font-black text-slate-900 text-lg">{viewingTransaction.amount}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <span className="text-xs font-bold text-slate-500 uppercase">Status</span>
+                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${
+                  viewingTransaction.status === "PAID"
+                    ? "bg-green-150 text-green-700 bg-green-50 border border-green-100"
+                    : viewingTransaction.status === "FAILED"
+                    ? "bg-red-150 text-red-700 bg-red-50 border border-red-100"
+                    : "bg-blue-150 text-blue-700 bg-blue-50 border border-blue-100"
+                }`}>
+                  {viewingTransaction.status}
+                </span>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                <span className="text-xs font-bold text-slate-500 uppercase">Method</span>
+                <span className="font-bold text-slate-700">{viewingTransaction.method}</span>
+              </div>
+              <div className="flex justify-between items-center pb-1">
+                <span className="text-xs font-bold text-slate-500 uppercase">Date Logged</span>
+                <span className="font-bold text-slate-700">{viewingTransaction.date}</span>
+              </div>
+            </div>
+            <div className="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
+              <button 
+                onClick={() => setViewingTransaction(null)}
+                className="bg-indigo-900 hover:bg-indigo-850 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all shadow-sm"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

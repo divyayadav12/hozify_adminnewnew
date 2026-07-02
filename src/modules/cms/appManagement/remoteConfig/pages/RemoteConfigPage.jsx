@@ -197,84 +197,86 @@ export default function RemoteConfigPage() {
 
         {/* Table */}
         <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
-            <thead>
-              <tr className="custom-table-header">
-                <th style={{ padding: '16px 24px' }}>CONFIG KEY</th>
-                <th style={{ padding: '16px 24px' }}>TARGET APP</th>
-                <th style={{ padding: '16px 24px' }}>VALUE</th>
-                <th style={{ padding: '16px 24px' }}>ROLLOUT</th>
-                <th style={{ padding: '16px 24px' }}>ENV</th>
-                <th style={{ padding: '16px 24px' }}>STATUS</th>
-                <th style={{ padding: '16px 24px', textAlign: 'right' }}>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredConfigs.length > 0 ? (
-                filteredConfigs.map(row => (
-                  <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>
-                      {row.key}
-                      <span style={{ display: 'block', fontSize: '11px', color: '#64748b', fontWeight: '400', marginTop: '4px' }}>
-                        {row.description}
-                      </span>
-                    </td>
-                    <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.app}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>{row.value}</td>
-                    <td style={{ padding: '18px 24px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <div style={{ flex: 1, width: '60px', height: '6px', background: '#eee9f6', borderRadius: '3px', overflow: 'hidden' }}>
-                          <div style={{ width: `${row.rollout}%`, height: '100%', background: '#4f46e5' }} />
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px', minWidth: '900px' }}>
+              <thead>
+                <tr className="custom-table-header">
+                  <th style={{ padding: '16px 24px' }}>CONFIG KEY</th>
+                  <th style={{ padding: '16px 24px' }}>TARGET APP</th>
+                  <th style={{ padding: '16px 24px' }}>VALUE</th>
+                  <th style={{ padding: '16px 24px' }}>ROLLOUT</th>
+                  <th style={{ padding: '16px 24px' }}>ENV</th>
+                  <th style={{ padding: '16px 24px' }}>STATUS</th>
+                  <th style={{ padding: '16px 24px', textAlign: 'right' }}>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredConfigs.length > 0 ? (
+                  filteredConfigs.map(row => (
+                    <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                      <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>
+                        {row.key}
+                        <span style={{ display: 'block', fontSize: '11px', color: '#64748b', fontWeight: '400', marginTop: '4px' }}>
+                          {row.description}
+                        </span>
+                      </td>
+                      <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.app}</td>
+                      <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>{row.value}</td>
+                      <td style={{ padding: '18px 24px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ flex: 1, width: '60px', height: '6px', background: '#eee9f6', borderRadius: '3px', overflow: 'hidden' }}>
+                            <div style={{ width: `${row.rollout}%`, height: '100%', background: '#4f46e5' }} />
+                          </div>
+                          <span style={{ fontWeight: '700' }}>{row.rollout}%</span>
                         </div>
-                        <span style={{ fontWeight: '700' }}>{row.rollout}%</span>
-                      </div>
-                    </td>
-                    <td style={{ padding: '18px 24px' }}>
-                      <span style={{
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '10px',
-                        fontWeight: '800',
-                        background: row.env === 'Production' ? '#e0f2fe' : '#f1f5f9',
-                        color: row.env === 'Production' ? '#0369a1' : '#475569'
-                      }}>
-                        {row.env}
-                      </span>
-                    </td>
-                    <td style={{ padding: '18px 24px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      </td>
+                      <td style={{ padding: '18px 24px' }}>
                         <span style={{
                           padding: '4px 8px',
                           borderRadius: '4px',
                           fontSize: '10px',
                           fontWeight: '800',
-                          background: row.status === 'Active' ? '#d1fae5' : '#f1f5f9',
-                          color: row.status === 'Active' ? '#065f46' : '#475569'
+                          background: row.env === 'Production' ? '#e0f2fe' : '#f1f5f9',
+                          color: row.env === 'Production' ? '#0369a1' : '#475569'
                         }}>
-                          {row.status}
+                          {row.env}
                         </span>
-                        <Toggle 
-                          checked={row.status === 'Active'} 
-                          onChange={(checked) => handleStatusToggle(row, checked)} 
-                        />
-                      </div>
-                    </td>
-                    <td style={{ padding: '18px 24px', textAlign: 'right' }}>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-                        <button onClick={() => { setSelectedConfig(row); setIsPreviewOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="Preview"><Eye size={16} /></button>
-                        <button onClick={() => { setSelectedConfig(row); setIsEditOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="Edit"><Edit size={16} /></button>
-                        <button onClick={() => { setSelectedConfig(row); setIsDeleteOpen(true); }} style={{ border: 'none', background: '#fef2f2', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#ef4444' }} title="Delete"><Trash2 size={16} /></button>
-                      </div>
-                    </td>
+                      </td>
+                      <td style={{ padding: '18px 24px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '800',
+                            background: row.status === 'Active' ? '#d1fae5' : '#f1f5f9',
+                            color: row.status === 'Active' ? '#065f46' : '#475569'
+                          }}>
+                            {row.status}
+                          </span>
+                          <Toggle 
+                            checked={row.status === 'Active'} 
+                            onChange={(checked) => handleStatusToggle(row, checked)} 
+                          />
+                        </div>
+                      </td>
+                      <td style={{ padding: '18px 24px', textAlign: 'right' }}>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+                          <button onClick={() => { setSelectedConfig(row); setIsPreviewOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="Preview"><Eye size={16} /></button>
+                          <button onClick={() => { setSelectedConfig(row); setIsEditOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="Edit"><Edit size={16} /></button>
+                          <button onClick={() => { setSelectedConfig(row); setIsDeleteOpen(true); }} style={{ border: 'none', background: '#fef2f2', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#ef4444' }} title="Delete"><Trash2 size={16} /></button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No configuration parameters found.</td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No configuration parameters found.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>

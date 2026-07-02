@@ -1,36 +1,81 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { Download, Star, MessageSquare, Smile, Zap, TrendingUp, X } from "lucide-react";
+import { useToast } from "../../components/common/ToastNotification";
 
 export default function RatingAnalytics() {
+  const { addToast } = useToast();
   const [timeRange, setTimeRange] = useState("7D");
   const [showAllFeedback, setShowAllFeedback] = useState(false);
 
-  const analyticStats = [
-    { title: "Average Rating", value: "4.8", meta: "+0.2 vs last period", isPositive: true, icon: Star, color: "text-amber-500", bg: "bg-amber-50" },
-    { title: "Total Reviews", value: "12.4k", meta: "+8% growth rate", isPositive: true, icon: MessageSquare, color: "text-blue-500", bg: "bg-blue-50" },
-    { title: "Sentiment Score", value: "92%", meta: "Positive overall sentiment", isNeutralMeta: true, icon: Smile, color: "text-emerald-500", bg: "bg-emerald-50" },
-    { title: "Response Rate", value: "98.5%", meta: "-1.2m avg response time", isPositive: true, icon: Zap, color: "text-indigo-500", bg: "bg-indigo-50" },
-  ];
+  const getAnalyticStats = (range) => {
+    switch(range) {
+      case "30D":
+        return [
+          { title: "Average Rating", value: "4.6", meta: "+0.1 vs last period", isPositive: true, icon: Star, color: "text-amber-500", bg: "bg-amber-50" },
+          { title: "Total Reviews", value: "45.2k", meta: "+12% growth rate", isPositive: true, icon: MessageSquare, color: "text-blue-500", bg: "bg-blue-50" },
+          { title: "Sentiment Score", value: "88%", meta: "Positive overall sentiment", isNeutralMeta: true, icon: Smile, color: "text-emerald-500", bg: "bg-emerald-50" },
+          { title: "Response Rate", value: "96.2%", meta: "-0.5m avg response time", isPositive: true, icon: Zap, color: "text-indigo-500", bg: "bg-indigo-50" },
+        ];
+      case "90D":
+        return [
+          { title: "Average Rating", value: "4.7", meta: "+0.4 vs last period", isPositive: true, icon: Star, color: "text-amber-500", bg: "bg-amber-50" },
+          { title: "Total Reviews", value: "132.8k", meta: "+24% growth rate", isPositive: true, icon: MessageSquare, color: "text-blue-500", bg: "bg-blue-50" },
+          { title: "Sentiment Score", value: "90%", meta: "Positive overall sentiment", isNeutralMeta: true, icon: Smile, color: "text-emerald-500", bg: "bg-emerald-50" },
+          { title: "Response Rate", value: "94.5%", meta: "-0.2m avg response time", isPositive: true, icon: Zap, color: "text-indigo-500", bg: "bg-indigo-50" },
+        ];
+      default:
+      case "7D":
+        return [
+          { title: "Average Rating", value: "4.8", meta: "+0.2 vs last period", isPositive: true, icon: Star, color: "text-amber-500", bg: "bg-amber-50" },
+          { title: "Total Reviews", value: "12.4k", meta: "+8% growth rate", isPositive: true, icon: MessageSquare, color: "text-blue-500", bg: "bg-blue-50" },
+          { title: "Sentiment Score", value: "92%", meta: "Positive overall sentiment", isNeutralMeta: true, icon: Smile, color: "text-emerald-500", bg: "bg-emerald-50" },
+          { title: "Response Rate", value: "98.5%", meta: "-1.2m avg response time", isPositive: true, icon: Zap, color: "text-indigo-500", bg: "bg-indigo-50" },
+        ];
+    }
+  };
 
-  const criticalFeedbacks = [
-    { id: 1, user: "Marcus V.", rating: 1, comment: "UI latency during heavy load sessions...", time: "2 HOURS AGO" },
-    { id: 2, user: "Elena G.", rating: 1, comment: "Checkout flow failed twice on mobile...", time: "5 HOURS AGO" },
-    { id: 3, user: "Sarah K.", rating: 2, comment: "Onboarding flow feels disconnected...", time: "1 DAY AGO" },
-    { id: 4, user: "John D.", rating: 2, comment: "Bug in the settings menu page...", time: "2 DAYS AGO" },
-  ];
+  const getFeedbacks = (range) => {
+    if (range === "30D") {
+      return [
+        { id: 1, user: "Alice M.", rating: 2, comment: "App crashed during payment.", time: "10 DAYS AGO" },
+        { id: 2, user: "Bob T.", rating: 1, comment: "Customer service never replied.", time: "15 DAYS AGO" },
+        { id: 3, user: "Charlie P.", rating: 2, comment: "Delayed notification issues.", time: "20 DAYS AGO" },
+        { id: 4, user: "Diana W.", rating: 1, comment: "Refund took too long.", time: "28 DAYS AGO" },
+      ];
+    } else if (range === "90D") {
+      return [
+        { id: 1, user: "Eve S.", rating: 1, comment: "Horrible experience with driver.", time: "2 MONTHS AGO" },
+        { id: 2, user: "Frank L.", rating: 2, comment: "Map interface is confusing.", time: "2 MONTHS AGO" },
+        { id: 3, user: "Grace K.", rating: 1, comment: "Overcharged on my card.", time: "3 MONTHS AGO" },
+        { id: 4, user: "Hank R.", rating: 2, comment: "The recent update broke login.", time: "3 MONTHS AGO" },
+      ];
+    } else {
+      return [
+        { id: 1, user: "Marcus V.", rating: 1, comment: "UI latency during heavy load sessions...", time: "2 HOURS AGO" },
+        { id: 2, user: "Elena G.", rating: 1, comment: "Checkout flow failed twice on mobile...", time: "5 HOURS AGO" },
+        { id: 3, user: "Sarah K.", rating: 2, comment: "Onboarding flow feels disconnected...", time: "1 DAY AGO" },
+        { id: 4, user: "John D.", rating: 2, comment: "Bug in the settings menu page...", time: "2 DAYS AGO" },
+      ];
+    }
+  };
+
+  const analyticStats = getAnalyticStats(timeRange);
+  const criticalFeedbacks = getFeedbacks(timeRange);
 
   // CSV Export Logic
   const handleExport = () => {
+    addToast("Exporting rating analytics to CSV...", "info");
     const csvContent = "data:text/csv;charset=utf-8," + 
       "User,Rating,Comment,Time\n" + 
       criticalFeedbacks.map(f => `${f.user},${f.rating},"${f.comment}",${f.time}`).join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "rating_report.csv");
+    link.setAttribute("download", `rating_report_${timeRange}.csv`);
     document.body.appendChild(link);
     link.click();
+    addToast("Download complete!", "success");
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
-import { toast } from "react-hot-toast";
+import { useToast } from "../../components/common/ToastNotification";
 import {
   Wallet,
   ArrowUpRight,
@@ -54,6 +54,18 @@ const formatCurrency = (amount) => {
 export default function WalletReportPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedTxn, setSelectedTxn] = useState(null);
+  const { addToast } = useToast();
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Success':
+      case 'Completed': return 'text-emerald-700 bg-emerald-50 border-emerald-200/60';
+      case 'Pending': return 'text-amber-700 bg-amber-50 border-amber-200/60';
+      case 'Failed': return 'text-rose-700 bg-rose-50 border-rose-200/60';
+      default: return 'text-gray-700 bg-gray-50 border-gray-200/60';
+    }
+  };
 
   // CSV Export Function
   const handleExportCSV = () => {
@@ -92,7 +104,7 @@ export default function WalletReportPage() {
 
             {/* Export Button */}
             <button 
-              onClick={handleExportCSV}
+              onClick={() => addToast('Exporting CSV Report...', 'info')}
               className="flex items-center gap-2 px-4 py-2 bg-[#1d0094] rounded-lg text-xs font-bold text-white shadow-sm hover:bg-opacity-90 transition-colors"
             >
               <span>📤</span> Export CSV
@@ -183,7 +195,7 @@ export default function WalletReportPage() {
             <div className="bg-[#110066] text-white rounded-xl p-5 shadow-sm">
               <span className="text-[9px] font-black text-blue-300 tracking-wider uppercase block">Critical Alert</span>
               <h4 className="text-sm font-black mt-1 tracking-tight">High Volume Withdrawal</h4>
-              <button className="mt-4 text-xs font-bold text-white underline">Review Case</button>
+              <button className="mt-4 text-xs font-bold text-white underline" type="button" onClick={() => addToast('Opening Case Review...', 'info')}>Review Case</button>
             </div>
           </div>
         </div>
@@ -202,12 +214,12 @@ export default function WalletReportPage() {
                 </tr>
              </thead>
              <tbody className="divide-y divide-gray-100 font-bold text-slate-700">
-                {/* Rows Row 1 to 5 kept exactly as they were */}
-                <tr><td className="py-4 px-6">#TRX-99201</td><td className="py-4 px-6">John Sullivan (Seller)</td><td className="py-4 px-4">Withdrawal</td><td className="py-4 px-4">Oct 24, 2023</td><td className="py-4 px-4">-$1,200.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
-                <tr><td className="py-4 px-6">#TRX-99202</td><td className="py-4 px-6">Acme West (Partner)</td><td className="py-4 px-4">Top-up</td><td className="py-4 px-4">Oct 24, 2023</td><td className="py-4 px-4">+$15,000.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
-                <tr><td className="py-4 px-6">#TRX-99203</td><td className="py-4 px-6">Elena Martinez (User)</td><td className="py-4 px-4">Refund</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">+$42.50</td><td className="py-4 px-6 text-right">Pending</td></tr>
-                <tr><td className="py-4 px-6">#TRX-99204</td><td className="py-4 px-6">Global Logistics (Partner)</td><td className="py-4 px-4">Withdrawal</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">-$5,600.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
-                <tr><td className="py-4 px-6">#TRX-99205</td><td className="py-4 px-6">Tech Pro (Seller)</td><td className="py-4 px-4">Settlement</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">+$8,920.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+                {/* Rows */}
+                <tr className="cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => setSelectedTxn({id: 'TRX-99201', userName: 'John Sullivan', type: 'Debit', amount: 1200, method: 'Bank Transfer', status: 'Completed', date: new Date().toISOString(), referenceId: 'REF-83921029'})}><td className="py-4 px-6">#TRX-99201</td><td className="py-4 px-6">John Sullivan (Seller)</td><td className="py-4 px-4">Withdrawal</td><td className="py-4 px-4">Oct 24, 2023</td><td className="py-4 px-4">-$1,200.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+                <tr className="cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => setSelectedTxn({id: 'TRX-99202', userName: 'Acme West', type: 'Credit', amount: 15000, method: 'Bank Transfer', status: 'Completed', date: new Date().toISOString(), referenceId: 'REF-38291032'})}><td className="py-4 px-6">#TRX-99202</td><td className="py-4 px-6">Acme West (Partner)</td><td className="py-4 px-4">Top-up</td><td className="py-4 px-4">Oct 24, 2023</td><td className="py-4 px-4">+$15,000.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+                <tr className="cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => setSelectedTxn({id: 'TRX-99203', userName: 'Elena Martinez', type: 'Credit', amount: 42.50, method: 'Wallet', status: 'Pending', date: new Date().toISOString(), referenceId: 'REF-12349102'})}><td className="py-4 px-6">#TRX-99203</td><td className="py-4 px-6">Elena Martinez (User)</td><td className="py-4 px-4">Refund</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">+$42.50</td><td className="py-4 px-6 text-right">Pending</td></tr>
+                <tr className="cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => setSelectedTxn({id: 'TRX-99204', userName: 'Global Logistics', type: 'Debit', amount: 5600, method: 'Bank Transfer', status: 'Completed', date: new Date().toISOString(), referenceId: 'REF-59302192'})}><td className="py-4 px-6">#TRX-99204</td><td className="py-4 px-6">Global Logistics (Partner)</td><td className="py-4 px-4">Withdrawal</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">-$5,600.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
+                <tr className="cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => setSelectedTxn({id: 'TRX-99205', userName: 'Tech Pro', type: 'Credit', amount: 8920, method: 'Bank Transfer', status: 'Completed', date: new Date().toISOString(), referenceId: 'REF-39102930'})}><td className="py-4 px-6">#TRX-99205</td><td className="py-4 px-6">Tech Pro (Seller)</td><td className="py-4 px-4">Settlement</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">+$8,920.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
              </tbody>
           </table>
 

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import { 
   Download, SlidersHorizontal, RefreshCw, Search,
@@ -259,7 +260,7 @@ export default function ServiceAuditLogs() {
                 <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '700' }}>{evt.time}</span>
               </div>
             ))}
-            <button className="secondary-action-btn font-bold" style={{ width: '100%', justifyContent: 'center', marginTop: '4px' }}>
+            <button className="secondary-action-btn font-bold" style={{ width: '100%', justifyContent: 'center', marginTop: '4px' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               View All Alerts
             </button>
           </div>

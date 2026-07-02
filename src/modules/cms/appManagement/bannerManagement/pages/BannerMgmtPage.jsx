@@ -129,11 +129,34 @@ export default function BannerMgmtPage({ defaultTab }) {
     }
   };
 
+  const fileInputRef = React.useRef(null);
+
   const handleUploadBannerAsset = () => {
     if (!uploadFile) return;
-    setSuccessMessage(`Banner asset "${uploadFile.name}" uploaded successfully!`);
+    
+    const newBan = {
+      id: `BAN-${Math.floor(100 + Math.random() * 900)}`,
+      name: uploadFile.name.replace(/\.[^/.]+$/, ""),
+      type: 'Home Banner',
+      status: 'Active',
+      start: new Date().toISOString().split('T')[0],
+      end: '2026-12-31',
+      size: `${(uploadFile.size / 1024).toFixed(0)} KB`,
+      ctr: '0.0%',
+      img: URL.createObjectURL(uploadFile)
+    };
+    
+    setBanners(prev => [newBan, ...prev]);
+    setSuccessMessage(`Banner asset "${uploadFile.name}" uploaded and added to library!`);
     setIsSuccessOpen(true);
     setUploadFile(null);
+    setActiveTab('Home Banner');
+  };
+
+  const handleFileSelect = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setUploadFile(e.target.files[0]);
+    }
   };
 
   const handleDownload = (banner) => {
@@ -255,11 +278,19 @@ export default function BannerMgmtPage({ defaultTab }) {
         {/* Tab Contents */}
         {activeTab === 'Upload Banner' ? (
           <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '32px', textAlign: 'center' }}>
+            <input 
+              type="file"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={handleFileSelect}
+            />
             <div 
               onDragEnter={handleDrag}
               onDragOver={handleDrag}
               onDragLeave={handleDrag}
               onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
               style={{
                 border: dragActive ? '2px dashed #4f46e5' : '2px dashed #cbd5e1',
                 background: dragActive ? '#f5f3ff' : '#f8fafc',

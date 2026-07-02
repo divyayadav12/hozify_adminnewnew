@@ -13,6 +13,7 @@ import {
   Filter,
   Download,
   TrendingUp,
+  X,
 } from "lucide-react";
 
 export default function UserReferralsPage() {
@@ -22,6 +23,7 @@ export default function UserReferralsPage() {
   const user = usersMockData[0];
 
   const [filterStatus, setFilterStatus] = useState("All");
+  const [selectedReferredUser, setSelectedReferredUser] = useState(null);
 
   const allReferrals = user.referrals.referredUsers.map((name, index) => {
     const statuses = ["Successful", "Pending", "Failed"];
@@ -44,8 +46,8 @@ export default function UserReferralsPage() {
     addToast(`Referrals ledger for ${user.name} exported successfully!`, "success");
   };
 
-  const handleViewProfile = (referredName) => {
-    addToast(`Loading profile summary details for referred user: ${referredName}`, "success");
+  const handleViewProfile = (referredUser) => {
+    setSelectedReferredUser(referredUser);
   };
 
   const handleActivateBonus = () => {
@@ -202,12 +204,16 @@ export default function UserReferralsPage() {
                   <td>{item.joined}</td>
                   <td style={{ fontWeight: "700", color: "#2A2454" }}>{item.reward}</td>
                   <td>
-                    <span className="bg-green-100 text-green-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                      item.status === "Successful" ? "bg-green-100 text-green-700" :
+                      item.status === "Pending" ? "bg-amber-100 text-amber-700" :
+                      "bg-rose-100 text-rose-700"
+                    }`}>
                       {item.status}
                     </span>
                   </td>
                   <td>
-                    <button onClick={() => handleViewProfile(item.name)} style={{ border: "none", background: "none", color: "#696CFF", fontWeight: "800", cursor: "pointer" }}>
+                    <button onClick={() => handleViewProfile(item)} style={{ border: "none", background: "none", color: "#696CFF", fontWeight: "800", cursor: "pointer" }}>
                       View Profile
                     </button>
                   </td>
@@ -229,6 +235,83 @@ export default function UserReferralsPage() {
         </div>
 
       </div>
+
+      {/* REFERRED USER PROFILE MODAL */}
+      {selectedReferredUser && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">
+          <div 
+            className="fixed inset-0 bg-transparent" 
+            onClick={() => setSelectedReferredUser(null)}
+          />
+          <div className="relative bg-white w-full max-w-sm rounded-2xl border border-slate-100 shadow-2xl p-6 text-center overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Close Button */}
+            <button 
+              onClick={() => setSelectedReferredUser(null)}
+              className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer absolute right-4 top-4"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Avatar Circle with initials */}
+            <div className="mx-auto w-16 h-16 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center font-black text-xl mb-4 border border-indigo-100 shadow-sm">
+              {selectedReferredUser.name.split(" ").map(n => n[0]).join("")}
+            </div>
+
+            <h3 className="text-lg font-black text-slate-900 leading-tight">{selectedReferredUser.name}</h3>
+            <p className="text-xs text-slate-400 font-semibold mt-1">{selectedReferredUser.email}</p>
+
+            <div className="mt-3">
+              <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                selectedReferredUser.status === "Successful" ? "bg-green-50 text-green-700" :
+                selectedReferredUser.status === "Pending" ? "bg-amber-50 text-amber-700" :
+                "bg-rose-50 text-rose-700"
+              }`}>
+                {selectedReferredUser.status} Member
+              </span>
+            </div>
+
+            <div className="mt-6 space-y-3.5 text-xs text-left bg-slate-50 p-4 rounded-xl border border-slate-100">
+              <div className="flex justify-between">
+                <span className="font-bold text-slate-500">Date Joined:</span>
+                <span className="font-black text-slate-800">{selectedReferredUser.joined}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-bold text-slate-500">Referred By:</span>
+                <span className="font-black text-slate-800">{user.name}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-bold text-slate-500">Reward Assigned:</span>
+                <span className="font-black text-indigo-950 font-bold">{selectedReferredUser.reward}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-bold text-slate-500">Account Type:</span>
+                <span className="font-black text-slate-800">Customer Referral</span>
+              </div>
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div className="flex gap-2 pt-5">
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedReferredUser(null);
+                  addToast(`Account details for ${selectedReferredUser.name} verified in ledger.`, "success");
+                }}
+                className="flex-1 py-2 text-center bg-[#0b1329] text-white rounded-xl text-xs font-bold hover:bg-[#0b1329]/95 cursor-pointer shadow-md active:scale-98 transition-transform"
+              >
+                Verify Advocate
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedReferredUser(null)}
+                className="flex-1 py-2 text-center border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminShell>
   );
 }

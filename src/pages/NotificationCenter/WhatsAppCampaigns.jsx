@@ -14,7 +14,8 @@ import {
   Plus,
   Info,
   Check,
-  X
+  X,
+  ArrowLeft
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
@@ -25,6 +26,9 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
   const [showToast, setShowToast] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showNewCampaignModal, setShowNewCampaignModal] = useState(false);
+  const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   const [campaigns, setCampaigns] = useState([
     { id: 'WAC-88219', name: 'Q4 Retention Drive', template: 're_engage_v2', volume: '45,000', status: 'Active', readRate: '92.4%', launchDate: 'Oct 24, 2023', iconType: 'chart' },
@@ -42,11 +46,6 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
     status: 'Scheduled',
     launchDate: ''
   });
-
-  const handleRefreshAnalytics = (campaignName) => {
-    setToastMessage(`Campaign "${campaignName}" analytics refreshed.`);
-    setShowToast(true);
-  };
 
   useEffect(() => {
     if (showToast) {
@@ -69,7 +68,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
       volume: formattedVolume,
       status: newCampaign.status,
       readRate: newCampaign.status === 'Active' ? '100.0%' : '—',
-      launchDate: newCampaign.launchDate || 'Oct 28, 2023',
+      launchDate: newCampaign.launchDate || new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
       iconType: newCampaign.status === 'Active' ? 'chart' : 'calendar'
     };
 
@@ -78,6 +77,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
     setToastMessage(`Campaign "${newCampaign.name}" created successfully.`);
     setShowToast(true);
     setNewCampaign({ name: '', template: 're_engage_v2', volume: '', status: 'Scheduled', launchDate: '' });
+    setCurrentPage(1);
   };
 
   const filteredCampaigns = campaigns.filter(c => 
@@ -85,6 +85,91 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
     c.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
     c.template.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  
+  const totalPages = Math.max(1, Math.ceil(filteredCampaigns.length / itemsPerPage));
+  const displayedCampaigns = filteredCampaigns.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handleDelete = (id) => {
+    setCampaigns(campaigns.filter(c => c.id !== id));
+    setToastMessage('Campaign Deleted');
+    setShowToast(true);
+    if (selectedCampaignId === id) setSelectedCampaignId(null);
+    if (displayedCampaigns.length === 1 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleRestart = (id) => {
+    setCampaigns(campaigns.map(c => c.id === id ? { ...c, status: 'Active', iconType: 'chart', readRate: '0.0%' } : c));
+    setToastMessage('WhatsApp Campaign Restarted');
+    setShowToast(true);
+  };
+
+  const handleExportCSV = () => {
+    const headers = ['ID', 'Campaign Name', 'Template', 'Volume', 'Status', 'Read Rate', 'Launch Date'];
+    const csvContent = [
+      headers.join(','),
+      ...filteredCampaigns.map(item => 
+        `"${item.id}","${item.name}","${item.template}","${item.volume}","${item.status}","${item.readRate}","${item.launchDate}"`
+      )
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'whatsapp_campaigns.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setToastMessage("Exported WhatsApp Campaigns successfully!");
+    setShowToast(true);
+  };
+
+  const getStats = () => {
+    if (selectedCampaignId) {
+      const c = campaigns.find(c => c.id === selectedCampaignId);
+      if (!c) {
+        setSelectedCampaignId(null); // fallback if deleted
+        return getAggregateStats(dateFilter);
+      }
+      const sent = parseInt(c.volume.replace(/,/g, '')) || 0;
+      const delivered = Math.floor(sent * 0.98);
+      
+      return {
+        title: `Campaign Details: ${c.name}`,
+        subtitle: `ID: ${c.id} | Template: ${c.template} | Launched: ${c.launchDate}`,
+        sent: c.volume,
+        sentTrend: '—',
+        delivered: delivered.toLocaleString(),
+        deliveredRate: '98.0%',
+        readRate: c.readRate,
+        readTrend: '—',
+        failedRate: '2.0%',
+        failedTrend: '—',
+        isDetail: true
+      };
+    }
+    
+    return getAggregateStats(dateFilter);
+  };
+
+  const getAggregateStats = (filter) => {
+    const aggregateData = {
+      'Last 30 Days': { sent: '124,802', sentTrend: '↗ +12.4%', delivered: '122,056', deliveredRate: '97.8%', readRate: '84.2%', readTrend: '↗ +2.1%', failedRate: '2.2%', failedTrend: '↘ -0.4%' },
+      'Last Quarter': { sent: '452,100', sentTrend: '↗ +8.1%', delivered: '440,000', deliveredRate: '97.3%', readRate: '81.1%', readTrend: '↗ +1.2%', failedRate: '2.7%', failedTrend: '↘ -0.1%' },
+      'Year-to-date': { sent: '1,200,450', sentTrend: '↗ +15.2%', delivered: '1,150,000', deliveredRate: '95.8%', readRate: '78.4%', readTrend: '↗ +4.5%', failedRate: '4.2%', failedTrend: '↘ -1.2%' }
+    };
+    const data = aggregateData[filter] || aggregateData['Last 30 Days'];
+    return {
+      title: 'WhatsApp Campaigns',
+      subtitle: 'Real-time performance metrics for high-conversion messaging outreach.',
+      ...data,
+      isDetail: false
+    };
+  };
+
+  const currentStats = getStats();
 
   return (
     <AdminShell
@@ -99,38 +184,51 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
         {/* Header Section */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
-              WhatsApp Campaigns
-            </h1>
-            <p style={{ fontSize: '13px', color: 'var(--muted)', margin: '4px 0 0' }}>
-              Real-time performance metrics for high-conversion messaging outreach.
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              {currentStats.isDetail && (
+                <button 
+                  onClick={() => setSelectedCampaignId(null)}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--soft)', border: '1px solid var(--line)', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer', color: 'var(--muted)', transition: 'all 0.2s' }}
+                  title="Back to Overview"
+                >
+                  <ArrowLeft size={16} />
+                </button>
+              )}
+              <h1 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
+                {currentStats.title}
+              </h1>
+            </div>
+            <p style={{ fontSize: '13px', color: 'var(--muted)', margin: '4px 0 0', paddingLeft: currentStats.isDetail ? '44px' : '0' }}>
+              {currentStats.subtitle}
             </p>
           </div>
 
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             {/* Quick date filters */}
-            <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', background: '#fff', padding: '2px', gap: '2px' }}>
-              {['Last 30 Days', 'Last Quarter', 'Year-to-date'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setDateFilter(tab)}
-                  style={{
-                    border: 'none',
-                    height: '32px',
-                    padding: '0 12px',
-                    borderRadius: '4px',
-                    fontSize: '12px',
-                    fontWeight: '750',
-                    cursor: 'pointer',
-                    background: dateFilter === tab ? 'var(--primary)' : 'transparent',
-                    color: dateFilter === tab ? '#fff' : 'var(--muted)',
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+            {!currentStats.isDetail && (
+              <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', background: '#fff', padding: '2px', gap: '2px' }}>
+                {['Last 30 Days', 'Last Quarter', 'Year-to-date'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => { setDateFilter(tab); setToastMessage(`Filtered to ${tab}`); setShowToast(true); }}
+                    style={{
+                      border: 'none',
+                      height: '32px',
+                      padding: '0 12px',
+                      borderRadius: '4px',
+                      fontSize: '12px',
+                      fontWeight: '750',
+                      cursor: 'pointer',
+                      background: dateFilter === tab ? 'var(--primary)' : 'transparent',
+                      color: dateFilter === tab ? '#fff' : 'var(--muted)',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            )}
 
             <button
               onClick={() => setShowNewCampaignModal(true)}
@@ -146,7 +244,8 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                boxShadow: '0 2px 4px rgba(37, 16, 143, 0.08)'
+                boxShadow: '0 2px 4px rgba(37, 16, 143, 0.08)',
+                cursor: 'pointer'
               }}
             >
               <Plus size={16} />
@@ -161,36 +260,36 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>MESSAGES SENT</span>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#07956f' }}>↗ +12.4%</span>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: currentStats.sentTrend.includes('-') ? 'var(--red)' : '#07956f' }}>{currentStats.sentTrend}</span>
             </div>
-            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>124,802</strong>
+            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>{currentStats.sent}</strong>
             <div style={{ height: '3px', background: 'var(--primary)', position: 'absolute', bottom: 0, left: 0, right: 0 }} />
           </div>
 
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>DELIVERED</span>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#07956f' }}>97.8%</span>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: '#07956f' }}>{currentStats.deliveredRate}</span>
             </div>
-            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>122,056</strong>
+            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>{currentStats.delivered}</strong>
             <div style={{ height: '3px', background: '#07956f', position: 'absolute', bottom: 0, left: 0, right: 0 }} />
           </div>
 
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>READ RATE</span>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#07956f' }}>↗ +2.1%</span>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: currentStats.readTrend.includes('-') ? 'var(--red)' : '#07956f' }}>{currentStats.readTrend}</span>
             </div>
-            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>84.2%</strong>
+            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>{currentStats.readRate}</strong>
             <div style={{ height: '3px', background: '#7c3aed', position: 'absolute', bottom: 0, left: 0, right: 0 }} />
           </div>
 
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>FAILED</span>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--red)' }}>↘ -0.4%</span>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: currentStats.failedTrend.includes('+') ? 'var(--red)' : '#07956f' }}>{currentStats.failedTrend}</span>
             </div>
-            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>2.2%</strong>
+            <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>{currentStats.failedRate}</strong>
             <div style={{ height: '3px', background: 'var(--red)', position: 'absolute', bottom: 0, left: 0, right: 0 }} />
           </div>
 
@@ -199,7 +298,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
         {/* Table Panel */}
         <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Recent Campaigns</h2>
+            <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Campaign Directory</h2>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div style={{ position: 'relative' }}>
                 <Search size={14} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)' }} />
@@ -207,7 +306,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                   type="text"
                   placeholder="Filter campaigns..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
                   style={{
                     border: '1px solid var(--line)',
                     borderRadius: '6px',
@@ -219,10 +318,13 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                   }}
                 />
               </div>
-              <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                <TrendingUp size={14} style={{ color: 'var(--muted)' }} />
-              </button>
-              <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+              <button 
+                onClick={handleExportCSV}
+                title="Export Data"
+                style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background 0.2s' }}
+                onMouseOver={(e) => e.currentTarget.style.background = 'var(--soft)'}
+                onMouseOut={(e) => e.currentTarget.style.background = '#fff'}
+              >
                 <Download size={14} style={{ color: 'var(--muted)' }} />
               </button>
             </div>
@@ -242,103 +344,123 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                 </tr>
               </thead>
               <tbody>
-                {filteredCampaigns.slice(0, 4).map((c, i) => (
-                  <tr key={i} style={{ borderBottom: '1px solid var(--lavender)' }}>
-                    <td style={{ padding: '16px' }}>
-                      <strong style={{ display: 'block', fontWeight: '800', color: 'var(--text)' }}>{c.name}</strong>
-                      <span style={{ fontSize: '11px', color: 'var(--muted)' }}>ID: {c.id}</span>
-                    </td>
-                    <td style={{ padding: '16px' }}>
-                      <span style={{
-                        fontSize: '11.5px',
-                        fontWeight: '750',
-                        color: 'var(--primary)',
-                        background: '#f4eff8',
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        border: '1px solid var(--lavender)',
-                        fontFamily: 'monospace'
-                      }}>
-                        {c.template}
-                      </span>
-                    </td>
-                    <td style={{ padding: '16px', fontWeight: '750', color: 'var(--text)' }}>{c.volume}</td>
-                    <td style={{ padding: '16px' }}>
-                      <span style={{
-                        fontSize: '11px',
-                        fontWeight: '850',
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        background: c.status === 'Active' ? '#ecfdf5' : c.status === 'Scheduled' ? '#eff6ff' : c.status === 'Completed' ? '#f1f5f9' : '#fffbeb',
-                        color: c.status === 'Active' ? '#07956f' : c.status === 'Scheduled' ? 'var(--primary)' : c.status === 'Completed' ? 'var(--muted)' : '#b45309'
-                      }}>
-                        {c.status}
-                      </span>
-                    </td>
-                    <td style={{ padding: '16px', fontWeight: '750', color: 'var(--text)' }}>{c.readRate}</td>
-                    <td style={{ padding: '16px', color: 'var(--muted)' }}>{c.launchDate}</td>
-                    <td style={{ padding: '16px', textAlign: 'right' }}>
-                      <div style={{ display: 'inline-flex', gap: '8px', alignItems: 'center' }}>
-                        <button
-                          onClick={() => handleRefreshAnalytics(c.name)}
-                          title="Refresh Analytics"
-                          style={{
-                            border: 'none',
-                            background: 'transparent',
-                            cursor: 'pointer',
-                            color: 'var(--primary)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            height: '28px',
-                            width: '28px',
-                            borderRadius: '4px'
-                          }}
-                        >
-                          {c.iconType === 'chart' ? (
-                            <BarChart3 size={15} />
-                          ) : c.iconType === 'calendar' ? (
-                            <Calendar size={15} />
-                          ) : (
-                            <Play size={15} />
-                          )}
-                        </button>
-                        <button 
-                          onClick={(e) => { e.stopPropagation(); setOpenDropdownId(openDropdownId === i ? null : i); }}
-                          style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}
-                        >
-                          <MoreVertical size={16} />
-                        </button>
-                        {openDropdownId === i && (
-                          <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
-                            <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); setToastMessage('Viewing Campaign Details'); setShowToast(true); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--text)' }}>View Details</button>
-                            <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); setToastMessage('WhatsApp Campaign Restarted'); setShowToast(true); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#07956f' }}>Restart</button>
-                            <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); setToastMessage('Campaign Deleted'); setShowToast(true); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#e11d48' }}>Delete</button>
-                          </div>
-                        )}
-                      </div>
-                    </td>
+                {displayedCampaigns.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--muted)', fontWeight: '600' }}>No campaigns found.</td>
                   </tr>
-                ))}
+                ) : (
+                  displayedCampaigns.map((c, i) => (
+                    <tr 
+                      key={c.id} 
+                      style={{ borderBottom: '1px solid var(--lavender)', background: selectedCampaignId === c.id ? 'var(--soft)' : 'transparent', transition: 'background 0.2s' }}
+                    >
+                      <td style={{ padding: '16px' }}>
+                        <strong style={{ display: 'block', fontWeight: '800', color: 'var(--text)' }}>{c.name}</strong>
+                        <span style={{ fontSize: '11px', color: 'var(--muted)' }}>ID: {c.id}</span>
+                      </td>
+                      <td style={{ padding: '16px' }}>
+                        <span style={{
+                          fontSize: '11.5px',
+                          fontWeight: '750',
+                          color: 'var(--primary)',
+                          background: '#f4eff8',
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          border: '1px solid var(--lavender)',
+                          fontFamily: 'monospace'
+                        }}>
+                          {c.template}
+                        </span>
+                      </td>
+                      <td style={{ padding: '16px', fontWeight: '750', color: 'var(--text)' }}>{c.volume}</td>
+                      <td style={{ padding: '16px' }}>
+                        <span style={{
+                          fontSize: '11px',
+                          fontWeight: '850',
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: c.status === 'Active' ? '#ecfdf5' : c.status === 'Scheduled' ? '#eff6ff' : c.status === 'Completed' ? '#f1f5f9' : '#fffbeb',
+                          color: c.status === 'Active' ? '#07956f' : c.status === 'Scheduled' ? 'var(--primary)' : c.status === 'Completed' ? 'var(--muted)' : '#b45309'
+                        }}>
+                          {c.status}
+                        </span>
+                      </td>
+                      <td style={{ padding: '16px', fontWeight: '750', color: 'var(--text)' }}>{c.readRate}</td>
+                      <td style={{ padding: '16px', color: 'var(--muted)' }}>{c.launchDate}</td>
+                      <td style={{ padding: '16px', textAlign: 'right' }}>
+                        <div style={{ display: 'inline-flex', gap: '8px', alignItems: 'center', position: 'relative' }}>
+                          <button
+                            onClick={() => setSelectedCampaignId(c.id)}
+                            title="View Metrics"
+                            style={{
+                              border: 'none',
+                              background: selectedCampaignId === c.id ? 'var(--primary)' : 'transparent',
+                              cursor: 'pointer',
+                              color: selectedCampaignId === c.id ? '#fff' : 'var(--primary)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              height: '28px',
+                              width: '28px',
+                              borderRadius: '4px',
+                              transition: 'all 0.2s'
+                            }}
+                          >
+                            {c.iconType === 'chart' ? (
+                              <BarChart3 size={15} />
+                            ) : c.iconType === 'calendar' ? (
+                              <Calendar size={15} />
+                            ) : (
+                              <Play size={15} />
+                            )}
+                          </button>
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); setOpenDropdownId(openDropdownId === c.id ? null : c.id); }}
+                            style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)', height: '28px', width: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                          >
+                            <MoreVertical size={16} />
+                          </button>
+                          {openDropdownId === c.id && (
+                            <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
+                              <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); setSelectedCampaignId(c.id); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--text)' }}>View Details</button>
+                              <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); handleRestart(c.id); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#07956f' }}>Restart</button>
+                              <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); handleDelete(c.id); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#e11d48' }}>Delete</button>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table></div>
           </div>
 
           {/* Table Footer / Pagination */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-            <span style={{ fontSize: '12px', color: 'var(--muted)' }}>
-              Showing 4 of 24 active campaigns
-            </span>
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                <ChevronLeft size={16} />
-              </button>
-              <span style={{ fontSize: '12.5px', fontWeight: '750', color: 'var(--text)' }}>Page 1 of 6</span>
-              <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                <ChevronRight size={16} />
-              </button>
+          {filteredCampaigns.length > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+              <span style={{ fontSize: '12px', color: 'var(--muted)' }}>
+                Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredCampaigns.length)} of {filteredCampaigns.length} campaigns
+              </span>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <button 
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  style={{ border: 'none', background: 'transparent', color: currentPage === 1 ? 'var(--lavender)' : 'var(--muted)', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center' }}
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <span style={{ fontSize: '12.5px', fontWeight: '750', color: 'var(--text)' }}>Page {currentPage} of {totalPages}</span>
+                <button 
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                  style={{ border: 'none', background: 'transparent', color: currentPage === totalPages ? 'var(--lavender)' : 'var(--muted)', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center' }}
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Bottom Analytics block */}
@@ -416,7 +538,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                 color: 'var(--muted)',
                 letterSpacing: '0.5px'
               }}>
-                Last 30 Days Activity Matrix
+                {selectedCampaignId ? `Detailed Activity Matrix for Campaign` : `Last 30 Days Activity Matrix`}
               </div>
             </div>
 
@@ -470,7 +592,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
             </div>
 
             <button
-              onClick={() => alert("Redirecting to all templates center...")}
+              onClick={() => { setToastMessage("Redirecting to all templates center..."); setShowToast(true); }}
               style={{
                 width: '100%',
                 height: '38px',
@@ -481,8 +603,11 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                 fontWeight: '750',
                 borderRadius: '6px',
                 cursor: 'pointer',
-                marginTop: '10px'
+                marginTop: '10px',
+                transition: 'background 0.2s'
               }}
+              onMouseOver={(e) => e.currentTarget.style.background = 'var(--soft)'}
+              onMouseOut={(e) => e.currentTarget.style.background = '#fff'}
             >
               View All Templates
             </button>
@@ -661,7 +786,8 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '13px',
-                    fontWeight: '750'
+                    fontWeight: '750',
+                    cursor: 'pointer'
                   }}
                 >
                   Cancel
@@ -676,7 +802,8 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                     color: '#fff',
                     borderRadius: '6px',
                     fontSize: '13px',
-                    fontWeight: '750'
+                    fontWeight: '750',
+                    cursor: 'pointer'
                   }}
                 >
                   Create Campaign

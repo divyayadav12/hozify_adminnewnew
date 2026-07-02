@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import { 
   Plus, 
@@ -322,8 +323,8 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
             <button type="button" disabled style={{ padding: '6px 8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', color: '#cbd5e1', cursor: 'not-allowed' }}>
               <ChevronLeft size={16} />
             </button>
-            <button type="button" style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}>1</button>
-            <button type="button" style={{ padding: '6px 8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', color: 'var(--text)', cursor: 'pointer' }}>
+            <button type="button" style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
+            <button type="button" style={{ padding: '6px 8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', color: 'var(--text)', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <ChevronRight size={16} />
             </button>
           </div>

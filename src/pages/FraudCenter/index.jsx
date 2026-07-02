@@ -25,6 +25,7 @@ import {
 import AdminShell from '../../components/layouts/AdminShell';
 import { ROUTES } from '../../config/routes';
 import { useApp } from '../../hooks/useApp';
+import { useToast } from '../../components/common/ToastNotification';
 import {
   auditLogs,
   fraudCases,
@@ -216,6 +217,7 @@ function DashboardPage({ page, navigate, onDrawer }) {
 }
 
 function GenericFraudPage({ page, navigate, onModal, onDrawer }) {
+  const { addToast } = useToast();
   const kpis = page.kpis || defaultKpis;
   return (
     <>
@@ -224,10 +226,16 @@ function GenericFraudPage({ page, navigate, onModal, onDrawer }) {
         {['Fraud Type', 'Risk Score Range', 'Status', 'Investigator'].map((label) => (
           <label key={label}>
             <span>{label}</span>
-            <button type="button">All {label.split(' ')[0]} <ChevronDown size={16} /></button>
+            <select style={{width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', cursor: 'pointer', appearance: 'auto', outline: 'none'}} onChange={(e) => addToast(`Filter applied: ${e.target.value}`, 'success')}>
+              <option>All {label.split(' ')[0]}</option>
+              {label === 'Fraud Type' && <><option>Financial</option><option>Identity</option><option>Operational</option></>}
+              {label === 'Risk Score Range' && <><option>Critical (90-100)</option><option>High (70-89)</option><option>Medium (40-69)</option><option>Low (0-39)</option></>}
+              {label === 'Status' && <><option>Open</option><option>Investigating</option><option>Resolved</option></>}
+              {label === 'Investigator' && <><option>Alex Mercer</option><option>Sarah Connor</option><option>Unassigned</option></>}
+            </select>
           </label>
         ))}
-        <button className="fraud-btn soft" type="button"><Filter size={18} />Advanced Filters</button>
+        <button className="fraud-btn soft" type="button" onClick={() => addToast('Advanced Filters Opened', 'info')}><Filter size={18} />Advanced Filters</button>
       </section>
       <section className="fraud-main-grid">
         <FraudTable title={tableTitle(page)} rows={fraudCases} navigate={navigate} onDrawer={onDrawer} />
@@ -326,7 +334,7 @@ function RiskEnginePage({ page }) {
               <div className="fraud-line"><i style={{ width: `${value}%` }} /></div>
             </div>
           ))}
-          <button className="fraud-dashed" type="button"><Plus size={18} />Add Custom Parameter</button>
+          <button className="fraud-dashed" type="button" onClick={() => addToast('Parameter Added', 'success')}><Plus size={18} />Add Custom Parameter</button>
         </div>
         <DarkInsight title="Real-time Simulation" text="Projected impact: 14.2% approval rate drop, +$124k potential fraud saved, 0.8% false positive rate." />
       </div>
@@ -353,7 +361,7 @@ function RiskEnginePage({ page }) {
   );
 }
 
-function AccessListPage({ page, onModal }) {
+function AccessListPage({ page, onModal, navigate, onDrawer }) {
   const whitelist = page.key === 'whitelist';
   return (
     <>
@@ -366,7 +374,7 @@ function AccessListPage({ page, onModal }) {
             Execute Bulk Import
           </button>
         </div>
-        <FraudTable title={`Active ${whitelist ? 'Whitelist' : 'Blocklist'}`} rows={fraudCases} />
+        <FraudTable title={`Active ${whitelist ? 'Whitelist' : 'Blocklist'}`} rows={fraudCases} navigate={navigate} onDrawer={onDrawer} />
       </section>
     </>
   );
@@ -423,7 +431,7 @@ function CommunicationPage({ onModal }) {
           </div>
           <label className="fraud-field">Subject Line<input value="Urgent: Suspicious activity detected on your HOZIFY account" readOnly /></label>
           <label className="fraud-field">Message Body<textarea value={'Hello {user_name},\n\nOur system detected a login attempt from a new location. We have temporarily limited outgoing transfers as a precaution.\n\nClick the link below to verify your recent activity.'} readOnly /></label>
-          <div className="fraud-actions right"><button className="fraud-btn ghost" type="button">Save as Draft</button><button className="fraud-btn primary" type="button" onClick={() => onModal('communication')}>Dispatch Message</button></div>
+          <div className="fraud-actions right"><button className="fraud-btn ghost" type="button" onClick={() => addToast('Draft Saved', 'success')}>Save as Draft</button><button className="fraud-btn primary" type="button" onClick={() => onModal('communication')}>Dispatch Message</button></div>
         </div>
       </div>
       <div className="fraud-card phone-preview">
@@ -431,7 +439,7 @@ function CommunicationPage({ onModal }) {
         <div className="fraud-phone">
           <div className="fraud-message">HOZIFY Alert: unusual activity detected. Tap to review.</div>
           <div className="fraud-image-tile">Security Shield</div>
-          <button type="button">Secure Account</button>
+          <button type="button" onClick={() => addToast('Secure Link Clicked', 'info')}>Secure Account</button>
         </div>
       </div>
     </section>
@@ -439,11 +447,12 @@ function CommunicationPage({ onModal }) {
 }
 
 function ReportsPage() {
+  const { addToast } = useToast();
   return (
     <section className="fraud-split">
       <div>
         <div className="fraud-report-tabs">
-          {['Case Report', 'Risk Report', 'Investigation Report', 'AML Report'].map((tab, index) => <button className={index === 0 ? 'active' : ''} key={tab} type="button">{tab}</button>)}
+          {['Case Report', 'Risk Report', 'Investigation Report', 'AML Report'].map((tab, index) => <button className={index === 0 ? 'active' : ''} key={tab} type="button" onClick={() => addToast(`Switched to ${tab}`, 'info')}>{tab}</button>)}
         </div>
         <div className="fraud-card">
           <CardTitle icon={Filter} title="Configuration Parameters" />
@@ -456,8 +465,8 @@ function ReportsPage() {
       </div>
       <aside className="fraud-card action-card">
         <h3>Generate Export</h3>
-        <div className="fraud-format-grid"><button>PDF</button><button className="active">Excel</button><button>CSV</button></div>
-        <button className="fraud-btn primary full" type="button"><Download size={18} />Download Report</button>
+        <div className="fraud-format-grid"><button onClick={() => addToast('PDF format selected', 'info')}>PDF</button><button className="active" onClick={() => addToast('Excel format selected', 'info')}>Excel</button><button onClick={() => addToast('CSV format selected', 'info')}>CSV</button></div>
+        <button className="fraud-btn primary full" type="button" onClick={() => addToast('Report Downloaded', 'success')}><Download size={18} />Download Report</button>
       </aside>
     </section>
   );
@@ -482,12 +491,13 @@ function IntegrationsPage() {
 }
 
 function SettingsPage() {
+  const { addToast } = useToast();
   return (
     <section className="fraud-split">
       <div>
         <div className="fraud-card">
           <CardTitle icon={Settings2} title="Risk & Treasury Logic" />
-          <div className="fraud-toggle-row"><button className="active">T + 1</button><button>T + 2</button><button>Same Day</button></div>
+          <div className="fraud-toggle-row"><button className="active" onClick={() => addToast('Switched to T+1', 'info')}>T + 1</button><button onClick={() => addToast('Switched to T+2', 'info')}>T + 2</button><button onClick={() => addToast('Switched to Same Day', 'info')}>Same Day</button></div>
           <label className="fraud-field">Maximum daily freeze limit<input value="$5,000,000.00" readOnly /></label>
         </div>
         <AutomationPage compact />
@@ -505,18 +515,18 @@ function SettingsPage() {
   );
 }
 
-function GeoPage({ page }) {
+function GeoPage({ page, navigate, onDrawer }) {
   return (
     <>
       <KpiGrid items={page.kpis || defaultKpis} />
       <section className="fraud-geo-grid">
         <MapPlaceholder title={page.variant === 'heatmap' ? 'Risk Density Heatmap' : 'Geo-Velocity Map'} />
         <div>
-          <AlertsPanel />
+          <AlertsPanel onDrawer={onDrawer} />
           <DarkInsight title="Automated Rules" text="Three active geo-fences are blocking transactions from high-risk ranges." />
         </div>
       </section>
-      <FraudTable title="Suspicious Geo-events Registry" rows={fraudCases} />
+      <FraudTable title="Suspicious Geo-events Registry" rows={fraudCases} navigate={navigate} onDrawer={onDrawer} />
     </>
   );
 }
@@ -539,11 +549,12 @@ function RecoveryPage() {
 }
 
 function AutomationPage({ compact = false }) {
+  const { addToast } = useToast();
   return (
     <div className={compact ? '' : 'fraud-main-grid'}>
       {!compact && <KpiGrid items={[{ label: 'Active Rules', value: '124', tone: 'info' }, { label: 'Auto-Freezes', value: '42', tone: 'danger' }, { label: 'Intervention Rate', value: '8.4%', tone: 'success' }]} />}
       <div className="fraud-card wide">
-        <div className="fraud-card-head"><h3>Active Logic Sequences</h3><button>All Modules</button></div>
+        <div className="fraud-card-head"><h3>Active Logic Sequences</h3><button onClick={() => addToast('Module filtered', 'info')}>All Modules</button></div>
         {riskRules.map((rule) => (
           <div className="fraud-rule-row" key={rule.rule}>
             <div><strong>{rule.rule}</strong><span>{rule.logic}</span></div>
@@ -591,11 +602,12 @@ function KpiCard({ item }) {
 }
 
 function FraudTable({ title, rows = fraudCases, navigate, onDrawer }) {
+  const { addToast } = useToast();
   return (
     <section className="fraud-card wide">
       <div className="fraud-card-head">
         <h3>{title}</h3>
-        <button type="button"><Filter size={16} />Filter</button>
+        <button type="button" onClick={() => addToast('Table Filter Opened', 'info')}><Filter size={16} />Filter</button>
       </div>
       <div className="fraud-table-wrap">
         <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="fraud-table">
@@ -651,9 +663,10 @@ function RiskBar({ value }) {
 }
 
 function ChartCard({ title, subtitle }) {
+  const { addToast } = useToast();
   return (
     <section className="fraud-card fraud-chart">
-      <div className="fraud-card-head"><div><h3>{title}</h3><p>{subtitle}</p></div><button>Last 30 Days</button></div>
+      <div className="fraud-card-head"><div><h3>{title}</h3><p>{subtitle}</p></div><select style={{padding: '0.5rem', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none'}} onChange={(e) => addToast(`Timeframe changed to ${e.target.value}`, 'success')}><option>Last 30 Days</option><option>Last 7 Days</option><option>Today</option><option>All Time</option></select></div>
       <div className="fraud-chart-lines"><span /><span /><span /><svg viewBox="0 0 600 220" preserveAspectRatio="none"><path d="M0 155 C70 100 120 190 180 140 C240 90 270 20 335 105 C390 180 430 65 500 70 C545 75 570 90 600 88" /><path className="dash" d="M0 178 C80 140 140 170 195 132 C260 86 312 70 362 125 C412 175 470 100 600 112" /></svg></div>
     </section>
   );
@@ -727,9 +740,10 @@ function AuditTimeline({ title = 'Event Timeline' }) {
 }
 
 function AuditTable() {
+  const { addToast } = useToast();
   return (
     <section className="fraud-card wide">
-      <div className="fraud-card-head"><h3>Audit Trail</h3><button>Export</button></div>
+      <div className="fraud-card-head"><h3>Audit Trail</h3><button onClick={() => addToast('Exporting Audit Trail...', 'success')}>Export</button></div>
       <div className="fraud-table-wrap">
         <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="fraud-table">
           <thead><tr><th>Timestamp</th><th>Actor</th><th>Event Type</th><th>Action</th><th>IP</th></tr></thead>
@@ -753,9 +767,10 @@ function MapPlaceholder({ title }) {
 }
 
 function RecoveryTable() {
+  const { addToast } = useToast();
   return (
     <section className="fraud-card wide">
-      <div className="fraud-card-head"><h3>Active Recovery Cases</h3><button>Filter</button></div>
+      <div className="fraud-card-head"><h3>Active Recovery Cases</h3><button onClick={() => addToast('Filter applied', 'info')}>Filter</button></div>
       {recoveryRows.map((row) => (
         <div className="fraud-recovery-row" key={row.id}>
           <strong>{row.id}</strong><span>{row.entity}</span><StatusBadge status={row.status} /><span>{row.amount}</span><RiskBar value={row.recovery} />
@@ -766,20 +781,22 @@ function RecoveryTable() {
 }
 
 function ProviderCard({ row }) {
+  const { addToast } = useToast();
   return (
     <article className="fraud-card provider">
       <div className="fraud-card-head"><EntityCell row={{ entity: row.provider, subtext: row.product }} /><StatusBadge status={row.status} /></div>
       <p>Uptime <strong>{row.uptime}</strong></p>
       <p>Last response <strong>{row.response}</strong></p>
-      <button className="fraud-btn primary full" type="button">{row.status === 'Degraded' ? 'Reconnect' : 'Settings'}</button>
+      <button className="fraud-btn primary full" type="button" onClick={() => addToast(`${row.status === 'Degraded' ? 'Reconnecting' : 'Opening Settings'} for ${row.provider}`, 'info')}>{row.status === 'Degraded' ? 'Reconnect' : 'Settings'}</button>
     </article>
   );
 }
 
 function WebhookTable() {
+  const { addToast } = useToast();
   return (
     <section className="fraud-card wide">
-      <div className="fraud-card-head"><h3>Webhook Log</h3><button>All Events</button></div>
+      <div className="fraud-card-head"><h3>Webhook Log</h3><button onClick={() => addToast('Event log refreshed', 'success')}>All Events</button></div>
       <div className="fraud-table-wrap">
         <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="fraud-table">
           <thead><tr><th>Timestamp</th><th>Provider</th><th>Event Type</th><th>Status</th><th>Response</th></tr></thead>

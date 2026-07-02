@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 import { 
   Calendar as CalendarIcon, 
   ChevronLeft, 
@@ -14,10 +15,19 @@ import {
   BarChart3,
   Edit2,
   CheckCircle,
-  X
+  X,
+  Copy,
+  Trash2
 } from "lucide-react";
 
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"
+];
+
 export default function ScheduledCampaigns() {
+  const { addToast } = useToast();
+  
   // State 1: Active Deployment Layout Mode (Calendar vs Timeline View)
   const [currentView, setCurrentView] = useState("calendar");
   
@@ -37,6 +47,14 @@ export default function ScheduledCampaigns() {
   const [modalInputTitle, setModalInputTitle] = useState(urgentCampaign.title);
   const [modalInputRecipients, setModalInputRecipients] = useState(urgentCampaign.recipients);
 
+  // State 5: Calendar Month Controls
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(9); // October
+  const [currentYear, setCurrentYear] = useState(2023);
+
+  // State 6: Widget Controls
+  const [showAllQueue, setShowAllQueue] = useState(false);
+  const [urgentDropdownOpen, setUrgentDropdownOpen] = useState(false);
+
   // Handler to persist edited content from modal
   const handleSaveChanges = (e) => {
     e.preventDefault();
@@ -46,6 +64,25 @@ export default function ScheduledCampaigns() {
       recipients: modalInputRecipients
     });
     setIsModalOpen(false);
+    addToast(`Successfully updated payload: ${modalInputTitle}`, "success");
+  };
+
+  const handlePrevMonth = () => {
+    if (currentMonthIndex === 0) {
+      setCurrentMonthIndex(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonthIndex(currentMonthIndex - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (currentMonthIndex === 11) {
+      setCurrentMonthIndex(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonthIndex(currentMonthIndex + 1);
+    }
   };
 
   return (
@@ -71,20 +108,20 @@ export default function ScheduledCampaigns() {
               <div className="flex bg-white p-0.5 rounded-md border border-slate-200 shadow-sm text-xs font-semibold">
                 <button 
                   onClick={() => setCurrentView("calendar")}
-                  className={`px-4 py-2 rounded-md transition-all ${
+                  className={`px-4 py-2 rounded-md transition-all cursor-pointer ${
                     currentView === "calendar" 
                       ? "bg-[#1d1880] text-white shadow-sm" 
-                      : "text-slate-600 hover:text-slate-900"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                   }`}
                 >
                   Calendar
                 </button>
                 <button 
                   onClick={() => setCurrentView("timeline")}
-                  className={`px-4 py-2 rounded-md transition-all ${
+                  className={`px-4 py-2 rounded-md transition-all cursor-pointer ${
                     currentView === "timeline" 
                       ? "bg-[#1d1880] text-white shadow-sm" 
-                      : "text-slate-600 hover:text-slate-900"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                   }`}
                 >
                   Timeline
@@ -92,10 +129,10 @@ export default function ScheduledCampaigns() {
               </div>
               
               {/* Filter Button Control */}
-              <div>
+              <div className="relative">
                 <button 
                   onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md border font-medium text-xs shadow-sm transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md border font-medium text-xs shadow-sm transition-all cursor-pointer ${
                     activeChannelFilter !== "ALL" 
                       ? "bg-indigo-50 border-indigo-300 text-indigo-700 font-bold" 
                       : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
@@ -115,7 +152,7 @@ export default function ScheduledCampaigns() {
                           setActiveChannelFilter(channel);
                           setShowFilterDropdown(false);
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 font-semibold flex justify-between items-center"
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 font-semibold flex justify-between items-center cursor-pointer"
                       >
                         {channel}
                         {activeChannelFilter === channel && <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />}
@@ -137,13 +174,13 @@ export default function ScheduledCampaigns() {
               <div className="flex justify-between items-center pb-5">
                 <h3 className="text-sm font-bold text-[#1e224e] flex items-center gap-2">
                   <CalendarIcon size={16} className="text-indigo-900" />
-                  October 2023 <span className="text-xs font-normal text-slate-400">({currentView === "calendar" ? "Grid Mode" : "Linear Engine Pipeline"})</span>
+                  {MONTHS[currentMonthIndex]} {currentYear} <span className="text-xs font-normal text-slate-400">({currentView === "calendar" ? "Grid Mode" : "Linear Engine Pipeline"})</span>
                 </h3>
                 <div className="flex items-center gap-1">
-                  <button className="p-1.5 rounded border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 shadow-xs">
+                  <button onClick={handlePrevMonth} className="p-1.5 rounded border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 shadow-xs cursor-pointer transition-colors">
                     <ChevronLeft size={15} />
                   </button>
-                  <button className="p-1.5 rounded border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 shadow-xs">
+                  <button onClick={handleNextMonth} className="p-1.5 rounded border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 shadow-xs cursor-pointer transition-colors">
                     <ChevronRight size={15} />
                   </button>
                 </div>
@@ -176,7 +213,7 @@ export default function ScheduledCampaigns() {
                 {/* Oct 02 - Newsletter Campaign */}
                 <div className={`p-2 h-28 border-r border-b border-slate-100 bg-white text-slate-900 text-xs font-bold flex flex-col justify-between transition-all ${activeChannelFilter !== "ALL" && activeChannelFilter !== "EMAIL" ? "opacity-15 grayscale" : ""}`}>
                   <span>02</span>
-                  <div className="bg-sky-50 text-sky-800 text-[9px] leading-tight font-bold p-1.5 rounded-sm border border-sky-100">
+                  <div className="bg-sky-50 text-sky-800 text-[9px] leading-tight font-bold p-1.5 rounded-sm border border-sky-100 cursor-pointer hover:border-sky-300 transition-colors" onClick={() => addToast("Viewing details for: NEWSLETTER #42", "info")}>
                     <div className="truncate tracking-tight">NEWSLETTER #42</div>
                     <div className="text-[8px] font-normal text-sky-500 mt-0.5">09:00 AM</div>
                   </div>
@@ -188,9 +225,9 @@ export default function ScheduledCampaigns() {
                 <div className={`p-2 h-28 border-r border-b border-slate-200 bg-white text-slate-900 text-xs font-bold flex flex-col justify-between relative ring-1 ring-inset ring-slate-200 transition-all ${activeChannelFilter !== "ALL" && activeChannelFilter !== "PUSH" ? "opacity-15 grayscale" : ""}`}>
                   <div className="flex justify-between items-center">
                     <span>04</span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d1880]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d1880] animate-pulse" />
                   </div>
-                  <div className="bg-[#0b0c43] text-white text-[9px] leading-tight font-semibold p-1.5 rounded-sm shadow-xs">
+                  <div className="bg-[#0b0c43] text-white text-[9px] leading-tight font-semibold p-1.5 rounded-sm shadow-xs cursor-pointer hover:bg-[#1d1880] transition-colors" onClick={() => addToast("Viewing details for: Flash Sale Push", "info")}>
                     <div className="tracking-tight uppercase font-bold truncate">Flash Sale Push</div>
                     <div className="text-[8px] font-normal text-slate-300 mt-0.5">02:30 PM</div>
                   </div>
@@ -201,7 +238,7 @@ export default function ScheduledCampaigns() {
                 {/* Oct 06 - Retargeting V2 */}
                 <div className={`p-2 h-28 border-r border-b border-slate-100 bg-white text-slate-900 text-xs font-bold flex flex-col justify-between transition-all ${activeChannelFilter !== "ALL" && activeChannelFilter !== "SMS" ? "opacity-15 grayscale" : ""}`}>
                   <span>06</span>
-                  <div className="bg-purple-50 text-purple-800 text-[9px] leading-tight font-bold p-1.5 rounded-sm border border-purple-100">
+                  <div className="bg-purple-50 text-purple-800 text-[9px] leading-tight font-bold p-1.5 rounded-sm border border-purple-100 cursor-pointer hover:border-purple-300 transition-colors" onClick={() => addToast("Viewing details for: RETARGETING V2", "info")}>
                     <div className="truncate tracking-tight">RETARGETING V2</div>
                     <div className="text-[8px] font-normal text-purple-400 mt-0.5">11:00 AM</div>
                   </div>
@@ -216,7 +253,7 @@ export default function ScheduledCampaigns() {
                 {/* Oct 10 - Winback SMS */}
                 <div className={`p-2 h-28 border-r border-b border-slate-100 bg-white text-slate-900 text-xs font-bold flex flex-col justify-between transition-all ${activeChannelFilter !== "ALL" && activeChannelFilter !== "SMS" ? "opacity-15 grayscale" : ""}`}>
                   <span>10</span>
-                  <div className="bg-orange-50 text-orange-800 text-[9px] leading-tight font-bold p-1.5 rounded-sm border border-orange-100">
+                  <div className="bg-orange-50 text-orange-800 text-[9px] leading-tight font-bold p-1.5 rounded-sm border border-orange-100 cursor-pointer hover:border-orange-300 transition-colors" onClick={() => addToast("Viewing details for: WINBACK SMS", "info")}>
                     <div className="truncate tracking-tight">WINBACK SMS</div>
                     <div className="text-[8px] font-normal text-orange-400 mt-0.5">04:00 PM</div>
                   </div>
@@ -259,21 +296,36 @@ export default function ScheduledCampaigns() {
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center gap-2">
+                <div className="mt-4 flex items-center gap-2 relative">
                   <button 
                     onClick={() => {
                       setModalInputTitle(urgentCampaign.title);
                       setModalInputRecipients(urgentCampaign.recipients);
                       setIsModalOpen(true);
                     }}
-                    className="w-full py-2 bg-white text-slate-900 text-xs font-bold rounded-sm hover:bg-slate-100 transition-all shadow-xs flex items-center justify-center gap-1.5 active:scale-95"
+                    className="w-full py-2 bg-white text-slate-900 text-xs font-bold rounded-sm hover:bg-slate-100 transition-all shadow-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
                   >
                     <Edit2 size={12} />
                     Edit Content
                   </button>
-                  <button className="p-2 rounded-sm border border-slate-800 text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
-                    <MoreVertical size={14} />
-                  </button>
+                  <div className="relative">
+                    <button 
+                      onClick={() => setUrgentDropdownOpen(!urgentDropdownOpen)}
+                      className="p-2 rounded-sm border border-slate-800 text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                    >
+                      <MoreVertical size={14} />
+                    </button>
+                    {urgentDropdownOpen && (
+                      <div className="absolute right-0 top-full mt-1 w-32 bg-[#050529] border border-slate-700 rounded shadow-lg py-1 text-left text-xs font-sans z-50">
+                        <button onClick={() => { setUrgentDropdownOpen(false); addToast("Duplicating urgent campaign", "success"); }} className="flex items-center gap-2 w-full px-4 py-2 text-slate-300 hover:bg-white/10 text-left font-medium cursor-pointer">
+                          <Copy size={12} /> Duplicate
+                        </button>
+                        <button onClick={() => { setUrgentDropdownOpen(false); addToast("Canceling urgent campaign schedule", "success"); }} className="flex items-center gap-2 w-full px-4 py-2 text-rose-400 hover:bg-white/10 text-left font-medium cursor-pointer">
+                          <Trash2 size={12} /> Cancel
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -287,22 +339,25 @@ export default function ScheduledCampaigns() {
                         Queue ({activeChannelFilter === "ALL" ? "3 Total" : "Filtered View"})
                       </h3>
                       <button 
-                        onClick={() => alert("Viewing all queued campaigns...")}
-                        className="text-xs font-bold text-slate-500 hover:text-[#1d1880] transition-colors"
+                        onClick={() => {
+                          setShowAllQueue(!showAllQueue);
+                          addToast(showAllQueue ? "Showing filtered queue view" : "Showing all queued items", "info");
+                        }}
+                        className="text-xs font-bold text-slate-500 hover:text-[#1d1880] transition-colors cursor-pointer"
                       >
-                        View All
+                        {showAllQueue ? "Collapse" : "View All"}
                       </button>
                     </div>
 
                     <div className="space-y-4">
                       {/* Queue Item 1: Email */}
-                      {(activeChannelFilter === "ALL" || activeChannelFilter === "EMAIL") && (
-                        <div className="flex gap-3 items-start text-xs border-b border-slate-100 pb-4 last:border-0 last:pb-0">
-                          <div className="p-2 rounded-md bg-slate-50 border border-slate-100 text-slate-600 mt-0.5">
+                      {(activeChannelFilter === "ALL" || activeChannelFilter === "EMAIL" || showAllQueue) && (
+                        <div className="flex gap-3 items-start text-xs border-b border-slate-100 pb-4 last:border-0 last:pb-0 group cursor-pointer hover:bg-slate-50 p-1 -mx-1 rounded transition-colors" onClick={() => addToast("Opening Monthly Curated Content queue settings", "info")}>
+                          <div className="p-2 rounded-md bg-slate-50 border border-slate-100 text-slate-600 mt-0.5 group-hover:bg-white">
                             <Mail size={15} />
                           </div>
                           <div className="space-y-1 flex-1">
-                            <h4 className="font-bold text-[#1e224e] leading-tight">Monthly Curated Content</h4>
+                            <h4 className="font-bold text-[#1e224e] leading-tight group-hover:text-[#1d1880]">Monthly Curated Content</h4>
                             <p className="text-slate-400 font-medium text-[11px]">Scheduled: Oct 15 • 10:00 AM</p>
                             <div className="flex items-center gap-1.5 pt-1">
                               <span className="text-[9px] font-bold bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded-sm">EMAIL</span>
@@ -313,13 +368,13 @@ export default function ScheduledCampaigns() {
                       )}
 
                       {/* Queue Item 2: Push */}
-                      {(activeChannelFilter === "ALL" || activeChannelFilter === "PUSH") && (
-                        <div className="flex gap-3 items-start text-xs border-b border-slate-100 pb-4 last:border-0 last:pb-0">
-                          <div className="p-2 rounded-md bg-slate-50 border border-slate-100 text-slate-600 mt-0.5">
+                      {(activeChannelFilter === "ALL" || activeChannelFilter === "PUSH" || showAllQueue) && (
+                        <div className="flex gap-3 items-start text-xs border-b border-slate-100 pb-4 last:border-0 last:pb-0 group cursor-pointer hover:bg-slate-50 p-1 -mx-1 rounded transition-colors" onClick={() => addToast("Opening App Update Alert queue settings", "info")}>
+                          <div className="p-2 rounded-md bg-slate-50 border border-slate-100 text-slate-600 mt-0.5 group-hover:bg-white">
                             <Smartphone size={15} />
                           </div>
                           <div className="space-y-1 flex-1">
-                            <h4 className="font-bold text-[#1e224e] leading-tight">App Update Alert</h4>
+                            <h4 className="font-bold text-[#1e224e] leading-tight group-hover:text-[#1d1880]">App Update Alert</h4>
                             <p className="text-slate-400 font-medium text-[11px]">Scheduled: Oct 16 • 09:15 AM</p>
                             <div className="flex items-center gap-1.5 pt-1">
                               <span className="text-[9px] font-bold bg-orange-50 text-orange-700 px-1.5 py-0.5 rounded-sm">PUSH</span>
@@ -330,13 +385,13 @@ export default function ScheduledCampaigns() {
                       )}
 
                       {/* Queue Item 3: SMS */}
-                      {(activeChannelFilter === "ALL" || activeChannelFilter === "SMS") && (
-                        <div className="flex gap-3 items-start text-xs">
-                          <div className="p-2 rounded-md bg-slate-50 border border-slate-100 text-slate-600 mt-0.5">
+                      {(activeChannelFilter === "ALL" || activeChannelFilter === "SMS" || showAllQueue) && (
+                        <div className="flex gap-3 items-start text-xs group cursor-pointer hover:bg-slate-50 p-1 -mx-1 rounded transition-colors" onClick={() => addToast("Opening Weekend Promo Code queue settings", "info")}>
+                          <div className="p-2 rounded-md bg-slate-50 border border-slate-100 text-slate-600 mt-0.5 group-hover:bg-white">
                             <MessageSquare size={15} />
                           </div>
                           <div className="space-y-1 flex-1">
-                            <h4 className="font-bold text-[#1e224e] leading-tight">Weekend Promo Code</h4>
+                            <h4 className="font-bold text-[#1e224e] leading-tight group-hover:text-[#1d1880]">Weekend Promo Code</h4>
                             <p className="text-slate-400 font-medium text-[11px]">Scheduled: Oct 20 • 02:00 PM</p>
                             <div className="flex items-center gap-1.5 pt-1">
                               <span className="text-[9px] font-bold bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded-sm">SMS</span>
@@ -349,7 +404,7 @@ export default function ScheduledCampaigns() {
                   </div>
 
                   {/* WIDGET 3: System Capacity Metric */}
-                  <div className="bg-white rounded-md border border-slate-200/80 p-5 shadow-xs space-y-3">
+                  <div className="bg-white rounded-md border border-slate-200/80 p-5 shadow-xs space-y-3 cursor-default">
                     <div className="flex items-center gap-2 text-sm font-bold text-[#1e224e]">
                       <BarChart3 size={16} className="text-slate-600" />
                       <h3>Capacity Load</h3>
@@ -387,7 +442,7 @@ export default function ScheduledCampaigns() {
                   {/* Dynamic Stacked mini-chart components representing processing speed */}
                   <div className="space-y-2 pt-1">
                     <span className="text-[11px] font-bold text-slate-500">Live Delivery Velocity</span>
-                    <div className="flex gap-1 h-6">
+                    <div className="flex gap-1 h-6 hover:scale-[1.02] transition-transform cursor-pointer" onClick={() => addToast("Inspecting delivery velocity metrics...", "info")}>
                       <div className="w-1/3 bg-emerald-400 rounded-xs" />
                       <div className="w-1/2 bg-indigo-500 rounded-xs" />
                       <div className="w-1/6 bg-amber-400 rounded-xs" />
@@ -413,7 +468,7 @@ export default function ScheduledCampaigns() {
               </h3>
               <button 
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 transition-colors"
+                className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
               >
                 <X size={16} />
               </button>
@@ -450,13 +505,13 @@ export default function ScheduledCampaigns() {
                 <button 
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-slate-200 text-slate-600 font-semibold rounded hover:bg-slate-50"
+                  className="px-4 py-2 border border-slate-200 text-slate-600 font-semibold rounded hover:bg-slate-50 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit"
-                  className="px-4 py-2 bg-[#1d1880] text-white font-bold rounded hover:bg-[#15115c] shadow-sm flex items-center gap-1"
+                  className="px-4 py-2 bg-[#1d1880] text-white font-bold rounded hover:bg-[#15115c] shadow-sm flex items-center gap-1 cursor-pointer"
                 >
                   <CheckCircle size={13} />
                   Update Component

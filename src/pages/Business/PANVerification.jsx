@@ -1,6 +1,9 @@
+import toast from 'react-hot-toast';
 import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
+import BusinessHeaderTabs from "./BusinessHeaderTabs";
 import { useToast } from "../../components/common/ToastNotification";
+import { triggerDownload, generateCSV } from "../../utils/downloadHelper";
 import {
   Eye,
   ZoomIn,
@@ -12,18 +15,22 @@ import {
   XCircle,
   AlertTriangle,
   Check,
-  X
+  X,
+  Plus,
+  Minus,
+  ShieldCheck,
+  ClipboardCopy,
+  Clock
 } from "lucide-react";
 
 import { MOCK_PAN_RECORDS } from "./mockMetadata";
-
 
 export default function KycVerificationPage() {
   const { addToast } = useToast();
 
   const [selectedRecord, setSelectedRecord] = useState(MOCK_PAN_RECORDS[0]);
-  const [zoom, setZoom] = useState(1.0);
-  const [rotation, setRotation] = useState(-10); // initial angle is -10deg
+  const [zoomScale, setZoomScale] = useState(1.0);
+  const [rotationDegrees, setRotationDegrees] = useState(0); 
 
   const [notesState, setNotesState] = useState({});
   const [statuses, setStatuses] = useState({}); // { id: 'pending' | 'approved' | 'rejected' }
@@ -32,11 +39,12 @@ export default function KycVerificationPage() {
   const [rejectionReasonInput, setRejectionReasonInput] = useState("");
 
   const [customTimelines, setCustomTimelines] = useState({});
-  const [customMetadata, setCustomMetadata] = useState({}); // allows editing fields via Pencil icon!
+  const [customMetadata, setCustomMetadata] = useState({}); 
 
   const [editingField, setEditingField] = useState(null);
   const [editValue, setEditValue] = useState("");
   const [editError, setEditError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const activePan = customMetadata[selectedRecord.id]?.panNumber || selectedRecord.panNumber;
   const activeHolder = customMetadata[selectedRecord.id]?.holderName || selectedRecord.holderName;
@@ -58,27 +66,39 @@ export default function KycVerificationPage() {
   };
 
   const handleZoomIn = () => {
-    setZoom(prev => Math.min(prev + 0.1, 1.5));
+    setZoomScale(prev => Math.min(prev + 0.15, 1.6));
     addToast("Zoomed in", "success");
   };
 
   const handleZoomOut = () => {
-    setZoom(prev => Math.max(prev - 0.1, 0.7));
+    setZoomScale(prev => Math.max(prev - 0.15, 0.7));
     addToast("Zoomed out", "success");
   };
 
   const handleRotate = () => {
-    setRotation(prev => prev + 90);
+    setRotationDegrees(prev => (prev + 90) % 360);
     addToast("Rotated document clockwise", "success");
   };
 
   const handleDownload = () => {
-    addToast(`Downloading file ${selectedRecord.fileName}...`, "success");
+    const data = [
+      ["Field", "Value"],
+      ["Holder Name", activeHolder],
+      ["PAN Number", activePan],
+      ["Issue Date", activeIssueDate],
+      ["Category", activeCategory],
+      ["Partner ID", selectedRecord.partnerId],
+      ["Verification Status", activeStatus.toUpperCase()],
+      ["Internal Notes", activeNotes || "N/A"]
+    ];
+    const csvContent = generateCSV(data[0], data.slice(1));
+    triggerDownload(csvContent, `pan_verification_${selectedRecord.id}.csv`, "text/csv");
+    addToast(`Verification report downloaded for ${activeHolder}.`, "success");
   };
 
   const validateField = (field, value) => {
     if (!value || value.trim() === "") return "Field is required";
-    if (field === 'panNumber' && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)) {
+    if (field === 'panNumber' && !/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(value)) {
       return "Invalid PAN format (e.g. ABCDE1234F)";
     }
     if (field === 'issueDate' && !/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
@@ -100,7 +120,11 @@ export default function KycVerificationPage() {
   };
 
   const handleSaveEdit = (field) => {
-    const error = validateField(field, editValue);
+    let finalValue = editValue;
+    if (field === 'panNumber') {
+      finalValue = editValue.toUpperCase();
+    }
+    const error = validateField(field, finalValue);
     if (error) {
       setEditError(error);
       return;
@@ -110,7 +134,7 @@ export default function KycVerificationPage() {
       ...prev,
       [selectedRecord.id]: {
         ...(prev[selectedRecord.id] || {}),
-        [field]: editValue
+        [field]: finalValue
       }
     }));
     
@@ -120,31 +144,31 @@ export default function KycVerificationPage() {
 
   const renderMetadataField = (fieldKey, label, activeValue) => (
     <div>
-      <label className="mb-2 block text-[14px] font-medium uppercase tracking-wide text-[#666]">
+      <label className="mb-1.5 block text-[10px] font-black uppercase tracking-wider text-slate-400">
         {label}
       </label>
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-2">
         {editingField === fieldKey ? (
           <div className="flex-1 flex flex-col gap-1">
-            <div className="flex items-center gap-2 w-full">
+            <div className="flex items-center gap-1.5 w-full">
               <input 
                 type="text" 
                 value={editValue} 
                 onChange={(e) => { setEditValue(e.target.value); setEditError(""); }}
-                className="w-full flex-1 rounded border border-[#2614B8] bg-white px-4 py-3 text-[18px] font-semibold text-[#222] outline-none"
+                className="w-full flex-1 rounded-lg border border-indigo-600 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 outline-none"
               />
-              <button onClick={() => handleSaveEdit(fieldKey)} className="rounded bg-[#E8F5E9] p-3 text-[#2E7D32] hover:bg-[#C8E6C9] transition" title="Save"><Check size={20} /></button>
-              <button onClick={handleCancelEdit} className="rounded bg-[#FFEBEE] p-3 text-[#C62828] hover:bg-[#FFCDD2] transition" title="Cancel"><X size={20} /></button>
+              <button onClick={() => handleSaveEdit(fieldKey)} className="rounded bg-emerald-50 p-2 text-emerald-600 hover:bg-emerald-100 transition cursor-pointer border-none" title="Save"><Check size={14} /></button>
+              <button onClick={handleCancelEdit} className="rounded bg-rose-50 p-2 text-rose-600 hover:bg-rose-100 transition cursor-pointer border-none" title="Cancel"><X size={14} /></button>
             </div>
-            {editError && <span className="text-[13px] text-red-600 font-medium">{editError}</span>}
+            {editError && <span className="text-[11px] text-red-600 font-bold">{editError}</span>}
           </div>
         ) : (
-          <div className="flex w-full items-center gap-3">
-            <div className="flex-1 rounded border border-[#D4D6DA] bg-[#F7F7F8] px-4 py-3 text-[18px] font-semibold text-[#222]">
+          <div className="flex w-full items-center gap-2">
+            <div className="flex-1 rounded-lg border border-[#e2e8f0] bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-800">
               {activeValue}
             </div>
-            <button onClick={() => handleStartEdit(fieldKey, activeValue)} title={`Edit ${label}`}>
-              <Pencil size={22} className="text-[#111] hover:text-[#2614B8] transition" />
+            <button onClick={() => handleStartEdit(fieldKey, activeValue)} title={`Edit ${label}`} className="border-none bg-transparent cursor-pointer">
+              <Pencil size={15} className="text-slate-500 hover:text-indigo-900 transition" />
             </button>
           </div>
         )}
@@ -153,19 +177,23 @@ export default function KycVerificationPage() {
   );
 
   const handleApproveCard = () => {
-    setStatuses(prev => ({ ...prev, [selectedRecord.id]: "approved" }));
-    setCustomTimelines(prev => {
-      const base = customTimelines[selectedRecord.id] || selectedRecord.timeline;
-      if (base.some(t => t.title === 'PAN Approved')) return prev;
-      return {
-        ...prev,
-        [selectedRecord.id]: [
-          { id: 'app_' + Date.now(), title: 'PAN Approved', desc: 'Approved by Auditor AU.', active: true },
-          ...base.map(t => ({ ...t, active: false }))
-        ]
-      };
-    });
-    addToast("PAN Card approved successfully!", "success");
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({ ...prev, [selectedRecord.id]: "approved" }));
+      setCustomTimelines(prev => {
+        const base = customTimelines[selectedRecord.id] || selectedRecord.timeline;
+        if (base.some(t => t.title === 'PAN Approved')) return prev;
+        return {
+          ...prev,
+          [selectedRecord.id]: [
+            { id: 'app_' + Date.now(), title: 'PAN Approved', desc: 'Approved by Auditor AU.', active: true },
+            ...base.map(t => ({ ...t, active: false }))
+          ]
+        };
+      });
+      addToast("PAN Card approved successfully!", "success");
+    }, 800);
   };
 
   const handleRejectCard = () => {
@@ -177,21 +205,25 @@ export default function KycVerificationPage() {
       addToast("Please enter a rejection reason.", "error");
       return;
     }
-    setStatuses(prev => ({ ...prev, [selectedRecord.id]: "rejected" }));
-    setRejectionReasons(prev => ({ ...prev, [selectedRecord.id]: rejectionReasonInput }));
-    setCustomTimelines(prev => {
-      const base = customTimelines[selectedRecord.id] || selectedRecord.timeline;
-      return {
-        ...prev,
-        [selectedRecord.id]: [
-          { id: 'rej_' + Date.now(), title: 'PAN Rejected', desc: `Reason: ${rejectionReasonInput}`, active: true },
-          ...base.map(t => ({ ...t, active: false }))
-        ]
-      };
-    });
-    addToast(`PAN Card rejected: ${rejectionReasonInput}`, "error");
-    setRejectionModalOpen(false);
-    setRejectionReasonInput("");
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatuses(prev => ({ ...prev, [selectedRecord.id]: "rejected" }));
+      setRejectionReasons(prev => ({ ...prev, [selectedRecord.id]: rejectionReasonInput }));
+      setCustomTimelines(prev => {
+        const base = customTimelines[selectedRecord.id] || selectedRecord.timeline;
+        return {
+          ...prev,
+          [selectedRecord.id]: [
+            { id: 'rej_' + Date.now(), title: 'PAN Rejected', desc: `Reason: ${rejectionReasonInput}`, active: true },
+            ...base.map(t => ({ ...t, active: false }))
+          ]
+        };
+      });
+      addToast(`PAN Card rejected: ${rejectionReasonInput}`, "error");
+      setRejectionModalOpen(false);
+      setRejectionReasonInput("");
+    }, 800);
   };
 
   const handleResetDecision = () => {
@@ -207,684 +239,446 @@ export default function KycVerificationPage() {
   };
 
   return (
-    <AdminShell activeTab="PAN Verification">
-
-      <div className="min-h-screen px-6 py-8 relative">
-
-        {/* Breadcrumb */}
-
-        <div className="mb-10 flex items-center justify-between gap-2 text-sm font-medium text-[#5E6172]">
-          <div className="flex items-center gap-2">
-            <span>Dashboard</span>
-            <span>›</span>
-            <span>KYC Verification</span>
-            <span>›</span>
+    <AdminShell
+      activeTab="Business"
+      headerTitle="Business Registry"
+      headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
+      searchPlaceholder="Search entity, PAN, or partner..."
+    >
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '90px' }}>
+        
+        {/* Selection pills and top buttons bar */}
+        <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
+          <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', maxWidth: '100%', paddingBottom: '4px' }}>
+            {MOCK_PAN_RECORDS.map(r => {
+              const isSelected = selectedRecord.id === r.id;
+              const status = statuses[r.id] || "pending";
+              return (
+                <button
+                  key={r.id}
+                  onClick={() => setSelectedRecord(r)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+                    isSelected 
+                      ? 'bg-indigo-900 text-white border-indigo-900 shadow-md' 
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                  }`}
+                  type="button"
+                >
+                  <span>{r.holderName.replace(" PRIVATE LIMITED", "").replace(" PVT LTD", "")}</span>
+                  <span className={`w-2 h-2 rounded-full ${
+                    status === 'approved' ? 'bg-emerald-500' : status === 'rejected' ? 'bg-rose-500' : 'bg-amber-400'
+                  }`} />
+                </button>
+              );
+            })}
           </div>
 
-          {/* Record Selector */}
-          <div className="flex items-center gap-3 bg-slate-100 p-2 rounded-lg border border-slate-200">
-            <span className="text-xs font-semibold text-slate-600">Select Business:</span>
-            <select
-              value={selectedRecord.id}
-              onChange={(e) => {
-                const rec = MOCK_PAN_RECORDS.find(r => r.id === e.target.value);
-                setSelectedRecord(rec);
-              }}
-              className="px-3 py-1.5 border border-[#D7D7D7] rounded bg-white text-xs font-semibold text-slate-700 outline-none focus:border-[#2614B8]"
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={handleSaveDraft}
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', fontSize: '11px', fontWeight: '800', height: '32px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+              type="button"
             >
-              {MOCK_PAN_RECORDS.map(r => (
-                <option key={r.id} value={r.id}>{r.holderName.length > 30 ? r.holderName.slice(0, 30) + '...' : r.holderName} ({r.panNumber})</option>
-              ))}
-            </select>
+              Save Draft
+            </button>
+            <button
+              onClick={handleSubmitReview}
+              style={{ border: 'none', background: '#4f46e5', color: '#fff', fontSize: '11px', fontWeight: '800', height: '32px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+              type="button"
+            >
+              Submit Review
+            </button>
           </div>
         </div>
 
-        <div className="xl:col-span-7 space-y-6">
+        {/* Task Tag */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: '800', color: '#4f46e5', background: '#e0e7ff', padding: '6px 12px', borderRadius: '20px', alignSelf: 'flex-start', border: '1px solid #c7d2fe' }}>
+          <ShieldCheck size={14} />
+          <span style={{ letterSpacing: '0.5px' }}>TASK: PAN VALIDATION</span>
+        </div>
 
-          {/* Heading */}
+        {/* Title Block */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <p className="text-sm font-medium text-slate-500">
-              Document Verification
-            </p>
-
-            <h2 className="mt-1 text-3xl font-bold text-slate-900">
-              PAN Card Verification
-            </h2>
+            <h1 className="page-title" style={{ margin: 0, fontSize: '24px', fontWeight: '900', letterSpacing: '-0.5px', color: '#0f172a' }}>Review Document: PAN Card</h1>
+            <p className="page-subtitle" style={{ margin: '6px 0 0', color: '#64748b', fontSize: '14px', fontWeight: '500' }}>Awaiting administrative verify check for {activeHolder}.</p>
           </div>
 
-        </div> 
-
-        {/* Top Action Buttons */}
-
-        <div className="mb-10 flex justify-end gap-3">
-
-          <button
-            onClick={handleSaveDraft}
-            className="
-              h-10
-              px-8
-              rounded
-              bg-white
-              text-[#1A1A1A]
-              text-lg
-              font-medium
-              border
-              border-[#D7D7D7]
-              hover:bg-slate-50
-              transition
-            "
-          >
-            Save Draft
-          </button>
-
-          <button
-            onClick={handleSubmitReview}
-            className="
-              h-10
-              px-8
-              rounded
-              bg-[#2614B8]
-              hover:bg-[#1F119B]
-              text-white
-              text-lg
-              font-medium
-              transition
-            "
-          >
-            Submit Review
-          </button>
-
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginRight: '4px' }}>Zoom: {Math.round(zoomScale * 100)}%</span>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom In" 
+              onClick={handleZoomIn}
+            >
+              <Plus size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Zoom Out" 
+              onClick={handleZoomOut}
+            >
+              <Minus size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Rotate Clockwise" 
+              onClick={handleRotate}
+            >
+              <RotateCw size={16} />
+            </button>
+            <button 
+              style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#334155', height: '36px', width: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }} 
+              type="button" 
+              title="Download Report" 
+              onClick={handleDownload}
+            >
+              <Download size={16} />
+            </button>
+          </div>
         </div>
 
-        {/* Main Layout */}
-
-        <div className="grid grid-cols-12 gap-6">
-
-          {/* LEFT SIDE */}
-
-          <div className="col-span-12 xl:col-span-7 space-y-6">
-
-            <div className="overflow-hidden rounded-md border border-[#D8D8D8] bg-white">
-
-              {/* Header */}
-
-              <div className="flex h-[78px] items-center justify-between border-b border-[#D8D8D8] px-6">
-
-                <div className="flex items-center gap-4">
-
-                  <Eye
-                    size={28}
-                    className="text-[#1B1B1B]"
-                  />
-
-                  <h2 className="text-[20px] font-semibold text-[#1B1B1B]">
-                    PAN Document Preview
-                  </h2>
-
-                </div>
-
-                <div className="flex items-center gap-5">
-
-                  <button onClick={handleZoomIn} title="Zoom In">
-                    <ZoomIn
-                      size={23}
-                      className="text-[#1B1B1B] hover:text-[#2614B8] transition"
-                    />
-                  </button>
-
-                  <button onClick={handleRotate} title="Rotate Clockwise">
-                    <RotateCw
-                      size={23}
-                      className="text-[#1B1B1B] hover:text-[#2614B8] transition"
-                    />
-                  </button>
-
-                  <button onClick={handleDownload} title="Download File">
-                    <Download
-                      size={23}
-                      className="text-[#1B1B1B] hover:text-[#2614B8] transition"
-                    />
-                  </button>
-
-                </div>
-
+        {/* 2-Column main content layout */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+          
+          {/* Column 1: Document canvas visual (Left) */}
+          <div className="panel" style={{ background: '#0f172a', padding: '24px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
+            
+            {/* Scanned Document simulator mock */}
+            <div style={{ 
+              width: '100%', 
+              maxWidth: '380px', 
+              background: '#fff', 
+              border: '1px solid #e2e8f0', 
+              borderRadius: '8px', 
+              padding: '24px', 
+              position: 'relative', 
+              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.5)',
+              transform: `scale(${zoomScale}) rotate(${rotationDegrees}deg)`,
+              transformOrigin: 'top center',
+              transition: 'transform 0.2s ease-out-in'
+            }}>
+              
+              {/* Box highlighter for PAN detected */}
+              <div style={{ position: 'absolute', top: '75px', left: '135px', right: '15px', height: '24px', border: '1.5px solid #4f46e5', background: 'rgba(79, 70, 229, 0.06)', borderRadius: '4px', zIndex: 10, display: 'flex', alignItems: 'center', padding: '0 6px' }}>
+                <span style={{ background: '#4f46e5', color: '#fff', fontSize: '6px', fontWeight: '900', padding: '1.5px 3px', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>PAN DETECTED</span>
               </div>
 
-              {/* Preview Area */}
+              {/* Box highlighter for Name detected */}
+              <div style={{ position: 'absolute', top: '125px', left: '135px', right: '15px', height: '24px', border: '1.5px solid #06b6d4', background: 'rgba(6, 182, 212, 0.06)', borderRadius: '4px', zIndex: 10, display: 'flex', alignItems: 'center', padding: '0 6px' }}>
+                <span style={{ background: '#06b6d4', color: '#fff', fontSize: '6px', fontWeight: '900', padding: '1.5px 3px', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>LEGAL NAME MATCH</span>
+              </div>
 
-              <div className="bg-[#F3F3F3] p-6">
+              {/* Header document scan */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', borderBottom: '1.5px solid #0f172a', paddingBottom: '10px', marginBottom: '14px' }}>
+                <strong style={{ fontSize: '9px', letterSpacing: '0.8px', color: '#0f172a', fontWeight: '900' }}>INCOME TAX DEPARTMENT</strong>
+                <span style={{ fontSize: '7px', color: '#475569', marginTop: '2px', fontWeight: '700' }}>GOVERNMENT OF INDIA</span>
+              </div>
 
-                <div className="relative flex h-[500px] items-center justify-center overflow-hidden bg-[#ECECEC]">
-
-                  {/* Side shadows */}
-
-                  <div className="absolute left-8 top-8 h-[420px] w-[90px] bg-zinc-300 blur-xl opacity-60" />
-
-                  <div className="absolute right-8 top-8 h-[420px] w-[90px] bg-zinc-300 blur-xl opacity-60" />
-
-                  {/* Center Paper */}
-
-                  <div className="relative flex h-[420px] w-[360px] items-center justify-center bg-[#F8F8F8] shadow-lg">
-
-                    {/* PAN CARD */}
-
-                    <div
-                      className="
-                        relative
-                        h-[135px]
-                        w-[245px]
-                        rounded-md
-                        border
-                        border-[#BFBFBF]
-                        bg-gradient-to-r
-                        from-[#F2D7BE]
-                        via-[#E9E4D6]
-                        to-[#CFE5D8]
-                        shadow-2xl
-                        transition-transform
-                        duration-200
-                        select-none
-                      "
-                      style={{
-                        transform: `scale(${zoom}) rotate(${rotation}deg)`,
-                      }}
-                    >
-
-                      <div className="p-3">
-
-                        <div className="mb-2 text-[7px] font-bold text-[#555] tracking-wide">
-                          INCOME TAX DEPARTMENT, GOVT. OF INDIA
-                        </div>
-
-                        <div className="flex gap-3">
-
-                          {/* Avatar/Photo */}
-                          <div className="h-10 w-11 rounded bg-zinc-400/80 flex items-center justify-center text-[8px] text-zinc-700 font-bold border border-zinc-500">
-                            PHOTO
-                          </div>
-
-                          <div className="flex-1 text-[7px] leading-tight space-y-1">
-                            <div>
-                              <span className="text-[5px] text-slate-500 uppercase block">Permanent Account Number</span>
-                              <span className="font-mono font-bold text-slate-900 text-[10px]">{activePan}</span>
-                            </div>
-                            <div>
-                              <span className="text-[5px] text-slate-500 uppercase block">Name</span>
-                              <span className="font-semibold text-slate-800 uppercase text-[7px] leading-none block mt-0.5">{activeHolder}</span>
-                            </div>
-                            <div className="grid grid-cols-2 gap-1 mt-1">
-                              <div>
-                                <span className="text-[4px] text-slate-500 uppercase block">Date of Issue</span>
-                                <span className="font-semibold text-slate-800 text-[6px]">{selectedRecord.issueDate}</span>
-                              </div>
-                              <div>
-                                <span className="text-[4px] text-slate-500 uppercase block">Category</span>
-                                <span className="font-semibold text-slate-800 text-[6px]">{selectedRecord.category}</span>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
+              {/* Body lines scanned */}
+              <div style={{ display: 'flex', gap: '14px' }}>
+                <div style={{ width: '80px', height: '90px', borderRadius: '4px', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', border: '1px solid #cbd5e1', alignSelf: 'flex-start', flexShrink: 0 }}>
+                  <span style={{ fontSize: '8px', fontWeight: 'bold', color: '#64748b' }}>PHOTO</span>
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '8px', color: '#334155', flex: 1 }}>
+                  <div>
+                    <span style={{ fontSize: '6px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Permanent Account Number</span>
+                    <strong style={{ color: '#0f172a', fontFamily: 'monospace', fontSize: '9.5px' }}>{activePan}</strong>
                   </div>
-
+                  <div>
+                    <span style={{ fontSize: '6px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Name</span>
+                    <strong style={{ color: '#0f172a', fontSize: '8.5px' }}>{activeHolder}</strong>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
+                    <div>
+                      <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Date of Issue</span>
+                      <strong style={{ color: '#334155', fontSize: '7.5px' }}>{activeIssueDate}</strong>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Category</span>
+                      <strong style={{ color: '#334155', fontSize: '7.5px' }}>{activeCategory}</strong>
+                    </div>
+                  </div>
                 </div>
-
               </div>
 
-              {/* Footer */}
-
-              <div className="flex h-[64px] items-center justify-between border-t border-[#D8D8D8] px-5">
-
-                <div className="flex items-center gap-8">
-
-                  <span className="text-[15px] text-[#444]">
-                    File Name: {selectedRecord.fileName}
-                  </span>
-
-                  <span className="text-[15px] text-[#444]">
-                    Size: {selectedRecord.fileSize}
-                  </span>
-
+              {/* Card stamp/seal */}
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', borderTop: '1px dashed #cbd5e1', paddingTop: '10px' }}>
+                <div style={{ border: '1.5px solid #059669', color: '#059669', borderRadius: '4px', fontSize: '6px', padding: '2px 4px', fontWeight: '950', transform: 'rotate(-5deg)' }}>
+                  NSDL INTEGRATED
                 </div>
-
-                <div
-                  className="
-                    rounded
-                    bg-[#DCE7FA]
-                    px-4
-                    py-2
-                    text-[14px]
-                    font-medium
-                    text-[#64748B]
-                  "
-                >
-                  ⚙ OCR Verified
-                </div>
-
+                <div style={{ width: '40px', height: '14px', background: '#cbd5e1', borderRadius: '2px' }} />
               </div>
 
             </div>
 
-            {/* ================= VERIFICATION CONTROLS ================= */}
-
-            <div className="rounded-md border border-[#D8D8D8] bg-white p-7">
-
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-[24px] font-bold text-[#111111]">
-                  Verification Controls
-                </h2>
-                {activeStatus !== "pending" && (
-                  <button 
-                    onClick={handleResetDecision}
-                    className="text-sm font-semibold text-[#2614B8] hover:underline"
-                  >
-                    Reset Decision
-                  </button>
-                )}
-              </div>
-
-              {/* Action Cards */}
-
-              <div className="mb-6 grid grid-cols-2 gap-5">
-
-                {/* Reject */}
-
-                <button
-                  onClick={handleRejectCard}
-                  className={`
-                    flex
-                    h-[140px]
-                    flex-col
-                    items-center
-                    justify-center
-                    rounded-md
-                    border-2
-                    border-dashed
-                    transition
-                    ${activeStatus === 'rejected' 
-                      ? 'border-red-600 bg-red-100 text-red-800 shadow-inner' 
-                      : 'border-[#F1B7B7] bg-[#FFF8F8] hover:bg-[#FFF2F2]'
-                    }
-                  `}
-                >
-
-                  <XCircle
-                    size={42}
-                    className={`mb-3 ${activeStatus === 'rejected' ? 'text-red-700' : 'text-[#C62828]'}`}
-                  />
-
-                  <span className={`text-[18px] font-bold tracking-wide ${activeStatus === 'rejected' ? 'text-red-700' : 'text-[#C62828]'}`}>
-                    {activeStatus === 'rejected' ? 'REJECTED' : 'REJECT CARD'}
-                  </span>
-
-                </button>
-
-                {/* Approve */}
-
-                <button
-                  onClick={handleApproveCard}
-                  className={`
-                    flex
-                    h-[140px]
-                    flex-col
-                    items-center
-                    justify-center
-                    rounded-md
-                    border-2
-                    border-dashed
-                    transition
-                    ${activeStatus === 'approved' 
-                      ? 'border-emerald-600 bg-emerald-100 text-emerald-800 shadow-inner' 
-                      : 'border-[#BFC4CC] bg-[#F5F7FA] hover:bg-[#EEF2F7]'
-                    }
-                  `}
-                >
-
-                  <CheckCircle2
-                    size={42}
-                    className={`mb-3 ${activeStatus === 'approved' ? 'text-emerald-700' : 'text-[#5E6C84]'}`}
-                  />
-
-                  <span className={`text-[18px] font-bold tracking-wide ${activeStatus === 'approved' ? 'text-emerald-700' : 'text-[#5E6C84]'}`}>
-                    {activeStatus === 'approved' ? 'APPROVED' : 'APPROVE CARD'}
-                  </span>
-
-                </button>
-
-              </div>
-
-              {/* Notes */}
-
-              <div>
-
-                <label className="mb-3 block text-[16px] font-medium text-[#555]">
-                  Internal Verification Notes
-                </label>
-
-                <textarea
-                  rows={5}
-                  value={activeNotes}
-                  onChange={(e) => {
-                    const txt = e.target.value;
-                    setNotesState(prev => ({ ...prev, [selectedRecord.id]: txt }));
-                  }}
-                  placeholder="Add details about the verification status or reason for rejection..."
-                  className="
-                    w-full
-                    resize-none
-                    rounded-md
-                    border
-                    border-[#D8D8D8]
-                    bg-[#F8F9FB]
-                    px-4
-                    py-4
-                    text-[#444]
-                    outline-none
-                    placeholder:text-[#9AA0A6]
-                    focus:border-[#2614B8]
-                  "
-                />
-
-              </div>
-
-            </div>
           </div>
 
-          {/* ================= RIGHT COLUMN ================= */}
-
-          <div className="col-span-12 xl:col-span-5 space-y-6">
-
-            {/* Metadata Extraction */}
-
-            <div className="rounded-md border border-[#D8D8D8] bg-white p-7">
-
-              <div className="mb-8 flex items-center justify-between">
-
-                <h2 className="text-[24px] font-bold text-[#111111]">
-                  Metadata Extraction
-                </h2>
-
-                <div className="rounded-full bg-[#EEEEF1] px-4 py-1 text-[14px] font-medium text-[#666]">
-                  Scan Accuracy: {selectedRecord.scanAccuracy}
-                </div>
-
+          {/* Column 2: Metadata details, AI Verification, Activity Feed (Right) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            {/* Metadata extraction panel */}
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px', marginBottom: '14px' }}>
+                <h2 style={{ fontSize: '13px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.3px', margin: 0 }}>Metadata Extraction</h2>
+                <span style={{ background: '#f1f5f9', px: '8px', py: '3px', borderRadius: '12px', fontSize: '10px', fontWeight: '750', color: '#64748b', padding: '3px 8px' }}>
+                  Accuracy: {selectedRecord.scanAccuracy}
+                </span>
               </div>
 
-              {/* PAN NUMBER */}
-              <div className="mb-5">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {renderMetadataField('panNumber', 'PAN Number', activePan)}
-              </div>
-
-              {/* HOLDER NAME */}
-              <div className="mb-5">
                 {renderMetadataField('holderName', 'Business Name / Holder Name', activeHolder)}
-              </div>
-
-              {/* DATE + CATEGORY */}
-              <div className="mb-8 grid grid-cols-2 gap-4">
-                {renderMetadataField('issueDate', 'Date Of Issue', activeIssueDate)}
-                {renderMetadataField('category', 'Category', activeCategory)}
-              </div>
-
-              {/* Divider */}
-
-              <div className="mb-6 border-t border-[#E2E2E2]" />
-
-              <h3 className="mb-4 text-[18px] font-bold text-[#555]">
-                VERIFICATION CHECKS
-              </h3>
-
-              {/* ================= VERIFICATION CHECKS ================= */}
-
-              <div className="space-y-3">
-
-                {/* Format Validation */}
-
-                <div className="flex items-center justify-between rounded bg-[#F3F4F6] px-4 py-3">
-
-                  <div className="flex items-center gap-3">
-
-                    <CheckCircle2
-                      size={20}
-                      className="fill-black text-black"
-                    />
-
-                    <span className="text-[16px] text-[#333]">
-                      Format Validation
-                    </span>
-
-                  </div>
-
-                  <span className="font-bold text-[#444]">
-                    {selectedRecord.checks.format}
-                  </span>
-
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {renderMetadataField('issueDate', 'Date Of Issue', activeIssueDate)}
+                  {renderMetadataField('category', 'Category', activeCategory)}
                 </div>
-
-                {/* NSDL API Database Match */}
-
-                <div className={`flex items-center justify-between rounded px-4 py-3 ${selectedRecord.checks.nsdl.startsWith('WARN') ? 'bg-[#FFF4F4]' : 'bg-[#F3F4F6]'}`}>
-
-                  <div className="flex items-center gap-3">
-
-                    {selectedRecord.checks.nsdl.startsWith('WARN') ? (
-                      <AlertTriangle
-                        size={22}
-                        className="text-[#D93025]"
-                      />
-                    ) : (
-                      <CheckCircle2
-                        size={20}
-                        className="fill-black text-black"
-                      />
-                    )}
-
-                    <span className="text-[16px] text-[#333]">
-                      NSDL API Database Match
-                    </span>
-
-                  </div>
-
-                  <span className={`font-bold ${selectedRecord.checks.nsdl.startsWith('WARN') ? 'text-[#D93025]' : 'text-[#444]'}`}>
-                    {selectedRecord.checks.nsdl}
-                  </span>
-
-                </div>
-
-                {/* Tamper Detection */}
-
-                <div className={`flex items-center justify-between rounded px-4 py-3 ${selectedRecord.checks.tamper.startsWith('WARN') ? 'bg-[#FFF4F4]' : 'bg-[#F3F4F6]'}`}>
-
-                  <div className="flex items-center gap-3">
-
-                    {selectedRecord.checks.tamper.startsWith('WARN') ? (
-                      <AlertTriangle
-                        size={22}
-                        className="text-[#D93025]"
-                      />
-                    ) : (
-                      <CheckCircle2
-                        size={20}
-                        className="fill-black text-black"
-                      />
-                    )}
-
-                    <span className="text-[16px] text-[#333]">
-                      Tamper Detection
-                    </span>
-
-                  </div>
-
-                  <span className={`font-bold ${selectedRecord.checks.tamper.startsWith('WARN') ? 'text-[#D93025]' : 'text-[#444]'}`}>
-                    {selectedRecord.checks.tamper}
-                  </span>
-
-                </div>
-
               </div>
-
             </div>
 
-            {/* ================= REQUESTER BUSINESS DETAILS ================= */}
-
-            <div className="relative overflow-hidden rounded-md bg-[#2413A7] p-7">
-
-              {/* Decorative Pattern */}
-
-              <div className="absolute right-5 top-4 opacity-20">
-                <div className="grid grid-cols-4 gap-2">
-                  {Array.from({ length: 16 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="h-5 w-5 bg-white"
-                    />
-                  ))}
+            {/* AI Verification checks panel */}
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h3 style={{ fontSize: '11px', fontWeight: '900', color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 12px' }}>Verification Checks</h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', background: '#f8fafc', padding: '8px 12px', borderRadius: '8px', fontSize: '11px', border: '1px solid #f1f5f9' }}>
+                  <span style={{ fontWeight: '700', color: '#334155' }}>Format Validation</span>
+                  <span style={{ fontWeight: '800', color: '#059669' }}>{selectedRecord.checks.format}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', background: selectedRecord.checks.nsdl.startsWith('WARN') ? '#fff5f5' : '#f8fafc', padding: '8px 12px', borderRadius: '8px', fontSize: '11px', border: selectedRecord.checks.nsdl.startsWith('WARN') ? '1px solid #fee2e2' : '1px solid #f1f5f9' }}>
+                  <span style={{ fontWeight: '700', color: '#334155' }}>NSDL API Database Match</span>
+                  <span style={{ fontWeight: '800', color: selectedRecord.checks.nsdl.startsWith('WARN') ? '#ef4444' : '#059669' }}>{selectedRecord.checks.nsdl}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', background: selectedRecord.checks.tamper.startsWith('WARN') ? '#fff5f5' : '#f8fafc', padding: '8px 12px', borderRadius: '8px', fontSize: '11px', border: selectedRecord.checks.tamper.startsWith('WARN') ? '1px solid #fee2e2' : '1px solid #f1f5f9' }}>
+                  <span style={{ fontWeight: '700', color: '#334155' }}>Tamper Detection Checks</span>
+                  <span style={{ fontWeight: '800', color: selectedRecord.checks.tamper.startsWith('WARN') ? '#ef4444' : '#059669' }}>{selectedRecord.checks.tamper}</span>
                 </div>
               </div>
+            </div>
 
-              <h3 className="mb-6 text-[18px] font-bold uppercase text-[#BEB7FF]">
-                REQUESTER BUSINESS DETAILS
-              </h3>
-
-              <div className="mb-7 flex items-center gap-4">
-
-                <div className="flex h-10 w-14 items-center justify-center bg-[#4B39C7]">
-                  <Building2
-                    size={28}
-                    className="text-white"
-                  />
+            {/* Requester details panel */}
+            <div className="panel" style={{ padding: '20px', background: '#1e1b4b', border: 'none', borderRadius: '12px', color: '#fff' }}>
+              <span style={{ fontSize: '9px', fontWeight: '800', color: '#a5b4fc', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '12px' }}>Requester Partner details</span>
+              
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px', marginBottom: '12px' }}>
+                <div style={{ height: '36px', width: '36px', borderRadius: '8px', background: '#312e81', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', color: '#c7d2fe' }}>
+                  <Building2 size={18} />
                 </div>
-
                 <div>
-
-                  <h4 className="text-[20px] font-bold text-white">
-                    {selectedRecord.partnerName}
-                  </h4>
-
-                  <p className="text-[#BEB7FF]">
-                    Partner ID: {selectedRecord.partnerId}
-                  </p>
-
+                  <strong style={{ fontSize: '13px', display: 'block' }}>{selectedRecord.partnerName}</strong>
+                  <span style={{ fontSize: '10px', color: '#c7d2fe' }}>ID: {selectedRecord.partnerId}</span>
                 </div>
-
               </div>
 
-              <div className="space-y-4">
-
-                <div className="flex justify-between">
-
-                  <span className="text-[#D2CCFF]">
-                    Submitted By:
-                  </span>
-
-                  <span className="text-white">
-                    {selectedRecord.submittedBy}
-                  </span>
-
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px', color: '#c7d2fe' }}>
+                <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+                  <span>Submitted By:</span>
+                  <strong style={{ color: '#fff' }}>{selectedRecord.submittedBy}</strong>
                 </div>
-
-                <div className="flex justify-between">
-
-                  <span className="text-[#D2CCFF]">
-                    Submission Date:
-                  </span>
-
-                  <span className="text-white">
-                    {selectedRecord.submissionDate}
-                  </span>
-
+                <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+                  <span>Submission Date:</span>
+                  <strong style={{ color: '#fff' }}>{selectedRecord.submissionDate}</strong>
                 </div>
-
-                <div className="flex justify-between">
-
-                  <span className="text-[#D2CCFF]">
-                    Account Tier:
-                  </span>
-
-                  <span className="text-white">
-                    {selectedRecord.accountTier}
-                  </span>
-
+                <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+                  <span>Account Tier:</span>
+                  <strong style={{ color: '#fff' }}>{selectedRecord.accountTier}</strong>
                 </div>
-
               </div>
-
             </div>
 
-            {/* ================= TIMELINE ================= */}
+            {/* Internal verification notes panel */}
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <label style={{ fontSize: '11px', fontWeight: '900', color: '#334155', textTransform: 'uppercase', letterSpacing: '0.3px', display: 'block', marginBottom: '8px' }}>Internal Auditing Notes</label>
+              <textarea
+                rows={3}
+                value={activeNotes}
+                onChange={(e) => setNotesState(prev => ({ ...prev, [selectedRecord.id]: e.target.value }))}
+                placeholder="Enter internal verification logs or notes..."
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', background: '#f8fafc', fontFamily: 'inherit' }}
+              />
+            </div>
 
-            <div className="rounded-md border border-[#D8D8D8] bg-white p-7">
-
-              <h3 className="mb-8 text-[18px] font-bold text-[#333]">
-                TIMELINE
-              </h3>
-
+            {/* Timeline panel */}
+            <div className="panel" style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+              <h3 style={{ fontSize: '11px', fontWeight: '900', color: '#334155', textTransform: 'uppercase', letterSpacing: '0.3px', margin: '0 0 12px' }}>Audit Timeline</h3>
+              
               <div className="relative">
-
-                <div className="absolute left-[5px] top-2 h-full w-[2px] bg-[#E5E7EB]" />
-
-                {currentTimeline.map((item, index) => (
-                  <div key={item.id} className="relative mb-8 flex gap-5 last:mb-0">
-
-                    <div className={`z-10 h-[10px] w-[10px] rounded-full ${item.active ? 'bg-black' : 'bg-[#CFCFD6]'}`} />
-
-                    <div>
-
-                      <h4 className={`text-[18px] ${item.active ? 'font-semibold text-[#222]' : 'text-[#555]'}`}>
-                        {item.title}
-                      </h4>
-
-                      <p className="text-[#666]">
-                        {item.desc}
-                      </p>
-
+                <div style={{ position: 'absolute', left: '4px', top: '6px', bottom: '6px', width: '2px', background: '#f1f5f9' }} />
+                {currentTimeline.map(item => (
+                  <div key={item.id} style={{ display: 'flex', gap: '10px', position: 'relative', marginBottom: '12px' }} className="last:mb-0">
+                    <div style={{ height: '8px', width: '8px', borderRadius: '50%', background: item.active ? '#4f46e5' : '#cbd5e1', zIndex: 10, marginTop: '4px', flexShrink: 0 }} />
+                    <div style={{ fontSize: '11px' }}>
+                      <strong style={{ display: 'block', color: item.active ? '#0f172a' : '#64748b', fontWeight: '700' }}>{item.title}</strong>
+                      <span style={{ color: '#94a3b8', fontSize: '10px', marginTop: '1px', display: 'block' }}>{item.desc}</span>
                     </div>
-
                   </div>
                 ))}
+              </div>
+            </div>
 
+          </div>
+
+        </div>
+
+        {/* Bottom Verification Actions bar */}
+        {activeStatus === 'approved' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#ecfdf5',
+            borderTop: '1px solid #a7f3d0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#065f46' }}>
+              <CheckCircle2 size={16} />
+              <span>PAN verification decision APPROVED successfully!</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #6ee7b7', background: '#fff', color: '#065f46', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Decision
+            </button>
+          </div>
+        ) : activeStatus === 'rejected' ? (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: 0,
+            background: '#fff5f5',
+            borderTop: '1px solid #fecaca',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#991b1b' }}>
+              <AlertTriangle size={16} />
+              <span>PAN verification REJECTED. Reason: {rejectionReasons[selectedRecord.id]}</span>
+            </div>
+            <button
+              onClick={handleResetDecision}
+              style={{ border: '1px solid #fca5a5', background: '#fff', color: '#991b1b', fontSize: '12px', fontWeight: '800', height: '36px', padding: '0 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              type="button"
+            >
+              Reset Decision
+            </button>
+          </div>
+        ) : (
+          <div style={{ 
+            position: 'fixed',
+            bottom: 0,
+            left: '260px', // Matches sidebar width
+            right: 0,
+            background: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(8px)',
+            borderTop: '1px solid #e2e8f0',
+            padding: '16px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 900,
+            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>
+              <AlertTriangle size={15} className="text-amber-500" />
+              <span>Awaiting final decision check. Click verify to register changes.</span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                style={{ border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+                onClick={handleRejectCard}
+                type="button"
+                className="hover:bg-rose-50"
+              >
+                Reject With Reason
+              </button>
+              <button
+                style={{ border: 'none', background: '#4f46e5', color: '#fff', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+                onClick={handleApproveCard}
+                disabled={isSubmitting}
+                type="button"
+                className="hover:bg-indigo-700 shadow-md"
+              >
+                {isSubmitting ? 'Processing...' : (
+                  <>
+                    <Check size={16} /> 
+                    <span>Verify & Approve</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            MODAL: REJECT WITH REASON DIALOG
+            ======================================================== */}
+        {rejectionModalOpen && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
+            <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setRejectionModalOpen(false); setRejectionReasonInput(''); }} />
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject PAN Verification</h3>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginTop: '2px', margin: 0 }}>Document validation query for {activeHolder}</p>
+                </div>
+                <button onClick={() => { setRejectionModalOpen(false); setRejectionReasonInput(''); }} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8' }} type="button">
+                  <X size={20} />
+                </button>
               </div>
 
-            </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div>
+                  <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#64748b', display: 'block', marginBottom: '6px' }}>Reason for Rejection</label>
+                  <textarea
+                    rows="4"
+                    value={rejectionReasonInput}
+                    onChange={(e) => setRejectionReasonInput(e.target.value)}
+                    placeholder="E.g., PAN image signature mismatch, name spelling mismatch in database, cropped photo..."
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                  />
+                </div>
 
+                <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setRejectionModalOpen(false); setRejectionReasonInput(''); }}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#fff', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRejectConfirm}
+                    style={{ flex: 1, padding: '10px', height: '38px', background: '#ef4444', border: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                  >
+                    Confirm Reject
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+
       </div>
-
-      {/* ================= REJECTION MODAL ================= */}
-      {rejectionModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl p-6 w-[400px] border border-[#D8D8D8] shadow-2xl animate-in fade-in zoom-in-95">
-            <h3 className="text-lg font-bold text-[#111111] mb-4">Reject PAN Card Document</h3>
-            <textarea
-              className="w-full h-24 p-3 border border-[#D8D8D8] rounded-md bg-[#F8F9FB] outline-none focus:border-[#2614B8] text-[15px] resize-none"
-              placeholder="Enter rejection reason..."
-              value={rejectionReasonInput}
-              onChange={(e) => setRejectionReasonInput(e.target.value)}
-            />
-            <div className="flex justify-end gap-3 mt-5">
-              <button
-                onClick={() => { setRejectionModalOpen(false); setRejectionReasonInput(''); }}
-                className="px-4 py-2 text-slate-500 hover:bg-slate-50 rounded-lg text-sm font-semibold transition"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleRejectConfirm}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-semibold transition"
-              >
-                Reject
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
     </AdminShell>
   );
 }

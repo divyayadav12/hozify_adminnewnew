@@ -22,6 +22,7 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import KpiCard from '../../features/dashboard/KpiCard';
 import AdminShell from '../../components/layouts/AdminShell';
+import { useToast } from '../../components/common/ToastNotification';
 
 // Queue specific navigation menu list mapping Image 5
 const queueNavItems = [
@@ -87,6 +88,7 @@ const approvalTasks = [
 
 export default function ApprovalQueue() {
   const { navigate } = useApp();
+  const { addToast } = useToast();
   const [activeTab, setActiveTab] = useState('All Tasks');
 
   const handleBack = () => {
@@ -122,11 +124,11 @@ export default function ApprovalQueue() {
           <p className="page-subtitle">Manage and verify pending administrative requests from global partners.</p>
         </div>
         <div className="partners-header-buttons">
-          <button className="secondary-action-btn font-bold" type="button">
+          <button className="secondary-action-btn font-bold" type="button" onClick={() => addToast('Opening Filter Requests...', 'info')}>
             <SlidersHorizontal size={16} />
             <span>Filter Requests</span>
           </button>
-          <button className="primary-action-btn font-bold" type="button">
+          <button className="primary-action-btn font-bold" type="button" onClick={() => addToast('Generating Export Report...', 'success')}>
             <Download size={16} />
             <span>Export Report</span>
           </button>
@@ -213,8 +215,8 @@ export default function ApprovalQueue() {
                     </td>
                     <td className="actions-cell-wrap">
                       <div className="actions-buttons-cell-row" onClick={(e) => e.stopPropagation()}>
-                        <button className="btn-action-circle approve-green" type="button" title="Approve">✔</button>
-                        <button className="btn-action-circle reject-red" type="button" title="Reject">✘</button>
+                        <button className="btn-action-circle approve-green" type="button" title="Approve" onClick={() => addToast(`Approved request from ${task.partnerName}`, 'success')}>✔</button>
+                        <button className="btn-action-circle reject-red" type="button" title="Reject" onClick={() => addToast(`Rejected request from ${task.partnerName}`, 'error')}>✘</button>
                       </div>
                     </td>
                   </tr>
@@ -255,7 +257,7 @@ export default function ApprovalQueue() {
         <div className="automation-panel-left-content">
           <h2>Automate Your Queue</h2>
           <p>Enable Smart-Approval for trusted partners to bypass standard manual review for low-risk documents and branch updates.</p>
-          <button className="btn-configure-rules" type="button">
+          <button className="btn-configure-rules" type="button" onClick={() => addToast('Opening Smart-Approval Rules configuration...', 'info')}>
             Configure Rules
           </button>
         </div>

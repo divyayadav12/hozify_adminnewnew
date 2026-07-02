@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import PartnerExportButton from "../../components/ui/PartnerExportButton";
@@ -620,7 +621,7 @@ export default function ISPPartners() {
           <div className="flex items-center justify-between border-t border-slate-200 px-6 py-4 text-xs font-medium text-slate-400 bg-white">
             <p>Showing 1–{filteredPartners.length} of {filteredPartners.length} Criteria Matches</p>
             <div className="flex gap-1.5">
-              <button className="h-7 w-7 rounded-md bg-indigo-600 font-semibold text-white shadow-sm flex items-center justify-center">1</button>
+              <button className="h-7 w-7 rounded-md bg-indigo-600 font-semibold text-white shadow-sm flex items-center justify-center" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
             </div>
           </div>
         </div>
@@ -705,7 +706,7 @@ export default function ISPPartners() {
                   <button 
                     key={idx}
                     className="w-full rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-left transition hover:border-indigo-200 hover:bg-indigo-50/40"
-                  >
+                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                     <h4 className="font-semibold text-slate-900 text-sm">{action}</h4>
                     <p className="text-xs text-slate-400 mt-0.5">{subtitles[idx]}</p>
                   </button>

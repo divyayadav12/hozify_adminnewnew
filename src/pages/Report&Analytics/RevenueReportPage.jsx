@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import { useApp } from "../../hooks/useApp";
 import AdminShell from "../../components/layouts/AdminShell";
+import { useToast } from "../../components/common/ToastNotification";
 
 export default function RevenueReportspage() {
+  const { addToast } = useToast();
+  const { route } = useApp();
+  const isFinancial = route && route.includes('financial');
+  
   const [date, setDate] = useState(" ");
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -16,10 +22,10 @@ export default function RevenueReportspage() {
         {/* BREADCRUMB & HEADER SECTION */}
         <div className="mb-6">
           <div className="text-xs text-gray-400 font-semibold mb-1 flex items-center gap-1">
-            <span>Financial</span> <span>&gt;</span> <span className="text-slate-600">Revenue Reports</span>
+            <span>Financial</span> <span>&gt;</span> <span className="text-slate-600">{isFinancial ? "Financial Reports" : "Revenue Reports"}</span>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Revenue Analytics</h1>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">{isFinancial ? "Financial Overview" : "Revenue Analytics"}</h1>
             
             <div className="flex items-center gap-2 relative">
               {/* Calendar Button */}
@@ -186,7 +192,7 @@ export default function RevenueReportspage() {
               </div>
             </div>
 
-            <button className="w-full text-center text-xs font-bold text-slate-900 hover:underline mt-6 flex items-center justify-center gap-1">
+            <button className="w-full text-center text-xs font-bold text-slate-900 hover:underline mt-6 flex items-center justify-center gap-1" type="button" onClick={() => addToast('Opening Full Breakdown...', 'info')}>
               View Full Breakdown <span>→</span>
             </button>
           </div>
@@ -274,7 +280,7 @@ export default function RevenueReportspage() {
         <div className="bg-white border border-gray-200/80 rounded-xl shadow-sm overflow-hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
             <h3 className="text-sm font-black text-slate-800 tracking-wide">High-Value Transactions</h3>
-            <button className="text-xs font-black text-slate-900 hover:underline">View Ledger</button>
+            <button className="text-xs font-black text-slate-900 hover:underline" type="button" onClick={() => addToast('Opening Ledger View...', 'info')}>View Ledger</button>
           </div>
 
           <div className="overflow-x-auto">

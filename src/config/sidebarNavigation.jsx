@@ -698,16 +698,6 @@ export const sidebarNavigation = [
         ]
       },
       {
-        label: 'Integrations',
-        children: [
-          { label: 'Payment Gateway', route: ROUTES.settingsIntegrationPayment },
-          { label: 'SMS Gateway', route: ROUTES.settingsIntegrationSms },
-          { label: 'WhatsApp API', route: ROUTES.settingsIntegrationWhatsapp },
-          { label: 'Email SMTP', route: ROUTES.settingsIntegrationEmail },
-          { label: 'Google Maps API', route: ROUTES.settingsIntegrationGoogleMaps }
-        ]
-      },
-      {
         label: 'Security',
         children: [
           { label: 'Security Settings', route: ROUTES.settingsSecurityGeneral },

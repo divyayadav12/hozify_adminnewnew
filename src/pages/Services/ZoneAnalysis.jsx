@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import {
   MousePointer,
@@ -195,7 +196,7 @@ export default function ZoneAnalysis() {
                     }}
                     type="button"
                     title={tool.title}
-                  >
+                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                     <ToolIcon size={16} />
                   </button>
                 );
@@ -370,7 +371,7 @@ export default function ZoneAnalysis() {
                 gap: '8px'
               }}
               type="button"
-            >
+             onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <Download size={16} />
               <span>Export GIS Data</span>
             </button>

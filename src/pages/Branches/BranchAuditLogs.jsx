@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState } from 'react';
 import { 
   Download, SlidersHorizontal, RefreshCw, Search,
@@ -331,7 +332,7 @@ export default function BranchAuditLogs() {
                   <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '700' }}>{evt.time}</span>
                 </div>
               ))}
-              <button className="secondary-action-btn font-bold" style={{ width: '100%', justifyContent: 'center', marginTop: '4px' }}>
+              <button className="secondary-action-btn font-bold" style={{ width: '100%', justifyContent: 'center', marginTop: '4px' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 View All Events
               </button>
             </div>
@@ -462,12 +463,12 @@ export default function BranchAuditLogs() {
               <button className="pag-nav-btn" type="button" disabled style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--muted)', cursor: 'not-allowed' }}>
                 <ChevronLeft size={14} />
               </button>
-              <button style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">1</button>
-              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">2</button>
-              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">3</button>
+              <button style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
+              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>2</button>
+              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>3</button>
               <span style={{ padding: '6px 4px', color: 'var(--muted)' }}>...</span>
-              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">100</button>
-              <button className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
+              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>100</button>
+              <button className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <ChevronRight size={14} />
               </button>
             </div>
