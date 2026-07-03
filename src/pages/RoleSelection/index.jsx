@@ -11,6 +11,7 @@ export default function RoleSelection() {
           <h1>Select Your Role</h1>
           <p>Choose the administrative context to continue to your dashboard.<br />Access permissions are strictly tied to your selected role.</p>
         </div>
+        {/* jcuhsdvjd */}
         <div className="role-grid">
           {roles.map((role) => {
             const Icon = role.icon;
