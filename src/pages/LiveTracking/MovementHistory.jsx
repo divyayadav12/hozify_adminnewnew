@@ -297,7 +297,7 @@ export default function MovementHistory() {
                 className="absolute top-[58%] left-[50%] z-30 bg-slate-950 text-white p-2 rounded-xl border border-white/20 shadow-xl flex items-center gap-2 cursor-pointer hover:bg-slate-900 transition-transform hover:scale-105"
               >
                 <Truck className="h-4 w-4 text-cyan-400 fill-current" />
-                <span className="font-mono text-[9px] font-black tracking-wider">{vehicleId}</span>
+                <span className=" text-[9px] font-black tracking-wider">{vehicleId}</span>
               </div>
 
               {/* MAP FLOATING CONTROLS HUD RIGHT */}
@@ -354,7 +354,7 @@ export default function MovementHistory() {
 
               {/* Live Sliding Timeline Bar Meter */}
               <div className="flex-1 w-full space-y-1">
-                <div className="flex justify-between items-center text-[11px] font-mono font-bold text-slate-400">
+                <div className="flex justify-between items-center text-[11px]  font-bold text-slate-400">
                   <span>Oct 12, 08:42 AM</span>
                   <span className="text-slate-800 font-extrabold flex items-center gap-1">
                     <Compass className={`h-3 w-3 ${isPlaying ? 'animate-spin' : ''}`} />

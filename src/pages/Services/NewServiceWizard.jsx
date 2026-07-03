@@ -33,7 +33,7 @@ export default function NewServiceWizard({ onClose }) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
       
       {/* Wizard Header Bar */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -60,7 +60,7 @@ export default function NewServiceWizard({ onClose }) {
       </div>
 
       {/* Progress tracker checkpoint indicators */}
-      <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+      <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto' }}>
           
           {/* Progress bar background line */}
@@ -74,7 +74,7 @@ export default function NewServiceWizard({ onClose }) {
               left: '0',
               width: `${((activeStep - 1) / 4) * 100}%`,
               height: '2px',
-              background: '#25108f',
+              background: 'var(--primary)',
               transition: 'width 0.3s ease',
               zIndex: 0
             }}
@@ -132,7 +132,7 @@ export default function NewServiceWizard({ onClose }) {
       <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '0', overflow: 'hidden' }}>
         
         {/* Step Intro Header */}
-        <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
+        <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid #f1f5f9' }}>
           <h2 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
             Step {activeStep}: {steps.find((s) => s.id === activeStep)?.label}
           </h2>
@@ -144,7 +144,7 @@ export default function NewServiceWizard({ onClose }) {
         </div>
 
         {/* Form area */}
-        <form onSubmit={handleNext} style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleNext} style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {activeStep === 1 ? (
             <>
               {/* Service Name */}
@@ -351,7 +351,7 @@ export default function NewServiceWizard({ onClose }) {
                 style={{
                   height: '38px',
                   padding: '0 20px',
-                  background: '#25108f',
+                  background: 'var(--primary)',
                   color: '#ffffff',
                   border: 'none',
                   borderRadius: '6px',

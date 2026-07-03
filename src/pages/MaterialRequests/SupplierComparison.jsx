@@ -49,12 +49,12 @@ export default function SupplierComparison() {
       headerTabs={
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialAnalytics)}>Analytics</span>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: '#25108f', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Suppliers</span>
+          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Suppliers</span>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialReports)}>Reports</span>
         </div>
       }
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Navigation Breadcrumb */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#7a7688' }}>
@@ -97,7 +97,7 @@ export default function SupplierComparison() {
             <button
               onClick={handleAssignContract}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -119,10 +119,10 @@ export default function SupplierComparison() {
         </div>
 
         {/* 3 KPI Cards Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* KPI 1: Average Price Variance */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Critical Metric</span>
               <span style={{ fontSize: '11px', fontWeight: '700', color: '#059669', background: '#ecfdf5', padding: '3px 8px', borderRadius: '4px' }}>+4.2%</span>
@@ -132,12 +132,12 @@ export default function SupplierComparison() {
               <strong style={{ display: 'block', fontSize: '28px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>$1,240.00</strong>
             </div>
             <div style={{ height: '5px', background: '#f1f5f9', borderRadius: '2.5px', overflow: 'hidden', marginTop: '4px' }}>
-              <div style={{ width: '45%', height: '100%', background: '#25108f', borderRadius: '2.5px' }} />
+              <div style={{ width: '45%', height: '100%', background: 'var(--primary)', borderRadius: '2.5px' }} />
             </div>
           </div>
 
           {/* KPI 2: Mean Lead Time */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Efficiency Factor</span>
               <span style={{ fontSize: '11px', fontWeight: '700', color: '#dc2626', background: '#fef2f2', padding: '3px 8px', borderRadius: '4px' }}>↑1.5d</span>
@@ -147,12 +147,12 @@ export default function SupplierComparison() {
               <strong style={{ display: 'block', fontSize: '28px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>12.4 Days</strong>
             </div>
             <div style={{ height: '5px', background: '#f1f5f9', borderRadius: '2.5px', overflow: 'hidden', marginTop: '4px' }}>
-              <div style={{ width: '65%', height: '100%', background: '#25108f', borderRadius: '2.5px' }} />
+              <div style={{ width: '65%', height: '100%', background: 'var(--primary)', borderRadius: '2.5px' }} />
             </div>
           </div>
 
           {/* KPI 3: Reliability Score */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Risk Profile</span>
               <span style={{ fontSize: '11px', fontWeight: '700', color: '#059669', background: '#ecfdf5', padding: '3px 8px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -164,7 +164,7 @@ export default function SupplierComparison() {
               <strong style={{ display: 'block', fontSize: '28px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>94.8%</strong>
             </div>
             <div style={{ height: '5px', background: '#f1f5f9', borderRadius: '2.5px', overflow: 'hidden', marginTop: '4px' }}>
-              <div style={{ width: '85%', height: '100%', background: '#25108f', borderRadius: '2.5px' }} />
+              <div style={{ width: '85%', height: '100%', background: 'var(--primary)', borderRadius: '2.5px' }} />
             </div>
           </div>
 
@@ -211,7 +211,7 @@ export default function SupplierComparison() {
                     </div>
                   </td>
                   <td style={{ padding: '18px 24px', fontSize: '14px', color: '#1c2536' }}>$14.50</td>
-                  <td style={{ padding: '18px 24px', fontSize: '14px', color: '#25108f', fontWeight: '800', background: '#f5f3ff', borderLeft: '1px solid #e0e7ff', borderRight: '1px solid #e0e7ff' }}>$12.20</td>
+                  <td style={{ padding: '18px 24px', fontSize: '14px', color: 'var(--primary)', fontWeight: '800', background: '#f5f3ff', borderLeft: '1px solid #e0e7ff', borderRight: '1px solid #e0e7ff' }}>$12.20</td>
                   <td style={{ padding: '18px 24px', fontSize: '14px', color: '#1c2536' }}>$15.75</td>
                 </tr>
 
@@ -224,7 +224,7 @@ export default function SupplierComparison() {
                     </div>
                   </td>
                   <td style={{ padding: '18px 24px', fontSize: '14px', color: '#1c2536' }}>14 Days</td>
-                  <td style={{ padding: '18px 24px', fontSize: '14px', color: '#25108f', fontWeight: '800', background: '#f5f3ff', borderLeft: '1px solid #e0e7ff', borderRight: '1px solid #e0e7ff' }}>8 Days</td>
+                  <td style={{ padding: '18px 24px', fontSize: '14px', color: 'var(--primary)', fontWeight: '800', background: '#f5f3ff', borderLeft: '1px solid #e0e7ff', borderRight: '1px solid #e0e7ff' }}>8 Days</td>
                   <td style={{ padding: '18px 24px', fontSize: '14px', color: '#1c2536' }}>21 Days</td>
                 </tr>
 
@@ -304,9 +304,9 @@ export default function SupplierComparison() {
         </div>
 
         {/* Smart Procurement Insights Banner */}
-        <div className="panel" style={{ background: '#f5f3ff', border: '1px solid #e0e7ff', borderRadius: '12px', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
+        <div className="panel" style={{ background: '#f5f3ff', border: '1px solid #e0e7ff', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
           <div style={{ display: 'flex', gap: '16px', flex: 1, minWidth: '280px' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#25108f', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'var(--primary)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Zap size={22} fill="#ffffff" />
             </div>
             <div>
@@ -320,7 +320,7 @@ export default function SupplierComparison() {
             <button
               onClick={handleApprove}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -354,10 +354,10 @@ export default function SupplierComparison() {
         </div>
 
         {/* Bottom Split Layout: Price Volatility & Supplier Risk */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Price Volatility Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Price Volatility Index
@@ -409,7 +409,7 @@ export default function SupplierComparison() {
           </div>
 
           {/* Supplier Risk Distribution */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Supplier Risk Distribution
@@ -449,7 +449,7 @@ export default function SupplierComparison() {
                   <strong style={{ color: '#1c2536', fontWeight: '800' }}>91%</strong>
                 </div>
                 <div style={{ height: '6px', background: '#f1f5f9', borderRadius: '3px', overflow: 'hidden' }}>
-                  <div style={{ width: '91%', height: '100%', background: '#25108f', borderRadius: '3px' }} />
+                  <div style={{ width: '91%', height: '100%', background: 'var(--primary)', borderRadius: '3px' }} />
                 </div>
               </div>
             </div>

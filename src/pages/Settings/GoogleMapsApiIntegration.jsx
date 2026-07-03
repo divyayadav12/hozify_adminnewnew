@@ -28,12 +28,12 @@ export default function GoogleMapsApiIntegration() {
         </div>
 
         {/* Layout: Left (Form) | Right (Preview + Quotas + Logs) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -50,7 +50,7 @@ export default function GoogleMapsApiIntegration() {
               <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>PRODUCTION API KEY</label>
                 <div style={{ position: 'relative' }}>
-                  <input type="text" defaultValue="AIzaSyA_G73u92XkL8m-N1pZ5v-1q2w3e4r5t6" style={{ width: '100%', height: '44px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 40px 0 16px', fontSize: '13px', color: '#475569', boxSizing: 'border-box', outline: 'none', fontFamily: 'monospace' }} readOnly />
+                  <input type="text" defaultValue="AIzaSyA_G73u92XkL8m-N1pZ5v-1q2w3e4r5t6" style={{ width: '100%', height: '44px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 40px 0 16px', fontSize: '13px', color: '#475569', boxSizing: 'border-box', outline: 'none', fontFamily: "var(--materio-space)", }} readOnly />
                   <Eye size={16} color="#94a3b8" style={{ position: 'absolute', right: '16px', top: '14px', cursor: 'pointer' }} />
                 </div>
                 <p style={{ fontSize: '10px', color: '#64748b', margin: '8px 0 0' }}>Never share your API key with third parties. Use restrictions in the GCP Console.</p>
@@ -71,7 +71,7 @@ export default function GoogleMapsApiIntegration() {
 
               <div style={{ marginBottom: '32px' }}>
                 <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>MAP STYLING (JSON)</label>
-                <div style={{ background: '#27272a', borderRadius: '8px', padding: '16px', fontFamily: 'monospace', fontSize: '12px', color: '#d4d4d8', lineHeight: '1.6', height: '220px', overflowY: 'auto' }}>
+                <div style={{ background: '#27272a', borderRadius: '8px', padding: '16px', fontFamily: "var(--materio-space)", fontSize: '12px', color: '#d4d4d8', lineHeight: '1.6', height: '220px', overflowY: 'auto' }}>
                   [<br/>
                   &nbsp;&nbsp;{'{'}<br/>
                   &nbsp;&nbsp;&nbsp;&nbsp;"featureType": "water",<br/>
@@ -105,10 +105,10 @@ export default function GoogleMapsApiIntegration() {
           </div>
 
           {/* Right Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Visual Preview */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <ImageIcon size={16} color="#0f172a" />
@@ -135,7 +135,7 @@ export default function GoogleMapsApiIntegration() {
             </div>
 
             {/* Usage & Quotas */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                 <div style={{ width: '32px', height: '32px', background: '#f1f5f9', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <BarChart2 size={16} color="#0f172a" />
@@ -203,7 +203,7 @@ export default function GoogleMapsApiIntegration() {
             </div>
 
             {/* System Logs */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', position: 'relative' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>SYSTEM LOGS</span>
                 <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} style={{ background: 'none', border: 'none', fontSize: '11px', fontWeight: '800', color: '#0f172a', cursor: 'pointer' }}>
@@ -213,15 +213,15 @@ export default function GoogleMapsApiIntegration() {
 
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px', marginBottom: '16px' }}>
-                  <span style={{ fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace' }}>14:22:10</span>
+                  <span style={{ fontSize: '11px', color: '#94a3b8', fontFamily: "var(--materio-space)", }}>14:22:10</span>
                   <span style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>API Key rotated by system administrato...</span>
                 </div>
                 <div style={{ display: 'flex', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px', marginBottom: '16px' }}>
-                  <span style={{ fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace' }}>12:05:45</span>
+                  <span style={{ fontSize: '11px', color: '#94a3b8', fontFamily: "var(--materio-space)", }}>12:05:45</span>
                   <span style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Usage Alert: Threshold reached (80%)</span>
                 </div>
                 <div style={{ display: 'flex', gap: '16px' }}>
-                  <span style={{ fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace' }}>09:12:33</span>
+                  <span style={{ fontSize: '11px', color: '#94a3b8', fontFamily: "var(--materio-space)", }}>09:12:33</span>
                   <span style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Map style updated by Rivera_A</span>
                 </div>
               </div>

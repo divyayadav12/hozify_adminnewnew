@@ -19,10 +19,10 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
   const { preset, isFiltering, hasData } = useDateFilter();
 
   const kpis = [
-    { title: "New Users", value: "2,842", subtitle: "this week", trend: "+12%", positive: true, icon: UserCheck, color: "#07956f", bg: "#ecfdf5" },
-    { title: "Active Users", value: "48.2k", subtitle: "MAU", trend: "+5.2%", positive: true, icon: Users, color: "#25108f", bg: "#f4eff8" },
+    { title: "New Users", value: "2,842", subtitle: "this week", trend: "+12%", positive: true, icon: UserCheck, color: 'var(--green)', bg: "#ecfdf5" },
+    { title: "Active Users", value: "48.2k", subtitle: "MAU", trend: "+5.2%", positive: true, icon: Users, color: 'var(--primary)', bg: "#f4eff8" },
     { title: "Inactive Users", value: "1,204", subtitle: "30d+ idle", trend: "-2.1%", positive: false, icon: UserMinus, color: "#b45309", bg: "#fffbeb" },
-    { title: "Blocked Users", value: "156", subtitle: "manual + auto", trend: "Security Flag", alert: true, icon: ShieldAlert, color: "#d32929", bg: "#fee2e2" }
+    { title: "Blocked Users", value: "156", subtitle: "manual + auto", trend: "Security Flag", alert: true, icon: ShieldAlert, color: 'var(--red)', bg: "#fee2e2" }
   ];
 
   const referringUsers = [
@@ -45,7 +45,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
       headerTitle="User Analytics"
       searchPlaceholder="Search user metrics, profiles, or logs..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title Block & Time Tabs */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -64,7 +64,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
         </div>
 
         {isFiltering ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
               <SkeletonLoader height="120px" />
               <SkeletonLoader height="120px" />
@@ -115,12 +115,12 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Growth & Retention Bar Chart */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Growth Trend & Retention</h2>
               <div style={{ display: 'flex', gap: '12px', fontSize: '11px', fontWeight: '700' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text)' }}>
-                  <span style={{ height: '8px', width: '8px', background: '#25108f', borderRadius: '50%' }} />
+                  <span style={{ height: '8px', width: '8px', background: 'var(--primary)', borderRadius: '50%' }} />
                   New
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text)' }}>
@@ -143,7 +143,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
               ].map((item, idx) => (
                 <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
                   <div style={{ width: '30px', height: '140px', display: 'flex', alignItems: 'flex-end', gap: '2px', background: '#f8fafc', borderRadius: '4px' }}>
-                    <div style={{ flex: 1, height: `${item.new}%`, background: '#25108f', borderRadius: '2px 2px 0 0' }} />
+                    <div style={{ flex: 1, height: `${item.new}%`, background: 'var(--primary)', borderRadius: '2px 2px 0 0' }} />
                     <div style={{ flex: 1, height: `${item.ret}%`, background: '#c8c0d7', borderRadius: '2px 2px 0 0' }} />
                   </div>
                   <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '750', marginTop: '6px' }}>{item.label}</span>
@@ -153,7 +153,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
           </div>
 
           {/* User Source Analysis Attribution Donut */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>User Source Analysis</h2>
 
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '130px', position: 'relative' }}>
@@ -177,7 +177,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '750' }}>
-                  <span style={{ height: '8px', width: '8px', background: '#25108f', borderRadius: '50%' }} />
+                  <span style={{ height: '8px', width: '8px', background: 'var(--primary)', borderRadius: '50%' }} />
                   Organic Search
                 </span>
                 <strong style={{ color: 'var(--text)' }}>45%</strong>
@@ -202,12 +202,12 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Campaign Performance bar comparisons */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Campaign Performance</h2>
             <button
               onClick={() => alert("Downloading campaigns CSV reports...")}
-              style={{ border: 'none', background: 'transparent', color: '#25108f', fontSize: '12px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+              style={{ border: 'none', background: 'transparent', color: 'var(--primary)', fontSize: '12px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
             >
               <span>Download CSV</span>
               <ArrowRight size={12} />
@@ -221,7 +221,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
                 <span style={{ color: 'var(--muted)' }}>84% Target Achieved</span>
               </div>
               <div style={{ height: '8px', background: '#f4eff8', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{ width: '84%', height: '100%', background: '#25108f' }} />
+                <div style={{ width: '84%', height: '100%', background: 'var(--primary)' }} />
               </div>
             </div>
 
@@ -241,7 +241,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Top Referring Users Table */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Top Referring Users</h2>
               <MoreVertical size={16} style={{ color: 'var(--muted)', cursor: 'pointer' }} />
@@ -271,7 +271,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
                         </div>
                       </td>
                       <td style={{ padding: '12px', fontWeight: '750' }}>{item.count}</td>
-                      <td style={{ padding: '12px', fontWeight: '850', color: '#07956f', textAlign: 'right' }}>{item.conv}</td>
+                      <td style={{ padding: '12px', fontWeight: '850', color: 'var(--green)', textAlign: 'right' }}>{item.conv}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -280,7 +280,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
           </div>
 
           {/* Recently Blocked User list */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Recently Blocked</h2>
               <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>Last 24 Hours</span>
@@ -319,7 +319,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
                       <td style={{ padding: '12px', textAlign: 'right' }}>
                         <button
                           onClick={() => alert(`Reviewing security flags log for ${item.name}`)}
-                          style={{ border: 'none', background: 'transparent', color: '#25108f', cursor: 'pointer', fontWeight: '800' }}
+                          style={{ border: 'none', background: 'transparent', color: 'var(--primary)', cursor: 'pointer', fontWeight: '800' }}
                         >
                           Review
                         </button>

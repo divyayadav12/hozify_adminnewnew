@@ -89,7 +89,7 @@ export default function PerformanceDashboard() {
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
         {/* Rating & Productivity line trends */}
-        <div className="panel" style={{ flex: 1.6, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1.6, padding: 'var(--spacing-section)' }}>
           <div className="service-card-title-wrap header-row-justify" style={{ marginBottom: '20px' }}>
             <div>
               <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Efficiency Trends</h2>
@@ -121,7 +121,7 @@ export default function PerformanceDashboard() {
         </div>
 
         {/* Score metrics */}
-        <div className="panel" style={{ flex: 1, padding: '24px', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>CSAT Performance</h2>
             <HelpCircle size={16} style={{ color: 'var(--muted)', cursor: 'pointer' }} onClick={() => addToast("CSAT calculation standard score formula detail.", "success")} />
@@ -158,7 +158,7 @@ export default function PerformanceDashboard() {
       <div className="fraud-top-grid" style={{ gap: '20px' }}>
         
         {/* Top Performers */}
-        <div className="panel" style={{ flex: 1, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0 0 16px' }}>Top Performers</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {topPerformers.map((emp, index) => (
@@ -181,7 +181,7 @@ export default function PerformanceDashboard() {
         </div>
 
         {/* Performance Improvement Queue */}
-        <div className="panel" style={{ flex: 1, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Improvement Roster Queue</h2>
             <ShieldAlert size={18} style={{ color: '#ef4444' }} />

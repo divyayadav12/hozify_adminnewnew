@@ -178,7 +178,7 @@ export default function MenuMgmtPage({ defaultTab }) {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="Menu Configuration Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -300,11 +300,11 @@ export default function MenuMgmtPage({ defaultTab }) {
                     {currentItems.length > 0 ? (
                       currentItems.map(row => (
                         <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                          <td style={{ padding: '18px 24px', fontWeight: '800', fontFamily: 'monospace', color: '#4f46e5' }}>
+                          <td style={{ padding: '18px 24px', fontWeight: '800', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>
                             Position {row.order}
                           </td>
                           <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.label}</td>
-                          <td style={{ padding: '18px 24px', fontFamily: 'monospace', fontWeight: '600', color: '#64748b' }}>{row.path}</td>
+                          <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", fontWeight: '600', color: '#64748b' }}>{row.path}</td>
                           <td style={{ padding: '18px 24px' }}>
                             <span style={{
                               padding: '4px 8px',
@@ -329,7 +329,7 @@ export default function MenuMgmtPage({ defaultTab }) {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No menu nodes match filters.</td>
+                        <td colSpan={6} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No menu nodes match filters.</td>
                       </tr>
                     )}
                   </tbody>
@@ -367,7 +367,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         )}
 
         {activeTab === 'Menu Ordering' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 16px 0' }}>Re-arrange Sidebar Items Order</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {menus.map((menu) => (
@@ -392,7 +392,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         )}
 
         {activeTab === 'Menu Visibility' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 16px 0' }}>Toggle Sidebar Link Visibilities</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {menus.map((menu) => (

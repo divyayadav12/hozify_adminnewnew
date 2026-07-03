@@ -102,7 +102,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
   });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
       
       {/* Breadcrumbs & Back */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -243,7 +243,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
       </div>
 
       {/* Approvals Table Card */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         
         {/* Table Filter Top header - Unnecessary controls completely removed */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
@@ -353,7 +353,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
             <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <ChevronLeft size={16} />
             </button>
-            <button style={{ border: 'none', background: '#25108f', color: '#ffffff', padding: '8px 14px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
+            <button style={{ border: 'none', background: 'var(--primary)', color: '#ffffff', padding: '8px 14px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               1
             </button>
             <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>

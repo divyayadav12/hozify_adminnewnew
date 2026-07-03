@@ -88,13 +88,13 @@ export default function PrivacyPolicy() {
 
   return (
     <AdminShell activeTab="CMS Management" searchPlaceholder="Search resources...">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1000px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1000px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
         
         {/* Top Row */}
-        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 'var(--spacing-section)', flexWrap: 'wrap' }}>
           
           {/* Document Metadata */}
-          <div style={{ flex: 2, background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+          <div style={{ flex: 2, background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
               <div>
                 <h2 style={{ margin: '0 0 8px 0', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Document Metadata</h2>
@@ -121,7 +121,7 @@ export default function PrivacyPolicy() {
 
             <div style={{ height: '1px', background: '#e2e8f0', marginBottom: '24px' }} />
 
-            <div style={{ display: 'flex', gap: '24px' }}>
+            <div style={{ display: 'flex', gap: 'var(--spacing-section)' }}>
               <div style={{ flex: 2 }}>
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#0f172a', marginBottom: '8px' }}>Document Title</label>
                 <input 
@@ -140,7 +140,7 @@ export default function PrivacyPolicy() {
           </div>
 
           {/* Quick Toggles */}
-          <div style={{ flex: 1, background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+          <div style={{ flex: 1, background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
             <h2 style={{ margin: '0 0 24px 0', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Quick Toggles</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -161,7 +161,7 @@ export default function PrivacyPolicy() {
         </div>
 
         {/* Section 1: Data Collection Policy */}
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <RefreshCw size={20} color="#0f172a" />
@@ -182,7 +182,7 @@ export default function PrivacyPolicy() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '24px', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: 'var(--spacing-section)', marginBottom: '24px' }}>
             <CustomCheckbox label="Personal Identifiable Information (PII)" checked={checkboxes.pii} onChange={() => handleCheckbox('pii')} />
             <CustomCheckbox label="Financial Data" checked={checkboxes.financial} onChange={() => handleCheckbox('financial')} />
             <CustomCheckbox label="Biometric Data" checked={checkboxes.biometric} onChange={() => handleCheckbox('biometric')} />
@@ -203,7 +203,7 @@ export default function PrivacyPolicy() {
         </div>
 
         {/* Section 2: User Rights (GDPR/CCPA) */}
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <ShieldCheck size={20} color="#0f172a" />
@@ -256,7 +256,7 @@ export default function PrivacyPolicy() {
         </div>
 
         {/* Section 3: Cookie Policy & Consent */}
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <Cookie size={20} color="#0f172a" />
             <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Cookie Policy & Consent</h3>

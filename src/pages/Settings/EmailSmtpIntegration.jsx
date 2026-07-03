@@ -26,10 +26,10 @@ export default function EmailSmtpIntegration() {
         </div>
 
         {/* Top Section: Left (Form) | Right (Status + CTA) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px', alignItems: 'start', marginBottom: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 'var(--spacing-section)', alignItems: 'start', marginBottom: '24px' }}>
           
           {/* Left Column: Email SMTP Settings */}
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ width: '36px', height: '36px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -42,7 +42,7 @@ export default function EmailSmtpIntegration() {
               </span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 120px', gap: '24px', marginBottom: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 120px', gap: 'var(--spacing-section)', marginBottom: '24px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>SMTP HOST</label>
                 <input type="text" defaultValue="smtp.enterprise.relay" style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: '#0f172a', boxSizing: 'border-box', outline: 'none' }} />
@@ -53,7 +53,7 @@ export default function EmailSmtpIntegration() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)', marginBottom: '24px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>SENDER NAME</label>
                 <input type="text" defaultValue="Hozify System Notifications" style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: '#0f172a', boxSizing: 'border-box', outline: 'none' }} />
@@ -78,7 +78,7 @@ export default function EmailSmtpIntegration() {
 
             <div style={{ marginBottom: '32px' }}>
               <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>ENVIRONMENT CONFIGURATION (YAML)</label>
-              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px', fontFamily: 'monospace', fontSize: '12px', color: '#475569', lineHeight: '1.6' }}>
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px', fontFamily: "var(--materio-space)", fontSize: '12px', color: '#475569', lineHeight: '1.6' }}>
                 <span style={{ color: '#0f172a', fontWeight: '700' }}>mail:</span><br/>
                 &nbsp;&nbsp;transport: <span style={{ color: '#0f172a' }}>smtp</span><br/>
                 &nbsp;&nbsp;host: <span style={{ color: '#0f172a' }}>smtp.enterprise.relay</span><br/>
@@ -101,10 +101,10 @@ export default function EmailSmtpIntegration() {
           </div>
 
           {/* Right Column: Status & Custom Relay */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Quick Status */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '16px' }}>QUICK STATUS</span>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc', padding: '12px 16px', borderRadius: '8px', marginBottom: '12px' }}>
@@ -125,7 +125,7 @@ export default function EmailSmtpIntegration() {
             </div>
 
             {/* Custom Relay Box */}
-            <div style={{ background: '#09091b', borderRadius: '12px', padding: '32px', color: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+            <div style={{ background: '#09091b', borderRadius: '12px', padding: 'var(--spacing-page)', color: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
               <div style={{ marginBottom: '24px' }}>
                 <Sparkles size={24} color="#a5b4fc" style={{ marginBottom: '16px' }} />
                 <h2 style={{ fontSize: '16px', fontWeight: '800', margin: '0 0 12px' }}>Need a custom relay?</h2>
@@ -142,7 +142,7 @@ export default function EmailSmtpIntegration() {
         </div>
 
         {/* Bottom Full-Width Section: Usage & Billing Thresholds */}
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
             <div>
               <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a', margin: '0 0 4px' }}>Usage & Billing Thresholds</h2>

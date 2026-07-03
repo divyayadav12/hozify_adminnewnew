@@ -440,7 +440,7 @@ export default function Partners() {
                 ))}
                 {filteredPartners.length === 0 && (
                   <tr>
-                    <td colSpan="10" style={{ textAlign: 'center', padding: '32px' }}>
+                    <td colSpan="10" style={{ textAlign: 'center', padding: 'var(--spacing-page)' }}>
                       No partners found matching the criteria.
                     </td>
                   </tr>

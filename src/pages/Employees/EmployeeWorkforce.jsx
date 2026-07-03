@@ -310,7 +310,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
               ))}
               {filteredList.length === 0 && (
                 <tr>
-                  <td colSpan="10" style={{ textAlign: 'center', padding: '32px' }}>
+                  <td colSpan="10" style={{ textAlign: 'center', padding: 'var(--spacing-page)' }}>
                     No staff records found.
                   </td>
                 </tr>

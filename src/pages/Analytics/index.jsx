@@ -355,7 +355,7 @@ export default function Analytics() {
                   <h2 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue Distribution</h2>
                   
                   {/* Visual distribution container */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', background: '#f8fafc', padding: '24px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', background: '#f8fafc', padding: 'var(--spacing-section)', borderRadius: '8px', border: '1px solid var(--line)' }}>
                     {/* Ring Dial */}
                     <div style={{ position: 'relative', width: '100px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <svg width="100" height="100" viewBox="0 0 36 36">
@@ -621,7 +621,7 @@ export default function Analytics() {
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '12px 8px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <FileText size={15} style={{ color: '#25108f' }} />
+                            <FileText size={15} style={{ color: 'var(--primary)' }} />
                             <strong style={{ color: 'var(--text)' }}>Q3_Revenue_Analysis_Final</strong>
                           </div>
                         </td>
@@ -634,7 +634,7 @@ export default function Analytics() {
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '12px 8px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <Sliders size={15} style={{ color: '#25108f' }} />
+                            <Sliders size={15} style={{ color: 'var(--primary)' }} />
                             <strong style={{ color: 'var(--text)' }}>Resource_Allocation_Oct23</strong>
                           </div>
                         </td>
@@ -647,7 +647,7 @@ export default function Analytics() {
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '12px 8px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <FileText size={15} style={{ color: '#25108f' }} />
+                            <FileText size={15} style={{ color: 'var(--primary)' }} />
                             <strong style={{ color: 'var(--text)' }}>Safety_Compliance_Audit_A1</strong>
                           </div>
                         </td>
@@ -677,7 +677,7 @@ export default function Analytics() {
                 <div style={{ borderTop: '1px solid var(--line)', textAlign: 'center', padding: '12px 0 0', marginTop: '12px' }}>
                   <button
                     onClick={() => alert('Viewing all 152 reports')}
-                    style={{ border: 'none', background: 'transparent', color: '#25108f', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
+                    style={{ border: 'none', background: 'transparent', color: 'var(--primary)', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
                     type="button"
                   >
                     View All 152 Reports
@@ -790,7 +790,7 @@ export default function Analytics() {
                     padding: '10px',
                     borderRadius: '6px',
                     border: 'none',
-                    background: '#25108f',
+                    background: 'var(--primary)',
                     color: 'white',
                     fontWeight: '700',
                     fontSize: '12px',
@@ -834,7 +834,7 @@ export default function Analytics() {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 borderRadius: '12px',
-                padding: '24px',
+                padding: 'var(--spacing-section)',
                 color: 'white',
                 display: 'flex',
                 flexDirection: 'column',
@@ -890,7 +890,7 @@ export default function Analytics() {
                   style={{
                     border: 'none',
                     background: 'transparent',
-                    color: '#25108f',
+                    color: 'var(--primary)',
                     fontWeight: '700',
                     fontSize: '12px',
                     cursor: 'pointer',

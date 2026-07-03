@@ -182,7 +182,7 @@ export default function ApprovalPipeline() {
       customProfileName="Admin User"
       customProfileRole="Procurement lead"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -242,7 +242,7 @@ export default function ApprovalPipeline() {
         </div>
 
         {/* 3 Analytics KPI cards row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
           
           {/* Card 1 */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -300,7 +300,7 @@ export default function ApprovalPipeline() {
         </div>
 
         {/* Detailed Requests Queue Panel */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Detailed Requests Queue
@@ -354,12 +354,12 @@ export default function ApprovalPipeline() {
                     onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fcfaff'}
                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
-                    <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: '#25108f' }}>
+                    <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: 'var(--primary)' }}>
                       {req.id}
                     </td>
                     <td style={{ padding: '16px 8px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f1ebfa', color: '#25108f', fontSize: '11px', fontWeight: '800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f1ebfa', color: 'var(--primary)', fontSize: '11px', fontWeight: '800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           {req.initial}
                         </div>
                         <div>
@@ -512,10 +512,10 @@ export default function ApprovalPipeline() {
         </div>
 
         {/* Charts Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Approval Trend Line Chart */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>
               Approval Trend (7 Days)
             </h2>
@@ -559,7 +559,7 @@ export default function ApprovalPipeline() {
           </div>
 
           {/* Department Share Donut Chart */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Department Share
             </h2>
@@ -608,7 +608,7 @@ export default function ApprovalPipeline() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1, minWidth: '120px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#25108f' }} />
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }} />
                     <span style={{ color: '#565365' }}>Infrastructure</span>
                   </div>
                   <strong style={{ color: 'var(--text)' }}>62%</strong>

@@ -35,7 +35,7 @@ export default function ActivityLogPage() {
 
   return (
     <AdminShell activeTab="Profile" headerTitle="System Audit Center">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1100px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1100px', margin: '0 auto' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>

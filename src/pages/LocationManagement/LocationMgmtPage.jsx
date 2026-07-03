@@ -93,7 +93,7 @@ export default function LocationMgmtPage() {
 
   return (
     <AdminShell activeTab="Location Management" headerTitle="Geographical Coverage Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -171,12 +171,12 @@ export default function LocationMgmtPage() {
               {filteredLocations.length > 0 ? (
                 filteredLocations.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.country}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.state}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700' }}>{row.city}</td>
                     <td style={{ padding: '18px 24px', color: 'var(--muted)', maxWidth: '250px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row.pincode}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>{row.radius} KM</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>{row.radius} KM</td>
                     <td style={{ padding: '18px 24px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span style={{
@@ -206,7 +206,7 @@ export default function LocationMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No location records found.</td>
+                  <td colSpan={8} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No location records found.</td>
                 </tr>
               )}
             </tbody>

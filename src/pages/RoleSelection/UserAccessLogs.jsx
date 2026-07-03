@@ -48,7 +48,7 @@ export default function UserAccessLogs() {
 
   return (
     <AdminShell activeTab="UserAccessLogs">
-      <div className="space-y-6 max-w-6xl mx-auto pb-12">
+      <div className="space-y-6 max-w-6xl mx-auto p-6 pb-12">
         
         {/* ==========================================
             1. MODERN BREADCRUMB HEADER
@@ -60,7 +60,7 @@ export default function UserAccessLogs() {
             </div>
             <div>
               <h1 className="text-xl font-black text-indigo-950 tracking-tight">Security Access Logs</h1>
-              <p className="text-xs text-slate-400 font-medium font-sans">Real-time audit trails and infrastructure authentication records</p>
+              <p className="text-xs text-slate-400 font-medium ">Real-time audit trails and infrastructure authentication records</p>
             </div>
           </div>
 
@@ -163,14 +163,14 @@ export default function UserAccessLogs() {
                   filteredLogs.map((log) => (
                     <tr key={log.id} className="hover:bg-slate-50/40 transition-colors">
                       {/* Log ID Badge */}
-                      <td className="p-3.5 pl-4 font-mono text-[11px] text-indigo-950 font-bold">
+                      <td className="p-3.5 pl-4  text-[11px] text-indigo-950 font-bold">
                         {log.id}
                       </td>
 
                       {/* User Info Stack */}
                       <td className="p-3.5">
                         <span className="font-bold text-indigo-950 block">{log.user}</span>
-                        <span className="text-[10px] text-slate-400 font-medium font-sans block mt-0.5">{log.email}</span>
+                        <span className="text-[10px] text-slate-400 font-medium  block mt-0.5">{log.email}</span>
                       </td>
 
                       {/* Event Detail */}
@@ -182,8 +182,8 @@ export default function UserAccessLogs() {
                       </td>
 
                       {/* IP & Location */}
-                      <td className="p-3.5 font-sans">
-                        <span className="font-mono text-slate-600 block">{log.ip}</span>
+                      <td className="p-3.5 ">
+                        <span className=" text-slate-600 block">{log.ip}</span>
                         <span className="text-[10px] text-slate-400 font-medium block mt-0.5">{log.location}</span>
                       </td>
 
@@ -214,14 +214,14 @@ export default function UserAccessLogs() {
                       </td>
 
                       {/* Time ago */}
-                      <td className="p-3.5 text-right pr-4 font-medium text-slate-400 font-sans">
+                      <td className="p-3.5 text-right pr-4 font-medium text-slate-400 ">
                         {log.time}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="7" className="p-8 text-center text-slate-400 font-medium font-sans">
+                    <td colSpan="7" className="p-8 text-center text-slate-400 font-medium ">
                       No matching authentication logs discovered in active database registers.
                     </td>
                   </tr>
@@ -231,7 +231,7 @@ export default function UserAccessLogs() {
           </div>
 
           {/* Engine Footer */}
-          <div className="p-3 border-t border-slate-100 text-[10px] text-slate-400 font-mono flex justify-between bg-slate-50/20">
+          <div className="p-3 border-t border-slate-100 text-[10px] text-slate-400  flex justify-between bg-slate-50/20">
             <span>Audit Engine v2.0 // Active Listener</span>
             <span>Real-time Log Buffer Connected</span>
           </div>

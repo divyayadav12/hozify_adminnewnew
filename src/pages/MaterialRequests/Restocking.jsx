@@ -48,7 +48,7 @@ export default function Restocking() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Title Block */}
         <div>
@@ -61,14 +61,14 @@ export default function Restocking() {
         </div>
 
         {/* Intelligence Banner & Procurement Health Card */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Restock Intelligence Banner */}
           <div className="panel" style={{ 
             background: '#1c2536', 
             color: '#ffffff', 
             borderRadius: '12px', 
-            padding: '24px',
+            padding: 'var(--spacing-section)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -91,7 +91,7 @@ export default function Restocking() {
               <button
                 onClick={handleAutoGenerate}
                 style={{
-                  background: '#25108f',
+                  background: 'var(--primary)',
                   color: '#ffffff',
                   border: 'none',
                   borderRadius: '6px',
@@ -124,7 +124,7 @@ export default function Restocking() {
           </div>
 
           {/* Procurement Health */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Procurement Health</span>
@@ -135,7 +135,7 @@ export default function Restocking() {
                   </span>
                 </div>
               </div>
-              <div style={{ color: '#25108f' }}>
+              <div style={{ color: 'var(--primary)' }}>
                 <TrendingUp size={20} />
               </div>
             </div>
@@ -156,12 +156,12 @@ export default function Restocking() {
         </div>
 
         {/* 2 Columns: Forms & Approval Workflow */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Create Restock Request Form */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#f5f3ff', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#f5f3ff', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Send size={16} />
               </div>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
@@ -305,7 +305,7 @@ export default function Restocking() {
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '13px', fontWeight: '700', color: '#565365' }}>Estimated Cost</span>
-                  <strong style={{ fontSize: '18px', fontWeight: '800', color: '#25108f' }}>$12,450.00</strong>
+                  <strong style={{ fontSize: '18px', fontWeight: '800', color: 'var(--primary)' }}>$12,450.00</strong>
                 </div>
                 <p style={{ fontSize: '11px', color: '#7a7688', margin: 0, lineHeight: '1.4' }}>
                   Price includes standard shipping and bulk discount from Apex Metalworks. Final approval required for orders over $10k.
@@ -342,10 +342,10 @@ export default function Restocking() {
           </div>
 
           {/* Current Approval Workflow & Subcards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Current Approval Workflow Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                   Current Approval Workflow

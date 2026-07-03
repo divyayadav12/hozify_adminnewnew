@@ -15,12 +15,12 @@ function PopupCampaignRow({
       {/* Campaign & Preview */}
       <td className="py-4 px-4">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-8 rounded bg-slate-900 flex items-center justify-center text-[10px] font-bold text-indigo-400 border border-slate-800 shadow-inner font-mono">
+          <div className="w-12 h-8 rounded bg-slate-900 flex items-center justify-center text-[10px] font-bold text-indigo-400 border border-slate-800 shadow-inner ">
             {imgText}
           </div>
           <div>
             <p className="font-bold text-slate-900 text-sm">{name}</p>
-            <p className="text-[10px] text-slate-400 font-mono mt-0.5">ID: {id}</p>
+            <p className="text-[10px] text-slate-400  mt-0.5">ID: {id}</p>
           </div>
         </div>
       </td>
@@ -132,7 +132,7 @@ export default function PopupBannersPage() {
       activeTab="Banners"
       searchPlaceholder="Search campaigns or users..."
     >
-      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto font-sans antialiased">
+      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto  antialiased">
         
         {/* HEADER BLOCK TOOLBAR WITH BUTTON OPTIONS */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

@@ -18,8 +18,23 @@ import { ROUTES } from '../../config/routes';
 export default function MaterialCategories() {
   const { navigate } = useApp();
 
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCategoryDesc, setNewCategoryDesc] = useState('');
+
   const handleAddCategory = () => {
-    alert('Create new category vertical wizard...');
+    setIsCreateModalOpen(true);
+  };
+
+  const handleSaveCategory = (e) => {
+    e.preventDefault();
+    if (!newCategoryName.trim()) return;
+    
+    // Simulate save
+    console.log('Saved new category:', newCategoryName, newCategoryDesc);
+    setIsCreateModalOpen(false);
+    setNewCategoryName('');
+    setNewCategoryDesc('');
   };
 
   const handleViewAllActivity = () => {
@@ -27,6 +42,7 @@ export default function MaterialCategories() {
   };
 
   return (
+    <>
     <AdminShell
       activeTab="Material Management"
       brandText="Hozify Procurement"
@@ -35,7 +51,7 @@ export default function MaterialCategories() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Header Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -79,7 +95,7 @@ export default function MaterialCategories() {
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Total Categories</span>
             <strong style={{ display: 'block', fontSize: '28px', color: '#1c2536', fontWeight: '800' }}>12</strong>
-            <div style={{ height: '3.5px', background: '#25108f', borderRadius: '1.5px', width: '60%' }} />
+            <div style={{ height: '3.5px', background: 'var(--primary)', borderRadius: '1.5px', width: '60%' }} />
           </div>
 
           {/* KPI 2 */}
@@ -112,10 +128,10 @@ export default function MaterialCategories() {
         </div>
 
         {/* Categories Grid (6 Cards) */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* Card 1: Packing */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Package size={22} />
             </div>
@@ -138,7 +154,7 @@ export default function MaterialCategories() {
           </div>
 
           {/* Card 2: Electrical */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#fffbeb', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={22} />
             </div>
@@ -161,7 +177,7 @@ export default function MaterialCategories() {
           </div>
 
           {/* Card 3: Cleaning */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Brush size={22} />
             </div>
@@ -184,7 +200,7 @@ export default function MaterialCategories() {
           </div>
 
           {/* Card 4: Repair */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#fef2f2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Wrench size={22} />
             </div>
@@ -207,7 +223,7 @@ export default function MaterialCategories() {
           </div>
 
           {/* Card 5: Equipment */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#f5f3ff', color: '#8b5cf6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Cpu size={22} />
             </div>
@@ -236,7 +252,7 @@ export default function MaterialCategories() {
               background: 'transparent', 
               border: '2px dashed #cbd5e1', 
               borderRadius: '12px', 
-              padding: '24px', 
+              padding: 'var(--spacing-section)', 
               display: 'flex', 
               flexDirection: 'column', 
               alignItems: 'center', 
@@ -267,14 +283,14 @@ export default function MaterialCategories() {
         </div>
 
         {/* Recent Category Modifications List */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Recent Category Modifications
             </h2>
             <button
               onClick={handleViewAllActivity}
-              style={{ background: 'transparent', border: 'none', color: '#25108f', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+              style={{ background: 'transparent', border: 'none', color: 'var(--primary)', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
               type="button"
             >
               View All Activity
@@ -346,7 +362,7 @@ export default function MaterialCategories() {
                     </td>
                     <td style={{ padding: '14px 8px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#f0f4ff', color: '#25108f', fontSize: '10px', fontWeight: '800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#f0f4ff', color: 'var(--primary)', fontSize: '10px', fontWeight: '800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           {row.initials}
                         </div>
                         <span style={{ fontSize: '13px', color: '#1c2536', fontWeight: '600' }}>{row.user}</span>
@@ -377,7 +393,7 @@ export default function MaterialCategories() {
           width: '50px',
           height: '50px',
           borderRadius: '50%',
-          background: '#25108f',
+          background: 'var(--primary)',
           color: '#ffffff',
           border: 'none',
           display: 'flex',
@@ -394,5 +410,122 @@ export default function MaterialCategories() {
       </button>
 
     </AdminShell>
+      
+      {/* Create Category Modal */}
+      {isCreateModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(15, 23, 42, 0.6)',
+          backdropFilter: 'blur(4px)',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 'var(--spacing-section)'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '16px',
+            width: '100%',
+            maxWidth: '480px',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            overflow: 'hidden'
+          }}>
+            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid #f1f5f9' }}>
+              <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#1c2536', margin: 0 }}>Create New Category</h2>
+              <p style={{ fontSize: '13px', color: '#7a7688', marginTop: '6px', margin: '6px 0 0 0' }}>Add a new vertical to track specialized materials.</p>
+            </div>
+            
+            <form onSubmit={handleSaveCategory} style={{ padding: 'var(--spacing-section)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#1c2536', marginBottom: '8px' }}>
+                    Category Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    placeholder="e.g. Plumbing Hardware"
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      borderRadius: '8px',
+                      border: '1px solid #cbd5e1',
+                      fontSize: '14px',
+                      outline: 'none',
+                      transition: 'border-color 0.2s'
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = '#25108f'}
+                    onBlur={(e) => e.target.style.borderColor = '#cbd5e1'}
+                  />
+                </div>
+                
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#1c2536', marginBottom: '8px' }}>
+                    Description
+                  </label>
+                  <textarea
+                    rows="3"
+                    value={newCategoryDesc}
+                    onChange={(e) => setNewCategoryDesc(e.target.value)}
+                    placeholder="Brief description of materials in this category..."
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      borderRadius: '8px',
+                      border: '1px solid #cbd5e1',
+                      fontSize: '14px',
+                      outline: 'none',
+                      resize: 'none',
+                      transition: 'border-color 0.2s'
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = '#25108f'}
+                    onBlur={(e) => e.target.style.borderColor = '#cbd5e1'}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '32px' }}>
+                <button
+                  type="button"
+                  onClick={() => setIsCreateModalOpen(false)}
+                  style={{
+                    padding: '10px 18px',
+                    borderRadius: '8px',
+                    border: '1px solid #cbd5e1',
+                    background: '#ffffff',
+                    color: '#565365',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  style={{
+                    padding: '10px 24px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: 'var(--primary)',
+                    color: '#ffffff',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(37,16,143,0.15)'
+                  }}
+                >
+                  Create Category
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

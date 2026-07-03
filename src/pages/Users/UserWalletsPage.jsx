@@ -16,6 +16,7 @@ import {
   Eye,
   X,
 } from "lucide-react";
+import UserSubTabs from "../../components/users/UserSubTabs";
 
 export default function UserWalletPage() {
   const { navigate } = useApp();
@@ -80,23 +81,7 @@ export default function UserWalletPage() {
         </div>
 
         {/* PROFILE SUB-TABS */}
-        <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--materio-border)", paddingBottom: "12px", marginBottom: "24px" }}>
-          <button onClick={() => { navigate(ROUTES.users); addToast("Navigating to Overview", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Overview
-          </button>
-          <button onClick={() => { navigate(ROUTES.userActivityLogs); addToast("Navigating to Activity Logs", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Activity Logs
-          </button>
-          <button onClick={() => { navigate(ROUTES.userReferrals); addToast("Navigating to Referrals", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Referrals
-          </button>
-          <button onClick={() => { navigate(ROUTES.userWallets); addToast("Reloaded Wallet Transactions", "success"); }} style={{ padding: "8px 16px", border: "1.5px solid #2A2454", borderRadius: "8px", background: "#e0e7ff", color: "#2A2454", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Wallet Transactions
-          </button>
-          <button onClick={() => { navigate(ROUTES.userTimeline); addToast("Navigating to Timeline", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Timeline
-          </button>
-        </div>
+        <UserSubTabs />
 
         {/* STATS CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

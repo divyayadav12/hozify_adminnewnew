@@ -50,7 +50,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
 
   // Dynamic KPIs calculations
   const kpis = [
-    { title: "TODAY'S REVENUE", value: `$${(12482.00 * (m * 0.9 + 0.1)).toLocaleString('en-US', { maximumFractionDigits: 0 })}`, trend: "+8.2% from yesterday", positive: true, iconColor: "#25108f", iconBg: "#f4eff8" },
+    { title: "TODAY'S REVENUE", value: `$${(12482.00 * (m * 0.9 + 0.1)).toLocaleString('en-US', { maximumFractionDigits: 0 })}`, trend: "+8.2% from yesterday", positive: true, iconcolor: 'var(--primary)', iconBg: "#f4eff8" },
     { title: "WEEKLY REVENUE", value: `$${(84210.50 * m).toLocaleString('en-US', { maximumFractionDigits: 0 })}`, trend: "+12.4% from last week", positive: true, iconColor: "#047857", iconBg: "#ecfdf5" },
     { title: "MONTHLY REVENUE", value: `$${(328000.00 * m).toLocaleString('en-US', { maximumFractionDigits: 0 })}`, trend: "-2.1% from last month", positive: false, iconColor: "#b45309", iconBg: "#fffbeb" },
     { title: "YEARLY REVENUE", value: "$4.2M", trend: "+15% target completion", positive: true, iconColor: "#1e40af", iconBg: "#eff6ff" }
@@ -83,7 +83,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
       headerTitle="Revenue Analytics"
       searchPlaceholder="Search transactions, partners, or analytics..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Title & Filter Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -154,7 +154,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
         {/* 4 KPI Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           {kpis.map((kpi, idx) => (
-            <div key={idx} className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div key={idx} className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   {kpi.title}
@@ -178,7 +178,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
 
         {/* Charts Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: '20px', alignItems: 'stretch' }}>
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Revenue Growth Trend</h2>
@@ -204,17 +204,17 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
           </div>
 
           {/* Seller Distribution */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Seller Distribution</h2>
             <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', height: '140px', alignItems: 'center' }}>
               <div style={{ height: '110px', width: '110px', borderRadius: '50%', border: '14px solid #25108f', borderTopColor: '#c8c0d7', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <strong style={{ fontSize: '18px', fontWeight: '850', color: '#25108f' }}>82%</strong>
+                <strong style={{ fontSize: '18px', fontWeight: '850', color: 'var(--primary)' }}>82%</strong>
                 <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Top Tier</span>
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '750' }}><span style={{ height: '8px', width: '8px', background: '#25108f', borderRadius: '50%' }} />Enterprise</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '750' }}><span style={{ height: '8px', width: '8px', background: 'var(--primary)', borderRadius: '50%' }} />Enterprise</span>
                 <strong style={{ color: 'var(--text)' }}>${(210 * m).toFixed(0)}K</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -226,7 +226,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
         </div>
 
         {/* Transaction Breakdown Table Panel */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Transaction Breakdown</h2>
@@ -266,16 +266,16 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
                   {filteredTransactions.length > 0 ? (
                     filteredTransactions.map((txn, i) => (
                       <tr key={i} style={{ borderBottom: '1px solid var(--lavender)' }}>
-                        <td style={{ padding: '12px', fontWeight: '750', color: '#25108f' }}>#{txn.id}</td>
+                        <td style={{ padding: '12px', fontWeight: '750', color: 'var(--primary)' }}>#{txn.id}</td>
                         <td style={{ padding: '12px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#f4eff8', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: '850' }}>{txn.initials}</div>
+                            <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#f4eff8', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: '850' }}>{txn.initials}</div>
                             <strong style={{ color: 'var(--text)' }}>{txn.name}</strong>
                           </div>
                         </td>
                         <td style={{ padding: '12px', color: 'var(--muted)', fontWeight: '600' }}>{txn.city}</td>
                         <td style={{ padding: '12px', fontWeight: '650' }}>${txn.gross.toLocaleString()}</td>
-                        <td style={{ padding: '12px', fontWeight: '850', color: '#25108f' }}>${txn.comm.toLocaleString()}</td>
+                        <td style={{ padding: '12px', fontWeight: '850', color: 'var(--primary)' }}>${txn.comm.toLocaleString()}</td>
                         <td style={{ padding: '12px', fontWeight: '650' }}>${txn.payout.toLocaleString()}</td>
                         <td style={{ padding: '12px' }}>
                           <span style={{
@@ -292,7 +292,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={8} style={{ padding: '32px', textAlign: 'center', color: 'var(--muted)', fontStyle: 'italic' }}>
+                      <td colSpan={8} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--muted)', fontStyle: 'italic' }}>
                         No mismatch criteria items found.
                       </td>
                     </tr>

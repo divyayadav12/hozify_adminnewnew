@@ -201,10 +201,10 @@ export default function AudienceSegments() {
         </div>
 
         {/* ================= ALL SEGMENTS LIST TABLE (Excel Format Design) ================= */}
-        <div className="bg-white border-2 border-slate-300 rounded shadow-sm overflow-hidden font-mono text-xs">
+        <div className="bg-white border-2 border-slate-300 rounded shadow-sm overflow-hidden  text-xs">
           
           {/* Spreadsheet Header Controller Row */}
-          <div className="p-4 bg-slate-100 border-b-2 border-slate-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 font-sans">
+          <div className="p-4 bg-slate-100 border-b-2 border-slate-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <h3 className="text-xs font-bold text-slate-700 tracking-tight">💾 ActiveWorkbook: segments_compiled_sheet.xlsx</h3>
@@ -241,7 +241,7 @@ export default function AudienceSegments() {
                 <tbody className="divide-y divide-slate-300 bg-white">
                   {currentItems.length === 0 ? (
                     <tr>
-                      <td colSpan="6" className="p-8 text-center text-slate-500 font-sans font-medium">No segments match your filters.</td>
+                      <td colSpan="6" className="p-8 text-center text-slate-500  font-medium">No segments match your filters.</td>
                     </tr>
                   ) : (
                     currentItems.map((segment, index) => (
@@ -253,7 +253,7 @@ export default function AudienceSegments() {
                         </td>
                         
                         {/* Column A: Meta Title Info */}
-                        <td className="border border-slate-300 px-4 py-3 font-sans">
+                        <td className="border border-slate-300 px-4 py-3 ">
                           <div className="flex items-center gap-3">
                             <div className={`p-1.5 rounded ${
                               segment.iconType === "star" ? "bg-indigo-50 text-[#251fa3]" :
@@ -275,12 +275,12 @@ export default function AudienceSegments() {
                         </td>
 
                         {/* Column B: Metrics Size */}
-                        <td className="border border-slate-300 px-4 py-3 text-slate-800 text-xs font-bold font-mono">
+                        <td className="border border-slate-300 px-4 py-3 text-slate-800 text-xs font-bold ">
                           {segment.size.toLocaleString()}
                         </td>
 
                         {/* Column C: Growth Delta Indicator */}
-                        <td className={`border border-slate-300 px-4 py-3 text-xs font-bold font-sans ${
+                        <td className={`border border-slate-300 px-4 py-3 text-xs font-bold  ${
                           segment.growthType === "pos" ? "text-green-600" : 
                           segment.growthType === "neg" ? "text-red-500" : "text-slate-400"
                         }`}>
@@ -288,12 +288,12 @@ export default function AudienceSegments() {
                         </td>
 
                         {/* Column D: Local Activity Time Log */}
-                        <td className="border border-slate-300 px-4 py-3 text-slate-400 font-sans text-xs">
+                        <td className="border border-slate-300 px-4 py-3 text-slate-400  text-xs">
                           {segment.activity}
                         </td>
 
                         {/* Explicit Workspace Action Cells */}
-                        <td className="border border-slate-300 px-4 py-3 text-center font-sans">
+                        <td className="border border-slate-300 px-4 py-3 text-center ">
                           <div className="flex justify-center gap-3 text-slate-400">
                             <button 
                               onClick={() => addToast(`Opening row modification pipeline for: ${segment.name}`, "info")}
@@ -322,7 +322,7 @@ export default function AudienceSegments() {
 
           {/* Excel Footer Index Status Meta Bar */}
           {filteredSegments.length > 0 && (
-            <div className="flex items-center justify-between p-3 border-t-2 border-slate-300 bg-slate-50 font-sans text-[11px] text-slate-500 font-medium">
+            <div className="flex items-center justify-between p-3 border-t-2 border-slate-300 bg-slate-50  text-[11px] text-slate-500 font-medium">
               <div>Spreadsheet rows active: Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredSegments.length)} of {filteredSegments.length} target arrays parsed.</div>
               <div className="flex items-center gap-1.5">
                 <button 

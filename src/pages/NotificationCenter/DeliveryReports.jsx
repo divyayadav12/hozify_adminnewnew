@@ -110,7 +110,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
       searchValue={searchQuery}
       onSearchChange={(val) => { setSearchQuery(val); setCurrentPage(1); }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -236,10 +236,10 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
         </div>
 
         {/* Main Section */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Retry Queue Card (Left) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'visible' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'visible' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 style={{ fontSize: '16px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -432,7 +432,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                   ))}
                   {filteredQueue.length === 0 && (
                     <tr>
-                      <td colSpan="5" style={{ padding: '32px', textAlign: 'center', color: 'var(--muted)' }}>
+                      <td colSpan="5" style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--muted)' }}>
                         No failed delivery attempts found matching criteria.
                       </td>
                     </tr>
@@ -485,10 +485,10 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
           </div>
 
           {/* Right Side Panels */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Provider Latency */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
                 <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Provider Latency
@@ -515,7 +515,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
             </div>
 
             {/* Failure Distribution */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Failure Distribution
               </h3>
@@ -559,7 +559,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
             </div>
 
             {/* Live Stream */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Live Stream
               </h3>

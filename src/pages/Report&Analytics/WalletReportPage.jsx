@@ -75,7 +75,7 @@ export default function WalletReportPage() {
 
   return (
     <AdminShell activeTab="Reports & Analytics" searchPlaceholder="Search reports...">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-4 sm:p-6 lg:p-8 text-slate-700 font-sans">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-4 sm:p-6 lg:p-8 text-slate-700 ">
         
         {/* HEADER SECTION */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">

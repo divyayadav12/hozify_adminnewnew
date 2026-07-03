@@ -32,13 +32,13 @@ export default function MaterialAnalytics() {
       customProfileRole="Procurement Director"
       headerTabs={
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: '#25108f', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Analytics</span>
+          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Analytics</span>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialVendors)}>Suppliers</span>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialReports)}>Reports</span>
         </div>
       }
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Title and Action Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -78,7 +78,7 @@ export default function MaterialAnalytics() {
             <button
               onClick={handleExportReport}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -164,16 +164,16 @@ export default function MaterialAnalytics() {
         </div>
 
         {/* Funnel & High Demand Splitted Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left Panel: Procurement Funnel */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Procurement Funnel
               </h2>
               <span style={{ fontSize: '11.5px', color: '#7a7688', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#25108f' }} /> Requests
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }} /> Requests
               </span>
             </div>
 
@@ -183,7 +183,7 @@ export default function MaterialAnalytics() {
               {/* Step 1 */}
               <div style={{ width: '100%', background: '#f5f3ff', borderLeft: '4px solid #25108f', borderRadius: '6px', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '13px', color: '#1c2536', fontWeight: '700' }}>1. INITIAL REQUESTS</span>
-                <strong style={{ fontSize: '14px', color: '#25108f', fontWeight: '800' }}>482 units</strong>
+                <strong style={{ fontSize: '14px', color: 'var(--primary)', fontWeight: '800' }}>482 units</strong>
               </div>
 
               {/* Step 2 */}
@@ -218,21 +218,21 @@ export default function MaterialAnalytics() {
               </div>
               <div>
                 <span style={{ display: 'block', fontSize: '10px', color: '#7a7688', fontWeight: '800', textTransform: 'uppercase' }}>Conversion Rate</span>
-                <strong style={{ display: 'block', fontSize: '18px', color: '#25108f', fontWeight: '800', marginTop: '4px' }}>75.8%</strong>
+                <strong style={{ display: 'block', fontSize: '18px', color: 'var(--primary)', fontWeight: '800', marginTop: '4px' }}>75.8%</strong>
               </div>
             </div>
 
           </div>
 
           {/* Right Panel: High-Demand Materials */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               High-Demand Materials
             </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
               {[
-                { name: 'Reinforced Steel G-40', volume: '2.4k units this month', spend: '$84,200', pct: 85, color: '#25108f' },
+                { name: 'Reinforced Steel G-40', volume: '2.4k units this month', spend: '$84,200', pct: 85, color: 'var(--primary)' },
                 { name: 'Premium Grade Cement', volume: '1.8k units this month', spend: '$42,150', pct: 60, color: '#7c3aed' },
                 { name: 'Industrial Wiring 12/2', volume: '4.2k units this month', spend: '$31,000', pct: 45, color: '#3b82f6' },
                 { name: 'Weather-Resistant Sealant', volume: '800 units this month', spend: '$18,400', pct: 25, color: '#94a3b8' }
@@ -258,7 +258,7 @@ export default function MaterialAnalytics() {
                 width: '100%',
                 background: 'transparent',
                 border: 'none',
-                color: '#25108f',
+                color: 'var(--primary)',
                 fontSize: '13px',
                 fontWeight: '700',
                 cursor: 'pointer',
@@ -282,14 +282,14 @@ export default function MaterialAnalytics() {
         </div>
 
         {/* Supplier Fulfillment Matrix Panel */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Supplier Fulfillment Matrix
             </h2>
             <button
               onClick={() => alert('Launching supplier algorithm configurations...')}
-              style={{ background: 'transparent', border: 'none', color: '#25108f', cursor: 'pointer' }}
+              style={{ background: 'transparent', border: 'none', color: 'var(--primary)', cursor: 'pointer' }}
               aria-label="Fulfillment controls"
               type="button"
             >

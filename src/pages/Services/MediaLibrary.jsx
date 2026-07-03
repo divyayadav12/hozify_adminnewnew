@@ -111,7 +111,7 @@ export default function MediaLibrary() {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '24px', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-section)', fontFamily: 'Inter, sans-serif' }}>
       
       {/* Left Sidebar Category & File Upload panel */}
       <div style={{ width: '260px', display: 'flex', flexDirection: 'column', gap: '20px', flexShrink: 0 }}>
@@ -168,7 +168,7 @@ export default function MediaLibrary() {
                 type="checkbox"
                 checked={selectedTypes.images}
                 onChange={() => toggleType('images')}
-                style={{ accentColor: '#25108f' }}
+                style={{ accentcolor: 'var(--primary)' }}
               />
               Images (SVG, PNG)
             </label>
@@ -177,7 +177,7 @@ export default function MediaLibrary() {
                 type="checkbox"
                 checked={selectedTypes.videos}
                 onChange={() => toggleType('videos')}
-                style={{ accentColor: '#25108f' }}
+                style={{ accentcolor: 'var(--primary)' }}
               />
               Videos (MP4)
             </label>
@@ -186,7 +186,7 @@ export default function MediaLibrary() {
                 type="checkbox"
                 checked={selectedTypes.documents}
                 onChange={() => toggleType('documents')}
-                style={{ accentColor: '#25108f' }}
+                style={{ accentcolor: 'var(--primary)' }}
               />
               Documents (PDF)
             </label>
@@ -306,7 +306,7 @@ export default function MediaLibrary() {
               fontSize: '11px',
               fontWeight: '700',
               background: '#e0e7ff',
-              color: '#25108f',
+              color: 'var(--primary)',
               padding: '4px 8px',
               borderRadius: '20px'
             }}>
@@ -320,7 +320,7 @@ export default function MediaLibrary() {
               fontSize: '11px',
               fontWeight: '700',
               background: '#e0e7ff',
-              color: '#25108f',
+              color: 'var(--primary)',
               padding: '4px 8px',
               borderRadius: '20px'
             }}>
@@ -329,7 +329,7 @@ export default function MediaLibrary() {
             </span>
             <button
               onClick={() => alert('Filters cleared')}
-              style={{ border: 'none', background: 'transparent', color: '#25108f', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
+              style={{ border: 'none', background: 'transparent', color: 'var(--primary)', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
               type="button"
             >
               Clear all

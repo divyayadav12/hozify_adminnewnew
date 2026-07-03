@@ -51,7 +51,7 @@ export default function OperationalReports() {
       headerTitle="Booking Management"
       searchPlaceholder="Search reports..."
       headerTabs={
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 'var(--spacing-section)', alignItems: 'center' }}>
           {headerTabs.map((tab) => (
             <span
               key={tab.label}
@@ -72,7 +72,7 @@ export default function OperationalReports() {
         </div>
       }
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title area with Top Right Filter Panel */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px' }}>
@@ -135,7 +135,7 @@ export default function OperationalReports() {
             <button
               onClick={handleGenerateReport}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -169,7 +169,7 @@ export default function OperationalReports() {
           
           {/* Card 1: Revenue Report */}
           <div className="panel" style={{
-            padding: '24px',
+            padding: 'var(--spacing-section)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -203,7 +203,7 @@ export default function OperationalReports() {
               width: '42px',
               borderRadius: '8px',
               background: '#f4eff8',
-              color: '#25108f',
+              color: 'var(--primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -238,7 +238,7 @@ export default function OperationalReports() {
 
           {/* Card 2: Cancellation Audit */}
           <div className="panel" style={{
-            padding: '24px',
+            padding: 'var(--spacing-section)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -255,7 +255,7 @@ export default function OperationalReports() {
               width: '42px',
               borderRadius: '8px',
               background: '#fef2f2',
-              color: '#d32929',
+              color: 'var(--red)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -288,7 +288,7 @@ export default function OperationalReports() {
 
           {/* Card 3: Employee Performance */}
           <div className="panel" style={{
-            padding: '24px',
+            padding: 'var(--spacing-section)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -342,7 +342,7 @@ export default function OperationalReports() {
         <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* LEFT: Scheduled Deliveries Card */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
               <div>
                 <h2 style={{ fontSize: '16px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -357,7 +357,7 @@ export default function OperationalReports() {
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#25108f',
+                  color: 'var(--primary)',
                   fontSize: '12px',
                   fontWeight: '900',
                   display: 'flex',
@@ -415,7 +415,7 @@ export default function OperationalReports() {
                           fontSize: '9px',
                           fontWeight: '800',
                           background: '#f4eff8',
-                          color: '#25108f',
+                          color: 'var(--primary)',
                           padding: '2px 5px',
                           borderRadius: '4px',
                           marginLeft: '4px'
@@ -480,7 +480,7 @@ export default function OperationalReports() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Export Utilization Card */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
                 <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Export Utilization
@@ -519,7 +519,7 @@ export default function OperationalReports() {
                     <span style={{ color: 'var(--muted)' }}>642 (50%)</span>
                   </div>
                   <div style={{ height: '6px', background: '#f4eff8', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: '50%', height: '100%', background: '#25108f' }} />
+                    <div style={{ width: '50%', height: '100%', background: 'var(--primary)' }} />
                   </div>
                 </div>
 
@@ -540,7 +540,7 @@ export default function OperationalReports() {
             <div style={{
               background: 'linear-gradient(135deg, #0b0a26 0%, #171b30 100%)',
               borderRadius: '12px',
-              padding: '24px',
+              padding: 'var(--spacing-section)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',

@@ -189,7 +189,7 @@ export default function Services({ defaultTab }) {
       <div
         style={{
           display: 'flex',
-          gap: '24px',
+          gap: 'var(--spacing-section)',
           borderBottom: '1px solid var(--line)',
           marginBottom: '24px',
           overflowX: 'auto',

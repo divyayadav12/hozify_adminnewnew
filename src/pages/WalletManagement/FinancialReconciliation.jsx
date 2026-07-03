@@ -39,7 +39,7 @@ export default function FinancialReconciliation() {
       headerTitle="Financial Reconciliation"
       searchPlaceholder="Search reconciliations..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title & Actions */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -60,7 +60,7 @@ export default function FinancialReconciliation() {
               alignItems: 'center',
               gap: '8px',
               border: 'none',
-              background: '#25108f',
+              background: 'var(--primary)',
               color: '#fff',
               fontSize: '12px',
               fontWeight: '750',
@@ -80,13 +80,13 @@ export default function FinancialReconciliation() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           <div className="panel" style={{ padding: '20px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Overall Match Rate</span>
-            <strong style={{ display: 'block', fontSize: '26px', fontWeight: '850', color: '#07956f', marginTop: '8px' }}>99.2%</strong>
+            <strong style={{ display: 'block', fontSize: '26px', fontWeight: '850', color: 'var(--green)', marginTop: '8px' }}>99.2%</strong>
             <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '6px' }}>+0.4% from last week</span>
           </div>
 
           <div className="panel" style={{ padding: '20px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Unresolved Mismatches</span>
-            <strong style={{ display: 'block', fontSize: '26px', fontWeight: '850', color: '#d32929', marginTop: '8px' }}>1 Alert</strong>
+            <strong style={{ display: 'block', fontSize: '26px', fontWeight: '850', color: 'var(--red)', marginTop: '8px' }}>1 Alert</strong>
             <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '6px' }}>Requires manual ledger entry</span>
           </div>
 
@@ -123,7 +123,7 @@ export default function FinancialReconciliation() {
         </div>
 
         {/* Ledger */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
@@ -175,7 +175,7 @@ export default function FinancialReconciliation() {
                           {hasDiff && (
                             <button
                               onClick={() => alert(`Executing automatic adjustment payout sequence to balance discrepancy ₹${item.difference}`)}
-                              style={{ border: 'none', background: '#25108f', color: '#fff', padding: '4px 8px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', cursor: 'pointer', fontWeight: '700' }}
+                              style={{ border: 'none', background: 'var(--primary)', color: '#fff', padding: '4px 8px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', cursor: 'pointer', fontWeight: '700' }}
                             >
                               <Play size={12} />
                               <span>Fix Mismatch</span>

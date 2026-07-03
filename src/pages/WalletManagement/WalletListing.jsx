@@ -34,7 +34,7 @@ export default function WalletListing({ defaultType = 'All' }) {
       headerTitle="Wallet Directory"
       searchPlaceholder="Search all wallets..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title Block */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -51,7 +51,7 @@ export default function WalletListing({ defaultType = 'All' }) {
             onClick={handleCreateWallet}
             style={{
               border: 'none',
-              background: '#25108f',
+              background: 'var(--primary)',
               color: '#fff',
               fontSize: '12px',
               fontWeight: '750',
@@ -111,7 +111,7 @@ export default function WalletListing({ defaultType = 'All' }) {
         </div>
 
         {/* Directory Table */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
@@ -145,7 +145,7 @@ export default function WalletListing({ defaultType = 'All' }) {
                       <td style={{ padding: '16px', fontWeight: '700' }}>{w.type}</td>
                       <td style={{ padding: '16px', fontWeight: '800', color: 'var(--text)' }}>₹{w.available.toLocaleString('en-IN')}</td>
                       <td style={{ padding: '16px', fontWeight: '700', color: w.frozen > 0 ? '#d32929' : 'var(--muted)' }}>₹{w.frozen.toLocaleString('en-IN')}</td>
-                      <td style={{ padding: '16px', fontWeight: '700', color: '#07956f' }}>₹{w.lifetimeEarnings.toLocaleString('en-IN')}</td>
+                      <td style={{ padding: '16px', fontWeight: '700', color: 'var(--green)' }}>₹{w.lifetimeEarnings.toLocaleString('en-IN')}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)' }}>{w.kyc}</td>
                       <td style={{ padding: '16px' }}>
                         <span style={{
@@ -165,7 +165,7 @@ export default function WalletListing({ defaultType = 'All' }) {
                           style={{
                             border: 'none',
                             background: 'transparent',
-                            color: '#25108f',
+                            color: 'var(--primary)',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',

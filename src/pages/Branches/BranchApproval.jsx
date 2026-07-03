@@ -113,10 +113,10 @@ export default function BranchApproval() {
       </section>
 
       {/* Directory Table Panel */}
-      <section className="panel partner-directory-panel" style={{ padding: '24px' }}>
+      <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)' }}>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', borderBottom: '1px solid #f1f5f9', paddingBottom: '14px' }}>
-          <div style={{ display: 'flex', gap: '24px' }}>
+          <div style={{ display: 'flex', gap: 'var(--spacing-section)' }}>
             {['All Approvals', 'New Branches', 'Compliance Update'].map((tab) => (
               <button
                 key={tab}

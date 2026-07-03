@@ -68,7 +68,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
       headerTitle="Preference Management"
       searchPlaceholder="Search event alerts, channels, routing rules..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -132,13 +132,13 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
         </div>
 
         {/* Content Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2.2fr 1.8fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2.2fr 1.8fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Columns (Channel Settings & Logs) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Channel Delivery Settings */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Channel Delivery Gateways
               </h2>
@@ -243,7 +243,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
             </div>
 
             {/* Policy Logs History (Timeline) */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Preference Policy Audit Logs
               </h2>
@@ -290,7 +290,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
           </div>
 
           {/* Event Alerts Matrix (Right Sidebar Grid) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 System Event Alert Rules Matrix

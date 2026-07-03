@@ -279,7 +279,7 @@ export default function NotificationTemplates() {
                         <MoreVertical size={14} />
                       </button>
                       {openCardDropdownId === template.id && (
-                        <div className="absolute bottom-full right-0 mb-1 w-32 bg-white border border-slate-200 rounded-lg shadow-xl z-50 py-1 text-left text-xs font-sans">
+                        <div className="absolute bottom-full right-0 mb-1 w-32 bg-white border border-slate-200 rounded-lg shadow-xl z-50 py-1 text-left text-xs ">
                           <button onClick={() => { setOpenCardDropdownId(null); handleDuplicate(template); }} className="flex items-center gap-2 w-full px-4 py-2 text-indigo-600 hover:bg-slate-50 text-left font-medium cursor-pointer">
                             <Copy size={14} /> Duplicate
                           </button>
@@ -305,8 +305,8 @@ export default function NotificationTemplates() {
 
         {/* ================= RECENT ACTIVITY LOG (Excel Format Table) ================= */}
         {viewMode === "list" && (
-          <div className="bg-white border-2 border-slate-300 rounded shadow-sm overflow-hidden text-slate-800 font-mono text-xs">
-            <div className="px-4 py-3 bg-slate-100 border-b-2 border-slate-300 flex items-center justify-between font-sans">
+          <div className="bg-white border-2 border-slate-300 rounded shadow-sm overflow-hidden text-slate-800  text-xs">
+            <div className="px-4 py-3 bg-slate-100 border-b-2 border-slate-300 flex items-center justify-between ">
               <div className="flex items-center gap-4">
                 <h3 className="font-bold text-slate-800 text-xs tracking-tight">📁 Spreadsheet View: recent_activity_log.xlsx</h3>
                 <button 
@@ -316,7 +316,7 @@ export default function NotificationTemplates() {
                   <Plus size={12} /> Add Row
                 </button>
               </div>
-              <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300 font-semibold font-mono">Ready</span>
+              <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300 font-semibold ">Ready</span>
             </div>
 
             <div className="overflow-x-auto">
@@ -340,16 +340,16 @@ export default function NotificationTemplates() {
                         <td className="border border-slate-300 bg-slate-100 text-center text-[10px] text-slate-400 font-bold select-none">
                           {index + 1}
                         </td>
-                        <td className="border border-slate-300 px-4 py-2 font-semibold text-slate-900 font-sans">
+                        <td className="border border-slate-300 px-4 py-2 font-semibold text-slate-900 ">
                           {template.title}
                         </td>
                         <td className="border border-slate-300 px-4 py-2 text-slate-700 capitalize">
                           {template.channel}
                         </td>
-                        <td className="border border-slate-300 px-4 py-2 text-indigo-700 font-semibold font-mono">
+                        <td className="border border-slate-300 px-4 py-2 text-indigo-700 font-semibold ">
                           {template.internalId}
                         </td>
-                        <td className="border border-slate-300 px-4 py-2 text-slate-600 font-sans">
+                        <td className="border border-slate-300 px-4 py-2 text-slate-600 ">
                           {template.author}
                         </td>
                         <td className="border border-slate-300 px-4 py-2">
@@ -366,7 +366,7 @@ export default function NotificationTemplates() {
                               <MoreVertical size={14} />
                             </button>
                             {openCardDropdownId === template.id && (
-                              <div className="absolute right-8 top-0 w-32 bg-white border border-slate-200 rounded-lg shadow-xl z-50 py-1 text-left text-xs font-sans">
+                              <div className="absolute right-8 top-0 w-32 bg-white border border-slate-200 rounded-lg shadow-xl z-50 py-1 text-left text-xs ">
                                 {template.status === "PENDING" ? (
                                   <button onClick={() => { setOpenCardDropdownId(null); handleReview(template.id, template.title); }} className="flex items-center gap-2 w-full px-4 py-2 text-green-600 hover:bg-green-50 text-left font-medium cursor-pointer">
                                     <CheckCircle size={14} /> Review
@@ -390,7 +390,7 @@ export default function NotificationTemplates() {
                     ))}
                     {sortedTemplates.length === 0 && (
                       <tr>
-                        <td colSpan={7} className="p-8 text-center text-slate-500 font-sans font-medium bg-white">
+                        <td colSpan={7} className="p-8 text-center text-slate-500  font-medium bg-white">
                           No active rows found matching current filters.
                         </td>
                       </tr>

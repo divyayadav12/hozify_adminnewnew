@@ -34,13 +34,13 @@ export default function PaymentGatewaySettings() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Top Row: Stripe & Network Health */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 'var(--spacing-section)' }}>
             
             {/* Stripe Card */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', borderBottom: '1px solid #e2e8f0', paddingBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <div style={{ background: '#1e1b4b', width: '48px', height: '48px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -57,18 +57,18 @@ export default function PaymentGatewaySettings() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)', marginBottom: '24px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Publishable Key</label>
                   <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', height: '40px', background: '#f8fafc' }}>
-                    <input type="password" value="pk_live_************************" readOnly style={{ flex: 1, border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', color: 'var(--text)', fontFamily: 'monospace' }} />
+                    <input type="password" value="pk_live_************************" readOnly style={{ flex: 1, border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', color: 'var(--text)', fontFamily: "var(--materio-space)", }} />
                     <Eye size={16} color="#94a3b8" style={{ cursor: 'pointer' }} />
                   </div>
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Secret Key</label>
                   <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', height: '40px', background: '#f8fafc' }}>
-                    <input type="password" value="sk_live_************************" readOnly style={{ flex: 1, border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', color: 'var(--text)', fontFamily: 'monospace' }} />
+                    <input type="password" value="sk_live_************************" readOnly style={{ flex: 1, border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', color: 'var(--text)', fontFamily: "var(--materio-space)", }} />
                     <Eye size={16} color="#94a3b8" style={{ cursor: 'pointer' }} />
                   </div>
                 </div>
@@ -78,7 +78,7 @@ export default function PaymentGatewaySettings() {
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Webhook URL</label>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{ flex: 1, border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', height: '40px', background: '#f8fafc', display: 'flex', alignItems: 'center' }}>
-                    <input type="text" value="https://api.reportingengine.io/v1/webhooks/stripe" readOnly style={{ flex: 1, border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', color: 'var(--text)', fontFamily: 'monospace' }} />
+                    <input type="text" value="https://api.reportingengine.io/v1/webhooks/stripe" readOnly style={{ flex: 1, border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', color: 'var(--text)', fontFamily: "var(--materio-space)", }} />
                   </div>
                   <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} style={{ height: '40px', width: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '6px', cursor: 'pointer', color: '#64748b' }}>
                     <Copy size={16} />
@@ -89,7 +89,7 @@ export default function PaymentGatewaySettings() {
             </div>
 
             {/* Network Health Card */}
-            <div style={{ background: '#1e1b4b', borderRadius: '8px', padding: '24px', color: '#fff', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: '#1e1b4b', borderRadius: '8px', padding: 'var(--spacing-section)', color: '#fff', display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '11px', fontWeight: '700', color: '#a5b4fc', textTransform: 'uppercase', letterSpacing: '0.5px', margin: 0 }}>Network Health</h3>
                 <Activity size={24} color="#3730a3" />
@@ -126,10 +126,10 @@ export default function PaymentGatewaySettings() {
           </div>
 
           {/* Bottom Row: PayPal & Razorpay */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
             
             {/* PayPal */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{ width: '32px', height: '32px', background: '#f0f9ff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0284c7' }}>
@@ -147,7 +147,7 @@ export default function PaymentGatewaySettings() {
 
               <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Secret Key</label>
-                <input type="password" defaultValue="****************" readOnly style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', height: '40px', fontSize: '13px', color: 'var(--text)', outline: 'none', boxSizing: 'border-box', background: '#f8fafc', fontFamily: 'monospace' }} />
+                <input type="password" defaultValue="****************" readOnly style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', height: '40px', fontSize: '13px', color: 'var(--text)', outline: 'none', boxSizing: 'border-box', background: '#f8fafc', fontFamily: "var(--materio-space)", }} />
               </div>
 
               <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #e2e8f0', paddingTop: '16px' }}>
@@ -161,7 +161,7 @@ export default function PaymentGatewaySettings() {
             </div>
 
             {/* Razorpay */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{ width: '32px', height: '32px', background: '#fef2f2', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ef4444' }}>
@@ -192,8 +192,8 @@ export default function PaymentGatewaySettings() {
           </div>
 
           {/* Webhook Help Banner */}
-          <div style={{ background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '8px', padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <div style={{ background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-section)' }}>
               <div style={{ width: '64px', height: '64px', background: '#e2e8f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                  <Server size={32} color="#64748b" />
               </div>

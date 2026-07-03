@@ -243,7 +243,7 @@ export default function BusinessDetails() {
   );
 
   const renderOwner = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>
           👤
@@ -276,7 +276,7 @@ export default function BusinessDetails() {
   );
 
   const renderDocuments = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div>
         <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Compliance & Onboarding Documents</h2>
         <p style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '4px' }}>Review, edit, and audit essential legal documents submitted by this merchant.</p>
@@ -355,7 +355,7 @@ export default function BusinessDetails() {
   );
 
   const renderBranches = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Registered Entity Branches</h2>
         <span style={{ background: '#1e1b4b', color: '#fff', fontSize: '11px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px' }}>3 Active Branches</span>
@@ -390,7 +390,7 @@ export default function BusinessDetails() {
   );
 
   const renderServices = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Registered Services</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div style={{ border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
@@ -410,7 +410,7 @@ export default function BusinessDetails() {
   );
 
   const renderEmployees = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Staff & Employees</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
@@ -441,7 +441,7 @@ export default function BusinessDetails() {
   );
 
   const renderRevenue = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>FY 2024 Revenue Audit</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
         <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
@@ -461,7 +461,7 @@ export default function BusinessDetails() {
   );
 
   const renderReviews = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Customer Reviews & Ratings</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
@@ -485,7 +485,7 @@ export default function BusinessDetails() {
   );
 
   const renderCompliance = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Compliance Auditing Center</h2>
@@ -521,7 +521,7 @@ export default function BusinessDetails() {
   );
 
   const renderTimeline = () => (
-    <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Registration & Compliance Timeline</h2>
       <div style={{ relative: true }}>
         <div style={{ position: 'absolute', left: '11px', top: '10px', bottom: '10px', width: '2px', background: '#e2e8f0' }} />
@@ -651,7 +651,7 @@ export default function BusinessDetails() {
     ];
 
     return (
-      <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
           <div>
@@ -690,7 +690,7 @@ export default function BusinessDetails() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '3px' }}>
                   <span style={{
-                    fontFamily: 'monospace', fontWeight: '700', fontSize: '11px', color: entry.color
+                    fontFamily: "var(--materio-space)", fontWeight: '700', fontSize: '11px', color: entry.color
                   }}>{entry.id}</span>
                   <span style={{
                     fontSize: '10px', fontWeight: '700', padding: '1px 7px',
@@ -776,7 +776,7 @@ export default function BusinessDetails() {
         </div>
 
         {/* Business Hero Banner Card */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
             <div style={{ width: '64px', height: '64px', borderRadius: '10px', background: '#dbeafe', color: '#1e40af', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center' }}>
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -804,7 +804,7 @@ export default function BusinessDetails() {
                   {businessStatus || 'Active'}
                 </span>
               </div>
-              <div style={{ display: 'flex', gap: '24px', marginTop: '8px', fontSize: '11px', fontWeight: '700', color: 'var(--muted)', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-section)', marginTop: '8px', fontSize: '11px', fontWeight: '700', color: 'var(--muted)', flexWrap: 'wrap' }}>
                 <div>BUSINESS ID: <span style={{ color: 'var(--text)' }}>{businessId}</span></div>
                 <div>CATEGORY: <span style={{ color: 'var(--text)' }}>{businessCategory}</span></div>
                 <div>REGISTRATION DATE: <span style={{ color: 'var(--text)' }}>Oct 12, 2023</span></div>
@@ -884,7 +884,7 @@ export default function BusinessDetails() {
         </div>
 
         {/* Tab Selection Row */}
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', gap: '24px', overflowX: 'auto', paddingBottom: '2px' }}>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', gap: 'var(--spacing-section)', overflowX: 'auto', paddingBottom: '2px' }}>
           {subTabs.map((tab) => {
             const isActive = activeSubTab === tab;
             return (

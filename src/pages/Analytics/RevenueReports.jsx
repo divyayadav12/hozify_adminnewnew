@@ -81,7 +81,7 @@ export default function RevenueReports() {
               <div 
                 key={card.id} 
                 className="report-kpi-card"
-                style={{ background: '#fff', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}
+                style={{ background: '#fff', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}
               >
                 <div style={{ position: 'absolute', top: '24px', right: '24px', width: '32px', height: '32px', background: '#f8fafc', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#475569', border: '1px solid #e2e8f0' }}>
                   <Icon size={16} />
@@ -106,7 +106,7 @@ export default function RevenueReports() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Revenue Trend Chart */}
-          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
               <h2 style={{ margin: 0, fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>Revenue Trend</h2>
               <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
@@ -142,7 +142,7 @@ export default function RevenueReports() {
           </div>
 
           {/* Service Categories */}
-          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
             <h2 style={{ margin: '0 0 24px', fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>Service Categories</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
@@ -174,7 +174,7 @@ export default function RevenueReports() {
         <div style={{ display: 'grid', gridTemplateColumns: '45% 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Tax Distribution */}
-          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
             <h2 style={{ margin: '0 0 24px', fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>Tax Distribution</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -208,7 +208,7 @@ export default function RevenueReports() {
           </div>
 
           {/* Quarterly Projection */}
-          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', position: 'relative', overflow: 'hidden' }}>
             {/* Abstract Background M/Chart shape */}
             <div style={{ position: 'absolute', bottom: '-40px', right: '-20px', opacity: 0.05, fontSize: '200px', fontWeight: '900', color: '#0f172a', lineHeight: 1, pointerEvents: 'none' }}>
               M
@@ -245,7 +245,7 @@ export default function RevenueReports() {
 
         {/* ── ROW 4: Table ── */}
         <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
-          <div style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9' }}>
+          <div style={{ padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9' }}>
             <h2 style={{ margin: 0, fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>High-Value Transactions</h2>
             <button style={{ background: 'transparent', border: 'none', fontSize: '12px', fontWeight: '700', color: '#0f172a', cursor: 'pointer' }}>
               View Ledger

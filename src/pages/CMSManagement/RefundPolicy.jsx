@@ -34,7 +34,7 @@ export default function RefundPolicy() {
       activeTab="CMS Management" 
       searchPlaceholder="Search resources..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1200px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1200px' }}>
         
         {/* Page Heading */}
         <div style={{ marginBottom: '8px' }}>
@@ -73,13 +73,13 @@ export default function RefundPolicy() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: 'var(--spacing-section)' }}>
           
           {/* LEFT COLUMN: Main Editor Area */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '7' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
             
             {/* Financial Framework Clauses */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
                 Financial Framework Clauses
               </h3>
@@ -94,7 +94,7 @@ export default function RefundPolicy() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '8px' }}>Refund Window (Days)</label>
                   <input 
@@ -140,7 +140,7 @@ export default function RefundPolicy() {
               </div>
 
               {/* Editor Blocks */}
-              <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {clauses.map((clause, idx) => (
                   <div key={clause.id} style={{ position: 'relative', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px 20px', background: '#fff', display: 'flex', gap: '16px' }}>
                     
@@ -169,7 +169,7 @@ export default function RefundPolicy() {
           </div>
 
           {/* RIGHT COLUMN: Sidebar Panels */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '3' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
             
             {/* Compliance Monitor */}
             <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
@@ -205,7 +205,7 @@ export default function RefundPolicy() {
                 Operational Impact
               </h3>
               
-              <div style={{ display: 'flex', gap: '24px' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-section)' }}>
                 <div>
                   <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '4px' }}>Refund Rate</span>
                   <strong style={{ display: 'block', fontSize: '20px', fontWeight: '900', color: 'var(--text)' }}>1.2%</strong>

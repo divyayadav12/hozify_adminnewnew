@@ -549,9 +549,6 @@ export default function SOSManagement() {
       searchPlaceholder="Search SOS ID, user, or location..."
       customProfileName="Alex Mercer"
       customProfileRole="Fleet Commander"
-      showGridIcon
-      pageTitle="SOS Management Center"
-      pageSubtitle="Real-time emergency response, fleet command and incident resolution dashboard."
     >
       <section className="sos-page">
         <div className="sos-page-head">

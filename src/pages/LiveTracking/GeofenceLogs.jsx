@@ -276,10 +276,10 @@ export default function GeofenceLogs() {
                 {filteredLogs.length > 0 ? (
                   filteredLogs.map((log) => (
                     <tr key={log.id} className="hover:bg-slate-50/60 transition-colors">
-                      <td className="py-3.5 px-4 font-mono font-bold text-indigo-950">{log.id}</td>
-                      <td className="py-3.5 px-4 text-slate-400 font-mono">{log.timestamp}</td>
+                      <td className="py-3.5 px-4  font-bold text-indigo-950">{log.id}</td>
+                      <td className="py-3.5 px-4 text-slate-400 ">{log.timestamp}</td>
                       <td className="py-3.5 px-4">
-                        <strong className="text-slate-900 font-extrabold block font-mono">🚚 {log.assetId}</strong>
+                        <strong className="text-slate-900 font-extrabold block ">🚚 {log.assetId}</strong>
                         <span className="text-[11px] text-slate-400 block">{log.driver}</span>
                       </td>
                       <td className="py-3.5 px-4">
@@ -302,7 +302,7 @@ export default function GeofenceLogs() {
                           {log.eventType}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-slate-600">
+                      <td className="py-3.5 px-4  font-bold text-slate-600">
                         {log.dwellTime === "00:00:00" ? (
                           <span className="text-rose-500 animate-pulse font-semibold">Just Breached</span>
                         ) : log.dwellTime}

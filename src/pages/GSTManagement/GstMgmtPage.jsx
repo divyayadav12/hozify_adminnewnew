@@ -77,7 +77,7 @@ export default function GstMgmtPage() {
 
   return (
     <AdminShell activeTab="GST Management" headerTitle="GST Taxation Rules Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -164,8 +164,8 @@ export default function GstMgmtPage() {
               {filteredTaxes.length > 0 ? (
                 filteredTaxes.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>{row.hsn}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>{row.hsn}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.category}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: '#059669' }}>{row.rate}%</td>
                     <td style={{ padding: '18px 24px' }}>{row.cgst}%</td>
@@ -193,7 +193,7 @@ export default function GstMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No tax codes found matching filters.</td>
+                  <td colSpan={8} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No tax codes found matching filters.</td>
                 </tr>
               )}
             </tbody>

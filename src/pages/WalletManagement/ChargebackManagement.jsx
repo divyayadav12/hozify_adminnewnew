@@ -136,7 +136,7 @@ export default function ChargebackManagement() {
       <Toast toasts={toasts} />
       <Modal modal={modal} onClose={() => setModal(null)} />
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "24px", padding: "24px 0" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 'var(--spacing-section)', padding: "24px 0" }}>
 
         {/* ── Page Header ── */}
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start", gap: "16px" }}>
@@ -217,8 +217,8 @@ export default function ChargebackManagement() {
                   const isResolved = cb.status === "Won" || cb.status === "Lost";
                   return (
                     <tr key={cb.id} style={{ borderBottom: "1px solid #f1f5f9", transition: "background 0.12s" }} onMouseEnter={e => e.currentTarget.style.background = "#f8fafc"} onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-                      <td style={{ padding: "14px 16px", fontWeight: "800", color: "#1e40af", fontFamily: "monospace", whiteSpace: "nowrap" }}>{cb.id}</td>
-                      <td style={{ padding: "14px 16px", fontFamily: "monospace", color: "#64748b", fontSize: "12px", whiteSpace: "nowrap" }}>{cb.txnId}</td>
+                      <td style={{ padding: "14px 16px", fontWeight: "800", color: "#1e40af", fontFamily: "var(--materio-space)", whiteSpace: "nowrap" }}>{cb.id}</td>
+                      <td style={{ padding: "14px 16px", fontFamily: "var(--materio-space)", color: "#64748b", fontSize: "12px", whiteSpace: "nowrap" }}>{cb.txnId}</td>
                       <td style={{ padding: "14px 16px", fontWeight: "700", color: "#1e293b", whiteSpace: "nowrap" }}>{cb.customer}</td>
                       <td style={{ padding: "14px 16px", fontWeight: "800", color: "#1e293b", whiteSpace: "nowrap" }}>${cb.amount.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</td>
                       <td style={{ padding: "14px 16px", color: "#64748b", maxWidth: "180px" }}>{cb.reason}</td>

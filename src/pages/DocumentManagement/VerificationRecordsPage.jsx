@@ -49,7 +49,7 @@ export default function VerificationRecordsPage() {
 
   return (
     <AdminShell activeTab="Document Management" headerTitle="Verification Records">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -152,7 +152,7 @@ export default function VerificationRecordsPage() {
               {filteredData.length > 0 ? (
                 filteredData.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>
                       <span 
                         onClick={() => { setSelectedItem(row); setIsPreviewOpen(true); }}
                         style={{ cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '2px' }}
@@ -163,7 +163,7 @@ export default function VerificationRecordsPage() {
                     </td>
                     <td style={{ padding: '18px 24px', fontWeight: '700' }}>{row.targetEntity}</td>
                     <td style={{ padding: '18px 24px' }}>{row.verificationType}</td>
-                    <td style={{ padding: '18px 24px', fontFamily: 'monospace' }}>{row.timestamp}</td>
+                    <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", }}>{row.timestamp}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.verifiedBy}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <span style={{
@@ -187,7 +187,7 @@ export default function VerificationRecordsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No verification records found.</td>
+                  <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No verification records found.</td>
                 </tr>
               )}
             </tbody>

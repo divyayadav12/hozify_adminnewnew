@@ -36,7 +36,7 @@ export default function MaintenanceMode() {
             </div>
           </div>
 
-          <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+          <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
             <div>
               <h4 style={{ fontSize: '14px', fontWeight: '800', color: '#0f172a', margin: '0 0 4px' }}>Current System Status</h4>
               <p style={{ fontSize: '12px', color: '#16a34a', margin: 0, fontWeight: '600' }}>All systems operational (Live)</p>

@@ -253,10 +253,10 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
         </div>
 
         {/* Split Pane Layout Container */}
-        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'stretch' }}>
+        <div style={{ display: 'flex', gap: 'var(--spacing-section)', flexWrap: 'wrap', alignItems: 'stretch' }}>
           
           {/* LEFT PANE: Directory Overview */}
-          <div style={{ flex: editorOpen ? '1.2' : '1', minWidth: '320px', display: 'flex', flexDirection: 'column', gap: '24px', transition: 'all 0.3s ease' }}>
+          <div style={{ flex: editorOpen ? '1.2' : '1', minWidth: '320px', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', transition: 'all 0.3s ease' }}>
             
             {/* Page Header */}
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -303,7 +303,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
               </div>
               <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '4px', background: '#fff' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Published</span>
-                <strong style={{ fontSize: '22px', fontWeight: '850', color: '#07956f' }}>128</strong>
+                <strong style={{ fontSize: '22px', fontWeight: '850', color: 'var(--green)' }}>128</strong>
               </div>
               <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '4px', background: '#fff' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Drafts</span>
@@ -312,7 +312,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
             </div>
 
             {/* Knowledge Gap cards */}
-            <div className="panel" style={{ padding: '24px', background: '#fff', borderLeft: '4px solid var(--primary)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', borderLeft: '4px solid var(--primary)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
                 <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <AlertTriangle size={15} style={{ color: 'var(--primary)' }} />
@@ -363,7 +363,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
             </div>
 
             {/* Articles Table Grid */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               
               {/* Directory Filter controls */}
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
@@ -413,7 +413,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                   <tbody>
                     {filteredArticles.length === 0 ? (
                       <tr>
-                        <td colSpan={5} style={{ padding: '32px', textAlign: 'center', color: 'var(--muted)' }}>
+                        <td colSpan={5} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--muted)' }}>
                           No documentation articles match your filter preferences.
                         </td>
                       </tr>
@@ -500,7 +500,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
               background: '#fff',
               border: '1px solid var(--line)',
               borderRadius: '12px',
-              padding: '24px',
+              padding: 'var(--spacing-section)',
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
@@ -625,7 +625,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                       border: '1px solid var(--line)',
                       padding: '12px',
                       fontSize: '12.5px',
-                      fontFamily: 'inherit',
+                      
                       resize: 'vertical'
                     }}
                   />

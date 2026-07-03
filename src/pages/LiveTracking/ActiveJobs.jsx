@@ -134,13 +134,13 @@ export default function ActiveJobs() {
           <div>
             <p className="text-xs font-medium text-slate-500">Real-time oversight of all operational movements.</p>
           </div>
-          <div className="flex gap-6 text-right font-mono text-[11px] tracking-tight">
+          <div className="flex gap-6 text-right  text-[11px] tracking-tight">
             <div>
-              <span className="text-slate-400 block font-sans text-[10px] uppercase font-bold">ACTIVE JOBS</span>
+              <span className="text-slate-400 block  text-[10px] uppercase font-bold">ACTIVE JOBS</span>
               <span className="text-slate-900 font-bold text-sm">03</span>
             </div>
             <div className="border-l border-slate-200 pl-6">
-              <span className="text-slate-400 block font-sans text-[10px] uppercase font-bold">AT RISK</span>
+              <span className="text-slate-400 block  text-[10px] uppercase font-bold">AT RISK</span>
               <span className="text-rose-600 font-extrabold text-sm">3</span>
             </div>
           </div>
@@ -226,18 +226,18 @@ export default function ActiveJobs() {
                       onClick={() => setSelectedJob(job)}
                       className={`cursor-pointer transition-colors ${selectedJob.id === job.id ? "bg-indigo-50/40 hover:bg-indigo-50/60 font-semibold" : "hover:bg-slate-50/80"}`}
                     >
-                      <td className="py-3.5 px-5 font-bold text-slate-900 font-mono">{job.id}</td>
+                      <td className="py-3.5 px-5 font-bold text-slate-900 ">{job.id}</td>
                       <td className="py-3.5 px-4 text-slate-800 font-semibold">{job.partner}</td>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-full bg-slate-900 text-white font-mono text-[9px] font-black flex items-center justify-center shadow-xs">
+                          <div className="w-6 h-6 rounded-full bg-slate-900 text-white  text-[9px] font-black flex items-center justify-center shadow-xs">
                             {job.avatar}
                           </div>
                           <span className="text-slate-900 font-bold">{job.driver}</span>
                         </div>
                       </td>
                       <td className="py-3.5 px-4 text-slate-500">{job.start}</td>
-                      <td className="py-3.5 px-4 font-sans text-slate-600">{job.current}</td>
+                      <td className="py-3.5 px-4  text-slate-600">{job.current}</td>
                       <td className={`py-3.5 px-4 ${job.status === 'Delayed' ? 'text-rose-600 font-bold' : 'text-slate-800'}`}>
                         {job.eta}
                       </td>
@@ -303,7 +303,7 @@ export default function ActiveJobs() {
             <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
                 <MapPin className="h-3.5 w-3.5 text-indigo-500" />
-                <span>Live Location Map Tracker: <strong className="text-indigo-600 font-mono">{selectedJob.id}</strong></span>
+                <span>Live Location Map Tracker: <strong className="text-indigo-600 ">{selectedJob.id}</strong></span>
               </div>
               <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded uppercase">
                 Live Traffic Overlay active

@@ -52,11 +52,11 @@ export default function MaterialReports() {
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialAnalytics)}>Analytics</span>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialVendors)}>Suppliers</span>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: '#25108f', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Reports</span>
+          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Reports</span>
         </div>
       }
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Page Title & Filter Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -217,7 +217,7 @@ export default function MaterialReports() {
         </div>
 
         {/* Available Reports & Recent Exports Columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1.2fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1.2fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left Column: Available Reports */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -277,7 +277,7 @@ export default function MaterialReports() {
                   onClick={() => handleGenerateReport('Inventory Valuation')}
                   style={{
                     width: '100%',
-                    background: '#25108f',
+                    background: 'var(--primary)',
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '6px',
@@ -329,7 +329,7 @@ export default function MaterialReports() {
               ].map((file, idx) => (
                 <div key={idx} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', paddingBottom: idx < 2 ? '14px' : '0', borderBottom: idx < 2 ? '1px solid #f1f5f9' : 'none' }}>
                   <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <div style={{ width: '30px', height: '30px', borderRadius: '6px', background: '#f8fafc', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '30px', height: '30px', borderRadius: '6px', background: '#f8fafc', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <FileText size={15} />
                     </div>
                     <div>
@@ -382,7 +382,7 @@ export default function MaterialReports() {
         </div>
 
         {/* Scheduled Deliveries Panel */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Scheduled Reports
@@ -392,7 +392,7 @@ export default function MaterialReports() {
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#25108f',
+                color: 'var(--primary)',
                 fontSize: '13px',
                 fontWeight: '700',
                 cursor: 'pointer',

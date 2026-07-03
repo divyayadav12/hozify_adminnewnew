@@ -38,7 +38,7 @@ export default function CampaignReportPage() {
 
   return (
     <AdminShell activeTab="Reports & Analytics">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-6 text-slate-800 antialiased font-sans relative">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-6 text-slate-800 antialiased  relative">
         
         {/* HEADER SECTION */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 relative">

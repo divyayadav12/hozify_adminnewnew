@@ -26,13 +26,13 @@ export default function SecuritySettings() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 'var(--spacing-section)' }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Two-Factor Authentication (2FA) */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', position: 'relative', overflow: 'hidden' }}>
               {/* Subtle background shield icon */}
               <div style={{ position: 'absolute', top: '-10px', right: '-10px', opacity: 0.04, pointerEvents: 'none' }}>
                 <ShieldCheck size={180} />
@@ -51,7 +51,7 @@ export default function SecuritySettings() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                   {/* Authenticator App */}
-                  <div style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ width: '40px', height: '40px', background: '#0f172a', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                       <Smartphone size={20} color="#fff" />
                     </div>
@@ -65,7 +65,7 @@ export default function SecuritySettings() {
                   </div>
 
                   {/* SMS Verification */}
-                  <div style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ width: '40px', height: '40px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                       <MessageSquare size={20} color="#475569" />
                     </div>
@@ -87,7 +87,7 @@ export default function SecuritySettings() {
             </div>
 
             {/* Login Sessions */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
                 <div>
                   <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 8px' }}>Login Sessions</h2>
@@ -144,10 +144,10 @@ export default function SecuritySettings() {
           </div>
 
           {/* Right Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Advanced Protection Gradient Card */}
-            <div style={{ background: 'linear-gradient(180deg, #f1f5f9 0%, #8b8ea5 50%, #4b4b60 100%)', borderRadius: '12px', padding: '32px', color: '#fff', height: '320px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+            <div style={{ background: 'linear-gradient(180deg, #f1f5f9 0%, #8b8ea5 50%, #4b4b60 100%)', borderRadius: '12px', padding: 'var(--spacing-page)', color: '#fff', height: '320px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', margin: '0 0 8px', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>Advanced Protection</h2>
               <p style={{ fontSize: '12px', margin: 0, opacity: 0.9, lineHeight: '1.5', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
                 Our security protocols utilize machine learning to detect anomalies in real-time.
@@ -155,7 +155,7 @@ export default function SecuritySettings() {
             </div>
 
             {/* Account Recovery */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <ShieldCheck size={20} color="#0f172a" />
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Account Recovery</h2>

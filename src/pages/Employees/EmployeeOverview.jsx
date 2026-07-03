@@ -99,7 +99,7 @@ export default function EmployeeOverview({ onNavigateToWorkforce }) {
               type="date"
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', fontFamily: 'inherit', width: dateRange ? 'auto' : '20px' }}
+              style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', color: 'var(--text)', cursor: 'pointer',  width: dateRange ? 'auto' : '20px' }}
             />
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function EmployeeOverview({ onNavigateToWorkforce }) {
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
         {/* Attendance Trend Chart */}
-        <div className="panel" style={{ flex: 1.6, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1.6, padding: 'var(--spacing-section)' }}>
           <div className="service-card-title-wrap header-row-justify" style={{ marginBottom: '20px' }}>
             <div>
               <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Attendance & Growth Trends</h2>
@@ -202,7 +202,7 @@ export default function EmployeeOverview({ onNavigateToWorkforce }) {
         </div>
 
         {/* Rating Distribution Card */}
-        <div className="panel" style={{ flex: 1, padding: '24px', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0 0 16px' }}>Rating Distribution</h2>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', flex: 1, justifyContent: 'center' }}>
@@ -259,7 +259,7 @@ export default function EmployeeOverview({ onNavigateToWorkforce }) {
       <div className="fraud-top-grid" style={{ gap: '20px' }}>
         
         {/* New Joinings Panel */}
-        <div className="panel" style={{ flex: 1, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>New Joinings</h2>
             <button
@@ -289,7 +289,7 @@ export default function EmployeeOverview({ onNavigateToWorkforce }) {
         </div>
 
         {/* Critical KYC Alerts Panel */}
-        <div className="panel" style={{ flex: 1.6, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1.6, padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Critical KYC Alerts</h2>
             <span style={{ fontSize: '10px', fontWeight: '800', color: '#fff', background: '#ef4444', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>

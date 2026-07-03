@@ -188,7 +188,7 @@ export default function DisputeCenter() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px', minHeight: 'calc(100vh - 120px)' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', minHeight: 'calc(100vh - 120px)' }}>
         
         {/* Breadcrumbs */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#7a7688' }}>
@@ -250,7 +250,7 @@ export default function DisputeCenter() {
         </div>
 
         {/* List + Details Split Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 2fr', gap: '24px', flex: 1 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 2fr', gap: 'var(--spacing-section)', flex: 1 }}>
           
           {/* Left: Active Disputes List */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -299,7 +299,7 @@ export default function DisputeCenter() {
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             
             {/* Thread Header */}
-            <div style={{ padding: '24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
@@ -338,13 +338,13 @@ export default function DisputeCenter() {
 
               <div>
                 <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>SLA Resolution</span>
-                <strong style={{ display: 'block', fontSize: '13.5px', color: '#25108f', marginTop: '4px' }}>{activeDispute.sla}</strong>
+                <strong style={{ display: 'block', fontSize: '13.5px', color: 'var(--primary)', marginTop: '4px' }}>{activeDispute.sla}</strong>
               </div>
 
             </div>
 
             {/* Chat Body & Thread Logs */}
-            <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '20px', overflowY: 'auto', background: '#ffffff', minHeight: '220px' }}>
+            <div style={{ padding: 'var(--spacing-section)', flex: 1, display: 'flex', flexDirection: 'column', gap: '20px', overflowY: 'auto', background: '#ffffff', minHeight: '220px' }}>
               
               {/* Visual Evidence slots */}
               {activeDispute.evidence.length > 0 && (
@@ -469,7 +469,7 @@ export default function DisputeCenter() {
                   <button
                     onClick={handleSendMessage}
                     style={{
-                      background: '#25108f',
+                      background: 'var(--primary)',
                       color: '#ffffff',
                       border: 'none',
                       borderRadius: '6px',

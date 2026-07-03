@@ -172,7 +172,7 @@ export default function SOStracking() {
                         }`}>
                           {alert.status}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-mono font-bold">{alert.id}</span>
+                        <span className="text-[10px] text-slate-400  font-bold">{alert.id}</span>
                       </div>
                     </div>
                   ))
@@ -192,7 +192,7 @@ export default function SOStracking() {
               <div className="p-4 space-y-4">
                 <div className="p-3 bg-slate-50/70 border border-slate-200 rounded-lg space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-mono font-bold text-slate-400">{activeAlert.id}</span>
+                    <span className="text-[10px]  font-bold text-slate-400">{activeAlert.id}</span>
                     <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded uppercase ${
                       activeAlert.status === 'CRITICAL' ? 'bg-rose-600 text-white' : 'bg-slate-200 text-slate-700'
                     }`}>

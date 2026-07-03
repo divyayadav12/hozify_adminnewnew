@@ -37,16 +37,16 @@ export default function WalletSettings() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Wallet Preferences */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: '0 0 24px' }}>Wallet Preferences</h2>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <h4 style={{ fontSize: '13px', fontWeight: '800', color: '#0f172a', margin: '0 0 4px' }}>Enable Wallet</h4>
@@ -74,10 +74,10 @@ export default function WalletSettings() {
             </div>
 
             {/* Transaction Limits */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: '0 0 24px' }}>Transaction Limits</h2>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)', marginBottom: '24px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>DAILY WITHDRAWAL LIMIT</label>
                   <div style={{ position: 'relative' }}>
@@ -105,10 +105,10 @@ export default function WalletSettings() {
             </div>
 
             {/* Settlement Configuration */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: '0 0 24px' }}>Settlement Configuration</h2>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>PAYOUT FREQUENCY</label>
                   <div style={{ position: 'relative' }}>
@@ -137,10 +137,10 @@ export default function WalletSettings() {
           </div>
 
           {/* Right Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Usage Summary Banner Card */}
-            <div style={{ background: '#09091b', borderRadius: '12px', padding: '32px', color: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+            <div style={{ background: '#09091b', borderRadius: '12px', padding: 'var(--spacing-page)', color: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div>
                   <h2 style={{ fontSize: '18px', fontWeight: '800', margin: '0 0 4px' }}>Usage Summary</h2>
@@ -184,7 +184,7 @@ export default function WalletSettings() {
             </div>
 
             {/* Security Controls */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: '0 0 24px' }}>Security Controls</h2>
 
               <div style={{ background: '#f8fafc', borderRadius: '8px', padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>

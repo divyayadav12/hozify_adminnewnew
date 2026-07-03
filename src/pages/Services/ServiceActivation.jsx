@@ -83,7 +83,7 @@ export default function ServiceActivation() {
   const hasSelectableServices = selectedIds.length > 0;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', position: 'relative' }}>
       
       {/* Title & Actions Row */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -157,7 +157,7 @@ export default function ServiceActivation() {
       </div>
 
       {/* Table Section */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div style={{ overflowX: 'auto' }}>
           <div style={{ overflowX: 'auto', width: '100%' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
@@ -265,7 +265,7 @@ export default function ServiceActivation() {
       {/* Action Modals Popup */}
       {activeModal && modalData && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(15,23,42,0.3)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
-          <div style={{ background: '#ffffff', width: '100%', maxWidth: '460px', borderRadius: '12px', padding: '24px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+          <div style={{ background: '#ffffff', width: '100%', maxWidth: '460px', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
               <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#0f172a' }}>
@@ -302,7 +302,7 @@ export default function ServiceActivation() {
             ) : (
               <div>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: '#64748b', display: 'block', marginBottom: '6px' }}>CONSOLE OUTPUT Trace:</span>
-                <div style={{ background: '#0f172a', color: '#38bdf8', fontFamily: 'monospace', fontSize: '12px', padding: '14px', borderRadius: '8px', minHeight: '100px', lineHeight: '1.5' }}>
+                <div style={{ background: '#0f172a', color: '#38bdf8', fontFamily: "var(--materio-space)", fontSize: '12px', padding: '14px', borderRadius: '8px', minHeight: '100px', lineHeight: '1.5' }}>
                   {modalData.logs}
                 </div>
               </div>

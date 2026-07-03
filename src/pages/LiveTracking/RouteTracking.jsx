@@ -216,7 +216,7 @@ export default function RouteTracking() {
                   className={`p-4 cursor-pointer transition-all ${selectedRoute.id === route.id ? "bg-slate-50 border-l-4 border-black" : "hover:bg-slate-50/50"}`}
                 >
                   <div className="flex justify-between items-center text-[11px] font-bold">
-                    <span className="text-slate-400 font-mono">{route.id}</span>
+                    <span className="text-slate-400 ">{route.id}</span>
                     {route.status === "Delayed" ? (
                       <span className="text-rose-500 font-extrabold bg-rose-50 px-2 py-0.5 rounded flex items-center gap-1">
                         ⚠️ {route.delayTime}
@@ -241,7 +241,7 @@ export default function RouteTracking() {
                   <div className="mt-3">
                     <div className="flex justify-between items-center text-[10px] font-bold text-slate-400 mb-1">
                       <span>Progress ({route.progress}%)</span>
-                      <span className="text-slate-900 font-mono font-black">ETA {route.eta}</span>
+                      <span className="text-slate-900  font-black">ETA {route.eta}</span>
                     </div>
                     <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                       <div 
@@ -263,11 +263,11 @@ export default function RouteTracking() {
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 bg-black rounded-full animate-ping" />
                 <div>
-                  <h4 className="text-xs font-black text-slate-900 font-mono">{selectedRoute.id} Tracking</h4>
-                  <div className="flex gap-4 mt-0.5 text-[11px] font-mono font-bold text-slate-700">
+                  <h4 className="text-xs font-black text-slate-900 ">{selectedRoute.id} Tracking</h4>
+                  <div className="flex gap-4 mt-0.5 text-[11px]  font-bold text-slate-700">
                     <span>CURRENT SPEED: <strong className="text-slate-950">{selectedRoute.currentSpeed}</strong></span>
                     <span className="text-slate-300">|</span>
-                    <span>LAST UPDATE: <strong className="text-slate-400 font-sans">{selectedRoute.lastUpdate}</strong></span>
+                    <span>LAST UPDATE: <strong className="text-slate-400 ">{selectedRoute.lastUpdate}</strong></span>
                   </div>
                 </div>
               </div>
@@ -326,9 +326,9 @@ export default function RouteTracking() {
                 style={{ top: selectedRoute.pinTop, left: selectedRoute.pinLeft }}
               >
                 {/* Vehicle Floating Stats Badge */}
-                <div className="bg-white px-2 py-1 rounded-md shadow border border-slate-200 text-right text-[10px] font-black text-slate-900 leading-tight mb-1 font-mono">
+                <div className="bg-white px-2 py-1 rounded-md shadow border border-slate-200 text-right text-[10px] font-black text-slate-900 leading-tight mb-1 ">
                   Vehicle
-                  <span className="block text-slate-400 font-sans font-bold text-[9px] uppercase">WH-902</span>
+                  <span className="block text-slate-400  font-bold text-[9px] uppercase">WH-902</span>
                 </div>
                 {/* Truck Icon Box */}
                 <div className="w-9 h-9 bg-black text-white border-2 border-white rounded-xl shadow-xl flex items-center justify-center font-bold text-base transition-transform active:scale-95 cursor-pointer">
@@ -350,7 +350,7 @@ export default function RouteTracking() {
                   <p className="text-sm font-black text-slate-900 leading-tight">
                     {selectedRoute.remainingTime}
                     {selectedRoute.status === "Delayed" && (
-                      <span className="text-xs text-rose-500 font-mono ml-2 font-bold">({selectedRoute.delayTime})</span>
+                      <span className="text-xs text-rose-500  ml-2 font-bold">({selectedRoute.delayTime})</span>
                     )}
                   </p>
                 </div>
@@ -371,7 +371,7 @@ export default function RouteTracking() {
               <div className="bg-slate-50 border border-slate-200/70 rounded-xl p-3 flex flex-col justify-between">
                 <div className="flex items-center justify-between text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-1.5">
                   <span className="flex items-center gap-1">⛽ FUEL LEVEL</span>
-                  <span className="font-mono text-slate-900 text-xs font-black">{selectedRoute.fuelLevel}%</span>
+                  <span className=" text-slate-900 text-xs font-black">{selectedRoute.fuelLevel}%</span>
                 </div>
                 <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                   <div 

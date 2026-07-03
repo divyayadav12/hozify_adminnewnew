@@ -80,7 +80,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
   });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
       
       {/* KPI Stats widgets */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
@@ -221,7 +221,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
               style={{
                 height: '38px',
                 padding: '0 16px',
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',

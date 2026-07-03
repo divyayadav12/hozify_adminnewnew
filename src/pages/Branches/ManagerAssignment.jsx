@@ -128,7 +128,7 @@ export default function ManagerAssignment() {
             </div>
 
             {/* Target Branch Dark Card */}
-            <div className="panel" style={{ padding: '24px', backgroundColor: '#0f172a', color: '#fff', border: 'none', minHeight: '140px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', position: 'relative', overflow: 'hidden' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', backgroundColor: '#0f172a', color: '#fff', border: 'none', minHeight: '140px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', position: 'relative', overflow: 'hidden' }}>
               {/* Subtle background graphic overlay */}
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.15, background: 'radial-gradient(circle, #4f46e5 0%, transparent 80%)' }} />
               

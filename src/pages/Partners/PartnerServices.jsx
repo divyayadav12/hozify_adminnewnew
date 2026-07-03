@@ -10,6 +10,7 @@ import {
   LifeBuoy,
   Layers,
 } from "lucide-react";
+import StatCard from "../../components/ui/StatCard";
 
 const stats = [
   { title: "Active Services", value: "148", growth: "+12%", icon: Wifi, iconColor: "text-violet-600" },
@@ -196,29 +197,18 @@ export default function PartnerServices() {
 
             {/* STATS */}
             <div className="grid grid-cols-2 gap-4">
-              {stats.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.title}
-                    className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`flex h-11 w-11 items-center justify-center rounded-3xl ${item.iconColor} bg-opacity-15 bg-gradient-to-br from-current via-white to-current`}>
-                        <Icon className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-slate-500">{item.title}</p>
-                        <p className="mt-1 text-lg font-bold text-slate-900">{item.value}</p>
-                      </div>
-                    </div>
-                    <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-slate-700">
-                      <ArrowUpRight size={16} className="text-emerald-500" />
-                      <span>{item.growth}</span>
-                    </div>
-                  </div>
-                );
-              })}
+              {stats.map((item) => (
+                <StatCard
+                  key={item.title}
+                  title={item.title}
+                  value={item.value}
+                  icon={item.icon}
+                  trend={parseInt(item.growth) || 0}
+                  color={item.iconColor === 'text-violet-600' ? '#7c3aed' : item.iconColor === 'text-cyan-600' ? '#0891b2' : item.iconColor === 'text-emerald-600' ? '#059669' : '#ea580c'}
+                  bgColor={item.iconColor === 'text-violet-600' ? '#f5f3ff' : item.iconColor === 'text-cyan-600' ? '#cffafe' : item.iconColor === 'text-emerald-600' ? '#ecfdf5' : '#ffedd5'}
+                  iconColor={item.iconColor === 'text-violet-600' ? '#7c3aed' : item.iconColor === 'text-cyan-600' ? '#0891b2' : item.iconColor === 'text-emerald-600' ? '#059669' : '#ea580c'}
+                />
+              ))}
             </div>
           </div>
         </div>

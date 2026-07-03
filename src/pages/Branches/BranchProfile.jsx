@@ -156,7 +156,7 @@ export default function BranchProfile() {
             <div style={{ flex: 1.8, display: 'flex', flexDirection: 'column', gap: '20px' }}>
               
               {/* Branch Information */}
-              <div className="panel" style={{ padding: '24px' }}>
+              <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                   <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>Branch Information</h2>
                   <a href="#history" onClick={(e) => e.preventDefault()} style={{ color: '#4f46e5', fontWeight: '700', fontSize: '11px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -198,7 +198,7 @@ export default function BranchProfile() {
               </div>
 
               {/* Recent Operations Timeline */}
-              <div className="panel" style={{ padding: '24px' }}>
+              <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
                 <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px' }}>
                   Recent Operations Timeline
                 </h2>

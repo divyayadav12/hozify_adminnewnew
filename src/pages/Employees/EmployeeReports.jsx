@@ -165,7 +165,7 @@ export default function EmployeeReports() {
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
         {/* Department Productivity Trends */}
-        <div className="panel" style={{ flex: 1.6, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1.6, padding: 'var(--spacing-section)' }}>
           <div className="service-card-title-wrap header-row-justify" style={{ marginBottom: '20px' }}>
             <div>
               <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Department Productivity Trends</h2>
@@ -212,7 +212,7 @@ export default function EmployeeReports() {
         </div>
 
         {/* Revenue Leaders list */}
-        <div className="panel" style={{ flex: 1, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0 0 16px' }}>Revenue Leaders</h2>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -249,7 +249,7 @@ export default function EmployeeReports() {
       </div>
 
       {/* Bottom Efficiency Matrix Table */}
-      <section className="panel partner-directory-panel" style={{ padding: '24px' }}>
+      <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Employee Efficiency Matrix</h2>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>

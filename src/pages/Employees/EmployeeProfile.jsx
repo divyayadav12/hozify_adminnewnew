@@ -67,8 +67,8 @@ export default function EmployeeProfile({ employee, onBack }) {
       </div>
 
       {/* Main Profile Summary Banner */}
-      <div className="panel" style={{ padding: '24px', background: '#fff', borderRadius: '8px', border: '1px solid var(--line)', marginBottom: '24px' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', borderRadius: '8px', border: '1px solid var(--line)', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-section)', alignItems: 'center', justifyContent: 'space-between' }}>
           
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
             <div style={{ position: 'relative' }}>
@@ -147,7 +147,7 @@ export default function EmployeeProfile({ employee, onBack }) {
       </div>
 
       {/* Profile Navigation sub-tabs */}
-      <div style={{ borderBottom: '1px solid var(--line)', marginBottom: '24px', display: 'flex', gap: '24px', overflowX: 'auto' }}>
+      <div style={{ borderBottom: '1px solid var(--line)', marginBottom: '24px', display: 'flex', gap: 'var(--spacing-section)', overflowX: 'auto' }}>
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -174,10 +174,10 @@ export default function EmployeeProfile({ employee, onBack }) {
         <div className="fraud-top-grid" style={{ gap: '20px', alignItems: 'flex-start' }}>
           
           {/* Left Block: Personal Information & Recent Bookings */}
-          <div style={{ flex: 1.6, display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ flex: 1.6, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Personal Information */}
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '700', margin: '0 0 16px' }}>Personal Information</h2>
               
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
@@ -204,7 +204,7 @@ export default function EmployeeProfile({ employee, onBack }) {
             </div>
 
             {/* Recent Bookings */}
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h2 style={{ fontSize: '15px', fontWeight: '700', margin: '0' }}>Recent Bookings</h2>
                 <button style={{ border: 'none', background: 'transparent', color: '#4f46e5', fontWeight: '700', fontSize: '12px', cursor: 'pointer', padding: 0 }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
@@ -258,10 +258,10 @@ export default function EmployeeProfile({ employee, onBack }) {
           </div>
 
           {/* Right Block: Compliance, Skills & Territory */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Compliance Status */}
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '700', margin: '0 0 16px' }}>Compliance Status</h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '18px' }}>
@@ -296,7 +296,7 @@ export default function EmployeeProfile({ employee, onBack }) {
             </div>
 
             {/* Primary Skills */}
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '700', margin: '0 0 12px' }}>Primary Skills</h2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {skills.map((skill, index) => (
@@ -318,7 +318,7 @@ export default function EmployeeProfile({ employee, onBack }) {
             </div>
 
             {/* Assigned Territory */}
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '700', margin: '0 0 12px' }}>Assigned Territory</h2>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: 'var(--text)' }}>
                 <MapPin size={16} color="#4f46e5" />

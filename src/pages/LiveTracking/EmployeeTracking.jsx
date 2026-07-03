@@ -272,7 +272,7 @@ export default function EmployeeTracking() {
                             <img src={staff.avatar} alt="" className="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200" />
                             <div>
                               <span className="text-[#111155] block leading-tight">{staff.name}</span>
-                              <span className="text-[10px] text-slate-400 font-mono">ID: {staff.id}</span>
+                              <span className="text-[10px] text-slate-400 ">ID: {staff.id}</span>
                             </div>
                           </div>
                         </td>
@@ -331,7 +331,7 @@ export default function EmployeeTracking() {
                 <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
                 <span>LIVE OPS FEED</span>
               </div>
-              <span className="text-[10px] text-slate-400 font-medium font-mono">Auto-updating</span>
+              <span className="text-[10px] text-slate-400 font-medium ">Auto-updating</span>
             </div>
 
             <div className="p-4 flex-1 overflow-y-auto space-y-4 text-[11px] font-medium text-slate-600">
@@ -339,7 +339,7 @@ export default function EmployeeTracking() {
                 <div className="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-[10px] mt-0.5">✓</div>
                 <div>
                   <p className="text-slate-800"><strong className="font-bold text-slate-900">Marcus Thorne checked into</strong> <span className="text-blue-600 font-bold underline cursor-pointer">Downtown Sector A.</span></p>
-                  <span className="text-[9px] text-slate-400 block font-mono mt-0.5">12:45 PM • Automated Sync</span>
+                  <span className="text-[9px] text-slate-400 block  mt-0.5">12:45 PM • Automated Sync</span>
                 </div>
               </div>
 
@@ -349,7 +349,7 @@ export default function EmployeeTracking() {
                   <div>
                     <h5 className="font-bold text-rose-700">CRITICAL: Elena Rodriguez signal lost</h5>
                     <p className="text-slate-600 mt-0.5 leading-normal">Pier 4 proximity. Battery level was 4% at last ping.</p>
-                    <span className="text-[9px] text-slate-400 block font-mono mt-1">12:38 PM • System Alert</span>
+                    <span className="text-[9px] text-slate-400 block  mt-1">12:38 PM • System Alert</span>
                     
                     {!isAcknowledged && (
                       <button 
@@ -367,7 +367,7 @@ export default function EmployeeTracking() {
                 <div className="w-5 h-5 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-[10px] mt-0.5">✓</div>
                 <div>
                   <p className="text-slate-800"><strong className="font-bold text-slate-900">David Chen completed assignment</strong> #TX-9021.</p>
-                  <span className="text-[9px] text-slate-400 block font-mono mt-0.5">12:15 PM • Manual Entry</span>
+                  <span className="text-[9px] text-slate-400 block  mt-0.5">12:15 PM • Manual Entry</span>
                 </div>
               </div>
             </div>
@@ -418,7 +418,7 @@ export default function EmployeeTracking() {
               >
                 <div className="w-1.5 h-1.5 bg-white rounded-full" />
                 {selectedStaff.id === p.id && (
-                  <div className="absolute bottom-5 bg-slate-900 text-white font-mono text-[9px] font-bold px-1.5 py-0.5 rounded whitespace-nowrap shadow border border-slate-700">
+                  <div className="absolute bottom-5 bg-slate-900 text-white  text-[9px] font-bold px-1.5 py-0.5 rounded whitespace-nowrap shadow border border-slate-700">
                     {p.name.split(" ")[0]} ({p.status})
                   </div>
                 )}

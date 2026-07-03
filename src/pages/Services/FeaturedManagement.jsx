@@ -34,7 +34,7 @@ export default function FeaturedManagement() {
   ]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', fontFamily: 'Inter, sans-serif' }}>
       
       {/* Header Panel */}
       <div style={{
@@ -94,12 +94,12 @@ export default function FeaturedManagement() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'minmax(280px, 320px) 1fr',
-        gap: '24px',
+        gap: 'var(--spacing-section)',
         alignItems: 'start'
       }}>
         
         {/* Left Side: Service Registry & Forecast Impact */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Service Registry */}
           <div className="panel" style={{
@@ -185,7 +185,7 @@ export default function FeaturedManagement() {
           <div style={{
             background: 'linear-gradient(135deg, #1e1b4b 0%, #2e1065 100%)',
             borderRadius: '12px',
-            padding: '24px',
+            padding: 'var(--spacing-section)',
             color: 'white',
             display: 'flex',
             flexDirection: 'column',
@@ -227,7 +227,7 @@ export default function FeaturedManagement() {
         </div>
 
         {/* Right Side: Cluster Config & Promos Ledger */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Homepage Featured Cluster */}
           <div className="panel" style={{
@@ -243,7 +243,7 @@ export default function FeaturedManagement() {
               marginBottom: '16px'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: '#25108f', fontSize: '16px', display: 'flex', alignItems: 'center' }}>★</span>
+                <span style={{ color: 'var(--primary)', fontSize: '16px', display: 'flex', alignItems: 'center' }}>★</span>
                 <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
                   Homepage Featured Cluster
                 </h2>
@@ -251,7 +251,7 @@ export default function FeaturedManagement() {
               <span style={{
                 fontSize: '10px',
                 fontWeight: '800',
-                color: '#25108f',
+                color: 'var(--primary)',
                 background: '#e0e7ff',
                 padding: '4px 8px',
                 borderRadius: '4px',
@@ -313,7 +313,7 @@ export default function FeaturedManagement() {
                   alignItems: 'center',
                   marginTop: '12px'
                 }}>
-                  <strong style={{ fontSize: '14px', color: '#25108f' }}>$1,200</strong>
+                  <strong style={{ fontSize: '14px', color: 'var(--primary)' }}>$1,200</strong>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', cursor: 'grab' }}>
                     <div style={{ width: '12px', height: '2px', background: '#cbd5e1' }}></div>
                     <div style={{ width: '12px', height: '2px', background: '#cbd5e1' }}></div>
@@ -361,7 +361,7 @@ export default function FeaturedManagement() {
                   alignItems: 'center',
                   marginTop: '12px'
                 }}>
-                  <strong style={{ fontSize: '14px', color: '#25108f' }}>$249</strong>
+                  <strong style={{ fontSize: '14px', color: 'var(--primary)' }}>$249</strong>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', cursor: 'grab' }}>
                     <div style={{ width: '12px', height: '2px', background: '#cbd5e1' }}></div>
                     <div style={{ width: '12px', height: '2px', background: '#cbd5e1' }}></div>
@@ -580,7 +580,7 @@ export default function FeaturedManagement() {
               </h2>
               <a href="#view-historical" onClick={(e) => e.preventDefault()} style={{
                 fontSize: '12px',
-                color: '#25108f',
+                color: 'var(--primary)',
                 fontWeight: '700',
                 textDecoration: 'none'
               }}>
@@ -629,7 +629,7 @@ export default function FeaturedManagement() {
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <span style={{ fontWeight: '700', width: '32px' }}>{row.share}%</span>
                             <div style={{ width: '100px', height: '6px', background: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}>
-                              <div style={{ width: `${row.share}%`, height: '100%', background: '#25108f' }}></div>
+                              <div style={{ width: `${row.share}%`, height: '100%', background: 'var(--primary)' }}></div>
                             </div>
                           </div>
                         </td>

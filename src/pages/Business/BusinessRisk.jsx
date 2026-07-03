@@ -44,7 +44,7 @@ export default function BusinessRisk() {
       <div className="business-risk-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         
         {/* Title/Banner section (Screen 4) */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{

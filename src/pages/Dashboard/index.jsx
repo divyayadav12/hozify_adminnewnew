@@ -146,12 +146,12 @@ export default function Dashboard() {
 
   // Header tabs specific to Procurement Overview (Screen 1 style)
   const headerTabs = dashboardView === 'procurement' ? (
-    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', height: '100%' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-section)', alignItems: 'center', height: '100%' }}>
       <button 
         style={{ 
           background: 'none', 
           border: 'none', 
-          color: '#25108f', 
+          color: 'var(--primary)', 
           fontWeight: '700', 
           fontSize: '14px', 
           borderBottom: '2.5px solid #25108f', 
@@ -196,14 +196,14 @@ export default function Dashboard() {
   const renderDashboardContent = () => {
     if (isFiltering) {
       return (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--spacing-section)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
             <SkeletonLoader height="130px" />
             <SkeletonLoader height="130px" />
             <SkeletonLoader height="130px" />
             <SkeletonLoader height="130px" />
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
             <SkeletonLoader height="500px" />
             <SkeletonLoader height="500px" />
           </div>
@@ -284,7 +284,7 @@ export default function Dashboard() {
 
     if (dashboardView === 'global') {
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Dashboard KPI Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
@@ -303,7 +303,7 @@ export default function Dashboard() {
                 <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', marginTop: '4px', fontWeight: '800' }}>{applyMultiplier('14')}m</strong>
               </div>
               <div style={{ height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-                <div style={{ width: '75%', height: '100%', background: '#25108f' }} />
+                <div style={{ width: '75%', height: '100%', background: 'var(--primary)' }} />
               </div>
             </div>
 
@@ -366,10 +366,10 @@ export default function Dashboard() {
           </div>
 
           {/* Dashboard Content Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
             {/* Left Column (Chart & Table) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: 2 }}>
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: 2 }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <div>
                     <h2 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue & Booking Dynamics</h2>
@@ -441,7 +441,7 @@ export default function Dashboard() {
               </div>
 
               {/* High-Priority Work Orders Table */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>High-Priority Work Orders</h2>
                   <button onClick={() => navigate(ROUTES.bookings)} style={{ border: 'none', background: 'transparent', color: '#4f46e5', fontSize: '12px', fontWeight: '800', cursor: 'pointer' }} type="button">
@@ -561,10 +561,10 @@ export default function Dashboard() {
             </div>
 
             {/* Right Column (Sidebar Panels) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: 1 }}>
               
               {/* System Health */}
-              <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: '24px' }}>
+              <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>System Health</h3>
                 <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', marginTop: '4px', margin: 0 }}>All systems operational across 12 regions.</p>
                 
@@ -592,7 +592,7 @@ export default function Dashboard() {
               </div>
 
               {/* Recently Added Services */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
                   Recently Added Services
                 </h3>
@@ -628,7 +628,7 @@ export default function Dashboard() {
               </div>
 
               {/* Support/Assistance Card */}
-              <div className="panel" style={{ background: '#eff6ff', border: '1px solid #dbeafe', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', textAlign: 'center' }}>
+              <div className="panel" style={{ background: '#eff6ff', border: '1px solid #dbeafe', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', textAlign: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', borderRadius: '50%', background: '#dbeafe', color: '#1e40af' }}>
                   <HelpCircle size={24} />
                 </div>
@@ -666,10 +666,10 @@ export default function Dashboard() {
 
     // Procurement View (Screen 1)
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', position: 'relative' }}>
         
         {/* 4 Stats Cards Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
           {/* Card 1: TOTAL REQUESTS */}
           <div 
             onClick={handleViewAll}
@@ -699,18 +699,18 @@ export default function Dashboard() {
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 TOTAL REQUESTS
               </span>
-              <span style={{ color: '#25108f' }}>
+              <span style={{ color: 'var(--primary)' }}>
                 <FileText size={20} />
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
               <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>1,284</strong>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#07956f' }}>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--green)' }}>
                 +12%
               </span>
             </div>
             <div style={{ height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-              <div style={{ width: '45%', height: '100%', background: '#25108f' }} />
+              <div style={{ width: '45%', height: '100%', background: 'var(--primary)' }} />
             </div>
           </div>
 
@@ -848,10 +848,10 @@ export default function Dashboard() {
         </div>
 
         {/* Main Content Layout Block: Left Column & Right Sidebar */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
                   Material Cost Trend (Quarterly)
@@ -909,7 +909,7 @@ export default function Dashboard() {
             </div>
 
             {/* Top Supplier Performance Table */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>
                 Top Supplier Performance
               </h2>
@@ -927,9 +927,9 @@ export default function Dashboard() {
                   </thead>
                   <tbody>
                     {[
-                      { name: 'Global Logis Group', reliability: 98, orderVol: '428 Units', leadTime: '3.2 Days', status: 'PREMIUM', statusColor: '#ecfdf5', statusText: '#059669', barColor: '#07956f' },
+                      { name: 'Global Logis Group', reliability: 98, orderVol: '428 Units', leadTime: '3.2 Days', status: 'PREMIUM', statusColor: '#ecfdf5', statusText: '#059669', barcolor: 'var(--green)' },
                       { name: 'SteelPath Solutions', reliability: 85, orderVol: '152 Units', leadTime: '5.4 Days', status: 'STANDARD', statusColor: '#eff6ff', statusText: '#1e40af', barColor: '#f59e0b' },
-                      { name: 'Apex Industrial', reliability: 92, orderVol: '310 Units', leadTime: '4.1 Days', status: 'PREMIUM', statusColor: '#ecfdf5', statusText: '#059669', barColor: '#07956f' }
+                      { name: 'Apex Industrial', reliability: 92, orderVol: '310 Units', leadTime: '4.1 Days', status: 'PREMIUM', statusColor: '#ecfdf5', statusText: '#059669', barcolor: 'var(--green)' }
                     ].map((row, index) => (
                       <tr key={index} style={{ borderBottom: '1px solid #fcfaff' }}>
                         <td style={{ padding: '16px 8px', fontSize: '14px', fontWeight: '700', color: 'var(--text)' }}>{row.name}</td>
@@ -955,12 +955,12 @@ export default function Dashboard() {
           </div>
 
           {/* Right Column (Sidebar widgets) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             {/* Recent Requests Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Recent Requests</h3>
-                <button onClick={handleViewAll} style={{ border: 'none', background: 'transparent', color: '#25108f', fontSize: '12px', fontWeight: '800', cursor: 'pointer' }} type="button">View All</button>
+                <button onClick={handleViewAll} style={{ border: 'none', background: 'transparent', color: 'var(--primary)', fontSize: '12px', fontWeight: '800', cursor: 'pointer' }} type="button">View All</button>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -978,7 +978,7 @@ export default function Dashboard() {
                       onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f7f4fc'}
                       onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#f1ebfa', color: '#25108f', flexShrink: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#f1ebfa', color: 'var(--primary)', flexShrink: 0 }}>
                         <Icon size={18} />
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
@@ -995,7 +995,7 @@ export default function Dashboard() {
             </div>
 
             {/* Critical Approvals Widget (Dark panel) */}
-            <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Critical Approvals</h3>
                 <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', marginTop: '4px', margin: 0 }}>You have 5 requests exceeding $5k budget threshold.</p>
@@ -1022,11 +1022,11 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              <button onClick={handleGoToApprovals} style={{ width: '100%', height: '42px', background: '#25108f', color: '#ffffff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', marginTop: '6px' }} type="button">Go to Approval Queue</button>
+              <button onClick={handleGoToApprovals} style={{ width: '100%', height: '42px', background: 'var(--primary)', color: '#ffffff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', marginTop: '6px' }} type="button">Go to Approval Queue</button>
             </div>
 
             {/* Market Intelligence Widget */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Market Intelligence</h3>
               <div style={{ background: '#fff5f5', borderLeft: '4px solid #ef4444', borderRadius: '0 8px 8px 0', padding: '16px' }}>
                 <strong style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#dc2626', letterSpacing: '0.5px' }}>PRICE SPIKE ALERT</strong>
@@ -1057,15 +1057,8 @@ export default function Dashboard() {
   return (
     <AdminShell
       activeTab="Dashboard"
-      brandText={dashboardView === 'procurement' ? 'Hozify Procurement' : 'HOZIFY'}
-      brandSubText={dashboardView === 'procurement' ? 'EXECUTIVE COMMAND' : 'Enterprise Admin'}
-      searchPlaceholder={dashboardView === 'procurement' ? 'Search procurement data...' : 'Search service ID, client, or tech...'}
-      customProfileName={dashboardView === 'procurement' ? 'Executive User' : ''}
-      customProfileRole={dashboardView === 'procurement' ? 'Admin Control' : ''}
-      customProfileAvatar={dashboardView === 'procurement' ? 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&h=100&q=80' : ''}
-      headerTabs={headerTabs}
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Page Header with Tab selectors */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>

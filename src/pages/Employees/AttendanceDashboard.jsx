@@ -32,7 +32,7 @@ export default function AttendanceDashboard() {
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', fontFamily: 'inherit' }}
+              style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', color: 'var(--text)', cursor: 'pointer',  }}
             />
           </div>
 
@@ -111,7 +111,7 @@ export default function AttendanceDashboard() {
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
         {/* Attendance Trends */}
-        <div className="panel" style={{ flex: 1.6, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1.6, padding: 'var(--spacing-section)' }}>
           <div className="service-card-title-wrap header-row-justify" style={{ marginBottom: '20px' }}>
             <div>
               <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Attendance Trends</h2>
@@ -138,7 +138,7 @@ export default function AttendanceDashboard() {
         </div>
 
         {/* Breakdowns */}
-        <div className="panel" style={{ flex: 1, padding: '24px', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0 0 16px' }}>Shift Compliance Rate</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', flex: 1, justifyContent: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px' }}>

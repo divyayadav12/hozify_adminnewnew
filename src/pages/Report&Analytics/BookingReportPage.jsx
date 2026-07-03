@@ -22,7 +22,7 @@ export default function BookingReportPage() {
 
   return (
     <AdminShell activeTab="Reports & Analytics">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased font-sansrelative">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased relative">
         
         {/* TOP TITLE HEADER & DATE FILTER CONTROLS */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 relative">

@@ -277,7 +277,7 @@ export default function LiveDashboard() {
                 </div>
                 
                 {/* HUD Label Float Badge */}
-                <div className="mt-1.5 bg-slate-900/90 text-white font-mono text-[9px] px-1.5 py-0.5 rounded border border-slate-700 shadow whitespace-nowrap">
+                <div className="mt-1.5 bg-slate-900/90 text-white  text-[9px] px-1.5 py-0.5 rounded border border-slate-700 shadow whitespace-nowrap">
                   {activeAlertUnit.vehicle.split(" ")[0]} ({activeAlertUnit.type.split(" ")[0]})
                 </div>
               </div>

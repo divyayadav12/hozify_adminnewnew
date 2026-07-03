@@ -6,6 +6,7 @@ import {
   Wallet,
   Receipt,
 } from "lucide-react";
+import StatCard from "../../components/ui/StatCard";
 
 const stats = [
   {
@@ -142,33 +143,32 @@ export default function PartnerRevenue() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {stats.map((item) => {
-              const Icon = item.icon;
-              const active = selectedStat === item.title;
-              return (
-                <div
-                  key={item.title}
-                  className={`rounded-3xl border border-slate-200 bg-slate-50 p-4 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-md ${
-                    active ? 'border-indigo-500 bg-white shadow-lg' : ''
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className={`h-12 w-12 rounded-3xl flex items-center justify-center shadow-lg ${active ? `bg-gradient-to-br ${item.accent} text-white` : `bg-gradient-to-br ${item.accent} text-white`}`}>
-                      <Icon size={26} strokeWidth={1.9} className="text-current" />
-                    </div>
-                    <span className={`text-sm font-semibold ${active ? 'text-emerald-300' : 'text-slate-500'}`}>
-                      {item.delta}
-                    </span>
-                  </div>
-                  <p className={`mt-4 text-sm ${active ? 'text-slate-300' : 'text-slate-500'}`}>
-                    {item.subtitle}
-                  </p>
-                  <h2 className="mt-3 text-2xl font-bold text-slate-900">
-                    {item.value}
-                  </h2>
-                </div>
-              );
-            })}
+            {stats.map((item) => (
+              <StatCard
+                key={item.title}
+                title={item.title}
+                value={item.value.replace(',', '₹')}
+                icon={item.icon}
+                trend={parseInt(item.delta) || 0}
+                color={item.accent === 'from-indigo-500 to-blue-600' ? '#2563eb' : item.accent === 'from-emerald-500 to-teal-500' ? '#059669' : item.accent === 'from-violet-500 to-indigo-500' ? '#7c3aed' : '#f97316'}
+                bgColor={item.accent === 'from-indigo-500 to-blue-600' ? '#eff6ff' : item.accent === 'from-emerald-500 to-teal-500' ? '#ecfdf5' : item.accent === 'from-violet-500 to-indigo-500' ? '#f5f3ff' : '#fff7ed'}
+                iconColor={item.accent === 'from-indigo-500 to-blue-600' ? '#2563eb' : item.accent === 'from-emerald-500 to-teal-500' ? '#059669' : item.accent === 'from-violet-500 to-indigo-500' ? '#7c3aed' : '#f97316'}
+                onClick={() => setSelectedStat(item.title)}
+                className={selectedStat === item.title ? 'ring-2 ring-indigo-500' : ''}
+                style={{
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  gap: '12px',
+                  padding: '20px',
+                  position: 'relative',
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer',
+                  minHeight: '130px',
+                  transform: selectedStat === item.title ? 'translateY(-2px)' : 'none',
+                  boxShadow: selectedStat === item.title ? '0 8px 20px rgba(37,16,143,0.1)' : '0 1px 3px rgba(0,0,0,0.05)'
+                }}
+              />
+            ))}
           </div>
         </div>
 

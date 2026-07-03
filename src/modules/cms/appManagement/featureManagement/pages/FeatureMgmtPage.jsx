@@ -163,7 +163,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="Feature Management Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -278,7 +278,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
                     {currentItems.length > 0 ? (
                       currentItems.map(row => (
                         <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                          <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>
+                          <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>
                             {row.key}
                             <span style={{ display: 'block', fontSize: '11px', color: '#64748b', fontWeight: '400', marginTop: '4px' }}>
                               {row.description}
@@ -304,7 +304,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
                               />
                             </div>
                           </td>
-                          <td style={{ padding: '18px 24px', fontWeight: '600', fontFamily: 'monospace' }}>{row.version}</td>
+                          <td style={{ padding: '18px 24px', fontWeight: '600', fontFamily: "var(--materio-space)", }}>{row.version}</td>
                           <td style={{ padding: '18px 24px', textAlign: 'right' }}>
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
                               <button onClick={() => { setSelectedFeature(row); setIsPreviewOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="Preview"><Eye size={16} /></button>
@@ -316,7 +316,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No features logged under this category tab.</td>
+                        <td colSpan={6} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No features logged under this category tab.</td>
                       </tr>
                     )}
                   </tbody>
@@ -354,8 +354,8 @@ export default function FeatureMgmtPage({ defaultTab }) {
         )}
 
         {activeTab === 'Beta Features' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '24px' }}>
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 'var(--spacing-section)' }}>
+            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 16px 0' }}>Beta Targets Configuration</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {features.filter(f => f.target === 'Beta Group').map(feat => (
@@ -373,7 +373,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
               </div>
             </div>
 
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Authorized Beta User Pool</h3>
               <div style={{ display: 'flex', gap: '8px' }}>
                 <input 
@@ -413,9 +413,9 @@ export default function FeatureMgmtPage({ defaultTab }) {
             {['v3.0.0', 'v3.1.0', 'v3.2.0', 'v3.3.0', 'v3.4.0-beta'].map(ver => {
               const matchingFeats = features.filter(f => f.version === ver);
               return (
-                <div key={ver} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+                <div key={ver} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px', marginBottom: '16px' }}>
-                    <div style={{ padding: '4px 10px', background: '#e0e7ff', color: '#4f46e5', borderRadius: '6px', fontSize: '12px', fontWeight: '800', fontFamily: 'monospace' }}>RELEASE BUILD {ver}</div>
+                    <div style={{ padding: '4px 10px', background: '#e0e7ff', color: '#4f46e5', borderRadius: '6px', fontSize: '12px', fontWeight: '800', fontFamily: "var(--materio-space)", }}>RELEASE BUILD {ver}</div>
                     <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600' }}>{matchingFeats.length} Mapped Features</span>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>

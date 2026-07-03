@@ -62,7 +62,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
       headerTitle="Support Operations"
       searchPlaceholder="Search agents or tickets..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -79,7 +79,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
         {/* KPI Metrics Row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           {/* KPI 1: Unassigned */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Unassigned Queue
@@ -92,7 +92,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 {unassignedTickets.length}
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingDown size={12} />
                 -12% vs last hour
               </span>
@@ -100,7 +100,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
           </div>
 
           {/* KPI 2: Capacity */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Avg. Capacity
@@ -121,7 +121,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
           </div>
 
           {/* KPI 3: Active Agents */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Active Agents
@@ -141,7 +141,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
           </div>
 
           {/* KPI 4: Avg Resolution */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Resolution (Avg)
@@ -154,7 +154,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 14m
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#d32929', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--red)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 +2m vs average
               </span>
@@ -163,10 +163,10 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Content Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1.8fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1.8fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Unassigned Tickets (Left Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '15.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Unassigned Tickets
@@ -254,7 +254,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Agent Capacity & Load (Right Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
               <div>
                 <h2 style={{ fontSize: '15.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>

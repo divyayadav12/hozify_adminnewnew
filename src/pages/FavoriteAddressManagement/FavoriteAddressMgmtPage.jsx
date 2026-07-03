@@ -8,6 +8,7 @@ import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 import { 
   Search, Plus, Download, Edit, Trash2, Eye, MapPin, Map, Home, Briefcase
 } from 'lucide-react';
+import StatCard from '../../components/ui/StatCard';
 
 const INITIAL_ADDRESSES = [
   { id: 'ADD-601', user: 'Sarah Miller', type: 'Home', address: 'Flat 402, Sunset Heights, Bandra West, Mumbai 400050', coordinates: '19.0544, 72.8291', savedDate: '2026-06-27' },
@@ -79,7 +80,7 @@ export default function FavoriteAddressMgmtPage() {
 
   return (
     <AdminShell activeTab="Favorite Address Management" headerTitle="Saved Locations Registry">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -103,34 +104,34 @@ export default function FavoriteAddressMgmtPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="custom-kpi-card-container">
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <MapPin size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Saved locations</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text)', margin: '2px 0 0 0' }}>{addresses.length} Locations</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Home size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Home Addresses</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#059669', margin: '2px 0 0 0' }}>{addresses.filter(a => a.type === 'Home').length} Saved</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#fef3c7', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Briefcase size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Office Addresses</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#d97706', margin: '2px 0 0 0' }}>{addresses.filter(a => a.type === 'Office').length} Saved</h2>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <StatCard
+            title="TOTAL SAVED LOCATIONS"
+            value={`${addresses.length} Locations`}
+            icon={MapPin}
+            trend={0}
+            color="#4f46e5"
+            bgColor="#e0e7ff"
+            iconColor="#4f46e5"
+          />
+          <StatCard
+            title="HOME ADDRESSES"
+            value={`${addresses.filter(a => a.type === 'Home').length} Saved`}
+            icon={Home}
+            trend={0}
+            color="#059669"
+            bgColor="#d1fae5"
+            iconColor="#059669"
+          />
+          <StatCard
+            title="OFFICE ADDRESSES"
+            value={`${addresses.filter(a => a.type === 'Office').length} Saved`}
+            icon={Briefcase}
+            trend={0}
+            color="#ea580c"
+            bgColor="#ffedd5"
+            iconColor="#ea580c"
+          />
         </div>
 
         {/* Filters */}
@@ -185,7 +186,7 @@ export default function FavoriteAddressMgmtPage() {
               {filteredAddresses.length > 0 ? (
                 filteredAddresses.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700' }}>{row.user}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <span style={{
@@ -200,8 +201,8 @@ export default function FavoriteAddressMgmtPage() {
                       </span>
                     </td>
                     <td style={{ padding: '18px 24px', fontWeight: '600', maxWidth: '350px' }}>{row.address}</td>
-                    <td style={{ padding: '18px 24px', fontFamily: 'monospace' }}>{row.coordinates}</td>
-                    <td style={{ padding: '18px 24px', fontFamily: 'monospace' }}>{row.savedDate}</td>
+                    <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", }}>{row.coordinates}</td>
+                    <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", }}>{row.savedDate}</td>
                     <td style={{ padding: '18px 24px', textAlign: 'right' }}>
                       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', alignItems: 'center' }}>
                         <button onClick={() => addToast(`Opening map tracking for ${row.coordinates}...`, 'info')} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#4f46e5' }} title="Show on Maps">
@@ -216,7 +217,7 @@ export default function FavoriteAddressMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No favorite address records found.</td>
+                  <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No favorite address records found.</td>
                 </tr>
               )}
             </tbody>

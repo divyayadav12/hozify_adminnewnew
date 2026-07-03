@@ -169,7 +169,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
       headerTitle="Escalation Center"
       searchPlaceholder="Search active escalations, incident owners..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb Row */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -270,13 +270,13 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
         </div>
 
         {/* Layout Column Wrapper */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Side: Tabs and Escalations */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
             {/* Tabs */}
-            <div style={{ display: 'flex', borderBottom: '2px solid var(--lavender)', paddingBottom: '2px', gap: '24px' }}>
+            <div style={{ display: 'flex', borderBottom: '2px solid var(--lavender)', paddingBottom: '2px', gap: 'var(--spacing-section)' }}>
               {['Level 3', 'Level 2', 'Level 1'].map((lvl) => {
                 const isActive = activeLevel === lvl;
                 const count = escalations.filter(e => e.level === lvl).length;
@@ -329,7 +329,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
                     key={esc.id}
                     className="panel"
                     style={{
-                      padding: '24px',
+                      padding: 'var(--spacing-section)',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '16px',
@@ -480,10 +480,10 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
           </div>
 
           {/* Right Side: Sidebar Panels */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Panel 1: Manager Intervention Console */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Manager Intervention
               </h3>
@@ -598,7 +598,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
             </div>
 
             {/* Panel 2: MTTR Statistics & Compliance dial */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Performance & SLAs
               </h3>
@@ -642,7 +642,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
                     <strong style={{ display: 'block', fontSize: '18px', color: '#dc2626', fontWeight: '850', marginTop: '4px' }}>
                       42m
                     </strong>
-                    <span style={{ fontSize: '10px', color: '#07956f', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '2px', marginTop: '2px' }}>
+                    <span style={{ fontSize: '10px', color: 'var(--green)', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '2px', marginTop: '2px' }}>
                       <TrendingDown size={10} />
                       -12% vs average
                     </span>
@@ -655,7 +655,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
                     <strong style={{ display: 'block', fontSize: '18px', color: 'var(--text)', fontWeight: '850', marginTop: '4px' }}>
                       2h 15m
                     </strong>
-                    <span style={{ fontSize: '10px', color: '#d32929', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '2px', marginTop: '2px' }}>
+                    <span style={{ fontSize: '10px', color: 'var(--red)', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '2px', marginTop: '2px' }}>
                       <TrendingUp size={10} />
                       +8% vs average
                     </span>
@@ -666,7 +666,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
             </div>
 
             {/* Panel 3: Recent Escalation Events Feed */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Recent Escalation Events

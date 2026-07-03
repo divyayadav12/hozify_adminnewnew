@@ -108,7 +108,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
       headerTitle="Automation Rules"
       searchPlaceholder="Search rules and action triggers..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumbs */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -153,10 +153,10 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
         </div>
 
         {/* Main Section Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Side: Rule Builder */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', background: '#fff' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px', background: '#fff' }}>
             <div>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Sliders size={16} style={{ color: 'var(--primary)' }} />
@@ -248,12 +248,12 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
             {/* THEN Actions block */}
             <div style={{ background: 'var(--soft)', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                <span style={{ fontSize: '12px', fontWeight: '900', color: '#07956f', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                <span style={{ fontSize: '12px', fontWeight: '900', color: 'var(--green)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   THEN (Execute operations)
                 </span>
                 <button
                   onClick={addAction}
-                  style={{ border: 'none', background: 'transparent', color: '#07956f', fontSize: '12px', fontWeight: '800', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '2px' }}
+                  style={{ border: 'none', background: 'transparent', color: 'var(--green)', fontSize: '12px', fontWeight: '800', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '2px' }}
                   type="button"
                 >
                   <Plus size={12} />
@@ -357,10 +357,10 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
           </div>
 
           {/* Right Side: Active Flows & Automation Stats */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Active Flows Sidebar */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <div>
                 <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Active Workflows
@@ -463,7 +463,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
             </div>
 
             {/* Flow Statistics */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Automation Performance
               </h3>
@@ -490,7 +490,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
         </div>
 
         {/* SLA Notification Triggers Ledger */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
           <div>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               SLA Notification Triggers

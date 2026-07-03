@@ -1,435 +1,141 @@
-import React, { useState, useMemo, useEffect } from "react";
-import AdminShell from "../../components/layouts/AdminShell"; // Aapka AdminShell
+import React, { useState, useMemo } from "react";
+import AdminShell from "../../components/layouts/AdminShell";
+import { Check, XCircle, MapPin, Building2, Map, ShieldCheck, CheckCircle2 } from "lucide-react";
 
-import {
-  MapPin,
-  Search,
-  Filter,
-  CheckCircle2,
-  XCircle,
-  Building2,
-  Map,
-  ShieldCheck,
-  ChevronRight,
-  MoreVertical,
-  Check,
-  FileCheck,
-  Eye,
-  RefreshCw,
-  Trash2
-} from "lucide-react";
+// Global Unified Components
+import PageHeader from '../../components/ui/PageHeader';
+import StatCard from '../../components/ui/StatCard';
+import FilterBar from '../../components/ui/FilterBar';
+import DataTable from '../../components/ui/DataTable';
+import Badge from '../../components/ui/Badge';
+import Button from '../../components/ui/Button';
 
 export default function BranchApprovals() {
-  // Mock Data: Urban Company Regional Branches / Hub Expansion Requests
   const [branches, setBranches] = useState([
-    {
-      id: "BRH-4401",
-      branchName: "Indore South Hub",
-      city: "Indore, MP",
-      manager: "Aman Verma",
-      capacity: "150+ Partners/Day",
-      infrastructureStatus: "Verified",
-      status: "Pending",
-      zone: "Tier-2 Operational"
-    },
-    {
-      id: "BRH-9022",
-      branchName: "Bengaluru East (HSR)",
-      city: "Bengaluru, KA",
-      manager: "Megha Hegde",
-      capacity: "500+ Partners/Day",
-      infrastructureStatus: "Verified",
-      status: "Pending",
-      zone: "Tier-1 Metro"
-    },
-    {
-      id: "BRH-1105",
-      branchName: "Noida Sector 62 Center",
-      city: "Delhi NCR",
-      manager: "Vikram Malhotra",
-      capacity: "300+ Partners/Day",
-      infrastructureStatus: "Pending Audit",
-      status: "Approved",
-      zone: "Tier-1 Metro"
-    },
-    {
-      id: "BRH-3312",
-      branchName: "Patna Central Training Hub",
-      city: "Patna, Bihar",
-      manager: "Rajesh Mishra",
-      capacity: "100+ Partners/Day",
-      infrastructureStatus: "Rejected",
-      status: "Rejected",
-      zone: "Tier-3 Onboarding"
-    }
+    { id: "BRH-4401", branchName: "Indore South Hub", city: "Indore, MP", manager: "Aman Verma", capacity: "150+ Partners/Day", status: "Pending", zone: "Tier-2 Operational" },
+    { id: "BRH-9022", branchName: "Bengaluru East (HSR)", city: "Bengaluru, KA", manager: "Megha Hegde", capacity: "500+ Partners/Day", status: "Pending", zone: "Tier-1 Metro" },
+    { id: "BRH-1105", branchName: "Noida Sector 62 Center", city: "Delhi NCR", manager: "Vikram Malhotra", capacity: "300+ Partners/Day", status: "Approved", zone: "Tier-1 Metro" },
+    { id: "BRH-3312", branchName: "Patna Central Training Hub", city: "Patna, Bihar", manager: "Rajesh Mishra", capacity: "100+ Partners/Day", status: "Rejected", zone: "Tier-3 Onboarding" }
   ]);
 
-  // States for Live Search and Dropdown Filter
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedZone, setSelectedZone] = useState("All");
-  const [activeDropdownMenu, setActiveDropdownMenu] = useState(null);
+  const [selectedZone, setSelectedZone] = useState("");
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = () => setActiveDropdownMenu(null);
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  // Dynamically extract unique zones for the filter dropdown
   const uniqueZones = useMemo(() => {
-    const zones = branches.map(b => b.zone);
-    return ["All", ...new Set(zones)];
+    return [...new Set(branches.map(b => b.zone))];
   }, [branches]);
 
-  // Handle Approve/Reject branch status
   const handleStatusChange = (id, newStatus) => {
-    setBranches(prev =>
-      prev.map(branch => branch.id === id ? { ...branch, status: newStatus } : branch)
-    );
+    setBranches(prev => prev.map(branch => branch.id === id ? { ...branch, status: newStatus } : branch));
   };
 
-  // Combined Search and Zone Filter Logic
   const filteredBranches = useMemo(() => {
     return branches.filter((branch) => {
-      const matchesSearch = 
-        branch.branchName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        branch.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        branch.manager.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        branch.id.toLowerCase().includes(searchQuery.toLowerCase());
-
-      const matchesZone = selectedZone === "All" || branch.zone === selectedZone;
-
+      const matchesSearch = branch.branchName.toLowerCase().includes(searchQuery.toLowerCase()) || branch.id.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesZone = !selectedZone || branch.zone === selectedZone;
       return matchesSearch && matchesZone;
     });
   }, [branches, searchQuery, selectedZone]);
 
+  const columns = [
+    { 
+      header: 'Branch / Hub Details', 
+      accessor: 'branchName',
+      render: (b) => (
+        <div>
+          <strong style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text)' }}>
+            <MapPin size={14} style={{ color: 'var(--primary)' }} /> {b.branchName}
+          </strong>
+          <span style={{ fontSize: 'var(--text-small)', color: 'var(--muted)', display: 'block', paddingLeft: '20px' }}>
+            {b.id} • {b.city}
+          </span>
+        </div>
+      )
+    },
+    { header: 'Territory Zone', accessor: 'zone' },
+    { header: 'Regional Manager', accessor: 'manager', render: (b) => <strong style={{color: 'var(--text)'}}>{b.manager}</strong> },
+    { header: 'Max Capacity', accessor: 'capacity' },
+    { 
+      header: 'Approval Status', 
+      accessor: 'status',
+      render: (b) => (
+        <Badge variant={b.status === 'Approved' ? 'success' : b.status === 'Rejected' ? 'danger' : 'warning'}>
+          {b.status}
+        </Badge>
+      )
+    }
+  ];
+
+  const actions = (b) => {
+    if (b.status === "Pending") {
+      return (
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+          <Button variant="primary" icon={Check} onClick={(e) => { e.stopPropagation(); handleStatusChange(b.id, "Approved"); }}>Approve</Button>
+          <Button variant="ghost" icon={XCircle} onClick={(e) => { e.stopPropagation(); handleStatusChange(b.id, "Rejected"); }}>Reject</Button>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
-    <AdminShell
-      activeTab="Approvals"
-      searchPlaceholder="Search by branch name, city, or manager..."
-    >
-      <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-700 p-4 md:p-8 space-y-6 overflow-x-hidden">
+    <AdminShell activeTab="Approvals" searchPlaceholder="Search by branch name, city, or manager...">
+      <div style={{ padding: 'var(--spacing-page) 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
-        {/* ================= HEADER SECTION ================= */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <nav className="text-xs font-bold text-slate-400 flex items-center gap-1.5 uppercase tracking-wider">
-              <span>Approvals</span>
-              <ChevronRight size={12} />
-              <span className="text-indigo-600">Branch Approvals</span>
-            </nav>
-            <h1 className="mt-1 text-xl md:text-2xl font-black text-slate-900 tracking-tight">Branch Expansion Approvals</h1>
-            <p className="text-xs md:text-sm text-slate-500 font-medium">
-              Review setup audits, operational capacity, and activate regional training hubs or partner onboarding offices.
-            </p>
-          </div>
+        <PageHeader 
+          title="Branch Expansion Approvals" 
+          subtitle="Review setup audits, operational capacity, and activate regional training hubs or partner onboarding offices."
+          actions={
+            <Badge variant="info" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+              <Building2 size={14} /> Geo-Expansion Active
+            </Badge>
+          }
+        />
 
-          <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2.5 self-start sm:self-center shadow-sm">
-            <Building2 size={16} className="text-indigo-600" />
-            <span className="text-xs font-bold text-indigo-900">Geo-Expansion Active</span>
-          </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-card)' }}>
+          <StatCard 
+            title="Awaiting Launch" 
+            value={`${String(branches.filter(b => b.status === "Pending").length).padStart(2, '0')} Branches`} 
+            trendLabel="Ready for Live Sign-off"
+            icon={Map}
+            color="var(--primary)"
+          />
+          <StatCard 
+            title="Active Hubs" 
+            value={`${branches.filter(b => b.status === "Approved").length + 41} Locations`} 
+            trendLabel="Covering Regional Zones"
+            icon={CheckCircle2}
+            color="var(--green)"
+          />
+          <StatCard 
+            title="Audits Rejected" 
+            value={`${String(branches.filter(b => b.status === "Rejected").length).padStart(2, '0')} Sites`} 
+            trendLabel="Safety Deficit Flagged"
+            icon={XCircle}
+            color="var(--red)"
+          />
         </div>
 
-        {/* ================= METRICS COUNTERS (Dynamic) ================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Pending Approvals */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
-            <div className="space-y-1">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Awaiting Launch</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
-                {String(branches.filter(b => b.status === "Pending").length).padStart(2, '0')} Branches
-              </p>
-              <p className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded inline-block">
-                Ready for Live Sign-off
-              </p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-600">
-              <Map size={18} />
-            </div>
-          </div>
+        <FilterBar 
+          searchPlaceholder="Filter by branch, manager, or ID..."
+          onSearch={setSearchQuery}
+          onFilterChange={(key, val) => setSelectedZone(val)}
+          filters={[
+            {
+              key: 'zone',
+              label: 'All Territories',
+              options: uniqueZones.map(z => ({ label: z, value: z }))
+            }
+          ]}
+        />
 
-          {/* Active Branches */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
-            <div className="space-y-1">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Hubs</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
-                {branches.filter(b => b.status === "Approved").length + 41} Locations
-              </p>
-              <p className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded inline-block">
-                Covering Regional Zones
-              </p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
-              <CheckCircle2 size={18} />
-            </div>
-          </div>
-
-          {/* Failed Audits */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
-            <div className="space-y-1">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Audits Rejected</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
-                {String(branches.filter(b => b.status === "Rejected").length).padStart(2, '0')} Sites
-              </p>
-              <p className="text-[10px] font-medium text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded inline-block">
-                Safety Deficit Flagged
-              </p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600">
-              <XCircle size={18} />
-            </div>
-          </div>
-
-          {/* Infrastructure Score */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm flex items-center justify-between">
-            <div className="space-y-1">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Compliance Rate</p>
-              <p className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">96.8%</p>
-              <p className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded inline-block">
-                Standardized Layouts
-              </p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
-              <ShieldCheck size={18} />
-            </div>
-          </div>
-        </div>
-
-        {/* ================= SEARCH & INTERACTIVE FILTERS ================= */}
-        <div className="flex flex-col sm:flex-row gap-3 items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-          <div className="relative w-full sm:w-80">
-            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Filter by branch, manager, or ID..."
-              className="w-full rounded-lg border border-slate-200 bg-slate-50/50 pl-10 pr-4 py-2 text-xs font-medium focus:outline-none focus:border-indigo-500 focus:bg-white transition"
-            />
-          </div>
-          
-          <div className="flex items-center gap-2 w-full sm:w-auto border border-slate-200 rounded-lg px-3 py-1.5 bg-white">
-            <Filter size={14} className="text-slate-400" />
-            <select
-              value={selectedZone}
-              onChange={(e) => setSelectedZone(e.target.value)}
-              className="w-full sm:w-auto bg-transparent text-xs font-bold text-slate-600 outline-none cursor-pointer"
-            >
-              {uniqueZones.map((zone) => (
-                <option key={zone} value={zone}>
-                  {zone === "All" ? "All Territories" : zone}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {/* ================= MAIN CONTENT CONTAINER ================= */}
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-          
-          {/* DESKTOP TABLE VIEW */}
-          <div className="hidden lg:block">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse min-w-[1000px]">
-              <thead>
-                <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
-                  <th className="px-6 py-4">Branch / Hub Details</th>
-                  <th className="px-6 py-4">Territory Zone</th>
-                  <th className="px-6 py-4">Regional Manager</th>
-                  <th className="px-6 py-4">Max Capacity</th>
-                  <th className="px-6 py-4">Approval Status</th>
-                  <th className="px-6 py-4 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-600">
-                {filteredBranches.length > 0 ? (
-                  filteredBranches.map((branch) => (
-                    <tr key={branch.id} className="hover:bg-slate-50/40 transition-colors">
-                      {/* Branch Info */}
-                      <td className="px-6 py-4">
-                        <div>
-                          <p className="text-sm font-bold text-slate-900 inline-flex items-center gap-1">
-                            <MapPin size={14} className="text-indigo-500 flex-shrink-0" /> {branch.branchName}
-                          </p>
-                          <p className="text-xs text-slate-400 font-semibold mt-0.5 ml-5">{branch.id} • {branch.city}</p>
-                        </div>
-                      </td>
-
-                      {/* Zone Tier */}
-                      <td className="px-6 py-4 text-xs font-bold text-slate-500">
-                        {branch.zone}
-                      </td>
-
-                      {/* Hub Lead */}
-                      <td className="px-6 py-4 text-xs font-bold text-slate-700">
-                        {branch.manager}
-                      </td>
-
-                      {/* Onboarding Capacity */}
-                      <td className="px-6 py-4 text-xs font-bold text-slate-800">
-                        {branch.capacity}
-                      </td>
-
-                      {/* Status Badge */}
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
-                          branch.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
-                          branch.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
-                        }`}>
-                          {branch.status}
-                        </span>
-                      </td>
-
-                      {/* Quick Trigger Buttons */}
-                      <td className="px-6 py-4 text-center">
-                        {branch.status === "Pending" ? (
-                          <div className="flex items-center justify-center gap-1.5">
-                            <button 
-                              onClick={() => handleStatusChange(branch.id, "Approved")}
-                              className="bg-indigo-900 hover:bg-indigo-950 text-white text-[11px] font-bold p-1.5 rounded-lg shadow-sm transition"
-                              title="Approve Hub Launch"
-                            >
-                              <Check size={14} />
-                            </button>
-                            <button 
-                              onClick={() => handleStatusChange(branch.id, "Rejected")}
-                              className="border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-slate-600 p-1.5 rounded-lg transition"
-                              title="Reject & Flag Setup"
-                            >
-                              <XCircle size={14} />
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="relative inline-block text-left" onClick={(e) => e.stopPropagation()}>
-                            <button 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveDropdownMenu(activeDropdownMenu === branch.id ? null : branch.id);
-                              }}
-                              className={`p-1 rounded-lg transition-colors ${activeDropdownMenu === branch.id ? "bg-slate-100 text-slate-800" : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"}`}
-                            >
-                              <MoreVertical size={16} />
-                            </button>
-                            
-                            {activeDropdownMenu === branch.id && (
-                              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-100 bg-white shadow-lg shadow-slate-200/50 z-50 py-2">
-                                <button
-                                  onClick={() => { setActiveDropdownMenu(null); alert(`Viewing details for ${branch.id}`); }}
-                                  className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
-                                >
-                                  <Eye size={14} /> View Details
-                                </button>
-                                <button
-                                  onClick={() => { setActiveDropdownMenu(null); handleStatusChange(branch.id, "Pending"); }}
-                                  className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition"
-                                >
-                                  <RefreshCw size={14} /> Re-evaluate
-                                </button>
-                                <div className="h-px bg-slate-100 my-1"></div>
-                                <button
-                                  onClick={() => {
-                                    setActiveDropdownMenu(null);
-                                    setBranches(prev => prev.filter(r => r.id !== branch.id));
-                                  }}
-                                  className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 transition"
-                                >
-                                  <Trash2 size={14} /> Delete Record
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="text-center py-12 text-slate-400 font-medium text-sm">
-                      No matching branches found.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table></div>
-          </div>
-
-          {/* MOBILE RESPONSIVE LIST VIEW */}
-          <div className="block lg:hidden divide-y divide-slate-100">
-            {filteredBranches.length > 0 ? (
-              filteredBranches.map((branch) => (
-                <div key={branch.id} className="p-4 space-y-3 hover:bg-slate-50/30 transition-colors">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1">
-                        <MapPin size={14} className="text-indigo-500" /> {branch.branchName}
-                      </h3>
-                      <p className="text-xs text-slate-400 font-semibold mt-0.5 ml-5">{branch.id} • {branch.city}</p>
-                    </div>
-                    <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
-                      branch.status === "Approved" ? "bg-emerald-50 text-emerald-700" :
-                      branch.status === "Rejected" ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"
-                    }`}>
-                      {branch.status}
-                    </span>
-                  </div>
-
-                  <div className="bg-slate-50/60 p-3 rounded-lg text-xs font-semibold space-y-2">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <p className="text-slate-400 text-[10px] uppercase tracking-wider">Zone Tier</p>
-                        <p className="text-slate-700 mt-0.5">{branch.zone}</p>
-                      </div>
-                      <div>
-                        <p className="text-slate-400 text-[10px] uppercase tracking-wider">Manager</p>
-                        <p className="text-slate-800 mt-0.5">{branch.manager}</p>
-                      </div>
-                    </div>
-                    <div className="pt-1.5 border-t border-slate-200/50 flex justify-between items-center">
-                      <span className="text-slate-400 text-[10px] uppercase tracking-wider">Max Load Capacity</span>
-                      <span className="text-slate-900 font-bold">{branch.capacity}</span>
-                    </div>
-                  </div>
-
-                  {branch.status === "Pending" ? (
-                    <div className="flex items-center gap-2 pt-1">
-                      <button 
-                        onClick={() => handleStatusChange(branch.id, "Approved")}
-                        className="flex-1 bg-indigo-900 text-white text-xs font-bold py-2 rounded-lg text-center shadow-sm"
-                      >
-                        Approve Launch
-                      </button>
-                      <button 
-                        onClick={() => handleStatusChange(branch.id, "Rejected")}
-                        className="flex-1 border border-slate-200 text-slate-600 text-xs font-bold py-2 rounded-lg text-center hover:bg-rose-50 hover:text-rose-600"
-                      >
-                        Reject Site
-                      </button>
-                    </div>
-                  ) : (
-                    <button 
-                      onClick={() => alert(`Log Context: ${branch.branchName} (${branch.id}) configuration is currently locked under state "${branch.status}".`)}
-                      className="w-full text-center border border-slate-200 text-slate-500 font-bold py-2 rounded-lg text-xs hover:bg-slate-50"
-                    >
-                      View Geo-Activation History
-                    </button>
-                  )}
-                </div>
-              ))
-            ) : (
-              <div className="p-8 text-center text-slate-400 font-medium text-sm">
-                No matching branches found.
-              </div>
-            )}
-          </div>
-
-          {/* Infrastructure Footer Accent */}
-          <div className="bg-slate-50/50 px-6 py-3 border-t border-slate-100 text-xs text-slate-400 font-semibold flex items-center gap-1.5">
-            <FileCheck size={14} className="text-slate-400 flex-shrink-0" />
-            <span>Note: Branch activation enables geofencing for target pin-codes, allowing localized partner matching instantly.</span>
-          </div>
-
-        </div>
-
+        <DataTable 
+          columns={columns} 
+          data={filteredBranches} 
+          actions={actions}
+          emptyState="No branch expansion requests found."
+        />
+        
       </div>
     </AdminShell>
   );

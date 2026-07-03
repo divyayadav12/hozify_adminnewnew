@@ -104,7 +104,7 @@ export default function ServiceApprovals() {
       activeTab="Partners"
       searchPlaceholder="Search by partner, existing skill, or new request..."
     >
-      <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-700 p-4 md:p-8 space-y-6 overflow-x-hidden">
+      <div className="min-h-screen bg-[#f8fafc]  text-slate-700 p-4 md:p-8 space-y-6 overflow-x-hidden">
         
         {/* ================= HEADER SECTION ================= */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -242,8 +242,8 @@ export default function ServiceApprovals() {
                       <td className="px-6 py-4">
                         <div>
                           <p className="text-sm font-bold text-slate-900">{item.partnerName}</p>
-                          <p className="text-xs text-slate-400 font-mono font-semibold mt-0.5">
-                            {item.id} • <span className="text-indigo-600 font-sans">{item.tier} Tier</span>
+                          <p className="text-xs text-slate-400  font-semibold mt-0.5">
+                            {item.id} • <span className="text-indigo-600 ">{item.tier} Tier</span>
                           </p>
                         </div>
                       </td>
@@ -366,7 +366,7 @@ export default function ServiceApprovals() {
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <h3 className="text-sm font-bold text-slate-900">{item.partnerName}</h3>
-                      <p className="text-xs text-slate-400 font-mono mt-0.5">{item.id} • {item.tier}</p>
+                      <p className="text-xs text-slate-400  mt-0.5">{item.id} • {item.tier}</p>
                     </div>
                     <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
                       item.status === "Approved" ? "bg-emerald-50 text-emerald-700" :

@@ -32,7 +32,7 @@ export default function CostOptimization() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Header Breadcrumbs / Title Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -73,7 +73,7 @@ export default function CostOptimization() {
             <button
               onClick={handleExportReport}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -109,7 +109,7 @@ export default function CostOptimization() {
               </div>
             </div>
             <div style={{ height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden' }}>
-              <div style={{ width: '65%', height: '100%', background: '#25108f', borderRadius: '2px' }} />
+              <div style={{ width: '65%', height: '100%', background: 'var(--primary)', borderRadius: '2px' }} />
             </div>
           </div>
 
@@ -177,10 +177,10 @@ export default function CostOptimization() {
         </div>
 
         {/* Splitting layout: Most Expensive Materials & Supplier Performance Circular Gauge */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left: Most Expensive Materials */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Most Expensive Materials
@@ -212,7 +212,7 @@ export default function CostOptimization() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {[
                 { name: 'Steel Reinforcement (12mm)', cost: '$482,000', pct: '38%', color: '#1c2536' },
-                { name: 'Concrete (High Performance)', cost: '$315,000', pct: '25%', color: '#25108f' },
+                { name: 'Concrete (High Performance)', cost: '$315,000', pct: '25%', color: 'var(--primary)' },
                 { name: 'Electrical Infrastructure Components', cost: '$205,000', pct: '16%', color: '#60a5fa' },
                 { name: 'Facade Glass (Triple Glazed)', cost: '$112,000', pct: '9%', color: '#d7e1ff' }
               ].map((item, idx) => (
@@ -230,7 +230,7 @@ export default function CostOptimization() {
           </div>
 
           {/* Right: Supplier Performance Gauge */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Supplier Performance
             </h2>
@@ -261,7 +261,7 @@ export default function CostOptimization() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#25108f' }} />
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }} />
                   <span style={{ color: '#7a7688' }}>Vendor Reliability</span>
                 </div>
                 <strong style={{ color: '#1c2536' }}>Top Tier</strong>
@@ -281,14 +281,14 @@ export default function CostOptimization() {
         </div>
 
         {/* Savings Opportunities Identified list */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Savings Opportunities Identified
             </h2>
             <button
               onClick={() => alert('View full system cost optimization audits...')}
-              style={{ background: 'transparent', border: 'none', color: '#25108f', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+              style={{ background: 'transparent', border: 'none', color: 'var(--primary)', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
               type="button"
             >
               View All Recommendations
@@ -358,7 +358,7 @@ export default function CostOptimization() {
                         {row.status}
                       </span>
                     </td>
-                    <td style={{ padding: '16px 8px', fontSize: '13.5px', fontWeight: '800', color: '#25108f' }}>
+                    <td style={{ padding: '16px 8px', fontSize: '13.5px', fontWeight: '800', color: 'var(--primary)' }}>
                       {row.savings}
                     </td>
                     <td style={{ padding: '16px 8px', fontSize: '13px', color: '#565365' }}>

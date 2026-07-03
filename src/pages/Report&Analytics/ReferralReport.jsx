@@ -7,7 +7,7 @@ export default function ReferralReport() {
 
   return (
     <AdminShell activeTab="Reports & Analytics">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-6 text-slate-800 antialiased font-sans">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-6 text-slate-800 antialiased ">
         
         {/* HEADER SECTION */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">

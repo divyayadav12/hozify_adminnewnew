@@ -56,7 +56,7 @@ export default function PaymentMgmtPage() {
 
   return (
     <AdminShell activeTab="Payments" headerTitle="Financial Ledger">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -159,11 +159,11 @@ export default function PaymentMgmtPage() {
               {filteredPayments.length > 0 ? (
                 filteredPayments.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.date}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700' }}>{row.user}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600', color: 'var(--muted)' }}>{row.method}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>${row.amount.toFixed(2)}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>${row.amount.toFixed(2)}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <span style={{
                         padding: '4px 8px',
@@ -194,7 +194,7 @@ export default function PaymentMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No transaction records found matching filters.</td>
+                  <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No transaction records found matching filters.</td>
                 </tr>
               )}
             </tbody>

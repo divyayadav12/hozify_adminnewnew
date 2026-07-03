@@ -22,7 +22,7 @@ export default function ComparisonHub() {
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', fontFamily: 'Inter, sans-serif' }}>
       
       {/* Header Row */}
       <div style={{
@@ -165,7 +165,7 @@ export default function ComparisonHub() {
                     top: '-32px',
                     left: '0',
                     background: '#e0e7ff',
-                    color: '#25108f',
+                    color: 'var(--primary)',
                     fontSize: '8px',
                     fontWeight: '900',
                     padding: '2px 6px',
@@ -249,7 +249,7 @@ export default function ComparisonHub() {
                 Pricing Model
               </td>
               <td style={{ padding: '20px', borderLeft: '1px solid #f1f5f9' }}>
-                <strong style={{ display: 'block', fontSize: '13px', color: '#25108f' }}>Square Footage</strong>
+                <strong style={{ display: 'block', fontSize: '13px', color: 'var(--primary)' }}>Square Footage</strong>
                 <span style={{ fontSize: '11px', color: 'var(--muted)' }}>starting at $0.45/sqft</span>
               </td>
               <td style={{ padding: '20px', borderLeft: '1px solid #f1f5f9' }}>
@@ -269,7 +269,7 @@ export default function ComparisonHub() {
               </td>
               <td style={{ padding: '20px', borderLeft: '1px solid #f1f5f9' }}>
                 <strong style={{ fontSize: '20px', color: 'var(--text)', fontWeight: '800', display: 'block' }}>1,248</strong>
-                <div style={{ width: '85%', height: '5px', background: '#25108f', borderRadius: '3px', marginTop: '8px' }}></div>
+                <div style={{ width: '85%', height: '5px', background: 'var(--primary)', borderRadius: '3px', marginTop: '8px' }}></div>
               </td>
               <td style={{ padding: '20px', borderLeft: '1px solid #f1f5f9' }}>
                 <strong style={{ fontSize: '20px', color: 'var(--text)', fontWeight: '800', display: 'block' }}>412</strong>
@@ -340,7 +340,7 @@ export default function ComparisonHub() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1.6fr 1fr',
-        gap: '24px',
+        gap: 'var(--spacing-section)',
         alignItems: 'stretch'
       }}>
         
@@ -360,7 +360,7 @@ export default function ComparisonHub() {
             marginBottom: '16px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <FileText size={16} style={{ color: '#25108f' }} />
+              <FileText size={16} style={{ color: 'var(--primary)' }} />
               <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
                 Executive Summary & Recommendations
               </h2>
@@ -417,7 +417,7 @@ export default function ComparisonHub() {
         <div style={{
           background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
           borderRadius: '12px',
-          padding: '24px',
+          padding: 'var(--spacing-section)',
           color: 'white',
           display: 'flex',
           flexDirection: 'column',

@@ -51,7 +51,7 @@ export default function ChangePasswordPage() {
 
   return (
     <AdminShell activeTab="Settings" headerTitle="Change Security Password">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '600px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '600px', margin: '0 auto' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -65,7 +65,7 @@ export default function ChangePasswordPage() {
         </div>
 
         {/* Editor */}
-        <form onSubmit={handleSave} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleSave} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Lock size={16} /> Update Password Credentials
           </h3>

@@ -110,7 +110,7 @@ export default function NewMaterialRequest() {
       customProfileRole="Procurement Lead"
       customProfileAvatar="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Page Header */}
         <div>
@@ -124,7 +124,7 @@ export default function NewMaterialRequest() {
 
         {/* Stepper Card */}
         <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px 24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', flexWrap: 'wrap', gap: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', flexWrap: 'wrap', gap: 'var(--spacing-section)' }}>
             
             {[1, 2, 3, 4].map((step, index) => {
               const labels = ['Booking Info', 'Materials', 'Budgeting', 'Review'];
@@ -149,7 +149,7 @@ export default function NewMaterialRequest() {
         {currentStep === 1 && (
           <>
             {/* Select Associated Booking Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
             Select Associated Booking
           </h2>
@@ -280,10 +280,10 @@ export default function NewMaterialRequest() {
         </div>
 
         {/* Project Timeline & Priority Level Card Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* Project Timeline Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               PROJECT TIMELINE
             </span>
@@ -323,7 +323,7 @@ export default function NewMaterialRequest() {
             color: '#ffffff', 
             border: 'none', 
             borderRadius: '12px', 
-            padding: '24px', 
+            padding: 'var(--spacing-section)', 
             display: 'flex', 
             flexDirection: 'column', 
             justifyContent: 'space-between', 
@@ -348,7 +348,7 @@ export default function NewMaterialRequest() {
         )}
 
         {currentStep === 2 && (
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Step 2: Material Specifications</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Please specify the required materials, quantities, and supplier details.</p>
             <div style={{ border: '1px dashed var(--line)', padding: '40px', textAlign: 'center', borderRadius: '8px' }}>
@@ -358,7 +358,7 @@ export default function NewMaterialRequest() {
         )}
 
         {currentStep === 3 && (
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Step 3: Budgeting & Approvals</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Allocate budgets and assign respective approvers for this request.</p>
             <div style={{ border: '1px dashed var(--line)', padding: '40px', textAlign: 'center', borderRadius: '8px' }}>
@@ -368,7 +368,7 @@ export default function NewMaterialRequest() {
         )}
 
         {currentStep === 4 && (
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Step 4: Final Review</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Review all details before finalizing and submitting the material request.</p>
             <div style={{ border: '1px dashed var(--line)', padding: '40px', textAlign: 'center', borderRadius: '8px' }}>

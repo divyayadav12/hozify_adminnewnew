@@ -99,7 +99,7 @@ export default function BusinessDocReview() {
       headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
       searchPlaceholder="Search registry..."
     >
-      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '80px' }}>
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '80px' }}>
         
         {/* Task Tag */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: '800', color: '#4f46e5', background: '#e0e7ff', padding: '6px 12px', borderRadius: '20px', alignSelf: 'flex-start', border: '1px solid #c7d2fe' }}>
@@ -146,10 +146,10 @@ export default function BusinessDocReview() {
         </div>
 
         {/* 2-Column main content layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Column 1: Document canvas visual (Left) */}
-          <div className="panel" style={{ background: '#0f172a', padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
+          <div className="panel" style={{ background: '#0f172a', padding: 'var(--spacing-section)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
             
             {/* Scanned Document simulator mock */}
             <div style={{ 
@@ -158,7 +158,7 @@ export default function BusinessDocReview() {
               background: '#fff', 
               border: '1px solid #e2e8f0', 
               borderRadius: '8px', 
-              padding: '32px', 
+              padding: 'var(--spacing-page)', 
               position: 'relative', 
               boxShadow: '0 20px 25px -5px rgba(0,0,0,0.5)',
               transform: `scale(${zoomScale})`,
@@ -186,7 +186,7 @@ export default function BusinessDocReview() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '10px', color: '#334155' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
                   <span style={{ fontWeight: '500', color: '#64748b' }}>Registration Number:</span>
-                  <strong style={{ color: '#0f172a', fontFamily: 'monospace', fontSize: '11px' }}>{gstin}</strong>
+                  <strong style={{ color: '#0f172a', fontFamily: "var(--materio-space)", fontSize: '11px' }}>{gstin}</strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
                   <span style={{ fontWeight: '500', color: '#64748b' }}>Legal Name:</span>
@@ -230,7 +230,7 @@ export default function BusinessDocReview() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Legal details card */}
-            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
               <div style={{ display: 'flex', gap: '16px', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '16px' }}>
                 <div style={{ height: '44px', width: '44px', borderRadius: '10px', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3b82f6', flexShrink: 0 }}>
                   <Building size={22} />
@@ -245,7 +245,7 @@ export default function BusinessDocReview() {
                 <div>
                   <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', color: '#94a3b8' }}>GSTIN Number</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
-                    <strong style={{ color: '#0f172a', fontSize: '13px', fontFamily: 'monospace' }}>{gstin}</strong>
+                    <strong style={{ color: '#0f172a', fontSize: '13px', fontFamily: "var(--materio-space)", }}>{gstin}</strong>
                     <button onClick={copyToClipboard} style={{ border: 'none', background: 'transparent', color: '#4f46e5', cursor: 'pointer', display: 'inline-flex', padding: 0 }} title="Copy GSTIN" type="button">
                       <ClipboardCopy size={14} className="hover:text-indigo-900" />
                     </button>
@@ -271,7 +271,7 @@ export default function BusinessDocReview() {
             </div>
 
             {/* AI Verification result */}
-            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <Cpu size={18} style={{ color: '#4f46e5' }} />
@@ -321,7 +321,7 @@ export default function BusinessDocReview() {
             </div>
 
             {/* Activity Feed */}
-            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: '#0f172a', margin: '0 0 16px', letterSpacing: '-0.3px' }}>Document Audit History</h2>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '12px' }}>
@@ -400,7 +400,7 @@ export default function BusinessDocReview() {
         {showRejectModal && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => setShowRejectModal(false)} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                 <div>
                   <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject GST Verification</h3>
@@ -419,7 +419,7 @@ export default function BusinessDocReview() {
                     value={rejectReason}
                     onChange={(e) => setRejectReason(e.target.value)}
                     placeholder="E.g., GST certificate signature is blurry, mismatching taxpayer address, incorrect filing date range..."
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none',  }}
                   />
                 </div>
 

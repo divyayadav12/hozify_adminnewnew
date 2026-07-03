@@ -40,7 +40,7 @@ export default function PartnerReports() {
 
   return (
     <AdminShell activeTab="Reports & Analytics" searchPlaceholder="Search export...." headerTitle="Partner Reports">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', fontFamily: "'Inter', sans-serif" }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', fontFamily: "'Inter', sans-serif" }}>
 
         {/* ── HEADER ── */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
@@ -62,7 +62,7 @@ export default function PartnerReports() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Aggregate Quality Score */}
-          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
             <h2 style={{ margin: '0 0 16px', fontSize: '11px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Aggregate Quality Score</h2>
             
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '24px' }}>
@@ -83,7 +83,7 @@ export default function PartnerReports() {
           </div>
 
           {/* Regional Distribution */}
-          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column' }}>
             <h2 style={{ margin: '0 0 16px', fontSize: '11px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Regional Distribution</h2>
             
             <div style={{ background: '#0f172a', borderRadius: '8px', padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
@@ -146,7 +146,7 @@ export default function PartnerReports() {
         </div>
 
         {/* ── TABLE ── */}
-        <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+        <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
             <h2 style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#0f172a' }}>Partner Registry</h2>

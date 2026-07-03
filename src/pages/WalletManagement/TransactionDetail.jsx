@@ -35,7 +35,7 @@ export default function TransactionDetail() {
       headerTitle="Transaction Details"
       searchPlaceholder="Search ledger..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Header Navigation */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -82,7 +82,7 @@ export default function TransactionDetail() {
                   gap: '8px',
                   border: '1px solid var(--line)',
                   background: '#fff',
-                  color: '#d32929',
+                  color: 'var(--red)',
                   fontSize: '12px',
                   fontWeight: '750',
                   height: '36px',
@@ -123,7 +123,7 @@ export default function TransactionDetail() {
         <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1.2fr', gap: '20px', alignItems: 'start' }}>
           
           {/* Main Transaction Receipt Summary */}
-          <div className="panel" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-page)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>HOZIFY OFFICIAL RECEIPT</span>
@@ -172,7 +172,7 @@ export default function TransactionDetail() {
 
             <div style={{ background: '#f4eff8', borderRadius: '8px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <strong style={{ fontSize: '13px', color: '#25108f', display: 'block' }}>Total Net Impact</strong>
+                <strong style={{ fontSize: '13px', color: 'var(--primary)', display: 'block' }}>Total Net Impact</strong>
                 <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Including gateway transaction splits</span>
               </div>
               <strong style={{ fontSize: '28px', fontWeight: '850', color: isCredit ? '#07956f' : '#d32929' }}>
@@ -181,7 +181,7 @@ export default function TransactionDetail() {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fafafa', padding: '12px', borderRadius: '6px' }}>
-              <ShieldCheck size={18} style={{ color: '#07956f' }} />
+              <ShieldCheck size={18} style={{ color: 'var(--green)' }} />
               <span style={{ fontSize: '12px', color: 'var(--muted)' }}>
                 Cryptographically signed ledger audit hash matching key: <code style={{ fontSize: '11px', fontWeight: 'bold' }}>{`0x${transaction.id.replace('-', '')}e8f99ab2c`}</code>
               </span>
@@ -192,7 +192,7 @@ export default function TransactionDetail() {
           {/* Right audit properties pane */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>System Indicators</h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '12px' }}>
@@ -210,14 +210,14 @@ export default function TransactionDetail() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ color: 'var(--muted)' }}>Settlement Batch ID:</span>
-                  <strong style={{ color: '#25108f', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate(ROUTES.settlements)}>
+                  <strong style={{ color: 'var(--primary)', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate(ROUTES.settlements)}>
                     SET-BATCH-99A
                   </strong>
                 </div>
               </div>
             </div>
 
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Security Auditing</h3>
               <p style={{ fontSize: '12px', color: 'var(--muted)', margin: 0 }}>
                 This record was logged under IP address <code style={{ fontWeight: 'bold' }}>157.44.20.181</code> and signed off automatically by the auto-monitor engine.

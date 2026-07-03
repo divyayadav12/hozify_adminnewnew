@@ -15,6 +15,7 @@ import {
   Check,
   Ban
 } from "lucide-react";
+import StatCard from "../../components/ui/StatCard";
 
 const initialAtRiskPartners = [
   {
@@ -148,7 +149,7 @@ export default function PartnerFraudMonitoring() {
       searchValue={searchQuery}
       onSearchChange={setSearchQuery}
     >
-      <div className="space-y-6 font-sans text-slate-700 p-4" style={{ paddingBottom: "40px" }}>
+      <div className="space-y-6  text-slate-700 p-4" style={{ paddingBottom: "40px" }}>
 
         {/* Hero */}
         <div className="bg-white border border-slate-200 rounded-3xl p-8 text-slate-900 shadow-sm">
@@ -162,31 +163,16 @@ export default function PartnerFraudMonitoring() {
 
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {stats.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.title}
-                onClick={() => toast.success(`Statistic "${item.title}" active telemetry: ${item.value}`)}
-                className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm cursor-pointer hover:border-slate-350 transition-colors"
-              >
-                <div className="flex justify-between">
-                  <div className="h-14 w-14 rounded-2xl bg-slate-100 flex items-center justify-center">
-                    <Icon size={24} className="text-slate-700" />
-                  </div>
-                  <span className="text-green-600 font-medium">
-                    {item.growth}
-                  </span>
-                </div>
-                <p className="mt-5 text-slate-500 text-sm font-medium">
-                  {item.title}
-                </p>
-                <h2 className="mt-2 text-4xl font-semibold text-slate-900">
-                  {item.value}
-                </h2>
-              </div>
-            );
-          })}
+          {stats.map((item) => (
+            <StatCard
+              key={item.title}
+              title={item.title}
+              value={item.value}
+              icon={item.icon}
+              trend={parseInt(item.growth) || 0}
+              onClick={() => toast.success(`Statistic "${item.title}" active telemetry: ${item.value}`)}
+            />
+          ))}
         </div>
 
         {/* Fraud Analytics */}
@@ -480,7 +466,7 @@ export default function PartnerFraudMonitoring() {
                       {partner.name.charAt(0)}
                     </div>
                     <div>
-                      <p className="font-bold text-slate-800">{partner.name} <span className="font-mono text-slate-400 text-[10px] ml-1">{partner.id}</span></p>
+                      <p className="font-bold text-slate-800">{partner.name} <span className=" text-slate-400 text-[10px] ml-1">{partner.id}</span></p>
                       <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Risk Score: {partner.score}% • Last Alert: {partner.alert}</p>
                     </div>
                   </div>

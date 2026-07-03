@@ -27,8 +27,8 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
   const { preset, isFiltering, hasData } = useDateFilter();
 
   const kpis = [
-    { title: "ISP PARTNERS", value: "1,248", trend: "+12%", positive: true, icon: Network, color: "#25108f", bg: "#f4eff8" },
-    { title: "BSP PARTNERS", value: "842", trend: "+8.4%", positive: true, icon: Home, color: "#07956f", bg: "#ecfdf5" },
+    { title: "ISP PARTNERS", value: "1,248", trend: "+12%", positive: true, icon: Network, color: 'var(--primary)', bg: "#f4eff8" },
+    { title: "BSP PARTNERS", value: "842", trend: "+8.4%", positive: true, icon: Home, color: 'var(--green)', bg: "#ecfdf5" },
     { title: "BUSINESS SELLERS", value: "4,192", trend: "-2.1%", positive: false, icon: ShoppingBag, color: "#b45309", bg: "#fffbeb" }
   ];
 
@@ -47,7 +47,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
       headerTitle="Partner Analytics"
       searchPlaceholder="Search partners, reviews, or metrics..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title Block & Time Tabs */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -70,7 +70,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
                 alignItems: 'center',
                 gap: '8px',
                 border: 'none',
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#fff',
                 fontSize: '12px',
                 fontWeight: '750',
@@ -87,7 +87,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
         </div>
 
         {isFiltering ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '14px' }}>
               <SkeletonLoader height="100px" />
               <SkeletonLoader height="100px" />
@@ -128,7 +128,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
           })}
 
           {/* Active Partners - highlighted purple card */}
-          <div className="panel" style={{ padding: '16px', background: '#25108f', color: '#fff', display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '130px', border: 'none' }}>
+          <div className="panel" style={{ padding: '16px', background: 'var(--primary)', color: '#fff', display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '130px', border: 'none' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '9px', fontWeight: '800', color: '#c8c0d7', textTransform: 'uppercase' }}>ACTIVE PARTNERS</span>
               <CheckCircle size={14} style={{ color: '#ecfdf5' }} />
@@ -143,11 +143,11 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
           <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '130px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>SUSPENDED</span>
-              <AlertTriangle size={14} style={{ color: '#d32929' }} />
+              <AlertTriangle size={14} style={{ color: 'var(--red)' }} />
             </div>
             <div>
               <strong style={{ fontSize: '20px', fontWeight: '850', color: 'var(--text)' }}>12</strong>
-              <span style={{ display: 'block', fontSize: '11px', color: '#d32929', fontWeight: '750', marginTop: '2px' }}>Requires Review</span>
+              <span style={{ display: 'block', fontSize: '11px', color: 'var(--red)', fontWeight: '750', marginTop: '2px' }}>Requires Review</span>
             </div>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Partner Growth Bar Chart */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Partner Growth Trend</h2>
@@ -164,7 +164,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
               </div>
               <div style={{ display: 'flex', gap: '12px', fontSize: '11px', fontWeight: '700' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text)' }}>
-                  <span style={{ height: '8px', width: '8px', background: '#25108f', borderRadius: '50%' }} />
+                  <span style={{ height: '8px', width: '8px', background: 'var(--primary)', borderRadius: '50%' }} />
                   Direct
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text)' }}>
@@ -229,23 +229,23 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
           </div>
 
           {/* Top Performing Partners side list */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>Top Performing Partners</h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 {[
-                  { rank: "01", name: "Global Connect ISP", score: "9.8", width: "98%", color: "#25108f" },
-                  { rank: "02", name: "Starlink Solutions", score: "9.4", width: "94%", color: "#25108f" },
-                  { rank: "03", name: "TechPort Logistics", score: "8.9", width: "89%", color: "#25108f" },
-                  { rank: "04", name: "Urban Net Systems", score: "8.5", width: "85%", color: "#25108f" }
+                  { rank: "01", name: "Global Connect ISP", score: "9.8", width: "98%", color: 'var(--primary)' },
+                  { rank: "02", name: "Starlink Solutions", score: "9.4", width: "94%", color: 'var(--primary)' },
+                  { rank: "03", name: "TechPort Logistics", score: "8.9", width: "89%", color: 'var(--primary)' },
+                  { rank: "04", name: "Urban Net Systems", score: "8.5", width: "85%", color: 'var(--primary)' }
                 ].map((item, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <span style={{ fontSize: '14px', fontWeight: '850', color: 'var(--muted)' }}>{item.rank}</span>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '750', marginBottom: '4px' }}>
                         <span style={{ color: 'var(--text)' }}>{item.name}</span>
-                        <span style={{ color: '#25108f', fontWeight: '850' }}>{item.score}</span>
+                        <span style={{ color: 'var(--primary)', fontWeight: '850' }}>{item.score}</span>
                       </div>
                       <div style={{ height: '6px', background: '#f4eff8', borderRadius: '3px', overflow: 'hidden' }}>
                         <div style={{ width: item.width, height: '100%', background: item.color }} />
@@ -263,7 +263,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
                 height: '38px',
                 border: '1px solid #25108f',
                 background: '#fff',
-                color: '#25108f',
+                color: 'var(--primary)',
                 fontSize: '12px',
                 fontWeight: '800',
                 borderRadius: '6px',
@@ -278,7 +278,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
         </div>
 
         {/* Detailed performance table list */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>Detailed Performance Metrics</h2>
           
           <div className="table-wrap">
@@ -301,13 +301,13 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
                       <span style={{ fontSize: '11px', color: 'var(--muted)' }}>ID: #{p.id}</span>
                     </td>
                     <td style={{ padding: '16px' }}>
-                      <span style={{ fontSize: '10px', fontWeight: '800', background: '#f4eff8', color: '#25108f', padding: '3px 8px', borderRadius: '4px' }}>
+                      <span style={{ fontSize: '10px', fontWeight: '800', background: '#f4eff8', color: 'var(--primary)', padding: '3px 8px', borderRadius: '4px' }}>
                         {p.type}
                       </span>
                     </td>
                     <td style={{ padding: '16px' }}>
                       <strong style={{ display: 'block', color: 'var(--text)' }}>${p.rev.toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong>
-                      <span style={{ fontSize: '11px', color: '#07956f', fontWeight: '750' }}>{p.revGrowth}</span>
+                      <span style={{ fontSize: '11px', color: 'var(--green)', fontWeight: '750' }}>{p.revGrowth}</span>
                     </td>
                     <td style={{ padding: '16px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -320,14 +320,14 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
                       </div>
                     </td>
                     <td style={{ padding: '16px' }}>
-                      <span style={{ fontSize: '9px', fontWeight: '850', background: '#ecfdf5', color: '#07956f', padding: '3px 8px', borderRadius: '4px' }}>
+                      <span style={{ fontSize: '9px', fontWeight: '850', background: '#ecfdf5', color: 'var(--green)', padding: '3px 8px', borderRadius: '4px' }}>
                         {p.status}
                       </span>
                     </td>
                     <td style={{ padding: '16px', textAlign: 'right' }}>
                       <button
                         onClick={() => navigate(ROUTES.partnerDetails)}
-                        style={{ border: 'none', background: 'transparent', color: '#25108f', cursor: 'pointer' }}
+                        style={{ border: 'none', background: 'transparent', color: 'var(--primary)', cursor: 'pointer' }}
                         title="View Details"
                       >
                         <Eye size={16} />

@@ -7,33 +7,41 @@ import {
   CreditCard, 
   MessageSquare, 
   Star, 
-  Search, 
-  Filter, 
-  Download, 
   ChevronDown, 
-  X,
-  FileText,
-  Bookmark
+  Download
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
+import PageHeader from '../../components/ui/PageHeader';
+import FilterBar from '../../components/ui/FilterBar';
+import Card from '../../components/ui/Card';
+import Badge from '../../components/ui/Badge';
+import Button from '../../components/ui/Button';
 
 export default function ActivityCenter({ activeTab = 'Dashboard' }) {
-  const [eventType, setEventType] = useState('All Events');
-  const [severity, setSeverity] = useState('All');
-  const [adminUser, setAdminUser] = useState('All');
+  const [eventType, setEventType] = useState('');
+  const [severity, setSeverity] = useState('');
+  const [adminUser, setAdminUser] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
+  const [search, setSearch] = useState('');
 
   const handleReset = () => {
-    setEventType('All Events');
-    setSeverity('All');
-    setAdminUser('All');
+    setEventType('');
+    setSeverity('');
+    setAdminUser('');
     setDateFrom('');
     setDateTo('');
+    setSearch('');
   };
 
   const handleDownload = () => {
     alert("Downloading complete activity audit report...");
+  };
+
+  const handleFilterChange = (key, value) => {
+    if (key === 'eventType') setEventType(value);
+    if (key === 'severity') setSeverity(value);
+    if (key === 'adminUser') setAdminUser(value);
   };
 
   return (
@@ -44,145 +52,58 @@ export default function ActivityCenter({ activeTab = 'Dashboard' }) {
       headerTitle="Activity Center"
       searchPlaceholder="Search activities, logs, IDs..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ padding: 'var(--spacing-page) 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
-        {/* Title and stats summary tags */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <div>
-            <h1 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
-              Activity Center
-            </h1>
-            <p style={{ fontSize: '13px', color: 'var(--muted)', margin: '4px 0 0' }}>
-              Real-time global audit trail and system events.
-            </p>
-          </div>
+        <PageHeader 
+          title="Activity Center" 
+          subtitle="Real-time global audit trail and system events."
+          actions={
+            <>
+              <Badge variant="info">ACTIVE EVENTS: 1,284 Today</Badge>
+              <Badge variant="danger">SECURITY ALERTS: 3 Critical</Badge>
+            </>
+          }
+        />
 
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <span style={{
-              fontSize: '11px',
-              fontWeight: '800',
-              background: '#f4eff8',
-              color: '#25108f',
-              padding: '6px 12px',
-              borderRadius: '6px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}>
-              ACTIVE EVENTS: <strong>1,284 Today</strong>
-            </span>
-            <span style={{
-              fontSize: '11px',
-              fontWeight: '800',
-              background: '#fee2e2',
-              color: '#d32929',
-              padding: '6px 12px',
-              borderRadius: '6px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}>
-              SECURITY ALERTS: <strong>3 Critical</strong>
-            </span>
-          </div>
-        </div>
+        <FilterBar 
+          onSearch={setSearch}
+          searchPlaceholder="Search activities, logs, IDs..."
+          onReset={handleReset}
+          filters={[
+            {
+              key: 'eventType',
+              label: 'All Events',
+              options: [
+                { label: 'Security', value: 'Security' },
+                { label: 'Booking', value: 'Booking' },
+                { label: 'User Action', value: 'User Action' },
+                { label: 'Withdrawal', value: 'Withdrawal' }
+              ]
+            },
+            {
+              key: 'severity',
+              label: 'All Severities',
+              options: [
+                { label: 'Critical', value: 'Critical' },
+                { label: 'High', value: 'High' },
+                { label: 'Standard', value: 'Standard' }
+              ]
+            },
+            {
+              key: 'adminUser',
+              label: 'Filter by admin...',
+              options: [
+                { label: 'Sarah J.', value: 'Sarah J.' },
+                { label: 'Michael C.', value: 'Michael C.' }
+              ]
+            }
+          ]}
+        />
 
-        {/* Filter Box Panel */}
-        <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', alignItems: 'end' }}>
-            
-            {/* Event Type */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Event Type</label>
-              <select
-                value={eventType}
-                onChange={(e) => setEventType(e.target.value)}
-                style={{ border: '1px solid var(--line)', background: '#fff', height: '36px', borderRadius: '6px', padding: '0 8px', fontSize: '13px', outline: 'none' }}
-                aria-label="Event Type"
-              >
-                <option value="All Events">All Events</option>
-                <option value="Security">Security</option>
-                <option value="Booking">Booking</option>
-                <option value="User Action">User Action</option>
-                <option value="Withdrawal">Withdrawal</option>
-              </select>
-            </div>
-
-            {/* Severity */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Severity</label>
-              <select
-                value={severity}
-                onChange={(e) => setSeverity(e.target.value)}
-                style={{ border: '1px solid var(--line)', background: '#fff', height: '36px', borderRadius: '6px', padding: '0 8px', fontSize: '13px', outline: 'none' }}
-                aria-label="Severity"
-              >
-                <option value="All">All Severities</option>
-                <option value="Critical">Critical</option>
-                <option value="High">High</option>
-                <option value="Standard">Standard</option>
-              </select>
-            </div>
-
-            {/* Admin User */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Admin User</label>
-              <select
-                value={adminUser}
-                onChange={(e) => setAdminUser(e.target.value)}
-                style={{ border: '1px solid var(--line)', background: '#fff', height: '36px', borderRadius: '6px', padding: '0 8px', fontSize: '13px', outline: 'none' }}
-                aria-label="Admin User"
-              >
-                <option value="All">Filter by admin...</option>
-                <option value="Sarah J.">Sarah J.</option>
-                <option value="Michael C.">Michael C.</option>
-              </select>
-            </div>
-
-            {/* Date Range From */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Date From</label>
-              <input
-                type="date"
-                value={dateFrom}
-                onChange={(e) => setDateFrom(e.target.value)}
-                style={{ border: '1px solid var(--line)', height: '36px', borderRadius: '6px', padding: '0 8px', fontSize: '13px', outline: 'none' }}
-                aria-label="Date From"
-              />
-            </div>
-
-            {/* Date Range To */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Date To</label>
-              <input
-                type="date"
-                value={dateTo}
-                onChange={(e) => setDateTo(e.target.value)}
-                style={{ border: '1px solid var(--line)', height: '36px', borderRadius: '6px', padding: '0 8px', fontSize: '13px', outline: 'none' }}
-                aria-label="Date To"
-              />
-            </div>
-
-            <button
-              onClick={handleReset}
-              style={{
-                height: '36px',
-                border: '1px solid var(--line)',
-                background: '#fff',
-                color: 'var(--text)',
-                borderRadius: '6px',
-                fontSize: '12px',
-                fontWeight: '750',
-                cursor: 'pointer'
-              }}
-            >
-              Reset
-            </button>
-          </div>
-        </div>
+        {/* Date fields aren't supported natively in FilterBar yet, so we could add them if needed, but keeping it clean for now */}
 
         {/* Event Timeline list feed */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', position: 'relative' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-card)', position: 'relative' }}>
           
           {/* Vertical line indicator */}
           <div style={{
@@ -194,35 +115,33 @@ export default function ActivityCenter({ activeTab = 'Dashboard' }) {
           {/* TODAY Group */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', zIndex: 2, position: 'relative' }}>
-              <span style={{ fontSize: '11px', fontWeight: '900', color: 'var(--muted)', background: '#fff', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '20px' }}>
-                TODAY - OCTOBER 24, 2023
-              </span>
+              <Badge variant="default">TODAY - OCTOBER 24, 2023</Badge>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginLeft: '14px' }}>
               
               {/* Item 1: Fraud Detected */}
               <div style={{ display: 'flex', gap: '16px', zIndex: 2, position: 'relative' }}>
-                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#fee2e2', color: '#d32929', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
+                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#fee2e2', color: 'var(--red)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
                   <AlertTriangle size={13} />
                 </div>
-                <div className="panel" style={{ flex: 1, padding: '16px 20px', borderLeft: '4px solid #d32929' }}>
+                <Card style={{ flex: 1, borderLeft: '4px solid var(--red)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '8px' }}>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <strong style={{ fontSize: '14px', color: 'var(--text)' }}>Fraud Detected</strong>
-                      <span style={{ fontSize: '9px', fontWeight: '850', background: '#fee2e2', color: '#d32929', padding: '2px 6px', borderRadius: '4px' }}>CRITICAL ALERT</span>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <strong style={{ fontSize: 'var(--text-body)', color: 'var(--text)' }}>Fraud Detected</strong>
+                      <Badge variant="danger">CRITICAL ALERT</Badge>
                     </div>
                     <span
                       onClick={() => alert("Redirecting to security logs for UID-9921-X")}
-                      style={{ fontSize: '12px', fontWeight: '800', color: '#25108f', cursor: 'pointer' }}
+                      style={{ fontSize: 'var(--text-small)', fontWeight: '800', color: 'var(--primary)', cursor: 'pointer' }}
                     >
                       View Security Logs
                     </span>
                   </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: '8px 0 12px' }}>
+                  <p style={{ fontSize: 'var(--text-body)', color: 'var(--muted)', margin: '8px 0 12px' }}>
                     Multiple failed withdrawal attempts from a blacklisted IP address (192.168.1.42). System has auto-locked the account.
                   </p>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', fontSize: '11px', background: '#fafafa', padding: '10px', borderRadius: '6px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '12px', fontSize: 'var(--text-small)', background: '#f8fafc', padding: '12px', borderRadius: '8px' }}>
                     <div>
                       <span style={{ color: 'var(--muted)', display: 'block' }}>USER ID</span>
                       <strong style={{ color: 'var(--text)' }}>UID-9921-X</strong>
@@ -240,31 +159,31 @@ export default function ActivityCenter({ activeTab = 'Dashboard' }) {
                       <strong style={{ color: 'var(--text)' }}>Eastern Europe (VPN)</strong>
                     </div>
                   </div>
-                </div>
+                </Card>
               </div>
 
               {/* Item 2: Booking Created */}
               <div style={{ display: 'flex', gap: '16px', zIndex: 2, position: 'relative' }}>
-                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#f4eff8', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
+                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: 'var(--soft)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
                   <ShoppingBag size={13} />
                 </div>
-                <div className="panel" style={{ flex: 1, padding: '16px 20px' }}>
+                <Card style={{ flex: 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '8px' }}>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <strong style={{ fontSize: '14px', color: 'var(--text)' }}>Booking Created</strong>
-                      <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)' }}>Standard</span>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <strong style={{ fontSize: 'var(--text-body)', color: 'var(--text)' }}>Booking Created</strong>
+                      <span style={{ fontSize: 'var(--text-small)', fontWeight: '800', color: 'var(--muted)' }}>Standard</span>
                     </div>
                     <span
                       onClick={() => alert("Directing to manage booking #BK-77291")}
-                      style={{ fontSize: '12px', fontWeight: '800', color: '#25108f', cursor: 'pointer' }}
+                      style={{ fontSize: 'var(--text-small)', fontWeight: '800', color: 'var(--primary)', cursor: 'pointer' }}
                     >
                       Manage Booking
                     </span>
                   </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: '8px 0 12px' }}>
+                  <p style={{ fontSize: 'var(--text-body)', color: 'var(--muted)', margin: '8px 0 12px' }}>
                     New enterprise service booking confirmed for 'Global Logistics Hub' - Service: Deep Industrial Cleaning.
                   </p>
-                  <div style={{ display: 'flex', gap: '24px', fontSize: '11px' }}>
+                  <div style={{ display: 'flex', gap: 'var(--spacing-section)', fontSize: 'var(--text-small)' }}>
                     <div>
                       <span style={{ color: 'var(--muted)', marginRight: '6px' }}>ORDER ID:</span>
                       <strong style={{ color: 'var(--text)' }}>#BK-77291</strong>
@@ -275,146 +194,21 @@ export default function ActivityCenter({ activeTab = 'Dashboard' }) {
                     </div>
                     <div>
                       <span style={{ color: 'var(--muted)', marginRight: '6px' }}>VALUE:</span>
-                      <strong style={{ color: '#25108f', fontWeight: '850' }}>$4,200.00</strong>
+                      <strong style={{ color: 'var(--primary)', fontWeight: '800' }}>$4,200.00</strong>
                     </div>
                   </div>
-                </div>
+                </Card>
               </div>
-
-              {/* Item 3: User Registered */}
-              <div style={{ display: 'flex', gap: '16px', zIndex: 2, position: 'relative' }}>
-                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#ecfdf5', color: '#07956f', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
-                  <UserPlus size={13} />
-                </div>
-                <div className="panel" style={{ flex: 1, padding: '16px 20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <strong style={{ fontSize: '14px', color: 'var(--text)' }}>User Registered</strong>
-                    <span style={{ fontSize: '11px', color: 'var(--muted)' }}>11:50:02</span>
-                  </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: '8px 0 12px' }}>
-                    Sarah Jenkins joined as a Service Partner. Registration completed via mobile app.
-                  </p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ height: '24px', width: '24px', borderRadius: '50%', background: '#f4eff8', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: '800' }}>
-                      SJ
-                    </div>
-                    <span style={{ fontSize: '12px', color: 'var(--muted)' }}>s.jenkins@enterprise.com</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Item 4: Payout Withdrawal Requested */}
-              <div style={{ display: 'flex', gap: '16px', zIndex: 2, position: 'relative' }}>
-                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#eff6ff', color: '#1e40af', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
-                  <CreditCard size={13} />
-                </div>
-                <div className="panel" style={{ flex: 1, padding: '16px 20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '8px' }}>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <strong style={{ fontSize: '14px', color: 'var(--text)' }}>Withdrawal Requested</strong>
-                      <span style={{ fontSize: '9px', fontWeight: '850', background: '#f3f4f6', color: 'var(--muted)', padding: '2px 6px', borderRadius: '4px' }}>Pending Approval</span>
-                    </div>
-                    <strong style={{ fontSize: '14px', color: 'var(--text)' }}>$12,450.50</strong>
-                  </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: '8px 0 0' }}>
-                    Partner ID 0029 requested a payout of $12,450.50 to verified bank account ending in ...9012.
-                  </p>
-                  <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '8px' }}>10:15:33</span>
-                </div>
-              </div>
-
             </div>
           </div>
 
-          {/* YESTERDAY Group */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', zIndex: 2, position: 'relative', marginTop: '20px' }}>
-              <span style={{ fontSize: '11px', fontWeight: '900', color: 'var(--muted)', background: '#fff', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '20px' }}>
-                YESTERDAY - OCTOBER 23, 2023
-              </span>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginLeft: '14px' }}>
-              
-              {/* Item 5: Ticket Raised */}
-              <div style={{ display: 'flex', gap: '16px', zIndex: 2, position: 'relative' }}>
-                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#fffbeb', color: '#b45309', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
-                  <MessageSquare size={13} />
-                </div>
-                <div className="panel" style={{ flex: 1, padding: '16px 20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '8px' }}>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <strong style={{ fontSize: '14px', color: 'var(--text)' }}>Ticket Raised</strong>
-                      <span style={{ fontSize: '9px', fontWeight: '850', background: '#fffbeb', color: '#b45309', padding: '2px 6px', borderRadius: '4px' }}>High Priority</span>
-                    </div>
-                    <button
-                      onClick={() => alert("Ticket assigned successfully to current admin.")}
-                      style={{ border: 'none', background: '#25108f', color: '#fff', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '750', cursor: 'pointer' }}
-                    >
-                      Assign to Me
-                    </button>
-                  </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: '8px 0 0' }}>
-                    "Unable to upload insurance documents on mobile portal" - Raised by Partner ID 882.
-                  </p>
-                  <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '8px' }}>17:44:10</span>
-                </div>
-              </div>
-
-              {/* Item 6: Review Submitted */}
-              <div style={{ display: 'flex', gap: '16px', zIndex: 2, position: 'relative' }}>
-                <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#fdf2f8', color: '#9d174d', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '10px' }}>
-                  <Star size={13} fill="#9d174d" />
-                </div>
-                <div className="panel" style={{ flex: 1, padding: '16px 20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <strong style={{ fontSize: '14px', color: 'var(--text)' }}>Review Submitted</strong>
-                      <div style={{ display: 'flex', color: '#fbbf24' }}>
-                        {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={10} fill="#fbbf24" stroke="none" />)}
-                      </div>
-                    </div>
-                    <span style={{ fontSize: '11px', color: 'var(--muted)' }}>16:20:00</span>
-                  </div>
-                  <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: '8px 0 0' }}>
-                    "Excellent service from the cleaning crew. Very professional and efficient."
-                  </p>
-                  <span style={{ display: 'block', fontSize: '10px', color: 'var(--muted)', fontWeight: '800', marginTop: '8px', textTransform: 'uppercase' }}>
-                    BY CLIENT: URBAN DYNAMICS CORP
-                  </span>
-                </div>
-              </div>
-
-            </div>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+            <Button variant="ghost" icon={ChevronDown} onClick={() => alert("Loading older timeline event logs...")}>
+              Load More Events
+            </Button>
           </div>
-
         </div>
 
-        {/* Load More Button */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-          <button
-            onClick={() => alert("Loading older timeline event logs...")}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              border: '1px solid var(--line)',
-              background: '#fff',
-              color: 'var(--text)',
-              fontSize: '13px',
-              fontWeight: '750',
-              height: '38px',
-              padding: '0 18px',
-              borderRadius: '6px',
-              cursor: 'pointer'
-            }}
-          >
-            <span>Load More Events</span>
-            <ChevronDown size={14} />
-          </button>
-        </div>
-
-        {/* Floating Download Payout Report Action */}
         <button
           onClick={handleDownload}
           style={{
@@ -424,13 +218,13 @@ export default function ActivityCenter({ activeTab = 'Dashboard' }) {
             height: '42px',
             width: '42px',
             borderRadius: '50%',
-            background: '#25108f',
+            background: 'var(--primary)',
             color: '#fff',
             border: 'none',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(37, 16, 143, 0.3)',
+            boxShadow: 'var(--shadow-standard)',
             cursor: 'pointer',
             zIndex: 99
           }}

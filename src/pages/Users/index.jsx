@@ -22,6 +22,7 @@ import { usersMockData } from './usersMockData';
 import { useToast } from '../../components/common/ToastNotification';
 
 import UserEditModal from './UserEditModal';
+import UserSubTabs from "../../components/users/UserSubTabs";
 
 const statusOptions = ['All', 'Active', 'Suspended', 'Blocked', 'Deleted'];
 
@@ -37,7 +38,7 @@ function getRating(userId) {
 function EmptyState() {
   return (
     <tr>
-      <td colSpan="8" style={{ padding: '32px', textAlign: 'center', color: 'var(--materio-text-muted)' }}>
+      <td colSpan="8" style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--materio-text-muted)' }}>
         No customers found matching the selected filters.
       </td>
     </tr>
@@ -139,6 +140,9 @@ export default function Users() {
             User & Partner Admin / User Management / <span style={{ color: 'var(--materio-primary)' }}>User Listing</span>
           </div>
         </div>
+
+        {/* PROFILE SUB-TABS */}
+        <UserSubTabs />
 
         {/* KPI Cards */}
         <div className="materio-kpi-grid">

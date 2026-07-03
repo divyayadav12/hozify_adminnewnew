@@ -20,7 +20,7 @@ function CampaignRow({ name, id, targeting, reach, ctr, change, expiry, urgent, 
           </div>
           <div>
             <p className="font-semibold text-slate-900">{name}</p>
-            <p className="text-[10px] text-slate-400 font-mono">ID: {id}</p>
+            <p className="text-[10px] text-slate-400 ">ID: {id}</p>
           </div>
         </div>
       </td>
@@ -175,7 +175,7 @@ export default function OfferBannersPage() {
 
   return (
     <AdminShell activeTab="Banners" searchPlaceholder="Search campaigns or users...">
-      <div className="p-8 bg-black-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto font-sans antialiased relative">
+      <div className="p-8 bg-black-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto  antialiased relative">
         
         {/* HEADER TOP NAV-BAR */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-2">
@@ -255,7 +255,7 @@ export default function OfferBannersPage() {
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden p-6 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="h-32 rounded-xl bg-slate-100 border border-dashed border-slate-200 flex items-center justify-center">
-                <BadgTag text="Desktop Only" styles="bg-slate-700 text-white font-mono" />
+                <BadgTag text="Desktop Only" styles="bg-slate-700 text-white " />
               </div>
               <div className="space-y-1.5">
                 <h3 className="text-sm font-bold text-slate-900">Newsletter Opt-in Promo</h3>

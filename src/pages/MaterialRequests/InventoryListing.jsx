@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   SlidersHorizontal,
   Download,
@@ -14,22 +14,95 @@ import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 
+const initialInventoryData = [
+  {
+    id: 'MAT-7721',
+    name: 'Structural Steel I-Beam',
+    desc: 'Grade A36, 10-meter',
+    category: 'Raw Structural',
+    avail: 142,
+    availColor: '#1c2536',
+    reserved: 28,
+    status: 'VERIFIED',
+    statusFilter: 'In Stock',
+    statusBg: '#ecfdf5',
+    statusColor: '#059669',
+    hasAlert: false,
+    img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=100&h=100&q=80'
+  },
+  {
+    id: 'MAT-8902',
+    name: 'Copper Bus Bar',
+    desc: '200A Rated High Cond.',
+    category: 'Electrical Systems',
+    avail: 12,
+    availColor: '#dc2626',
+    reserved: 0,
+    status: 'LOW STOCK',
+    statusFilter: 'Low',
+    statusBg: '#fffbeb',
+    statusColor: '#d97706',
+    hasAlert: true,
+    img: 'https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=100&h=100&q=80'
+  },
+  {
+    id: 'MAT-1022',
+    name: 'Brushed Brass Handle',
+    desc: 'Signature Series - 120mm',
+    category: 'Finishing Hardware',
+    avail: 450,
+    availColor: '#1c2536',
+    reserved: 120,
+    status: 'VERIFIED',
+    statusFilter: 'In Stock',
+    statusBg: '#ecfdf5',
+    statusColor: '#059669',
+    hasAlert: false,
+    img: 'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=100&h=100&q=80'
+  },
+  {
+    id: 'MAT-4451',
+    name: 'HEPA Filter Unit',
+    desc: 'Grade H13 - Multi-Stage',
+    category: 'HVAC Components',
+    avail: 85,
+    availColor: '#1c2536',
+    reserved: 15,
+    status: 'PENDING Q.A.',
+    statusFilter: 'In Stock',
+    statusBg: '#f1f5f9',
+    statusColor: '#475569',
+    hasAlert: false,
+    img: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=100&h=100&q=80'
+  }
+];
+
 export default function InventoryListing() {
   const { navigate } = useApp();
   const [selectedCategory, setSelectedCategory] = useState('All Materials');
   const [selectedStatus, setSelectedStatus] = useState('All');
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const handleCreateRequest = () => {
     navigate(ROUTES.materialCreate);
   };
 
   const handleAdvanced = () => {
-    alert('Advanced search panel toggle...');
+    setShowAdvanced(!showAdvanced);
   };
 
   const handleExportCSV = () => {
-    alert('Exporting full registry to CSV...');
+    // Empty action for now instead of alert
+    console.log('Exporting CSV...');
   };
+
+  const filteredData = useMemo(() => {
+    return initialInventoryData.filter(item => {
+      const matchCategory = selectedCategory === 'All Materials' || item.category === selectedCategory;
+      const matchStatus = selectedStatus === 'All' || item.statusFilter === selectedStatus;
+      return matchCategory && matchStatus;
+    });
+  }, [selectedCategory, selectedStatus]);
 
   return (
     <AdminShell
@@ -40,7 +113,7 @@ export default function InventoryListing() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Title and Stats Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -60,32 +133,32 @@ export default function InventoryListing() {
             borderRadius: '8px', 
             padding: '12px 20px', 
             display: 'flex', 
-            gap: '24px',
+            gap: 'var(--spacing-section)',
             alignItems: 'center',
             boxShadow: '0 1px 3px rgba(0,0,0,0.02)'
           }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Total SKUs</span>
-              <strong style={{ display: 'block', fontSize: '18px', color: '#1c2536', fontWeight: '800', marginTop: '4px' }}>1,284</strong>
+              <strong style={{ display: 'block', fontSize: '18px', color: '#1c2536', fontWeight: '800', marginTop: '4px' }}>{filteredData.length}</strong>
             </div>
             <div style={{ width: '1px', background: '#e2e8f0', height: '30px' }} />
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#dc2626', textTransform: 'uppercase' }}>Low Stock</span>
-              <strong style={{ display: 'block', fontSize: '18px', color: '#dc2626', fontWeight: '800', marginTop: '4px' }}>12 Alerts</strong>
+              <strong style={{ display: 'block', fontSize: '18px', color: '#dc2626', fontWeight: '800', marginTop: '4px' }}>{filteredData.filter(item => item.statusFilter === 'Low').length} Alerts</strong>
             </div>
           </div>
         </div>
 
         {/* Filter Toolbar Panel & Inventory Health */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Filter Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
-            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               {/* Category Dropdown */}
-              <div style={{ flex: '1 1 200px' }}>
-                <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', marginBottom: '8px' }}>
+              <div style={{ flex: '0 0 auto' }}>
+                <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', marginBottom: '6px' }}>
                   Category
                 </label>
                 <div style={{ position: 'relative' }}>
@@ -93,18 +166,18 @@ export default function InventoryListing() {
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     style={{
-                      width: '100%',
-                      height: '38px',
                       background: '#ffffff',
+                      color: '#565365',
                       border: '1px solid #cbd5e1',
                       borderRadius: '6px',
-                      padding: '0 32px 0 12px',
-                      fontSize: '13px',
-                      color: '#1c2536',
+                      padding: '6px 32px 6px 12px',
+                      fontSize: '12px',
                       fontWeight: '700',
                       appearance: 'none',
                       outline: 'none',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center'
                     }}
                     aria-label="Filter by category"
                   >
@@ -114,16 +187,16 @@ export default function InventoryListing() {
                     <option value="Finishing Hardware">Finishing Hardware</option>
                     <option value="HVAC Components">HVAC Components</option>
                   </select>
-                  <ChevronDown size={14} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
+                  <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
                 </div>
               </div>
 
               {/* Stock Status Segments */}
-              <div style={{ flex: '1 1 200px' }}>
-                <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', marginBottom: '8px' }}>
+              <div style={{ flex: '1 1 180px' }}>
+                <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', marginBottom: '6px' }}>
                   Stock Status
                 </label>
-                <div style={{ display: 'inline-flex', background: '#f1f5f9', padding: '4px', borderRadius: '6px', height: '38px', width: '100%' }}>
+                <div style={{ display: 'inline-flex', background: '#f1f5f9', padding: '3px', borderRadius: '6px', height: '34px', width: '100%' }}>
                   {['All', 'Low', 'In Stock'].map((st) => (
                     <button
                       key={st}
@@ -137,7 +210,8 @@ export default function InventoryListing() {
                         fontSize: '12px',
                         fontWeight: '700',
                         cursor: 'pointer',
-                        boxShadow: selectedStatus === st ? '0 1px 3px rgba(0,0,0,0.08)' : 'none'
+                        boxShadow: selectedStatus === st ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+                        transition: 'all 0.2s'
                       }}
                       type="button"
                     >
@@ -149,53 +223,58 @@ export default function InventoryListing() {
             </div>
 
             {/* Actions Subbar */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', borderTop: '1px solid #f1f5f9', paddingTop: '16px' }}>
-              <button
-                onClick={handleAdvanced}
-                style={{
-                  background: '#ffffff',
-                  color: '#565365',
-                  border: '1px solid #cbd5e1',
-                  borderRadius: '6px',
-                  padding: '8px 16px',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}
-                type="button"
-              >
-                <SlidersHorizontal size={14} />
-                <span>Advanced</span>
-              </button>
-              <button
-                onClick={handleExportCSV}
-                style={{
-                  background: '#ffffff',
-                  color: '#565365',
-                  border: '1px solid #cbd5e1',
-                  borderRadius: '6px',
-                  padding: '8px 16px',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}
-                type="button"
-              >
-                <Download size={14} />
-                <span>Export CSV</span>
-              </button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '12px' }}>
+              <div style={{ fontSize: '12px', color: '#7a7688' }}>
+                {showAdvanced && <span>Advanced options active</span>}
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={handleAdvanced}
+                  style={{
+                    background: showAdvanced ? '#f8fafc' : '#ffffff',
+                    color: '#565365',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '6px',
+                    padding: '6px 12px',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  type="button"
+                >
+                  <SlidersHorizontal size={14} />
+                  <span>Advanced</span>
+                </button>
+                <button
+                  onClick={handleExportCSV}
+                  style={{
+                    background: '#ffffff',
+                    color: '#565365',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '6px',
+                    padding: '6px 12px',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  type="button"
+                >
+                  <Download size={14} />
+                  <span>Export CSV</span>
+                </button>
+              </div>
             </div>
 
           </div>
 
           {/* Inventory Health Card */}
-          <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Inventory Health
@@ -227,7 +306,7 @@ export default function InventoryListing() {
         </div>
 
         {/* Master Registry Table */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '850px' }}>
               <thead>
@@ -242,131 +321,82 @@ export default function InventoryListing() {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  {
-                    id: 'MAT-7721',
-                    name: 'Structural Steel I-Beam',
-                    desc: 'Grade A36, 10-meter',
-                    category: 'Raw Structural',
-                    avail: 142,
-                    availColor: '#1c2536',
-                    reserved: 28,
-                    status: 'VERIFIED',
-                    statusBg: '#ecfdf5',
-                    statusColor: '#059669',
-                    hasAlert: false,
-                    img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=100&h=100&q=80'
-                  },
-                  {
-                    id: 'MAT-8902',
-                    name: 'Copper Bus Bar',
-                    desc: '200A Rated High Cond.',
-                    category: 'Electrical Systems',
-                    avail: 12,
-                    availColor: '#dc2626',
-                    reserved: 0,
-                    status: 'LOW STOCK',
-                    statusBg: '#fffbeb',
-                    statusColor: '#d97706',
-                    hasAlert: true,
-                    img: 'https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=100&h=100&q=80'
-                  },
-                  {
-                    id: 'MAT-1022',
-                    name: 'Brushed Brass Handle',
-                    desc: 'Signature Series - 120mm',
-                    category: 'Finishing Hardware',
-                    avail: 450,
-                    availColor: '#1c2536',
-                    reserved: 120,
-                    status: 'VERIFIED',
-                    statusBg: '#ecfdf5',
-                    statusColor: '#059669',
-                    hasAlert: false,
-                    img: 'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=100&h=100&q=80'
-                  },
-                  {
-                    id: 'MAT-4451',
-                    name: 'HEPA Filter Unit',
-                    desc: 'Grade H13 - Multi-Stage',
-                    category: 'HVAC Components',
-                    avail: 85,
-                    availColor: '#1c2536',
-                    reserved: 15,
-                    status: 'PENDING Q.A.',
-                    statusBg: '#f1f5f9',
-                    statusColor: '#475569',
-                    hasAlert: false,
-                    img: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=100&h=100&q=80'
-                  }
-                ].map((row) => (
-                  <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '14px 8px' }}>
-                      <span style={{
-                        background: '#f0f4ff',
-                        color: '#25108f',
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '11px',
-                        fontWeight: '800'
-                      }}>
-                        {row.id}
-                      </span>
-                    </td>
-                    <td style={{ padding: '14px 8px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <img src={row.img} alt={row.name} style={{ width: '36px', height: '36px', borderRadius: '6px', objectFit: 'cover' }} />
-                        <div>
-                          <strong style={{ display: 'block', fontSize: '13px', color: '#1c2536' }}>{row.name}</strong>
-                          <span style={{ display: 'block', fontSize: '11px', color: '#7a7688', marginTop: '2px' }}>{row.desc}</span>
+                {filteredData.length > 0 ? (
+                  filteredData.map((row) => (
+                    <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                      <td style={{ padding: '14px 8px' }}>
+                        <span style={{
+                          background: '#f0f4ff',
+                          color: 'var(--primary)',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          fontSize: '11px',
+                          fontWeight: '800'
+                        }}>
+                          {row.id}
+                        </span>
+                      </td>
+                      <td style={{ padding: '14px 8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <img src={row.img} alt={row.name} style={{ width: '36px', height: '36px', borderRadius: '6px', objectFit: 'cover' }} />
+                          <div>
+                            <strong style={{ display: 'block', fontSize: '13px', color: '#1c2536' }}>{row.name}</strong>
+                            <span style={{ display: 'block', fontSize: '11px', color: '#7a7688', marginTop: '2px' }}>{row.desc}</span>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td style={{ padding: '14px 8px', fontSize: '13px', color: '#565365' }}>
-                      {row.category}
-                    </td>
-                    <td style={{ padding: '14px 8px', fontSize: '13px', fontWeight: '700', color: row.availColor, textAlign: 'center' }}>
-                      {row.avail}
-                    </td>
-                    <td style={{ padding: '14px 8px', fontSize: '13px', color: '#565365', textAlign: 'center' }}>
-                      {row.reserved}
-                    </td>
-                    <td style={{ padding: '14px 8px' }}>
-                      <span style={{
-                        fontSize: '11px',
-                        fontWeight: '800',
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        background: row.statusBg,
-                        color: row.statusColor
-                      }}>
-                        {row.status}
-                      </span>
-                    </td>
-                    <td style={{ padding: '14px 8px', textAlign: 'right' }}>
-                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        {row.hasAlert && (
+                      </td>
+                      <td style={{ padding: '14px 8px', fontSize: '13px', color: '#565365' }}>
+                        {row.category}
+                      </td>
+                      <td style={{ padding: '14px 8px', fontSize: '13px', fontWeight: '700', color: row.availColor, textAlign: 'center' }}>
+                        {row.avail}
+                      </td>
+                      <td style={{ padding: '14px 8px', fontSize: '13px', color: '#565365', textAlign: 'center' }}>
+                        {row.reserved}
+                      </td>
+                      <td style={{ padding: '14px 8px' }}>
+                        <span style={{
+                          fontSize: '11px',
+                          fontWeight: '800',
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: row.statusBg,
+                          color: row.statusColor
+                        }}>
+                          {row.status}
+                        </span>
+                      </td>
+                      <td style={{ padding: '14px 8px', textAlign: 'right' }}>
+                        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
+                          {row.hasAlert && (
+                            <button
+                              onClick={() => {}}
+                              style={{ background: '#e0e7ff', border: 'none', color: 'var(--primary)', borderRadius: '4px', width: '26px', height: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                              title="Reorder Details"
+                              type="button"
+                            >
+                              <Calendar size={14} />
+                            </button>
+                          )}
                           <button
-                            onClick={() => alert(`Opening scheduling panel for ${row.id}`)}
-                            style={{ background: '#e0e7ff', border: 'none', color: '#25108f', borderRadius: '4px', width: '26px', height: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
-                            title="Reorder Details"
+                            onClick={() => {}}
+                            style={{ background: 'transparent', border: 'none', color: '#7a7688', cursor: 'pointer', padding: '4px' }}
+                            title="Edit"
                             type="button"
                           >
-                            <Calendar size={14} />
+                            <Edit2 size={15} />
                           </button>
-                        )}
-                        <button
-                          onClick={() => alert(`Edit material registry entry: ${row.id}`)}
-                          style={{ background: 'transparent', border: 'none', color: '#7a7688', cursor: 'pointer', padding: '4px' }}
-                          title="Edit"
-                          type="button"
-                        >
-                          <Edit2 size={15} />
-                        </button>
-                      </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: '#7a7688', fontSize: '13px' }}>
+                      No materials found matching your filters.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table></div>
           </div>
@@ -374,20 +404,14 @@ export default function InventoryListing() {
           {/* Table Footer */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', flexWrap: 'wrap', gap: '12px' }}>
             <span style={{ fontSize: '13px', color: '#7a7688' }}>
-              Showing 1-4 of 1,284 entries
+              Showing {filteredData.length > 0 ? 1 : 0}-{filteredData.length} of {filteredData.length} entries
             </span>
             <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
               <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Previous Page" type="button">
                 <ChevronLeft size={16} />
               </button>
-              <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: 'none', background: '#25108f', color: '#ffffff', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }} type="button">
+              <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: 'none', background: 'var(--primary)', color: '#ffffff', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }} type="button">
                 1
-              </button>
-              <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#565365', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }} type="button">
-                2
-              </button>
-              <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#565365', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }} type="button">
-                3
               </button>
               <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Next Page" type="button">
                 <ChevronRight size={16} />
@@ -430,7 +454,7 @@ export default function InventoryListing() {
           width: '50px',
           height: '50px',
           borderRadius: '50%',
-          background: '#25108f',
+          background: 'var(--primary)',
           color: '#ffffff',
           border: 'none',
           display: 'flex',

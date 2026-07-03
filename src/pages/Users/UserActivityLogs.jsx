@@ -10,6 +10,7 @@ import {
   Filter,
   Search,
 } from "lucide-react";
+import UserSubTabs from "../../components/users/UserSubTabs";
 
 export default function UserActivityLogs() {
   const { addToast } = useToast();
@@ -82,7 +83,7 @@ export default function UserActivityLogs() {
       <div className="space-y-6" style={{ paddingBottom: "40px" }}>
 
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-6">
           <div>
             <h1 className="page-title">
               User Activity Logs
@@ -99,10 +100,13 @@ export default function UserActivityLogs() {
               value={search}
               onChange={handleSearchChange}
               placeholder="Search logs..."
-              className="outline-none text-sm w-full"
+              className="w-full bg-transparent outline-none text-sm font-semibold"
             />
           </div>
         </div>
+
+        {/* PROFILE SUB-TABS */}
+        <UserSubTabs />
 
         {/* FILTERS */}
         <div className="flex flex-wrap gap-2 items-center">

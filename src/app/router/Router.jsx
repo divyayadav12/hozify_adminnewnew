@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { ShellProvider } from '../../components/layouts/ShellContext';
 import GlobalAdminShell from '../../components/layouts/GlobalAdminShell';
@@ -343,6 +343,21 @@ function resolveCurrentRoute(route) {
 export function Router() {
   const { route } = useApp();
   const currentRoute = resolveCurrentRoute(route);
+
+  useEffect(() => {
+    // Scroll window
+    window.scrollTo(0, 0);
+    
+    // Also scroll common scroll containers since layout might use overflow: auto
+    setTimeout(() => {
+      const scrollContainers = document.querySelectorAll('.dashboard-main, .dash-content, .global-dashboard, #root, body, html, .banking-shell, .banking-side');
+      scrollContainers.forEach(container => {
+        if (container) {
+          container.scrollTop = 0;
+        }
+      });
+    }, 10);
+  }, [currentRoute]);
 
   const renderPage = () => {
     switch (currentRoute) {

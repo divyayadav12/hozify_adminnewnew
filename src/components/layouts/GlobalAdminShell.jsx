@@ -754,7 +754,7 @@ export default function GlobalAdminShell({ children }) {
             </div>
           </div>
         )}
-        <div className="dash-content global-content">
+        <div className="dash-content global-content" style={{ padding: 'var(--spacing-section, 24px)' }}>
           {/* Secondary Navigation for Page-Specific Tabs */}
           {headerTabs && (
             <div className="secondary-page-tabs" style={{ display: 'flex', gap: '24px', paddingBottom: '16px', marginBottom: '16px', borderBottom: '1px solid #E2E8F0', overflowX: 'auto', whiteSpace: 'nowrap' }}>
@@ -765,13 +765,12 @@ export default function GlobalAdminShell({ children }) {
           {/* Page Title Banner - rendered in content area, below the sticky header */}
           {pageTitle && (
             <div style={{
-              padding: '24px 0 0 0',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               flexWrap: 'wrap',
               gap: '16px',
-              marginBottom: '0'
+              marginBottom: '24px'
             }}>
               <div>
                 <h1 style={{ fontSize: '26px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>

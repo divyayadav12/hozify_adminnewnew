@@ -31,7 +31,7 @@ export default function EmployeeAssignments() {
   });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
       
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
@@ -104,7 +104,7 @@ export default function EmployeeAssignments() {
         </div>
       </div>
 
-      <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', marginBottom: 0 }}>
+      <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Assignment Log</h3>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -176,7 +176,7 @@ export default function EmployeeAssignments() {
                 ))}
                 {filteredAssignments.length === 0 && (
                   <tr>
-                    <td colSpan="7" style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
+                    <td colSpan="7" style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
                       No assignments found.
                     </td>
                   </tr>
@@ -194,7 +194,7 @@ export default function EmployeeAssignments() {
             onClick={() => setSelectedAssignment(null)}
           />
           <div style={{ position: 'fixed', top: 0, right: 0, bottom: 0, width: '400px', background: '#fff', zIndex: 1000, boxShadow: '-8px 0 24px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ padding: '24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
+            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
               <div>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Assignment Details</h3>
                 <span style={{ fontSize: '12px', color: 'var(--muted)' }}>{selectedAssignment.id}</span>
@@ -204,7 +204,7 @@ export default function EmployeeAssignments() {
               </button>
             </div>
             
-            <div style={{ padding: '24px', flex: 1, overflowY: 'auto' }}>
+            <div style={{ padding: 'var(--spacing-section)', flex: 1, overflowY: 'auto' }}>
               
               <div style={{ background: '#f8fafc', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>

@@ -413,10 +413,10 @@ export default function AddBusiness() {
           <div style={{ height: '100%', background: '#4f46e5', borderRadius: '4px', transition: 'width 0.4s ease', width: `${(currentStep / 5) * 100}%` }} />
         </div>
 
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'stretch', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 'var(--spacing-section)', alignItems: 'stretch', flexWrap: 'wrap' }}>
 
           {/* LEFT: Steps Sidebar */}
-          <div className="panel" style={{ flex: '0 0 220px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', minWidth: '180px' }}>
+          <div className="panel" style={{ flex: '0 0 220px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px', minWidth: '180px' }}>
             <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '1px', margin: 0 }}>Registration Progress</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {STEPS.map(step => {
@@ -452,7 +452,7 @@ export default function AddBusiness() {
           </div>
 
           {/* RIGHT: Step Form */}
-          <div className="panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', minWidth: '320px' }}>
+          <div className="panel" style={{ flex: 1, padding: 'var(--spacing-page)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', minWidth: '320px' }}>
             <form
               onSubmit={currentStep < 5 ? handleNext : (e) => e.preventDefault()}
               style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}

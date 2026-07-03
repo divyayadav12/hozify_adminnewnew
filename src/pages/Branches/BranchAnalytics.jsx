@@ -148,7 +148,7 @@ export default function BranchAnalytics() {
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
         {/* Revenue Growth Trend Bar Chart */}
-        <div className="panel" style={{ flex: 1.8, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1.8, padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue Growth Trend</h2>
             <div style={{ display: 'flex', gap: '12px', fontSize: '11px', fontWeight: '700' }}>
@@ -186,7 +186,7 @@ export default function BranchAnalytics() {
         </div>
 
         {/* Booking Conversion Card (Dark Theme) */}
-        <div className="panel" style={{ flex: 1, padding: '24px', backgroundColor: '#0f172a', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)', backgroundColor: '#0f172a', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <h2 style={{ fontSize: '13px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 16px' }}>Booking Conversion</h2>
             
@@ -237,7 +237,7 @@ export default function BranchAnalytics() {
       <div className="fraud-top-grid" style={{ gap: '20px' }}>
         
         {/* Service Revenue Panel */}
-        <div className="panel" style={{ flex: 1.2, padding: '24px' }}>
+        <div className="panel" style={{ flex: 1.2, padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>Service Revenue</h2>
             <a href="#export" onClick={(e) => e.preventDefault()} style={{ color: '#4f46e5', fontWeight: '700', fontSize: '12px', textDecoration: 'none' }}>
@@ -274,7 +274,7 @@ export default function BranchAnalytics() {
         </div>
 
         {/* Employee Performance Panel */}
-        <div className="panel" style={{ flex: 1.2, padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="panel" style={{ flex: 1.2, padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>Employee Performance</h2>

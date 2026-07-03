@@ -72,7 +72,7 @@ export default function SystemAuditLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '20px 24px', fontSize: '11px', color: '#475569', lineHeight: '1.5' }}>
                   <span style={{ display: 'block', fontWeight: '600' }}>Oct 24, 2023</span>
-                  <span style={{ fontFamily: 'monospace' }}>14:22:01.442</span>
+                  <span style={{ fontFamily: "var(--materio-space)", }}>14:22:01.442</span>
                 </td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -98,7 +98,7 @@ export default function SystemAuditLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '20px 24px', fontSize: '11px', color: '#475569', lineHeight: '1.5' }}>
                   <span style={{ display: 'block', fontWeight: '600' }}>Oct 24, 2023</span>
-                  <span style={{ fontFamily: 'monospace' }}>14:19:55.109</span>
+                  <span style={{ fontFamily: "var(--materio-space)", }}>14:19:55.109</span>
                 </td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -126,7 +126,7 @@ export default function SystemAuditLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '20px 24px', fontSize: '11px', color: '#475569', lineHeight: '1.5' }}>
                   <span style={{ display: 'block', fontWeight: '600' }}>Oct 24, 2023</span>
-                  <span style={{ fontFamily: 'monospace' }}>14:15:33.882</span>
+                  <span style={{ fontFamily: "var(--materio-space)", }}>14:15:33.882</span>
                 </td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -152,7 +152,7 @@ export default function SystemAuditLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '20px 24px', fontSize: '11px', color: '#475569', lineHeight: '1.5' }}>
                   <span style={{ display: 'block', fontWeight: '600' }}>Oct 24, 2023</span>
-                  <span style={{ fontFamily: 'monospace' }}>14:12:00.001</span>
+                  <span style={{ fontFamily: "var(--materio-space)", }}>14:12:00.001</span>
                 </td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -180,7 +180,7 @@ export default function SystemAuditLogs() {
               <tr>
                 <td style={{ padding: '20px 24px', fontSize: '11px', color: '#475569', lineHeight: '1.5' }}>
                   <span style={{ display: 'block', fontWeight: '600' }}>Oct 24, 2023</span>
-                  <span style={{ fontFamily: 'monospace' }}>13:58:22.610</span>
+                  <span style={{ fontFamily: "var(--materio-space)", }}>13:58:22.610</span>
                 </td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -226,10 +226,10 @@ export default function SystemAuditLogs() {
         </div>
 
         {/* Bottom Metrics Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--spacing-section)' }}>
           
           {/* Security Alerts */}
-          <div style={{ background: '#fff', border: '1px solid #fecaca', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+          <div style={{ background: '#fff', border: '1px solid #fecaca', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>SECURITY ALERTS</span>
               <AlertTriangle size={16} color="#dc2626" />
@@ -242,7 +242,7 @@ export default function SystemAuditLogs() {
           </div>
 
           {/* Storage Load */}
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>STORAGE LOAD</span>
               <Database size={16} color="#2563eb" />
@@ -255,7 +255,7 @@ export default function SystemAuditLogs() {
           </div>
 
           {/* Compliance Health */}
-          <div style={{ background: '#fff', border: '1px solid #bbf7d0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+          <div style={{ background: '#fff', border: '1px solid #bbf7d0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>COMPLIANCE HEALTH</span>
               <ShieldCheck size={16} color="#16a34a" />

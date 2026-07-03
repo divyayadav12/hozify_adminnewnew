@@ -123,7 +123,7 @@ export default function PriceMgmtPage() {
 
   return (
     <AdminShell activeTab="Price Management" headerTitle="Pricing Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -214,12 +214,12 @@ export default function PriceMgmtPage() {
               {filteredPrices.length > 0 ? (
                 filteredPrices.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.name}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.type}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>${row.rate.toFixed(2)}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>${row.rate.toFixed(2)}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: row.surge > 1.0 ? '#d97706' : 'var(--text)' }}>{row.surge}x</td>
-                    <td style={{ padding: '18px 24px', fontFamily: 'monospace' }}>${row.peakHour.toFixed(2)}</td>
+                    <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", }}>${row.peakHour.toFixed(2)}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span style={{
@@ -249,7 +249,7 @@ export default function PriceMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No price rules matching filters found.</td>
+                  <td colSpan={8} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No price rules matching filters found.</td>
                 </tr>
               )}
             </tbody>

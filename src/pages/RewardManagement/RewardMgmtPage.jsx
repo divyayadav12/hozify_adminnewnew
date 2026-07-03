@@ -91,7 +91,7 @@ export default function RewardMgmtPage() {
 
   return (
     <AdminShell activeTab="Reward Management" headerTitle="Rewards Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -253,11 +253,11 @@ export default function RewardMgmtPage() {
               {filteredRewards.length > 0 ? (
                 filteredRewards.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.date}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700' }}>{row.user}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.type}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', color: '#059669', fontFamily: 'monospace' }}>{row.value}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', color: '#059669', fontFamily: "var(--materio-space)", }}>{row.value}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <span style={{
                         padding: '4px 8px',
@@ -290,7 +290,7 @@ export default function RewardMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No reward records found.</td>
+                  <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No reward records found.</td>
                 </tr>
               )}
             </tbody>

@@ -41,7 +41,7 @@ export default function SlaCompliance() {
       onClick={() => alert('New Service Creation dialog')}
       style={{
         width: '100%',
-        background: '#25108f',
+        background: 'var(--primary)',
         color: '#ffffff',
         border: 'none',
         borderRadius: '6px',
@@ -72,7 +72,7 @@ export default function SlaCompliance() {
       headerTitle="Service Management"
       searchPlaceholder="Search SLA metrics..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title & Filter Pills Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -137,10 +137,10 @@ export default function SlaCompliance() {
           <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>
-                <CheckCircle size={14} style={{ color: '#07956f' }} />
+                <CheckCircle size={14} style={{ color: 'var(--green)' }} />
                 <span>Within SLA %</span>
               </div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>+2.4%</span>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>+2.4%</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <strong style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text)' }}>96.8%</strong>
@@ -175,10 +175,10 @@ export default function SlaCompliance() {
           <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>
-                <AlertCircle size={14} style={{ color: '#d32929' }} />
+                <AlertCircle size={14} style={{ color: 'var(--red)' }} />
                 <span>Critical Violations</span>
               </div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>-12%</span>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>-12%</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <strong style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text)' }}>14</strong>
@@ -193,12 +193,12 @@ export default function SlaCompliance() {
         </div>
 
         {/* Response & Completion Trends */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Response & Completion Trends</h2>
             <div style={{ display: 'flex', gap: '16px', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ height: '8px', width: '8px', borderRadius: '50%', background: '#25108f' }} />
+                <span style={{ height: '8px', width: '8px', borderRadius: '50%', background: 'var(--primary)' }} />
                 <span>Response Time</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -231,7 +231,7 @@ export default function SlaCompliance() {
                   {/* Completion Time bar (light blue) */}
                   <div style={{ width: '100%', height: `${bar.comp}%`, background: '#cbd5e1', borderRadius: '4px 4px 0 0', position: 'absolute', bottom: 0 }} />
                   {/* Response Time bar (dark blue) */}
-                  <div style={{ width: '100%', height: `${bar.resp}%`, background: '#25108f', borderRadius: '4px 4px 0 0', position: 'absolute', bottom: 0 }} />
+                  <div style={{ width: '100%', height: `${bar.resp}%`, background: 'var(--primary)', borderRadius: '4px 4px 0 0', position: 'absolute', bottom: 0 }} />
                 </div>
                 <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>{bar.label}</span>
               </div>
@@ -240,7 +240,7 @@ export default function SlaCompliance() {
         </div>
 
         {/* Booking Audit Log */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Booking Audit Log</h2>
             
@@ -285,17 +285,17 @@ export default function SlaCompliance() {
               </thead>
               <tbody>
                 {[
-                  { id: '#BK-9402', client: 'Nexus Kinetics', clientInit: 'NK', status: 'COMPLIANT', statusColor: '#07956f', statusBg: '#ecfdf5', time: '2h 15m', timeColor: 'var(--text)', escalation: 'Level 0 (None)', escColor: 'var(--text)' },
+                  { id: '#BK-9402', client: 'Nexus Kinetics', clientInit: 'NK', status: 'COMPLIANT', statuscolor: 'var(--green)', statusBg: '#ecfdf5', time: '2h 15m', timeColor: 'var(--text)', escalation: 'Level 0 (None)', escColor: 'var(--text)' },
                   { id: '#BK-8821', client: 'Stellar Venture', clientInit: 'SV', status: 'AT RISK', statusColor: '#b45309', statusBg: '#fffbeb', time: '12m 40s', timeColor: '#b45309', escalation: 'Level 1 (Warning)', escColor: 'var(--text)' },
-                  { id: '#BK-8109', client: 'Quantum Labs', clientInit: 'QL', status: 'BREACHED', statusColor: '#d32929', statusBg: '#fee2e2', time: 'Lapsed (-45m)', timeColor: '#d32929', escalation: 'Level 3 (Critical)', escColor: '#d32929' },
-                  { id: '#BK-7754', client: 'Apex Systems', clientInit: 'AS', status: 'COMPLIANT', statusColor: '#07956f', statusBg: '#ecfdf5', time: '4h 50m', timeColor: 'var(--text)', escalation: 'Level 0 (None)', escColor: 'var(--text)' }
+                  { id: '#BK-8109', client: 'Quantum Labs', clientInit: 'QL', status: 'BREACHED', statuscolor: 'var(--red)', statusBg: '#fee2e2', time: 'Lapsed (-45m)', timecolor: 'var(--red)', escalation: 'Level 3 (Critical)', esccolor: 'var(--red)' },
+                  { id: '#BK-7754', client: 'Apex Systems', clientInit: 'AS', status: 'COMPLIANT', statuscolor: 'var(--green)', statusBg: '#ecfdf5', time: '4h 50m', timeColor: 'var(--text)', escalation: 'Level 0 (None)', escColor: 'var(--text)' }
                 ].map((row, idx) => (
                   <tr key={idx} style={{ borderBottom: '1px solid #eee9f6' }}>
-                    <td style={{ padding: '16px', fontSize: '13px', fontWeight: '800', color: '#25108f', textAlign: 'left' }}>
+                    <td style={{ padding: '16px', fontSize: '13px', fontWeight: '800', color: 'var(--primary)', textAlign: 'left' }}>
                       <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => navigate(ROUTES.bookingCancellation)}>{row.id}</span>
                     </td>
                     <td style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#eee9f6', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '10px' }}>
+                      <div style={{ height: '26px', width: '26px', borderRadius: '50%', background: '#eee9f6', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '10px' }}>
                         {row.clientInit}
                       </div>
                       <strong style={{ fontSize: '13px', color: 'var(--text)' }}>{row.client}</strong>
@@ -333,7 +333,7 @@ export default function SlaCompliance() {
           {/* Card 1: Operational Efficiency */}
           <div className="panel" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '20px' }}>
             <div style={{ height: '64px', width: '64px', border: '4px solid #25108f', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <strong style={{ fontSize: '20px', color: '#25108f' }}>82%</strong>
+              <strong style={{ fontSize: '20px', color: 'var(--primary)' }}>82%</strong>
             </div>
             <div>
               <strong style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Operational Efficiency</strong>
@@ -346,7 +346,7 @@ export default function SlaCompliance() {
           {/* Card 2: Peak Breach Risk */}
           <div className="panel" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '20px' }}>
             <div style={{ height: '64px', width: '64px', border: '4px solid #d32929', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <strong style={{ fontSize: '20px', color: '#d32929' }}>12%</strong>
+              <strong style={{ fontSize: '20px', color: 'var(--red)' }}>12%</strong>
             </div>
             <div>
               <strong style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Peak Breach Risk</strong>

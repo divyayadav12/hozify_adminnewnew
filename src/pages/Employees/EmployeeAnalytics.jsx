@@ -44,7 +44,7 @@ export default function EmployeeAnalytics() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
       
       {/* Top Filter Section */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', background: '#fff', padding: '16px', borderRadius: '12px', border: '1px solid var(--line)' }}>
@@ -83,7 +83,7 @@ export default function EmployeeAnalytics() {
               type="date"
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '600', fontSize: '13px', color: 'var(--text)', cursor: 'pointer', fontFamily: 'inherit', width: dateRange ? 'auto' : '20px' }}
+              style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '600', fontSize: '13px', color: 'var(--text)', cursor: 'pointer',  width: dateRange ? 'auto' : '20px' }}
             />
           </div>
         </div>
@@ -202,15 +202,15 @@ export default function EmployeeAnalytics() {
       </div>
 
       {/* Analytics Charts and Tables */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
         
         {/* Left Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Charts Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
             {/* Chart 1: Performance Matrix */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
+            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Department Performance</h3>
               </div>
@@ -224,7 +224,7 @@ export default function EmployeeAnalytics() {
             </div>
 
             {/* Chart 2: Attendance Heatmap / Line */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
+            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Attendance Analytics</h3>
               </div>
@@ -248,7 +248,7 @@ export default function EmployeeAnalytics() {
           </div>
 
           {/* Employee Efficiency Matrix Table */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Employee Efficiency Matrix</h3>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -327,7 +327,7 @@ export default function EmployeeAnalytics() {
                     ))}
                     {filteredEmployees.length === 0 && (
                       <tr>
-                        <td colSpan="6" style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
+                        <td colSpan="6" style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
                           No employees found.
                         </td>
                       </tr>
@@ -346,10 +346,10 @@ export default function EmployeeAnalytics() {
         </div>
 
         {/* Right Content / Side Panels */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '1' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '1' }}>
           
           {/* Top Performers Leaders Panel */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
               <Award size={18} style={{ color: '#10b981' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue Leaders</h3>
@@ -388,7 +388,7 @@ export default function EmployeeAnalytics() {
           </div>
 
           {/* Branch Performance Leaderboard */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
               <MapPin size={18} style={{ color: '#ec4899' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Branch Leaderboard</h3>
@@ -422,7 +422,7 @@ export default function EmployeeAnalytics() {
           </div>
 
           {/* Rating Distribution (Pie/Doughnut Placeholder) */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
               <Star size={18} style={{ color: '#f59e0b' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Rating Distribution</h3>

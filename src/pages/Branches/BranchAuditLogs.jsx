@@ -268,7 +268,7 @@ export default function BranchAuditLogs() {
         <section className="audit-middle-grid">
           
           {/* Analytics / Charts Section */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>
               Activity Trends
             </h2>
@@ -315,7 +315,7 @@ export default function BranchAuditLogs() {
           </div>
 
           {/* Recent Security Events */}
-          <div className="panel" style={{ padding: '24px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <ShieldAlert size={16} color="#ef4444" /> Security Events
             </h2>
@@ -343,7 +343,7 @@ export default function BranchAuditLogs() {
         {/* ================================================= */}
         {/* LOGS TABLE SECTION (Excel Design Implemented)   */}
         {/* ================================================= */}
-        <section className="panel" style={{ padding: '24px' }}>
+        <section className="panel" style={{ padding: 'var(--spacing-section)' }}>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>
@@ -408,7 +408,7 @@ export default function BranchAuditLogs() {
               <tbody>
                 {filteredLogs.map((row) => (
                   <tr key={row.id}>
-                    <td style={{ color: '#1e3a8a', fontWeight: '600', fontFamily: 'monospace' }}>
+                    <td style={{ color: '#1e3a8a', fontWeight: '600', fontFamily: "var(--materio-space)", }}>
                       {row.id}
                     </td>
                     <td style={{ color: '#555' }}>
@@ -420,7 +420,7 @@ export default function BranchAuditLogs() {
                     <td style={{ color: '#222' }}>
                       {row.action}
                     </td>
-                    <td style={{ color: '#444', fontFamily: 'sans-serif' }}>
+                    <td style={{ color: '#444',  }}>
                       {row.module}
                     </td>
                     <td style={{ color: '#555', fontFamily: 'Consolas, monospace', fontSize: '11px' }}>

@@ -96,7 +96,7 @@ export default function InventoryDashboard() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Header Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -132,7 +132,7 @@ export default function InventoryDashboard() {
             <button
               onClick={handleAddMaterial}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -159,7 +159,7 @@ export default function InventoryDashboard() {
           {/* KPI 1: Available Stock */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#f5f3ff', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#f5f3ff', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <ShieldCheck size={20} />
               </div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: '#059669', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>
@@ -170,7 +170,7 @@ export default function InventoryDashboard() {
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Available Stock</span>
               <strong style={{ display: 'block', fontSize: '28px', color: '#1c2536', fontWeight: '800', marginTop: '4px' }}>12,482</strong>
             </div>
-            <div style={{ height: '3px', background: '#25108f', borderRadius: '1.5px', width: '80%' }} />
+            <div style={{ height: '3px', background: 'var(--primary)', borderRadius: '1.5px', width: '80%' }} />
           </div>
 
           {/* KPI 2: Scheduled Requests */}
@@ -240,10 +240,10 @@ export default function InventoryDashboard() {
         </div>
 
         {/* Charts Section */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Inventory Levels Trend */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Inventory Levels Trend
@@ -303,14 +303,14 @@ export default function InventoryDashboard() {
           </div>
 
           {/* Consumption by Dept */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Consumption by Dept
             </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
-                { dept: 'Engineering', pct: '45%', color: '#25108f' },
+                { dept: 'Engineering', pct: '45%', color: 'var(--primary)' },
                 { dept: 'Operations', pct: '32%', color: '#1c2536' },
                 { dept: 'Logistics', pct: '15%', color: '#93c5fd' },
                 { dept: 'R&D', pct: '8%', color: '#cbd5e1' }
@@ -351,7 +351,7 @@ export default function InventoryDashboard() {
         </div>
 
         {/* Live Inventory Status Table */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Live Inventory Status
@@ -549,7 +549,7 @@ export default function InventoryDashboard() {
         {adjustStockModalOpen && selectedMaterialForStock && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => setAdjustStockModalOpen(false)} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Adjust Stock Level</h3>
                 <button onClick={() => setAdjustStockModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
@@ -609,7 +609,7 @@ export default function InventoryDashboard() {
                       addToast(`Stock for ${selectedMaterialForStock.name} updated!`, 'success');
                       setAdjustStockModalOpen(false);
                     }}
-                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                    style={{ flex: 1, padding: '10px', background: 'var(--primary)', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
                   >
                     Save Changes
                   </button>
@@ -622,7 +622,7 @@ export default function InventoryDashboard() {
         {editStatusModalOpen && selectedMaterialForStatus && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => setEditStatusModalOpen(false)} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Edit Material Status</h3>
                 <button onClick={() => setEditStatusModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
@@ -666,7 +666,7 @@ export default function InventoryDashboard() {
                       addToast(`Status of ${selectedMaterialForStatus.name} updated to ${newStatusValue}!`, 'success');
                       setEditStatusModalOpen(false);
                     }}
-                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                    style={{ flex: 1, padding: '10px', background: 'var(--primary)', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
                   >
                     Save Status
                   </button>

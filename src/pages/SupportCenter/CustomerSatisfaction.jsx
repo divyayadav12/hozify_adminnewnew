@@ -70,7 +70,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
       headerTitle="CSAT Analytics"
       searchPlaceholder="Search customer feedback, review text..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb Row */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -94,7 +94,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
         {/* KPI Metrics Row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           {/* CSAT Score */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 CSAT Score
@@ -108,7 +108,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 96.4%
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 +0.8% vs last week
               </span>
@@ -116,7 +116,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
           </div>
 
           {/* NPS */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Net Promoter Score (NPS)
@@ -129,7 +129,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 72
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 +4 points this month
               </span>
@@ -137,7 +137,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Response Rate */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Survey Response Rate
@@ -150,7 +150,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 34.2%
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#d32929', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--red)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingDown size={12} />
                 -1.4% vs benchmark
               </span>
@@ -158,7 +158,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Feedback Volume */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Feedback Volume
@@ -177,10 +177,10 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Sentiment Row: Trends & Analysis */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.8fr 1.2fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.8fr 1.2fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Satisfaction Trend Line Chart */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h3 style={{ fontSize: '15.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -190,7 +190,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
                   Daily average ratings plotted over the last 30 days
                 </span>
               </div>
-              <span style={{ fontSize: '11px', fontWeight: '850', color: '#07956f', background: '#ecfdf5', padding: '3px 8px', borderRadius: '12px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '850', color: 'var(--green)', background: '#ecfdf5', padding: '3px 8px', borderRadius: '12px' }}>
                 Avg: 4.82/5
               </span>
             </div>
@@ -245,7 +245,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Sentiment Analysis (Right Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Sentiment Distribution
             </h3>
@@ -254,7 +254,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
               {/* Positive */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '750' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#07956f' }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: 'var(--green)' }}>
                     <Smile size={14} />
                     Positive
                   </span>
@@ -317,10 +317,10 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Bottom Section: Feedback Highlights & Support Heatmap */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.8fr 1.2fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.8fr 1.2fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Feedback Highlights Panel */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
               <div>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -427,7 +427,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Support Load Heatmap (Right Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Support Load Heatmap
@@ -514,7 +514,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
                 High
               </span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{ height: '10px', width: '10px', background: '#25108f', borderRadius: '2px' }} />
+                <span style={{ height: '10px', width: '10px', background: 'var(--primary)', borderRadius: '2px' }} />
                 Peak
               </span>
             </div>
@@ -526,7 +526,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
           background: 'linear-gradient(135deg, rgba(37, 16, 143, 0.05) 0%, rgba(70, 56, 175, 0.08) 100%)',
           border: '1px solid var(--line)',
           borderRadius: '12px',
-          padding: '24px',
+          padding: 'var(--spacing-section)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',

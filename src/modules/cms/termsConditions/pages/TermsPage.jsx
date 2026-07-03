@@ -162,7 +162,7 @@ export default function TermsPage() {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="Terms & Conditions Editor">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -249,10 +249,10 @@ export default function TermsPage() {
         </div>
 
         {/* Editor & Version Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '7fr 3fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '7fr 3fr', gap: 'var(--spacing-section)' }}>
           
           {/* LEFT: Text Editor Area */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Header info */}
             <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -285,14 +285,14 @@ export default function TermsPage() {
               <textarea
                 value={editorText}
                 onChange={(e) => setEditorText(e.target.value)}
-                style={{ width: '100%', minHeight: '400px', padding: '24px', border: 'none', outline: 'none', fontSize: '13px', lineHeight: '1.7', color: 'var(--text)', resize: 'vertical', fontFamily: 'monospace' }}
+                style={{ width: '100%', minHeight: '400px', padding: 'var(--spacing-section)', border: 'none', outline: 'none', fontSize: '13px', lineHeight: '1.7', color: 'var(--text)', resize: 'vertical', fontFamily: "var(--materio-space)", }}
               />
             </div>
 
           </div>
 
           {/* RIGHT: Version History Timeline */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>VERSION HISTORY</h3>

@@ -49,7 +49,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
       
       {/* Breadcrumb & Navigation Back Action */}
       <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
@@ -112,7 +112,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
             style={{
               height: '42px',
               padding: '0 20px',
-              background: '#25108f',
+              background: 'var(--primary)',
               color: '#ffffff',
               border: 'none',
               borderRadius: '6px',
@@ -128,15 +128,15 @@ export default function ApprovalDetails({ requestId, onBack }) {
       </div>
 
       {/* Grid Content Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1.2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1.2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
         
         {/* Column 1: Specifications & Documents */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Specifications */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <FileCheck size={18} style={{ color: '#25108f' }} />
+              <FileCheck size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Service Specifications</h3>
             </div>
             
@@ -178,7 +178,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
           {/* Compliance Documents */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <CheckCircle2 size={18} style={{ color: '#25108f' }} />
+              <CheckCircle2 size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Compliance Documents</h3>
             </div>
 
@@ -205,16 +205,16 @@ export default function ApprovalDetails({ requestId, onBack }) {
         </div>
 
         {/* Column 2: Pricing Structure */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Pricing Structure */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                <CheckCircle2 size={18} style={{ color: '#25108f' }} />
+                <CheckCircle2 size={18} style={{ color: 'var(--primary)' }} />
                 <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Pricing Structure</h3>
               </div>
-              <span style={{ fontSize: '9px', fontWeight: '800', color: '#25108f', background: '#e0e7ff', padding: '3px 8px', borderRadius: '4px' }}>
+              <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--primary)', background: '#e0e7ff', padding: '3px 8px', borderRadius: '4px' }}>
                 MONTHLY RETAINER
               </span>
             </div>
@@ -241,7 +241,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
                 </tr>
                 <tr>
                   <td style={{ padding: '16px 0 8px', color: 'var(--text)', fontWeight: '800', fontSize: '15px' }}>Total Per Cycle</td>
-                  <td style={{ padding: '16px 0 8px', color: '#25108f', fontWeight: '800', fontSize: '16px', textAlign: 'right' }}>$6,600.00</td>
+                  <td style={{ padding: '16px 0 8px', color: 'var(--primary)', fontWeight: '800', fontSize: '16px', textAlign: 'right' }}>$6,600.00</td>
                 </tr>
               </tbody>
             </table></div>
@@ -250,12 +250,12 @@ export default function ApprovalDetails({ requestId, onBack }) {
         </div>
 
         {/* Column 3: Risk & Notes */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Risk Scorecard */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <ShieldAlert size={18} style={{ color: '#25108f' }} />
+              <ShieldAlert size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Risk Scorecard</h3>
             </div>
 
@@ -303,7 +303,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
           {/* Approval Notes */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <MessageSquare size={18} style={{ color: '#25108f' }} />
+              <MessageSquare size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Approval Notes</h3>
             </div>
 

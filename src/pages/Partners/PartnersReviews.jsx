@@ -93,7 +93,7 @@ export default function PartnersReviews() {
       activeTab="Partners"
       searchPlaceholder="Search bookings, users, or partners..."
     >
-      <div className="min-h-screen bg-slate-50 font-sans text-slate-700 p-6 space-y-6" style={{ paddingBottom: "40px" }}>
+      <div className="min-h-screen bg-slate-50  text-slate-700 p-6 space-y-6" style={{ paddingBottom: "40px" }}>
         
         {/* ================= BREADCRUMB & SUBTITLE ================= */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -235,7 +235,7 @@ export default function PartnersReviews() {
                           className="hover:bg-slate-50/40 transition cursor-pointer"
                           onClick={() => handleRowClick(incident)}
                         >
-                          <td className="px-6 py-4 whitespace-nowrap font-mono font-semibold text-blue-600">{incident.id}</td>
+                          <td className="px-6 py-4 whitespace-nowrap  font-semibold text-blue-600">{incident.id}</td>
                           <td className="px-6 py-4 whitespace-nowrap font-medium text-slate-900">{incident.category}</td>
                           <td className="px-6 py-4 text-slate-500">{incident.resolution}</td>
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -438,7 +438,7 @@ export default function PartnersReviews() {
                 >
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-blue-600">{inc.id}</span>
+                      <span className=" text-xs font-bold text-blue-600">{inc.id}</span>
                       <span className="text-[10px] text-slate-400 font-bold">{inc.date}</span>
                     </div>
                     <p className="text-xs font-bold text-slate-800 mt-1">{inc.category}</p>

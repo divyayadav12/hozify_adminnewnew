@@ -65,7 +65,7 @@ export default function MyProfile() {
 
   return (
     <AdminShell activeTab="Profile" headerTitle="My Profile Console">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1200px', margin: '0 auto' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -73,7 +73,7 @@ export default function MyProfile() {
         </div>
 
         {/* Profile Card Header */}
-        <div className="report-kpi-card" style={{ display: 'flex', gap: '24px', alignItems: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', borderRadius: '12px', padding: '24px', color: '#fff', width: '100%' }}>
+        <div className="report-kpi-card" style={{ display: 'flex', gap: 'var(--spacing-section)', alignItems: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', borderRadius: '12px', padding: 'var(--spacing-section)', color: '#fff', width: '100%' }}>
           <div style={{ position: 'relative' }}>
             <img 
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80" 
@@ -96,7 +96,7 @@ export default function MyProfile() {
         </div>
 
         {/* Tab Selector Links */}
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', gap: '24px', paddingBottom: '4px' }}>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', gap: 'var(--spacing-section)', paddingBottom: '4px' }}>
           <button 
             onClick={() => setActiveSubTab('personal')}
             style={{ border: 'none', background: 'none', padding: '8px 4px', fontSize: '13px', fontWeight: '700', color: activeSubTab === 'personal' ? '#2563eb' : 'var(--muted)', borderBottom: activeSubTab === 'personal' ? '2px solid #2563eb' : 'none', cursor: 'pointer' }}
@@ -119,7 +119,7 @@ export default function MyProfile() {
 
         {/* TAB 1: PERSONAL INFORMATION */}
         {activeSubTab === 'personal' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '800', margin: 0, color: 'var(--text)' }}>Personal Information Details</h2>
               {!isEditing ? (
@@ -221,10 +221,10 @@ export default function MyProfile() {
 
         {/* TAB 2: ACCOUNT & SECURITY */}
         {activeSubTab === 'account' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Account Specs */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px' }}>Account Properties</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                 <div>
@@ -251,7 +251,7 @@ export default function MyProfile() {
             </div>
 
             {/* Security Config Buttons */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Security Control CenterCenter</h3>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
@@ -293,7 +293,7 @@ export default function MyProfile() {
 
         {/* TAB 3: ACTIVITY LOGS */}
         {activeSubTab === 'activity' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Recent Security &amp; Activity Log</h3>
               <button onClick={() => navigate('/profile/activity-log')} className="custom-btn-secondary" style={{ height: '32px', padding: '0 12px', fontSize: '12px' }}>

@@ -421,7 +421,7 @@ export default function KycQueue() {
             
             <div className="h-64 w-full bg-slate-50 border border-slate-200 rounded-2xl flex flex-col items-center justify-center text-slate-400 gap-2 overflow-hidden">
               <IdCard size={64} className="text-slate-300" />
-              <span className="font-mono text-xs font-bold text-slate-900 uppercase tracking-widest">{modalMeta.title}</span>
+              <span className=" text-xs font-bold text-slate-900 uppercase tracking-widest">{modalMeta.title}</span>
               <span className="text-[10px] text-slate-400 uppercase tracking-widest font-black">Cryptographic Seal Match: Verified</span>
             </div>
             
@@ -821,7 +821,7 @@ function VideoSection({ isVideoPlaying, setIsVideoPlaying, videoSpeed, setVideoS
           <div className="flex flex-col items-center justify-center h-48 bg-slate-900 rounded-xl text-slate-400 gap-2 relative">
             <Camera size={54} className={isVideoPlaying ? 'text-indigo-400 animate-pulse' : 'text-slate-600'} />
             <strong>{isVideoPlaying ? "Marcus Vane Video Feed Active" : "Video KYC Paused"}</strong>
-            <span className="absolute bottom-2 right-2 text-[10px] font-bold text-slate-500 font-mono">Speed: {videoSpeed}</span>
+            <span className="absolute bottom-2 right-2 text-[10px] font-bold text-slate-500 ">Speed: {videoSpeed}</span>
           </div>
           <div className="kyc-video-controls">
             <button type="button" className="cursor-pointer" onClick={handleTogglePlay}>{isVideoPlaying ? "Pause Review" : "Play Feed"}</button>

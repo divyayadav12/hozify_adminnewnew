@@ -121,7 +121,7 @@ export default function CreateRole() {
 
   return (
     <AdminShell activeTab="Role & Permissions">
-      <div className="space-y-6 max-w-6xl mx-auto pb-12">
+      <div className="space-y-6 max-w-6xl mx-auto p-6 pb-12">
         
         {/* ==========================================
             1. MODERN CLEAN BREADCRUMB HEADER
@@ -133,7 +133,7 @@ export default function CreateRole() {
             </div>
             <div>
               <h1 className="text-xl font-black text-indigo-950 tracking-tight">Instantiate Access Template</h1>
-              <p className="text-xs text-slate-400 font-medium font-sans">Deploy specialized custom permission maps and core visibility limits</p>
+              <p className="text-xs text-slate-400 font-medium ">Deploy specialized custom permission maps and core visibility limits</p>
             </div>
           </div>
 
@@ -208,7 +208,7 @@ export default function CreateRole() {
                       >
                         <div className="space-y-0.5 pr-4">
                           <span className={`text-xs font-bold block ${isSelected ? 'text-indigo-950' : 'text-slate-800'}`}>{opt.title}</span>
-                          <span className="text-[11px] text-slate-400 font-medium font-sans leading-relaxed block">{opt.desc}</span>
+                          <span className="text-[11px] text-slate-400 font-medium  leading-relaxed block">{opt.desc}</span>
                         </div>
                         <div className={`h-4 w-4 rounded-full border flex items-center justify-center shrink-0 mt-0.5 ${isSelected ? 'border-indigo-950 bg-indigo-950 text-white' : 'border-slate-300'}`}>
                           {isSelected && <Check className="h-2.5 w-2.5 stroke-[4]" />}
@@ -243,7 +243,7 @@ export default function CreateRole() {
                   <Info className={`h-4 w-4 shrink-0 mt-0.5 ${roleMeta.isSystemScope ? 'text-amber-600' : 'text-slate-400'}`} />
                   <div>
                     <span className="text-xs font-bold text-slate-900 block">Flag as Core Infrastructure Scope?</span>
-                    <span className="text-[10px] text-slate-400 font-medium font-sans block mt-0.5">Core components cannot be wiped out or compromised by downstream operations managers.</span>
+                    <span className="text-[10px] text-slate-400 font-medium  block mt-0.5">Core components cannot be wiped out or compromised by downstream operations managers.</span>
                   </div>
                 </div>
                 <div className={`w-8 h-4.5 rounded-full p-0.5 transition-colors duration-200 ease-in-out cursor-pointer ${roleMeta.isSystemScope ? 'bg-amber-500' : 'bg-slate-200'}`}>
@@ -280,7 +280,7 @@ export default function CreateRole() {
                   )}
                 </div>
 
-                <p className="text-[11px] text-indigo-200/70 font-sans leading-relaxed font-medium line-clamp-3">
+                <p className="text-[11px] text-indigo-200/70  leading-relaxed font-medium line-clamp-3">
                   {roleMeta.description || "Provide an operational description overview context to populate this secure identity node layout data..."}
                 </p>
 
@@ -295,7 +295,7 @@ export default function CreateRole() {
               
               <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 flex items-start gap-2.5">
                 <Sliders className="h-4 w-4 text-indigo-950 shrink-0 mt-0.5" />
-                <p className="text-[11px] font-medium text-slate-400 font-sans leading-normal">
+                <p className="text-[11px] font-medium text-slate-400  leading-normal">
                   This card updates parameters natively in system registries using localized dual-binding variables.
                 </p>
               </div>
@@ -366,7 +366,7 @@ export default function CreateRole() {
                         <tr key={mod.key} className="hover:bg-slate-50/40 transition-colors">
                           <td className="p-3">
                             <span className="font-bold text-indigo-950 block">{mod.name}</span>
-                            <span className="text-[10px] text-slate-400 font-medium font-sans block mt-0.5 leading-tight">{mod.desc}</span>
+                            <span className="text-[10px] text-slate-400 font-medium  block mt-0.5 leading-tight">{mod.desc}</span>
                           </td>
                           
                           {/* Granular Action Checkboxes */}
@@ -411,7 +411,7 @@ export default function CreateRole() {
             {/* Informational Protection Guard Info Stamp */}
             <div className="bg-indigo-50/30 border border-slate-100 rounded-xl p-3 flex items-start gap-2.5">
               <Lock className="h-4 w-4 text-indigo-950 shrink-0 mt-0.5" />
-              <p className="text-[11px] font-medium text-slate-400 font-sans leading-normal">
+              <p className="text-[11px] font-medium text-slate-400  leading-normal">
                 Confirming this matrix layout automatically updates access level visibilities globally across secure enterprise nodes. Ensure proper privilege scopes to prevent data exposure or administrative lockouts.
               </p>
             </div>

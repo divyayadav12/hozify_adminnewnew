@@ -13,7 +13,31 @@
   --soft: #f4eff8;
   --green: #07956f;
   --red: #d32929;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Master UI Design Tokens */
+  --text-title-page: 32px;
+  --text-title-section: 24px;
+  --text-title-card: 18px;
+  --text-body: 14px;
+  --text-label: 13px;
+  --text-small: 12px;
+
+  --spacing-page: 32px;
+  --spacing-section: 24px;
+  --spacing-card: 20px;
+
+  --radius-card: 16px;
+  --radius-table: 16px;
+  --radius-btn: 12px;
+  --radius-input: 12px;
+  --radius-modal: 20px;
+  --radius-badge: 9999px;
+
+  --shadow-standard: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-modal: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+  
+  --transition-standard: all 200ms ease;
+
   color: var(--text);
 }
 
@@ -8784,8 +8808,9 @@ td:first-child strong {
   color: #111827;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 28px;
   max-width: 100%;
+  padding: 24px;
 }
 
 .sos-page *,
@@ -9865,6 +9890,7 @@ td:first-child strong {
 
 .fraud-card {
   padding: 24px;
+  min-width: 0;
 }
 
 .fraud-card h3 {
@@ -10794,36 +10820,37 @@ td:first-child strong {
   }
 }
 
-.kpi-card, .custom-kpi-card, .booking-kpi, .fraud-kpi-card, .kyc-flow-stat, .banking-kpi, .report-kpi-card, .materio-card {
-  border: 2px solid #2563eb !important;
-  transition: all 0.2s ease-in-out !important;
-  width: fit-content !important;
-  height: fit-content !important;
-  min-height: unset !important;
-  padding: 14px 18px !important;
+.kpi-card, .custom-kpi-card, .booking-kpi, .fraud-kpi-card, .kyc-flow-stat, .banking-kpi, 
+.report-kpi-card, .materio-card {
+  border: 1px solid var(--line) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 130px !important;
+  padding: 20px !important;
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  position: relative;
 }
 
-.kpi-card:hover, .custom-kpi-card:hover, .booking-kpi:hover, .fraud-kpi-card:hover, .kyc-flow-stat:hover, .banking-kpi:hover, .report-kpi-card:hover, .materio-card:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.25) !important;
-  border-color: #1d4ed8 !important;
+.kpi-card:hover, .custom-kpi-card:hover, .booking-kpi:hover, .fraud-kpi-card:hover, 
+.kyc-flow-stat:hover, .banking-kpi:hover, .report-kpi-card:hover, .materio-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(37,16,143,0.06) !important;
+  border-color: #cbd5e1 !important;
   cursor: pointer !important;
 }
 
 .custom-kpi-card {
   align-items: center;
-  background: #fff;
-  border-radius: 8px;
   display: flex;
   gap: 16px;
-  min-height: 90px;
-  padding: 16px;
 }
 
 .custom-kpi-card-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 
@@ -10833,12 +10860,12 @@ td:first-child strong {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #ffffff;
+  background: white;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
+  color: #475569;
   font-size: 13px;
   font-weight: 600;
-  color: #334155;
   cursor: pointer;
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
   transition: all 0.2s ease;
@@ -10846,4 +10873,24 @@ td:first-child strong {
 .custom-btn-secondary:hover {
   background: #f8fafc;
   border-color: #94a3b8;
+}
+
+.custom-btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #6366f1;
+  border: 1px solid #4f46e5;
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+.custom-btn-primary:hover {
+  background: #4f46e5;
+  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
 }

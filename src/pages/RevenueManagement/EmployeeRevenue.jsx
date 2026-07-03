@@ -228,7 +228,7 @@ export default function EmployeeRevenue() {
                 {filteredEmployees.length > 0 ? (
                   filteredEmployees.map((emp, index) => (
                     <tr key={index} className="hover:bg-slate-50/40 transition-colors">
-                      <td className="px-6 py-4 text-slate-400 text-xs font-mono">{emp.id}</td>
+                      <td className="px-6 py-4 text-slate-400 text-xs ">{emp.id}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-full bg-slate-100 text-indigo-900 border border-slate-200 flex items-center justify-center font-bold text-xs shadow-sm">

@@ -98,7 +98,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
         return { color: '#2563eb', bg: '#eff6ff' };
       case 'Read':
       case 'Seen':
-        return { color: '#07956f', bg: '#ecfdf5' };
+        return { color: 'var(--green)', bg: '#ecfdf5' };
       case 'Expired':
         return { color: '#dc2626', bg: '#fee2e2' };
       default:
@@ -127,7 +127,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
       headerTitle="Communication Center"
       searchPlaceholder="Search communication log records..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb Row */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -203,13 +203,13 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
         </div>
 
         {/* Content Section Split Pane */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 2.2fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 2.2fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Side: Template Manager & Dispatch Stats */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Template Manager */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Response Templates
@@ -252,7 +252,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
             </div>
 
             {/* Channel Routing Stats */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Channel Share Ratio
               </h3>
@@ -307,7 +307,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
           </div>
 
           {/* Right Side: Paginated Activity Ledger with Search & Tab Filters */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', background: '#fff' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px', background: '#fff' }}>
             
             {/* Header Filters row */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -370,7 +370,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                 <tbody>
                   {currentItems.length === 0 ? (
                     <tr>
-                      <td colSpan={5} style={{ padding: '32px', textAlign: 'center', color: 'var(--muted)' }}>
+                      <td colSpan={5} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--muted)' }}>
                         No dispatch logs matched your filter criteria.
                       </td>
                     </tr>
@@ -504,7 +504,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
             borderRadius: '12px',
             width: '100%',
             maxWidth: '480px',
-            padding: '24px',
+            padding: 'var(--spacing-section)',
             boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
             display: 'flex',
             flexDirection: 'column',
@@ -555,7 +555,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                     border: '1px solid var(--line)',
                     padding: '10px',
                     fontSize: '12.5px',
-                    fontFamily: 'inherit',
+                    
                     resize: 'vertical'
                   }}
                 />

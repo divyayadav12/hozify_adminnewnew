@@ -29,7 +29,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
   const categories = [
     { label: 'Payments & Refunds', pct: 42, color: 'var(--primary)' },
     { label: 'KYC Verification', pct: 28, color: '#3b82f6' },
-    { label: 'Technical Issues', pct: 15, color: '#07956f' },
+    { label: 'Technical Issues', pct: 15, color: 'var(--green)' },
     { label: 'Account Access', pct: 10, color: '#8b5cf6' },
     { label: 'General Inquiry', pct: 5, color: '#6b7280' }
   ];
@@ -54,7 +54,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
       headerTitle="Operations Overview"
       searchPlaceholder="Search operations log..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb Row */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -145,10 +145,10 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
         </div>
 
         {/* Trends & Category row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Ticket Volume Trends Chart (Custom CSS column charts) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Ticket Volume Trends
@@ -158,7 +158,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
                   <span style={{ height: '8px', width: '8px', borderRadius: '20%', background: 'var(--primary)' }} />
                   Incoming
                 </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#07956f' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: 'var(--green)' }}>
                   <span style={{ height: '8px', width: '8px', borderRadius: '20%', background: '#07956f' }} />
                   Resolved
                 </span>
@@ -211,7 +211,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
           </div>
 
           {/* Category Distribution (Right column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Category Distribution
             </h3>
@@ -234,10 +234,10 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
         </div>
 
         {/* SLA Performance & Top Agents row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1.8fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1.8fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* SLA Performance Circle Meter */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', justifyContent: 'space-between', background: '#fff' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', justifyContent: 'space-between', background: '#fff' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0, alignSelf: 'flex-start' }}>
               SLA Performance
             </h3>
@@ -255,7 +255,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
               boxShadow: '0 4px 6px rgba(0,0,0,0.03)'
             }}>
               <strong style={{ fontSize: '24px', fontWeight: '900', color: 'var(--text)' }}>98.2%</strong>
-              <span style={{ fontSize: '10px', color: '#07956f', fontWeight: '800', textTransform: 'uppercase', marginTop: '2px' }}>Target met</span>
+              <span style={{ fontSize: '10px', color: 'var(--green)', fontWeight: '800', textTransform: 'uppercase', marginTop: '2px' }}>Target met</span>
             </div>
 
             <div style={{ width: '100%', borderTop: '1px solid var(--lavender)', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
@@ -271,7 +271,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
           </div>
 
           {/* Top Performing Agents table */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Top Performing Agents
@@ -326,7 +326,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
                           ))}
                         </div>
                       </td>
-                      <td style={{ padding: '12px', fontWeight: '800', color: '#07956f', textAlign: 'right' }}>
+                      <td style={{ padding: '12px', fontWeight: '800', color: 'var(--green)', textAlign: 'right' }}>
                         {ag.sla}
                       </td>
                     </tr>

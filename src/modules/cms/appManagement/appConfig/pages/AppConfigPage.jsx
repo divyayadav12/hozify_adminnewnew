@@ -104,7 +104,7 @@ export default function AppConfigPage() {
                 type="text" 
                 value={apiKey} 
                 onChange={(e) => setApiKey(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none', fontFamily: 'monospace' }}
+                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none', fontFamily: "var(--materio-space)", }}
               />
             </div>
             <div>
@@ -125,7 +125,7 @@ export default function AppConfigPage() {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="App Configuration Center">
-      <div style={{ padding: '24px', maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -148,7 +148,7 @@ export default function AppConfigPage() {
         </div>
 
         {/* Config Container */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 3fr', gap: '24px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden', minHeight: '400px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 3fr', gap: 'var(--spacing-section)', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden', minHeight: '400px' }}>
           
           {/* Tabs Sidebar */}
           <div style={{ borderRight: '1px solid var(--line)', background: '#f8fafc', padding: '16px 0' }}>
@@ -186,7 +186,7 @@ export default function AppConfigPage() {
           </div>
 
           {/* Form Fields Panel */}
-          <div style={{ padding: '32px' }}>
+          <div style={{ padding: 'var(--spacing-page)' }}>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', marginBottom: '24px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
               {activeSubTab} Configuration
             </h3>

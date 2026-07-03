@@ -31,7 +31,7 @@ export default function ServiceProfile({ onClose }) {
   const [activeSubTab, setActiveSubTab] = useState('Overview');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
       
       {/* Breadcrumb & Navigation Back Action */}
       <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
@@ -64,7 +64,7 @@ export default function ServiceProfile({ onClose }) {
       </div>
 
       {/* Main Profile Summary Panel */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', gap: 'var(--spacing-section)', alignItems: 'center', flexWrap: 'wrap' }}>
         <img
           src="https://images.unsplash.com/photo-1581094288338-2314dddb7eed?auto=format&fit=crop&w=140&h=140&q=80"
           alt="Industrial HVAC Maintenance"
@@ -124,7 +124,7 @@ export default function ServiceProfile({ onClose }) {
             style={{
               height: '38px',
               padding: '0 16px',
-              background: '#25108f',
+              background: 'var(--primary)',
               color: '#ffffff',
               border: 'none',
               borderRadius: '6px',
@@ -226,13 +226,13 @@ export default function ServiceProfile({ onClose }) {
       </div>
 
       {/* Grid Content Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
         
         {/* Left Columns (Details & Recent Work Orders) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: 2 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: 2 }}>
           
           {/* Service Overview Panel */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Service Overview</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0, lineHeight: '1.6' }}>
               Comprehensive preventive and corrective maintenance for industrial-scale HVAC systems. Our certified technicians specialize in variable refrigerant flow (VRF) systems, centrifugal chillers, and large-scale air handling units. We utilize predictive diagnostic tools to identify potential points of failure before they impact operational uptime.
@@ -258,7 +258,7 @@ export default function ServiceProfile({ onClose }) {
           </div>
 
           {/* Recent Work Orders */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Recent Work Orders</h2>
               <a href="#view-all-work" onClick={(e) => e.preventDefault()} style={{ fontSize: '12px', color: '#4f46e5', fontWeight: '800', textDecoration: 'none' }}>
@@ -321,10 +321,10 @@ export default function ServiceProfile({ onClose }) {
         </div>
 
         {/* Right Columns (Metrics, Technicians, Support) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: 1 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: 1 }}>
           
           {/* Real-time Performance */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Real-time Performance</h3>
               <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
@@ -372,7 +372,7 @@ export default function ServiceProfile({ onClose }) {
           </div>
 
           {/* Assigned Lead Technicians */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Assigned Lead Technicians
             </h3>
@@ -414,7 +414,7 @@ export default function ServiceProfile({ onClose }) {
           </div>
 
           {/* Premium Support */}
-          <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '180px', position: 'relative' }}>
+          <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '180px', position: 'relative' }}>
             <div>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <Zap size={16} style={{ color: '#fbbf24' }} fill="#fbbf24" />

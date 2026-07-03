@@ -95,7 +95,7 @@ export default function ServiceCategories({ onAddCategory }) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', position: 'relative' }}>
       
       {/* CSS Styles for Clean Printing Print Engine Layout inside JS */}
       <style>{`
@@ -123,7 +123,7 @@ export default function ServiceCategories({ onAddCategory }) {
               alignItems: 'center',
               gap: '8px',
               background: '#ffffff',
-              color: '#25108f',
+              color: 'var(--primary)',
               border: '1px solid #25108f',
               borderRadius: '6px',
               padding: '8px 16px',
@@ -182,7 +182,7 @@ export default function ServiceCategories({ onAddCategory }) {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              background: '#25108f',
+              background: 'var(--primary)',
               color: '#ffffff',
               border: 'none',
               borderRadius: '6px',
@@ -254,7 +254,7 @@ export default function ServiceCategories({ onAddCategory }) {
       </div>
 
       {/* Table Section */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
@@ -318,7 +318,7 @@ export default function ServiceCategories({ onAddCategory }) {
           </span>
           <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
             <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}><ChevronLeft size={16} /></button>
-            <button style={{ border: 'none', background: '#25108f', color: '#ffffff', padding: '8px 14px', fontSize: '13px', fontWeight: '800' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
+            <button style={{ border: 'none', background: 'var(--primary)', color: '#ffffff', padding: '8px 14px', fontSize: '13px', fontWeight: '800' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
             <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}><ChevronRight size={16} /></button>
           </div>
         </div>
@@ -326,7 +326,7 @@ export default function ServiceCategories({ onAddCategory }) {
 
       {/* Bottom Insights */}
       <div className="no-print" style={{ display: 'grid', gridTemplateColumns: '1fr', mdGridTemplateColumns: '1.5fr 1fr', gap: '20px' }}>
-        <div className="panel" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '16px' }}>
             <Sparkles size={16} style={{ color: '#1e40af' }} />
             <h3 style={{ fontSize: '11px', fontWeight: '800', color: '#1e40af', textTransform: 'uppercase', letterSpacing: '0.5px', margin: 0 }}>Category Performance Insights</h3>
@@ -353,7 +353,7 @@ export default function ServiceCategories({ onAddCategory }) {
           </div>
         </div>
 
-        <div className="panel" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
+        <div className="panel" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: 'var(--spacing-section)', position: 'relative', overflow: 'hidden' }}>
           <h3 style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a', margin: 0 }}>QUICK ACTIONS</h3>
           <p style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '6px', marginBottom: '16px', lineHeight: '1.4' }}>
             Need to perform bulk operations or export this view?
@@ -368,7 +368,7 @@ export default function ServiceCategories({ onAddCategory }) {
       {/* Dynamic Modal Layer Framework (Supports View, Edit, and Price Config) */}
       {activeModal && selectedCategory && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(15,23,42,0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#ffffff', width: '100%', maxWidth: '450px', borderRadius: '12px', padding: '24px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+          <div style={{ background: '#ffffff', width: '100%', maxWidth: '450px', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800' }}>
                 {activeModal === 'view' && 'Category Details'}
@@ -385,7 +385,7 @@ export default function ServiceCategories({ onAddCategory }) {
               {/* PRICE CONFIGURATION MODAL VIEW SHEET */}
               {activeModal === 'price' ? (
                 <div>
-                  <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#25108f', marginBottom: '6px' }}>SET INDIVIDUAL SERVICE BASE PRICE ($)</label>
+                  <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--primary)', marginBottom: '6px' }}>SET INDIVIDUAL SERVICE BASE PRICE ($)</label>
                   <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                     <span style={{ position: 'absolute', left: '12px', fontWeight: '700', color: 'var(--muted)' }}>$</span>
                     <input
@@ -457,7 +457,7 @@ export default function ServiceCategories({ onAddCategory }) {
                 Close
               </button>
               {(activeModal === 'edit' || activeModal === 'price') && (
-                <button onClick={handleSaveChanges} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#25108f', color: '#fff', fontSize: '13px', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <button onClick={handleSaveChanges} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: 'var(--primary)', color: '#fff', fontSize: '13px', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Save size={14} />
                   <span>Save Changes</span>
                 </button>

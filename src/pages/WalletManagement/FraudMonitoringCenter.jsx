@@ -77,7 +77,7 @@ export default function FraudMonitoringCenter() {
       searchPlaceholder="Search Wallet IDs or Hash..."
     >
 
-      <div className="min-h-screen max-w-full text-slate-800 p-6 space-y-6 font-sans overflow-x-hidden">
+      <div className="min-h-screen max-w-full text-slate-800 p-6 space-y-6  overflow-x-hidden">
 
         {/* ================= TOP METRIC CARDS GRID ================= */}
 
@@ -331,7 +331,7 @@ export default function FraudMonitoringCenter() {
                 <tbody className="divide-y divide-slate-100 font-medium text-slate-600">
                   {FRAUD_WALLETS.map(w => (
                     <tr key={w.id} className="hover:bg-slate-50/60 transition-colors">
-                      <td className="px-5 py-4 font-mono font-bold text-slate-900">{w.id}</td>
+                      <td className="px-5 py-4  font-bold text-slate-900">{w.id}</td>
                       <td className="px-5 py-4 text-right font-black text-rose-600">{w.amount}</td>
                       <td className="px-5 py-4">
                         <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-xs uppercase ${

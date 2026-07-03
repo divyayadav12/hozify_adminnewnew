@@ -78,7 +78,7 @@ export default function CommissionManagement() {
   const visibleSettlements = settlements.slice(0, 4);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', position: 'relative' }}>
       
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -161,13 +161,13 @@ export default function CommissionManagement() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.5fr 1fr', gap: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.5fr 1fr', gap: 'var(--spacing-section)' }}>
         
         {/* Left Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Commission Rules Table without Searchbar */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Commission Rules</h3>
             </div>
@@ -191,7 +191,7 @@ export default function CommissionManagement() {
                           <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>{row.name}</strong>
                         </td>
                         <td style={{ padding: '12px', fontSize: '13px', color: 'var(--muted)' }}>{row.type}</td>
-                        <td style={{ padding: '12px', fontSize: '13px', color: '#25108f', fontWeight: '700' }}>{row.percentage}</td>
+                        <td style={{ padding: '12px', fontSize: '13px', color: 'var(--primary)', fontWeight: '700' }}>{row.percentage}</td>
                         <td style={{ padding: '12px', fontSize: '12px', color: 'var(--muted)' }}>{row.services}</td>
                         <td style={{ padding: '12px' }}>
                           <span style={{ fontSize: '10px', fontWeight: '800', color: row.status === 'ACTIVE' ? '#07956f' : '#d97706' }}>
@@ -207,9 +207,9 @@ export default function CommissionManagement() {
           </div>
 
           {/* Commission Analytics */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>Commission Trends & Top Services</h3>
-            <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 'var(--spacing-section)', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '12px', display: 'block' }}>COMMISSION GENERATION (LAST 6 MONTHS)</span>
                 <div style={{ height: '160px', display: 'flex', alignItems: 'flex-end', gap: '8px', borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
@@ -227,10 +227,10 @@ export default function CommissionManagement() {
         </div>
 
         {/* Right Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Commission Distribution */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <PieChart size={18} style={{ color: 'var(--text)' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Commission Distribution</h3>
@@ -268,7 +268,7 @@ export default function CommissionManagement() {
           </div>
 
           {/* Settlement Tracking Widget */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Settlement Tracking</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -312,7 +312,7 @@ export default function CommissionManagement() {
           backgroundColor: 'rgba(0, 0, 0, 0.4)', display: 'flex', justifyContent: 'center',
           alignItems: 'center', zIndex: 9999, padding: '20px', boxSizing: 'border-box'
         }}>
-          <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', width: '650px', maxWidth: '100%', boxShadow: '0 4px 20px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', maxH: '85vh' }}>
+          <div style={{ background: '#fff', padding: 'var(--spacing-section)', borderRadius: '12px', width: '650px', maxWidth: '100%', boxShadow: '0 4px 20px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', maxH: '85vh' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>All Ledger Settlements ({settlements.length})</h2>
               <button onClick={() => setIsSettlementModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }}><X size={20} /></button>
@@ -335,7 +335,7 @@ export default function CommissionManagement() {
                       <td style={{ padding: '12px 10px', fontSize: '12px', fontWeight: '700', color: 'var(--text)' }}>{item.id}</td>
                       <td style={{ padding: '12px 10px', fontSize: '13px', fontWeight: '600' }}>{item.partner}</td>
                       <td style={{ padding: '12px 10px', fontSize: '12px', color: 'var(--muted)' }}>{item.date}</td>
-                      <td style={{ padding: '12px 10px', fontSize: '13px', fontWeight: '700', color: '#25108f' }}>{item.amount}</td>
+                      <td style={{ padding: '12px 10px', fontSize: '13px', fontWeight: '700', color: 'var(--primary)' }}>{item.amount}</td>
                       <td style={{ padding: '12px 10px' }}>
                         <span style={{ fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px', background: item.status === 'COMPLETED' ? '#d1fae5' : item.status === 'FAILED' ? '#fee2e2' : '#fef3c7', color: item.status === 'COMPLETED' ? '#059669' : item.status === 'FAILED' ? '#dc2626' : '#d97706' }}>
                           {item.status}
@@ -348,7 +348,7 @@ export default function CommissionManagement() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
-              <button onClick={() => setIsSettlementModalOpen(false)} style={{ padding: '8px 16px', background: '#25108f', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+              <button onClick={() => setIsSettlementModalOpen(false)} style={{ padding: '8px 16px', background: 'var(--primary)', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
                 Close Window
               </button>
             </div>

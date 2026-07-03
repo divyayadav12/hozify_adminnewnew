@@ -285,7 +285,7 @@ export default function FinancialHealth() {
                       <tr key={index} className="border-b border-slate-100 hover:bg-slate-50/20 transition-colors">
                         <td className="px-6 py-4 text-slate-800 font-bold">{row.name}</td>
                         <td className="px-6 py-4 text-slate-900 font-extrabold">{row.value}</td>
-                        <td className={`px-6 py-4 font-mono font-bold ${row.isPos ? "text-emerald-600" : row.change === "0.00" ? "text-slate-400" : "text-amber-500"}`}>
+                        <td className={`px-6 py-4  font-bold ${row.isPos ? "text-emerald-600" : row.change === "0.00" ? "text-slate-400" : "text-amber-500"}`}>
                           {row.change}
                         </td>
                         <td className="px-6 py-4">

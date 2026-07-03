@@ -99,7 +99,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
       headerTitle="KB Editor"
       searchPlaceholder="Search Knowledge Base..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Article Edit Header (Back row + Publish/Save) */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
@@ -180,13 +180,13 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
         </div>
 
         {/* Content Layout Editor columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Column Editor details */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Title & Metadata Settings */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               
               {/* Article Title */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -254,7 +254,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
             </div>
 
             {/* Rich Editor Box */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               
               <div style={{ border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
                 
@@ -308,10 +308,10 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
           </div>
 
           {/* Right Column Settings */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* SEO Settings panel */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Settings size={15} style={{ color: 'var(--primary)' }} />
                 SEO Settings
@@ -344,7 +344,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
             </div>
 
             {/* Tags Setup */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Tags
               </h3>
@@ -391,7 +391,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
             </div>
 
             {/* Related Articles links */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Related Articles
@@ -446,7 +446,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
             </div>
 
             {/* Article Metadata statistics */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: 'var(--primary)', color: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: 'var(--primary)', color: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: '#fff', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Article Metadata
               </h3>

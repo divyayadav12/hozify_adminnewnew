@@ -209,7 +209,7 @@ export default function OwnershipVerification() {
       headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
       searchPlaceholder="Search registry..."
     >
-      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '90px' }}>
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '90px' }}>
         
         {/* Selection pills row */}
         <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
@@ -289,12 +289,12 @@ export default function OwnershipVerification() {
         </div>
 
         {/* 2-Column main content layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Column 1: Document canvas visual (Left) */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {/* Shareholding Hierarchy panel */}
-            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '13px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.3px', margin: 0 }}>Shareholding Hierarchy</h2>
                 <div style={{ display: 'flex', gap: '8px' }}>
@@ -308,7 +308,7 @@ export default function OwnershipVerification() {
               </div>
 
               {/* Dynamic Organizational flow visual */}
-              <div style={{ position: 'relative', minHeight: '380px', background: '#fafafa', border: '1px dashed #cbd5e1', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ position: 'relative', minHeight: '380px', background: '#fafafa', border: '1px dashed #cbd5e1', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 {/* Parent Block */}
                 <div style={{ width: '220px', background: '#312e81', color: '#fff', borderRadius: '8px', padding: '12px', textAlign: 'center', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
                   <strong style={{ fontSize: '11px', display: 'block' }}>{selectedRecord.company}</strong>
@@ -354,7 +354,7 @@ export default function OwnershipVerification() {
             </div>
 
             {/* Screening & Watchlist panel */}
-            <div className="panel" style={{ padding: '24px', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', border: '1px solid #e2e8f0', borderRadius: '12px' }}>
               <h2 style={{ fontSize: '13px', fontWeight: '900', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.3px', margin: '0 0 16px' }}>Screening & Watchlists</h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -630,7 +630,7 @@ export default function OwnershipVerification() {
         {flagModalOpen && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setFlagModalOpen(false); setFlagReason(''); }} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                 <div>
                   <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Flag for Revision</h3>
@@ -649,7 +649,7 @@ export default function OwnershipVerification() {
                     value={flagReason}
                     onChange={(e) => setFlagReason(e.target.value)}
                     placeholder="e.g. Elena Rodriguez's passport has expired. Require updated identity documents..."
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none',  }}
                   />
                 </div>
 
@@ -681,7 +681,7 @@ export default function OwnershipVerification() {
         {rejectModalOpen && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setRejectModalOpen(false); setRejectReason(''); }} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                 <div>
                   <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject Identity Set</h3>
@@ -700,7 +700,7 @@ export default function OwnershipVerification() {
                     value={rejectReason}
                     onChange={(e) => setRejectReason(e.target.value)}
                     placeholder="E.g., Failed sanctions screening check, invalid beneficial owner registration details..."
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none',  }}
                   />
                 </div>
 

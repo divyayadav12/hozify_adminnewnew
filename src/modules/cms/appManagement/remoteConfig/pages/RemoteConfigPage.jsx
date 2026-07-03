@@ -106,7 +106,7 @@ export default function RemoteConfigPage() {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="Remote Configuration Engine">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -221,7 +221,7 @@ export default function RemoteConfigPage() {
                         </span>
                       </td>
                       <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.app}</td>
-                      <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>{row.value}</td>
+                      <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>{row.value}</td>
                       <td style={{ padding: '18px 24px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <div style={{ flex: 1, width: '60px', height: '6px', background: '#eee9f6', borderRadius: '3px', overflow: 'hidden' }}>
@@ -271,7 +271,7 @@ export default function RemoteConfigPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No configuration parameters found.</td>
+                    <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No configuration parameters found.</td>
                   </tr>
                 )}
               </tbody>

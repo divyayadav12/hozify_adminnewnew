@@ -282,7 +282,7 @@ export default function ETAMonitoring() {
                       className={`hover:bg-slate-50/70 transition-all cursor-pointer ${selectedJob.id === job.id ? "bg-indigo-50/40 font-semibold" : ""}`}
                     >
                       <td className="py-3.5 px-4">
-                        <span className="font-mono text-slate-400 block font-bold">{job.id}</span>
+                        <span className=" text-slate-400 block font-bold">{job.id}</span>
                         <strong className="text-slate-900 font-extrabold block">{job.partner}</strong>
                       </td>
                       <td className="py-3.5 px-4">
@@ -297,7 +297,7 @@ export default function ETAMonitoring() {
                       </td>
                       <td className="py-3.5 px-4">
                         <div className="flex justify-between items-center text-[10px] font-bold mb-1">
-                          <span className="font-mono text-indigo-950">ETA {job.eta}</span>
+                          <span className=" text-indigo-950">ETA {job.eta}</span>
                           <span className="text-slate-400">{job.progress}%</span>
                         </div>
                         <div className="w-28 h-1.5 bg-slate-100 rounded-full overflow-hidden">
@@ -334,7 +334,7 @@ export default function ETAMonitoring() {
               <div>
                 <div className="flex justify-between items-start">
                   <div>
-                    <span className="text-[9px] font-mono font-bold tracking-widest opacity-50 block">SELECTED INCIDENT CONTEXT</span>
+                    <span className="text-[9px]  font-bold tracking-widest opacity-50 block">SELECTED INCIDENT CONTEXT</span>
                     <h4 className="text-base font-black tracking-tight">{selectedJob.id}</h4>
                   </div>
                   <span className={`text-[9px] font-black px-2 py-0.5 rounded uppercase ${selectedJob.priority === 'Critical' ? 'bg-rose-500 text-white' : 'bg-white/10 text-white'}`}>
@@ -353,7 +353,7 @@ export default function ETAMonitoring() {
                   </p>
                   <p className="flex justify-between">
                     <span className="opacity-50">Last Active Track:</span>
-                    <strong className="font-mono text-amber-400">{selectedJob.currentLocation}</strong>
+                    <strong className=" text-amber-400">{selectedJob.currentLocation}</strong>
                   </p>
                 </div>
               </div>
@@ -381,7 +381,7 @@ export default function ETAMonitoring() {
                     <div>
                       <div className="flex items-center gap-2">
                         <strong className="font-black text-slate-900">{feed.title}</strong>
-                        <span className="text-[9px] text-slate-400 font-mono font-bold">{feed.time}</span>
+                        <span className="text-[9px] text-slate-400  font-bold">{feed.time}</span>
                       </div>
                       <p className="text-slate-500 text-[11px] mt-0.5 leading-normal">{feed.desc}</p>
                     </div>

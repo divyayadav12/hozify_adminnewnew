@@ -49,7 +49,7 @@ export default function LeaveManagement() {
       {isApplyModalOpen && (
         <>
           <div style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(4px)', zIndex: 999 }} onClick={() => setApplyModalOpen(false)} />
-          <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: '#fff', padding: '24px', borderRadius: '12px', zIndex: 1000, width: '400px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+          <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: '#fff', padding: 'var(--spacing-section)', borderRadius: '12px', zIndex: 1000, width: '400px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
             <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '16px', color: 'var(--text)' }}>Apply for Leave</h2>
             <div style={{ marginBottom: '16px' }}>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px' }}>LEAVE TYPE</label>
@@ -166,7 +166,7 @@ export default function LeaveManagement() {
       </section>
 
       {/* Recent Leave Requests Table */}
-      <section className="panel partner-directory-panel" style={{ padding: '24px', marginBottom: '24px' }}>
+      <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)', marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '700', margin: '0' }}>Recent Leave Requests</h2>
           <div style={{ display: 'flex', gap: '12px' }}>
@@ -320,7 +320,7 @@ export default function LeaveManagement() {
               ))}
               {filteredRequests.length === 0 && (
                 <tr>
-                  <td colSpan="6" style={{ textAlign: 'center', padding: '24px', color: 'var(--muted)' }}>No matching leave requests found.</td>
+                  <td colSpan="6" style={{ textAlign: 'center', padding: 'var(--spacing-section)', color: 'var(--muted)' }}>No matching leave requests found.</td>
                 </tr>
               )}
             </tbody>

@@ -39,7 +39,7 @@ export default function EmployeeKyc() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
       
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
@@ -108,7 +108,7 @@ export default function EmployeeKyc() {
         </div>
       </div>
 
-      <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', marginBottom: 0 }}>
+      <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
         <div style={{ display: 'flex', justifycontent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>KYC Applications</h3>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginLeft: 'auto' }}>
@@ -172,7 +172,7 @@ export default function EmployeeKyc() {
                 ))}
                 {filteredKyc.length === 0 && (
                   <tr>
-                    <td colSpan="7" style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
+                    <td colSpan="7" style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
                       No KYC records found.
                     </td>
                   </tr>
@@ -190,7 +190,7 @@ export default function EmployeeKyc() {
             onClick={() => setPreviewKyc(null)}
           />
           <div style={{ position: 'fixed', top: 0, right: 0, bottom: 0, width: '480px', background: '#fff', zIndex: 1000, boxShadow: '-8px 0 24px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ padding: '24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
+            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
               <div>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>KYC Review</h3>
                 <span style={{ fontSize: '12px', color: 'var(--muted)' }}>{previewKyc.employee} ({previewKyc.id})</span>
@@ -200,7 +200,7 @@ export default function EmployeeKyc() {
               </button>
             </div>
             
-            <div style={{ padding: '24px', flex: 1, overflowY: 'auto' }}>
+            <div style={{ padding: 'var(--spacing-section)', flex: 1, overflowY: 'auto' }}>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Aadhaar Section */}

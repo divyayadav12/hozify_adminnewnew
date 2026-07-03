@@ -65,7 +65,7 @@ export default function MaintenanceModePage() {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="Application Maintenance Center">
-      <div style={{ padding: '24px', maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -92,12 +92,12 @@ export default function MaintenanceModePage() {
             background: maintenanceActive ? '#fffbeb' : '#fff', 
             border: maintenanceActive ? '1px solid #f59e0b' : '1px solid var(--line)', 
             borderRadius: '12px', 
-            padding: '24px',
+            padding: 'var(--spacing-section)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '24px'
+            gap: 'var(--spacing-section)'
           }}
         >
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
@@ -136,10 +136,10 @@ export default function MaintenanceModePage() {
         </div>
 
         {/* Configuration Forms */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Settings Column */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1px solid var(--line)', paddingBottom: '12px', margin: 0 }}>
               Downtime Rules & parameters
             </h3>
@@ -186,7 +186,7 @@ export default function MaintenanceModePage() {
                     position: 'absolute',
                     right: '12px',
                     bottom: '12px',
-                    background: '#25108f',
+                    background: 'var(--primary)',
                     color: '#fff',
                     border: 'none',
                     borderRadius: '4px',
@@ -232,7 +232,7 @@ export default function MaintenanceModePage() {
           </div>
 
           {/* Guidelines Sidebar */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', height: 'fit-content' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', height: 'fit-content' }}>
             <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '16px', margin: 0 }}>
               Deployment Guidelines
             </h3>

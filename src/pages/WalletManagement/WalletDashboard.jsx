@@ -36,12 +36,12 @@ export default function WalletDashboard() {
   const penaltyAmount = 6500.00;
 
   const kpis = [
-    { title: 'Total Balance', value: `₹${totalBalance.toLocaleString('en-IN')}`, trend: '+12.4%', trendColor: '#07956f', icon: Wallet, color: '#25108f', bg: '#f4eff8' },
-    { title: 'Frozen Amount', value: `₹${totalFrozen.toLocaleString('en-IN')}`, trend: 'Risk Alert', trendColor: '#d32929', icon: AlertTriangle, color: '#d32929', bg: '#fee2e2' },
+    { title: 'Total Balance', value: `₹${totalBalance.toLocaleString('en-IN')}`, trend: '+12.4%', trendcolor: 'var(--green)', icon: Wallet, color: 'var(--primary)', bg: '#f4eff8' },
+    { title: 'Frozen Amount', value: `₹${totalFrozen.toLocaleString('en-IN')}`, trend: 'Risk Alert', trendcolor: 'var(--red)', icon: AlertTriangle, color: 'var(--red)', bg: '#fee2e2' },
     { title: 'Pending Settlements', value: `₹${pendingSettlements.toLocaleString('en-IN')}`, trend: '14 Batches', trendColor: 'var(--muted)', icon: Clock, color: '#b45309', bg: '#fffbeb' },
     { title: 'TX Count', value: totalTxCount.toLocaleString('en-IN'), trend: 'Last 24h', trendColor: 'var(--muted)', icon: TrendingUp, color: '#1e40af', bg: '#eff6ff' },
-    { title: 'Refunds', value: `-₹${refundAmount.toLocaleString('en-IN')}`, trend: '-2.1% MoM', trendColor: '#d32929', icon: TrendingDown, color: '#9d174d', bg: '#fdf2f8' },
-    { title: 'Penalties', value: `₹${penaltyAmount.toLocaleString('en-IN')}`, trend: 'Compliance', trendColor: '#07956f', icon: CheckCircle, color: '#047857', bg: '#ecfdf5' }
+    { title: 'Refunds', value: `-₹${refundAmount.toLocaleString('en-IN')}`, trend: '-2.1% MoM', trendcolor: 'var(--red)', icon: TrendingDown, color: '#9d174d', bg: '#fdf2f8' },
+    { title: 'Penalties', value: `₹${penaltyAmount.toLocaleString('en-IN')}`, trend: 'Compliance', trendcolor: 'var(--green)', icon: CheckCircle, color: '#047857', bg: '#ecfdf5' }
   ];
 
   return (
@@ -52,7 +52,7 @@ export default function WalletDashboard() {
       headerTitle="Financial Admin"
       searchPlaceholder="Search transactions, wallets, or references..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title area & header buttons */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -93,7 +93,7 @@ export default function WalletDashboard() {
                 alignItems: 'center',
                 gap: '8px',
                 border: 'none',
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#fff',
                 fontSize: '12px',
                 fontWeight: '750',
@@ -153,7 +153,7 @@ export default function WalletDashboard() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Wallet Growth (7D) */}
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Wallet Growth (7D)
@@ -214,14 +214,14 @@ export default function WalletDashboard() {
             </div>
 
             {/* Recent Transaction Ledger */}
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Recent Transaction Ledger
                 </h2>
                 <span
                   onClick={() => navigate(ROUTES.walletTransactions)}
-                  style={{ fontSize: '12px', fontWeight: '800', color: '#25108f', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                  style={{ fontSize: '12px', fontWeight: '800', color: 'var(--primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                 >
                   <span>View Full History</span>
                   <ArrowRight size={13} />
@@ -248,7 +248,7 @@ export default function WalletDashboard() {
                           <td style={{ padding: '12px', color: 'var(--muted)', fontWeight: '650' }}>{txn.date}</td>
                           <td style={{ padding: '12px' }}>
                             <strong
-                              style={{ color: '#25108f', textDecoration: 'underline', cursor: 'pointer' }}
+                              style={{ color: 'var(--primary)', textDecoration: 'underline', cursor: 'pointer' }}
                               onClick={() => navigate(ROUTES.transactionDetail.replace(':id', txn.id))}
                             >
                               #{txn.id}
@@ -284,7 +284,7 @@ export default function WalletDashboard() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Cash Flow Volume */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Cash Flow Volume
               </h2>
@@ -292,22 +292,22 @@ export default function WalletDashboard() {
               {/* Double-bar chart mockup */}
               <div style={{ height: '120px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', position: 'relative', borderBottom: '1px solid var(--line)', paddingBottom: '6px' }}>
                 <div style={{ display: 'flex', gap: '3px', alignItems: 'flex-end' }}>
-                  <div style={{ width: '16px', height: '80px', background: '#25108f', borderRadius: '2px 2px 0 0' }} />
+                  <div style={{ width: '16px', height: '80px', background: 'var(--primary)', borderRadius: '2px 2px 0 0' }} />
                   <div style={{ width: '16px', height: '40px', background: '#d32929', borderRadius: '2px 2px 0 0' }} />
                 </div>
                 <div style={{ display: 'flex', gap: '3px', alignItems: 'flex-end' }}>
-                  <div style={{ width: '16px', height: '95px', background: '#25108f', borderRadius: '2px 2px 0 0' }} />
+                  <div style={{ width: '16px', height: '95px', background: 'var(--primary)', borderRadius: '2px 2px 0 0' }} />
                   <div style={{ width: '16px', height: '65px', background: '#d32929', borderRadius: '2px 2px 0 0' }} />
                 </div>
                 <div style={{ display: 'flex', gap: '3px', alignItems: 'flex-end' }}>
-                  <div style={{ width: '16px', height: '60px', background: '#25108f', borderRadius: '2px 2px 0 0' }} />
+                  <div style={{ width: '16px', height: '60px', background: 'var(--primary)', borderRadius: '2px 2px 0 0' }} />
                   <div style={{ width: '16px', height: '28px', background: '#d32929', borderRadius: '2px 2px 0 0' }} />
                 </div>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', fontWeight: '750', color: 'var(--muted)' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ height: '8px', width: '8px', background: '#25108f', borderRadius: '50%' }} />
+                  <span style={{ height: '8px', width: '8px', background: 'var(--primary)', borderRadius: '50%' }} />
                   Credits
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -318,13 +318,13 @@ export default function WalletDashboard() {
             </div>
 
             {/* Suspicious Activity */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <AlertTriangle size={16} style={{ color: '#d32929' }} />
+                  <AlertTriangle size={16} style={{ color: 'var(--red)' }} />
                   <span>Suspicious Activity</span>
                 </h2>
-                <span style={{ fontSize: '9px', fontWeight: '900', background: '#fee2e2', color: '#d32929', padding: '2px 6px', borderRadius: '4px' }}>
+                <span style={{ fontSize: '9px', fontWeight: '900', background: '#fee2e2', color: 'var(--red)', padding: '2px 6px', borderRadius: '4px' }}>
                   3 HIGH RISK
                 </span>
               </div>
@@ -333,13 +333,13 @@ export default function WalletDashboard() {
                 <div style={{ borderLeft: '3px solid #d32929', paddingLeft: '12px', background: '#fafafa', borderRadius: '0 4px 4px 0', padding: '10px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                     <strong style={{ fontSize: '12px', color: 'var(--text)' }}>Duplicate Settlement Attempt</strong>
-                    <span style={{ fontSize: '10px', color: '#d32929', fontWeight: '750' }}>Just Now</span>
+                    <span style={{ fontSize: '10px', color: 'var(--red)', fontWeight: '750' }}>Just Now</span>
                   </div>
                   <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '4px' }}>
                     Ref ID #TX-882194 - Source: IP 192.168.1.1
                   </span>
                   <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-                    <button style={{ border: 'none', background: 'transparent', color: '#d32929', fontSize: '11px', fontWeight: '800', cursor: 'pointer', padding: 0 }} onClick={() => navigate(ROUTES.walletFreezeCenter)}>Freeze</button>
+                    <button style={{ border: 'none', background: 'transparent', color: 'var(--red)', fontSize: '11px', fontWeight: '800', cursor: 'pointer', padding: 0 }} onClick={() => navigate(ROUTES.walletFreezeCenter)}>Freeze</button>
                     <button style={{ border: 'none', background: 'transparent', color: 'var(--muted)', fontSize: '11px', fontWeight: '750', cursor: 'pointer', padding: 0 }} onClick={() => alert('Dismissed warning')}>Dismiss</button>
                   </div>
                 </div>
@@ -357,7 +357,7 @@ export default function WalletDashboard() {
             </div>
 
             {/* Open Refund Requests */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Open Refund Requests
               </h2>

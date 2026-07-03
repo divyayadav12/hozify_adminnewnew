@@ -140,9 +140,6 @@ export default function UserReviews() {
         {/* 1. HEADER SECTION */}
         <div className="flex justify-between items-start">
           <div>
-            <div className="text-xs font-medium text-slate-400">
-              Admin <span className="text-slate-900 font-semibold mx-0.5">/ User Review</span>
-            </div>
             <h1 className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">Review Management</h1>
             <p className="text-sm text-slate-500 mt-1 max-w-2xl font-normal leading-relaxed">
               Audit and moderate community submissions to ensure quality standards across the product ecosystem.
@@ -368,7 +365,7 @@ export default function UserReviews() {
                 <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-700">
                   {filteredReviews.length === 0 ? (
                     <tr>
-                      <td colSpan="6" className="text-center p-8 text-xs font-medium text-slate-400 font-sans">
+                      <td colSpan="6" className="text-center p-8 text-xs font-medium text-slate-400 ">
                         No active authorization maps or filtered reviews fit these criteria constraints.
                       </td>
                     </tr>

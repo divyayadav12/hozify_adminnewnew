@@ -159,7 +159,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
       <div style={{ display: 'flex', position: 'relative', minHeight: 'calc(100vh - 120px)' }}>
         
         {/* Main Logs Table Section */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', paddingRight: selectedLog ? '380px' : '0', transition: 'padding-right 0.25s ease' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', paddingRight: selectedLog ? '380px' : '0', transition: 'padding-right 0.25s ease' }}>
           
           {/* Header Row */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -230,7 +230,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
               </div>
               <div>
                 <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Delivery Rate</span>
-                <strong style={{ display: 'block', fontSize: '20px', color: '#07956f', fontWeight: '800' }}>99.2%</strong>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--green)', fontWeight: '800' }}>99.2%</strong>
               </div>
             </div>
 
@@ -250,13 +250,13 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
               </div>
               <div>
                 <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Failures</span>
-                <strong style={{ display: 'block', fontSize: '20px', color: '#d32929', fontWeight: '800' }}>84</strong>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--red)', fontWeight: '800' }}>84</strong>
               </div>
             </div>
           </div>
 
           {/* Historical Ledger Table Panel */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
             
             {/* Filters Row */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
@@ -312,7 +312,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
                 <tbody>
                   {filteredLogs.length === 0 ? (
                     <tr>
-                      <td colSpan={6} style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)' }}>
+                      <td colSpan={6} style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: 'var(--muted)' }}>
                         No communication ledger events found matching criteria.
                       </td>
                     </tr>
@@ -430,7 +430,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--lavender)' }}>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)' }}>Ledger Trace ID</span>
-                <strong style={{ fontSize: '13.5px', color: 'var(--text)', fontFamily: 'monospace' }}>{selectedLog.id}</strong>
+                <strong style={{ fontSize: '13.5px', color: 'var(--text)', fontFamily: "var(--materio-space)", }}>{selectedLog.id}</strong>
               </div>
               <button
                 onClick={() => setSelectedLog(null)}
@@ -456,7 +456,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
               {/* Message body */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Message Body Payload</span>
-                <div style={{ background: '#faf9fc', border: '1px solid var(--lavender)', padding: '12px', borderRadius: '6px', fontSize: '12.5px', color: 'var(--text)', lineHeight: '1.5', fontFamily: 'inherit', wordBreak: 'break-word' }}>
+                <div style={{ background: '#faf9fc', border: '1px solid var(--lavender)', padding: '12px', borderRadius: '6px', fontSize: '12.5px', color: 'var(--text)', lineHeight: '1.5',  wordBreak: 'break-word' }}>
                   {selectedLog.body}
                 </div>
               </div>
@@ -483,7 +483,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
 
                   <div style={{ border: '1px solid var(--lavender)', padding: '10px', borderRadius: '6px', gridColumn: 'span 2' }}>
                     <span style={{ display: 'block', fontSize: '10px', color: 'var(--muted)' }}>Trace Transaction ID</span>
-                    <strong style={{ display: 'block', fontSize: '11.5px', color: 'var(--text)', marginTop: '2px', fontFamily: 'monospace', wordBreak: 'break-word' }}>{selectedLog.traceId}</strong>
+                    <strong style={{ display: 'block', fontSize: '11.5px', color: 'var(--text)', marginTop: '2px', fontFamily: "var(--materio-space)", wordBreak: 'break-word' }}>{selectedLog.traceId}</strong>
                   </div>
                 </div>
               </div>

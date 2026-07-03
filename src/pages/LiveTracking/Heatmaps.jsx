@@ -177,7 +177,7 @@ export default function Heatmaps() {
                 <button 
                   key={point.id} 
                   onClick={() => setSelectedNode({ id: point.id, level: point.level, metrics: point.metrics })}
-                  className={`aspect-square rounded-lg transition-all duration-200 hover:scale-110 flex items-center justify-center font-mono text-[9px] font-medium ${getNodeColorClass(point.level, selectedNode.id === point.id)}`}
+                  className={`aspect-square rounded-lg transition-all duration-200 hover:scale-110 flex items-center justify-center  text-[9px] font-medium ${getNodeColorClass(point.level, selectedNode.id === point.id)}`}
                   title={`Node ${point.id} (${point.label})`}
                 >
                   {point.id}
@@ -197,7 +197,7 @@ export default function Heatmaps() {
                   {selectedNode.metrics}
                 </span>
               </div>
-              <span className="text-[11px] font-mono font-bold text-slate-400 hidden sm:inline">Projection: {mapIntensity}</span>
+              <span className="text-[11px]  font-bold text-slate-400 hidden sm:inline">Projection: {mapIntensity}</span>
             </div>
 
             {/* Soft Grid Lines Background Line Texture */}
@@ -222,7 +222,7 @@ export default function Heatmaps() {
                   >
                     <div className="space-y-1">
                       <h4 className="text-xs font-bold text-slate-900 leading-tight">{region.name}</h4>
-                      <p className="text-[10px] text-slate-400 font-medium font-mono">ID: {region.id} • {region.activeUnits} Clusters</p>
+                      <p className="text-[10px] text-slate-400 font-medium ">ID: {region.id} • {region.activeUnits} Clusters</p>
                     </div>
 
                     <div className="text-right flex flex-col items-end gap-1.5">
@@ -233,7 +233,7 @@ export default function Heatmaps() {
                       }`}>
                         {region.density}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-600 font-mono">{region.activityScore}% Load</span>
+                      <span className="text-[10px] font-bold text-slate-600 ">{region.activityScore}% Load</span>
                     </div>
                   </div>
                 ))}

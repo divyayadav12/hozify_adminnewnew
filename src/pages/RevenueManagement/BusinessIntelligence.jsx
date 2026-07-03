@@ -322,7 +322,7 @@ export default function BusinessIntelligence() {
                   <tr key={index} className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
                     <td className="px-6 py-3.5 font-bold text-slate-800">{row.name}</td>
                     <td className="px-6 py-3.5 text-slate-500 font-medium">{row.desc}</td>
-                    <td className="px-6 py-3.5 font-mono text-slate-600 font-bold">{row.variance}</td>
+                    <td className="px-6 py-3.5  text-slate-600 font-bold">{row.variance}</td>
                     <td className="px-6 py-3.5">
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md inline-block ${row.badge}`}>
                         {row.status}
@@ -359,7 +359,7 @@ export default function BusinessIntelligence() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <div className="p-6 bg-[#0a0a0a] min-h-[300px] font-mono text-xs text-emerald-400 overflow-y-auto space-y-2">
+            <div className="p-6 bg-[#0a0a0a] min-h-[300px]  text-xs text-emerald-400 overflow-y-auto space-y-2">
               <div className="flex items-center gap-2 mb-4 text-slate-500">
                 <RefreshCw className={`h-3.5 w-3.5 ${isSimulating ? 'animate-spin text-indigo-400' : ''}`} />
                 <span>{isSimulating ? 'Establishing secure connection...' : 'Session terminated.'}</span>

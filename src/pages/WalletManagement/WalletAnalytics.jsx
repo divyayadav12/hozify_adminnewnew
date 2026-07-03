@@ -87,7 +87,7 @@ export default function WalletAnalytics() {
 
       
       {/* Light slate layout framework matching standard floating layout card templates */}
-      <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-6 space-y-6 font-sans">
+      <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-6 space-y-6 ">
         
         {/* ================= HEADER SECTION ================= */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -335,7 +335,7 @@ export default function WalletAnalytics() {
               <tbody className="divide-y divide-slate-100 font-medium text-slate-600">
                 {filteredData.map(row => (
                   <tr key={row.id} className="hover:bg-slate-50/60 transition-colors">
-                    <td className="px-6 py-4 font-mono text-slate-400">{row.id}</td>
+                    <td className="px-6 py-4  text-slate-400">{row.id}</td>
                     <td className="px-6 py-4 font-bold text-indigo-900">{row.merchant}</td>
                     <td className="px-6 py-4 font-bold text-slate-900">{row.volume}</td>
                     <td className="px-6 py-4">

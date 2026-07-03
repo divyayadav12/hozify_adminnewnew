@@ -143,7 +143,7 @@ export default function ModuleAccess() {
                   <span className={`text-xs font-bold ${selectedDept.id === dept.id ? "text-indigo-950" : "text-slate-700"}`}>
                     {dept.name}
                   </span>
-                  <span className="text-[10px] text-slate-400 font-medium font-mono">
+                  <span className="text-[10px] text-slate-400 font-medium ">
                     ID: {dept.id} • {dept.staffCount} Members Assigned
                   </span>
                 </button>
@@ -197,7 +197,7 @@ export default function ModuleAccess() {
                     <div className="space-y-1 max-w-xl">
                       <div className="flex items-center gap-2">
                         <h4 className="text-sm font-bold text-slate-900">{mod.title}</h4>
-                        <span className="text-[10px] font-mono bg-slate-100 px-1.5 py-0.2 rounded text-slate-400 font-semibold">{mod.path}</span>
+                        <span className="text-[10px]  bg-slate-100 px-1.5 py-0.2 rounded text-slate-400 font-semibold">{mod.path}</span>
                       </div>
                       <p className="text-xs text-slate-400 font-medium leading-relaxed">{mod.desc}</p>
                     </div>
@@ -239,7 +239,7 @@ export default function ModuleAccess() {
             </div>
 
             {/* Matrix Tracker Logs Footer info */}
-            <div className="text-[10px] text-slate-400 font-mono font-bold flex justify-between px-2">
+            <div className="text-[10px] text-slate-400  font-bold flex justify-between px-2">
               <span>Security Hash Scope: MD5-DEPT_LOCK</span>
               <span>Sync Status: Ready</span>
             </div>

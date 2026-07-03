@@ -13,6 +13,7 @@ import {
   Edit,
   Trash2
 } from "lucide-react";
+import StatCard from "../../components/ui/StatCard";
 
 const employeeStats = [
   {
@@ -154,47 +155,34 @@ export default function PartnerEmployees() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
-  {employeeStats.map((item, index) => {
-
-    const Icon = item.icon;
-
-    return (
-      <button
-        key={index}
-        type="button"
-        onClick={() => setActiveStatIndex(index)}
-        className={`rounded-[28px] border p-6 text-left transition-shadow duration-200 ${
-          activeStatIndex === index
-            ? "border-indigo-500 bg-indigo-50 shadow-lg"
-            : "border-slate-200 bg-white shadow-sm hover:border-indigo-300 hover:bg-slate-50"
-        }`}
-      >
-
-        <div className="flex justify-between items-start gap-4">
-
-          <div className={`flex h-14 w-14 items-center justify-center rounded-3xl ${item.bg} shadow-lg`}>
-            <Icon className={`h-8 w-8 ${item.color} stroke-2`} />
-          </div>
-
-          <span className={`text-sm font-semibold ${item.color}`}>
-            {item.badge}
-          </span>
+          {employeeStats.map((item, index) => (
+            <StatCard
+              key={index}
+              title={item.title}
+              value={item.value}
+              icon={item.icon}
+              trend={parseInt(item.badge) || 0}
+              color={item.color === 'text-emerald-600' ? '#059669' : item.color === 'text-green-600' ? '#16a34a' : item.color === 'text-orange-500' ? '#f97316' : '#ef4444'}
+              bgColor={item.bg === 'bg-emerald-100' ? '#ecfdf5' : item.bg === 'bg-green-100' ? '#f0fdf4' : item.bg === 'bg-orange-100' ? '#fff7ed' : '#fef2f2'}
+              iconColor={item.color === 'text-emerald-600' ? '#059669' : item.color === 'text-green-600' ? '#16a34a' : item.color === 'text-orange-500' ? '#f97316' : '#ef4444'}
+              onClick={() => setActiveStatIndex(index)}
+              className={activeStatIndex === index ? 'ring-2 ring-indigo-500' : ''}
+              style={{
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '12px',
+                padding: '20px',
+                position: 'relative',
+                transition: 'all 0.2s ease',
+                cursor: 'pointer',
+                minHeight: '130px',
+                transform: activeStatIndex === index ? 'translateY(-2px)' : 'none',
+                boxShadow: activeStatIndex === index ? '0 8px 20px rgba(37,16,143,0.1)' : '0 1px 3px rgba(0,0,0,0.05)'
+              }}
+            />
+          ))}
 
         </div>
-
-        <p className="mt-5 text-slate-500">
-          {item.title}
-        </p>
-
-        <h3 className="mt-2 text-4xl font-bold text-slate-900">
-          {item.value}
-        </h3>
-
-      </button>
-    );
-  })}
-
-</div>
 <div className="overflow-hidden rounded-[32px] border border-slate-200 bg-white">
 
   <div className="border-b border-slate-200 p-6">

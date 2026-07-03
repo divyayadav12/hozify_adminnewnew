@@ -128,7 +128,7 @@ export default function BranchEmployees() {
         </section>
 
         {/* Main Table Panel */}
-        <section className="panel partner-directory-panel" style={{ padding: '24px', marginBottom: '24px' }}>
+        <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)', marginBottom: '24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>
               Employee Directory

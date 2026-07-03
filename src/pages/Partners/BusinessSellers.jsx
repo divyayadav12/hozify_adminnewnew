@@ -13,14 +13,15 @@ import {
 } from "lucide-react";
 import PartnerExportButton from "../../components/ui/PartnerExportButton";
 import PartnerExportModal from "../../components/ui/PartnerExportModal";
+import StatCard from "../../components/ui/StatCard";
 
 const stats = [
-  { title: "Business Sellers", value: "2,846", icon: Store, badge: "+14%", color: "text-emerald-600" },
-  { title: "Verified Sellers", value: "2,512", icon: BadgeCheck, badge: "88%", color: "text-blue-600" },
-  { title: "Pending Personal KYC", value: "84", icon: Clock3, badge: "Review", color: "text-orange-500" },
-  { title: "Active Branches", value: "864", icon: Building2, badge: "Live", color: "text-indigo-600" },
-  { title: "Employees", value: "5,428", icon: Users, badge: "+9%", color: "text-violet-600" },
-  { title: "Wallet Balance", value: "₹1.82Cr", icon: Wallet, badge: "Secure", color: "text-green-600" },
+  { title: "Business Sellers", value: "2,846", icon: Store, trend: 14, color: "#059669", bgColor: "#ecfdf5" },
+  { title: "Verified Sellers", value: "2,512", icon: BadgeCheck, trend: 88, color: "#2563eb", bgColor: "#eff6ff" },
+  { title: "Pending Personal KYC", value: "84", icon: Clock3, trendLabel: "Review", color: "#f97316", bgColor: "#fff7ed" },
+  { title: "Active Branches", value: "864", icon: Building2, trendLabel: "Live", color: "#4f46e5", bgColor: "#eef2ff" },
+  { title: "Employees", value: "5,428", icon: Users, trend: 9, color: "#7c3aed", bgColor: "#f5f3ff" },
+  { title: "Wallet Balance", value: "₹11.82Cr", icon: Wallet, trendLabel: "Secure", color: "#16a34a", bgColor: "#f0fdf4" },
 ];
 
 const initialSellers = [
@@ -80,21 +81,19 @@ export default function BusinessSellers() {
 
         {/* KPI Cards - Auto fit content */}
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-          {stats.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <div key={index} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm h-fit hover:shadow-md transition">
-                <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50">
-                    <Icon size={18} className="text-indigo-600" />
-                  </div>
-                  <span className={`text-xs font-bold ${item.color}`}>{item.badge}</span>
-                </div>
-                <p className="mt-4 text-xs text-slate-500 font-medium truncate">{item.title}</p>
-                <h3 className="mt-1 text-xl font-bold text-slate-900 truncate">{item.value}</h3>
-              </div>
-            );
-          })}
+          {stats.map((item, index) => (
+            <StatCard
+              key={index}
+              title={item.title}
+              value={item.value}
+              icon={item.icon}
+              trend={item.trend}
+              trendLabel={item.trendLabel}
+              color={item.color}
+              bgColor={item.bgColor}
+              iconColor={item.color}
+            />
+          ))}
         </div>
 
         {/* Directory Section */}

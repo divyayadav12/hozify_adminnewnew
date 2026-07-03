@@ -35,7 +35,7 @@ export default function FrozenWalletListing() {
       headerTitle="Risk Control"
       searchPlaceholder="Search frozen wallets..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title Block */}
         <div>
@@ -49,7 +49,7 @@ export default function FrozenWalletListing() {
 
         {/* Warning Indicator Banner */}
         <div style={{ background: '#fee2e2', border: '1px solid #fca5a5', padding: '16px', borderRadius: '8px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <AlertTriangle size={20} style={{ color: '#d32929', flexShrink: 0 }} />
+          <AlertTriangle size={20} style={{ color: 'var(--red)', flexShrink: 0 }} />
           <div style={{ fontSize: '13px', color: '#991b1b' }}>
             <strong>Risk Warning:</strong> Unfreezing wallets releases standard transaction processing limitations. Ensure all KYC review standards and manual audits are strictly passed before authorizing payouts.
           </div>
@@ -69,7 +69,7 @@ export default function FrozenWalletListing() {
         </div>
 
         {/* Frozen List Table */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
@@ -98,7 +98,7 @@ export default function FrozenWalletListing() {
                       </div>
                     </td>
                     <td style={{ padding: '16px', fontWeight: '700' }}>{w.type}</td>
-                    <td style={{ padding: '16px', fontWeight: '850', color: '#d32929' }}>
+                    <td style={{ padding: '16px', fontWeight: '850', color: 'var(--red)' }}>
                       ₹{(w.frozen || 20000.00).toLocaleString('en-IN')}
                     </td>
                     <td style={{ padding: '16px' }}>
@@ -117,7 +117,7 @@ export default function FrozenWalletListing() {
                         fontSize: '9px',
                         fontWeight: '850',
                         background: '#fee2e2',
-                        color: '#d32929',
+                        color: 'var(--red)',
                         padding: '3px 8px',
                         borderRadius: '4px',
                         display: 'inline-flex',

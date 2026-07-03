@@ -8,6 +8,7 @@ import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 import { 
   Search, Plus, Download, Edit, Trash2, Eye, Wallet, ShieldAlert, ArrowUpDown, ChevronLeft, ChevronRight, Activity, Percent
 } from 'lucide-react';
+import StatCard from '../../components/ui/StatCard';
 
 const INITIAL_MATERIALS = [
   { id: 'MP-701', name: 'AC Copper Pipe (3m Bundle)', category: 'AC Spares', purchasePrice: 42.00, sellingPrice: 55.00, margin: 23.6, status: 'Active' },
@@ -99,7 +100,7 @@ export default function MaterialPriceMgmtPage() {
 
   return (
     <AdminShell activeTab="Material Price Management" headerTitle="Material Cost Controls Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -123,25 +124,25 @@ export default function MaterialPriceMgmtPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="custom-kpi-card-container">
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Wallet size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Material catalog</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text)', margin: '2px 0 0 0' }}>{materials.length} Items</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#d1fae5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Percent size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg Margin Yield</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#059669', margin: '2px 0 0 0' }}>26.2% Yield</h2>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <StatCard
+            title="MATERIAL CATALOG"
+            value={`${materials.length} Items`}
+            icon={Wallet}
+            trend={0}
+            color="#4f46e5"
+            bgColor="#e0e7ff"
+            iconColor="#4f46e5"
+          />
+          <StatCard
+            title="AVG MARGIN YIELD"
+            value={`${(materials.reduce((acc, m) => acc + m.margin, 0) / materials.length).toFixed(1)}% Yield`}
+            icon={Percent}
+            trend={0}
+            color="#059669"
+            bgColor="#d1fae5"
+            iconColor="#059669"
+          />
         </div>
 
         {/* Filters */}
@@ -177,11 +178,11 @@ export default function MaterialPriceMgmtPage() {
               {filteredMaterials.length > 0 ? (
                 filteredMaterials.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.name}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.category}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>${row.purchasePrice.toFixed(2)}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>${row.sellingPrice.toFixed(2)}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>${row.purchasePrice.toFixed(2)}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>${row.sellingPrice.toFixed(2)}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div style={{ flex: 1, width: '60px', height: '6px', background: '#eee9f6', borderRadius: '3px', overflow: 'hidden' }}>
@@ -213,7 +214,7 @@ export default function MaterialPriceMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No materials matching filters found.</td>
+                  <td colSpan={8} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No materials matching filters found.</td>
                 </tr>
               )}
             </tbody>

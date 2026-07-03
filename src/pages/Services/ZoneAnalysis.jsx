@@ -37,7 +37,7 @@ export default function ZoneAnalysis() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <h2 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Downtown Zone A</h2>
-            <span style={{ fontSize: '10px', fontWeight: '800', color: '#25108f', background: '#e0e7ff', padding: '3px 8px', borderRadius: '4px' }}>
+            <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--primary)', background: '#e0e7ff', padding: '3px 8px', borderRadius: '4px' }}>
               LIVE DATA
             </span>
           </div>
@@ -70,7 +70,7 @@ export default function ZoneAnalysis() {
       </div>
 
       {/* Main content grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
         
         {/* Map column (Left) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 2 }}>
@@ -260,7 +260,7 @@ export default function ZoneAnalysis() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
           
           {/* Main Info Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Zone Analysis</h3>
               <span style={{ fontSize: '9px', fontWeight: '800', color: '#4f46e5', background: '#eff6ff', padding: '3px 8px', borderRadius: '4px' }}>
@@ -319,7 +319,7 @@ export default function ZoneAnalysis() {
           </div>
 
           {/* Active branches panel */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <h3 style={{ fontSize: '12px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Active Branches in Zone
             </h3>
@@ -359,7 +359,7 @@ export default function ZoneAnalysis() {
                 width: '100%',
                 height: '42px',
                 background: '#e0e7ff',
-                color: '#25108f',
+                color: 'var(--primary)',
                 border: 'none',
                 borderRadius: '8px',
                 fontSize: '13px',
@@ -381,7 +381,7 @@ export default function ZoneAnalysis() {
               onClick={(e) => e.preventDefault()}
               style={{
                 fontSize: '12px',
-                color: '#25108f',
+                color: 'var(--primary)',
                 fontWeight: '800',
                 textDecoration: 'none',
                 display: 'flex',

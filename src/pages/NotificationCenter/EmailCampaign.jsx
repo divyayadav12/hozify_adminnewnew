@@ -357,9 +357,9 @@ export default function CampaignListing() {
                           className="rounded border-slate-300 cursor-pointer" 
                         />
                       </td>
-                      <td className="p-2 border-r border-slate-200 font-sans cursor-pointer" onClick={() => addToast(`Opening builder for ${row.name}`, "success")}>
+                      <td className="p-2 border-r border-slate-200  cursor-pointer" onClick={() => addToast(`Opening builder for ${row.name}`, "success")}>
                         <div className="font-semibold text-slate-900 hover:text-indigo-600">{row.name}</div>
-                        <div className="text-[10px] text-indigo-600 font-mono mt-0.5">{row.id}</div>
+                        <div className="text-[10px] text-indigo-600  mt-0.5">{row.id}</div>
                       </td>
                       <td className="p-2 border-r border-slate-200">
                         <span className={`inline-block px-1.5 py-0.5 rounded-sm text-[10px] font-bold tracking-wide ${
@@ -381,7 +381,7 @@ export default function CampaignListing() {
                         ) : "--"}
                       </td>
                       <td className="p-2 border-r border-slate-200 text-right font-medium text-slate-800">{row.clickRate}</td>
-                      <td className="p-2 border-r border-slate-200 text-slate-500 font-sans">{row.date}</td>
+                      <td className="p-2 border-r border-slate-200 text-slate-500 ">{row.date}</td>
                       <td className="p-2 text-center bg-slate-50/30 relative">
                         <button 
                           onClick={(e) => { e.stopPropagation(); setOpenDropdownId(openDropdownId === row.id ? null : row.id); }}
@@ -390,7 +390,7 @@ export default function CampaignListing() {
                           <MoreVertical size={16} />
                         </button>
                         {openDropdownId === row.id && (
-                          <div className="absolute right-10 top-8 w-36 bg-white border border-slate-200 rounded-lg shadow-xl z-50 py-1 text-left text-xs font-sans">
+                          <div className="absolute right-10 top-8 w-36 bg-white border border-slate-200 rounded-lg shadow-xl z-50 py-1 text-left text-xs ">
                             <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); addToast(`Viewing details for ${row.name}`, "info"); }} className="flex items-center gap-2 w-full px-4 py-2 text-slate-700 hover:bg-slate-50 text-left font-medium cursor-pointer">
                               <Eye size={14} /> View Details
                             </button>
@@ -407,7 +407,7 @@ export default function CampaignListing() {
                   ))}
                   {currentItems.length === 0 && (
                     <tr>
-                      <td colSpan={8} className="p-8 text-center text-slate-500 font-sans font-medium">
+                      <td colSpan={8} className="p-8 text-center text-slate-500  font-medium">
                         No active rows found matching current filters.
                       </td>
                     </tr>
@@ -419,7 +419,7 @@ export default function CampaignListing() {
 
           {/* Excel-style Pagination Footer */}
           {filteredCampaigns.length > 0 && (
-            <div className="flex flex-col sm:flex-row items-center justify-between p-3 border-t border-slate-300 gap-4 bg-slate-50 text-xs text-slate-600 font-sans">
+            <div className="flex flex-col sm:flex-row items-center justify-between p-3 border-t border-slate-300 gap-4 bg-slate-50 text-xs text-slate-600 ">
               <div>Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredCampaigns.length)} of {filteredCampaigns.length} spreadsheet records</div>
               <div className="flex items-center gap-1.5">
                 <button 

@@ -200,7 +200,7 @@ export default function MaterialReturns() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Header Section */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -287,7 +287,7 @@ export default function MaterialReturns() {
             <button
               onClick={handleLogNewReturnButton}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -342,10 +342,10 @@ export default function MaterialReturns() {
         </div>
 
         {/* Mid layout split: Return table & Quick Action widgets */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left Panel: Active Returns Ledger */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Active Returns
@@ -391,7 +391,7 @@ export default function MaterialReturns() {
                     if (displayed.length === 0) {
                       return (
                         <tr>
-                          <td colSpan="6" style={{ padding: '32px', textAlign: 'center', color: '#7a7688', fontSize: '13px', fontWeight: '600' }}>
+                          <td colSpan="6" style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#7a7688', fontSize: '13px', fontWeight: '600' }}>
                             No return records found matching the status filter.
                           </td>
                         </tr>
@@ -411,7 +411,7 @@ export default function MaterialReturns() {
                             transition: 'background 0.2s'
                           }}
                         >
-                          <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: '#25108f' }}>
+                          <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: 'var(--primary)' }}>
                             {row.id}
                           </td>
                           <td style={{ padding: '16px 8px' }}>
@@ -510,10 +510,10 @@ export default function MaterialReturns() {
           </div>
 
           {/* Right Panel: Quick Action Form & Warehouse Sync */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Quick Action Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
                 <div style={{ width: '30px', height: '30px', borderRadius: '6px', background: '#f5f3ff', color: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Zap size={16} />
@@ -620,7 +620,7 @@ export default function MaterialReturns() {
                   type="submit"
                   style={{
                     width: '100%',
-                    background: '#25108f',
+                    background: 'var(--primary)',
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '6px',
@@ -656,7 +656,7 @@ export default function MaterialReturns() {
         </div>
 
         {/* Workflow progress line */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <strong style={{ display: 'block', fontSize: '14px', color: '#1c2536', marginBottom: '20px' }}>
             Return Workflow Tracking: {selectedTrackingId} ({returns.find(r => r.id === selectedTrackingId)?.vendor || 'Generic'})
           </strong>
@@ -688,7 +688,7 @@ export default function MaterialReturns() {
               if (isCompleted) {
                 return {
                   bg: '#f5f3ff',
-                  color: '#25108f',
+                  color: 'var(--primary)',
                   border: '2px solid #25108f',
                   textColor: '#1c2536'
                 };
@@ -799,7 +799,7 @@ export default function MaterialReturns() {
         {logReturnModalOpen && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => setLogReturnModalOpen(false)} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '440px', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '440px', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#1c2536', margin: 0 }}>Log New Return</h3>
                 <button onClick={() => setLogReturnModalOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8', fontSize: '12px', fontWeight: '700' }} type="button">
@@ -893,7 +893,7 @@ export default function MaterialReturns() {
                   </button>
                   <button
                     type="submit"
-                    style={{ flex: 1, padding: '10px', background: '#25108f', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
+                    style={{ flex: 1, padding: '10px', background: 'var(--primary)', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: '750', color: '#fff', cursor: 'pointer' }}
                   >
                     Process Return
                   </button>

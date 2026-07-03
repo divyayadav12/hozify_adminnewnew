@@ -172,7 +172,7 @@ export default function BranchInventory() {
       </section>
 
       {/* Main Table Panel */}
-      <section className="panel partner-directory-panel" style={{ padding: '24px', marginBottom: '24px' }}>
+      <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)', marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>
             Branch Inventory
@@ -300,7 +300,7 @@ export default function BranchInventory() {
         </div>
 
         {/* Operational Health (Dark Card) */}
-        <div className="panel" style={{ flex: 1, padding: '24px', backgroundColor: '#0f172a', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)', backgroundColor: '#0f172a', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <h2 style={{ fontSize: '13px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 10px' }}>
               Operational Health

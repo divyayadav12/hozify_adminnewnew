@@ -76,7 +76,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
       headerTitle="Global Notification Settings"
       searchPlaceholder="Search system config, callback variables..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb & Header Row */}
         <div>
@@ -150,7 +150,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
         {/* KPI Metrics Row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           {/* Card 1: Total Delivery */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Total Delivery (Monthly)
@@ -163,7 +163,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 1.2M
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 +8.2% vs last mo
               </span>
@@ -171,7 +171,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
           </div>
 
           {/* Card 2: Error Rate */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Global Error Rate
@@ -184,14 +184,14 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 0.08%
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 Optimal Healthy Threshold
               </span>
             </div>
           </div>
 
           {/* Card 3: Pending Retries */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Pending Retries
@@ -211,7 +211,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
           </div>
 
           {/* Card 4: Average Latency */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Latency Avg
@@ -224,7 +224,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 24ms
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 AWS-edge CDN sync
               </span>
             </div>
@@ -232,12 +232,12 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
         </div>
 
         {/* Configurations Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2.2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2.2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Connectivity config panels (Left Column) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             {/* Global SMS Gateways settings */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h2 style={{ fontSize: '15.5px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Server size={18} style={{ color: 'var(--primary)' }} />
                 Connectivity Settings: SMS Gateway (Twilio)
@@ -250,7 +250,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                     type="text"
                     value={twilioAccountSid}
                     onChange={(e) => setTwilioAccountSid(e.target.value)}
-                    style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontFamily: 'monospace' }}
+                    style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontFamily: "var(--materio-space)", }}
                   />
                 </div>
 
@@ -310,7 +310,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
             </div>
 
             {/* FCM/APNs Push settings */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h2 style={{ fontSize: '15.5px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CloudLightning size={18} style={{ color: 'var(--primary)' }} />
                 Connectivity Settings: Push notifications (FCM & APNs)
@@ -353,10 +353,10 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
           </div>
 
           {/* Right Sidebar (Rate Limiting & Health) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Rate Limiting & Throughput Panel */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <SlidersHorizontal size={16} style={{ color: 'var(--primary)' }} />
                 Rate Limiting & Throughput
@@ -402,7 +402,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
               background: 'linear-gradient(135deg, #1e1b4b 0%, #0c0a3e 100%)',
               color: '#fff',
               borderRadius: '12px',
-              padding: '24px',
+              padding: 'var(--spacing-section)',
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
@@ -442,7 +442,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
         </div>
 
         {/* Retry Strategies Table Section */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Global Retry Strategies & Backoffs

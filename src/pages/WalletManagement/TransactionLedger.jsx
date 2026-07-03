@@ -95,7 +95,7 @@ export default function TransactionLedger() {
     <AdminShell activeTab="Transactions" searchPlaceholder="Search ledgers...">
       
       {/* Background container layout rendering framework setup structure */}
-      <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-6 space-y-6 font-sans">
+      <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-6 space-y-6 ">
         
         {/* ================= HEADER SECTION ================= */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -211,7 +211,7 @@ export default function TransactionLedger() {
                 {filteredTransactions.length > 0 ? (
                   filteredTransactions.map((item) => (
                     <tr key={item.id} className="hover:bg-slate-50/60 transition-colors animate-fadeIn">
-                      <td className="px-5 py-4 font-mono font-bold text-blue-900">{item.id}</td>
+                      <td className="px-5 py-4  font-bold text-blue-900">{item.id}</td>
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-2">
                           <span className="bg-blue-50 text-blue-900 font-black text-[9px] p-1 rounded-sm tracking-tighter">{item.ownerInitials}</span>

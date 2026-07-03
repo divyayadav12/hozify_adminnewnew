@@ -735,7 +735,7 @@ export default function ISPPartners() {
             <div className="mt-4 text-xs space-y-3 text-slate-600">
               <div>
                 <span className="font-bold block text-slate-400 uppercase tracking-wider mb-0.5">Document Identifier</span>
-                <span className="font-mono text-slate-800 text-sm bg-slate-50 p-1.5 rounded border border-slate-100 block">{selectedKycDoc.documentNumber}</span>
+                <span className=" text-slate-800 text-sm bg-slate-50 p-1.5 rounded border border-slate-100 block">{selectedKycDoc.documentNumber}</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>

@@ -94,7 +94,7 @@ export default function KYCApprovals() {
       activeTab="Partners"
       searchPlaceholder="Search by partner name, KYC ID, or document type..."
     >
-      <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-700 p-4 md:p-8 space-y-6 overflow-x-hidden">
+      <div className="min-h-screen bg-[#f8fafc]  text-slate-700 p-4 md:p-8 space-y-6 overflow-x-hidden">
         
         {/* ================= HEADER SECTION ================= */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

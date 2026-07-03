@@ -35,7 +35,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
   const allItems = [
     { priority: "High", owner: "Sarah Johnson", id: "USR-9283-KYC", date: "Oct 24, 2023 11:20 AM", type: "Individual KYC", tab: 'Pending KYC', status: "UNDER REVIEW", statusColor: "#1e3a8a", statusBg: "#dbeafe" },
     { priority: "Medium", owner: "Michael Zhang", id: "USR-1102-KYC", date: "Oct 24, 2023 09:15 AM", type: "Partner KYC", tab: 'Pending KYC', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
-    { priority: "High", owner: "Priya Sharma", id: "USR-8821-KYC", date: "Oct 23, 2023 04:50 PM", type: "Individual KYC", tab: 'Pending KYC', status: "RE-SUBMITTED", statusColor: "#25108f", statusBg: "#f4eff8" },
+    { priority: "High", owner: "Priya Sharma", id: "USR-8821-KYC", date: "Oct 23, 2023 04:50 PM", type: "Individual KYC", tab: 'Pending KYC', status: "RE-SUBMITTED", statuscolor: 'var(--primary)', statusBg: "#f4eff8" },
     { priority: "Medium", owner: "Urban Styles Ltd", id: "BIZ-4491-REG", date: "Oct 23, 2023 02:10 PM", type: "Business License", tab: 'Pending Partner', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
     { priority: "High", owner: "Nexis Logistics", id: "PRT-99201", date: "Oct 23, 2023 01:10 PM", type: "Partner Agreement", tab: 'Pending Partner', status: "UNDER REVIEW", statusColor: "#1e3a8a", statusBg: "#dbeafe" },
     { priority: "Low", owner: "London Branch", id: "BRN-5531", date: "Oct 22, 2023 10:00 AM", type: "Branch Approval", tab: 'Pending Branch', status: "QUEUED", statusColor: "#475569", statusBg: "#f1f5f9" },
@@ -59,7 +59,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
       headerTitle="Approvals Command"
       searchPlaceholder="Search approvals, entities, or IDs..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title */}
         <div>
@@ -75,7 +75,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
           
           <div className="panel" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ height: '40px', width: '40px', borderRadius: '50%', background: '#f4eff8', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ height: '40px', width: '40px', borderRadius: '50%', background: '#f4eff8', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ClipboardList size={18} />
             </div>
             <div>
@@ -95,12 +95,12 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
           </div>
 
           <div className="panel" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', borderLeft: '4px solid #d32929' }}>
-            <div style={{ height: '40px', width: '40px', borderRadius: '50%', background: '#fee2e2', color: '#d32929', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ height: '40px', width: '40px', borderRadius: '50%', background: '#fee2e2', color: 'var(--red)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <AlertTriangle size={18} />
             </div>
             <div>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>High Priority Alerts</span>
-              <strong style={{ display: 'block', fontSize: '22px', fontWeight: '850', color: '#d32929', marginTop: '2px' }}>08 Pending</strong>
+              <strong style={{ display: 'block', fontSize: '22px', fontWeight: '850', color: 'var(--red)', marginTop: '2px' }}>08 Pending</strong>
             </div>
           </div>
 
@@ -130,7 +130,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Table list queue */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
@@ -198,7 +198,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
                           <button
                             onClick={() => handleAction(item.id, 'Approve')}
                             style={{
-                              border: 'none', background: '#ecfdf5', color: '#07956f',
+                              border: 'none', background: '#ecfdf5', color: 'var(--green)',
                               height: '28px', padding: '0 10px', borderRadius: '4px',
                               fontWeight: '750', fontSize: '11px', cursor: 'pointer'
                             }}
@@ -208,7 +208,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
                           <button
                             onClick={() => handleAction(item.id, 'Reject')}
                             style={{
-                              border: '1px solid #d32929', background: '#fff', color: '#d32929',
+                              border: '1px solid #d32929', background: '#fff', color: 'var(--red)',
                               height: '28px', padding: '0 10px', borderRadius: '4px',
                               fontWeight: '750', fontSize: '11px', cursor: 'pointer'
                             }}
@@ -245,7 +245,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
                 <ChevronLeft size={14} />
               </button>
               
-              <button style={{ height: '28px', width: '28px', border: 'none', background: '#25108f', color: '#fff', borderRadius: '4px', fontWeight: '800', fontSize: '12px', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToast("Navigating to page 1", "info"); }}>1</button>
+              <button style={{ height: '28px', width: '28px', border: 'none', background: 'var(--primary)', color: '#fff', borderRadius: '4px', fontWeight: '800', fontSize: '12px', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToast("Navigating to page 1", "info"); }}>1</button>
               <button onClick={() => addToast('Navigate to page 2', 'info')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>2</button>
               <button onClick={() => addToast('Navigate to page 3', 'info')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>3</button>
 

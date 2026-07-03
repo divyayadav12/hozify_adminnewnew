@@ -11,16 +11,16 @@ export default function SeoSettings() {
   
   return (
     <AdminShell activeTab="CMS Management" searchPlaceholder="Search resources...">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
         
         {/* Main Grid: Left Column (7) and Right Column (5) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '7fr 5fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '7fr 5fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Global Meta Configuration */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <Globe size={20} color="#0f172a" />
@@ -54,18 +54,18 @@ export default function SeoSettings() {
             </div>
 
             {/* Crawler & Indexing Settings */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                 <Settings size={20} color="#0f172a" />
                 <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Crawler & Indexing Settings</h3>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>ROBOT.TXT CONTENT</label>
                   <textarea 
                     defaultValue={`User-agent: *\nDisallow: /admin/\nDisallow: /tmp/\nAllow: /\n\nSitemap:\nhttps://domain.com/sitemap.xml`}
-                    style={{ width: '100%', minHeight: '160px', padding: '12px 16px', border: 'none', borderRadius: '6px', fontSize: '12px', fontFamily: 'monospace', color: '#334155', outline: 'none', resize: 'none', background: '#f8fafc' }}
+                    style={{ width: '100%', minHeight: '160px', padding: '12px 16px', border: 'none', borderRadius: '6px', fontSize: '12px', fontFamily: "var(--materio-space)", color: '#334155', outline: 'none', resize: 'none', background: '#f8fafc' }}
                   />
                 </div>
                 <div>
@@ -94,10 +94,10 @@ export default function SeoSettings() {
           </div>
 
           {/* Right Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Analytics Engine */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                 <BarChart2 size={20} color="#0f172a" />
                 <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Analytics Engine</h3>
@@ -131,7 +131,7 @@ export default function SeoSettings() {
             </div>
 
             {/* SEO Health Score */}
-            <div style={{ background: '#0a0a0a', border: '1px solid #171717', borderRadius: '8px', padding: '32px', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ background: '#0a0a0a', border: '1px solid #171717', borderRadius: '8px', padding: 'var(--spacing-page)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
               {/* Background accent lines (approximate) */}
               <div style={{ position: 'absolute', bottom: -20, right: -20, opacity: 0.1, display: 'flex', flexDirection: 'column', gap: '10px', transform: 'rotate(-45deg)' }}>
                 <div style={{ width: '100px', height: '4px', background: '#fff' }} />
@@ -155,7 +155,7 @@ export default function SeoSettings() {
             </div>
 
             {/* Search Preview */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '16px' }}>SEARCH PREVIEW</span>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>

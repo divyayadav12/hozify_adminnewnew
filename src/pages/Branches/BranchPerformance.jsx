@@ -129,7 +129,7 @@ export default function BranchPerformance() {
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
         {/* Overall Performance Score Card */}
-        <div className="panel" style={{ flex: 1.8, padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="panel" style={{ flex: 1.8, padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Overall Performance Score</span>
@@ -158,7 +158,7 @@ export default function BranchPerformance() {
         </div>
 
         {/* Top Performers Card */}
-        <div className="panel" style={{ flex: 1, padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="panel" style={{ flex: 1, padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -280,7 +280,7 @@ export default function BranchPerformance() {
       </div>
 
       {/* Bottom Table Section (Operational Audit) */}
-      <section className="panel partner-directory-panel" style={{ padding: '24px', background: '#fff', border: '1px solid #d1d5db', borderRadius: '8px' }}>
+      <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1px solid #d1d5db', borderRadius: '8px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text)', margin: '0' }}>
             Operational Audit — Regional Branches

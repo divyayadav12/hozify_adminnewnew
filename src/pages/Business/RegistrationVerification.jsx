@@ -247,7 +247,7 @@ export default function RegistrationVerification() {
       headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
       searchPlaceholder="Search registry..."
     >
-      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '90px' }}>
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '90px' }}>
         
         {/* Selection pills row */}
         <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
@@ -327,10 +327,10 @@ export default function RegistrationVerification() {
         </div>
 
         {/* 2-Column main content layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Column 1: Document canvas visual (Left) */}
-          <div className="panel" style={{ background: '#0f172a', padding: '24px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
+          <div className="panel" style={{ background: '#0f172a', padding: 'var(--spacing-section)', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
             
             {/* Scanned Document simulator mock */}
             <div style={{ 
@@ -339,7 +339,7 @@ export default function RegistrationVerification() {
               background: '#fff', 
               border: '1px solid #e2e8f0', 
               borderRadius: '8px', 
-              padding: '24px', 
+              padding: 'var(--spacing-section)', 
               position: 'relative', 
               boxShadow: '0 20px 25px -5px rgba(0,0,0,0.5)',
               transform: `scale(${scale}) rotate(${rotation}deg)`,
@@ -367,7 +367,7 @@ export default function RegistrationVerification() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '8px', color: '#334155', flex: 1 }}>
                   <div>
                     <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>License Number</span>
-                    <strong style={{ color: '#0f172a', fontFamily: 'monospace', fontSize: '9.5px' }}>{selectedRecord.licenseNo}</strong>
+                    <strong style={{ color: '#0f172a', fontFamily: "var(--materio-space)", fontSize: '9.5px' }}>{selectedRecord.licenseNo}</strong>
                   </div>
                   <div>
                     <span style={{ fontSize: '5px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Commercial Name / Trade Entity</span>
@@ -731,7 +731,7 @@ export default function RegistrationVerification() {
         {rejectModalOpen && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setRejectModalOpen(false); setRejectReason(''); }} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                 <div>
                   <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject Registration</h3>
@@ -750,7 +750,7 @@ export default function RegistrationVerification() {
                     value={rejectReason}
                     onChange={(e) => setRejectReason(e.target.value)}
                     placeholder="E.g., Expired trade license period, legal registered address mismatch, failed UBO background check..."
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none',  }}
                   />
                 </div>
 

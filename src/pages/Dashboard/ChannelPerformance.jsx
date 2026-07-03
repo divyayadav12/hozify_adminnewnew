@@ -32,7 +32,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
       headerTitle="Channel Performance & ROI"
       searchPlaceholder="Search performance metrics..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -75,14 +75,14 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
         </div>
 
         {isFiltering ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
               <SkeletonLoader height="100px" />
               <SkeletonLoader height="100px" />
               <SkeletonLoader height="100px" />
               <SkeletonLoader height="100px" />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
               <SkeletonLoader height="300px" />
               <SkeletonLoader height="300px" />
             </div>
@@ -103,7 +103,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </div>
             <div>
               <strong style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>$124,500</strong>
-              <span style={{ fontSize: '11px', fontWeight: '750', color: '#07956f', display: 'block', marginTop: '4px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--green)', display: 'block', marginTop: '4px' }}>
                 +2.4% <span style={{ color: 'var(--muted)', fontWeight: '500' }}>vs prev. month</span>
               </span>
             </div>
@@ -117,7 +117,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </div>
             <div>
               <strong style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>12.8x</strong>
-              <span style={{ fontSize: '11px', fontWeight: '750', color: '#07956f', display: 'block', marginTop: '4px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--green)', display: 'block', marginTop: '4px' }}>
                 +0.8x <span style={{ color: 'var(--muted)', fontWeight: '500' }}>efficiency boost</span>
               </span>
             </div>
@@ -131,7 +131,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </div>
             <div>
               <strong style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>84.2k</strong>
-              <span style={{ fontSize: '11px', fontWeight: '750', color: '#d32929', display: 'block', marginTop: '4px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--red)', display: 'block', marginTop: '4px' }}>
                 -1.2% <span style={{ color: 'var(--muted)', fontWeight: '500' }}>conversion drop</span>
               </span>
             </div>
@@ -145,7 +145,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </div>
             <div>
               <strong style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>0.42%</strong>
-              <span style={{ fontSize: '11px', fontWeight: '750', color: '#07956f', display: 'block', marginTop: '4px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--green)', display: 'block', marginTop: '4px' }}>
                 -0.05% <span style={{ color: 'var(--muted)', fontWeight: '500' }}>retention improving</span>
               </span>
             </div>
@@ -157,7 +157,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', mdGridTemplateColumns: '1fr 1fr', gap: '20px' }}>
           
           {/* Card 1: Push vs SMS */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Push Notification vs. SMS
@@ -217,7 +217,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
           </div>
 
           {/* Card 2: WhatsApp vs Email */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 WhatsApp vs. Email
@@ -279,10 +279,10 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Row 2: Timeline Chart & Channel Mix */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Attribution Timeline (Left Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -353,7 +353,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
           <div className="panel" style={{ 
             background: 'linear-gradient(135deg, #0f0a40 0%, #1e106b 100%)', 
             color: '#fff', 
-            padding: '24px', 
+            padding: 'var(--spacing-section)', 
             display: 'flex', 
             flexDirection: 'column', 
             gap: '16px',
@@ -414,7 +414,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Cost Effectiveness Table (Row 3) */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Channel Cost Effectiveness Analysis
@@ -477,7 +477,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
                 <tr style={{ borderBottom: '1px solid var(--lavender)' }}>
                   <td style={{ padding: '16px' }}>
                     <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                      <div style={{ height: '30px', width: '30px', borderRadius: '6px', background: '#d1fae5', color: '#07956f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ height: '30px', width: '30px', borderRadius: '6px', background: '#d1fae5', color: 'var(--green)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <MessageSquare size={14} />
                       </div>
                       <div>

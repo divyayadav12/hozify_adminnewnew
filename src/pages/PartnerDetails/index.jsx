@@ -667,7 +667,7 @@ export default function PartnerDetails() {
                       <td className="p-4 font-bold text-[#2a2454]">{emp.id}</td>
                       <td className="font-semibold text-slate-800">{emp.name}</td>
                       <td className="text-slate-500">{emp.role}</td>
-                      <td className="font-mono text-xs text-slate-600">{emp.license}</td>
+                      <td className=" text-xs text-slate-600">{emp.license}</td>
                       <td>
                         <span className="text-[9px] font-black bg-green-150 text-green-700 px-2 py-0.5 rounded">
                           {emp.status}
@@ -739,7 +739,7 @@ export default function PartnerDetails() {
                     { ref: "GLS-W1921102", amount: "₹98,400.00", date: "18 Jun 2026", status: "Successful" }
                   ].map((tx, idx) => (
                     <tr key={idx} className="border-b border-slate-100">
-                      <td className="p-4 font-mono font-bold text-[#2a2454]">{tx.ref}</td>
+                      <td className="p-4  font-bold text-[#2a2454]">{tx.ref}</td>
                       <td className="font-bold text-slate-800">{tx.amount}</td>
                       <td className="text-slate-500">{tx.date}</td>
                       <td>
@@ -787,11 +787,11 @@ export default function PartnerDetails() {
                 </div>
                 <div>
                   <span className="text-slate-400 font-bold block mb-0.5">Account Number:</span>
-                  <span className="font-mono font-bold text-slate-700">50200088921102 (Masked)</span>
+                  <span className=" font-bold text-slate-700">50200088921102 (Masked)</span>
                 </div>
                 <div>
                   <span className="text-slate-400 font-bold block mb-0.5">IFSC / Routing Code:</span>
-                  <span className="font-mono font-bold text-slate-700">HDFC0000104</span>
+                  <span className=" font-bold text-slate-700">HDFC0000104</span>
                 </div>
                 <div>
                   <span className="text-slate-400 font-bold block mb-0.5">Clearing Branch:</span>

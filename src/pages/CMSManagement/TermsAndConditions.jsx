@@ -12,7 +12,7 @@ export default function TermsAndConditions() {
       activeTab="CMS Management" 
       searchPlaceholder="Search resources..."
     >
-      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1200px' }}>
+      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1200px' }}>
         
         {/* Page Heading */}
         <div style={{ marginBottom: '8px' }}>
@@ -51,13 +51,13 @@ export default function TermsAndConditions() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: 'var(--spacing-section)' }}>
           
           {/* LEFT COLUMN: Main Editor Area */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '7' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
             
             {/* Document Status */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
                   Document Status
@@ -135,7 +135,7 @@ export default function TermsAndConditions() {
                   You may not access or use the Site for any purpose other than that for which we make the Site available. The Site may not be used in connection with any commercial endeavors except those that are specifically endorsed or approved by us.
                 </p>
 
-                <div style={{ margin: '40px 0', padding: '24px', border: '1px dashed var(--line)', borderRadius: '8px', textAlign: 'center', color: 'var(--muted)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                <div style={{ margin: '40px 0', padding: 'var(--spacing-section)', border: '1px dashed var(--line)', borderRadius: '8px', textAlign: 'center', color: 'var(--muted)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Section divider - End of page 1
                 </div>
               </div>
@@ -144,7 +144,7 @@ export default function TermsAndConditions() {
           </div>
 
           {/* RIGHT COLUMN: Sidebar Panels */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '3' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
             
             {/* Version Control */}
             <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>

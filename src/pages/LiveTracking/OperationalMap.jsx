@@ -206,7 +206,7 @@ export default function OperationalMap() {
                 <button onClick={() => setSelectedUnit(null)} className="text-slate-400 hover:text-white">✕</button>
               </div>
               <p className="text-[11px] text-slate-400 mt-1">{selectedUnit.partnerType}</p>
-              <div className="mt-2 pt-2 border-t border-slate-800 flex justify-between text-slate-300 font-mono">
+              <div className="mt-2 pt-2 border-t border-slate-800 flex justify-between text-slate-300 ">
                 <span>Speed: {selectedUnit.speed}</span>
                 <span>Zone: {selectedUnit.station}</span>
               </div>
@@ -246,7 +246,7 @@ export default function OperationalMap() {
           {/* ==========================================
               3. FLOATING SYSTEM MONITOR STATUS BANNER
              ========================================== */}
-          <div className="absolute bottom-4 left-4 right-4 bg-black/90 border border-slate-800 rounded-xl px-5 py-2.5 flex flex-wrap items-center justify-between gap-4 shadow-2xl z-20 font-mono text-xs text-white">
+          <div className="absolute bottom-4 left-4 right-4 bg-black/90 border border-slate-800 rounded-xl px-5 py-2.5 flex flex-wrap items-center justify-between gap-4 shadow-2xl z-20  text-xs text-white">
             
             <div className="flex items-center gap-2 border-r border-slate-800 pr-5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />

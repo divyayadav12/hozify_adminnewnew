@@ -90,7 +90,7 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
       searchValue={search}
       onSearchChange={(val) => setSearch(val)}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Broadcast System Banner Alert */}
         {broadcastActive && (
@@ -214,10 +214,10 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
         </div>
 
         {/* Section 1: Queue and Critical Breaches */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Live Ticket Queue Table */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Live Ticket Queue
             </h3>
@@ -236,7 +236,7 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
                 <tbody>
                   {filteredTickets.length === 0 ? (
                     <tr>
-                      <td colSpan={5} style={{ padding: '32px', textAlign: 'center', color: 'var(--muted)' }}>
+                      <td colSpan={5} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--muted)' }}>
                         No tickets match the selected filter.
                       </td>
                     </tr>
@@ -286,13 +286,13 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
           </div>
 
           {/* Right Column: SLA Breaches & Stress Monitor */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Global Stress Monitor graphic card */}
             <div className="panel" style={{
               background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%)',
               color: '#ffffff',
-              padding: '24px',
+              padding: 'var(--spacing-section)',
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
@@ -348,7 +348,7 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
             </div>
 
             {/* Critical SLA Breaches cards */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Critical SLA Breaches
               </h3>
@@ -400,10 +400,10 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
         </div>
 
         {/* Section 2: Attribution, Resolution Velocity, and High Severity Incidents */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* Active Agents list */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Agents Active (Online)
             </h3>
@@ -466,7 +466,7 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
           </div>
 
           {/* Resolution Velocity Panel */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -476,7 +476,7 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
                   Completed issues velocity tracker
                 </span>
               </div>
-              <strong style={{ fontSize: '18px', color: '#07956f', fontWeight: '850' }}>
+              <strong style={{ fontSize: '18px', color: 'var(--green)', fontWeight: '850' }}>
                 14.2 tk/hr
               </strong>
             </div>
@@ -499,13 +499,13 @@ export default function SupportOperationsCenter({ activeTab = 'Support Center', 
             </div>
 
             <span style={{ fontSize: '11.5px', color: 'var(--muted)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
-              <TrendingUp size={12} style={{ color: '#07956f' }} />
-              <strong style={{ color: '#07956f' }}>+18% productivity</strong> since queue bypass rules
+              <TrendingUp size={12} style={{ color: 'var(--green)' }} />
+              <strong style={{ color: 'var(--green)' }}>+18% productivity</strong> since queue bypass rules
             </span>
           </div>
 
           {/* High Severity Security Incident alerts */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               High-Severity Incidents
             </h3>

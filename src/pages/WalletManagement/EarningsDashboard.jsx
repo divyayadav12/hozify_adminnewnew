@@ -26,7 +26,7 @@ export default function EarningsDashboard() {
       headerTitle="Earnings Admin"
       searchPlaceholder="Search earnings..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title */}
         <div>
@@ -42,15 +42,15 @@ export default function EarningsDashboard() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
           <div className="panel" style={{ padding: '20px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Cumulative Earnings</span>
-            <strong style={{ display: 'block', fontSize: '24px', fontWeight: '850', color: '#25108f', marginTop: '8px' }}>
+            <strong style={{ display: 'block', fontSize: '24px', fontWeight: '850', color: 'var(--primary)', marginTop: '8px' }}>
               ₹{lifetimeTotal.toLocaleString('en-IN')}
             </strong>
-            <span style={{ display: 'block', fontSize: '11px', color: '#07956f', marginTop: '4px' }}>+18.4% YoY Growth</span>
+            <span style={{ display: 'block', fontSize: '11px', color: 'var(--green)', marginTop: '4px' }}>+18.4% YoY Growth</span>
           </div>
 
           <div className="panel" style={{ padding: '20px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Platform Share (15%)</span>
-            <strong style={{ display: 'block', fontSize: '24px', fontWeight: '850', color: '#07956f', marginTop: '8px' }}>
+            <strong style={{ display: 'block', fontSize: '24px', fontWeight: '850', color: 'var(--green)', marginTop: '8px' }}>
               ₹{(lifetimeTotal * 0.15).toLocaleString('en-IN')}
             </strong>
             <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '4px' }}>Auto-deducted at gateway</span>
@@ -69,7 +69,7 @@ export default function EarningsDashboard() {
             <strong style={{ display: 'block', fontSize: '24px', fontWeight: '850', color: 'var(--text)', marginTop: '8px' }}>
               ₹{totalPayouts.toLocaleString('en-IN')}
             </strong>
-            <span style={{ display: 'block', fontSize: '11px', color: '#07956f', marginTop: '4px' }}>99.8% Payout Success Rate</span>
+            <span style={{ display: 'block', fontSize: '11px', color: 'var(--green)', marginTop: '4px' }}>99.8% Payout Success Rate</span>
           </div>
         </div>
 
@@ -77,7 +77,7 @@ export default function EarningsDashboard() {
         <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1.2fr', gap: '20px' }}>
           
           {/* Earnings Allocations by Entity */}
-          <div className="panel" style={{ padding: '24px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Entity Earnings Catalog
@@ -128,7 +128,7 @@ export default function EarningsDashboard() {
                         </div>
                       </td>
                       <td style={{ padding: '16px', fontWeight: '700' }}>{w.type}</td>
-                      <td style={{ padding: '16px', fontWeight: '800', color: '#07956f' }}>₹{w.lifetimeEarnings.toLocaleString('en-IN')}</td>
+                      <td style={{ padding: '16px', fontWeight: '800', color: 'var(--green)' }}>₹{w.lifetimeEarnings.toLocaleString('en-IN')}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)', fontWeight: '700' }}>₹{w.lifetimeWithdrawals.toLocaleString('en-IN')}</td>
                       <td style={{ padding: '16px', fontWeight: '800', color: 'var(--text)' }}>₹{w.available.toLocaleString('en-IN')}</td>
                     </tr>
@@ -139,7 +139,7 @@ export default function EarningsDashboard() {
           </div>
 
           {/* Right Distribution Breakdown */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               SLA Compliance Waivers
             </h2>
@@ -148,9 +148,9 @@ export default function EarningsDashboard() {
             </p>
             
             <div style={{ background: '#f4eff8', padding: '16px', borderRadius: '6px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <Wallet size={20} style={{ color: '#25108f' }} />
+              <Wallet size={20} style={{ color: 'var(--primary)' }} />
               <div>
-                <strong style={{ fontSize: '13px', color: '#25108f', display: 'block' }}>Auto-Settlement Threshold</strong>
+                <strong style={{ fontSize: '13px', color: 'var(--primary)', display: 'block' }}>Auto-Settlement Threshold</strong>
                 <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Threshold is set to ₹50,000</span>
               </div>
             </div>

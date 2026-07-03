@@ -17,6 +17,7 @@ import {
   Smartphone,
   Laptop
 } from "lucide-react";
+import UserSubTabs from "../../components/users/UserSubTabs";
 
 const activities = [
   {
@@ -160,23 +161,7 @@ export default function UserTimelineTab() {
         </div>
 
         {/* SUB-TABS ROUTING */}
-        <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--materio-border)", paddingBottom: "12px", marginBottom: "24px" }}>
-          <button onClick={() => { navigate(ROUTES.users); addToast("Navigating to Overview", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Overview
-          </button>
-          <button onClick={() => { navigate(ROUTES.userDocuments); addToast("Navigating to KYC & Docs", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            KYC & Docs
-          </button>
-          <button onClick={() => { navigate(ROUTES.userTimeline); addToast("Reloaded Timeline", "success"); }} style={{ padding: "8px 16px", border: "1.5px solid #2A2454", borderRadius: "8px", background: "#e0e7ff", color: "#2A2454", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Activity Timeline
-          </button>
-          <button onClick={() => { navigate(ROUTES.userWallets); addToast("Navigating to Transaction History", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Transaction History
-          </button>
-          <button onClick={() => { navigate(ROUTES.userComplaints); addToast("Navigating to Support Tickets", "success"); }} style={{ padding: "8px 16px", border: "1px solid #cbd5e1", borderRadius: "8px", background: "#fff", color: "#64748b", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}>
-            Support Tickets
-          </button>
-        </div>
+        <UserSubTabs />
 
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-9 space-y-6">

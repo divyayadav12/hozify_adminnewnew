@@ -66,7 +66,7 @@ export default function PurchaseOrders() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Header Block */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -136,7 +136,7 @@ export default function PurchaseOrders() {
                 </span>
               </div>
             </div>
-            <div style={{ height: '3.5px', background: '#25108f', borderRadius: '1.5px', width: '80%' }} />
+            <div style={{ height: '3.5px', background: 'var(--primary)', borderRadius: '1.5px', width: '80%' }} />
           </div>
 
           {/* KPI 2 */}
@@ -201,10 +201,10 @@ export default function PurchaseOrders() {
         </div>
 
         {/* 2 Columns: Order Registry & Active Shipment Panel */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left: Order Registry Table */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
@@ -265,12 +265,12 @@ export default function PurchaseOrders() {
                           transition: 'background-color 0.15s ease'
                         }}
                       >
-                        <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: '#25108f' }}>
+                        <td style={{ padding: '16px 8px', fontSize: '13px', fontWeight: '700', color: 'var(--primary)' }}>
                           {po.id}
                         </td>
                         <td style={{ padding: '16px 8px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ width: '26px', height: '26px', borderRadius: '4px', background: '#f0f4ff', color: '#25108f', fontSize: '10px', fontWeight: '800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div style={{ width: '26px', height: '26px', borderRadius: '4px', background: '#f0f4ff', color: 'var(--primary)', fontSize: '10px', fontWeight: '800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                               {po.logo}
                             </div>
                             <div>
@@ -320,7 +320,7 @@ export default function PurchaseOrders() {
                 <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} aria-label="Previous Page" type="button">
                   <ChevronLeft size={16} />
                 </button>
-                <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: 'none', background: '#25108f', color: '#ffffff', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }} type="button">
+                <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: 'none', background: 'var(--primary)', color: '#ffffff', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }} type="button">
                   1
                 </button>
                 <button style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#565365', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }} type="button">
@@ -338,10 +338,10 @@ export default function PurchaseOrders() {
           </div>
 
           {/* Right Column details widgets */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Active Shipment Tracker */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', position: 'relative' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Active Shipment</span>
                 {selectedPo.express && (
@@ -361,7 +361,7 @@ export default function PurchaseOrders() {
                 </div>
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', margin: '0 12px' }}>
                   <div style={{ width: '100%', height: '2px', background: '#cbd5e1', position: 'absolute' }} />
-                  <Truck size={16} style={{ color: '#25108f', zIndex: 2, background: '#f8fafc', padding: '0 4px' }} />
+                  <Truck size={16} style={{ color: 'var(--primary)', zIndex: 2, background: '#f8fafc', padding: '0 4px' }} />
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <span style={{ display: 'block', fontSize: '10px', color: '#7a7688' }}>DEST</span>
@@ -395,7 +395,7 @@ export default function PurchaseOrders() {
                   style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '12px 8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                   type="button"
                 >
-                  <FileText size={18} style={{ color: '#25108f' }} />
+                  <FileText size={18} style={{ color: 'var(--primary)' }} />
                   <span style={{ fontSize: '11.5px', fontWeight: '700', color: '#1c2536' }}>Bulk Invoice</span>
                 </button>
                 
@@ -404,7 +404,7 @@ export default function PurchaseOrders() {
                   style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '12px 8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                   type="button"
                 >
-                  <RefreshCw size={18} style={{ color: '#25108f' }} />
+                  <RefreshCw size={18} style={{ color: 'var(--primary)' }} />
                   <span style={{ fontSize: '11.5px', fontWeight: '700', color: '#1c2536' }}>Reconcile</span>
                 </button>
 
@@ -413,7 +413,7 @@ export default function PurchaseOrders() {
                   style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '12px 8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                   type="button"
                 >
-                  <MessageSquare size={18} style={{ color: '#25108f' }} />
+                  <MessageSquare size={18} style={{ color: 'var(--primary)' }} />
                   <span style={{ fontSize: '11.5px', fontWeight: '700', color: '#1c2536' }}>Supplier Msg</span>
                 </button>
 
@@ -422,7 +422,7 @@ export default function PurchaseOrders() {
                   style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '12px 8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                   type="button"
                 >
-                  <FileCheck size={18} style={{ color: '#25108f' }} />
+                  <FileCheck size={18} style={{ color: 'var(--primary)' }} />
                   <span style={{ fontSize: '11.5px', fontWeight: '700', color: '#1c2536' }}>Inventory Check</span>
                 </button>
               </div>
@@ -466,7 +466,7 @@ export default function PurchaseOrders() {
                   padding: '8px 0',
                   fontSize: '12.5px',
                   fontWeight: '700',
-                  color: '#25108f',
+                  color: 'var(--primary)',
                   cursor: 'pointer',
                   textAlign: 'center'
                 }}

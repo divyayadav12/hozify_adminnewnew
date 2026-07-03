@@ -31,7 +31,7 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
       customProfileName="Alex Sterling"
       customProfileRole="Chief Revenue Officer"
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -50,14 +50,14 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
         </div>
 
         {isFiltering ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
               <SkeletonLoader height="100px" />
               <SkeletonLoader height="100px" />
               <SkeletonLoader height="100px" />
               <SkeletonLoader height="100px" />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
               <SkeletonLoader height="300px" />
               <SkeletonLoader height="300px" />
             </div>
@@ -75,7 +75,7 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Total Reached</span>
             <strong style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>1,284,500</strong>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '11px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
                 <TrendingUp size={11} />
                 +12.4%
               </span>
@@ -90,7 +90,7 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Avg. Open Rate</span>
             <strong style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>42.8%</strong>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '11px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
                 <TrendingUp size={11} />
                 +3.2%
               </span>
@@ -105,7 +105,7 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Converted</span>
             <strong style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)' }}>54,201</strong>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '11px', fontWeight: '750', color: '#d32929', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--red)', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
                 <TrendingDown size={11} />
                 -1.1%
               </span>
@@ -139,10 +139,10 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Chart Row: Revenue Trend Analysis & Funnel */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Revenue Trend Analysis */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Revenue Trend Analysis
@@ -222,7 +222,7 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
           </div>
 
           {/* Conversion Funnel */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Conversion Funnel
             </h3>
@@ -292,7 +292,7 @@ export default function ConversionAnalytics({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Table: Campaign Performance Detail */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Campaign Performance Detail

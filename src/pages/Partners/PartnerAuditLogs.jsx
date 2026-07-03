@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   Clock,
 } from "lucide-react";
+import StatCard from "../../components/ui/StatCard";
 
 const stats = [
   {
@@ -14,24 +15,32 @@ const stats = [
     value: "24,842",
     icon: FileText,
     accent: "blue",
+    color: "#2563eb",
+    bgColor: "#eff6ff"
   },
   {
     title: "Today's Activities",
     value: "1,248",
     icon: Activity,
     accent: "emerald",
+    color: "#059669",
+    bgColor: "#ecfdf5"
   },
   {
     title: "Risk Events",
     value: "42",
     icon: AlertTriangle,
     accent: "orange",
+    color: "#d97706",
+    bgColor: "#fffbeb"
   },
   {
     title: "Compliance Score",
     value: "96%",
     icon: ShieldCheck,
     accent: "violet",
+    color: "#7c3aed",
+    bgColor: "#f5f3ff"
   },
 ];
 
@@ -61,34 +70,17 @@ export default function PartnerAuditLogs() {
 
         {/* KPI */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {stats.map((item) => {
-            const Icon = item.icon;
-            const accent = item.accent;
-            return (
-              <div
-                key={item.title}
-                className="rounded-[28px] bg-white border border-slate-200 p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <div className="flex items-center justify-between">
-                  <div className={`h-14 w-14 rounded-2xl flex items-center justify-center shadow ${
-                    accent === 'blue' ? 'bg-blue-100 text-blue-700' : ''
-                  } ${accent === 'emerald' ? 'bg-emerald-100 text-emerald-700' : ''} ${
-                    accent === 'orange' ? 'bg-orange-100 text-orange-700' : ''
-                  } ${accent === 'violet' ? 'bg-violet-100 text-violet-700' : ''}`}>
-                    <Icon size={26} className="text-current" />
-                  </div>
-                </div>
-
-                <p className="mt-5 text-slate-500 text-sm font-medium">
-                  {item.title}
-                </p>
-
-                <h3 className="mt-2 text-3xl font-semibold text-slate-900">
-                  {item.value}
-                </h3>
-              </div>
-            );
-          })}
+          {stats.map((item) => (
+            <StatCard
+              key={item.title}
+              title={item.title}
+              value={item.value}
+              icon={item.icon}
+              color={item.color}
+              bgColor={item.bgColor}
+              iconColor={item.color}
+            />
+          ))}
         </div>
         {/* RECENT ACTIVITIES */}
         <div className="rounded-[32px] bg-gradient-to-br from-slate-50 to-blue-100 border border-slate-200 p-8">

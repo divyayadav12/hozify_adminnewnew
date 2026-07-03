@@ -61,7 +61,7 @@ export default function PenaltyManagement() {
       headerTitle="SLA & Penalties"
       searchPlaceholder="Search penalties..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Header Title & Create Button */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -81,7 +81,7 @@ export default function PenaltyManagement() {
               alignItems: 'center',
               gap: '8px',
               border: 'none',
-              background: '#25108f',
+              background: 'var(--primary)',
               color: '#fff',
               fontSize: '12px',
               fontWeight: '750',
@@ -163,7 +163,7 @@ export default function PenaltyManagement() {
                   style={{
                     height: '40px',
                     border: 'none',
-                    background: '#25108f',
+                    background: 'var(--primary)',
                     color: '#fff',
                     borderRadius: '6px',
                     fontSize: '12px',
@@ -193,7 +193,7 @@ export default function PenaltyManagement() {
         </div>
 
         {/* Listing Grid */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
@@ -218,7 +218,7 @@ export default function PenaltyManagement() {
                       <td style={{ padding: '16px', fontWeight: '700' }}>{p.owner}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)' }}>{p.walletId}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)', maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.reason}</td>
-                      <td style={{ padding: '16px', fontWeight: '850', color: '#d32929' }}>₹{p.amount.toLocaleString('en-IN')}</td>
+                      <td style={{ padding: '16px', fontWeight: '850', color: 'var(--red)' }}>₹{p.amount.toLocaleString('en-IN')}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)' }}>{p.appliedBy}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)' }}>{p.date}</td>
                       <td style={{ padding: '16px' }}>
@@ -243,7 +243,7 @@ export default function PenaltyManagement() {
                               gap: '4px',
                               border: '1px solid var(--line)',
                               background: '#fff',
-                              color: '#25108f',
+                              color: 'var(--primary)',
                               padding: '5px 10px',
                               borderRadius: '4px',
                               fontSize: '11px',
@@ -256,7 +256,7 @@ export default function PenaltyManagement() {
                           </button>
                         ) : (
                           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>
-                            <CheckCircle2 size={12} style={{ color: '#07956f' }} />
+                            <CheckCircle2 size={12} style={{ color: 'var(--green)' }} />
                             <span>Waived</span>
                           </span>
                         )}

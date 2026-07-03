@@ -293,7 +293,7 @@ export default function TrackingAnalytics() {
 
   return (
     <AdminShell activeTab="Analytics Feed">
-      <div className="bg-[#ffffff] text-slate-900 font-sans p-6 space-y-6 max-w-[1600px] mx-auto relative">
+      <div className="bg-[#ffffff] text-slate-900  p-6 space-y-6 max-w-[1600px] mx-auto relative">
 
         {/* ==========================================
             1. HEADER SECTION (MAIN HEADING + ACTIONS)
@@ -661,7 +661,7 @@ export default function TrackingAnalytics() {
                     className="flex-1 flex flex-col items-center gap-2 group cursor-pointer"
                     onClick={() => alert(`Timestamp Bucket: ${bar.hour} (${val}% density)`)}
                   >
-                    <span className="text-[9px] font-mono font-black text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-100 px-1 rounded -mb-1">
+                    <span className="text-[9px]  font-black text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-100 px-1 rounded -mb-1">
                       {val}%
                     </span>
                     
@@ -672,7 +672,7 @@ export default function TrackingAnalytics() {
                       }`}
                     ></div>
                     
-                    <span className="text-[10px] font-mono font-bold text-slate-400 group-hover:text-slate-900 transition-colors">
+                    <span className="text-[10px]  font-bold text-slate-400 group-hover:text-slate-900 transition-colors">
                       {bar.hour}
                     </span>
                   </div>

@@ -31,7 +31,7 @@ export default function PDFExportPage() {
 
   return (
     <AdminShell activeTab="Reports & Analytics">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased font-sans">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased ">
         
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">

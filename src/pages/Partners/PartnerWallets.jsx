@@ -373,7 +373,7 @@ export default function PartnerWallets() {
                       <td className="px-5 py-3">
                         <div>
                           <h4 className="font-bold text-slate-900 group-hover:text-indigo-650 transition-colors">{partner.name}</h4>
-                          <p className="text-[10px] text-slate-400 font-mono mt-0.5">{partner.id}</p>
+                          <p className="text-[10px] text-slate-400  mt-0.5">{partner.id}</p>
                         </div>
                       </td>
                       <td className="px-5 py-3">
@@ -462,7 +462,7 @@ export default function PartnerWallets() {
             <div className="mt-4 space-y-3 text-xs">
               <div className="flex justify-between border-b border-slate-50 pb-1.5">
                 <span className="text-slate-400 font-medium">System Registry ID:</span>
-                <span className="font-mono font-bold text-slate-700">{activeModalData.id}</span>
+                <span className=" font-bold text-slate-700">{activeModalData.id}</span>
               </div>
               <div className="flex justify-between border-b border-slate-50 pb-1.5">
                 <span className="text-slate-400 font-medium">Available Balance:</span>

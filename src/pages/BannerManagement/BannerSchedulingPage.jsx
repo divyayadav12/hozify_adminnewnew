@@ -106,7 +106,7 @@ export default function BannerSchedulingPage() {
 
   return (
     <AdminShell activeTab="Banners" searchPlaceholder="Search campaigns or users...">
-      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto font-sans antialiased relative">
+      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto  antialiased relative">
         
         {/* HEADER TOOLBAR TITLE ROW */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

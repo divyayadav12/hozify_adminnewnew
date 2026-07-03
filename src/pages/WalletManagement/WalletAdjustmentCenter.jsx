@@ -51,7 +51,7 @@ export default function WalletAdjustmentCenter() {
       headerTitle="Financial Admin"
       searchPlaceholder="Search adjustments..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Navigation & Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -76,10 +76,10 @@ export default function WalletAdjustmentCenter() {
         </div>
 
         {/* Form and Log trail grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* LEFT: Adjustment Form */}
-          <div className="panel" style={{ padding: '24px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>
               Create Adjustment Entry
             </h2>
@@ -174,7 +174,7 @@ export default function WalletAdjustmentCenter() {
                 style={{
                   height: '40px',
                   border: 'none',
-                  background: '#25108f',
+                  background: 'var(--primary)',
                   color: '#fff',
                   borderRadius: '6px',
                   fontSize: '12px',
@@ -194,7 +194,7 @@ export default function WalletAdjustmentCenter() {
           </div>
 
           {/* RIGHT: Recent Adjustment Logs */}
-          <div className="panel" style={{ padding: '24px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>
               Adjustment Audit Log (Recent Entries)
             </h2>

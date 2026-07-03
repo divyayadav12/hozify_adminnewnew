@@ -148,7 +148,7 @@ export default function PricingStrategy() {
   const avgServicePrice = catalog.reduce((acc, curr) => acc + curr.finalPrice, 0) / catalog.length;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', position: 'relative' }}>
       
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -193,7 +193,7 @@ export default function PricingStrategy() {
               style={{ padding: '6px 12px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', outline: 'none', width: '220px' }}
               required
             />
-            <button type="submit" style={{ padding: '6px 14px', background: '#25108f', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button type="submit" style={{ padding: '6px 14px', background: 'var(--primary)', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Apply Changes
             </button>
           </form>
@@ -251,12 +251,12 @@ export default function PricingStrategy() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
         
         {/* Left Column: Pricing Catalog */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Pricing Catalog</h3>
               {/* Added individual price/service creation button */}
@@ -293,7 +293,7 @@ export default function PricingStrategy() {
                         <td style={{ padding: '12px', fontSize: '13px', color: 'var(--text)', fontWeight: '700' }}>${row.basePrice.toFixed(2)}</td>
                         <td style={{ padding: '12px', fontSize: '12px', color: 'var(--muted)' }}>${row.gst.toFixed(2)}</td>
                         <td style={{ padding: '12px', fontSize: '12px', color: 'var(--muted)' }}>${row.platformFee.toFixed(2)}</td>
-                        <td style={{ padding: '12px', fontSize: '13px', color: '#25108f', fontWeight: '800' }}>${row.finalPrice.toFixed(2)}</td>
+                        <td style={{ padding: '12px', fontSize: '13px', color: 'var(--primary)', fontWeight: '800' }}>${row.finalPrice.toFixed(2)}</td>
                         <td style={{ padding: '12px' }}>
                           <span style={{ fontSize: '10px', fontWeight: '800', color: row.status === 'ACTIVE' ? '#07956f' : '#d97706' }}>
                             ● {row.status}
@@ -308,9 +308,9 @@ export default function PricingStrategy() {
           </div>
 
           {/* Pricing Analytics */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>Pricing Analytics</h3>
-            <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 'var(--spacing-section)', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '12px', display: 'block' }}>PRICE TREND (LAST 6 MONTHS)</span>
                 <div style={{ height: '140px', display: 'flex', alignItems: 'flex-end', gap: '12px', borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
@@ -332,9 +332,9 @@ export default function PricingStrategy() {
         </div>
 
         {/* Right Column: Pricing Rules & Strategy */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>Pricing Strategy Panel</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               
@@ -400,7 +400,7 @@ export default function PricingStrategy() {
             </div>
           </div>
 
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Pricing Rules</h3>
               <button 
@@ -439,7 +439,7 @@ export default function PricingStrategy() {
           backgroundColor: 'rgba(0, 0, 0, 0.4)', display: 'flex', justifyContent: 'center',
           alignItems: 'center', zIndex: 9999
         }}>
-          <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', width: '380px', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
+          <div style={{ background: '#fff', padding: 'var(--spacing-section)', borderRadius: '12px', width: '380px', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <strong style={{ fontSize: '16px', color: 'var(--text)' }}>Add Individual Service Price</strong>
               <button onClick={() => setIsAddServiceOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}><X size={18} /></button>
@@ -514,7 +514,7 @@ export default function PricingStrategy() {
                 <button type="button" onClick={() => setIsAddServiceOpen(false)} style={{ padding: '8px 14px', background: '#f1f5f9', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', color: 'var(--muted)' }}>
                   Cancel
                 </button>
-                <button type="submit" style={{ padding: '8px 14px', background: '#25108f', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+                <button type="submit" style={{ padding: '8px 14px', background: 'var(--primary)', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
                   Save Service
                 </button>
               </div>
@@ -530,7 +530,7 @@ export default function PricingStrategy() {
           backgroundColor: 'rgba(0, 0, 0, 0.4)', display: 'flex', justifyContent: 'center',
           alignItems: 'center', zIndex: 9999
         }}>
-          <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', width: '380px', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
+          <div style={{ background: '#fff', padding: 'var(--spacing-section)', borderRadius: '12px', width: '380px', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <strong style={{ fontSize: '16px', color: 'var(--text)' }}>Create New Pricing Rule</strong>
               <button onClick={() => setIsAddRuleOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}><X size={18} /></button>
@@ -577,7 +577,7 @@ export default function PricingStrategy() {
                 <button type="button" onClick={() => setIsAddRuleOpen(false)} style={{ padding: '8px 14px', background: '#f1f5f9', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', color: 'var(--muted)' }}>
                   Cancel
                 </button>
-                <button type="submit" style={{ padding: '8px 14px', background: '#25108f', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+                <button type="submit" style={{ padding: '8px 14px', background: 'var(--primary)', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
                   Save Rule
                 </button>
               </div>

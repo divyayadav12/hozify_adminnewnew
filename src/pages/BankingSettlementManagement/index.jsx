@@ -86,8 +86,8 @@ function Shell({ children, title, subtitle, navigate, toast }) {
       searchPlaceholder="Search Transaction ID or Account..."
       showGridIcon
     >
-      <section className="banking-page">
-        <div className="banking-page-head">
+      <section >
+        <div className="-head">
           <div><h1>{title}</h1><p>{subtitle}</p></div>
           <div className="banking-actions"><button className="custom-btn-secondary" type="button" onClick={() => toast('Export queued locally.')}><Download size={16} /> Export CSV</button><Btn primary icon={Plus} onClick={() => navigate(ROUTES.bankAccountAdd)}>Register Account</Btn></div>
         </div>

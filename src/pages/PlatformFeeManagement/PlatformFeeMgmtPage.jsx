@@ -8,6 +8,7 @@ import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 import { 
   Search, Plus, Download, Edit, Trash2, Eye, Landmark, Compass, Wrench, CircleDollarSign
 } from 'lucide-react';
+import StatCard from '../../components/ui/StatCard';
 
 const INITIAL_FEES = [
   { id: 'FEE-401', service: 'Air Conditioner Maintenance', type: 'Percentage Commission', value: '15.0%', status: 'Active', rules: 'Calculated on gross service value.' },
@@ -79,7 +80,7 @@ export default function PlatformFeeMgmtPage() {
 
   return (
     <AdminShell activeTab="Platform Fee Management" headerTitle="Platform Fee Settings Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -103,25 +104,25 @@ export default function PlatformFeeMgmtPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="custom-kpi-card-container">
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Landmark size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Active Rules</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text)', margin: '2px 0 0 0' }}>{fees.length} Rules</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#d1fae5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Compass size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg Comm. Rate</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#059669', margin: '2px 0 0 0' }}>13.5% Rate</h2>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <StatCard
+            title="TOTAL ACTIVE RULES"
+            value={`${fees.length} Rules`}
+            icon={Landmark}
+            trend={0}
+            color="#4f46e5"
+            bgColor="#e0e7ff"
+            iconColor="#4f46e5"
+          />
+          <StatCard
+            title="AVG COMM. RATE"
+            value="13.5% Rate"
+            icon={Compass}
+            trend={0}
+            color="#059669"
+            bgColor="#d1fae5"
+            iconColor="#059669"
+          />
         </div>
 
         {/* Filters */}
@@ -156,10 +157,10 @@ export default function PlatformFeeMgmtPage() {
               {filteredFees.length > 0 ? (
                 filteredFees.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.service}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.type}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', color: '#059669', fontFamily: 'monospace' }}>{row.value}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', color: '#059669', fontFamily: "var(--materio-space)", }}>{row.value}</td>
                     <td style={{ padding: '18px 24px', color: 'var(--muted)' }}>{row.rules}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <span style={{
@@ -184,7 +185,7 @@ export default function PlatformFeeMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No commission rules found.</td>
+                  <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No commission rules found.</td>
                 </tr>
               )}
             </tbody>

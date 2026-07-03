@@ -59,17 +59,17 @@ export default function SupplierPerformance() {
 
   // Audit data
   const page1Suppliers = [
-    { name: 'Global Logistics Inc.', id: 'SUP-48291', onTime: '99.8%', onTimeColor: '#07956f', defect: '0.02%', costIdx: '1.02', status: 'PREFERRED', statusBg: '#ecfdf5', statusColor: '#07956f' },
-    { name: 'Precision Parts Co.', id: 'SUP-22104', onTime: '92.5%', onTimeColor: 'var(--text)', defect: '0.15%', costIdx: '0.95', status: 'ACTIVE', statusBg: '#ecfdf5', statusColor: '#07956f' },
-    { name: 'Apex Materials Ltd.', id: 'SUP-11829', onTime: '84.2%', onTimeColor: '#b45309', defect: '2.1%', defectColor: '#d32929', costIdx: '1.45', status: 'WATCHLIST', statusBg: '#fffbeb', statusColor: '#b45309' },
-    { name: 'Zenith Solutions', id: 'SUP-94832', onTime: '96.1%', onTimeColor: 'var(--text)', defect: '0.05%', costIdx: '1.10', status: 'ACTIVE', statusBg: '#ecfdf5', statusColor: '#07956f' }
+    { name: 'Global Logistics Inc.', id: 'SUP-48291', onTime: '99.8%', onTimecolor: 'var(--green)', defect: '0.02%', costIdx: '1.02', status: 'PREFERRED', statusBg: '#ecfdf5', statuscolor: 'var(--green)' },
+    { name: 'Precision Parts Co.', id: 'SUP-22104', onTime: '92.5%', onTimeColor: 'var(--text)', defect: '0.15%', costIdx: '0.95', status: 'ACTIVE', statusBg: '#ecfdf5', statuscolor: 'var(--green)' },
+    { name: 'Apex Materials Ltd.', id: 'SUP-11829', onTime: '84.2%', onTimeColor: '#b45309', defect: '2.1%', defectcolor: 'var(--red)', costIdx: '1.45', status: 'WATCHLIST', statusBg: '#fffbeb', statusColor: '#b45309' },
+    { name: 'Zenith Solutions', id: 'SUP-94832', onTime: '96.1%', onTimeColor: 'var(--text)', defect: '0.05%', costIdx: '1.10', status: 'ACTIVE', statusBg: '#ecfdf5', statuscolor: 'var(--green)' }
   ];
 
   const page2Suppliers = [
-    { name: 'Falcon Steel Inc.', id: 'SUP-88301', onTime: '91.0%', onTimeColor: 'var(--text)', defect: '0.45%', costIdx: '0.99', status: 'ACTIVE', statusBg: '#ecfdf5', statusColor: '#07956f' },
-    { name: 'LogiRoute Logistics', id: 'SUP-44093', onTime: '97.5%', onTimeColor: '#07956f', defect: '0.10%', costIdx: '1.05', status: 'ACTIVE', statusBg: '#ecfdf5', statusColor: '#07956f' },
-    { name: 'Titan Ironworks', id: 'SUP-77215', onTime: '80.1%', onTimeColor: '#b45309', defect: '4.5%', defectColor: '#d32929', costIdx: '1.80', status: 'WATCHLIST', statusBg: '#fffbeb', statusColor: '#b45309' },
-    { name: 'Alpha Circuits', id: 'SUP-12003', onTime: '99.9%', onTimeColor: '#07956f', defect: '0.01%', costIdx: '1.01', status: 'PREFERRED', statusBg: '#ecfdf5', statusColor: '#07956f' }
+    { name: 'Falcon Steel Inc.', id: 'SUP-88301', onTime: '91.0%', onTimeColor: 'var(--text)', defect: '0.45%', costIdx: '0.99', status: 'ACTIVE', statusBg: '#ecfdf5', statuscolor: 'var(--green)' },
+    { name: 'LogiRoute Logistics', id: 'SUP-44093', onTime: '97.5%', onTimecolor: 'var(--green)', defect: '0.10%', costIdx: '1.05', status: 'ACTIVE', statusBg: '#ecfdf5', statuscolor: 'var(--green)' },
+    { name: 'Titan Ironworks', id: 'SUP-77215', onTime: '80.1%', onTimeColor: '#b45309', defect: '4.5%', defectcolor: 'var(--red)', costIdx: '1.80', status: 'WATCHLIST', statusBg: '#fffbeb', statusColor: '#b45309' },
+    { name: 'Alpha Circuits', id: 'SUP-12003', onTime: '99.9%', onTimecolor: 'var(--green)', defect: '0.01%', costIdx: '1.01', status: 'PREFERRED', statusBg: '#ecfdf5', statuscolor: 'var(--green)' }
   ];
 
   const allSuppliersList = auditPage === 1 ? page1Suppliers : page2Suppliers;
@@ -90,7 +90,7 @@ export default function SupplierPerformance() {
       onClick={() => navigate(ROUTES.materialCreate)}
       style={{
         width: '100%',
-        background: '#25108f',
+        background: 'var(--primary)',
         color: '#ffffff',
         border: 'none',
         borderRadius: '6px',
@@ -148,7 +148,7 @@ export default function SupplierPerformance() {
         </div>
       }
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* H1 Overview bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -249,7 +249,7 @@ export default function SupplierPerformance() {
           <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>On-Time Delivery</span>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>{kpis.deliveryTrend}</span>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>{kpis.deliveryTrend}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <strong style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text)' }}>{kpis.delivery}</strong>
@@ -265,7 +265,7 @@ export default function SupplierPerformance() {
           <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Quality Rating</span>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>{kpis.qualityTrend}</span>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>{kpis.qualityTrend}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <strong style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text)' }}>{kpis.quality}</strong>
@@ -281,7 +281,7 @@ export default function SupplierPerformance() {
           <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Cost Variance</span>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: '#d32929', background: '#fee2e2', padding: '2px 6px', borderRadius: '4px' }}>{kpis.costTrend}</span>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--red)', background: '#fee2e2', padding: '2px 6px', borderRadius: '4px' }}>{kpis.costTrend}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <strong style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text)' }}>{kpis.cost}</strong>
@@ -297,7 +297,7 @@ export default function SupplierPerformance() {
           <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Supply Risk</span>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>{kpis.risk === 'Low' ? 'Stable' : 'Elevated'}</span>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>{kpis.risk === 'Low' ? 'Stable' : 'Elevated'}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <strong style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text)' }}>{kpis.risk}</strong>
@@ -315,12 +315,12 @@ export default function SupplierPerformance() {
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Performance Trends Line Graph */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Performance Trends</h2>
               <div style={{ display: 'flex', gap: '16px', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ height: '8px', width: '8px', borderRadius: '50%', background: '#25108f' }} />
+                  <span style={{ height: '8px', width: '8px', borderRadius: '50%', background: 'var(--primary)' }} />
                   <span>Delivery</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -368,7 +368,7 @@ export default function SupplierPerformance() {
           </div>
 
           {/* Top Performers Card */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Top Performers</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
@@ -382,7 +382,7 @@ export default function SupplierPerformance() {
                   <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>Global Logistics Inc.</strong>
                   <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>99.2 Rating</span>
                 </div>
-                <ArrowUpRight size={18} style={{ color: '#07956f' }} />
+                <ArrowUpRight size={18} style={{ color: 'var(--green)' }} />
               </div>
 
               {/* Performer 2 */}
@@ -406,14 +406,14 @@ export default function SupplierPerformance() {
                   <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>Apex Materials Ltd.</strong>
                   <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>95.1 Rating</span>
                 </div>
-                <TrendingDown size={18} style={{ color: '#d32929' }} />
+                <TrendingDown size={18} style={{ color: 'var(--red)' }} />
               </div>
 
             </div>
 
             <button
               onClick={() => alert('Viewing all rankings...')}
-              style={{ background: 'transparent', border: 'none', color: '#25108f', fontWeight: '800', fontSize: '13px', cursor: 'pointer', textAlign: 'center', outline: 'none' }}
+              style={{ background: 'transparent', border: 'none', color: 'var(--primary)', fontWeight: '800', fontSize: '13px', cursor: 'pointer', textAlign: 'center', outline: 'none' }}
             >
               View All Rankings
             </button>
@@ -422,7 +422,7 @@ export default function SupplierPerformance() {
         </div>
 
         {/* Detailed Performance Audit Table */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Detailed Performance Audit</h2>
             <div style={{ display: 'flex', gap: '10px', position: 'relative' }}>
@@ -515,7 +515,7 @@ export default function SupplierPerformance() {
                 {filteredSuppliers.map((row, idx) => (
                   <tr key={idx} style={{ borderBottom: '1px solid #eee9f6' }}>
                     <td style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <div style={{ height: '32px', width: '32px', borderRadius: '6px', background: '#f4eff8', color: '#25108f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '11px' }}>
+                      <div style={{ height: '32px', width: '32px', borderRadius: '6px', background: '#f4eff8', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '11px' }}>
                         {row.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
                       </div>
                       <div>
@@ -535,7 +535,7 @@ export default function SupplierPerformance() {
                 ))}
                 {filteredSuppliers.length === 0 && (
                   <tr>
-                    <td colSpan="5" style={{ padding: '32px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px', fontWeight: '600' }}>
+                    <td colSpan="5" style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--muted)', fontSize: '13px', fontWeight: '600' }}>
                       No suppliers match this filter criteria.
                     </td>
                   </tr>
@@ -573,7 +573,7 @@ export default function SupplierPerformance() {
       {/* System Status footer matching Screen 1 exactly */}
       <footer style={{ borderTop: '1px solid var(--line)', padding: '16px 0', marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
         <div>
-          SYSTEM STATUS: <span style={{ color: '#07956f' }}>NOMINAL</span> | ALL NODES SYNCING
+          SYSTEM STATUS: <span style={{ color: 'var(--green)' }}>NOMINAL</span> | ALL NODES SYNCING
         </div>
         <div style={{ display: 'flex', gap: '20px' }}>
           <a href="#privacy" onClick={(e) => e.preventDefault()} style={{ color: 'var(--muted)', textDecoration: 'none' }}>Privacy Policy</a>

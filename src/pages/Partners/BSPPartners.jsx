@@ -300,7 +300,7 @@ export default function BSPPartners() {
                                     </span>
                                   )}
                                 </div>
-                                <span className="text-xs font-mono font-medium text-slate-400">{partner.id}</span>
+                                <span className="text-xs  font-medium text-slate-400">{partner.id}</span>
                               </div>
                             </div>
                           </td>

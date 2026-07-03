@@ -179,7 +179,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
       headerTitle="WhatsApp Campaigns"
       searchPlaceholder="Search campaigns or reports..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Header Section */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -269,7 +269,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>DELIVERED</span>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#07956f' }}>{currentStats.deliveredRate}</span>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--green)' }}>{currentStats.deliveredRate}</span>
             </div>
             <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>{currentStats.delivered}</strong>
             <div style={{ height: '3px', background: '#07956f', position: 'absolute', bottom: 0, left: 0, right: 0 }} />
@@ -296,7 +296,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
         </div>
 
         {/* Table Panel */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Campaign Directory</h2>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -367,7 +367,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                           padding: '3px 8px',
                           borderRadius: '4px',
                           border: '1px solid var(--lavender)',
-                          fontFamily: 'monospace'
+                          fontFamily: "var(--materio-space)",
                         }}>
                           {c.template}
                         </span>
@@ -423,7 +423,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                           {openDropdownId === c.id && (
                             <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
                               <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); setSelectedCampaignId(c.id); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--text)' }}>View Details</button>
-                              <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); handleRestart(c.id); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#07956f' }}>Restart</button>
+                              <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); handleRestart(c.id); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--green)' }}>Restart</button>
                               <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); handleDelete(c.id); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#e11d48' }}>Delete</button>
                             </div>
                           )}
@@ -464,10 +464,10 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
         </div>
 
         {/* Bottom Analytics block */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1.1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1.1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Messaging Trend Custom Area Chart */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Messaging Trend</h2>
               
@@ -545,7 +545,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
           </div>
 
           {/* Top Templates List */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Top Templates</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -556,7 +556,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                     <span style={{ color: 'var(--muted)', marginRight: '6px' }}>01</span>
                     Order_Update_Gold
                   </span>
-                  <span style={{ color: '#07956f', fontWeight: '850' }}>98% Read</span>
+                  <span style={{ color: 'var(--green)', fontWeight: '850' }}>98% Read</span>
                 </div>
                 <div style={{ background: '#f1f5f9', height: '6px', borderRadius: '3px', overflow: 'hidden' }}>
                   <div style={{ background: 'var(--primary)', height: '100%', width: '98%' }} />
@@ -722,7 +722,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                     padding: '0 12px',
                     fontSize: '13px',
                     background: '#fff',
-                    fontFamily: 'monospace'
+                    fontFamily: "var(--materio-space)",
                   }}
                 >
                   <option value="re_engage_v2">re_engage_v2</option>

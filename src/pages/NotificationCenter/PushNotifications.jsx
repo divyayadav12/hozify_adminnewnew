@@ -76,7 +76,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
       headerTitle="Push Notifications"
       searchPlaceholder="Search notifications, segments..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Header Title Section */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -119,7 +119,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>PUSH SENT</span>
-              <span style={{ fontSize: '10px', fontWeight: '850', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
                 ↗ +12.4%
               </span>
             </div>
@@ -130,7 +130,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>DELIVERED</span>
-              <span style={{ fontSize: '10px', fontWeight: '850', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
                 ↗ +3.1%
               </span>
             </div>
@@ -141,7 +141,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>OPENED</span>
-              <span style={{ fontSize: '10px', fontWeight: '850', color: '#d32929', background: '#fef2f2', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--red)', background: '#fef2f2', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
                 ↘ -0.8%
               </span>
             </div>
@@ -152,7 +152,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
           <div className="panel" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px' }}>CTR</span>
-              <span style={{ fontSize: '10px', fontWeight: '850', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
                 ↗ +5.2%
               </span>
             </div>
@@ -163,10 +163,10 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
         </div>
 
         {/* Columns Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Left Table Panel */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Recent Campaigns</h2>
               <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -251,7 +251,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                           {openDropdownId === i && (
                             <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
                               <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('View Details clicked'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--text)' }}>View Details</button>
-                              <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('Resend Notification'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#07956f' }}>Resend</button>
+                              <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('Resend Notification'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--green)' }}>Resend</button>
                               <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('Delete Campaign'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#e11d48' }}>Delete</button>
                             </div>
                           )}
@@ -260,7 +260,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="5" style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)' }}>
+                      <td colSpan="5" style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: 'var(--muted)' }}>
                         No campaigns found matching your query.
                       </td>
                     </tr>
@@ -315,10 +315,10 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
           </div>
 
           {/* Right Summary Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Executive Summary Card */}
-            <div className="panel" style={{ background: '#110c3c', color: '#fff', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ background: '#110c3c', color: '#fff', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '800', color: '#b9aede', textTransform: 'uppercase', margin: 0, letterSpacing: '0.5px' }}>
                 Executive Summary
               </h3>
@@ -346,7 +346,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
             </div>
 
             {/* Audience Engagement Info */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Audience Engagement
               </h3>

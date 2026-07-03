@@ -83,7 +83,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
       headerTitle="Reports & Export"
       searchPlaceholder="Search campaign performance, reports, files..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -141,7 +141,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
         {/* KPI Metrics Row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           {/* Card 1: Avg Delivery Rate */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Avg. Delivery Rate
@@ -154,14 +154,14 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 98.4%
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 Optimal Platform Score
               </span>
             </div>
           </div>
 
           {/* Card 2: Open Rate */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Open / Interaction Rate
@@ -181,7 +181,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
           </div>
 
           {/* Card 3: Total Spend */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Spend Analysis
@@ -201,7 +201,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
           </div>
 
           {/* Card 4: Reports Ready */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Reports Available
@@ -214,7 +214,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 07
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 All exports generated
               </span>
             </div>
@@ -222,10 +222,10 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
         </div>
 
         {/* Content Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Configuration Console (Left Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Report Configuration Console
@@ -403,7 +403,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
           </div>
 
           {/* Recent Exports Sidebar (Right Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Recent Exports Sidebar
@@ -497,7 +497,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
         </div>
 
         {/* Global Campaign Performance Audit Table */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
             <div>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -538,7 +538,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
               <tbody>
                 {filteredCampaigns.length === 0 ? (
                   <tr>
-                    <td colSpan={6} style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)' }}>
+                    <td colSpan={6} style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: 'var(--muted)' }}>
                       No campaigns found matching search criteria.
                     </td>
                   </tr>

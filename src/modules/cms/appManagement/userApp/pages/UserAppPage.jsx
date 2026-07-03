@@ -165,7 +165,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="User App Configuration Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -299,13 +299,13 @@ export default function UserAppPage({ defaultTab = 'config' }) {
                     {currentItems.length > 0 ? (
                       currentItems.map(row => (
                         <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                          <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#1e1b4b' }}>
+                          <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#1e1b4b' }}>
                             {row.key}
                             <span style={{ display: 'block', fontSize: '11px', color: '#64748b', fontWeight: '400', marginTop: '4px' }}>
                               {row.description}
                             </span>
                           </td>
-                          <td style={{ padding: '18px 24px', fontWeight: '700', color: '#4f46e5', fontFamily: 'monospace' }}>{row.value}</td>
+                          <td style={{ padding: '18px 24px', fontWeight: '700', color: '#4f46e5', fontFamily: "var(--materio-space)", }}>{row.value}</td>
                           <td style={{ padding: '18px 24px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                               <span style={{
@@ -336,7 +336,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={5} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No configuration keys found under this tab.</td>
+                        <td colSpan={5} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No configuration keys found under this tab.</td>
                       </tr>
                     )}
                   </tbody>
@@ -420,7 +420,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
                     </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: '700', color: '#4f46e5', fontFamily: 'monospace' }}>VALUE: {menu.value}</span>
+                    <span style={{ fontSize: '12px', fontWeight: '700', color: '#4f46e5', fontFamily: "var(--materio-space)", }}>VALUE: {menu.value}</span>
                     <Toggle 
                       checked={menu.status === 'Active'} 
                       onChange={(checked) => handleStatusToggle(menu, checked)} 
@@ -437,9 +437,9 @@ export default function UserAppPage({ defaultTab = 'config' }) {
         )}
 
         {activeTab === 'App Version' && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--spacing-section)' }}>
             {/* Android Release control */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyItems: 'center', gap: '10px' }}>
                 <div style={{ width: '32px', height: '32px', background: '#d1fae5', color: '#065f46', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900' }}>A</div>
                 <div>
@@ -467,7 +467,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
             </div>
 
             {/* iOS Release control */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyItems: 'center', gap: '10px' }}>
                 <div style={{ width: '32px', height: '32px', background: '#f1f5f9', color: '#334155', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900' }}>I</div>
                 <div>

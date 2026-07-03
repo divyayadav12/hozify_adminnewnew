@@ -33,10 +33,10 @@ export default function SystemBackupMaintenance() {
         </div>
 
         {/* Top Section: Backup (Left) | Maintenance (Right) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '24px', alignItems: 'start', marginBottom: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 'var(--spacing-section)', alignItems: 'start', marginBottom: '24px' }}>
           
           {/* Left Column: Automated Scheduling */}
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ width: '36px', height: '36px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -49,7 +49,7 @@ export default function SystemBackupMaintenance() {
               </span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)', marginBottom: '24px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Target Destination</label>
                 <div style={{ position: 'relative' }}>
@@ -67,7 +67,7 @@ export default function SystemBackupMaintenance() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)', marginBottom: '32px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Frequency</label>
                 <div style={{ display: 'flex', border: '1px solid #e2e8f0', borderRadius: '6px', overflow: 'hidden' }}>
@@ -95,7 +95,7 @@ export default function SystemBackupMaintenance() {
           </div>
 
           {/* Right Column: Maintenance Mode */}
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
               <div style={{ width: '36px', height: '36px', background: '#fee2e2', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <PenTool size={18} color="#ef4444" />
@@ -132,7 +132,7 @@ export default function SystemBackupMaintenance() {
 
         {/* Bottom Section: Restore Points & History */}
         <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', overflow: 'hidden' }}>
-          <div style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: 0 }}>Restore Points & History</h2>
             <div style={{ display: 'flex', gap: '12px' }}>
               <div style={{ position: 'relative' }}>
@@ -159,7 +159,7 @@ export default function SystemBackupMaintenance() {
             <tbody>
               {/* Row 1 */}
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88291</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88291</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 24, 2023 - 03:00 AM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>
@@ -182,7 +182,7 @@ export default function SystemBackupMaintenance() {
 
               {/* Row 2 */}
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88285</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88285</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 23, 2023 - 03:00 AM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>
@@ -205,7 +205,7 @@ export default function SystemBackupMaintenance() {
 
               {/* Row 3 */}
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88122</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88122</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 22, 2023 - 11:45 PM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>
@@ -228,7 +228,7 @@ export default function SystemBackupMaintenance() {
 
               {/* Row 4 */}
               <tr>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88001</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88001</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 21, 2023 - 03:00 AM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>

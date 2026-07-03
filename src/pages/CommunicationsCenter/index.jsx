@@ -228,7 +228,7 @@ export default function CommunicationsCenter() {
               <span style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)' }}>Inbox</span>
               {/* Filter Icons */}
               <div style={{ display: 'flex', gap: '8px' }}>
-                <button style={{ border: 'none', background: 'transparent', color: '#25108f', cursor: 'pointer' }}><Image size={15} /></button>
+                <button style={{ border: 'none', background: 'transparent', color: 'var(--primary)', cursor: 'pointer' }}><Image size={15} /></button>
                 <button style={{ border: 'none', background: 'transparent', color: '#565365', cursor: 'pointer' }}><Mail size={15} /></button>
                 <button style={{ border: 'none', background: 'transparent', color: '#565365', cursor: 'pointer' }}><MessageSquare size={15} /></button>
               </div>
@@ -287,7 +287,7 @@ export default function CommunicationsCenter() {
             {/* Chat Header */}
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ height: '36px', width: '36px', borderRadius: '50%', background: '#eee9f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', color: '#25108f' }}>
+                <div style={{ height: '36px', width: '36px', borderRadius: '50%', background: '#eee9f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', color: 'var(--primary)' }}>
                   GS
                 </div>
                 <div>
@@ -345,7 +345,7 @@ export default function CommunicationsCenter() {
                                 <span style={{ display: 'block', fontSize: '9px', color: 'var(--muted)' }}>{msg.attachment.size}</span>
                               </div>
                             </div>
-                            <button style={{ border: 'none', background: 'transparent', color: '#25108f', cursor: 'pointer' }}>💾</button>
+                            <button style={{ border: 'none', background: 'transparent', color: 'var(--primary)', cursor: 'pointer' }}>💾</button>
                           </div>
                         )}
 
@@ -366,7 +366,7 @@ export default function CommunicationsCenter() {
             <div style={{ padding: '10px 20px', background: '#fff', borderTop: '1px solid var(--line)', display: 'flex', gap: '10px' }}>
               <button
                 onClick={() => alert('Quote approved')}
-                style={{ background: 'rgba(37, 16, 143, 0.05)', border: '1px solid #25108f', color: '#25108f', fontSize: '12px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
+                style={{ background: 'rgba(37, 16, 143, 0.05)', border: '1px solid #25108f', color: 'var(--primary)', fontSize: '12px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
               >
                 Approve Quote
               </button>
@@ -414,7 +414,7 @@ export default function CommunicationsCenter() {
                     </div>
                     <button
                       onClick={handleSendMessage}
-                      style={{ background: '#25108f', color: '#fff', border: 'none', borderRadius: '6px', height: '32px', padding: '0 14px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+                      style={{ background: 'var(--primary)', color: '#fff', border: 'none', borderRadius: '6px', height: '32px', padding: '0 14px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
                     >
                       <span>Send</span>
                       <Send size={12} />
@@ -467,7 +467,7 @@ export default function CommunicationsCenter() {
                 
                 {/* Progress bar */}
                 <div style={{ height: '4px', background: '#eee9f6', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-                  <div style={{ width: '35%', height: '100%', background: '#25108f' }} />
+                  <div style={{ width: '35%', height: '100%', background: 'var(--primary)' }} />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: 'var(--muted)', marginTop: '4px', fontWeight: '700' }}>
                   <span>Quote Phase</span>
@@ -589,7 +589,7 @@ export default function CommunicationsCenter() {
 
             {/* Column 2: Broadcaster Composer Form (Center) */}
             <div className="panel" style={{ flex: 1.8, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-              <form onSubmit={handleDeploy} style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
+              <form onSubmit={handleDeploy} style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
                 
                 {/* Campaign Name */}
                 <div>

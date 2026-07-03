@@ -89,7 +89,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
       headerTitle="Financial Resolutions"
       searchPlaceholder="Search compensation audits, ticket IDs..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb Row */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -101,7 +101,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
         {/* Page Header (Resolutions, Unassigned, Escalated Sub Tabs + Wallet Reserve Badge) */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
           {/* Sub Tabs */}
-          <div style={{ display: 'flex', gap: '24px' }}>
+          <div style={{ display: 'flex', gap: 'var(--spacing-section)' }}>
             {['Resolutions', 'Unassigned', 'Escalated'].map((tName) => {
               const isActive = activeSubTab === tName;
               return (
@@ -151,13 +151,13 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
         </div>
 
         {/* Content Layout Grid columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Column Panels: Pending approvals table + Compensation terminal form */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Pending Compensation list */}
-            <div className="panel" style={{ padding: '24px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Pending Compensation Approval
@@ -181,7 +181,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                   <tbody>
                     {pendingApprovals.length === 0 ? (
                       <tr>
-                        <td colSpan={5} style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)' }}>
+                        <td colSpan={5} style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: 'var(--muted)' }}>
                           No pending compensation requests at this time.
                         </td>
                       </tr>
@@ -263,7 +263,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
 
             {/* Compensation Terminal Form Form */}
             {selectedTicket ? (
-              <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff', border: '1px solid var(--primary)' }}>
+              <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff', border: '1px solid var(--primary)' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Compensation Terminal: {selectedTicket.id}
                 </h3>
@@ -444,13 +444,13 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
           </div>
 
           {/* Right Column Panels: Wallet Details + Processed Feed */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* HOZIFY Wallet Details */}
             <div className="panel" style={{
               background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%)',
               color: '#ffffff',
-              padding: '24px',
+              padding: 'var(--spacing-section)',
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
@@ -491,7 +491,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
             </div>
 
             {/* Recently Processed feed */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Recently Processed
@@ -561,7 +561,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
         </div>
 
         {/* Bottom Section: Resolution Metrics by Approval Level */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
           <h3 style={{ fontSize: '15.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
             Resolution Metrics by Approval Level
           </h3>

@@ -15,7 +15,7 @@ export default function AboutUs() {
       activeTab="CMS Management" 
       searchPlaceholder="Search resources..."
     >
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: '24px', paddingBottom: '40px', maxWidth: '1200px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1200px' }}>
         
         {/* Page Heading */}
         <div style={{ gridColumn: '1 / -1', marginBottom: '8px' }}>
@@ -31,10 +31,10 @@ export default function AboutUs() {
         </div>
 
         {/* LEFT COLUMN: Main Editor Area */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '7' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
           
           {/* SEO & Meta Fields */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ marginBottom: '20px' }}>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '8px' }}>Page Title</label>
               <input 
@@ -84,13 +84,13 @@ export default function AboutUs() {
             </div>
 
             {/* Editor Content Area */}
-            <div style={{ padding: '32px', minHeight: '500px', fontSize: '15px', color: 'var(--text)', lineHeight: '1.7' }} contentEditable suppressContentEditableWarning>
+            <div style={{ padding: 'var(--spacing-page)', minHeight: '500px', fontSize: '15px', color: 'var(--text)', lineHeight: '1.7' }} contentEditable suppressContentEditableWarning>
               <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0 0 16px 0', color: 'var(--text)' }}>Our Mission</h1>
               <p style={{ margin: '0 0 24px 0', color: 'var(--muted)' }}>
                 Deliver trusted home services through technology and operational excellence. Our platform is engineered for high-stakes environments where clarity, speed of service ingestion, and professional authority are paramount.
               </p>
 
-              <div style={{ display: 'flex', gap: '24px', marginBottom: '32px', alignItems: 'flex-start', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-section)', marginBottom: '32px', alignItems: 'flex-start', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
                 <div style={{ width: '200px', height: '120px', background: '#1e293b', borderRadius: '6px', flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(45deg, #0f172a 25%, transparent 25%, transparent 75%, #0f172a 75%, #0f172a), linear-gradient(45deg, #0f172a 25%, transparent 25%, transparent 75%, #0f172a 75%, #0f172a)', backgroundSize: '20px 20px', backgroundPosition: '0 0, 10px 10px', opacity: 0.5 }} />
                 </div>
@@ -114,12 +114,12 @@ export default function AboutUs() {
           </div>
           
           {/* Image Upload Area */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Media Assets</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '8px' }}>Company Banner</label>
-                <div style={{ border: '2px dashed var(--line)', borderRadius: '8px', padding: '32px', textAlign: 'center', background: '#f8fafc', cursor: 'pointer' }}>
+                <div style={{ border: '2px dashed var(--line)', borderRadius: '8px', padding: 'var(--spacing-page)', textAlign: 'center', background: '#f8fafc', cursor: 'pointer' }}>
                   <UploadCloud size={24} style={{ color: 'var(--muted)', marginBottom: '8px' }} />
                   <span style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: '#4f46e5' }}>Click to upload banner</span>
                   <span style={{ fontSize: '11px', color: 'var(--muted)' }}>1920 x 1080px recommended</span>
@@ -127,7 +127,7 @@ export default function AboutUs() {
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '8px' }}>About Section Image</label>
-                <div style={{ border: '2px dashed var(--line)', borderRadius: '8px', padding: '32px', textAlign: 'center', background: '#f8fafc', cursor: 'pointer' }}>
+                <div style={{ border: '2px dashed var(--line)', borderRadius: '8px', padding: 'var(--spacing-page)', textAlign: 'center', background: '#f8fafc', cursor: 'pointer' }}>
                   <UploadCloud size={24} style={{ color: 'var(--muted)', marginBottom: '8px' }} />
                   <span style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: '#4f46e5' }}>Click to upload image</span>
                   <span style={{ fontSize: '11px', color: 'var(--muted)' }}>800 x 600px recommended</span>
@@ -139,10 +139,10 @@ export default function AboutUs() {
         </div>
 
         {/* RIGHT COLUMN: Sidebar Panels */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '3' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
           
           {/* Publishing Panel */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Publishing</h3>
               <span style={{ fontSize: '10px', fontWeight: '800', background: '#d1fae5', color: '#059669', padding: '4px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>Published</span>
@@ -182,7 +182,7 @@ export default function AboutUs() {
           </div>
 
           {/* Analytics Overview */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Analytics</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div style={{ padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid var(--line)' }}>
@@ -197,7 +197,7 @@ export default function AboutUs() {
           </div>
 
           {/* Revision History */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revision History</h3>
               <button style={{ background: 'transparent', border: 'none', color: '#4f46e5', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}>View All</button>
@@ -237,7 +237,7 @@ export default function AboutUs() {
           </div>
 
           {/* Pro-Tip Box */}
-          <div style={{ background: 'linear-gradient(135deg, #312e81 0%, #4338ca 100%)', borderRadius: '12px', padding: '24px', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ background: 'linear-gradient(135deg, #312e81 0%, #4338ca 100%)', borderRadius: '12px', padding: 'var(--spacing-section)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', right: '-20px', bottom: '-20px', width: '100px', height: '100px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', border: '20px solid rgba(255,255,255,0.05)' }} />
             <h4 style={{ fontSize: '14px', fontWeight: '800', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Activity size={16} /> Editor Pro-Tip

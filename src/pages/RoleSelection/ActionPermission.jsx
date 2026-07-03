@@ -186,7 +186,7 @@ export default function ActionPermissions() {
                 <Fingerprint className="h-4 w-4 text-indigo-950" />
                 <span>Adjusting specific functional execution capabilities for: <strong className="text-indigo-950 font-bold">{selectedRole}</strong></span>
               </div>
-              <span className="text-[10px] font-mono font-bold text-slate-400 hidden sm:inline"><Lock className="inline h-3 w-3 mr-1" />Strict RBAC</span>
+              <span className="text-[10px]  font-bold text-slate-400 hidden sm:inline"><Lock className="inline h-3 w-3 mr-1" />Strict RBAC</span>
             </div>
 
             {/* Mapping Categories */}
@@ -243,7 +243,7 @@ export default function ActionPermissions() {
             ))}
 
             {/* Footer Specifications Logs */}
-            <div className="text-[10px] text-slate-400 font-mono font-bold flex justify-between px-1">
+            <div className="text-[10px] text-slate-400  font-bold flex justify-between px-1">
               <span>Token Matrix Hash: 0x9F_ACT_PERM</span>
               <span>Syncing Status: Realtime Active</span>
             </div>

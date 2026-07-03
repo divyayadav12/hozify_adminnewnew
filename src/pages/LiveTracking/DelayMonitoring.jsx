@@ -247,9 +247,9 @@ export default function DelayMonitoring() {
                       className={`hover:bg-slate-50/60 cursor-pointer transition-all ${selectedIncident.id === inc.id ? "bg-rose-50/30 font-semibold" : ""}`}
                     >
                       <td className="py-4 px-4">
-                        <span className="text-[10px] text-slate-400 block font-mono font-bold">{inc.id}</span>
-                        <strong className="text-slate-900 font-black font-mono">{inc.jobId}</strong>
-                        <span className="block text-slate-400 font-sans text-[11px] font-medium">{inc.partner}</span>
+                        <span className="text-[10px] text-slate-400 block  font-bold">{inc.id}</span>
+                        <strong className="text-slate-900 font-black ">{inc.jobId}</strong>
+                        <span className="block text-slate-400  text-[11px] font-medium">{inc.partner}</span>
                       </td>
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-2">
@@ -259,9 +259,9 @@ export default function DelayMonitoring() {
                       </td>
                       <td className="py-4 px-4">
                         <span className="text-slate-800 font-semibold block">{inc.reason}</span>
-                        <span className="text-slate-400 text-[11px] font-sans">{inc.location}</span>
+                        <span className="text-slate-400 text-[11px] ">{inc.location}</span>
                       </td>
-                      <td className="py-4 px-4 font-mono font-bold text-rose-600">
+                      <td className="py-4 px-4  font-bold text-rose-600">
                         {inc.delayDuration}
                       </td>
                       <td className="py-4 px-4 text-right">
@@ -284,9 +284,9 @@ export default function DelayMonitoring() {
           <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs flex flex-col justify-between min-h-[360px]">
             <div>
               <div className="border-b border-slate-100 pb-3">
-                <span className="text-[9px] font-mono font-black tracking-widest text-slate-400 block uppercase">Incident Deep-Dive</span>
+                <span className="text-[9px]  font-black tracking-widest text-slate-400 block uppercase">Incident Deep-Dive</span>
                 <h3 className="text-sm font-black text-slate-950 mt-0.5">
-                  Resolve Exception: <span className="font-mono text-rose-600">{selectedIncident.id}</span>
+                  Resolve Exception: <span className=" text-rose-600">{selectedIncident.id}</span>
                 </h3>
               </div>
 
@@ -300,11 +300,11 @@ export default function DelayMonitoring() {
                 <div className="grid grid-cols-2 gap-2">
                   <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
                     <span className="text-[10px] text-slate-400 font-bold block">TIME LOST</span>
-                    <p className="font-bold text-rose-600 mt-0.5 font-mono">{selectedIncident.delayDuration}</p>
+                    <p className="font-bold text-rose-600 mt-0.5 ">{selectedIncident.delayDuration}</p>
                   </div>
                   <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
                     <span className="text-[10px] text-slate-400 font-bold block">SCHEDULE IMPACT</span>
-                    <p className="font-bold text-slate-800 mt-0.5 font-mono">{selectedIncident.etaImpact}</p>
+                    <p className="font-bold text-slate-800 mt-0.5 ">{selectedIncident.etaImpact}</p>
                   </div>
                 </div>
 

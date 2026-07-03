@@ -29,7 +29,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
   const breaches = [
     { id: '#INC-4821', priority: 'P0 - CRITICAL', priorityColor: '#dc2626', priorityBg: '#fee2e2', category: 'Infrastructure', overdue: '2h 14m', agent: 'John Dorsey', avatar: 'JD', status: 'Investigating' },
     { id: '#INC-4835', priority: 'P1 - HIGH', priorityColor: '#b58000', priorityBg: '#fff9db', category: 'Payment API', overdue: '48m', agent: 'Sarah Lee', avatar: 'SL', status: 'Escalated' },
-    { id: '#INC-4842', priority: 'P2 - MEDIUM', priorityColor: '#07956f', priorityBg: '#d1fae5', category: 'UI Glitch', overdue: '12m', agent: 'Marcus Kane', avatar: 'MK', status: 'In Progress' }
+    { id: '#INC-4842', priority: 'P2 - MEDIUM', prioritycolor: 'var(--green)', priorityBg: '#d1fae5', category: 'UI Glitch', overdue: '12m', agent: 'Marcus Kane', avatar: 'MK', status: 'In Progress' }
   ];
 
   return (
@@ -40,7 +40,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
       headerTitle="SLA Monitoring"
       searchPlaceholder="Search SLAs, breached tickets..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb Row */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -104,14 +104,14 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
         {/* KPI Metrics Row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           {/* Within SLA */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Within SLA</span>
-              <span style={{ fontSize: '10px', fontWeight: '850', color: '#07956f', background: '#d1fae5', padding: '2px 6px', borderRadius: '4px' }}>94.2%</span>
+              <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--green)', background: '#d1fae5', padding: '2px 6px', borderRadius: '4px' }}>94.2%</span>
             </div>
             <div>
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>2,841</strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 +1.2% vs prev. month
               </span>
@@ -119,14 +119,14 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Approaching Breach */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Approaching Breach</span>
               <span style={{ fontSize: '10px', fontWeight: '850', color: '#b58000', background: '#fff9db', padding: '2px 6px', borderRadius: '4px' }}>RISK</span>
             </div>
             <div>
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>142</strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#d32929', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--red)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 +14 since 09:00
               </span>
@@ -134,14 +134,14 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
           </div>
 
           {/* SLA Breached */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>SLA Breached</span>
               <span style={{ fontSize: '10px', fontWeight: '850', color: '#dc2626', background: '#fee2e2', padding: '2px 6px', borderRadius: '4px' }}>CRITICAL</span>
             </div>
             <div>
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>24</strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingDown size={12} />
                 -8.5% improvement
               </span>
@@ -149,7 +149,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Avg Resolution Time */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Avg. Resolution Time</span>
               <span style={{ fontSize: '9px', fontWeight: '900', color: 'var(--primary)', border: '1px solid var(--line)', padding: '2px 6px', borderRadius: '4px' }}>TARGET: 4H</span>
@@ -164,10 +164,10 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Content Row: Trends & Breaches by Category */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Compliance Trends Chart */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 SLA Compliance Trends
@@ -214,7 +214,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Breaches by Category (Right column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Breaches by Category
             </h3>
@@ -259,7 +259,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Bottom Recent SLA Breaches Table */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Recent SLA Breaches

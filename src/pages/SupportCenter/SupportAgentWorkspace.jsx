@@ -61,7 +61,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
       headerTitle="Agent Workspace"
       searchPlaceholder="Search tickets, users, or documentation..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Breadcrumb Row */}
         <div style={{ fontSize: '12px', fontWeight: '750', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -96,7 +96,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
               <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>
                 {isActive ? 'Active Duty' : 'Offline'}
               </strong>
-              <span style={{ fontSize: '11px', color: '#07956f', fontWeight: '800' }}>
+              <span style={{ fontSize: '11px', color: 'var(--green)', fontWeight: '800' }}>
                 94% AVAILABILITY
               </span>
             </div>
@@ -134,7 +134,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>
                 My Assigned Tickets
               </span>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
                 <TrendingUp size={11} />
                 +12%
               </span>
@@ -174,7 +174,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>
                 SLA Safety Score
               </span>
-              <span style={{ fontSize: '9px', fontWeight: '900', color: '#07956f', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '9px', fontWeight: '900', color: 'var(--green)', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
                 Secure
               </span>
             </div>
@@ -185,13 +185,13 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
         </div>
 
         {/* Content Layout Column Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Column: High Priority Queue & Templates */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* High Priority Queue */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   High Priority Queue
@@ -207,7 +207,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {queue.length === 0 ? (
-                  <div style={{ padding: '32px', textAlign: 'center', color: 'var(--muted)' }}>
+                  <div style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: 'var(--muted)' }}>
                     No pending high priority tickets assigned to you today. Good job!
                   </div>
                 ) : (
@@ -327,7 +327,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
             </div>
 
             {/* Quick Response Templates */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Quick Response Templates
               </h3>
@@ -367,10 +367,10 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
           </div>
 
           {/* Right Column: CSAT, Resolution Speed, Activity feed */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Current CSAT Score */}
-            <div className="panel" style={{ padding: '24px', background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%)', color: '#fff', display: 'flex', flexDirection: 'column', gap: '12px', border: 'none' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%)', color: '#fff', display: 'flex', flexDirection: 'column', gap: '12px', border: 'none' }}>
               <span style={{ fontSize: '10px', fontWeight: '850', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Current CSAT Score
               </span>
@@ -394,7 +394,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
             </div>
 
             {/* Resolution Speed indicators */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <Activity size={15} style={{ color: 'var(--primary)' }} />
                 Resolution Speed
@@ -437,7 +437,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
             </div>
 
             {/* Systems Operational peers */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <Users size={15} style={{ color: 'var(--primary)' }} />
                 Systems Operational
@@ -475,7 +475,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
             </div>
 
             {/* Live Activity Feed */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Live Activity Feed
               </h3>

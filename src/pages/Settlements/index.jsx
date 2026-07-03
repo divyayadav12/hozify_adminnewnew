@@ -204,7 +204,7 @@ export default function Settlements() {
                   const isRejected = req.status === "Rejected";
                   return (
                     <tr key={req.id}>
-                      <td><strong style={{ fontFamily: "monospace", color: "#1e40af" }}>{req.id}</strong></td>
+                      <td><strong style={{ fontFamily: "var(--materio-space)", color: "#1e40af" }}>{req.id}</strong></td>
                       <td><strong>{req.partnerName}</strong></td>
                       <td>{req.bankName}</td>
                       <td><span className="acc-details-lbl">{req.accNo}</span></td>

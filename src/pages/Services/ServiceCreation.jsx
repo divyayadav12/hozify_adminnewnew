@@ -100,7 +100,7 @@ export default function ServiceActivation() {
 
   return (
     <AdminShell activeTab="Service Management" headerTitle="Service Activation">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative', paddingBottom: '40px', color: '#1e293b' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', position: 'relative', paddingBottom: '40px', color: '#1e293b' }}>
         
         {/* Title & Actions Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -260,7 +260,7 @@ export default function ServiceActivation() {
         </div>
 
         {/* --- CONSOLE LOG ENGINE (ADMIN SYSTEM SHELL WINDOW) --- */}
-        <div style={{ background: '#0f172a', borderRadius: '12px', border: '1px solid #1e293b', padding: '20px', color: '#f8fafc', fontFamily: 'monospace' }}>
+        <div style={{ background: '#0f172a', borderRadius: '12px', border: '1px solid #1e293b', padding: '20px', color: '#f8fafc', fontFamily: "var(--materio-space)", }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', borderBottom: '1px solid #1e293b', paddingBottom: '12px', marginBottom: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#38bdf8' }}>
               <Terminal size={18} />
@@ -309,7 +309,7 @@ export default function ServiceActivation() {
         {/* Action Modals Popup */}
         {activeModal && modalData && (
           <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(15,23,42,0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
-            <div style={{ background: '#ffffff', width: '100%', maxWidth: '460px', borderRadius: '12px', padding: '24px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+            <div style={{ background: '#ffffff', width: '100%', maxWidth: '460px', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
                 <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#0f172a' }}>

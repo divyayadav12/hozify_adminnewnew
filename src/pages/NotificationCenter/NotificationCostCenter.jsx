@@ -27,7 +27,7 @@ export default function NotificationCostCenter({ activeTab = 'Notification Cente
       headerTitle="Notification Cost Center"
       searchPlaceholder="Search cost reports..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -138,10 +138,10 @@ export default function NotificationCostCenter({ activeTab = 'Notification Cente
         </div>
 
         {/* Row 2: Spend vs Budget Line Chart & Insights */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Spend vs Budget Chart */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
@@ -235,7 +235,7 @@ export default function NotificationCostCenter({ activeTab = 'Notification Cente
           <div className="panel" style={{ 
             background: 'linear-gradient(135deg, #0f0a40 0%, #1e106b 100%)', 
             color: '#fff', 
-            padding: '24px', 
+            padding: 'var(--spacing-section)', 
             display: 'flex', 
             flexDirection: 'column', 
             gap: '16px',
@@ -280,10 +280,10 @@ export default function NotificationCostCenter({ activeTab = 'Notification Cente
         </div>
 
         {/* Row 3: Campaign Efficiency Drivers */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Efficiency Drivers List */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Campaign Efficiency Drivers
             </h3>

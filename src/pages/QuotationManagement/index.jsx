@@ -704,7 +704,7 @@ function CreateRfq({ toast, nav }) {
       case 5:
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ fontSize: '13px', color: '#07956f', fontWeight: '800', background: '#ecfdf5', padding: '10px 14px', borderRadius: '8px', border: '1px solid #a7f3d0' }}>
+            <div style={{ fontSize: '13px', color: 'var(--green)', fontWeight: '800', background: '#ecfdf5', padding: '10px 14px', borderRadius: '8px', border: '1px solid #a7f3d0' }}>
               ✓ All fields are configured. Please review the summary below before sending the RFQ.
             </div>
 
@@ -736,7 +736,7 @@ function CreateRfq({ toast, nav }) {
                 </strong>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {checkedSellers.map((s, idx) => (
-                    <span key={idx} style={{ background: '#f5f3ff', border: '1px solid #cbd5e1', padding: '4px 10px', borderRadius: '16px', fontSize: '11.5px', color: '#25108f', fontWeight: '600' }}>
+                    <span key={idx} style={{ background: '#f5f3ff', border: '1px solid #cbd5e1', padding: '4px 10px', borderRadius: '16px', fontSize: '11.5px', color: 'var(--primary)', fontWeight: '600' }}>
                       {s}
                     </span>
                   ))}
@@ -1177,7 +1177,7 @@ function Reports({ toast }) {
       <div className="quote-filterbar">
         <Calendar 
           size={18} 
-          style={{ cursor: 'pointer', color: '#25108f' }} 
+          style={{ cursor: 'pointer', color: 'var(--primary)' }} 
           onClick={() => toast('Date range filter picker activated.')} 
         />
         <select value={timeRange} onChange={(e) => { setTimeRange(e.target.value); toast(`Report timeline set to ${e.target.value}`); }}>
@@ -1250,7 +1250,7 @@ function Disputes({ toast, setModal }) {
       <article className="quote-card">
         <h3>Active Disputes</h3>
         {disputeList.length === 0 ? (
-          <div style={{ padding: '24px', textAlign: 'center', color: '#64748b', fontSize: '14px' }}>
+          <div style={{ padding: 'var(--spacing-section)', textAlign: 'center', color: '#64748b', fontSize: '14px' }}>
             No active disputes found. All issues resolved!
           </div>
         ) : (

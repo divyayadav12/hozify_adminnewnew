@@ -78,7 +78,7 @@ export default function RoleAuditLogs() {
 
   return (
     <AdminShell activeTab="RoleAuditLogs">
-      <div className="space-y-6 max-w-6xl mx-auto pb-12">
+      <div className="space-y-6 max-w-6xl mx-auto p-6 pb-12">
         
         {/* ==========================================
             1. MODERN BREADCRUMB HEADER
@@ -90,7 +90,7 @@ export default function RoleAuditLogs() {
             </div>
             <div>
               <h1 className="text-xl font-black text-indigo-950 tracking-tight">Role Audit Logs</h1>
-              <p className="text-xs text-slate-400 font-medium font-sans">Tracks configuration changes, permission overrides, and schema modifications</p>
+              <p className="text-xs text-slate-400 font-medium ">Tracks configuration changes, permission overrides, and schema modifications</p>
             </div>
           </div>
 
@@ -196,7 +196,7 @@ export default function RoleAuditLogs() {
                           onClick={() => toggleRowExpansion(log.id)}
                           className={`hover:bg-slate-50/60 transition-colors cursor-pointer ${isExpanded ? 'bg-indigo-50/20' : ''}`}
                         >
-                          <td className="p-3.5 pl-4 font-mono text-[11px] text-indigo-950 font-bold">
+                          <td className="p-3.5 pl-4  text-[11px] text-indigo-950 font-bold">
                             {log.id}
                           </td>
 
@@ -226,7 +226,7 @@ export default function RoleAuditLogs() {
                             </span>
                           </td>
 
-                          <td className="p-3.5 text-right pr-4 font-medium text-slate-400 font-sans">
+                          <td className="p-3.5 text-right pr-4 font-medium text-slate-400 ">
                             <span className="block">{log.time}</span>
                             <span className="text-[10px] text-slate-300 block font-normal mt-0.5">{log.date}</span>
                           </td>
@@ -240,7 +240,7 @@ export default function RoleAuditLogs() {
                                 
                                 <div>
                                   <span className="text-[10px] uppercase tracking-wider font-black text-rose-500 block mb-1.5">Pre-Modification State (Old)</span>
-                                  <div className="bg-slate-50 rounded-lg p-2.5 font-mono text-[11px] text-slate-500 space-y-1">
+                                  <div className="bg-slate-50 rounded-lg p-2.5  text-[11px] text-slate-500 space-y-1">
                                     {Object.entries(log.oldSchema).map(([key, val]) => (
                                       <div key={key} className="flex justify-between border-b border-slate-100 pb-0.5">
                                         <span>{key}:</span>
@@ -254,7 +254,7 @@ export default function RoleAuditLogs() {
                                   <span className="text-[10px] uppercase tracking-wider font-black text-emerald-600 block mb-1.5 flex items-center gap-1">
                                     Post-Modification State (New) <ArrowRight className="h-3 w-3" />
                                   </span>
-                                  <div className="bg-emerald-50/30 rounded-lg p-2.5 font-mono text-[11px] text-emerald-900 space-y-1 border border-emerald-100/50">
+                                  <div className="bg-emerald-50/30 rounded-lg p-2.5  text-[11px] text-emerald-900 space-y-1 border border-emerald-100/50">
                                     {Object.entries(log.newSchema).map(([key, val]) => (
                                       <div key={key} className="flex justify-between border-b border-emerald-100/30 pb-0.5">
                                         <span>{key}:</span>
@@ -273,7 +273,7 @@ export default function RoleAuditLogs() {
                   })
                 ) : (
                   <tr>
-                    <td colSpan="6" className="p-8 text-center text-slate-400 font-medium font-sans">
+                    <td colSpan="6" className="p-8 text-center text-slate-400 font-medium ">
                       No structural schema alterations logged in current time window.
                     </td>
                   </tr>
@@ -283,7 +283,7 @@ export default function RoleAuditLogs() {
           </div>
 
           {/* Engine Footer */}
-          <div className="p-3 border-t border-slate-100 text-[10px] text-slate-400 font-mono flex justify-between bg-slate-50/20">
+          <div className="p-3 border-t border-slate-100 text-[10px] text-slate-400  flex justify-between bg-slate-50/20">
             <span>Schema Integrity Sentinel v4.0</span>
             <span className="flex items-center gap-1 text-emerald-600"><CheckCircle className="h-3 w-3" /> Blockchain Ledger Sealed</span>
           </div>

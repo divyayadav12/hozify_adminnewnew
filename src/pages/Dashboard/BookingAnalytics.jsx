@@ -67,7 +67,7 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
     { label: "Impression to View (92%)", name: "Booking Landing Page", count: "245k", width: "92%", color: "#c8c0d7" },
     { label: "View to Selection (64%)", name: "Service Selection", count: "156k", width: "64%", color: "#a89fc0" },
     { label: "Selection to Checkout (38%)", name: "Checkout Initiated", count: "59k", width: "38%", color: "#857da5" },
-    { label: "Checkout to Paid (82%)", name: "Successful Booking", count: "48k", width: "82%", color: "#25108f" }
+    { label: "Checkout to Paid (82%)", name: "Successful Booking", count: "48k", width: "82%", color: 'var(--primary)' }
   ];
 
   const handleCreateBooking = () => {
@@ -82,7 +82,7 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
       headerTitle="Booking Analytics"
       searchPlaceholder="Search operational metrics..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Page Title & Toggles */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -101,7 +101,7 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
         </div>
 
         {isFiltering ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
               <SkeletonLoader height="120px" />
               <SkeletonLoader height="120px" />
@@ -144,7 +144,7 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Funnel Widget */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Booking Funnel & Stage Conversion</h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '10px' }}>
@@ -169,11 +169,11 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Conversion Rate Card */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>CONVERSION RATE</span>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                 <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>18.4%</strong>
-                <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f' }}>+2.4%</span>
+                <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)' }}>+2.4%</span>
               </div>
 
               {/* Sparkline Column bars */}
@@ -190,11 +190,11 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
             </div>
 
             {/* Completion Rate Card */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>COMPLETION RATE</span>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                 <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>94.2%</strong>
-                <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f' }}>+0.8%</span>
+                <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)' }}>+0.8%</span>
               </div>
 
               {/* Sparkline Column bars */}
@@ -218,14 +218,14 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Location Listings & actions */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between' }}>
             <div>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 4px' }}>Bookings By Location</h2>
               <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Heat clusters based on density.</span>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '24px' }}>
                 {[
-                  { city: "New York City", count: "4,281", color: "#25108f" },
+                  { city: "New York City", count: "4,281", color: 'var(--primary)' },
                   { city: "Los Angeles", count: "3,110", color: "#7c2d12" },
                   { city: "Chicago", count: "2,445", color: "#1e3a8a" },
                   { city: "Austin", count: "1,902", color: "#475569" }
@@ -248,7 +248,7 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
                   width: '100%',
                   height: '40px',
                   border: 'none',
-                  background: '#25108f',
+                  background: 'var(--primary)',
                   color: '#fff',
                   fontSize: '13px',
                   fontWeight: '750',
@@ -298,13 +298,13 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
             {/* SVG or layout nodes matching the blueprint/screenshot bubbles */}
             <div style={{ position: 'absolute', top: '30%', left: '25%', transform: 'translate(-50%, -50%)' }}>
               <div style={{ height: '32px', width: '32px', borderRadius: '50%', background: 'rgba(37,16,143,0.2)', border: '2px solid #25108f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ height: '12px', width: '12px', borderRadius: '50%', background: '#25108f' }} />
+                <div style={{ height: '12px', width: '12px', borderRadius: '50%', background: 'var(--primary)' }} />
               </div>
             </div>
 
             <div style={{ position: 'absolute', top: '65%', left: '70%', transform: 'translate(-50%, -50%)' }}>
               <div style={{ height: '42px', width: '42px', borderRadius: '50%', background: 'rgba(37,16,143,0.2)', border: '2px solid #25108f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ height: '16px', width: '16px', borderRadius: '50%', background: '#25108f' }} />
+                <div style={{ height: '16px', width: '16px', borderRadius: '50%', background: 'var(--primary)' }} />
               </div>
             </div>
 

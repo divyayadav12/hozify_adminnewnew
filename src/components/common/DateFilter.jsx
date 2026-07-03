@@ -111,17 +111,23 @@ export default function DateFilter() {
             boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
             display: 'flex',
             overflow: 'hidden',
-            minWidth: '300px'
+            minWidth: localPreset === 'Custom' ? '300px' : 'auto'
           }}
         >
           {/* Sidebar Presets */}
-          <div style={{ width: '180px', borderRight: '1px solid #e2e8f0', background: '#f8fafc', padding: '12px', maxHeight: '420px', overflowY: 'auto' }}>
+          <div style={{ width: '180px', background: '#ffffff', padding: '12px', maxHeight: '420px', overflowY: 'auto' }}>
             <h4 style={{ fontSize: '11px', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px', padding: '0 8px' }}>Date Range</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {PRESETS.map((p) => (
                 <button
                   key={p.id}
-                  onClick={() => setLocalPreset(p.id)}
+                  onClick={() => {
+                    setLocalPreset(p.id);
+                    if (p.id !== 'Custom') {
+                      setDateFilter(p.id, null);
+                      setIsOpen(false);
+                    }
+                  }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -144,9 +150,9 @@ export default function DateFilter() {
             </div>
           </div>
 
-          {/* Calendar or Actions */}
-          <div style={{ display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
-            {localPreset === 'Custom' ? (
+          {/* Calendar or Actions (ONLY SHOW FOR CUSTOM) */}
+          {localPreset === 'Custom' && (
+            <div style={{ display: 'flex', flexDirection: 'column', background: '#ffffff', borderLeft: '1px solid #e2e8f0' }}>
               <div style={{ padding: '12px' }}>
                 <DateRange
                   editableDateInputs={true}
@@ -156,46 +162,42 @@ export default function DateFilter() {
                   rangeColors={['#2563eb']}
                 />
               </div>
-            ) : (
-              <div style={{ padding: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, color: '#64748b', fontSize: '13px', fontWeight: '500' }}>
-                Preset: {localPreset}
+              
+              {/* Footer actions */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', padding: '12px', borderTop: '1px solid #e2e8f0', background: '#f8fafc' }}>
+                <button
+                  onClick={handleReset}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '6px',
+                    border: '1px solid #e2e8f0',
+                    background: '#ffffff',
+                    color: '#475569',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Reset
+                </button>
+                <button
+                  onClick={handleApply}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '6px',
+                    border: 'none',
+                    background: '#2563eb',
+                    color: '#ffffff',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Apply
+                </button>
               </div>
-            )}
-            
-            {/* Footer actions */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', padding: '12px', borderTop: '1px solid #e2e8f0', background: '#f8fafc' }}>
-              <button
-                onClick={handleReset}
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: '6px',
-                  border: '1px solid #e2e8f0',
-                  background: '#ffffff',
-                  color: '#475569',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  cursor: 'pointer'
-                }}
-              >
-                Reset
-              </button>
-              <button
-                onClick={handleApply}
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: '6px',
-                  border: 'none',
-                  background: '#2563eb',
-                  color: '#ffffff',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  cursor: 'pointer'
-                }}
-              >
-                Apply
-              </button>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

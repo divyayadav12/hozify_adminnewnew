@@ -207,7 +207,7 @@ export default function BusinessRegistry() {
       headerTabs={<BusinessHeaderTabs activeTab={isComplianceTab ? 'Compliance' : 'Directory'} />}
       searchPlaceholder="Search businesses..."
     >
-      <div className="business-registry-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="business-registry-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {isComplianceTab ? (
           /* ================= COMPLIANCE VIEW ================= */

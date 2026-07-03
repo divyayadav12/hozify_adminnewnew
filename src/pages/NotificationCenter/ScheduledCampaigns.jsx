@@ -89,7 +89,7 @@ export default function ScheduledCampaigns() {
     <AdminShell activeTab="Campaigns" searchPlaceholder="Search campaigns...">
       
       {/* Background color light slate `#f4f6f9` as per image */}
-      <div className="min-h-screen bg-[#f4f6f9] p-8 text-slate-800 font-sans relative">
+      <div className="min-h-screen bg-[#f4f6f9] p-8 text-slate-800  relative">
         <div className="max-w-7xl mx-auto space-y-6">
           
           {/* ================= TOP HEADER SECTION ================= */}
@@ -278,7 +278,7 @@ export default function ScheduledCampaigns() {
                     <span className="inline-block text-[9px] font-extrabold bg-red-500 text-white px-2 py-0.5 rounded-sm tracking-wider uppercase animate-pulse">
                       Urgent Attention
                     </span>
-                    <span className="text-[10px] text-indigo-300 font-mono font-semibold">Live synced</span>
+                    <span className="text-[10px] text-indigo-300  font-semibold">Live synced</span>
                   </div>
                   <h3 className="text-base font-bold tracking-tight mt-3 text-slate-100">
                     {urgentCampaign.title}
@@ -316,7 +316,7 @@ export default function ScheduledCampaigns() {
                       <MoreVertical size={14} />
                     </button>
                     {urgentDropdownOpen && (
-                      <div className="absolute right-0 top-full mt-1 w-32 bg-[#050529] border border-slate-700 rounded shadow-lg py-1 text-left text-xs font-sans z-50">
+                      <div className="absolute right-0 top-full mt-1 w-32 bg-[#050529] border border-slate-700 rounded shadow-lg py-1 text-left text-xs  z-50">
                         <button onClick={() => { setUrgentDropdownOpen(false); addToast("Duplicating urgent campaign", "success"); }} className="flex items-center gap-2 w-full px-4 py-2 text-slate-300 hover:bg-white/10 text-left font-medium cursor-pointer">
                           <Copy size={12} /> Duplicate
                         </button>
@@ -435,7 +435,7 @@ export default function ScheduledCampaigns() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500 font-medium">Total Filters Engaged:</span>
-                      <span className="font-mono font-bold text-slate-800">{activeChannelFilter}</span>
+                      <span className=" font-bold text-slate-800">{activeChannelFilter}</span>
                     </div>
                   </div>
                   

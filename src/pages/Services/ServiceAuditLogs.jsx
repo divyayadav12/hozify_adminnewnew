@@ -52,7 +52,7 @@ export default function ServiceAuditLogs() {
   };
 
   return (
-    <div style={{ paddingBottom: '40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div style={{ paddingBottom: '40px', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
       
       {/* ========================================== */}
       {/* HEADER                                            */}
@@ -196,7 +196,7 @@ export default function ServiceAuditLogs() {
       <section className="audit-middle-grid">
         
         {/* Analytics / Charts Section */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>
             Activity Trends
           </h2>
@@ -243,7 +243,7 @@ export default function ServiceAuditLogs() {
         </div>
 
         {/* Recent Security Events */}
-        <div className="panel" style={{ padding: '24px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <ShieldAlert size={16} color="#ef4444" /> Alert Highlights
           </h2>
@@ -271,7 +271,7 @@ export default function ServiceAuditLogs() {
       {/* ========================================== */}
       {/* LOGS TABLE SECTION                                */}
       {/* ================================================= */}
-      <section className="panel" style={{ padding: '24px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
+      <section className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>

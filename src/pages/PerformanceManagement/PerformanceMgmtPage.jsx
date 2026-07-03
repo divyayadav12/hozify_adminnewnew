@@ -43,7 +43,7 @@ export default function PerformanceMgmtPage() {
 
   return (
     <AdminShell activeTab="Performance Management" headerTitle="Partner Performance Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -138,7 +138,7 @@ export default function PerformanceMgmtPage() {
               {filteredPerfs.length > 0 ? (
                 filteredPerfs.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.name}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.type}</td>
                     <td style={{ padding: '18px 24px' }}>
@@ -162,7 +162,7 @@ export default function PerformanceMgmtPage() {
                         <span style={{ fontWeight: '700', color: row.completion >= 85 ? '#059669' : '#ef4444' }}>{row.completion}%</span>
                       </div>
                     </td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>${row.earnings.toLocaleString()}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>${row.earnings.toLocaleString()}</td>
                     <td style={{ padding: '18px 24px', textAlign: 'right' }}>
                       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
                         <button onClick={() => { setSelectedPerf(row); setIsPreviewOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="Preview"><Eye size={16} /></button>
@@ -172,7 +172,7 @@ export default function PerformanceMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No partner performance records found.</td>
+                  <td colSpan={8} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No partner performance records found.</td>
                 </tr>
               )}
             </tbody>

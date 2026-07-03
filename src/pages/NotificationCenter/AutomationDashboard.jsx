@@ -85,7 +85,7 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
       headerTitle="Automation Rules"
       searchPlaceholder="Search automations..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -144,9 +144,9 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
             <div>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '8px' }}>Active Automations</span>
               <strong style={{ fontSize: '28px', fontWeight: '850', color: 'var(--text)' }}>1,284</strong>
-              <span style={{ display: 'block', fontSize: '11px', color: '#07956f', fontWeight: '750', marginTop: '4px' }}>↗ +12.4%</span>
+              <span style={{ display: 'block', fontSize: '11px', color: 'var(--green)', fontWeight: '750', marginTop: '4px' }}>↗ +12.4%</span>
             </div>
-            <div style={{ height: '42px', width: '42px', borderRadius: '50%', background: '#ecfdf5', color: '#07956f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ height: '42px', width: '42px', borderRadius: '50%', background: '#ecfdf5', color: 'var(--green)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <PlayCircle size={22} />
             </div>
             <div style={{ height: '3px', background: '#07956f', position: 'absolute', bottom: 0, left: 0, right: 0 }} />
@@ -191,16 +191,16 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
         </div>
 
         {/* Main Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Rules Panel */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Automation Running Rules</h2>
                 
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <span style={{ fontSize: '11px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ fontSize: '11px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     <span style={{ height: '6px', width: '6px', borderRadius: '50%', background: '#07956f' }} />
                     Healthy
                   </span>
@@ -295,10 +295,10 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
           </div>
 
           {/* Right Status / Queue Panel */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* System Health Executionintegrity Card */}
-            <div className="panel" style={{ background: '#110c3c', color: '#fff', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ background: '#110c3c', color: '#fff', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: '#b9aede', textTransform: 'uppercase' }}>System Health</span>
                 <span style={{ fontSize: '11px', color: '#eee9f6' }}>Last 7 days</span>
@@ -306,7 +306,7 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
 
               <div>
                 <strong style={{ fontSize: '32px', fontWeight: '900', display: 'block' }}>98.4%</strong>
-                <span style={{ fontSize: '12px', color: '#07956f', fontWeight: '750', marginTop: '2px', display: 'block' }}>Optimal Performance</span>
+                <span style={{ fontSize: '12px', color: 'var(--green)', fontWeight: '750', marginTop: '2px', display: 'block' }}>Optimal Performance</span>
               </div>
 
               {/* Weekly bar graph */}
@@ -329,7 +329,7 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
             </div>
 
             {/* Incident Queue */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Incident Queue</h3>
                 {incidents.length > 0 && (
@@ -391,7 +391,7 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
         </div>
 
         {/* Bottom Explorer & AI Block */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           <div className="panel" style={{
             backgroundImage: 'linear-gradient(to bottom, rgba(17, 12, 60, 0.4), rgba(17, 12, 60, 0.95)), url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80")',
@@ -414,9 +414,9 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
             </p>
           </div>
 
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-              <div style={{ height: '36px', width: '36px', borderRadius: '50%', background: '#ecfdf5', color: '#07956f', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div style={{ height: '36px', width: '36px', borderRadius: '50%', background: '#ecfdf5', color: 'var(--green)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Zap size={18} />
               </div>
               <div>

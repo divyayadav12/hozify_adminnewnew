@@ -200,7 +200,7 @@ export default function GeofenceManagement() {
                         </span>
                       </div>
                     </div>
-                    <span className="text-[9px] font-black px-2 py-0.5 bg-blue-50 text-blue-700 rounded tracking-wider font-mono">
+                    <span className="text-[9px] font-black px-2 py-0.5 bg-blue-50 text-blue-700 rounded tracking-wider ">
                       {geo.type}
                     </span>
                   </div>
@@ -224,7 +224,7 @@ export default function GeofenceManagement() {
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:45px_45px] pointer-events-none" />
 
             {/* Live GPS Coordinates Marker Overlay HUD */}
-            <div className="absolute top-4 left-4 z-10 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-md border border-white/10 text-cyan-400 font-mono text-[11px] font-bold flex items-center gap-2 shadow-lg">
+            <div className="absolute top-4 left-4 z-10 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-md border border-white/10 text-cyan-400  text-[11px] font-bold flex items-center gap-2 shadow-lg">
               <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-ping" />
               <span>LOG: {selectedGeo.latLng}</span>
             </div>
@@ -271,7 +271,7 @@ export default function GeofenceManagement() {
                 style={{ top: selectedGeo.pinY, left: selectedGeo.pinX }}
               >
                 <MapPin className="h-6 w-6 filter drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] animate-bounce" />
-                <span className="bg-slate-950/90 text-white font-mono text-[9px] font-black px-1 py-0.5 rounded border border-white/20 whitespace-nowrap mt-0.5">
+                <span className="bg-slate-950/90 text-white  text-[9px] font-black px-1 py-0.5 rounded border border-white/20 whitespace-nowrap mt-0.5">
                   {selectedGeo.id} TARGET
                 </span>
               </div>
@@ -344,7 +344,7 @@ export default function GeofenceManagement() {
               <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                 {selectedGeo.associatedLogs.map((log, idx) => (
                   <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="py-4 px-4 text-slate-400 font-mono">{log.timestamp}</td>
+                    <td className="py-4 px-4 text-slate-400 ">{log.timestamp}</td>
                     <td className="py-4 px-4 font-bold text-slate-900 flex items-center gap-1.5">
                       🚚 {log.assetId}
                     </td>
@@ -356,7 +356,7 @@ export default function GeofenceManagement() {
                         {log.eventType}
                       </span>
                     </td>
-                    <td className="py-4 px-4 font-mono font-black text-rose-600">
+                    <td className="py-4 px-4  font-black text-rose-600">
                       {log.status}
                     </td>
                     <td className="py-4 px-4 text-right">

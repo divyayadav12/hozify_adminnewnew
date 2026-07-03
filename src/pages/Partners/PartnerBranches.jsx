@@ -15,42 +15,43 @@ import {
 } from "lucide-react";
 import PartnerExportButton from "../../components/ui/PartnerExportButton";
 import PartnerExportModal from "../../components/ui/PartnerExportModal";
+import StatCard from "../../components/ui/StatCard";
 
 const branchStats = [
   {
     title: "Active Branches",
     value: "812",
-    growth: "+12%",
+    growth: 12,
     icon: Building2,
-    color: "text-emerald-600",
-    bg: "bg-emerald-100",
+    color: "#059669",
+    bg: "#ecfdf5",
     description: "Branches currently fully operational.",
   },
   {
     title: "Coverage Cities",
     value: "148",
-    growth: "+8%",
+    growth: 8,
     icon: MapPinned,
-    color: "text-cyan-600",
-    bg: "bg-cyan-100",
+    color: "#0891b2",
+    bg: "#cffafe",
     description: "Cities covered by active branch services.",
   },
   {
     title: "Branch Managers",
     value: "864",
-    growth: "+15%",
+    growth: 15,
     icon: Users,
-    color: "text-indigo-600",
-    bg: "bg-indigo-100",
+    color: "#4f46e5",
+    bg: "#e0e7ff",
     description: "Managers driving partner branch outcomes.",
   },
   {
     title: "Service Mapping",
     value: "96%",
-    growth: "+4%",
+    growth: 4,
     icon: Activity,
-    color: "text-orange-600",
-    bg: "bg-orange-100",
+    color: "#ea580c",
+    bg: "#ffedd5",
     description: "Service mapping coverage across locations.",
   },
 ];
@@ -118,9 +119,9 @@ export default function PartnerBranches() {
   const activeAction = actionInfo[actionMode] || actionInfo.default;
 
   const branchExportStats = {
-    total: branches.length,
-    active: branches.filter((branch) => branch.status === "Active").length,
-    pending: branches.filter((branch) => branch.status !== "Active").length,
+    totalRecords: 812,
+    size: "4.2 MB",
+    lastUpdated: "2 mins ago"
   };
 
   const exportOptions = [

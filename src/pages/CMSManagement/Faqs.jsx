@@ -20,7 +20,7 @@ export default function Faqs() {
       activeTab="CMS Management" 
       searchPlaceholder="Search resources..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1000px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1000px' }}>
         
         {/* Page Heading & Actions */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -43,10 +43,10 @@ export default function Faqs() {
         </div>
 
         {/* Metrics Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* Total FAQs */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
             <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
               TOTAL FAQS
             </span>
@@ -59,7 +59,7 @@ export default function Faqs() {
           </div>
 
           {/* Completion Rate */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
             <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
               COMPLETION RATE
             </span>
@@ -69,7 +69,7 @@ export default function Faqs() {
           </div>
 
           {/* Auto-Categorization */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gridColumn: 'span 2 / span 2' }}>
+          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gridColumn: 'span 2 / span 2' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
                 AUTO-CATEGORIZATION
@@ -126,7 +126,7 @@ export default function Faqs() {
 
         {/* Footer Area */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px', flexWrap: 'wrap', gap: '16px' }}>
-          <div style={{ display: 'flex', gap: '24px' }}>
+          <div style={{ display: 'flex', gap: 'var(--spacing-section)' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--muted)', fontWeight: '600' }}>
               <Eye size={14} /> Published: 18
             </span>

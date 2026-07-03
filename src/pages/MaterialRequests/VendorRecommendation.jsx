@@ -53,12 +53,12 @@ export default function VendorRecommendation() {
       headerTabs={
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialAnalytics)}>Analytics</span>
-          <span style={{ fontSize: '13px', fontWeight: '700', color: '#25108f', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Suppliers</span>
+          <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)', borderBottom: '2px solid #25108f', paddingBottom: '4px' }}>Suppliers</span>
           <span style={{ fontSize: '13px', fontWeight: '600', color: '#565365', cursor: 'pointer' }} onClick={() => navigate(ROUTES.materialReports)}>Reports</span>
         </div>
       }
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative', minHeight: 'calc(100vh - 120px)', paddingBottom: selectedVendors.length > 0 ? '90px' : '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', position: 'relative', minHeight: 'calc(100vh - 120px)', paddingBottom: selectedVendors.length > 0 ? '90px' : '24px' }}>
         
         {/* Header section */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -116,18 +116,18 @@ export default function VendorRecommendation() {
         </div>
 
         {/* Top Split Layout: Vendors Table & Stats Column */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left: Best Value Suggestions */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Zap size={16} style={{ color: '#25108f' }} />
+                <Zap size={16} style={{ color: 'var(--primary)' }} />
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                   Best Value Suggestions
                 </h2>
               </div>
-              <span style={{ fontSize: '11px', fontWeight: '700', color: '#25108f', background: '#e0e7ff', padding: '4px 8px', borderRadius: '4px' }}>
+              <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--primary)', background: '#e0e7ff', padding: '4px 8px', borderRadius: '4px' }}>
                 Updated 4m ago
               </span>
             </div>
@@ -198,7 +198,7 @@ export default function VendorRecommendation() {
                             </div>
                           </div>
                         </td>
-                        <td style={{ padding: '16px 8px', fontSize: '15px', fontWeight: '800', color: '#25108f', textAlign: 'center' }}>
+                        <td style={{ padding: '16px 8px', fontSize: '15px', fontWeight: '800', color: 'var(--primary)', textAlign: 'center' }}>
                           {vendor.score}
                         </td>
                         <td style={{ padding: '16px 8px' }}>
@@ -224,7 +224,7 @@ export default function VendorRecommendation() {
                           <button
                             onClick={() => alert(`Sending quick RESTOCK request to: ${vendor.name}`)}
                             style={{
-                              background: '#25108f',
+                              background: 'var(--primary)',
                               color: '#ffffff',
                               border: 'none',
                               borderRadius: '6px',
@@ -247,10 +247,10 @@ export default function VendorRecommendation() {
           </div>
 
           {/* Right: Optimization KPIs & Market Volatility */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Success Optimization */}
-            <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="panel" style={{ background: '#0b1329', color: '#ffffff', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', margin: 0 }}>Success Optimization</h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -316,13 +316,13 @@ export default function VendorRecommendation() {
         {/* Category Leaders Section */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-            <Zap size={18} style={{ color: '#25108f' }} />
+            <Zap size={18} style={{ color: 'var(--primary)' }} />
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
               Category Leaders
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-section)' }}>
             
             {/* Card 1: Apex */}
             <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
@@ -332,7 +332,7 @@ export default function VendorRecommendation() {
                   alt="Apex industrial" 
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-                <span style={{ position: 'absolute', top: '12px', left: '12px', background: '#25108f', color: '#ffffff', fontSize: '9px', fontWeight: '800', padding: '3px 8px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ position: 'absolute', top: '12px', left: '12px', background: 'var(--primary)', color: '#ffffff', fontSize: '9px', fontWeight: '800', padding: '3px 8px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <Star size={10} fill="#ffffff" /> TOP RATED
                 </span>
               </div>
@@ -340,7 +340,7 @@ export default function VendorRecommendation() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <strong style={{ fontSize: '15px', color: '#1c2536' }}>Apex Industrial Solutions</strong>
-                    <strong style={{ fontSize: '18px', color: '#25108f', fontWeight: '800' }}>99%</strong>
+                    <strong style={{ fontSize: '18px', color: 'var(--primary)', fontWeight: '800' }}>99%</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2px' }}>
                     <span style={{ fontSize: '12px', color: '#7a7688' }}>Specialty Raw Materials</span>
@@ -389,7 +389,7 @@ export default function VendorRecommendation() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <strong style={{ fontSize: '15px', color: '#1c2536' }}>Velocity Logistics Intl</strong>
-                    <strong style={{ fontSize: '18px', color: '#25108f', fontWeight: '800' }}>94%</strong>
+                    <strong style={{ fontSize: '18px', color: 'var(--primary)', fontWeight: '800' }}>94%</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2px' }}>
                     <span style={{ fontSize: '12px', color: '#7a7688' }}>Global Distribution</span>
@@ -438,7 +438,7 @@ export default function VendorRecommendation() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <strong style={{ fontSize: '15px', color: '#1c2536' }}>Economical Supply Co.</strong>
-                    <strong style={{ fontSize: '18px', color: '#25108f', fontWeight: '800' }}>88%</strong>
+                    <strong style={{ fontSize: '18px', color: 'var(--primary)', fontWeight: '800' }}>88%</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2px' }}>
                     <span style={{ fontSize: '12px', color: '#7a7688' }}>General Components</span>
@@ -517,7 +517,7 @@ export default function VendorRecommendation() {
               <button
                 onClick={handleCompare}
                 style={{
-                  background: '#25108f',
+                  background: 'var(--primary)',
                   color: '#ffffff',
                   border: 'none',
                   borderRadius: '6px',

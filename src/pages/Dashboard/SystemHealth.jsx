@@ -30,10 +30,10 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
 
   // 8 Health Cards
   const metrics = [
-    { title: "API Health", value: "42ms", sub: "Average Latency", status: "99.98%", positive: true, icon: Activity, color: "#25108f", bg: "#f4eff8" },
+    { title: "API Health", value: "42ms", sub: "Average Latency", status: "99.98%", positive: true, icon: Activity, color: 'var(--primary)', bg: "#f4eff8" },
     { title: "Server Health", value: "12% CPU", sub: "RAM 4.2 / 16GB", status: "Stable", positive: true, icon: Server, color: "#047857", bg: "#ecfdf5" },
     { title: "Database Health", value: "8ms", sub: "Query Execution", status: "Active", positive: true, icon: Database, color: "#1e40af", bg: "#eff6ff" },
-    { title: "Payments (Stripe)", value: "100%", sub: "Last check 2m ago", status: "Online", positive: true, icon: CreditCard, color: "#07956f", bg: "#ecfdf5" },
+    { title: "Payments (Stripe)", value: "100%", sub: "Last check 2m ago", status: "Online", positive: true, icon: CreditCard, color: 'var(--green)', bg: "#ecfdf5" },
     { title: "SMS Gateway", value: "1.2s", sub: "Avg Delivery Time", status: "Active", positive: true, icon: MessageSquare, color: "#0d9488", bg: "#f0fdfa" },
     { title: "WhatsApp API", value: "96.4%", sub: "Queue status", status: "High Load", positive: false, icon: MessageSquare, color: "#b45309", bg: "#fffbeb" },
     { title: "Email Health", value: "99.1%", sub: "Inbox Placement", status: "Normal", positive: true, icon: Mail, color: "#047857", bg: "#ecfdf5" },
@@ -46,8 +46,8 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
     : ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'yellow', 'green'];
 
   const regionalData = [
-    { region: "us-east-1 (N. Virginia)", status: "OPERATIONAL", statusColor: "#07956f", statusBg: "#ecfdf5", load: "34%", errors: "0.0001%", net: "1.2 GB/s / 840 MB/s", actionText: "Metrics", actionColor: "#25108f" },
-    { region: "eu-central-1 (Frankfurt)", status: "OPERATIONAL", statusColor: "#07956f", statusBg: "#ecfdf5", load: "22%", errors: "0.0000%", net: "420 MB/s / 180 MB/s", actionText: "Metrics", actionColor: "#25108f" },
+    { region: "us-east-1 (N. Virginia)", status: "OPERATIONAL", statuscolor: 'var(--green)', statusBg: "#ecfdf5", load: "34%", errors: "0.0001%", net: "1.2 GB/s / 840 MB/s", actionText: "Metrics", actioncolor: 'var(--primary)' },
+    { region: "eu-central-1 (Frankfurt)", status: "OPERATIONAL", statuscolor: 'var(--green)', statusBg: "#ecfdf5", load: "22%", errors: "0.0000%", net: "420 MB/s / 180 MB/s", actionText: "Metrics", actioncolor: 'var(--primary)' },
     { region: "ap-south-1 (Mumbai)", status: "DEGRADED", statusColor: "#b45309", statusBg: "#fffbeb", load: "78%", errors: "1.42%", net: "2.1 GB/s / 1.9 GB/s", actionText: "Investigate", actionColor: "#b45309", isWarning: true }
   ];
 
@@ -59,7 +59,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
       headerTitle="System Health"
       searchPlaceholder="Search system logs..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title and Top status */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -77,7 +77,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
               fontSize: '11px',
               fontWeight: '850',
               background: '#ecfdf5',
-              color: '#07956f',
+              color: 'var(--green)',
               padding: '6px 12px',
               borderRadius: '20px',
               display: 'inline-flex',
@@ -135,7 +135,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: '20px', alignItems: 'stretch' }}>
           
           {/* Uptime history block grid */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Uptime History ({uptimeView === 'Day' ? 'Last 30 Days' : 'Last 12 Months'})</h2>
               
@@ -171,7 +171,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
                 <div key={idx}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '750', marginBottom: '8px' }}>
                     <span style={{ color: 'var(--text)' }}>{service.name}</span>
-                    <span style={{ color: '#07956f', fontWeight: '850' }}>{service.uptime}</span>
+                    <span style={{ color: 'var(--green)', fontWeight: '850' }}>{service.uptime}</span>
                   </div>
                   {/* Grid blocks */}
                   <div style={{ display: 'flex', gap: '4px' }}>
@@ -191,7 +191,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
           </div>
 
           {/* Recent incidents list */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>Recent Incidents</h2>
               
@@ -199,7 +199,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
                 <div style={{ borderLeft: '3px solid #07956f', paddingLeft: '12px' }}>
                   <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>Service Restored: SMS Gateway</strong>
                   <p style={{ fontSize: '12px', color: 'var(--muted)', margin: '2px 0 0' }}>Primary gateway switched to backup provider successfully.</p>
-                  <span style={{ fontSize: '11px', color: 'var(--muted)', display: 'block', marginTop: '4px' }}>14:22 UTC — <span style={{ color: '#07956f', fontWeight: '700' }}>Resolved</span></span>
+                  <span style={{ fontSize: '11px', color: 'var(--muted)', display: 'block', marginTop: '4px' }}>14:22 UTC — <span style={{ color: 'var(--green)', fontWeight: '700' }}>Resolved</span></span>
                 </div>
 
                 <div style={{ borderLeft: '3px solid #b45309', paddingLeft: '12px' }}>
@@ -238,7 +238,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Regional performance table */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Regional Infrastructure Performance</h2>
             <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>Auto-refresh: 30s</span>

@@ -107,7 +107,7 @@ function RegionalEngagement() {
       </div>
       <div className="h-28 bg-slate-900 rounded-lg flex items-center justify-center text-indigo-400 relative overflow-hidden">
         <Globe size={40} className="opacity-20 animate-pulse" />
-        <span className="text-[10px] uppercase tracking-widest text-slate-500 absolute font-mono">Interactive Map Block</span>
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 absolute ">Interactive Map Block</span>
       </div>
       <div className="space-y-2">
         {regions.map((region, idx) => (
@@ -169,7 +169,7 @@ export default function BannersPage() {
       activeTab="Banners"
       searchPlaceholder="Search campaigns or users..."
     >
-      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto font-sans">
+      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto ">
         
         {/* HEADER TITLE SECTION */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

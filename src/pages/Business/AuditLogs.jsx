@@ -225,7 +225,7 @@ export default function AuditLogs() {
               Showing all administrative actions for&nbsp;
               <span className="font-semibold text-[#4f46e5]">{business.name}</span>
               &nbsp;·&nbsp;
-              <span className="font-mono text-[12px] text-[#71717A]">{business.id}</span>
+              <span className=" text-[12px] text-[#71717A]">{business.id}</span>
               &nbsp;·&nbsp;
               <span style={{ color: bizStatusColor }} className="font-semibold">{business.status}</span>
             </p>
@@ -391,7 +391,7 @@ export default function AuditLogs() {
                         </span>
                       </td>
                       <td className="py-4 px-5 text-[#4B5563] font-medium">{log.detail}</td>
-                      <td className="py-4 px-5 text-[#27272A] font-mono">{log.ip}</td>
+                      <td className="py-4 px-5 text-[#27272A] ">{log.ip}</td>
                       <td className="py-4 px-5">
                         <div className="flex items-center gap-1.5 font-bold text-[12px]" style={{ color: st.color }}>
                           <span className="w-2 h-2 rounded-full" style={{ background: st.dot }} />

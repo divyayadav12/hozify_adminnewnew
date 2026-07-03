@@ -31,7 +31,7 @@ export default function ServiceDashboard() {
   const [trajectoryMode, setTrajectoryMode] = useState('Quarterly');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
       
       {/* SLA Alert banner */}
       <div
@@ -88,7 +88,7 @@ export default function ServiceDashboard() {
             📈 +12%
           </span>
           <div style={{ height: '4px', background: '#eff6ff', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-            <div style={{ width: '80%', height: '100%', background: '#25108f' }} />
+            <div style={{ width: '80%', height: '100%', background: 'var(--primary)' }} />
           </div>
         </div>
 
@@ -128,16 +128,16 @@ export default function ServiceDashboard() {
       </div>
 
       {/* Row Charts & Tables */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
         
         {/* Left column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Top Performing Services */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Top Performing Services</h3>
-              <a href="#details" onClick={(e) => e.preventDefault()} style={{ fontSize: '11px', color: '#25108f', fontWeight: '800', textDecoration: 'none', display: 'flex', gap: '4px', alignItems: 'center' }}>
+              <a href="#details" onClick={(e) => e.preventDefault()} style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: '800', textDecoration: 'none', display: 'flex', gap: '4px', alignItems: 'center' }}>
                 View Detailed List <ArrowUpRight size={14} />
               </a>
             </div>
@@ -181,7 +181,7 @@ export default function ServiceDashboard() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px', fontWeight: '700', flex: 1, minWidth: '160px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--muted)' }}>
-                    <span style={{ height: '8px', width: '8px', background: '#25108f', borderRadius: '50%' }} />
+                    <span style={{ height: '8px', width: '8px', background: 'var(--primary)', borderRadius: '50%' }} />
                     Subscriptions
                   </span>
                   <span style={{ color: 'var(--text)' }}>62%</span>
@@ -209,7 +209,7 @@ export default function ServiceDashboard() {
         </div>
 
         {/* Right column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Performance Watchlist */}
           <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -292,7 +292,7 @@ export default function ServiceDashboard() {
       </div>
 
       {/* Bottom Global Service Density Map card */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Global Service Density</h3>

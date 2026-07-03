@@ -31,7 +31,7 @@ export default function WalletDetails() {
       headerTitle="Wallet Details"
       searchPlaceholder="Search wallet history..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Navigation Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -64,15 +64,15 @@ export default function WalletDetails() {
         </div>
 
         {/* Profile Card Header */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
           <img src={wallet.avatar} alt={wallet.owner} style={{ height: '64px', width: '64px', borderRadius: '50%', objectFit: 'cover', border: '3px solid #25108f' }} />
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <h2 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>{wallet.owner}</h2>
-              <span style={{ fontSize: '10px', fontWeight: '800', background: '#f4eff8', color: '#25108f', padding: '2px 8px', borderRadius: '4px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '800', background: '#f4eff8', color: 'var(--primary)', padding: '2px 8px', borderRadius: '4px' }}>
                 {wallet.type.toUpperCase()}
               </span>
-              <span style={{ fontSize: '10px', fontWeight: '800', background: '#ecfdf5', color: '#07956f', padding: '2px 8px', borderRadius: '4px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '800', background: '#ecfdf5', color: 'var(--green)', padding: '2px 8px', borderRadius: '4px' }}>
                 {wallet.kyc}
               </span>
             </div>
@@ -104,13 +104,13 @@ export default function WalletDetails() {
           </div>
           <div className="panel" style={{ padding: '16px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Frozen Balance</span>
-            <strong style={{ display: 'block', fontSize: '20px', fontWeight: '850', color: '#d32929', marginTop: '8px' }}>
+            <strong style={{ display: 'block', fontSize: '20px', fontWeight: '850', color: 'var(--red)', marginTop: '8px' }}>
               ₹{wallet.frozen.toLocaleString('en-IN')}
             </strong>
           </div>
           <div className="panel" style={{ padding: '16px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Lifetime Earnings</span>
-            <strong style={{ display: 'block', fontSize: '20px', fontWeight: '850', color: '#07956f', marginTop: '8px' }}>
+            <strong style={{ display: 'block', fontSize: '20px', fontWeight: '850', color: 'var(--green)', marginTop: '8px' }}>
               ₹{wallet.lifetimeEarnings.toLocaleString('en-IN')}
             </strong>
           </div>
@@ -148,7 +148,7 @@ export default function WalletDetails() {
         {/* Dynamic Tab Panel */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {activeTab === 'Transactions' && (
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>Transaction History</h3>
               {transactions.length === 0 ? (
                 <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>No transactions recorded for this wallet.</p>
@@ -171,7 +171,7 @@ export default function WalletDetails() {
                         return (
                           <tr key={txn.id} style={{ borderBottom: '1px solid var(--lavender)' }}>
                             <td style={{ padding: '12px' }}>
-                              <strong style={{ color: '#25108f', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate(ROUTES.transactionDetail.replace(':id', txn.id))}>
+                              <strong style={{ color: 'var(--primary)', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate(ROUTES.transactionDetail.replace(':id', txn.id))}>
                                 #{txn.id}
                               </strong>
                               <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>{txn.reference}</span>
@@ -205,7 +205,7 @@ export default function WalletDetails() {
           )}
 
           {activeTab === 'History & Audit Timeline' && (
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 20px' }}>Security Audit Log & Events</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderLeft: '2px solid var(--line)', paddingLeft: '20px', marginLeft: '10px' }}>
                 {mockTimelineEvents.map((event) => (
@@ -217,7 +217,7 @@ export default function WalletDetails() {
                       height: '10px',
                       width: '10px',
                       borderRadius: '50%',
-                      background: '#25108f'
+                      background: 'var(--primary)'
                     }} />
                     <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>{event.label}</strong>
                     <span style={{ fontSize: '11px', color: 'var(--muted)' }}>{event.date}</span>
@@ -228,7 +228,7 @@ export default function WalletDetails() {
           )}
 
           {activeTab === 'Settings & Limits' && (
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>Account Settings</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--line)' }}>

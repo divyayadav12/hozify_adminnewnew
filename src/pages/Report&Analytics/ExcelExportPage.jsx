@@ -21,7 +21,7 @@ export default function ExcelExportPage() {
 
   return (
     <AdminShell activeTab="Reports & Analytics">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased font-sans">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased ">
         
         {/* TOP CONTROLS & TIMELINE FILTER PANEL */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">

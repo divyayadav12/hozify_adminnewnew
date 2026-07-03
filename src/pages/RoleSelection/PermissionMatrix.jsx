@@ -121,7 +121,7 @@ export default function PermissionMatrix() {
 
   return (
     <AdminShell activeTab="PermissionMatrix">
-      <div className="space-y-6 max-w-6xl mx-auto pb-12">
+      <div className="space-y-6 max-w-6xl mx-auto p-6 pb-12">
         
         {/* ==========================================
             1. MODERN CLEAN BREADCRUMB HEADER
@@ -133,7 +133,7 @@ export default function PermissionMatrix() {
             </div>
             <div>
               <h1 className="text-xl font-black text-indigo-950 tracking-tight">Access Control Matrix</h1>
-              <p className="text-xs text-slate-400 font-medium font-sans">Map out explicit security clearances and cluster override permissions</p>
+              <p className="text-xs text-slate-400 font-medium ">Map out explicit security clearances and cluster override permissions</p>
             </div>
           </div>
 
@@ -195,7 +195,7 @@ export default function PermissionMatrix() {
               })}
             </div>
 
-            <div className="p-3.5 bg-slate-50 border-t border-slate-150 m-2.5 rounded-xl flex gap-2.5 text-[11px] text-slate-400 font-medium leading-relaxed font-sans">
+            <div className="p-3.5 bg-slate-50 border-t border-slate-150 m-2.5 rounded-xl flex gap-2.5 text-[11px] text-slate-400 font-medium leading-relaxed ">
               <AlertCircle className="h-4 w-4 text-indigo-950 shrink-0 mt-0.5" />
               <span>Switching active contexts populates row matrices automatically. Save layout parameters locally to persist modifications.</span>
             </div>
@@ -208,11 +208,11 @@ export default function PermissionMatrix() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-3">
               <div>
                 <span className="text-xs font-bold text-indigo-950 uppercase tracking-wider block">Privilege Mapping Matrix</span>
-                <p className="text-[11px] text-slate-400 font-medium font-sans mt-0.5">
+                <p className="text-[11px] text-slate-400 font-medium  mt-0.5">
                   Overriding explicit capabilities for: <strong className="text-indigo-600 font-bold">{selectedRole}</strong>
                 </p>
               </div>
-              <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-slate-400 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200/60">
+              <div className="flex items-center gap-1.5 text-[10px]  font-bold text-slate-400 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200/60">
                 <Lock className="h-3 w-3 text-indigo-600" /> Active Session Synced
               </div>
             </div>
@@ -265,7 +265,7 @@ export default function PermissionMatrix() {
                       <tr key={mod.name} className="hover:bg-slate-50/40 transition-colors">
                         <td className="p-3">
                           <span className="font-bold text-indigo-950 block">{mod.name}</span>
-                          <span className="text-[10px] text-slate-400 font-medium font-sans block mt-0.5 leading-tight">{mod.desc}</span>
+                          <span className="text-[10px] text-slate-400 font-medium  block mt-0.5 leading-tight">{mod.desc}</span>
                         </td>
 
                         {/* Interactive Granular Micro Action Inputs Mapping */}
@@ -307,8 +307,8 @@ export default function PermissionMatrix() {
             </div>
 
             {/* Table Meta Engine Logs Footer */}
-            <div className="pt-2 text-[10px] text-slate-400 font-mono flex justify-between items-center">
-              <span className="flex items-center gap-1 font-sans font-medium"><Layers className="h-3 w-3 text-indigo-600" /> Layer Matrix Synchronized</span>
+            <div className="pt-2 text-[10px] text-slate-400  flex justify-between items-center">
+              <span className="flex items-center gap-1  font-medium"><Layers className="h-3 w-3 text-indigo-600" /> Layer Matrix Synchronized</span>
               <span>v1.2 // Secure Target State</span>
             </div>
 

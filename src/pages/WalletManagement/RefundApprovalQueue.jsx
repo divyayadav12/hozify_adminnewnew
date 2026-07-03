@@ -34,7 +34,7 @@ export default function RefundApprovalQueue() {
       headerTitle="Refund Management"
       searchPlaceholder="Search refund requests..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Back and Title */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -69,13 +69,13 @@ export default function RefundApprovalQueue() {
           </div>
           <div className="panel" style={{ padding: '16px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Approved Amount (Today)</span>
-            <strong style={{ display: 'block', fontSize: '22px', fontWeight: '850', color: '#07956f', marginTop: '6px' }}>
+            <strong style={{ display: 'block', fontSize: '22px', fontWeight: '850', color: 'var(--green)', marginTop: '6px' }}>
               ₹8,500.00
             </strong>
           </div>
           <div className="panel" style={{ padding: '16px' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Auto-Settlement Limits</span>
-            <strong style={{ display: 'block', fontSize: '22px', fontWeight: '850', color: '#25108f', marginTop: '6px' }}>
+            <strong style={{ display: 'block', fontSize: '22px', fontWeight: '850', color: 'var(--primary)', marginTop: '6px' }}>
               ₹15,000 / ticket
             </strong>
           </div>
@@ -110,7 +110,7 @@ export default function RefundApprovalQueue() {
         </div>
 
         {/* Table List */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
@@ -132,10 +132,10 @@ export default function RefundApprovalQueue() {
                     <tr key={r.id} style={{ borderBottom: '1px solid var(--lavender)' }}>
                       <td style={{ padding: '16px', fontWeight: '750' }}>#{r.id}</td>
                       <td style={{ padding: '16px' }}>
-                        <span style={{ color: '#25108f', fontWeight: '750' }}>{r.bookingId}</span>
+                        <span style={{ color: 'var(--primary)', fontWeight: '750' }}>{r.bookingId}</span>
                       </td>
                       <td style={{ padding: '16px', fontWeight: '700' }}>{r.customer}</td>
-                      <td style={{ padding: '16px', fontWeight: '850', color: '#d32929' }}>-₹{r.amount.toLocaleString('en-IN')}</td>
+                      <td style={{ padding: '16px', fontWeight: '850', color: 'var(--red)' }}>-₹{r.amount.toLocaleString('en-IN')}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)', maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.reason}</td>
                       <td style={{ padding: '16px', color: 'var(--muted)' }}>{r.date}</td>
                       <td style={{ padding: '16px' }}>
@@ -180,7 +180,7 @@ export default function RefundApprovalQueue() {
                                 gap: '4px',
                                 border: '1px solid #d32929',
                                 background: '#fff',
-                                color: '#d32929',
+                                color: 'var(--red)',
                                 padding: '6px 12px',
                                 borderRadius: '4px',
                                 fontSize: '11px',

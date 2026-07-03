@@ -93,7 +93,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
     },
     {
       id: '#TK-8843',
-      user: { name: 'Maria Lopez', email: 'm.lopez@corporate.com', initials: 'ML', color: '#25108f', bg: '#f1ebfa' },
+      user: { name: 'Maria Lopez', email: 'm.lopez@corporate.com', initials: 'ML', color: 'var(--primary)', bg: '#f1ebfa' },
       category: 'Billing',
       priority: 'Medium',
       status: 'IN PROGRESS',
@@ -262,7 +262,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
       searchValue={searchQuery}
       onSearchChange={(val) => setSearchQuery(val)}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Title & Actions */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>

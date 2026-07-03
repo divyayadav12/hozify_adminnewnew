@@ -34,7 +34,7 @@ export default function BackupManagement() {
         </div>
 
         {/* Top Section: Automated Scheduling */}
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', marginBottom: '32px' }}>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', marginBottom: '32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{ width: '36px', height: '36px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -48,7 +48,7 @@ export default function BackupManagement() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', marginBottom: '32px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Target Destination</label>
                 <div style={{ position: 'relative' }}>
@@ -71,7 +71,7 @@ export default function BackupManagement() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Preferred Execution Time</label>
                 <input type="text" defaultValue="03:00 AM" style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: '#0f172a', boxSizing: 'border-box', outline: 'none' }} />
@@ -79,7 +79,7 @@ export default function BackupManagement() {
 
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Retention Policy</label>
-                <div style={{ display: 'flex', alignItems: 'center', height: '36px', gap: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', height: '36px', gap: 'var(--spacing-section)' }}>
                   <span onClick={(e) => { e.preventDefault(); setRetention('7 DAYS'); addToast("Retention set to 7 Days", "info"); }} style={{ fontSize: '12px', fontWeight: '800', color: retention === '7 DAYS' ? '#0f172a' : '#94a3b8', cursor: 'pointer', borderBottom: retention === '7 DAYS' ? '2px solid #0f172a' : 'none', paddingBottom: retention === '7 DAYS' ? '2px' : '0' }}>7 DAYS</span>
                   <span onClick={(e) => { e.preventDefault(); setRetention('30 DAYS DEFAULT'); addToast("Retention set to 30 Days", "info"); }} style={{ fontSize: '12px', fontWeight: '800', color: retention === '30 DAYS DEFAULT' ? '#0f172a' : '#94a3b8', cursor: 'pointer', borderBottom: retention === '30 DAYS DEFAULT' ? '2px solid #0f172a' : 'none', paddingBottom: retention === '30 DAYS DEFAULT' ? '2px' : '0' }}>30 DAYS DEFAULT</span>
                   <span onClick={(e) => { e.preventDefault(); setRetention('90 DAYS'); addToast("Retention set to 90 Days", "info"); }} style={{ fontSize: '12px', fontWeight: '800', color: retention === '90 DAYS' ? '#0f172a' : '#94a3b8', cursor: 'pointer', borderBottom: retention === '90 DAYS' ? '2px solid #0f172a' : 'none', paddingBottom: retention === '90 DAYS' ? '2px' : '0' }}>90 DAYS</span>
@@ -103,7 +103,7 @@ export default function BackupManagement() {
 
         {/* Bottom Section: Restore Points & History */}
         <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)', overflow: 'hidden' }}>
-          <div style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: 0 }}>Restore Points & History</h2>
             <div style={{ display: 'flex', gap: '12px' }}>
               <div style={{ position: 'relative' }}>
@@ -130,7 +130,7 @@ export default function BackupManagement() {
             <tbody>
               {/* Row 1 */}
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88291</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88291</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 24, 2023 - 03:00 AM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>
@@ -153,7 +153,7 @@ export default function BackupManagement() {
 
               {/* Row 2 */}
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88285</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88285</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 23, 2023 - 03:00 AM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>
@@ -176,7 +176,7 @@ export default function BackupManagement() {
 
               {/* Row 3 */}
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88122</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88122</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 22, 2023 - 11:45 PM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>
@@ -199,7 +199,7 @@ export default function BackupManagement() {
 
               {/* Row 4 */}
               <tr>
-                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: 'monospace' }}>#BP-88001</td>
+                <td style={{ padding: '20px 24px', fontSize: '12px', fontWeight: '700', color: '#475569', fontFamily: "var(--materio-space)", }}>#BP-88001</td>
                 <td style={{ padding: '20px 24px', fontSize: '12px', color: '#334155' }}>Oct 21, 2023 - 03:00 AM</td>
                 <td style={{ padding: '20px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '12px' }}>

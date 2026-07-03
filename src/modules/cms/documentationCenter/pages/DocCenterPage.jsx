@@ -157,7 +157,7 @@ export default function DocCenterPage() {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="Documentation Registry">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -277,7 +277,7 @@ export default function DocCenterPage() {
                 {currentItems.length > 0 ? (
                   currentItems.map(row => (
                     <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                      <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                      <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                       <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>{row.name}</td>
                       <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.category}</td>
                       <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.entity}</td>
@@ -293,7 +293,7 @@ export default function DocCenterPage() {
                           {row.status}
                         </span>
                       </td>
-                      <td style={{ padding: '18px 24px', fontWeight: '600', fontFamily: 'monospace' }}>{row.expiry}</td>
+                      <td style={{ padding: '18px 24px', fontWeight: '600', fontFamily: "var(--materio-space)", }}>{row.expiry}</td>
                       <td style={{ padding: '18px 24px', textAlign: 'right' }}>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
                           <button onClick={() => { setSelectedDoc(row); setIsPreviewOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="View details"><Eye size={16} /></button>
@@ -321,7 +321,7 @@ export default function DocCenterPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No documents found matching filters.</td>
+                    <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No documents found matching filters.</td>
                   </tr>
                 )}
               </tbody>

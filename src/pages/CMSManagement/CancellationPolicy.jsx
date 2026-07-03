@@ -49,7 +49,7 @@ export default function CancellationPolicy() {
       headerTitle="Cancellation Policy Console"
       searchPlaceholder="Search cancellation policies..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1200px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1200px' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -103,13 +103,13 @@ export default function CancellationPolicy() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '7fr 3fr', gap: 'var(--spacing-section)' }}>
           
           {/* LEFT COLUMN: Main Editor Area */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '7' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
             
             {/* Cancellation Framework Toggles */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
                 Cancellation Rules Framework
               </h3>
@@ -124,7 +124,7 @@ export default function CancellationPolicy() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '8px' }}>Grace Period Window (Mins)</label>
                   <input 
@@ -173,7 +173,7 @@ export default function CancellationPolicy() {
 
               {/* Add Clause Form */}
               {showAddClause && (
-                <div style={{ padding: '24px', background: 'var(--soft)', borderBottom: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ padding: 'var(--spacing-section)', background: 'var(--soft)', borderBottom: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '6px' }}>Section Code / Title</label>
                     <input 
@@ -214,7 +214,7 @@ export default function CancellationPolicy() {
               )}
 
               {/* Editor Blocks */}
-              <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {clauses.map((clause, idx) => (
                   <div key={clause.id} style={{ position: 'relative', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px 20px', background: '#fff', display: 'flex', gap: '16px' }}>
                     
@@ -242,7 +242,7 @@ export default function CancellationPolicy() {
           </div>
 
           {/* RIGHT COLUMN: Sidebar Panels */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: '3' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
             
             {/* Compliance Monitor */}
             <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>

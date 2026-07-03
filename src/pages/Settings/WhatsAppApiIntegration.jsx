@@ -28,13 +28,13 @@ export default function WhatsAppApiIntegration() {
         </div>
 
         {/* Top Section: Left (WhatsApp API + Templates) | Right (Metrics) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '24px', alignItems: 'start', marginBottom: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 'var(--spacing-section)', alignItems: 'start', marginBottom: '24px' }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* WhatsApp API (Meta) Configuration */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                   <div style={{ width: '40px', height: '40px', background: '#dcfce7', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -50,7 +50,7 @@ export default function WhatsAppApiIntegration() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)', marginBottom: '24px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>WABA ACCOUNT STATUS</label>
                   <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 16px', height: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -60,7 +60,7 @@ export default function WhatsAppApiIntegration() {
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>PHONE NUMBER ID</label>
-                  <input type="text" defaultValue="109283746505928" style={{ width: '100%', height: '40px', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 16px', fontSize: '13px', color: '#475569', boxSizing: 'border-box', outline: 'none', fontFamily: 'monospace' }} readOnly />
+                  <input type="text" defaultValue="109283746505928" style={{ width: '100%', height: '40px', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 16px', fontSize: '13px', color: '#475569', boxSizing: 'border-box', outline: 'none', fontFamily: "var(--materio-space)", }} readOnly />
                 </div>
               </div>
 
@@ -90,7 +90,7 @@ export default function WhatsAppApiIntegration() {
             </div>
 
             {/* Message Templates */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '32px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-page)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div>
                   <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a', margin: '0 0 4px' }}>Message Templates</h2>
@@ -146,10 +146,10 @@ export default function WhatsAppApiIntegration() {
           </div>
 
           {/* Right Column: Metrics Cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Available Credits */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '16px' }}>AVAILABLE CREDITS</span>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <div style={{ fontSize: '24px', fontWeight: '800', color: '#0f172a', lineHeight: '1' }}>$4,829.40</div>
@@ -164,7 +164,7 @@ export default function WhatsAppApiIntegration() {
             </div>
 
             {/* Throughput */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '24px' }}>THROUGHPUT (24H)</span>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '12px' }}>
@@ -182,7 +182,7 @@ export default function WhatsAppApiIntegration() {
             </div>
 
             {/* API Status */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: 'var(--spacing-section)', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <span style={{ fontSize: '10px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>API STATUS</span>
                 <span style={{ display: 'inline-block', background: '#dcfce7', border: '1px solid #bbf7d0', color: '#16a34a', padding: '4px 8px', borderRadius: '4px', fontSize: '8px', fontWeight: '800', letterSpacing: '0.5px' }}>OPERATIONAL</span>
@@ -238,7 +238,7 @@ export default function WhatsAppApiIntegration() {
                 <td style={{ padding: '16px 24px' }}>
                   <span style={{ display: 'inline-block', background: '#dcfce7', color: '#16a34a', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>WHATSAPP</span>
                 </td>
-                <td style={{ padding: '16px 24px', fontSize: '11px', color: '#475569', fontFamily: 'monospace' }}>+1 *** **9 1284</td>
+                <td style={{ padding: '16px 24px', fontSize: '11px', color: '#475569', fontFamily: "var(--materio-space)", }}>+1 *** **9 1284</td>
                 <td style={{ padding: '16px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#16a34a', fontSize: '11px', fontWeight: '700' }}>
                     <Check size={14} /> Delivered
@@ -254,7 +254,7 @@ export default function WhatsAppApiIntegration() {
                 <td style={{ padding: '16px 24px' }}>
                   <span style={{ display: 'inline-block', background: '#dcfce7', color: '#16a34a', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>WHATSAPP</span>
                 </td>
-                <td style={{ padding: '16px 24px', fontSize: '11px', color: '#475569', fontFamily: 'monospace' }}>+1 *** **4 8839</td>
+                <td style={{ padding: '16px 24px', fontSize: '11px', color: '#475569', fontFamily: "var(--materio-space)", }}>+1 *** **4 8839</td>
                 <td style={{ padding: '16px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#64748b', fontSize: '11px', fontWeight: '700' }}>
                     <Clock size={14} /> Sent
@@ -270,7 +270,7 @@ export default function WhatsAppApiIntegration() {
                 <td style={{ padding: '16px 24px' }}>
                   <span style={{ display: 'inline-block', background: '#dcfce7', color: '#16a34a', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>WHATSAPP</span>
                 </td>
-                <td style={{ padding: '16px 24px', fontSize: '11px', color: '#475569', fontFamily: 'monospace' }}>+44 ** *** 7712</td>
+                <td style={{ padding: '16px 24px', fontSize: '11px', color: '#475569', fontFamily: "var(--materio-space)", }}>+44 ** *** 7712</td>
                 <td style={{ padding: '16px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#16a34a', fontSize: '11px', fontWeight: '700' }}>
                     <Check size={14} /> Delivered

@@ -8,6 +8,7 @@ import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 import { 
   Search, Plus, Download, Edit, Trash2, Eye, FileText, CheckCircle2, Clock
 } from 'lucide-react';
+import StatCard from '../../components/ui/StatCard';
 
 const INITIAL_DATA = [
   { id: 'CTR-101', entity: 'TechCorp Solutions', type: 'B2B Service', startDate: '2026-01-15', expiryDate: '2027-01-14', status: 'Active' },
@@ -83,7 +84,7 @@ export default function ContractsPage() {
 
   return (
     <AdminShell activeTab="Document Management" headerTitle="Contract Management">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -107,34 +108,34 @@ export default function ContractsPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="custom-kpi-card-container">
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <FileText size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Contracts</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text)', margin: '2px 0 0 0' }}>{data.length}</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <CheckCircle2 size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#059669', margin: '2px 0 0 0' }}>{data.filter(a => a.status === 'Active').length}</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#fef3c7', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Clock size={20} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Expiring Soon</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#d97706', margin: '2px 0 0 0' }}>{data.filter(a => a.status === 'Expiring Soon').length}</h2>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <StatCard
+            title="TOTAL CONTRACTS"
+            value={`${data.length}`}
+            icon={FileText}
+            trend={0}
+            color="#4f46e5"
+            bgColor="#e0e7ff"
+            iconColor="#4f46e5"
+          />
+          <StatCard
+            title="ACTIVE CONTRACTS"
+            value={`${data.filter(i => i.status === 'Active').length}`}
+            icon={CheckCircle2}
+            trend={0}
+            color="#059669"
+            bgColor="#d1fae5"
+            iconColor="#059669"
+          />
+          <StatCard
+            title="EXPIRING SOON"
+            value={`${data.filter(i => i.status === 'Expiring Soon').length}`}
+            icon={Clock}
+            trend={0}
+            color="#ea580c"
+            bgColor="#ffedd5"
+            iconColor="#ea580c"
+          />
         </div>
 
         {/* Filters */}
@@ -189,7 +190,7 @@ export default function ContractsPage() {
               {filteredData.length > 0 ? (
                 filteredData.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>
                       <span 
                         onClick={() => { setSelectedItem(row); setIsPreviewOpen(true); }}
                         style={{ cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '2px' }}
@@ -200,8 +201,8 @@ export default function ContractsPage() {
                     </td>
                     <td style={{ padding: '18px 24px', fontWeight: '700' }}>{row.entity}</td>
                     <td style={{ padding: '18px 24px' }}>{row.type}</td>
-                    <td style={{ padding: '18px 24px', fontFamily: 'monospace' }}>{row.startDate}</td>
-                    <td style={{ padding: '18px 24px', fontFamily: 'monospace' }}>{row.expiryDate}</td>
+                    <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", }}>{row.startDate}</td>
+                    <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", }}>{row.expiryDate}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <span style={{
                         padding: '4px 8px',
@@ -225,7 +226,7 @@ export default function ContractsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No contract records found.</td>
+                  <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No contract records found.</td>
                 </tr>
               )}
             </tbody>

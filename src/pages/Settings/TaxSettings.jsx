@@ -38,7 +38,7 @@ export default function TaxSettings() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '32px', flex: 1 }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Global VAT/GST Rules */}
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '28px' }}>
@@ -49,7 +49,7 @@ export default function TaxSettings() {
                 </span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Primary Tax Identification</label>
                   <input 
@@ -153,10 +153,10 @@ export default function TaxSettings() {
           </div>
 
           {/* Right Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Digital Certificates */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 8px' }}>Digital Certificates</h2>
               <p style={{ fontSize: '12px', color: 'var(--muted)', margin: '0 0 20px', lineHeight: '1.5' }}>Manage cryptographic tax certificates for automated filing and validation.</p>
               
@@ -190,7 +190,7 @@ export default function TaxSettings() {
             </div>
 
             {/* Tax Exemptions */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px' }}>Tax Exemptions</h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -227,7 +227,7 @@ export default function TaxSettings() {
             </div>
 
             {/* Audit Readiness */}
-            <div style={{ background: '#1e1b4b', borderRadius: '8px', padding: '24px', color: '#fff' }}>
+            <div style={{ background: '#1e1b4b', borderRadius: '8px', padding: 'var(--spacing-section)', color: '#fff' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#fff', margin: '0 0 12px' }}>Audit Readiness</h2>
               <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', margin: '0 0 24px', lineHeight: '1.5' }}>
                 Your current tax configuration matches 98% of regional compliance requirements for Q4 2024.
@@ -247,7 +247,7 @@ export default function TaxSettings() {
 
         {/* Footer sticky bar (simulated position absolute at bottom or just flex-end) */}
         <div style={{ marginTop: '40px', padding: '20px 0 0', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: '24px', fontSize: '11px', fontWeight: '700', color: 'var(--muted)' }}>
+          <div style={{ display: 'flex', gap: 'var(--spacing-section)', fontSize: '11px', fontWeight: '700', color: 'var(--muted)' }}>
             <span>Tax Jurisdiction: US-FED-GLOBAL</span>
             <span>Last Updated: 12 Oct 2023, 14:32 UTC</span>
           </div>

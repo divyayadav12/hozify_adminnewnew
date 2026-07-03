@@ -61,7 +61,7 @@ export default function BranchSuspend() {
         <div className="fraud-top-grid" style={{ gap: '20px', alignItems: 'stretch' }}>
           
           {/* Form Block (Left) */}
-          <div className="panel" style={{ flex: 1.8, padding: '24px' }}>
+          <div className="panel" style={{ flex: 1.8, padding: 'var(--spacing-section)' }}>
             
             {/* Warning Alert Box */}
             <div style={{ border: '1px solid #fee2e2', background: '#fef2f2', padding: '16px', borderRadius: '8px', marginBottom: '24px', display: 'flex', gap: '12px' }}>

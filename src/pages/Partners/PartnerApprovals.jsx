@@ -178,7 +178,7 @@ export default function PartnerApprovals() {
       searchValue={searchQuery}
       onSearchChange={setSearchQuery}
     >
-      <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-800 p-8 space-y-6" style={{ paddingBottom: "40px" }}>
+      <div className="min-h-screen bg-[#f8fafc]  text-slate-800 p-8 space-y-6" style={{ paddingBottom: "40px" }}>
         
         {/* ================= HEADER SECTION ================= */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -396,7 +396,7 @@ export default function PartnerApprovals() {
                               </div>
                               <div>
                                 <p className="text-sm font-bold text-slate-900">{task.partnerName}</p>
-                                <p className="text-[11px] text-slate-400 font-semibold font-mono">ID: {task.id}</p>
+                                <p className="text-[11px] text-slate-400 font-semibold ">ID: {task.id}</p>
                               </div>
                             </div>
                           </td>

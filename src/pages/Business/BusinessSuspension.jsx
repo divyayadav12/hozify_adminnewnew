@@ -105,7 +105,7 @@ export default function BusinessSuspension() {
             alt="Global Tech Logistics"
             style={{ width: '100px', height: '64px', borderRadius: '6px', objectFit: 'cover' }}
           />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', flex: 1 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--spacing-section)', flex: 1 }}>
             <div>
               <span style={{ display: 'block', fontSize: '9px', fontWeight: '850', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Entity Name</span>
               <strong style={{ display: 'block', fontSize: '15px', color: 'var(--text)', marginTop: '4px' }}>Global Tech Logistics</strong>
@@ -116,7 +116,7 @@ export default function BusinessSuspension() {
             </div>
             <div>
               <span style={{ display: 'block', fontSize: '9px', fontWeight: '850', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active Status</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '10px', fontWeight: '800', color: '#07956f', background: '#ecfdf5', padding: '2px 8px', borderRadius: '4px', marginTop: '4px' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '10px', fontWeight: '800', color: 'var(--green)', background: '#ecfdf5', padding: '2px 8px', borderRadius: '4px', marginTop: '4px' }}>
                 <span style={{ height: '5px', width: '5px', borderRadius: '50%', background: '#07956f' }} />
                 Verified
               </span>
@@ -158,7 +158,7 @@ export default function BusinessSuspension() {
                         type="radio"
                         checked={isActive}
                         readOnly
-                        style={{ position: 'absolute', left: '14px', top: '22px', accentColor: '#25108f' }}
+                        style={{ position: 'absolute', left: '14px', top: '22px', accentcolor: 'var(--primary)' }}
                       />
                       <div style={{ paddingLeft: '24px' }}>
                         <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>{reason.title}</strong>
@@ -291,7 +291,7 @@ export default function BusinessSuspension() {
             <div className="panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)' }}>Top Affected Nodes</span>
-                <span style={{ fontSize: '11px', color: '#25108f', fontWeight: '800', cursor: 'pointer' }} onClick={() => addToast('Opening affected nodes dashboard...', 'info')}>View All</span>
+                <span style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: '800', cursor: 'pointer' }} onClick={() => addToast('Opening affected nodes dashboard...', 'info')}>View All</span>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

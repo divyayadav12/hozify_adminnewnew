@@ -93,7 +93,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
         name: selectedCustomers[0],
         email: `${selectedCustomers[0].toLowerCase().replace(/\s+/g, '')}@corp.com`,
         initials: selectedCustomers[0].substring(0, 2).toUpperCase(),
-        color: '#25108f',
+        color: 'var(--primary)',
         bg: '#f1ebfa'
       },
       category: category.split(' ')[0], // Billing, Technical, Onboarding, etc.
@@ -124,7 +124,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
       headerTitle="New Support Ticket"
       searchPlaceholder="Search support guidelines..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Back and Breadcrumb navigation */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
@@ -178,13 +178,13 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Create Ticket Form Layout */}
-        <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Column Fields */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Ticket Identity Card */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Clock size={16} style={{ color: 'var(--primary)' }} />
                 Ticket Identity
@@ -273,7 +273,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
             </div>
 
             {/* Detailed Description Editor */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Detailed Description
               </h3>
@@ -312,10 +312,10 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Right Column Fields */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Set Priority */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Set Priority
               </h3>
@@ -382,7 +382,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
             </div>
 
             {/* File Attachments */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 File Attachments
               </h3>

@@ -42,7 +42,7 @@ export default function CommissionSettings() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '32px' }}>
           
           {/* Left Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Standard Entities Base Rates */}
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '28px' }}>
@@ -51,7 +51,7 @@ export default function CommissionSettings() {
                 <Info size={20} style={{ color: '#94a3b8' }} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginBottom: '32px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--spacing-section)', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>ISP Commission</label>
                   <div style={{ display: 'flex', height: '44px', border: '1px solid #e2e8f0', borderRadius: '6px', overflow: 'hidden' }}>
@@ -95,7 +95,7 @@ export default function CommissionSettings() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', border: '1px solid #e2e8f0', borderRadius: '6px' }}>
                   <div>
                     <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: '0 0 4px' }}>Fixed Transaction Fee</h3>
@@ -189,10 +189,10 @@ export default function CommissionSettings() {
           </div>
 
           {/* Right Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Rule Configuration Summary */}
-            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '20px' }}>Rule Configuration Summary</h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

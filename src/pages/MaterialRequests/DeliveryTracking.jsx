@@ -37,7 +37,7 @@ export default function DeliveryTracking() {
       customProfileName="Admin User"
       customProfileRole="Procurement Director"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Header Block */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -73,7 +73,7 @@ export default function DeliveryTracking() {
             <button
               onClick={handleShareTracking}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -95,10 +95,10 @@ export default function DeliveryTracking() {
         </div>
 
         {/* 2 Columns Layout: Map/Courier & Timeline/Details */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Left Column: Map and Courier widgets */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Map Container */}
             <div style={{
@@ -258,10 +258,10 @@ export default function DeliveryTracking() {
           </div>
 
           {/* Right Column: Timeline, Contents, and Support */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Delivery Progress */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <span style={{ fontSize: '14px', fontWeight: '800', color: '#1c2536' }}>Delivery Progress</span>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: '#7c3aed', background: '#f5f3ff', padding: '4px 8px', borderRadius: '4px' }}>
@@ -293,7 +293,7 @@ export default function DeliveryTracking() {
                     <div style={{ width: '2px', background: '#e2e8f0', flex: 1, minHeight: '90px', zIndex: 1 }} />
                   </div>
                   <div style={{ paddingBottom: '16px', flex: 1 }}>
-                    <strong style={{ display: 'block', fontSize: '13px', color: '#25108f' }}>In Transit</strong>
+                    <strong style={{ display: 'block', fontSize: '13px', color: 'var(--primary)' }}>In Transit</strong>
                     <span style={{ display: 'block', fontSize: '11px', color: '#7a7688', marginTop: '2px' }}>Arriving at Hub B • Oct 25, 10:45 AM</span>
                     
                     <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1', marginTop: '10px' }}>
@@ -331,7 +331,7 @@ export default function DeliveryTracking() {
             </div>
 
             {/* Shipment Contents */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <strong style={{ display: 'block', fontSize: '14px', color: '#1c2536', marginBottom: '6px' }}>Shipment Contents</strong>
               <span style={{ display: 'block', fontSize: '11.5px', color: '#7a7688', marginBottom: '16px' }}>PO #440029-X</span>
 

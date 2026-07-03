@@ -108,7 +108,7 @@ export default function MaterialRequests() {
       customProfileName="Admin User"
       customProfileRole="Procurement lead"
     >
-      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -124,7 +124,7 @@ export default function MaterialRequests() {
             <button
               onClick={handleCreateRequest}
               style={{
-                background: '#25108f',
+                background: 'var(--primary)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '6px',
@@ -176,7 +176,7 @@ export default function MaterialRequests() {
                 156
               </strong>
             </div>
-            <span style={{ fontSize: '11px', fontWeight: '800', color: '#25108f', background: '#f5f3ff', padding: '4px 8px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--primary)', background: '#f5f3ff', padding: '4px 8px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <TrendingDown size={12} /> -2%
             </span>
           </div>
@@ -471,7 +471,7 @@ export default function MaterialRequests() {
                 <ChevronLeft size={16} />
               </button>
               <button 
-                style={{ background: '#25108f', border: 'none', color: '#ffffff', borderRadius: '4px', width: '32px', height: '32px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                style={{ background: 'var(--primary)', border: 'none', color: '#ffffff', borderRadius: '4px', width: '32px', height: '32px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
                 type="button"
               >
                 1
@@ -501,10 +501,10 @@ export default function MaterialRequests() {
         </div>
 
         {/* Bottom Section Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Automated Cost Optimization Card */}
-          <div className="panel" style={{ background: '#1c2536', color: '#ffffff', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'space-between' }}>
+          <div className="panel" style={{ background: '#1c2536', color: '#ffffff', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'space-between' }}>
             <div>
               <h2 style={{ fontSize: '18px', fontWeight: '800', margin: 0 }}>
                 Automated Cost Optimization
@@ -541,7 +541,7 @@ export default function MaterialRequests() {
           </div>
 
           {/* Quick Analytics Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Quick Analytics
             </h3>
@@ -553,7 +553,7 @@ export default function MaterialRequests() {
                   <span style={{ fontSize: '12px', fontWeight: '800', color: '#059669' }}>Optimal</span>
                 </div>
                 <div style={{ height: '6px', background: '#f3f4f6', borderRadius: '3px', overflow: 'hidden' }}>
-                  <div style={{ width: '82%', height: '100%', background: '#25108f', borderRadius: '3px' }} />
+                  <div style={{ width: '82%', height: '100%', background: 'var(--primary)', borderRadius: '3px' }} />
                 </div>
               </div>
 

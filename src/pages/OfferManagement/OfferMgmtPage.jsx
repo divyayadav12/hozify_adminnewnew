@@ -103,7 +103,7 @@ export default function OfferMgmtPage() {
 
   return (
     <AdminShell activeTab="Offer Management" headerTitle="Campaign Console">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -201,7 +201,7 @@ export default function OfferMgmtPage() {
                     <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
                       <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontFamily: 'monospace', fontSize: '14px', background: '#f1f5f9', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }} onClick={() => handleCopyCode(row.code)}>
+                          <span style={{ fontFamily: "var(--materio-space)", fontSize: '14px', background: '#f1f5f9', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }} onClick={() => handleCopyCode(row.code)}>
                             {row.code}
                           </span>
                         </div>
@@ -211,8 +211,8 @@ export default function OfferMgmtPage() {
                       </td>
                       <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.type}</td>
                       <td style={{ padding: '18px 24px', fontWeight: '700', color: '#059669' }}>{row.value}</td>
-                      <td style={{ padding: '18px 24px', fontFamily: 'monospace' }}>${row.maxCap.toFixed(2)}</td>
-                      <td style={{ padding: '18px 24px', fontWeight: '600', fontFamily: 'monospace' }}>{row.expiry}</td>
+                      <td style={{ padding: '18px 24px', fontFamily: "var(--materio-space)", }}>${row.maxCap.toFixed(2)}</td>
+                      <td style={{ padding: '18px 24px', fontWeight: '600', fontFamily: "var(--materio-space)", }}>{row.expiry}</td>
                       <td style={{ padding: '18px 24px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <span style={{
@@ -242,7 +242,7 @@ export default function OfferMgmtPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No offer records found.</td>
+                    <td colSpan={7} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No offer records found.</td>
                   </tr>
                 )}
               </tbody>

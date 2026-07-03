@@ -325,7 +325,7 @@ export default function ReferralDashboard() {
                   <tr key={tx.id} className="border-t hover:bg-slate-50 transition-colors">
                     <td className="p-4 text-sm font-semibold text-slate-800">{tx.user}</td>
                     <td className="p-4 text-sm text-slate-600">{tx.campaign}</td>
-                    <td className="p-4 text-sm font-mono text-indigo-600 font-bold">{tx.code}</td>
+                    <td className="p-4 text-sm  text-indigo-600 font-bold">{tx.code}</td>
                     <td className="p-4">
                       <span
                         className={`px-2 py-1 rounded text-xs font-bold ${
@@ -456,7 +456,7 @@ export default function ReferralDashboard() {
                     <tr key={tx.id} className="border-t hover:bg-slate-50 transition-colors">
                       <td className="p-4 text-sm font-semibold text-slate-800">{tx.user}</td>
                       <td className="p-4 text-sm text-slate-600">{tx.campaign}</td>
-                      <td className="p-4 text-sm font-mono text-indigo-600 font-bold">{tx.code}</td>
+                      <td className="p-4 text-sm  text-indigo-600 font-bold">{tx.code}</td>
                       <td className="p-4">
                         <span
                           className={`px-2 py-1 rounded text-xs font-bold ${

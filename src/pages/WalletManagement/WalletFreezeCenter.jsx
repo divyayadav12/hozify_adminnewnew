@@ -38,7 +38,7 @@ export default function WalletFreezeCenter() {
       headerTitle="Risk Management"
       searchPlaceholder="Search fraud rules..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Navigation back */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -63,10 +63,10 @@ export default function WalletFreezeCenter() {
         </div>
 
         {/* Dynamic Grid Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* LEFT: Freeze/Unfreeze form */}
-          <div className="panel" style={{ padding: '24px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
             <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>
               Account Lock Configurations
             </h2>
@@ -166,7 +166,7 @@ export default function WalletFreezeCenter() {
           {/* RIGHT: Current risk meter & observations */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Selected Target Security Index
               </h3>
@@ -189,7 +189,7 @@ export default function WalletFreezeCenter() {
               </div>
             </div>
 
-            <div className="panel" style={{ padding: '24px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 12px' }}>Observations & Compliance</h3>
               <p style={{ fontSize: '12.5px', color: 'var(--muted)', margin: 0, lineHeight: 1.5 }}>
                 Locking a wallet suspends instant split payments and blocks manual or scheduled withdrawal batches. Release restrictions only after verifying identification documents or settling disputes.

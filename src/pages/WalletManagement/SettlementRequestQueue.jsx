@@ -57,7 +57,7 @@ export default function SettlementRequestQueue() {
       headerTitle="Financial Admin"
       searchPlaceholder="Search settlements..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
         
         {/* Title */}
         <div>
@@ -83,7 +83,7 @@ export default function SettlementRequestQueue() {
         </div>
 
         {/* Table Queue */}
-        <div className="panel" style={{ padding: '24px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
@@ -102,7 +102,7 @@ export default function SettlementRequestQueue() {
                   <tr key={req.id} style={{ borderBottom: '1px solid var(--lavender)' }}>
                     <td style={{ padding: '16px' }}>
                       <strong
-                        style={{ color: '#25108f', cursor: 'pointer', textDecoration: 'underline', textDecorationStyle: 'dotted', textUnderlineOffset: '3px' }}
+                        style={{ color: 'var(--primary)', cursor: 'pointer', textDecoration: 'underline', textDecorationStyle: 'dotted', textUnderlineOffset: '3px' }}
                         title="Click to view settlement details"
                         onClick={() => { setDetailItem(req); setShowDetail(true); }}
                       >
@@ -177,9 +177,9 @@ export default function SettlementRequestQueue() {
             justifyContent: 'center',
             zIndex: 9999
           }}>
-            <div className="panel" style={{ width: '450px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ width: '450px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Landmark size={20} style={{ color: '#25108f' }} />
+                <Landmark size={20} style={{ color: 'var(--primary)' }} />
                 <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '850', color: 'var(--text)' }}>
                   Confirm Settlement Payout: {actionType}
                 </h3>
@@ -210,7 +210,7 @@ export default function SettlementRequestQueue() {
                 </button>
                 <button
                   onClick={handleAction}
-                  style={{ height: '36px', padding: '0 16px', border: 'none', background: '#25108f', color: '#fff', borderRadius: '6px', fontSize: '12px', fontWeight: '750', cursor: 'pointer' }}
+                  style={{ height: '36px', padding: '0 16px', border: 'none', background: 'var(--primary)', color: '#fff', borderRadius: '6px', fontSize: '12px', fontWeight: '750', cursor: 'pointer' }}
                 >
                   Confirm Action
                 </button>
@@ -225,7 +225,7 @@ export default function SettlementRequestQueue() {
             <div className="panel" style={{ width: '500px', padding: '28px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <CreditCard size={20} style={{ color: '#25108f' }} />
+                  <CreditCard size={20} style={{ color: 'var(--primary)' }} />
                   <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: 'var(--text)' }}>Settlement Details</h3>
                 </div>
                 <button onClick={() => setShowDetail(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)', fontSize: '20px', lineHeight: 1 }}>&times;</button>
@@ -259,7 +259,7 @@ export default function SettlementRequestQueue() {
                 {(detailItem.status === 'Pending' || detailItem.status === 'Hold') && (
                   <button
                     onClick={() => { setShowDetail(false); handleOpenConfirm(detailItem, 'Approve'); }}
-                    style={{ height: '36px', padding: '0 20px', border: 'none', background: '#25108f', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                    style={{ height: '36px', padding: '0 20px', border: 'none', background: 'var(--primary)', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
                   >
                     Approve This Settlement
                   </button>

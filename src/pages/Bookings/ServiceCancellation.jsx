@@ -100,7 +100,7 @@ export default function ServiceCancellation() {
             <div className="panel" style={{ padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--line)', paddingBottom: '12px', marginBottom: '16px' }}>
                 <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Service Information</h2>
-                <strong style={{ fontSize: '14px', color: '#25108f' }}>BK-77202</strong>
+                <strong style={{ fontSize: '14px', color: 'var(--primary)' }}>BK-77202</strong>
               </div>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -163,7 +163,7 @@ export default function ServiceCancellation() {
                         type="radio"
                         checked={isActive}
                         readOnly
-                        style={{ position: 'absolute', right: '12px', top: '12px', accentColor: '#25108f' }}
+                        style={{ position: 'absolute', right: '12px', top: '12px', accentcolor: 'var(--primary)' }}
                       />
                       <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)', paddingRight: '20px' }}>{reason.title}</strong>
                       <span style={{ display: 'block', fontSize: '10px', color: 'var(--muted)', marginTop: '4px' }}>{reason.desc}</span>
@@ -195,7 +195,7 @@ export default function ServiceCancellation() {
 
                 {/* Event 1 */}
                 <div style={{ display: 'flex', gap: '16px', position: 'relative', zIndex: 2 }}>
-                  <div style={{ height: '34px', width: '34px', borderRadius: '50%', background: '#25108f', border: '4px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ height: '34px', width: '34px', borderRadius: '50%', background: 'var(--primary)', border: '4px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <span style={{ height: '8px', width: '8px', borderRadius: '50%', background: '#fff' }} />
                   </div>
                   <div style={{ flex: 1 }}>
@@ -247,7 +247,7 @@ export default function ServiceCancellation() {
               {/* Stat 1 */}
               <div className="panel" style={{ padding: '16px', borderLeft: '4px solid #3b82f6' }}>
                 <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Monthly Cancel Rate</span>
-                <strong style={{ display: 'block', fontSize: '18px', color: 'var(--text)', marginTop: '4px' }}>3.2% <span style={{ fontSize: '11px', color: '#07956f', fontWeight: 'normal' }}>(+0.4% MoM)</span></strong>
+                <strong style={{ display: 'block', fontSize: '18px', color: 'var(--text)', marginTop: '4px' }}>3.2% <span style={{ fontSize: '11px', color: 'var(--green)', fontWeight: 'normal' }}>(+0.4% MoM)</span></strong>
               </div>
               {/* Stat 2 */}
               <div className="panel" style={{ padding: '16px', borderLeft: '4px solid #000' }}>
@@ -280,18 +280,18 @@ export default function ServiceCancellation() {
                     <span>Cancellation Fee (15%)</span>
                     <Info size={12} style={{ color: 'var(--muted)', cursor: 'pointer' }} onClick={() => alert('Standard policy fee')} />
                   </div>
-                  <span style={{ color: '#d32929' }}>-$187.50</span>
+                  <span style={{ color: 'var(--red)' }}>-$187.50</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
                   <span>Administrative Fee</span>
-                  <span style={{ color: '#d32929' }}>-$25.00</span>
+                  <span style={{ color: 'var(--red)' }}>-$25.00</span>
                 </div>
               </div>
               
               <div>
                 <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Net Refund Amount</span>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
-                  <strong style={{ fontSize: '28px', fontWeight: '800', color: '#25108f' }}>$1,037.50</strong>
+                  <strong style={{ fontSize: '28px', fontWeight: '800', color: 'var(--primary)' }}>$1,037.50</strong>
                   <span style={{ fontSize: '9px', fontWeight: '900', background: '#eff6ff', color: '#1e40af', padding: '2px 6px', borderRadius: '4px' }}>
                     ESTIMATED
                   </span>
@@ -302,7 +302,7 @@ export default function ServiceCancellation() {
             {/* Cancellation Policy Enforcement Card */}
             <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                <Info size={16} style={{ color: '#25108f', marginTop: '2px', flexShrink: 0 }} />
+                <Info size={16} style={{ color: 'var(--primary)', marginTop: '2px', flexShrink: 0 }} />
                 <div>
                   <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)' }}>Cancellation Policy Enforcement</strong>
                   <p style={{ fontSize: '11px', color: 'var(--muted)', margin: '4px 0 0', lineHeight: '1.4' }}>
@@ -373,7 +373,7 @@ export default function ServiceCancellation() {
                   width: '100%',
                   height: '42px',
                   background: '#fff',
-                  color: '#d32929',
+                  color: 'var(--red)',
                   border: '1px solid #fca5a5',
                   borderRadius: '6px',
                   fontSize: '13px',

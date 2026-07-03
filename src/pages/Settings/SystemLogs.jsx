@@ -43,10 +43,10 @@ export default function SystemLogs() {
         </div>
 
         {/* Top Cards Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1.5fr', gap: '24px', marginBottom: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1.5fr', gap: 'var(--spacing-section)', marginBottom: '32px' }}>
           
           {/* Error Rate Card */}
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>ERROR RATE</span>
               <span style={{ fontSize: '12px', fontWeight: '800', color: '#dc2626' }}>+0.02%</span>
@@ -72,7 +72,7 @@ export default function SystemLogs() {
           </div>
 
           {/* Total Requests Card */}
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <span style={{ fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', width: '60px', lineHeight: '1.4' }}>TOTAL REQUESTS</span>
               <Zap size={16} color="#64748b" />
@@ -90,7 +90,7 @@ export default function SystemLogs() {
           </div>
 
           {/* Node Distribution Card */}
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
             <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '20px' }}>NODE DISTRIBUTION</span>
             <div style={{ display: 'flex', gap: '40px', flex: 1, alignItems: 'center' }}>
               <div>
@@ -134,13 +134,13 @@ export default function SystemLogs() {
                 <th style={{ padding: '12px 24px', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', textAlign: 'right' }}>LATENCY</th>
               </tr>
             </thead>
-            <tbody style={{ fontFamily: 'monospace', fontSize: '11px' }}>
+            <tbody style={{ fontFamily: "var(--materio-space)", fontSize: '11px' }}>
               
               {/* Row 1 */}
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:41.002</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#fee2e2', color: '#dc2626', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>CRITICAL</span>
+                  <span style={{ display: 'inline-block', background: '#fee2e2', color: '#dc2626', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>CRITICAL</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>Auth-Gateway</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>
@@ -153,7 +153,7 @@ export default function SystemLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:40.812</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#fef3c7', color: '#d97706', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>WARNING</span>
+                  <span style={{ display: 'inline-block', background: '#fef3c7', color: '#d97706', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>WARNING</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>Payment-Proxy</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>
@@ -166,7 +166,7 @@ export default function SystemLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:39.155</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>INFO</span>
+                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>INFO</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>Search-Indexer</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>
@@ -179,7 +179,7 @@ export default function SystemLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:38.991</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>INFO</span>
+                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>INFO</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>API-v2</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>
@@ -192,7 +192,7 @@ export default function SystemLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:37.402</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#fee2e2', color: '#dc2626', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>CRITICAL</span>
+                  <span style={{ display: 'inline-block', background: '#fee2e2', color: '#dc2626', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>CRITICAL</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>Node-Manager</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>
@@ -205,7 +205,7 @@ export default function SystemLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:36.002</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#fef3c7', color: '#d97706', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>WARNING</span>
+                  <span style={{ display: 'inline-block', background: '#fef3c7', color: '#d97706', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>WARNING</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>Job-Scheduler</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>
@@ -218,7 +218,7 @@ export default function SystemLogs() {
               <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:35.812</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>INFO</span>
+                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>INFO</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>CDN-Worker</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>
@@ -231,7 +231,7 @@ export default function SystemLogs() {
               <tr>
                 <td style={{ padding: '16px 24px', color: '#64748b' }}>2023-11-28<br/>14:23:34.155</td>
                 <td style={{ padding: '16px 24px' }}>
-                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px', fontFamily: 'sans-serif' }}>INFO</span>
+                  <span style={{ display: 'inline-block', background: '#e0f2fe', color: '#0284c7', fontSize: '9px', fontWeight: '800', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.5px',  }}>INFO</span>
                 </td>
                 <td style={{ padding: '16px 24px', color: '#0f172a', fontWeight: '700' }}>Invoicing-Svc</td>
                 <td style={{ padding: '16px 24px', color: '#334155', maxWidth: '400px', lineHeight: '1.5' }}>

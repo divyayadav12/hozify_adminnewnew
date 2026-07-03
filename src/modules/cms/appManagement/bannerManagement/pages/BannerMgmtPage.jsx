@@ -197,7 +197,7 @@ export default function BannerMgmtPage({ defaultTab }) {
 
   return (
     <AdminShell activeTab="CMS" headerTitle="Banner Control Center">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -277,7 +277,7 @@ export default function BannerMgmtPage({ defaultTab }) {
 
         {/* Tab Contents */}
         {activeTab === 'Upload Banner' ? (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '32px', textAlign: 'center' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-page)', textAlign: 'center' }}>
             <input 
               type="file"
               ref={fileInputRef}
@@ -319,8 +319,8 @@ export default function BannerMgmtPage({ defaultTab }) {
             </button>
           </div>
         ) : activeTab === 'Banner Preview' ? (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px' }}>
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 'var(--spacing-section)' }}>
+            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Select Banner to Preview</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '16px' }}>
                 {banners.map(b => (
@@ -375,7 +375,7 @@ export default function BannerMgmtPage({ defaultTab }) {
             </div>
           </div>
         ) : activeTab === 'Banner Scheduling' ? (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Banner Campaigns Publishing Schedules</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {banners.map(b => (
@@ -426,7 +426,7 @@ export default function BannerMgmtPage({ defaultTab }) {
                 <tbody>
                   {filteredBanners.map(row => (
                     <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                      <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                      <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                       <td style={{ padding: '18px 24px', fontWeight: '700', color: '#1e1b4b' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                           <img src={row.img} alt={row.name} style={{ width: '48px', height: '32px', borderRadius: '4px', objectFit: 'cover', border: '1px solid #cbd5e1' }} />
@@ -455,7 +455,7 @@ export default function BannerMgmtPage({ defaultTab }) {
                         </div>
                       </td>
                       <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.size}</td>
-                      <td style={{ padding: '18px 24px', fontWeight: '800', color: '#4f46e5', fontFamily: 'monospace' }}>{row.ctr}</td>
+                      <td style={{ padding: '18px 24px', fontWeight: '800', color: '#4f46e5', fontFamily: "var(--materio-space)", }}>{row.ctr}</td>
                       <td style={{ padding: '18px 24px', textAlign: 'right' }}>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
                           <button onClick={() => { setSelectedBanner(row); setIsEditOpen(true); }} style={{ border: 'none', background: '#f1f5f9', padding: '6px', borderRadius: '6px', cursor: 'pointer', color: '#334155' }} title="Edit"><Edit size={16} /></button>

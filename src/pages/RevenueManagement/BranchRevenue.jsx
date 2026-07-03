@@ -279,7 +279,7 @@ export default function BranchRevenue() {
                 {filteredBranchRows.length > 0 ? (
                   filteredBranchRows.map((row) => (
                     <tr key={row.id} className="hover:bg-slate-50/40 transition-colors">
-                      <td className="px-5 py-3.5 text-slate-400 text-[11px] font-mono font-bold">{row.id}</td>
+                      <td className="px-5 py-3.5 text-slate-400 text-[11px]  font-bold">{row.id}</td>
                       <td className="px-5 py-3.5 font-bold text-slate-900">{row.location}</td>
                       <td className="px-5 py-3.5 text-slate-500 font-medium">{row.manager}</td>
                       <td className="px-5 py-3.5 text-slate-900 font-bold">${row.revenue.toLocaleString()}</td>

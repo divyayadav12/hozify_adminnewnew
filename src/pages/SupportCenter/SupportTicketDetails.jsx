@@ -112,7 +112,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
       headerTitle="Ticket Detail"
       searchPlaceholder="Search within ticket audits, messages..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Back and Breadcrumb navigation */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
@@ -249,13 +249,13 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Content Layout Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Left Side: Tabs and Content */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', background: '#fff' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px', background: '#fff' }}>
             
             {/* Nav tabs */}
-            <div style={{ display: 'flex', borderBottom: '1.5px solid var(--lavender)', paddingBottom: '2px', gap: '24px' }}>
+            <div style={{ display: 'flex', borderBottom: '1.5px solid var(--lavender)', paddingBottom: '2px', gap: 'var(--spacing-section)' }}>
               {['Overview', 'Communications', 'SLA & Timeline', 'Resolution'].map((tName) => {
                 const isActive = activeSubTab === tName;
                 return (
@@ -287,7 +287,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
               
               {/* Overview content */}
               {activeSubTab === 'Overview' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
                   
                   {/* Issue Summary */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -546,10 +546,10 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
           </div>
 
           {/* Right Side Sidebar Details */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Customer card */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Customer Profile
               </h3>
@@ -614,7 +614,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
             </div>
 
             {/* Quick Actions Console */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Quick Actions
               </h3>
@@ -719,7 +719,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
             </div>
 
             {/* History Logs */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               <h3 style={{ fontSize: '14.5px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 History
               </h3>
@@ -732,7 +732,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                 <p style={{ fontSize: '11.5px', color: 'var(--muted)', margin: '4px 0 0', lineHeight: '1.3' }}>
                   Service delay at Central Branch.
                 </p>
-                <span style={{ fontSize: '10px', fontWeight: '850', color: '#07956f', display: 'block', marginTop: '4px' }}>
+                <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--green)', display: 'block', marginTop: '4px' }}>
                   Resolved
                 </span>
               </div>

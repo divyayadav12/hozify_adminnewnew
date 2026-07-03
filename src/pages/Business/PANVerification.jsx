@@ -245,7 +245,7 @@ export default function KycVerificationPage() {
       headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
       searchPlaceholder="Search entity, PAN, or partner..."
     >
-      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '90px' }}>
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '90px' }}>
         
         {/* Selection pills and top buttons bar */}
         <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
@@ -342,10 +342,10 @@ export default function KycVerificationPage() {
         </div>
 
         {/* 2-Column main content layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 'var(--spacing-section)', alignItems: 'start' }}>
           
           {/* Column 1: Document canvas visual (Left) */}
-          <div className="panel" style={{ background: '#0f172a', padding: '24px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
+          <div className="panel" style={{ background: '#0f172a', padding: 'var(--spacing-section)', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', minHeight: '560px', overflow: 'auto', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)' }}>
             
             {/* Scanned Document simulator mock */}
             <div style={{ 
@@ -354,7 +354,7 @@ export default function KycVerificationPage() {
               background: '#fff', 
               border: '1px solid #e2e8f0', 
               borderRadius: '8px', 
-              padding: '24px', 
+              padding: 'var(--spacing-section)', 
               position: 'relative', 
               boxShadow: '0 20px 25px -5px rgba(0,0,0,0.5)',
               transform: `scale(${zoomScale}) rotate(${rotationDegrees}deg)`,
@@ -387,7 +387,7 @@ export default function KycVerificationPage() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '8px', color: '#334155', flex: 1 }}>
                   <div>
                     <span style={{ fontSize: '6px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Permanent Account Number</span>
-                    <strong style={{ color: '#0f172a', fontFamily: 'monospace', fontSize: '9.5px' }}>{activePan}</strong>
+                    <strong style={{ color: '#0f172a', fontFamily: "var(--materio-space)", fontSize: '9.5px' }}>{activePan}</strong>
                   </div>
                   <div>
                     <span style={{ fontSize: '6px', color: '#94a3b8', display: 'block', textTransform: 'uppercase' }}>Name</span>
@@ -499,7 +499,7 @@ export default function KycVerificationPage() {
                 value={activeNotes}
                 onChange={(e) => setNotesState(prev => ({ ...prev, [selectedRecord.id]: e.target.value }))}
                 placeholder="Enter internal verification logs or notes..."
-                style={{ width: '100%', padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', background: '#f8fafc', fontFamily: 'inherit' }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', background: '#f8fafc',  }}
               />
             </div>
 
@@ -634,7 +634,7 @@ export default function KycVerificationPage() {
         {rejectionModalOpen && (
           <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'center', background: 'rgba(15,23,42,0.6)', backdropFilter: 'blur(2px)' }}>
             <div style={{ position: 'absolute', inset: 0 }} onClick={() => { setRejectionModalOpen(false); setRejectionReasonInput(''); }} />
-            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
+            <div style={{ position: 'relative', background: '#fff', width: '100%', maxWidth: '400px', margin: 'auto', borderRadius: '16px', padding: 'var(--spacing-section)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                 <div>
                   <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0 }}>Reject PAN Verification</h3>
@@ -653,7 +653,7 @@ export default function KycVerificationPage() {
                     value={rejectionReasonInput}
                     onChange={(e) => setRejectionReasonInput(e.target.value)}
                     placeholder="E.g., PAN image signature mismatch, name spelling mismatch in database, cropped photo..."
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none', fontFamily: 'inherit' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '12px', outline: 'none', resize: 'none',  }}
                   />
                 </div>
 

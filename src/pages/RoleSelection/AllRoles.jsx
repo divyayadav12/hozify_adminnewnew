@@ -334,7 +334,7 @@ export default function AllRoles() {
                         <tr key={mod.key} className="hover:bg-slate-50/40 transition-colors">
                           <td className="p-3">
                             <span className="font-bold text-slate-900 block">{mod.name}</span>
-                            <span className="text-[10px] text-slate-400 font-medium block font-sans mt-0.5 leading-tight">{mod.description}</span>
+                            <span className="text-[10px] text-slate-400 font-medium block  mt-0.5 leading-tight">{mod.description}</span>
                           </td>
                           
                           {/* Map actions inside cleanly driven input checklist arrays */}

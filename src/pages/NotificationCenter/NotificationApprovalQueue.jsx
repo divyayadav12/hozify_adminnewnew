@@ -138,7 +138,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
       headerTitle="Notification Approval Queue"
       searchPlaceholder="Search campaign reviews, logs, or authors..."
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '24px 0', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Page Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -204,7 +204,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
         {/* KPI Metrics Row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
           {/* Card 1: Pending */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Pending Approval
@@ -217,7 +217,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 {activeQueue.length + 21}
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#d32929', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--red)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 +12% vs last week
               </span>
@@ -225,7 +225,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
           </div>
 
           {/* Card 2: Total Approved */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Total Approved
@@ -238,7 +238,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 842
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingUp size={12} />
                 ↑ Increased Today
               </span>
@@ -246,7 +246,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
           </div>
 
           {/* Card 3: Rejected */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Rejected Campaigns
@@ -266,7 +266,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
           </div>
 
           {/* Card 4: Avg Review Time */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Avg Review Time
@@ -279,7 +279,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>
                 18m
               </strong>
-              <span style={{ fontSize: '12px', fontWeight: '750', color: '#07956f', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '750', color: 'var(--green)', display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '4px' }}>
                 <TrendingDown size={12} />
                 -4m from yesterday
               </span>
@@ -288,10 +288,10 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
         </div>
 
         {/* Content Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)', alignItems: 'stretch' }}>
           
           {/* Active Queue Section (Left Column) */}
-          <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 Active Queue: High-Priority Review
@@ -422,14 +422,14 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
           </div>
 
           {/* Right Side Panel */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Performance Drift Gauge */}
             <div style={{
               background: 'linear-gradient(135deg, #1e1b4b 0%, #0c0a3e 100%)',
               color: '#fff',
               borderRadius: '12px',
-              padding: '24px',
+              padding: 'var(--spacing-section)',
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
@@ -466,7 +466,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
             </div>
 
             {/* Reason Distribution Meter Charts */}
-            <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                 Reason Distribution (Rejections)
               </h3>
@@ -496,7 +496,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
         </div>
 
         {/* Audit Log Table Section */}
-        <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
               Audit Log: Historic Outcomes
@@ -624,7 +624,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
                     borderRadius: '6px',
                     padding: '10px 12px',
                     fontSize: '13px',
-                    fontFamily: 'inherit',
+                    
                     resize: 'vertical'
                   }}
                 />

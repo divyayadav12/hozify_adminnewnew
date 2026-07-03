@@ -17,7 +17,7 @@ export default function RevenueReportspage() {
 
   return (
     <AdminShell activeTab="Reports & Analytics">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased font-sans">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased ">
         
         {/* BREADCRUMB & HEADER SECTION */}
         <div className="mb-6">
@@ -241,7 +241,7 @@ export default function RevenueReportspage() {
           {/* Quarterly Projection Panel (3 columns block) */}
           <div className="bg-white border border-gray-200/70 rounded-xl p-6 shadow-sm lg:col-span-3 flex flex-col justify-between relative overflow-hidden">
             {/* Watermark brand mesh line simulation */}
-            <div className="absolute right-0 bottom-0 opacity-[0.03] text-[180px] font-black tracking-tighter select-none font-sans text-slate-900 pointer-events-none translate-x-10 translate-y-16">
+            <div className="absolute right-0 bottom-0 opacity-[0.03] text-[180px] font-black tracking-tighter select-none  text-slate-900 pointer-events-none translate-x-10 translate-y-16">
               M
             </div>
 

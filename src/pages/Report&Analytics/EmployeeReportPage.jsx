@@ -53,7 +53,7 @@ export default function EmployeeReportPage() {
 
   return (
     <AdminShell activeTab="Reports & Analytics">
-      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased font-sans">
+      <div className="w-full min-h-screen bg-[#f8fafd] p-8 text-slate-700 antialiased ">
         
         {/* TOP TITLE HEADER WITH TIME-PERIOD TABS & FILTERS */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">

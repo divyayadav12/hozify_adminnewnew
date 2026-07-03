@@ -34,7 +34,7 @@ export default function HelpSupportPage() {
 
   return (
     <AdminShell activeTab="Profile" headerTitle="Help &amp; Support Console">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px', maxWidth: '1100px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', maxWidth: '1100px', margin: '0 auto' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -89,10 +89,10 @@ export default function HelpSupportPage() {
         </div>
 
         {/* Content Section: FAQs & Raise Ticket */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* FAQ Accordion */}
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <HelpCircle size={18} /> Frequently Asked Questions
             </h3>
@@ -120,7 +120,7 @@ export default function HelpSupportPage() {
           </div>
 
           {/* Ticket Registration */}
-          <form onSubmit={handleRaiseTicket} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <form onSubmit={handleRaiseTicket} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Ticket size={18} /> Raise Operations Support Ticket
             </h3>
@@ -144,7 +144,7 @@ export default function HelpSupportPage() {
                 placeholder="Provide a detailed description of the error or request..."
                 value={ticketDescription}
                 onChange={(e) => setTicketDescription(e.target.value)}
-                style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', fontFamily: 'inherit', resize: 'vertical' }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px',  resize: 'vertical' }}
                 required
               />
             </div>

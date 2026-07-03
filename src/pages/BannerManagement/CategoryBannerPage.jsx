@@ -20,7 +20,7 @@ function CategoryTableRow({ name, id, status, impressions, ctr, trendUp }) {
           <span>{name}</span>
         </div>
       </td>
-      <td className="py-4 px-4 font-mono text-slate-400 text-[11px]">{id}</td>
+      <td className="py-4 px-4  text-slate-400 text-[11px]">{id}</td>
       <td className="py-4 px-4">
         <span className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wide ${
           status === "ACTIVE" ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-500"
@@ -62,7 +62,7 @@ export default function CategoryBannersPage() {
 
   return (
     <AdminShell activeTab="Banners" searchPlaceholder="Search campaigns or users...">
-      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto font-sans antialiased">
+      <div className="p-8 bg-slate-50 min-h-screen space-y-6 max-w-[1400px] w-full mx-auto  antialiased">
         
         {/* HEADER SECTION WITH TOP BLUE BANNER ACTION BUTTON */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-2">

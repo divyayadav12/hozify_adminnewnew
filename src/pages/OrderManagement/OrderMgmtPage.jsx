@@ -97,7 +97,7 @@ export default function OrderMgmtPage() {
 
   return (
     <AdminShell activeTab="Orders" headerTitle="Material Order Logistics">
-      <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
@@ -204,12 +204,12 @@ export default function OrderMgmtPage() {
               {filteredOrders.length > 0 ? (
                 filteredOrders.map(row => (
                   <tr key={row.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace', color: '#4f46e5' }}>{row.id}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", color: '#4f46e5' }}>{row.id}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.date}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '700' }}>{row.client}</td>
                     <td style={{ padding: '18px 24px', fontWeight: '600' }}>{row.items}</td>
                     <td style={{ padding: '18px 24px', color: 'var(--muted)' }}>{row.seller}</td>
-                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: 'monospace' }}>${row.total.toFixed(2)}</td>
+                    <td style={{ padding: '18px 24px', fontWeight: '700', fontFamily: "var(--materio-space)", }}>${row.total.toFixed(2)}</td>
                     <td style={{ padding: '18px 24px' }}>
                       <span style={{
                         padding: '4px 8px',
@@ -242,7 +242,7 @@ export default function OrderMgmtPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No orders matching filters found.</td>
+                  <td colSpan={8} style={{ padding: 'var(--spacing-page)', textAlign: 'center', color: '#64748b' }}>No orders matching filters found.</td>
                 </tr>
               )}
             </tbody>
