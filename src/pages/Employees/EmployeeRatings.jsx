@@ -34,7 +34,7 @@ export default function EmployeeRatings() {
         <div 
           onClick={() => addToast("Card clicked: Average Rating details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -55,7 +55,7 @@ export default function EmployeeRatings() {
         <div 
           onClick={() => addToast("Card clicked: Total Reviews count metrics", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -72,7 +72,7 @@ export default function EmployeeRatings() {
         <div 
           onClick={() => addToast("Card clicked: Positive Reviews breakdown", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -89,7 +89,7 @@ export default function EmployeeRatings() {
         <div 
           onClick={() => addToast("Card clicked: Negative Reviews breakdown", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -109,11 +109,11 @@ export default function EmployeeRatings() {
         {/* Left Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Employee Ratings</h3>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1px solid var(--line)', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
+                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
                   <Search size={14} style={{ marginLeft: '12px', color: 'var(--muted)' }} />
                   <input
                     placeholder="Search employees..."
@@ -124,7 +124,7 @@ export default function EmployeeRatings() {
                 </div>
                 <button 
                   onClick={() => addToast("Ratings filter panel loaded", "success")}
-                  style={{ height: '34px', padding: '0 12px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
+                  style={{ height: '34px', padding: '0 12px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
                 >
                   <ListFilter size={14} /> Filter
                 </button>
@@ -134,7 +134,7 @@ export default function EmployeeRatings() {
             <div className="table-wrap" style={{ overflowX: 'auto' }}>
               <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee Name</th>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Branch</th>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Rating</th>
@@ -186,7 +186,7 @@ export default function EmployeeRatings() {
         {/* Right Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '1' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <TrendingUp size={18} style={{ color: '#4f46e5' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Top Rated Employees</h3>
@@ -197,7 +197,7 @@ export default function EmployeeRatings() {
                 <div 
                   key={i} 
                   onClick={() => addToast(`Viewing top-rated rating card for ${emp.name}`, "success")}
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid var(--line)', cursor: 'pointer' }}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', borderRadius: '8px', background: '#f8fafc', border: '1.5px solid #25108f', cursor: 'pointer' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ width: '32px', height: '32px', borderRadius: '16px', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4f46e5' }}>
@@ -217,7 +217,7 @@ export default function EmployeeRatings() {
             </div>
           </div>
 
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <Star size={18} style={{ color: '#f59e0b' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Rating Distribution</h3>
@@ -251,3 +251,5 @@ export default function EmployeeRatings() {
     </div>
   );
 }
+
+

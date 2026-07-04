@@ -31,7 +31,7 @@ export default function ComparisonHub() {
         alignItems: 'center',
         flexWrap: 'wrap',
         gap: '16px',
-        borderBottom: '1px solid var(--line)',
+        borderBottom: '1.5px solid #25108f',
         paddingBottom: '20px'
       }}>
         <div>
@@ -48,7 +48,7 @@ export default function ComparisonHub() {
               gap: '6px',
               padding: '8px 16px',
               borderRadius: '6px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               background: 'white',
               color: 'var(--text)',
               fontWeight: '600',
@@ -99,7 +99,7 @@ export default function ComparisonHub() {
             style={{
               background: 'white',
               borderRadius: '12px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               padding: '20px',
               display: 'flex',
               flexDirection: 'column',
@@ -139,12 +139,12 @@ export default function ComparisonHub() {
       <div className="panel" style={{
         background: 'white',
         borderRadius: '12px',
-        border: '1px solid var(--line)',
+        border: '1.5px solid #25108f',
         overflow: 'hidden'
       }}>
         <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
           <thead>
-            <tr style={{ borderBottom: '1px solid var(--line)' }}>
+            <tr style={{ borderBottom: '1.5px solid #25108f' }}>
               <th style={{
                 padding: '24px 20px',
                 textAlign: 'left',
@@ -348,7 +348,7 @@ export default function ComparisonHub() {
         <div className="panel" style={{
           background: 'white',
           borderRadius: '12px',
-          border: '1px solid var(--line)',
+          border: '1.5px solid #25108f',
           padding: '20px',
           display: 'flex',
           flexDirection: 'column'
@@ -488,3 +488,5 @@ export default function ComparisonHub() {
     </div>
   );
 }
+
+

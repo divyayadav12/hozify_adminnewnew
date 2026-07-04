@@ -307,7 +307,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       borderRadius: '8px',
                       padding: '12px 16px',
                       background: '#fff'
@@ -332,7 +332,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       borderRadius: '8px',
                       padding: '12px 16px',
                       background: '#fff'
@@ -455,7 +455,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
 
                   {/* Input controls */}
                   <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid var(--lavender)', paddingTop: '12px' }}>
-                    <button style={{ height: '36px', width: '36px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyCenter: 'center', cursor: 'pointer', color: 'var(--muted)' }} aria-label="Attach file">
+                    <button style={{ height: '36px', width: '36px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyCenter: 'center', cursor: 'pointer', color: 'var(--muted)' }} aria-label="Attach file">
                       <Paperclip size={16} style={{ margin: 'auto' }} />
                     </button>
                     <input
@@ -463,7 +463,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                       value={inputText}
                       onChange={(e) => setInputText(e.target.value)}
                       onKeyDown={(e) => { if (e.key === 'Enter') handleSendMessage(); }}
-                      style={{ flex: 1, border: '1px solid var(--line)', padding: '0 12px', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
+                      style={{ flex: 1, border: '1.5px solid #25108f', padding: '0 12px', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
                     />
                     <button
                       onClick={handleSendMessage}
@@ -524,7 +524,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                       <textarea
                         placeholder="Detail the cause and structural fix of this issue..."
                         rows={4}
-                        style={{ width: '100%', border: '1px solid var(--line)', padding: '10px', borderRadius: '6px', fontSize: '13px', resize: 'vertical' }}
+                        style={{ width: '100%', border: '1.5px solid #25108f', padding: '10px', borderRadius: '6px', fontSize: '13px', resize: 'vertical' }}
                       />
                     </div>
 
@@ -598,7 +598,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                 style={{
                   width: '100%',
                   height: '35px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   borderRadius: '6px',
                   fontSize: '12.5px',
@@ -630,7 +630,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                     width: '100%',
                     padding: '10px 14px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     textAlign: 'left',
                     cursor: 'pointer'
@@ -654,7 +654,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                     width: '100%',
                     padding: '10px 14px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     textAlign: 'left',
                     cursor: 'pointer'
@@ -678,7 +678,7 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
                     width: '100%',
                     padding: '10px 14px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     textAlign: 'left',
                     cursor: 'pointer'
@@ -746,3 +746,5 @@ export default function SupportTicketDetails({ activeTab = 'Support Center' }) {
     </AdminShell>
   );
 }
+
+

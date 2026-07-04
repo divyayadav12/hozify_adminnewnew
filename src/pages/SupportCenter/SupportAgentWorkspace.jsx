@@ -71,7 +71,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
         </div>
 
         {/* Workspace Title & Availability Toggle */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
           <div>
             <h1 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Welcome back, Alex.
@@ -87,7 +87,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
             alignItems: 'center',
             gap: '16px',
             background: '#fff',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             padding: '10px 16px',
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
@@ -286,7 +286,7 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
                               height: '26px',
                               padding: '0 10px',
                               borderRadius: '4px',
-                              border: '1px solid var(--line)',
+                              border: '1.5px solid #25108f',
                               background: '#fff',
                               color: 'var(--text)',
                               fontSize: '11px',
@@ -345,13 +345,13 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
                     style={{
                       padding: '14px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: 'var(--soft)',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease'
                     }}
                     onMouseOver={(e) => e.currentTarget.style.border = '1.5px solid var(--primary)'}
-                    onMouseOut={(e) => e.currentTarget.style.border = '1px solid var(--line)'}
+                    onMouseOut={(e) => e.currentTarget.style.border = '1.5px solid #25108f'}
                   >
                     <strong style={{ display: 'block', fontSize: '12.5px', color: 'var(--text)' }}>
                       {tpl.title}
@@ -514,3 +514,5 @@ export default function SupportAgentWorkspace({ activeTab = 'Support Center' }) 
     </AdminShell>
   );
 }
+
+

@@ -108,7 +108,7 @@ export default function CommissionManagement() {
 
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Total Commission Generated</span>
@@ -121,7 +121,7 @@ export default function CommissionManagement() {
           </div>
         </div>
 
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Platform Commission</span>
@@ -134,7 +134,7 @@ export default function CommissionManagement() {
           </div>
         </div>
 
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Branch Commission</span>
@@ -147,7 +147,7 @@ export default function CommissionManagement() {
           </div>
         </div>
 
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Partner Commission</span>
@@ -167,7 +167,7 @@ export default function CommissionManagement() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Commission Rules Table without Searchbar */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Commission Rules</h3>
             </div>
@@ -176,7 +176,7 @@ export default function CommissionManagement() {
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
                 <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                    <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Rule Name</th>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Type</th>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Percentage</th>
@@ -207,12 +207,12 @@ export default function CommissionManagement() {
           </div>
 
           {/* Commission Analytics */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>Commission Trends & Top Services</h3>
             <div style={{ display: 'flex', gap: 'var(--spacing-section)', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '12px', display: 'block' }}>COMMISSION GENERATION (LAST 6 MONTHS)</span>
-                <div style={{ height: '160px', display: 'flex', alignItems: 'flex-end', gap: '8px', borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
+                <div style={{ height: '160px', display: 'flex', alignItems: 'flex-end', gap: '8px', borderBottom: '1.5px solid #25108f', paddingBottom: '8px' }}>
                   {[30, 45, 42, 60, 85, 75].map((h, i) => (
                     <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '2px', height: '100%' }}>
                       <div style={{ width: '100%', height: `${h}%`, background: '#8b5cf6', borderRadius: '4px 4px 0 0', opacity: 0.8 }} />
@@ -230,7 +230,7 @@ export default function CommissionManagement() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Commission Distribution */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <PieChart size={18} style={{ color: 'var(--text)' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Commission Distribution</h3>
@@ -268,12 +268,12 @@ export default function CommissionManagement() {
           </div>
 
           {/* Settlement Tracking Widget */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Settlement Tracking</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {visibleSettlements.map((settle, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid var(--line)' }}>
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', borderRadius: '8px', background: '#f8fafc', border: '1.5px solid #25108f' }}>
                   <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                     <div style={{ color: settle.status === 'COMPLETED' ? '#10b981' : settle.status === 'FAILED' ? '#ef4444' : '#f59e0b' }}>
                       {settle.status === 'COMPLETED' ? <CheckCircle2 size={18} /> : settle.status === 'FAILED' ? <AlertCircle size={18} /> : <Clock size={18} />}
@@ -359,3 +359,5 @@ export default function CommissionManagement() {
     </div>
   );
 }
+
+

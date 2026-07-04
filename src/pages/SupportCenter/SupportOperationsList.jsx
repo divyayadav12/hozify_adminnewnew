@@ -282,7 +282,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
                 height: '38px',
                 padding: '0 16px',
                 borderRadius: '6px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontWeight: '700',
@@ -327,7 +327,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
           {/* Date Range */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)' }}>Date Range</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '8px 12px', borderRadius: '6px', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '8px 12px', borderRadius: '6px', background: '#fff' }}>
               <Calendar size={14} style={{ color: 'var(--muted)' }} />
               <input
                 type="text"
@@ -345,7 +345,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
             <select
               value={selectedPriority}
               onChange={(e) => setSelectedPriority(e.target.value)}
-              style={{ border: '1px solid var(--line)', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
+              style={{ border: '1.5px solid #25108f', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
               aria-label="Filter Priority"
             >
               <option value="All">All Priorities</option>
@@ -362,7 +362,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              style={{ border: '1px solid var(--line)', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
+              style={{ border: '1.5px solid #25108f', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
               aria-label="Filter Category"
             >
               <option value="All">All Categories</option>
@@ -379,7 +379,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
               <select
                 value={selectedAgent}
                 onChange={(e) => setSelectedAgent(e.target.value)}
-                style={{ border: '1px solid var(--line)', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
+                style={{ border: '1.5px solid #25108f', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
                 aria-label="Filter Agent"
               >
                 <option value="All">All Agents</option>
@@ -394,7 +394,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
                   height: '35px',
                   width: '35px',
                   borderRadius: '6px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#f4eff8',
                   display: 'flex',
                   alignItems: 'center',
@@ -417,7 +417,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13.5px', textAlign: 'left', minWidth: '850px' }}>
               <thead>
-                <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '16px 20px', width: '40px' }}>
                     <input type="checkbox" aria-label="Select all tickets" />
                   </th>
@@ -591,7 +591,7 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
                             right: '30px',
                             top: '40px',
                             background: '#fff',
-                            border: '1px solid var(--line)',
+                            border: '1.5px solid #25108f',
                             borderRadius: '6px',
                             boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
                             zIndex: 10,
@@ -649,25 +649,25 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
             </span>
 
             <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1px solid var(--line)', background: '#fff', display: 'flex', alignItems: 'center', justifyCenter: 'center', cursor: 'pointer', color: 'var(--muted)' }} disabled aria-label="Previous page">
+              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', alignItems: 'center', justifyCenter: 'center', cursor: 'pointer', color: 'var(--muted)' }} disabled aria-label="Previous page">
                 <ChevronLeft size={14} style={{ margin: 'auto' }} />
               </button>
               
               <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: 'none', background: 'var(--primary)', color: '#fff', fontSize: '12.5px', fontWeight: '800', cursor: 'pointer' }}>
                 1
               </button>
-              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1px solid var(--line)', background: '#fff', color: 'var(--muted)', fontSize: '12.5px', fontWeight: '750', cursor: 'pointer' }}>
+              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--muted)', fontSize: '12.5px', fontWeight: '750', cursor: 'pointer' }}>
                 2
               </button>
-              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1px solid var(--line)', background: '#fff', color: 'var(--muted)', fontSize: '12.5px', fontWeight: '750', cursor: 'pointer' }}>
+              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--muted)', fontSize: '12.5px', fontWeight: '750', cursor: 'pointer' }}>
                 3
               </button>
               <span style={{ fontSize: '12.5px', color: 'var(--muted)', padding: '0 4px' }}>...</span>
-              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1px solid var(--line)', background: '#fff', color: 'var(--muted)', fontSize: '12.5px', fontWeight: '750', cursor: 'pointer' }}>
+              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--muted)', fontSize: '12.5px', fontWeight: '750', cursor: 'pointer' }}>
                 124
               </button>
 
-              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1px solid var(--line)', background: '#fff', display: 'flex', alignItems: 'center', justifyCenter: 'center', cursor: 'pointer', color: 'var(--muted)' }} aria-label="Next page">
+              <button style={{ height: '28px', width: '28px', borderRadius: '4px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', alignItems: 'center', justifyCenter: 'center', cursor: 'pointer', color: 'var(--muted)' }} aria-label="Next page">
                 <ChevronRight size={14} style={{ margin: 'auto' }} />
               </button>
             </div>
@@ -678,3 +678,5 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
     </AdminShell>
   );
 }
+
+

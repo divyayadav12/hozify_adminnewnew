@@ -90,7 +90,7 @@ export default function MaintenanceModePage() {
           className="panel" 
           style={{ 
             background: maintenanceActive ? '#fffbeb' : '#fff', 
-            border: maintenanceActive ? '1px solid #f59e0b' : '1px solid var(--line)', 
+            border: maintenanceActive ? '1px solid #f59e0b' : '1.5px solid #25108f', 
             borderRadius: '12px', 
             padding: 'var(--spacing-section)',
             display: 'flex',
@@ -139,8 +139,8 @@ export default function MaintenanceModePage() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Settings Column */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1px solid var(--line)', paddingBottom: '12px', margin: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1.5px solid #25108f', paddingBottom: '12px', margin: 0 }}>
               Downtime Rules & parameters
             </h3>
 
@@ -155,7 +155,7 @@ export default function MaintenanceModePage() {
                     style={{
                       flex: 1,
                       padding: '12px',
-                      border: targetApps === app ? '2px solid #25108f' : '1px solid var(--line)',
+                      border: targetApps === app ? '2px solid #25108f' : '1.5px solid #25108f',
                       background: targetApps === app ? '#eee9f6' : '#fff',
                       color: targetApps === app ? '#25108f' : 'var(--text)',
                       fontWeight: '700',
@@ -178,7 +178,7 @@ export default function MaintenanceModePage() {
                   rows={4}
                   value={downtimeMessage}
                   onChange={(e) => setDowntimeMessage(e.target.value)}
-                  style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', paddingBottom: '50px', fontSize: '13px', outline: 'none', resize: 'none', lineHeight: '1.5' }}
+                  style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', paddingBottom: '50px', fontSize: '13px', outline: 'none', resize: 'none', lineHeight: '1.5' }}
                 />
                 <button
                   onClick={handleSendMessage}
@@ -213,7 +213,7 @@ export default function MaintenanceModePage() {
                 type="text"
                 value={whitelistIps}
                 onChange={(e) => setWhitelistIps(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
               />
               <small style={{ color: 'var(--muted)', display: 'block', marginTop: '6px', fontSize: '11px' }}>
                 API calls matching these origin IPs will bypass the maintenance check and run normally.
@@ -232,7 +232,7 @@ export default function MaintenanceModePage() {
           </div>
 
           {/* Guidelines Sidebar */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', height: 'fit-content' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', height: 'fit-content' }}>
             <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '16px', margin: 0 }}>
               Deployment Guidelines
             </h3>
@@ -282,7 +282,7 @@ export default function MaintenanceModePage() {
                   style={{
                     height: '46px',
                     width: '100%',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     textAlign: 'center',
                     fontSize: '20px',
@@ -297,7 +297,7 @@ export default function MaintenanceModePage() {
             <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
               <button 
                 onClick={() => { setShow2Fa(false); setOtpCode(['', '', '', '', '', '']); }}
-                style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '10px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
               >
                 Cancel
               </button>
@@ -316,3 +316,4 @@ export default function MaintenanceModePage() {
     </AdminShell>
   );
 }
+

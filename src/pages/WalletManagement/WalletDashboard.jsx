@@ -72,7 +72,7 @@ export default function WalletDashboard() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '12px',
@@ -181,7 +181,7 @@ export default function WalletDashboard() {
               </div>
 
               {/* Responsive SVG Growth Curve */}
-              <div style={{ height: '180px', position: 'relative', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'flex-end' }}>
+              <div style={{ height: '180px', position: 'relative', borderBottom: '1.5px solid #25108f', display: 'flex', alignItems: 'flex-end' }}>
                 <svg width="100%" height="100%" viewBox="0 0 500 150" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
                   {/* Wavy path */}
                   <path d="M 0 120 C 80 110, 150 130, 220 90 C 300 40, 380 100, 440 60 C 470 40, 500 20, 500 10" fill="none" stroke="#25108f" strokeWidth="2.5" strokeLinecap="round" />
@@ -232,7 +232,7 @@ export default function WalletDashboard() {
               <div className="table-wrap">
                 <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left' }}>
                   <thead>
-                    <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                    <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Timestamp</th>
                       <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Reference ID</th>
                       <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Counterparty</th>
@@ -290,7 +290,7 @@ export default function WalletDashboard() {
               </h2>
               
               {/* Double-bar chart mockup */}
-              <div style={{ height: '120px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', position: 'relative', borderBottom: '1px solid var(--line)', paddingBottom: '6px' }}>
+              <div style={{ height: '120px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', position: 'relative', borderBottom: '1.5px solid #25108f', paddingBottom: '6px' }}>
                 <div style={{ display: 'flex', gap: '3px', alignItems: 'flex-end' }}>
                   <div style={{ width: '16px', height: '80px', background: 'var(--primary)', borderRadius: '2px 2px 0 0' }} />
                   <div style={{ width: '16px', height: '40px', background: '#d32929', borderRadius: '2px 2px 0 0' }} />
@@ -380,7 +380,7 @@ export default function WalletDashboard() {
                 onClick={() => navigate(ROUTES.walletRefunds)}
                 style={{
                   width: '100%',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   color: 'var(--text)',
                   fontSize: '12px',
@@ -402,3 +402,5 @@ export default function WalletDashboard() {
     </AdminShell>
   );
 }
+
+

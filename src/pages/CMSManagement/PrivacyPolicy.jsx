@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
 
   const RightCard = ({ title, desc, checked, onChange }) => (
     <div style={{ 
-      border: '1px solid var(--line)', borderRadius: '8px', padding: '16px', 
+      border: '1.5px solid #25108f', borderRadius: '8px', padding: '16px', 
       background: '#f8fafc', display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -328,3 +328,5 @@ export default function PrivacyPolicy() {
     </AdminShell>
   );
 }
+
+

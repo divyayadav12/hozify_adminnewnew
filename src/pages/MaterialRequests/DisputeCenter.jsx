@@ -262,7 +262,7 @@ export default function DisputeCenter() {
                   onClick={() => setSelectedDisputeId(d.id)}
                   style={{
                     background: '#ffffff',
-                    border: isSelected ? '2px solid #25108f' : '1px solid var(--line)',
+                    border: isSelected ? '2px solid #25108f' : '1.5px solid #25108f',
                     borderRadius: '12px',
                     padding: '20px',
                     cursor: 'pointer',
@@ -296,10 +296,10 @@ export default function DisputeCenter() {
           </div>
 
           {/* Right: Detailed Dispute thread */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             
             {/* Thread Header */}
-            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
@@ -324,7 +324,7 @@ export default function DisputeCenter() {
             </div>
 
             {/* SLA / Value stats */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', padding: '20px 24px', background: '#f8fafc', borderBottom: '1px solid var(--line)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', padding: '20px 24px', background: '#f8fafc', borderBottom: '1.5px solid #25108f' }}>
               
               <div>
                 <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Issue Type</span>
@@ -430,7 +430,7 @@ export default function DisputeCenter() {
             </div>
 
             {/* Input message footer */}
-            <div style={{ padding: '16px 24px', borderTop: '1px solid var(--line)', background: '#f8fafc', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ padding: '16px 24px', borderTop: '1.5px solid #25108f', background: '#f8fafc', display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <textarea
                 placeholder="Type a message or proposed resolution..."
                 value={typedMessage}
@@ -499,3 +499,5 @@ export default function DisputeCenter() {
     </AdminShell>
   );
 }
+
+

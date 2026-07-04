@@ -52,12 +52,12 @@ export default function ManagerAssignment() {
           </div>
 
           <div style={{ display: 'flex', gap: '16px' }}>
-            <div className="kpi-card" style={{ padding: '10px 16px', minWidth: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+            <div className="kpi-card" style={{ padding: '10px 16px', minWidth: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
               <span style={{ fontSize: '8px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Available Managers</span>
               <strong style={{ display: 'block', fontSize: '18px', color: 'var(--text)' }}>124 <span style={{ fontSize: '11px', color: '#10b981', fontWeight: '700' }}>↗ +8%</span></strong>
             </div>
 
-            <div className="kpi-card" style={{ padding: '10px 16px', minWidth: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+            <div className="kpi-card" style={{ padding: '10px 16px', minWidth: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
               <span style={{ fontSize: '8px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Efficiency Index</span>
               <strong style={{ display: 'block', fontSize: '18px', color: 'var(--text)' }}>94.2 <span style={{ fontSize: '10px', color: 'var(--primary)', fontWeight: '800' }}>Top Tier</span></strong>
             </div>
@@ -84,7 +84,7 @@ export default function ManagerAssignment() {
                     id="experience-select"
                     value={experience}
                     onChange={(e) => setExperience(e.target.value)}
-                    style={{ height: '36px', border: '1px solid var(--line)', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
+                    style={{ height: '36px', border: '1.5px solid #25108f', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
                   >
                     <option value="All Experience Levels">All Experience Levels</option>
                     <option value="Senior">10+ Years (Senior)</option>
@@ -198,7 +198,7 @@ export default function ManagerAssignment() {
                             ) : c.loadVal === 4 ? (
                               <button
                                 onClick={() => handleAction(c.id, 'Replace')}
-                                style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }}
+                                style={{ border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }}
                               >
                                 Replace
                               </button>
@@ -222,7 +222,7 @@ export default function ManagerAssignment() {
               </div>
 
               {/* Table Footer */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '13px', borderTop: '1px solid var(--line)', paddingTop: '14px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '13px', borderTop: '1.5px solid #25108f', paddingTop: '14px' }}>
                 <span style={{ color: 'var(--muted)' }}>Showing 4 of 124 potential candidates</span>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', fontWeight: '700' }}>
                   <button disabled style={{ cursor: 'pointer',  border: 'none', background: 'transparent', color: '#cbd5e1', cursor: 'not-allowed' }} onClick={() => addToast('Action performed successfully.', 'success')}>&lt;</button>
@@ -275,3 +275,5 @@ export default function ManagerAssignment() {
     </AdminShell>
   );
 }
+
+

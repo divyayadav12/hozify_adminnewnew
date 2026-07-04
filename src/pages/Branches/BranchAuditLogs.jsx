@@ -274,7 +274,7 @@ export default function BranchAuditLogs() {
             </h2>
             <div style={{ display: 'flex', gap: '16px', flex: 1 }}>
               {/* Mock Bar Chart */}
-              <div style={{ flex: 2, display: 'flex', alignItems: 'flex-end', gap: '12px', height: '180px', borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
+              <div style={{ flex: 2, display: 'flex', alignItems: 'flex-end', gap: '12px', height: '180px', borderBottom: '1.5px solid #25108f', paddingBottom: '8px' }}>
                 <div style={{ flex: 1, height: '40%', background: '#e0e7ff' }} className="analytics-bar"></div>
                 <div style={{ flex: 1, height: '70%', background: '#c7d2fe' }} className="analytics-bar"></div>
                 <div style={{ flex: 1, height: '50%', background: '#a5b4fc' }} className="analytics-bar"></div>
@@ -285,7 +285,7 @@ export default function BranchAuditLogs() {
               </div>
               
               {/* Mock Donut Data */}
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '12px', paddingLeft: '16px', borderLeft: '1px solid var(--line)' }}>
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '12px', paddingLeft: '16px', borderLeft: '1.5px solid #25108f' }}>
                 <div>
                   <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '700', textTransform: 'uppercase' }}>Auth Logs</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
@@ -365,7 +365,7 @@ export default function BranchAuditLogs() {
               <select 
                 value={severityFilter}
                 onChange={(e) => setSeverityFilter(e.target.value)}
-                style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
+                style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
               >
                 <option value="">All Severities</option>
                 <option value="CRITICAL">Critical</option>
@@ -377,7 +377,7 @@ export default function BranchAuditLogs() {
               <select 
                 value={moduleFilter}
                 onChange={(e) => setModuleFilter(e.target.value)}
-                style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
+                style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
               >
                 <option value="">All Modules</option>
                 <option value="Auth">Auth</option>
@@ -460,15 +460,15 @@ export default function BranchAuditLogs() {
           <div className="directory-table-footer" style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>Showing {filteredLogs.length} of 124,500 logs</span>
             <div className="pagination-wrap" style={{ display: 'flex', gap: '4px' }}>
-              <button className="pag-nav-btn" type="button" disabled style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--muted)', cursor: 'not-allowed' }}>
+              <button className="pag-nav-btn" type="button" disabled style={{ padding: '6px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', color: 'var(--muted)', cursor: 'not-allowed' }}>
                 <ChevronLeft size={14} />
               </button>
               <button style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
-              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>2</button>
-              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>3</button>
+              <button style={{ padding: '6px 12px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>2</button>
+              <button style={{ padding: '6px 12px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>3</button>
               <span style={{ padding: '6px 4px', color: 'var(--muted)' }}>...</span>
-              <button style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>100</button>
-              <button className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
+              <button style={{ padding: '6px 12px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>100</button>
+              <button className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <ChevronRight size={14} />
               </button>
             </div>
@@ -479,3 +479,4 @@ export default function BranchAuditLogs() {
     </AdminShell>
   );
 }
+

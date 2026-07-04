@@ -99,7 +99,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
           {/* Quick Filters */}
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
             {/* Calendar Selector */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
               <Calendar size={14} style={{ color: 'var(--muted)' }} />
               <select
                 value={selectedRange}
@@ -114,7 +114,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
             </div>
 
             {/* City Dropdown Filter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
               <MapPin size={14} style={{ color: 'var(--muted)' }} />
               <select
                 value={selectedCity}
@@ -136,7 +136,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center',
-                border: filterAttentionOnly ? '1px solid #d32929' : '1px solid var(--line)', 
+                border: filterAttentionOnly ? '1px solid #d32929' : '1.5px solid #25108f', 
                 background: filterAttentionOnly ? '#fee2e2' : '#fff', 
                 padding: '8px 12px', 
                 borderRadius: '6px', 
@@ -186,7 +186,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
               </div>
             </div>
 
-            <div style={{ height: '220px', position: 'relative', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'flex-end', marginTop: '20px' }}>
+            <div style={{ height: '220px', position: 'relative', borderBottom: '1.5px solid #25108f', display: 'flex', alignItems: 'flex-end', marginTop: '20px' }}>
               <svg width="100%" height="100%" viewBox="0 0 500 150" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
                 <path d={`M 0 ${140 - (30 * m)} C 80 ${130 - (10 * m)}, 150 ${110 - (20 * m)}, 250 ${90 - (10 * m)} C 350 ${80 - (10 * m)}, 420 30, 500 15`} fill="none" stroke="#25108f" strokeWidth="3" strokeLinecap="round" />
                 <path d={`M 0 ${140 - (30 * m)} C 80 ${130 - (10 * m)}, 150 ${110 - (20 * m)}, 250 ${90 - (10 * m)} C 350 ${80 - (10 * m)}, 420 30, 500 15 L 500 150 L 0 150 Z`} fill="url(#grad)" opacity="0.1" />
@@ -240,7 +240,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
             <button
               type="button"
               onClick={handleExportCSV}
-              style={{ border: '1px solid var(--line)', background: '#fff', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text)' }}
+              style={{ border: '1.5px solid #25108f', background: '#fff', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text)' }}
             >
               <Download size={12} />
               <span>Export CSV</span>
@@ -251,7 +251,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>Transaction ID</th>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>Entity Name</th>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>City</th>
@@ -317,3 +317,5 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
     </AdminShell>
   );
 }
+
+

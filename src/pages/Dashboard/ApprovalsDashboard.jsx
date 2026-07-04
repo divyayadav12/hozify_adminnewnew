@@ -107,7 +107,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
         </div>
 
         {/* Tab Selection Navigation Bar */}
-        <div style={{ borderBottom: '1px solid var(--line)', display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '2px' }}>
+        <div style={{ borderBottom: '1.5px solid #25108f', display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '2px' }}>
           {subTabs.map((tab) => (
             <button
               key={tab}
@@ -134,7 +134,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Priority</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Entity / ID</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Submitted Date</th>
@@ -166,7 +166,7 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <div style={{
                             height: '32px', width: '32px', borderRadius: '4px',
-                            background: '#f8fafc', border: '1px solid var(--line)',
+                            background: '#f8fafc', border: '1.5px solid #25108f',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             color: '#64748b'
                           }}>
@@ -239,19 +239,19 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(1)}
-                style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', opacity: currentPage === 1 ? 0.5 : 1 }}
+                style={{ height: '28px', width: '28px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', opacity: currentPage === 1 ? 0.5 : 1 }}
                 aria-label="Previous Page"
               >
                 <ChevronLeft size={14} />
               </button>
               
               <button style={{ height: '28px', width: '28px', border: 'none', background: 'var(--primary)', color: '#fff', borderRadius: '4px', fontWeight: '800', fontSize: '12px', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToast("Navigating to page 1", "info"); }}>1</button>
-              <button onClick={() => addToast('Navigate to page 2', 'info')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>2</button>
-              <button onClick={() => addToast('Navigate to page 3', 'info')} style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>3</button>
+              <button onClick={() => addToast('Navigate to page 2', 'info')} style={{ height: '28px', width: '28px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>2</button>
+              <button onClick={() => addToast('Navigate to page 3', 'info')} style={{ height: '28px', width: '28px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontWeight: '750', fontSize: '12px', cursor: 'pointer' }}>3</button>
 
               <button
                 onClick={() => setCurrentPage(2)}
-                style={{ height: '28px', width: '28px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                style={{ height: '28px', width: '28px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                 aria-label="Next Page"
               >
                 <ChevronRight size={14} />
@@ -264,3 +264,5 @@ export default function ApprovalsDashboard({ activeTab = 'Dashboard' }) {
     </AdminShell>
   );
 }
+
+

@@ -268,7 +268,7 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
                 style={{
                   width: '100%',
                   height: '40px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   color: 'var(--text)',
                   fontSize: '13px',
@@ -317,19 +317,19 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
             {/* Map Controls */}
             <div style={{ position: 'absolute', bottom: '16px', right: '16px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <button
-                style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                style={{ height: '32px', width: '32px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 onClick={() => alert('Map Zoom In')}
               >
                 +
               </button>
               <button
-                style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                style={{ height: '32px', width: '32px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 onClick={() => alert('Map Zoom Out')}
               >
                 -
               </button>
               <button
-                style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                style={{ height: '32px', width: '32px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 onClick={() => alert('Recenter Map View')}
               >
                 <Compass size={14} style={{ color: 'var(--muted)' }} />
@@ -344,3 +344,5 @@ export default function BookingAnalytics({ activeTab = 'Booking Management' }) {
     </AdminShell>
   );
 }
+
+

@@ -152,7 +152,7 @@ export default function MaterialRequests() {
         <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
           
           {/* Stat Card 1 */}
-          <div className="panel" style={{ flex: '1 1 200px', background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ flex: '1 1 200px', background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Pending Approval
@@ -167,7 +167,7 @@ export default function MaterialRequests() {
           </div>
 
           {/* Stat Card 2 */}
-          <div className="panel" style={{ flex: '1 1 200px', background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ flex: '1 1 200px', background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Active Requests
@@ -183,7 +183,7 @@ export default function MaterialRequests() {
         </div>
 
         {/* Filter Panel */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
             
             {/* Booking ID Input */}
@@ -199,7 +199,7 @@ export default function MaterialRequests() {
                   width: '100%',
                   height: '38px',
                   background: '#ffffff',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   padding: '0 12px',
                   fontSize: '13px',
@@ -222,7 +222,7 @@ export default function MaterialRequests() {
                     width: '100%',
                     height: '38px',
                     background: '#ffffff',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px',
@@ -259,7 +259,7 @@ export default function MaterialRequests() {
                     width: '100%',
                     height: '38px',
                     background: '#ffffff',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px',
@@ -295,7 +295,7 @@ export default function MaterialRequests() {
                     width: '100%',
                     height: '38px',
                     background: '#ffffff',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px',
@@ -346,7 +346,7 @@ export default function MaterialRequests() {
                   height: '38px',
                   background: '#ffffff',
                   color: '#565365',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   width: '38px',
                   padding: 0,
@@ -365,11 +365,11 @@ export default function MaterialRequests() {
         </div>
 
         {/* Requests Table Panel */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Request ID</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Booking ID</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Material Type</th>
@@ -464,7 +464,7 @@ export default function MaterialRequests() {
             <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
               <button 
                 onClick={() => addToast("You are already on the first page.", "info")}
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                 aria-label="Previous Page"
                 type="button"
               >
@@ -477,20 +477,20 @@ export default function MaterialRequests() {
                 1
               </button>
               <button 
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
                 type="button"
               >
                 2
               </button>
               <button 
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
                 type="button"
               >
                 3
               </button>
               <button 
                 onClick={() => addToast("No more pages available.", "info")}
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: '#565365', borderRadius: '4px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                 aria-label="Next Page"
                 type="button"
               >
@@ -541,7 +541,7 @@ export default function MaterialRequests() {
           </div>
 
           {/* Quick Analytics Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Quick Analytics
             </h3>
@@ -569,3 +569,5 @@ export default function MaterialRequests() {
     </AdminShell>
   );
 }
+
+

@@ -131,13 +131,13 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
       </div>
 
       {/* Filter Options Controls Panel */}
-      <div className="panel" style={{ padding: '16px 20px', marginBottom: '24px', background: '#fff', borderRadius: '8px', border: '1px solid var(--line)' }}>
+      <div className="panel" style={{ padding: '16px 20px', marginBottom: '24px', background: '#fff', borderRadius: '8px', border: '1.5px solid #25108f' }}>
         <div className="fraud-top-grid" style={{ gap: '14px', alignItems: 'center' }}>
           
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>Branch Office</label>
             <select
-              style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
+              style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={branchFilter}
               onChange={(e) => setBranchFilter(e.target.value)}
               aria-label="Select Branch Office"
@@ -153,7 +153,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>Metropolitan City</label>
             <select
-              style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
+              style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={cityFilter}
               onChange={(e) => setCityFilter(e.target.value)}
               aria-label="Select Metropolitan City"
@@ -169,7 +169,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>Employee Type</label>
             <select
-              style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
+              style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               aria-label="Select Employee Type"
@@ -184,7 +184,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>KYC Verification</label>
             <select
-              style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
+              style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={kycFilter}
               onChange={(e) => setKycFilter(e.target.value)}
               aria-label="Select KYC status"
@@ -344,7 +344,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
         <div 
           onClick={() => addToast("Card clicked: Workforce Utilization analytics details", "success")}
           className="panel" 
-          style={{ padding: '12px', display: 'flex', flexDirection: 'column', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
+          style={{ padding: '12px', display: 'flex', flexDirection: 'column', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Workforce Utilization</span>
@@ -362,7 +362,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
         <div 
           onClick={() => addToast("Card clicked: Average Employee Rating stats", "success")}
           className="panel" 
-          style={{ padding: '12px', display: 'flex', flexDirection: 'column', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
+          style={{ padding: '12px', display: 'flex', flexDirection: 'column', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Avg Employee Rating</span>
@@ -380,7 +380,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
         <div 
           onClick={() => addToast("Card clicked: Pending KYC Requests log details", "success")}
           className="panel" 
-          style={{ padding: '12px', display: 'flex', flexDirection: 'column', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
+          style={{ padding: '12px', display: 'flex', flexDirection: 'column', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Pending KYC Requests</span>
@@ -398,3 +398,5 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
     </div>
   );
 }
+
+

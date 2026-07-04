@@ -243,7 +243,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         </div>
 
         {/* SOW Specific Navigation */}
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--line)', paddingBottom: '1px' }}>
+        <div style={{ display: 'flex', gap: '8px', borderBottom: '1.5px solid #25108f', paddingBottom: '1px' }}>
           {TABS.map(tab => (
             <button
               key={tab}
@@ -269,7 +269,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         {(activeTab === 'User Menu' || activeTab === 'Partner Menu') && (
           <>
             {/* Search */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
               <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
                 <input 
                   type="text" 
@@ -283,7 +283,7 @@ export default function MenuMgmtPage({ defaultTab }) {
             </div>
 
             {/* Responsive Table */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                   <thead>
@@ -367,7 +367,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         )}
 
         {activeTab === 'Menu Ordering' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 16px 0' }}>Re-arrange Sidebar Items Order</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {menus.map((menu) => (
@@ -392,7 +392,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         )}
 
         {activeTab === 'Menu Visibility' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 16px 0' }}>Toggle Sidebar Link Visibilities</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {menus.map((menu) => (
@@ -412,7 +412,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         )}
 
         {activeTab === 'Menu Permission' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
             <div style={{ padding: '16px 24px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
               <span style={{ fontSize: '14px', fontWeight: '800', color: '#1e1b4b' }}>Allowed Roles Access Matrix</span>
             </div>
@@ -512,3 +512,5 @@ export default function MenuMgmtPage({ defaultTab }) {
     </AdminShell>
   );
 }
+
+

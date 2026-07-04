@@ -227,7 +227,7 @@ export default function BusinessRegistry() {
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 <button
                   className="secondary-action-btn"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
                   onClick={handleRefresh}
                   disabled={isRefreshing}
                   type="button"
@@ -236,7 +236,7 @@ export default function BusinessRegistry() {
                 </button>
                 <button
                   className="secondary-action-btn"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
                   onClick={handleExport}
                   type="button"
                 >
@@ -244,7 +244,7 @@ export default function BusinessRegistry() {
                 </button>
                 <button
                   className="secondary-action-btn"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
                   onClick={() => addToast('Opening bulk tools context...', 'info')}
                   type="button"
                 >
@@ -290,7 +290,7 @@ export default function BusinessRegistry() {
                   setShowApprovalQueueOnly(!showApprovalQueueOnly);
                   setSelectedIds([]);
                 }}
-                style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px', cursor: 'pointer', border: showApprovalQueueOnly ? '2px solid #4f46e5' : '1px solid var(--line)', transition: 'all 0.2s ease' }}
+                style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between', minHeight: '110px', cursor: 'pointer', border: showApprovalQueueOnly ? '2px solid #4f46e5' : '1.5px solid #25108f', transition: 'all 0.2s ease' }}
               >
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -480,7 +480,7 @@ export default function BusinessRegistry() {
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Business Type</label>
                     <select
-                      style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
+                      style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
                       value={businessType}
                       onChange={(e) => setBusinessType(e.target.value)}
                       aria-label="Filter Business Type"
@@ -494,7 +494,7 @@ export default function BusinessRegistry() {
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Category</label>
                     <select
-                      style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
+                      style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
                       value={categoryFilter}
                       onChange={(e) => setCategoryFilter(e.target.value)}
                       aria-label="Filter Category"
@@ -511,7 +511,7 @@ export default function BusinessRegistry() {
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Status</label>
                     <select
-                      style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
+                      style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
                       aria-label="Filter Status"
@@ -680,7 +680,7 @@ export default function BusinessRegistry() {
                 <button 
                   onClick={handleExport}
                   className="secondary-action-btn"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
                 >
                   Export CSV
                 </button>
@@ -751,3 +751,5 @@ export default function BusinessRegistry() {
     </AdminShell>
   );
 }
+
+

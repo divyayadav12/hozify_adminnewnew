@@ -149,7 +149,7 @@ export default function ServiceCategories({ onAddCategory }) {
               gap: '8px',
               background: showFilterDropdown ? '#f4eff8' : '#ffffff',
               color: 'var(--text)',
-              border: showFilterDropdown ? '1px solid #25108f' : '1px solid var(--line)',
+              border: showFilterDropdown ? '1px solid #25108f' : '1.5px solid #25108f',
               borderRadius: '6px',
               padding: '8px 16px',
               fontSize: '13px',
@@ -163,7 +163,7 @@ export default function ServiceCategories({ onAddCategory }) {
           </button>
 
           {showFilterDropdown && (
-            <div style={{ position: 'absolute', top: '42px', left: 0, background: '#ffffff', border: '1px solid var(--line)', borderRadius: '6px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 10, minWidth: '160px', display: 'flex', flexDirection: 'column', padding: '4px 0' }}>
+            <div style={{ position: 'absolute', top: '42px', left: 0, background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '6px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 10, minWidth: '160px', display: 'flex', flexDirection: 'column', padding: '4px 0' }}>
               {['ALL', 'VERIFIED', 'PENDING', 'SUSPENDED'].map((status) => (
                 <button
                   key={status}
@@ -200,7 +200,7 @@ export default function ServiceCategories({ onAddCategory }) {
 
       {/* KPI Cards Row */}
       <div className="no-print" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Categories</span>
@@ -213,7 +213,7 @@ export default function ServiceCategories({ onAddCategory }) {
           <span style={{ fontSize: '11px', color: '#059669', fontWeight: '800', marginTop: '12px', display: 'block' }}>+2 FROM LAST MONTH</span>
         </div>
 
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active Services</span>
@@ -226,7 +226,7 @@ export default function ServiceCategories({ onAddCategory }) {
           <span style={{ fontSize: '11px', color: '#059669', fontWeight: '800', marginTop: '12px', display: 'block' }}>+12% EFFICIENCY UP</span>
         </div>
 
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Revenue</span>
@@ -239,7 +239,7 @@ export default function ServiceCategories({ onAddCategory }) {
           <span style={{ fontSize: '11px', color: '#059669', fontWeight: '800', marginTop: '12px', display: 'block' }}>+8.4% VS PREV PERIOD</span>
         </div>
 
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg Utilization</span>
@@ -254,11 +254,11 @@ export default function ServiceCategories({ onAddCategory }) {
       </div>
 
       {/* Table Section */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--line)' }}>
+              <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Category ID</th>
                 <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Name</th>
                 <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Total Services</th>
@@ -316,7 +316,7 @@ export default function ServiceCategories({ onAddCategory }) {
           <span style={{ fontSize: '13px', color: 'var(--muted)' }}>
             Showing <strong>1 to {filteredCategories.length}</strong> of <strong>{filteredCategories.length}</strong> entries
           </span>
-          <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
+          <div style={{ display: 'flex', border: '1.5px solid #25108f', borderRadius: '6px', overflow: 'hidden' }}>
             <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}><ChevronLeft size={16} /></button>
             <button style={{ border: 'none', background: 'var(--primary)', color: '#ffffff', padding: '8px 14px', fontSize: '13px', fontWeight: '800' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
             <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}><ChevronRight size={16} /></button>
@@ -360,7 +360,7 @@ export default function ServiceCategories({ onAddCategory }) {
           </p>
           <div style={{ display: 'flex', gap: '8px', zIndex: 1, position: 'relative' }}>
             <button onClick={handleExportCSV} style={{ height: '34px', padding: '0 12px', background: '#0f172a', color: '#ffffff', border: 'none', borderRadius: '6px', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }} type="button">EXPORT CSV</button>
-            <button onClick={handlePrintPDF} style={{ height: '34px', padding: '0 12px', background: '#ffffff', color: '#0f172a', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }} type="button">PRINT PDF</button>
+            <button onClick={handlePrintPDF} style={{ height: '34px', padding: '0 12px', background: '#ffffff', color: '#0f172a', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '11px', fontWeight: '700', cursor: 'pointer' }} type="button">PRINT PDF</button>
           </div>
         </div>
       </div>
@@ -408,7 +408,7 @@ export default function ServiceCategories({ onAddCategory }) {
                       disabled={activeModal === 'view'}
                       value={selectedCategory.name}
                       onChange={(e) => setSelectedCategory({ ...selectedCategory, name: e.target.value })}
-                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
                     />
                   </div>
 
@@ -420,7 +420,7 @@ export default function ServiceCategories({ onAddCategory }) {
                         disabled={activeModal === 'view'}
                         value={selectedCategory.total}
                         onChange={(e) => setSelectedCategory({ ...selectedCategory, total: parseInt(e.target.value) || 0 })}
-                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff' }}
+                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff' }}
                       />
                     </div>
                     <div>
@@ -430,7 +430,7 @@ export default function ServiceCategories({ onAddCategory }) {
                         disabled={activeModal === 'view'}
                         value={selectedCategory.active}
                         onChange={(e) => setSelectedCategory({ ...selectedCategory, active: parseInt(e.target.value) || 0 })}
-                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff' }}
+                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff' }}
                       />
                     </div>
                   </div>
@@ -441,7 +441,7 @@ export default function ServiceCategories({ onAddCategory }) {
                       disabled={activeModal === 'view'}
                       value={selectedCategory.status}
                       onChange={(e) => setSelectedCategory({ ...selectedCategory, status: e.target.value })}
-                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff' }}
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff' }}
                     >
                       <option value="VERIFIED">VERIFIED</option>
                       <option value="PENDING">PENDING</option>
@@ -453,7 +453,7 @@ export default function ServiceCategories({ onAddCategory }) {
             </div>
 
             <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-              <button onClick={() => setActiveModal(null)} style={{ padding: '8px 16px', borderRadius: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+              <button onClick={() => setActiveModal(null)} style={{ padding: '8px 16px', borderRadius: '6px', border: '1.5px solid #25108f', background: '#fff', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
                 Close
               </button>
               {(activeModal === 'edit' || activeModal === 'price') && (
@@ -470,3 +470,5 @@ export default function ServiceCategories({ onAddCategory }) {
     </div>
   );
 }
+
+

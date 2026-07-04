@@ -226,7 +226,7 @@ export default function TermsPage() {
         </div>
 
         {/* Tab Filters */}
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+        <div style={{ display: 'flex', gap: '8px', borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
           {['Users', 'ISP', 'BSP', 'BS', 'Employees'].map(tab => (
             <button
               key={tab}
@@ -255,7 +255,7 @@ export default function TermsPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Header info */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Selected Node</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
@@ -272,8 +272,8 @@ export default function TermsPage() {
             </div>
 
             {/* Rich Editor Panel */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
-              <div style={{ padding: '12px 20px', borderBottom: '1px solid var(--line)', background: '#f8fafc', display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
+              <div style={{ padding: '12px 20px', borderBottom: '1.5px solid #25108f', background: '#f8fafc', display: 'flex', gap: '12px', alignItems: 'center' }}>
                 <button onClick={() => applyFormat('bold')} className="editor-btn" style={{ background: '#fff', border: '1px solid #cbd5e1', padding: '4px', borderRadius: '4px', cursor: 'pointer' }} title="Bold"><Bold size={14} /></button>
                 <button onClick={() => applyFormat('italic')} className="editor-btn" style={{ background: '#fff', border: '1px solid #cbd5e1', padding: '4px', borderRadius: '4px', cursor: 'pointer' }} title="Italic"><Italic size={14} /></button>
                 <div style={{ width: '1px', height: '16px', background: '#cbd5e1' }} />
@@ -293,7 +293,7 @@ export default function TermsPage() {
 
           {/* RIGHT: Version History Timeline */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>VERSION HISTORY</h3>
                 <Clock size={14} style={{ color: 'var(--muted)' }} />
@@ -390,3 +390,5 @@ export default function TermsPage() {
     </AdminShell>
   );
 }
+
+

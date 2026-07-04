@@ -60,7 +60,7 @@ export default function NewServiceWizard({ onClose }) {
       </div>
 
       {/* Progress tracker checkpoint indicators */}
-      <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+      <div style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto' }}>
           
           {/* Progress bar background line */}
@@ -129,7 +129,7 @@ export default function NewServiceWizard({ onClose }) {
       </div>
 
       {/* Main Step Panel */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '0', overflow: 'hidden' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '0', overflow: 'hidden' }}>
         
         {/* Step Intro Header */}
         <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid #f1f5f9' }}>
@@ -160,7 +160,7 @@ export default function NewServiceWizard({ onClose }) {
                   onChange={(e) => setServiceName(e.target.value)}
                   style={{
                     height: '38px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     padding: '0 12px',
                     borderRadius: '6px',
                     fontSize: '13px',
@@ -188,7 +188,7 @@ export default function NewServiceWizard({ onClose }) {
                     onChange={(e) => setCategory(e.target.value)}
                     style={{
                       height: '38px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       padding: '0 10px',
                       borderRadius: '6px',
                       fontSize: '13px',
@@ -216,7 +216,7 @@ export default function NewServiceWizard({ onClose }) {
                     onChange={(e) => setSubCategory(e.target.value)}
                     style={{
                       height: '38px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       padding: '0 10px',
                       borderRadius: '6px',
                       fontSize: '13px',
@@ -247,7 +247,7 @@ export default function NewServiceWizard({ onClose }) {
                   onChange={(e) => setDescription(e.target.value)}
                   style={{
                     height: '100px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     padding: '10px 12px',
                     borderRadius: '6px',
                     fontSize: '13px',
@@ -332,7 +332,7 @@ export default function NewServiceWizard({ onClose }) {
                   onClick={() => setActiveStep(activeStep - 1)}
                   type="button"
                   style={{
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#ffffff',
                     color: 'var(--muted)',
                     fontWeight: '700',
@@ -403,3 +403,5 @@ export default function NewServiceWizard({ onClose }) {
     </div>
   );
 }
+
+

@@ -190,7 +190,7 @@ export default function PricingStrategy() {
               placeholder="e.g. 10 for +10% or -5 for -5%" 
               value={bulkPercentage}
               onChange={(e) => setBulkPercentage(e.target.value)}
-              style={{ padding: '6px 12px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', outline: 'none', width: '220px' }}
+              style={{ padding: '6px 12px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', outline: 'none', width: '220px' }}
               required
             />
             <button type="submit" style={{ padding: '6px 14px', background: 'var(--primary)', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
@@ -202,7 +202,7 @@ export default function PricingStrategy() {
 
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Active Pricing Rules</span>
@@ -214,7 +214,7 @@ export default function PricingStrategy() {
           </div>
         </div>
 
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Average Service Price</span>
@@ -226,7 +226,7 @@ export default function PricingStrategy() {
           </div>
         </div>
 
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Revenue Impact (Rules)</span>
@@ -238,7 +238,7 @@ export default function PricingStrategy() {
           </div>
         </div>
 
-        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff' }}>
+        <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Price Changes (This Month)</span>
@@ -256,7 +256,7 @@ export default function PricingStrategy() {
         {/* Left Column: Pricing Catalog */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Pricing Catalog</h3>
               {/* Added individual price/service creation button */}
@@ -274,7 +274,7 @@ export default function PricingStrategy() {
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
                 <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                    <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service Name</th>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Base Price</th>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>GST</th>
@@ -308,12 +308,12 @@ export default function PricingStrategy() {
           </div>
 
           {/* Pricing Analytics */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>Pricing Analytics</h3>
             <div style={{ display: 'flex', gap: 'var(--spacing-section)', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '12px', display: 'block' }}>PRICE TREND (LAST 6 MONTHS)</span>
-                <div style={{ height: '140px', display: 'flex', alignItems: 'flex-end', gap: '12px', borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
+                <div style={{ height: '140px', display: 'flex', alignItems: 'flex-end', gap: '12px', borderBottom: '1.5px solid #25108f', paddingBottom: '8px' }}>
                   {[40, 45, 42, 60, 55, 75].map((h, i) => (
                     <div key={i} style={{ flex: 1, height: `${h}%`, background: '#3b82f6', borderRadius: '4px 4px 0 0' }} />
                   ))}
@@ -321,7 +321,7 @@ export default function PricingStrategy() {
               </div>
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '12px', display: 'block' }}>REVENUE IMPACT</span>
-                <div style={{ height: '140px', display: 'flex', alignItems: 'flex-end', gap: '12px', borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
+                <div style={{ height: '140px', display: 'flex', alignItems: 'flex-end', gap: '12px', borderBottom: '1.5px solid #25108f', paddingBottom: '8px' }}>
                   {[20, 30, 40, 55, 80, 90].map((h, i) => (
                     <div key={i} style={{ flex: 1, height: `${h}%`, background: '#10b981', borderRadius: '4px 4px 0 0' }} />
                   ))}
@@ -334,7 +334,7 @@ export default function PricingStrategy() {
         {/* Right Column: Pricing Rules & Strategy */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>Pricing Strategy Panel</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               
@@ -400,7 +400,7 @@ export default function PricingStrategy() {
             </div>
           </div>
 
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Pricing Rules</h3>
               <button 
@@ -415,7 +415,7 @@ export default function PricingStrategy() {
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {rules.map((rule, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: i === rules.length - 1 ? 'none' : '1px solid var(--line)' }}>
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: i === rules.length - 1 ? 'none' : '1.5px solid #25108f' }}>
                   <div>
                     <strong style={{ display: 'block', fontSize: '13px', color: 'var(--text)' }}>{rule.name}</strong>
                     <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Condition: {rule.condition}</span>
@@ -453,7 +453,7 @@ export default function PricingStrategy() {
                   placeholder="e.g. Deep Sofa Cleaning"
                   value={newService.name} 
                   onChange={(e) => setNewService({...newService, name: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box' }}
                   required
                 />
               </div>
@@ -463,7 +463,7 @@ export default function PricingStrategy() {
                 <select 
                   value={newService.category} 
                   onChange={(e) => setNewService({...newService, category: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box', background: '#fff' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box', background: '#fff' }}
                 >
                   <option value="Maintenance & Care">Maintenance & Care</option>
                   <option value="Appliances">Appliances</option>
@@ -479,7 +479,7 @@ export default function PricingStrategy() {
                   placeholder="0.00"
                   value={newService.basePrice} 
                   onChange={(e) => setNewService({...newService, basePrice: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box' }}
                   required
                 />
                 <span style={{ fontSize: '10px', color: 'var(--muted)', display: 'block', marginTop: '2px' }}>*18% GST will be calculated automatically</span>
@@ -493,7 +493,7 @@ export default function PricingStrategy() {
                   placeholder="10.00"
                   value={newService.platformFee} 
                   onChange={(e) => setNewService({...newService, platformFee: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box' }}
                   required
                 />
               </div>
@@ -503,7 +503,7 @@ export default function PricingStrategy() {
                 <select 
                   value={newService.status} 
                   onChange={(e) => setNewService({...newService, status: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box', background: '#fff' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box', background: '#fff' }}
                 >
                   <option value="ACTIVE">ACTIVE</option>
                   <option value="PENDING">PENDING</option>
@@ -544,7 +544,7 @@ export default function PricingStrategy() {
                   placeholder="e.g. Monsoon Peak Surcharge"
                   value={newRule.name} 
                   onChange={(e) => setNewRule({...newRule, name: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box' }}
                   required
                 />
               </div>
@@ -556,7 +556,7 @@ export default function PricingStrategy() {
                   placeholder="e.g. Rain Intensity > Heavy"
                   value={newRule.condition} 
                   onChange={(e) => setNewRule({...newRule, condition: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box' }}
                   required
                 />
               </div>
@@ -568,7 +568,7 @@ export default function PricingStrategy() {
                   placeholder="e.g. +20% or -$15.00"
                   value={newRule.adjustment} 
                   onChange={(e) => setNewRule({...newRule, adjustment: e.target.value})}
-                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1px solid var(--line)', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box' }}
                   required
                 />
               </div>
@@ -589,3 +589,5 @@ export default function PricingStrategy() {
     </div>
   );
 }
+
+

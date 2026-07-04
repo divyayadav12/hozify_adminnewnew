@@ -146,7 +146,7 @@ export default function DateRangePicker({
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               background: '#fff',
               padding: '7px 14px',
               borderRadius: '6px',
@@ -199,11 +199,11 @@ export default function DateRangePicker({
           font-family: inherit;
         }
         .rdrDefinedRangesWrapper {
-          border-right: 1px solid var(--line) !important;
+          border-right: 1.5px solid #25108f !important;
           background: #f9f8fa;
         }
         .rdrStaticRange {
-          border-bottom: 1px solid var(--line) !important;
+          border-bottom: 1.5px solid #25108f !important;
           background: #f9f8fa !important;
         }
         .rdrStaticRange:hover .rdrStaticRangeLabel, .rdrStaticRange:focus .rdrStaticRangeLabel {
@@ -230,7 +230,7 @@ export default function DateRangePicker({
           }
           .rdrDefinedRangesWrapper {
             border-right: none !important;
-            border-bottom: 1px solid var(--line) !important;
+            border-bottom: 1.5px solid #25108f !important;
             width: 100% !important;
           }
         }
@@ -238,3 +238,5 @@ export default function DateRangePicker({
     </div>
   );
 }
+
+

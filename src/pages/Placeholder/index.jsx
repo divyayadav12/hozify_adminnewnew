@@ -20,7 +20,7 @@ export default function Placeholder({ title, activeTab }) {
         </div>
       </div>
 
-      <section className="panel" style={{ padding: '64px 32px', textAlign: 'center', background: '#fff', borderRadius: '8px', border: '1px solid var(--line)', marginTop: '24px' }}>
+      <section className="panel" style={{ padding: '64px 32px', textAlign: 'center', background: '#fff', borderRadius: '8px', border: '1.5px solid #25108f', marginTop: '24px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
           <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#eee9f6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', fontSize: '24px', fontWeight: 'bold' }}>
             {title.charAt(0)}
@@ -39,3 +39,5 @@ export default function Placeholder({ title, activeTab }) {
     </AdminShell>
   );
 }
+
+

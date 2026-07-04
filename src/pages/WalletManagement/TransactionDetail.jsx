@@ -58,7 +58,7 @@ export default function TransactionDetail() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '12px',
@@ -80,7 +80,7 @@ export default function TransactionDetail() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   color: 'var(--red)',
                   fontSize: '12px',
@@ -142,7 +142,7 @@ export default function TransactionDetail() {
               </span>
             </div>
 
-            <hr style={{ border: 'none', borderBottom: '1px solid var(--line)', margin: 0 }} />
+            <hr style={{ border: 'none', borderBottom: '1.5px solid #25108f', margin: 0 }} />
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
               <div>
@@ -180,7 +180,7 @@ export default function TransactionDetail() {
               </strong>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fafafa', padding: '12px', borderRadius: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fafafa', padding: '12px', borderRadius: '6px' }}>
               <ShieldCheck size={18} style={{ color: 'var(--green)' }} />
               <span style={{ fontSize: '12px', color: 'var(--muted)' }}>
                 Cryptographically signed ledger audit hash matching key: <code style={{ fontSize: '11px', fontWeight: 'bold' }}>{`0x${transaction.id.replace('-', '')}e8f99ab2c`}</code>
@@ -196,15 +196,15 @@ export default function TransactionDetail() {
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>System Indicators</h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--line)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1.5px solid #25108f' }}>
                   <span style={{ color: 'var(--muted)' }}>Gateway Channel:</span>
                   <strong style={{ color: 'var(--text)' }}>Razorpay Split API</strong>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--line)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1.5px solid #25108f' }}>
                   <span style={{ color: 'var(--muted)' }}>Post-TX Balance:</span>
                   <strong style={{ color: 'var(--text)' }}>₹{transaction.balance.toLocaleString('en-IN')}</strong>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--line)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1.5px solid #25108f' }}>
                   <span style={{ color: 'var(--muted)' }}>Ledger Category:</span>
                   <strong style={{ color: 'var(--text)' }}>{transaction.source}</strong>
                 </div>
@@ -232,3 +232,5 @@ export default function TransactionDetail() {
     </AdminShell>
   );
 }
+
+

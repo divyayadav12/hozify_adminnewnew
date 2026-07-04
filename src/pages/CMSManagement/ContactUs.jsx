@@ -53,13 +53,13 @@ export default function ContactUs() {
         </div>
 
         {/* Top Actions Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', background: '#fff', padding: '16px 24px', borderRadius: '12px', border: '1px solid var(--line)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', background: '#fff', padding: '16px 24px', borderRadius: '12px', border: '1.5px solid #25108f' }}>
           <div>
             <h2 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text)', margin: '0 0 4px 0' }}>Configure Reachability</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Update contact details and map integration.</p>
           </div>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <button style={{ padding: '10px 20px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button style={{ padding: '10px 20px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Discard Changes
             </button>
             <button style={{ padding: '10px 20px', background: '#312e81', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
@@ -74,7 +74,7 @@ export default function ContactUs() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
             
             {/* Core Business Details */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Core Business Details</h3>
                 <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
@@ -91,7 +91,7 @@ export default function ContactUs() {
                       type="text" 
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px 12px 40px', fontSize: '13px', color: 'var(--text)', outline: 'none' }}
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px 12px 40px', fontSize: '13px', color: 'var(--text)', outline: 'none' }}
                     />
                   </div>
                 </div>
@@ -103,7 +103,7 @@ export default function ContactUs() {
                       type="text" 
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px 12px 40px', fontSize: '13px', color: 'var(--text)', outline: 'none' }}
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px 12px 40px', fontSize: '13px', color: 'var(--text)', outline: 'none' }}
                     />
                   </div>
                 </div>
@@ -117,24 +117,24 @@ export default function ContactUs() {
                     rows={3}
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px 12px 40px', fontSize: '13px', color: 'var(--text)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px 12px 40px', fontSize: '13px', color: 'var(--text)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
                   />
                 </div>
               </div>
             </div>
 
             {/* Inquiry Form Builder */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Inquiry Form Builder</h3>
-                <button style={{ background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                <button style={{ background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                   <Plus size={14} /> Add New Field
                 </button>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {formFields.map((field) => (
-                  <div key={field.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: '#f8fafc', border: '1px solid var(--line)', borderRadius: '8px' }}>
+                  <div key={field.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: '#f8fafc', border: '1.5px solid #25108f', borderRadius: '8px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                       <button style={{ background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'grab', display: 'flex', padding: '4px' }}>
                         <GripVertical size={16} />
@@ -179,7 +179,7 @@ export default function ContactUs() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
             
             {/* Map Integration */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Map Integration</h3>
                 <button style={{ background: 'transparent', border: 'none', color: 'var(--text)', cursor: 'pointer', padding: '4px' }}>
@@ -187,7 +187,7 @@ export default function ContactUs() {
                 </button>
               </div>
               
-              <div style={{ background: '#f1f5f9', height: '160px', borderRadius: '8px', marginBottom: '20px', border: '1px solid var(--line)', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'flex-end' }}>
+              <div style={{ background: '#f1f5f9', height: '160px', borderRadius: '8px', marginBottom: '20px', border: '1.5px solid #25108f', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'flex-end' }}>
                 {/* Mock Map Background */}
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url("https://www.transparenttextures.com/patterns/cubes.png")', backgroundSize: '60px', opacity: 0.1, backgroundColor: '#94a3b8' }} />
                 
@@ -205,13 +205,13 @@ export default function ContactUs() {
                     type="text" 
                     value={lat}
                     onChange={(e) => setLat(e.target.value)}
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
                   />
                   <input 
                     type="text" 
                     value={lng}
                     onChange={(e) => setLng(e.target.value)}
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
                   />
                 </div>
               </div>
@@ -222,7 +222,7 @@ export default function ContactUs() {
             </div>
 
             {/* Social Channels */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 24px 0' }}>Social Channels</h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '24px' }}>
@@ -236,13 +236,13 @@ export default function ContactUs() {
                       type="text" 
                       value={linkedin}
                       onChange={(e) => setLinkedin(e.target.value)}
-                      style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '6px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '20px' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '6px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '20px' }}>
                     <Globe size={16} />
                   </div>
                   <div style={{ flex: 1 }}>
@@ -251,13 +251,13 @@ export default function ContactUs() {
                       type="text" 
                       value={twitter}
                       onChange={(e) => setTwitter(e.target.value)}
-                      style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '6px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '20px' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '6px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '20px' }}>
                     <Camera size={16} />
                   </div>
                   <div style={{ flex: 1 }}>
@@ -266,7 +266,7 @@ export default function ContactUs() {
                       type="text" 
                       value={instagram}
                       onChange={(e) => setInstagram(e.target.value)}
-                      style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
                     />
                   </div>
                 </div>
@@ -284,3 +284,5 @@ export default function ContactUs() {
     </AdminShell>
   );
 }
+
+

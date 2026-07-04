@@ -342,7 +342,7 @@ export default function Employees({ defaultTab }) {
     >
       {/* Sub-tab selection bar */}
       {showTabHeader && (
-        <div style={{ display: 'flex', gap: '16px', borderBottom: '1px solid var(--line)', marginBottom: '24px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+        <div style={{ display: 'flex', gap: '16px', borderBottom: '1.5px solid #25108f', marginBottom: '24px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
           {[
             { id: 'Overview', label: 'Overview' },
             { id: 'Workforce', label: 'Workforce Directory' },
@@ -388,3 +388,4 @@ export default function Employees({ defaultTab }) {
     </AdminShell>
   );
 }
+

@@ -28,7 +28,7 @@ export default function TermsAndConditions() {
         </div>
 
         {/* Top Actions Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff', border: '1px solid var(--line)', padding: '16px 24px', borderRadius: '12px', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff', border: '1.5px solid #25108f', padding: '16px 24px', borderRadius: '12px', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', background: '#312e81', color: '#fff', padding: '6px 10px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               DRAFT V4.2.2
@@ -39,10 +39,10 @@ export default function TermsAndConditions() {
           </div>
           
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <button onClick={() => alert('Generating PDF preview...')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button onClick={() => alert('Generating PDF preview...')} style={{ padding: '8px 16px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Preview PDF
             </button>
-            <button onClick={() => alert('Changes discarded.')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button onClick={() => alert('Changes discarded.')} style={{ padding: '8px 16px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Discard Changes
             </button>
             <button onClick={() => alert('Changes published successfully!')} style={{ padding: '8px 16px', background: '#312e81', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
@@ -57,7 +57,7 @@ export default function TermsAndConditions() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
             
             {/* Document Status */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
                   Document Status
@@ -78,10 +78,10 @@ export default function TermsAndConditions() {
             </div>
 
             {/* Rich Text Editor */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               
               {/* Toolbar */}
-              <div style={{ padding: '12px 24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+              <div style={{ padding: '12px 24px', borderBottom: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <div style={{ display: 'flex', gap: '4px' }}>
                     <button className="editor-btn"><Bold size={16} /></button>
@@ -147,7 +147,7 @@ export default function TermsAndConditions() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
             
             {/* Version Control */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   VERSION CONTROL
@@ -190,13 +190,13 @@ export default function TermsAndConditions() {
                 </div>
               </div>
 
-              <div style={{ marginTop: '24px', borderTop: '1px solid var(--line)', paddingTop: '16px', textAlign: 'center' }}>
+              <div style={{ marginTop: '24px', borderTop: '1.5px solid #25108f', paddingTop: '16px', textAlign: 'center' }}>
                 <button style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '11px', fontWeight: '800', cursor: 'pointer' }}>View Full History</button>
               </div>
             </div>
 
             {/* Document Metadata */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 DOCUMENT METADATA
               </h3>
@@ -206,7 +206,7 @@ export default function TermsAndConditions() {
                   <label style={{ display: 'block', fontSize: '10px', color: 'var(--muted)', marginBottom: '8px' }}>Language</label>
                   <div style={{ position: 'relative' }}>
                     <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', background: '#ef4444', color: '#fff', fontSize: '8px', padding: '2px 4px', borderRadius: '12px' }}>EN</div>
-                    <select className="dash-select" style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 10px 10px 32px', fontSize: '12px', color: 'var(--text)', outline: 'none', appearance: 'none', background: '#fff' }}>
+                    <select className="dash-select" style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 10px 10px 32px', fontSize: '12px', color: 'var(--text)', outline: 'none', appearance: 'none', background: '#fff' }}>
                       <option>English (United States)</option>
                       <option>Spanish (ES)</option>
                     </select>
@@ -218,7 +218,7 @@ export default function TermsAndConditions() {
                   <input 
                     type="text" 
                     defaultValue="Annual Revision 2023"
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 12px', fontSize: '12px', color: 'var(--text)', outline: 'none' }}
                   />
                 </div>
 
@@ -236,7 +236,7 @@ export default function TermsAndConditions() {
             </div>
 
             {/* Editorial Notes */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   EDITORIAL NOTES
@@ -263,10 +263,10 @@ export default function TermsAndConditions() {
 
             {/* Action Buttons */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <button style={{ width: '100%', padding: '12px', background: '#fff', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '12px', fontWeight: '800', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <button style={{ width: '100%', padding: '12px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '12px', fontWeight: '800', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                 <Download size={14} /> Export as PDF
               </button>
-              <button style={{ width: '100%', padding: '12px', background: '#fff', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '12px', fontWeight: '800', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <button style={{ width: '100%', padding: '12px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '12px', fontWeight: '800', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                 <Share2 size={14} /> External Review Link
               </button>
               <button style={{ width: '100%', padding: '12px', background: '#fef2f2', border: '1px solid #fca5a5', borderRadius: '6px', fontSize: '12px', fontWeight: '800', color: '#ef4444', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
@@ -310,3 +310,5 @@ export default function TermsAndConditions() {
     </AdminShell>
   );
 }
+
+

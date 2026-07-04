@@ -231,17 +231,17 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                     style={{
                       padding: '12px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: 'var(--soft)',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease'
                     }}
                     onMouseOver={(e) => e.currentTarget.style.border = '1.5px solid var(--primary)'}
-                    onMouseOut={(e) => e.currentTarget.style.border = '1px solid var(--line)'}
+                    onMouseOut={(e) => e.currentTarget.style.border = '1.5px solid #25108f'}
                   >
                     <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
                       <strong style={{ fontSize: '12.5px', color: 'var(--text)' }}>{tpl.title}</strong>
-                      <span style={{ fontSize: '9px', fontWeight: '850', color: 'var(--primary)', background: '#fff', border: '1px solid var(--line)', padding: '1px 5px', borderRadius: '3px' }}>
+                      <span style={{ fontSize: '9px', fontWeight: '850', color: 'var(--primary)', background: '#fff', border: '1.5px solid #25108f', padding: '1px 5px', borderRadius: '3px' }}>
                         {tpl.channel}
                       </span>
                     </div>
@@ -312,7 +312,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
             {/* Header Filters row */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
               {/* Tabs */}
-              <div style={{ display: 'flex', gap: '4px', background: 'var(--soft)', padding: '2px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', gap: '4px', background: 'var(--soft)', padding: '2px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
                 {channels.map((chan) => (
                   <button
                     key={chan}
@@ -347,7 +347,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                     height: '32px',
                     width: '100%',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     padding: '0 10px 0 32px',
                     fontSize: '12.5px'
                   }}
@@ -359,7 +359,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
             <div style={{ overflowX: 'auto', flex: 1 }}>
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--line)', color: 'var(--muted)' }}>
+                  <tr style={{ borderBottom: '1.5px solid #25108f', color: 'var(--muted)' }}>
                     <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10px' }}>CHANNEL</th>
                     <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10px' }}>CONTACT</th>
                     <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10px' }}>MESSAGE SUMMARY PREVIEW</th>
@@ -430,7 +430,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
 
             {/* Pagination Footer */}
             {totalPages > 1 && (
-              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--line)', paddingTop: '14px' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', borderTop: '1.5px solid #25108f', paddingTop: '14px' }}>
                 <span style={{ fontSize: '11.5px', color: 'var(--muted)' }}>
                   Showing <strong>{startIndex + 1}</strong> to <strong>{Math.min(startIndex + itemsPerPage, filteredActivities.length)}</strong> of <strong>{filteredActivities.length}</strong> items
                 </span>
@@ -443,7 +443,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                       height: '30px',
                       width: '30px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: '#fff',
                       display: 'flex',
                       alignItems: 'center',
@@ -463,7 +463,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                       height: '30px',
                       width: '30px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: '#fff',
                       display: 'flex',
                       alignItems: 'center',
@@ -531,7 +531,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                 <select
                   value={broadcastChannel}
                   onChange={(e) => setBroadcastChannel(e.target.value)}
-                  style={{ height: '36px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12.5px' }}
+                  style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
                 >
                   <option>Email</option>
                   <option>SMS</option>
@@ -552,7 +552,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                   rows={4}
                   style={{
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     padding: '10px',
                     fontSize: '12.5px',
                     
@@ -569,7 +569,7 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                     height: '36px',
                     padding: '0 16px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     color: 'var(--text)',
                     fontSize: '12.5px',
@@ -605,3 +605,5 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
     </AdminShell>
   );
 }
+
+

@@ -114,7 +114,7 @@ export default function MaterialRequestDetails() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
               
               {/* Requester Details Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '16px' }}>
                   Requester Details
                 </span>
@@ -149,7 +149,7 @@ export default function MaterialRequestDetails() {
               </div>
 
               {/* Compliance Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '16px' }}>
                   Compliance
                 </span>
@@ -182,7 +182,7 @@ export default function MaterialRequestDetails() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
               
               {/* Material Itemization Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                   <span style={{ fontSize: '15px', fontWeight: '800', color: '#1c2536' }}>
                     Material Itemization
@@ -273,7 +273,7 @@ export default function MaterialRequestDetails() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
               
               {/* Budget Analysis Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '16px' }}>
                   Budget Analysis
                 </span>
@@ -305,7 +305,7 @@ export default function MaterialRequestDetails() {
               </div>
 
               {/* Reviewer Notes Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#7a7688', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '16px' }}>
                   Reviewer Notes
                 </span>
@@ -358,7 +358,7 @@ export default function MaterialRequestDetails() {
             left: '260px', // adapts to standard sidebar layout width
             right: 0,
             background: '#ffffff',
-            borderTop: '1px solid var(--line)',
+            borderTop: '1.5px solid #25108f',
             padding: '16px 32px',
             display: 'flex',
             justifyContent: 'space-between',
@@ -450,7 +450,7 @@ export default function MaterialRequestDetails() {
       <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Requisition Sheet Header Card */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -478,7 +478,7 @@ export default function MaterialRequestDetails() {
                 style={{
                   background: '#ffffff',
                   color: 'var(--text)',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   padding: '8px 16px',
                   fontSize: '13px',
@@ -510,7 +510,7 @@ export default function MaterialRequestDetails() {
                 style={{
                   background: '#ffffff',
                   color: '#565365',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   width: '36px',
                   height: '36px',
@@ -529,7 +529,7 @@ export default function MaterialRequestDetails() {
         </div>
 
         {/* Tab Sub-navigation */}
-        <div style={{ borderBottom: '1px solid var(--line)', display: 'flex', gap: 'var(--spacing-section)', overflowX: 'auto', paddingBottom: '2px' }}>
+        <div style={{ borderBottom: '1.5px solid #25108f', display: 'flex', gap: 'var(--spacing-section)', overflowX: 'auto', paddingBottom: '2px' }}>
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -562,7 +562,7 @@ export default function MaterialRequestDetails() {
             {/* 3 Detail KPI Mini Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
               {/* Mini Card 1 */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
                 <div>
                   <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     TOTAL ESTIMATED VALUE
@@ -580,7 +580,7 @@ export default function MaterialRequestDetails() {
               </div>
 
               {/* Mini Card 2 */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
                 <div>
                   <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     PRIORITY LEVEL
@@ -598,7 +598,7 @@ export default function MaterialRequestDetails() {
               </div>
 
               {/* Mini Card 3 */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
                 <div>
                   <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     APPROVAL CHAIN
@@ -634,7 +634,7 @@ export default function MaterialRequestDetails() {
             </div>
 
             {/* Requested Materials Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
                   Requested Materials
@@ -662,7 +662,7 @@ export default function MaterialRequestDetails() {
               <div style={{ overflowX: 'auto' }}>
                 <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '580px' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                    <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>SKU</th>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>DESCRIPTION</th>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>QUANTITY</th>
@@ -768,7 +768,7 @@ export default function MaterialRequestDetails() {
             </div>
 
             {/* Activity Timeline Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
                 Activity Timeline
               </h3>
@@ -819,7 +819,7 @@ export default function MaterialRequestDetails() {
             </div>
 
             {/* Destination map card */}
-            <div className="panel" style={{ border: '1px solid var(--line)', borderRadius: '12px', padding: 0, overflow: 'hidden', height: '220px', position: 'relative', background: '#f1ebfa' }}>
+            <div className="panel" style={{ border: '1.5px solid #25108f', borderRadius: '12px', padding: 0, overflow: 'hidden', height: '220px', position: 'relative', background: '#f1ebfa' }}>
               
               {/* Custom SVG background looking like map grid */}
               <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, opacity: 0.15, zIndex: 1 }}>
@@ -879,3 +879,5 @@ export default function MaterialRequestDetails() {
     </AdminShell>
   );
 }
+
+

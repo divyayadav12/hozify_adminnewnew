@@ -190,7 +190,7 @@ export default function Services({ defaultTab }) {
         style={{
           display: 'flex',
           gap: 'var(--spacing-section)',
-          borderBottom: '1px solid var(--line)',
+          borderBottom: '1.5px solid #25108f',
           marginBottom: '24px',
           overflowX: 'auto',
           whiteSpace: 'nowrap'
@@ -238,3 +238,5 @@ export default function Services({ defaultTab }) {
     </AdminShell>
   );
 }
+
+

@@ -38,7 +38,7 @@ export default function EmployeeAuditLogs() {
         <div 
           onClick={() => addToast("Card clicked: Total system activities logged", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -54,7 +54,7 @@ export default function EmployeeAuditLogs() {
         <div 
           onClick={() => addToast("Card clicked: Login activities metrics", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -70,7 +70,7 @@ export default function EmployeeAuditLogs() {
         <div 
           onClick={() => addToast("Card clicked: Database updates log details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -86,7 +86,7 @@ export default function EmployeeAuditLogs() {
         <div 
           onClick={() => addToast("Card clicked: Security events audit list", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -105,11 +105,11 @@ export default function EmployeeAuditLogs() {
         {/* Left Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>System Audit Logs</h3>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1px solid var(--line)', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
+                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
                   <Search size={14} style={{ marginLeft: '12px', color: 'var(--muted)' }} />
                   <input
                     placeholder="Search logs..."
@@ -122,7 +122,7 @@ export default function EmployeeAuditLogs() {
                   className="dash-select" 
                   value={activityFilter} 
                   onChange={(e) => setActivityFilter(e.target.value)}
-                  style={{ height: '34px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
+                  style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
                 >
                   <option value="All">All Severity Levels</option>
                   <option value="SUCCESS">Success</option>
@@ -131,7 +131,7 @@ export default function EmployeeAuditLogs() {
                 </select>
                 <button 
                   onClick={() => addToast("Exporting security log audits spreadsheet...", "success")}
-                  style={{ height: '34px', padding: '0 12px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
+                  style={{ height: '34px', padding: '0 12px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
                 >
                   <Download size={14} /> Export
                 </button>
@@ -141,7 +141,7 @@ export default function EmployeeAuditLogs() {
             <div className="table-wrap" style={{ overflowX: 'auto' }}>
               <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>LOG ID</th>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>User</th>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Action Details</th>
@@ -188,7 +188,7 @@ export default function EmployeeAuditLogs() {
         {/* Right Column: Timeline */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '1' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <Calendar size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Activity Timeline</h3>
@@ -215,3 +215,5 @@ export default function EmployeeAuditLogs() {
     </div>
   );
 }
+
+

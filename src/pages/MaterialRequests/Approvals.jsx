@@ -200,7 +200,7 @@ export default function ApprovalPipeline() {
               style={{
                 background: '#ffffff',
                 color: 'var(--text)',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 borderRadius: '6px',
                 padding: '8px 16px',
                 fontSize: '13px',
@@ -245,7 +245,7 @@ export default function ApprovalPipeline() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
           
           {/* Card 1 */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 PENDING QUEUE
@@ -263,7 +263,7 @@ export default function ApprovalPipeline() {
           </div>
 
           {/* Card 2 */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 HIGH VALUE TOTAL
@@ -281,7 +281,7 @@ export default function ApprovalPipeline() {
           </div>
 
           {/* Card 3 */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 CRITICAL DELAY
@@ -300,7 +300,7 @@ export default function ApprovalPipeline() {
         </div>
 
         {/* Detailed Requests Queue Panel */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Detailed Requests Queue
@@ -335,7 +335,7 @@ export default function ApprovalPipeline() {
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>ID</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Requester</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Category</th>
@@ -428,7 +428,7 @@ export default function ApprovalPipeline() {
                                 top: '34px', 
                                 width: '150px', 
                                 background: '#ffffff', 
-                                border: '1px solid var(--line)', 
+                                border: '1.5px solid #25108f', 
                                 borderRadius: '8px', 
                                 boxShadow: '0 4px 12px rgba(0,0,0,0.15)', 
                                 zIndex: 50, 
@@ -499,12 +499,12 @@ export default function ApprovalPipeline() {
             <div style={{ display: 'flex', gap: '8px' }}>
               <button 
                 onClick={() => addToast("You are already on the first page.", "info")}
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
                 Previous
               </button>
               <button 
                 onClick={() => addToast("No more pages available.", "info")}
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: '#565365', borderRadius: '6px', padding: '6px 14px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button">
                 Next
               </button>
             </div>
@@ -515,7 +515,7 @@ export default function ApprovalPipeline() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Approval Trend Line Chart */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>
               Approval Trend (7 Days)
             </h2>
@@ -559,7 +559,7 @@ export default function ApprovalPipeline() {
           </div>
 
           {/* Department Share Donut Chart */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Department Share
             </h2>
@@ -852,3 +852,5 @@ export default function ApprovalPipeline() {
     </AdminShell>
   );
 }
+
+

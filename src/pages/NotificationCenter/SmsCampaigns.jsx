@@ -74,7 +74,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '13px',
@@ -215,7 +215,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                 Active Campaign Ledger
               </h2>
               
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
                 <select
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)}
@@ -232,7 +232,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
             <div style={{ overflowX: 'auto', flex: 1 }}>
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '580px' }}>
                 <thead>
-                  <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Recipients</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', width: '140px' }}>Success %</th>
@@ -277,7 +277,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                           <MoreVertical size={16} />
                         </button>
                         {openDropdownId === i && (
-                          <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
+                          <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
                             <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('View Details clicked'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--text)' }}>View Details</button>
                             <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('Resend SMS'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--green)' }}>Resend</button>
                             <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('Delete Campaign'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#e11d48' }}>Delete</button>
@@ -303,7 +303,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                       height: '32px',
                       width: '32px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: page === '1' ? 'var(--primary)' : '#fff',
                       color: page === '1' ? '#fff' : 'var(--text)',
                       fontWeight: '700',
@@ -508,7 +508,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
           <div style={{
             background: '#fff',
             borderRadius: '8px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             width: '100%',
             maxWidth: '440px',
             boxShadow: '0 8px 24px rgba(17, 12, 60, 0.15)',
@@ -516,7 +516,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
             flexDirection: 'column',
             overflow: 'hidden'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1.5px solid #25108f' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Create SMS Campaign</h3>
               <button onClick={() => setShowNewCampaignModal(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} aria-label="Close modal">
                 x
@@ -535,7 +535,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                   style={{
                     width: '100%',
                     height: '36px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px'
@@ -554,7 +554,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                   style={{
                     width: '100%',
                     height: '36px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px'
@@ -573,7 +573,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                   style={{
                     width: '100%',
                     height: '36px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px'
@@ -588,7 +588,7 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                   style={{
                     height: '36px',
                     padding: '0 16px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '13px',
@@ -620,3 +620,5 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
     </AdminShell>
   );
 }
+
+

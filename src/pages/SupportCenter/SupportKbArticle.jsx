@@ -102,7 +102,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0', position: 'relative' }}>
         
         {/* Article Edit Header (Back row + Publish/Save) */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <button
               onClick={() => navigate(ROUTES.supportKb)}
@@ -110,7 +110,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                 height: '34px',
                 width: '34px',
                 borderRadius: '6px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 display: 'flex',
                 alignItems: 'center',
@@ -146,7 +146,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                 height: '36px',
                 padding: '0 16px',
                 borderRadius: '6px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '13px',
@@ -196,7 +196,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                   placeholder="Enter descriptive article title..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  style={{ width: '100%', border: '1px solid var(--line)', padding: '10px 12px', borderRadius: '6px', fontSize: '15px', fontWeight: '750', color: 'var(--text)', outline: 'none' }}
+                  style={{ width: '100%', border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', fontSize: '15px', fontWeight: '750', color: 'var(--text)', outline: 'none' }}
                 />
               </div>
 
@@ -209,7 +209,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    style={{ border: '1px solid var(--line)', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
+                    style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
                   >
                     <option value="Product Documentation">Product Documentation</option>
                     <option value="Troubleshooting Guides">Troubleshooting Guides</option>
@@ -256,10 +256,10 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
             {/* Rich Editor Box */}
             <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
               
-              <div style={{ border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
+              <div style={{ border: '1.5px solid #25108f', borderRadius: '8px', overflow: 'hidden' }}>
                 
                 {/* Editor formatting toolbar */}
-                <div style={{ display: 'flex', gap: '12px', background: 'var(--soft)', borderBottom: '1px solid var(--line)', padding: '10px 14px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '12px', background: 'var(--soft)', borderBottom: '1.5px solid #25108f', padding: '10px 14px', flexWrap: 'wrap' }}>
                   <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} title="Bold">
                     <Bold size={15} />
                   </button>
@@ -269,14 +269,14 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                   <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} title="Underline">
                     <Underline size={15} />
                   </button>
-                  <span style={{ borderLeft: '1px solid var(--line)', margin: '0 4px' }} />
+                  <span style={{ borderLeft: '1.5px solid #25108f', margin: '0 4px' }} />
                   <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} title="Bulleted List">
                     <List size={15} />
                   </button>
                   <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} title="Numbered List">
                     <ListOrdered size={15} />
                   </button>
-                  <span style={{ borderLeft: '1px solid var(--line)', margin: '0 4px' }} />
+                  <span style={{ borderLeft: '1.5px solid #25108f', margin: '0 4px' }} />
                   <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} title="Link">
                     <LinkIcon size={14} />
                   </button>
@@ -325,7 +325,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                   placeholder="Defaults to article title..."
                   value={metaTitle}
                   onChange={(e) => setMetaTitle(e.target.value)}
-                  style={{ width: '100%', border: '1px solid var(--line)', padding: '8px 10px', borderRadius: '6px', fontSize: '12.5px', color: 'var(--text)', outline: 'none' }}
+                  style={{ width: '100%', border: '1.5px solid #25108f', padding: '8px 10px', borderRadius: '6px', fontSize: '12.5px', color: 'var(--text)', outline: 'none' }}
                 />
               </div>
 
@@ -337,7 +337,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                   value={metaDesc}
                   onChange={(e) => setMetaDesc(e.target.value)}
                   rows={3}
-                  style={{ width: '100%', border: '1px solid var(--line)', padding: '8px 10px', borderRadius: '6px', fontSize: '12.5px', color: 'var(--text)', outline: 'none', resize: 'vertical' }}
+                  style={{ width: '100%', border: '1.5px solid #25108f', padding: '8px 10px', borderRadius: '6px', fontSize: '12.5px', color: 'var(--text)', outline: 'none', resize: 'vertical' }}
                 />
               </div>
 
@@ -385,7 +385,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                   onKeyDown={handleAddTag}
-                  style={{ width: '100%', border: '1px solid var(--line)', padding: '8px 10px', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
+                  style={{ width: '100%', border: '1.5px solid #25108f', padding: '8px 10px', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
                 />
               </div>
             </div>
@@ -412,7 +412,7 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                     style={{
                       padding: '10px 12px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: '#fff',
                       display: 'flex',
                       alignItems: 'center',
@@ -475,3 +475,5 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
     </AdminShell>
   );
 }
+
+

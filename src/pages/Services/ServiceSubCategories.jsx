@@ -98,7 +98,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
         .premium-kpi-card {
           padding: 20px;
           background: #fff;
-          border: 1px solid var(--line);
+          border: 1.5px solid #25108f;
           border-radius: 12px;
           display: flex;
           flex-direction: column;
@@ -201,7 +201,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
 
       {/* Table Panel */}
       <section className="panel" style={{ padding: '0', overflow: 'hidden', borderRadius: '12px' }}>
-        <div style={{ padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', position: 'relative', zIndex: 20 }}>
+        <div style={{ padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #25108f', position: 'relative', zIndex: 20 }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>Sub Categories List</h2>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', position: 'relative' }}>
             
@@ -216,7 +216,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
             </button>
 
             {showFilterDropdown && (
-              <div style={{ position: 'absolute', top: '42px', right: 0, background: '#ffffff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', zIndex: 30, minWidth: '140px', display: 'flex', flexDirection: 'column', padding: '4px 0' }}>
+              <div style={{ position: 'absolute', top: '42px', right: 0, background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', zIndex: 30, minWidth: '140px', display: 'flex', flexDirection: 'column', padding: '4px 0' }}>
                 {['ALL', 'ACTIVE', 'INACTIVE'].map((status) => (
                   <button
                     key={status}
@@ -247,7 +247,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
               </thead>
               <tbody>
                 {filteredSubCategories.map((row) => (
-                  <tr key={row.id} className="premium-table-row" style={{ borderBottom: '1px solid var(--line)' }}>
+                  <tr key={row.id} className="premium-table-row" style={{ borderBottom: '1.5px solid #25108f' }}>
                     <td style={{ padding: '16px 24px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>
@@ -317,14 +317,14 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
           )}
         </div>
 
-        <div className="directory-table-footer" style={{ padding: '16px 24px', background: '#fff', borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="directory-table-footer" style={{ padding: '16px 24px', background: '#fff', borderTop: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>Showing {filteredSubCategories.length} of {totalCount} sub categories</span>
           <div className="pagination-wrap" style={{ display: 'flex', gap: '4px' }}>
-            <button type="button" disabled style={{ padding: '6px 8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', color: '#cbd5e1', cursor: 'not-allowed' }}>
+            <button type="button" disabled style={{ padding: '6px 8px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', color: '#cbd5e1', cursor: 'not-allowed' }}>
               <ChevronLeft size={16} />
             </button>
             <button type="button" style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>1</button>
-            <button type="button" style={{ padding: '6px 8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', color: 'var(--text)', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
+            <button type="button" style={{ padding: '6px 8px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', color: 'var(--text)', cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <ChevronRight size={16} />
             </button>
           </div>
@@ -352,7 +352,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
                   disabled={activeModal === 'view'}
                   value={selectedSubCategory.name}
                   onChange={(e) => setSelectedSubCategory({ ...selectedSubCategory, name: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
                 />
               </div>
 
@@ -363,7 +363,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
                   disabled={activeModal === 'view'}
                   value={selectedSubCategory.parent}
                   onChange={(e) => setSelectedSubCategory({ ...selectedSubCategory, parent: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
                 />
               </div>
 
@@ -375,7 +375,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
                     disabled={activeModal === 'view'}
                     value={selectedSubCategory.serviceCount}
                     onChange={(e) => setSelectedSubCategory({ ...selectedSubCategory, serviceCount: parseInt(e.target.value) || 0 })}
-                    style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
+                    style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
                   />
                 </div>
                 <div>
@@ -389,7 +389,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
                       const statusColor = status === 'ACTIVE' ? '#059669' : '#d97706';
                       setSelectedSubCategory({ ...selectedSubCategory, status, statusBg, statusColor });
                     }}
-                    style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--line)', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
+                    style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
                   >
                     <option value="ACTIVE">ACTIVE</option>
                     <option value="INACTIVE">INACTIVE</option>
@@ -399,7 +399,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
             </div>
 
             <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-              <button onClick={() => setActiveModal(null)} style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}>
+              <button onClick={() => setActiveModal(null)} style={{ padding: '8px 14px', borderRadius: '6px', border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}>
                 Close
               </button>
               {activeModal === 'edit' && (
@@ -415,3 +415,5 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
     </div>
   );
 }
+
+

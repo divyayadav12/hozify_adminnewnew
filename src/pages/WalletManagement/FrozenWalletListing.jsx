@@ -57,7 +57,7 @@ export default function FrozenWalletListing() {
 
         {/* Search filter bar */}
         <div className="panel" style={{ padding: '16px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', flex: 1 }}>
             <Search size={14} style={{ color: 'var(--muted)' }} />
             <input
               placeholder="Search by owner name or wallet reference ID..."
@@ -73,7 +73,7 @@ export default function FrozenWalletListing() {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Wallet ID</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Owner</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Role Type</th>
@@ -132,7 +132,7 @@ export default function FrozenWalletListing() {
                       <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
                         <button
                           onClick={() => navigate(ROUTES.walletDetails.replace(':id', w.id))}
-                          style={{ border: '1px solid var(--line)', background: '#fff', padding: '5px 10px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', cursor: 'pointer', fontWeight: '750' }}
+                          style={{ border: '1.5px solid #25108f', background: '#fff', padding: '5px 10px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', cursor: 'pointer', fontWeight: '750' }}
                         >
                           <Eye size={12} />
                           <span>Inspect</span>
@@ -157,3 +157,5 @@ export default function FrozenWalletListing() {
     </AdminShell>
   );
 }
+
+

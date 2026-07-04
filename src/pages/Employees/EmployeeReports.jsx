@@ -39,7 +39,7 @@ export default function EmployeeReports() {
         </div>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           
-          <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
+          <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
             <select
               style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}
               value={branch}
@@ -52,7 +52,7 @@ export default function EmployeeReports() {
             </select>
           </div>
 
-          <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
+          <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
             <select
               style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}
               value={dateRange}
@@ -92,7 +92,7 @@ export default function EmployeeReports() {
         <div 
           onClick={() => addToast("Card clicked: Productivity Score details", "success")}
           className="kpi-card" 
-          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer' }}
+          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -110,7 +110,7 @@ export default function EmployeeReports() {
         <div 
           onClick={() => addToast("Card clicked: Revenue Contribution details", "success")}
           className="kpi-card" 
-          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer' }}
+          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -128,7 +128,7 @@ export default function EmployeeReports() {
         <div 
           onClick={() => addToast("Card clicked: Customer Satisfaction analytics", "success")}
           className="kpi-card" 
-          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer' }}
+          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -146,7 +146,7 @@ export default function EmployeeReports() {
         <div 
           onClick={() => addToast("Card clicked: Average Attendance compliance analysis", "success")}
           className="kpi-card" 
-          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer' }}
+          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -357,3 +357,5 @@ export default function EmployeeReports() {
     </div>
   );
 }
+
+

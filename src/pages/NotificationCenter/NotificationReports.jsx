@@ -97,7 +97,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
           </div>
 
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
               <Calendar size={14} style={{ color: 'var(--muted)' }} />
               <select
                 value={dateRange}
@@ -292,7 +292,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
                       style={{
                         width: '100%',
                         height: '38px',
-                        border: '1px solid var(--line)',
+                        border: '1.5px solid #25108f',
                         borderRadius: '6px',
                         padding: '0 12px',
                         fontSize: '13px',
@@ -331,7 +331,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
                             alignItems: 'center',
                             justifyContent: 'center',
                             gap: '8px',
-                            border: isChecked ? '1px solid var(--primary)' : '1px solid var(--line)',
+                            border: isChecked ? '1.5px solid #25108f' : '1.5px solid #25108f',
                             borderRadius: '6px',
                             background: isChecked ? 'rgba(37, 16, 143, 0.03)' : '#fff',
                             height: '38px',
@@ -369,7 +369,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
                   style={{
                     height: '38px',
                     padding: '0 16px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '13px',
@@ -509,7 +509,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
             </div>
 
             <div style={{ display: 'flex', gap: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff', width: '220px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff', width: '220px' }}>
                 <Search size={14} style={{ color: 'var(--muted)' }} />
                 <input
                   type="text"
@@ -526,7 +526,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '700px' }}>
               <thead>
-                <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Total Reach</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Success Rate</th>
@@ -590,3 +590,5 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
     </AdminShell>
   );
 }
+
+

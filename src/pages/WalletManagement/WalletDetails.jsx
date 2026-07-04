@@ -50,7 +50,7 @@ export default function WalletDetails() {
           <div style={{ display: 'flex', gap: '12px' }}>
             <button
               onClick={handleAdjustBalance}
-              style={{ border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: '750', height: '36px', padding: '0 16px', borderRadius: '6px', cursor: 'pointer' }}
+              style={{ border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: '750', height: '36px', padding: '0 16px', borderRadius: '6px', cursor: 'pointer' }}
             >
               Adjust Balance
             </button>
@@ -123,7 +123,7 @@ export default function WalletDetails() {
         </div>
 
         {/* Tab Selection */}
-        <div style={{ borderBottom: '1px solid var(--line)', display: 'flex', gap: '20px' }}>
+        <div style={{ borderBottom: '1.5px solid #25108f', display: 'flex', gap: '20px' }}>
           {['Transactions', 'History & Audit Timeline', 'Settings & Limits'].map((tab) => (
             <button
               key={tab}
@@ -156,7 +156,7 @@ export default function WalletDetails() {
                 <div className="table-wrap">
                   <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                     <thead>
-                      <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                      <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                         <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Reference</th>
                         <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Type</th>
                         <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Amount</th>
@@ -231,11 +231,11 @@ export default function WalletDetails() {
             <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: '0 0 16px' }}>Account Settings</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--line)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1.5px solid #25108f' }}>
                   <span style={{ color: 'var(--muted)' }}>Auto Settlement Limit:</span>
                   <strong>₹50,000.00</strong>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--line)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1.5px solid #25108f' }}>
                   <span style={{ color: 'var(--muted)' }}>Minimum Payout Reserve:</span>
                   <strong>₹1,000.00</strong>
                 </div>
@@ -252,3 +252,5 @@ export default function WalletDetails() {
     </AdminShell>
   );
 }
+
+

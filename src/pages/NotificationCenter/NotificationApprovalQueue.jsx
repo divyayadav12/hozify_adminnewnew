@@ -157,7 +157,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '13px',
@@ -309,7 +309,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
                       height: '28px',
                       padding: '0 12px',
                       borderRadius: '4px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: filterPriority === tab ? 'var(--primary)' : '#fff',
                       color: filterPriority === tab ? '#fff' : 'var(--muted)',
                       fontSize: '11.5px',
@@ -514,7 +514,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '700px' }}>
               <thead>
-                <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign ID</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Approver</th>
@@ -588,7 +588,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
           <div style={{
             background: '#fff',
             borderRadius: '8px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             width: '100%',
             maxWidth: '460px',
             boxShadow: '0 8px 24px rgba(17, 12, 60, 0.15)',
@@ -596,7 +596,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
             flexDirection: 'column',
             overflow: 'hidden'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1.5px solid #25108f' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Reject Campaign Content</h3>
               <button onClick={() => setShowRejectModal(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', fontSize: '16px' }} aria-label="Close modal">
                 x
@@ -620,7 +620,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
                   onChange={(e) => setRejectNotes(e.target.value)}
                   style={{
                     width: '100%',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '10px 12px',
                     fontSize: '13px',
@@ -637,7 +637,7 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
                   style={{
                     height: '36px',
                     padding: '0 16px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '13px',
@@ -669,3 +669,5 @@ export default function NotificationApprovalQueue({ activeTab = 'Notification Ce
     </AdminShell>
   );
 }
+
+

@@ -64,11 +64,11 @@ export default function ServiceProfile({ onClose }) {
       </div>
 
       {/* Main Profile Summary Panel */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', gap: 'var(--spacing-section)', alignItems: 'center', flexWrap: 'wrap' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', gap: 'var(--spacing-section)', alignItems: 'center', flexWrap: 'wrap' }}>
         <img
           src="https://images.unsplash.com/photo-1581094288338-2314dddb7eed?auto=format&fit=crop&w=140&h=140&q=80"
           alt="Industrial HVAC Maintenance"
-          style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover', border: '1px solid var(--line)' }}
+          style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover', border: '1.5px solid #25108f' }}
         />
         
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '240px' }}>
@@ -105,7 +105,7 @@ export default function ServiceProfile({ onClose }) {
               padding: '0 16px',
               background: '#ffffff',
               color: 'var(--text)',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '6px',
               fontSize: '13px',
               fontWeight: '700',
@@ -143,7 +143,7 @@ export default function ServiceProfile({ onClose }) {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
         
         {/* TOTAL BOOKINGS */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Bookings</span>
@@ -162,7 +162,7 @@ export default function ServiceProfile({ onClose }) {
         </div>
 
         {/* REVENUE */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Revenue</span>
@@ -181,7 +181,7 @@ export default function ServiceProfile({ onClose }) {
         </div>
 
         {/* CUSTOMER SATISFACTION */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer Satisfaction</span>
             <strong style={{ display: 'block', fontSize: '24px', fontWeight: '800', color: 'var(--text)', marginTop: '4px' }}>98%</strong>
@@ -191,7 +191,7 @@ export default function ServiceProfile({ onClose }) {
         </div>
 
         {/* CANCELLATIONS */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Cancellations</span>
             <strong style={{ display: 'block', fontSize: '24px', fontWeight: '800', color: 'var(--text)', marginTop: '4px' }}>2.1%</strong>
@@ -202,7 +202,7 @@ export default function ServiceProfile({ onClose }) {
       </div>
 
       {/* Internal View Tab Row */}
-      <div style={{ display: 'flex', gap: '16px', borderBottom: '1px solid var(--line)', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+      <div style={{ display: 'flex', gap: '16px', borderBottom: '1.5px solid #25108f', overflowX: 'auto', whiteSpace: 'nowrap' }}>
         {['Overview', 'Pricing', 'Availability', 'Requirements', 'Team', 'Documentation', 'Reviews'].map((tab) => (
           <button
             key={tab}
@@ -232,7 +232,7 @@ export default function ServiceProfile({ onClose }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: 2 }}>
           
           {/* Service Overview Panel */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Service Overview</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0, lineHeight: '1.6' }}>
               Comprehensive preventive and corrective maintenance for industrial-scale HVAC systems. Our certified technicians specialize in variable refrigerant flow (VRF) systems, centrifugal chillers, and large-scale air handling units. We utilize predictive diagnostic tools to identify potential points of failure before they impact operational uptime.
@@ -258,7 +258,7 @@ export default function ServiceProfile({ onClose }) {
           </div>
 
           {/* Recent Work Orders */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Recent Work Orders</h2>
               <a href="#view-all-work" onClick={(e) => e.preventDefault()} style={{ fontSize: '12px', color: '#4f46e5', fontWeight: '800', textDecoration: 'none' }}>
@@ -269,7 +269,7 @@ export default function ServiceProfile({ onClose }) {
             <div style={{ overflowX: 'auto' }}>
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Order ID</th>
                     <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Client</th>
                     <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Scheduled Date</th>
@@ -324,7 +324,7 @@ export default function ServiceProfile({ onClose }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: 1 }}>
           
           {/* Real-time Performance */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Real-time Performance</h3>
               <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
@@ -357,7 +357,7 @@ export default function ServiceProfile({ onClose }) {
                 width: '100%',
                 height: '38px',
                 background: '#ffffff',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 borderRadius: '6px',
                 color: 'var(--text)',
                 fontSize: '12px',
@@ -372,7 +372,7 @@ export default function ServiceProfile({ onClose }) {
           </div>
 
           {/* Assigned Lead Technicians */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Assigned Lead Technicians
             </h3>
@@ -395,7 +395,7 @@ export default function ServiceProfile({ onClose }) {
                       width: '28px',
                       height: '28px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: 'transparent',
                       color: 'var(--muted)',
                       display: 'flex',
@@ -451,3 +451,5 @@ export default function ServiceProfile({ onClose }) {
     </div>
   );
 }
+
+

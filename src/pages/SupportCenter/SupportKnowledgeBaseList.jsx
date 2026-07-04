@@ -379,7 +379,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                       height: '32px',
                       width: '100%',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       padding: '0 10px 0 32px',
                       fontSize: '12.5px'
                     }}
@@ -390,7 +390,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  style={{ height: '32px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12.5px' }}
+                  style={{ height: '32px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
                 >
                   {categories.map(cat => (
                     <option key={cat} value={cat}>{cat === 'All' ? 'All Categories' : cat}</option>
@@ -402,7 +402,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
               <div style={{ overflowX: 'auto' }}>
                 <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid var(--line)', color: 'var(--muted)' }}>
+                    <tr style={{ borderBottom: '1.5px solid #25108f', color: 'var(--muted)' }}>
                       <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px' }}>ARTICLE DETAILS</th>
                       <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px' }}>CATEGORY</th>
                       <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px', textAlign: 'center' }}>READS</th>
@@ -498,7 +498,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
               flex: '0.8',
               minWidth: '300px',
               background: '#fff',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '12px',
               padding: 'var(--spacing-section)',
               display: 'flex',
@@ -512,7 +512,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
             }}>
               
               {/* Drawer Title & Close controls */}
-              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+              <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
                 <div>
                   <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                     {selectedArticle ? 'Edit Article Document' : 'Create Article Draft'}
@@ -552,7 +552,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                     placeholder="e.g. BSP Account Suspension Rules"
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
-                    style={{ height: '36px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 12px', fontSize: '12.5px' }}
+                    style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 12px', fontSize: '12.5px' }}
                   />
                 </div>
 
@@ -563,7 +563,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                     <select
                       value={formCategory}
                       onChange={(e) => setFormCategory(e.target.value)}
-                      style={{ height: '36px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 8px', fontSize: '12px' }}
+                      style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 8px', fontSize: '12px' }}
                     >
                       {categories.filter(c => c !== 'All').map(cat => (
                         <option key={cat} value={cat}>{cat}</option>
@@ -576,7 +576,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                     <select
                       value={formVisibility}
                       onChange={(e) => setFormVisibility(e.target.value)}
-                      style={{ height: '36px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 8px', fontSize: '12px' }}
+                      style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 8px', fontSize: '12px' }}
                     >
                       <option>Public</option>
                       <option>Internal</option>
@@ -589,7 +589,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Article Body</label>
                   
                   {/* Toolbar */}
-                  <div style={{ display: 'flex', gap: '2px', background: 'var(--soft)', border: '1px solid var(--line)', borderBottom: 'none', borderRadius: '6px 6px 0 0', padding: '4px' }}>
+                  <div style={{ display: 'flex', gap: '2px', background: 'var(--soft)', border: '1.5px solid #25108f', borderBottom: 'none', borderRadius: '6px 6px 0 0', padding: '4px' }}>
                     {['B', 'I', 'U', 'Link', 'Code', 'List'].map((btn) => (
                       <button
                         key={btn}
@@ -622,7 +622,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                     rows={8}
                     style={{
                       borderRadius: '0 0 6px 6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       padding: '12px',
                       fontSize: '12.5px',
                       
@@ -639,7 +639,7 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                     placeholder="e.g. stripe, billing, ref-9021 (comma separated)"
                     value={formTags}
                     onChange={(e) => setFormTags(e.target.value)}
-                    style={{ height: '36px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 12px', fontSize: '12.5px' }}
+                    style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 12px', fontSize: '12.5px' }}
                   />
                 </div>
 
@@ -663,14 +663,14 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                       placeholder="Meta Title Tag"
                       value={formMetaTitle}
                       onChange={(e) => setFormMetaTitle(e.target.value)}
-                      style={{ height: '32px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12px' }}
+                      style={{ height: '32px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12px' }}
                     />
                     <textarea
                       placeholder="Meta Description snippet for search pages..."
                       value={formMetaDesc}
                       onChange={(e) => setFormMetaDesc(e.target.value)}
                       rows={2}
-                      style={{ borderRadius: '6px', border: '1px solid var(--line)', padding: '8px 10px', fontSize: '12px', resize: 'none' }}
+                      style={{ borderRadius: '6px', border: '1.5px solid #25108f', padding: '8px 10px', fontSize: '12px', resize: 'none' }}
                     />
                   </div>
                 </div>
@@ -678,14 +678,14 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
               </div>
 
               {/* Action row buttons */}
-              <div style={{ display: 'flex', gap: '10px', borderTop: '1px solid var(--line)', paddingTop: '16px' }}>
+              <div style={{ display: 'flex', gap: '10px', borderTop: '1.5px solid #25108f', paddingTop: '16px' }}>
                 <button
                   onClick={handleSaveArticle}
                   style={{
                     flex: 1,
                     height: '36px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     color: 'var(--text)',
                     fontSize: '12.5px',
@@ -726,3 +726,5 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
     </AdminShell>
   );
 }
+
+

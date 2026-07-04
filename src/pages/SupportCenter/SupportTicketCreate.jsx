@@ -155,7 +155,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
         </div>
 
         {/* Page Title & Progress */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px', borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
           <div>
             <h1 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
               Create Support Ticket
@@ -197,7 +197,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                   <select
                     value={ticketType}
                     onChange={(e) => setTicketType(e.target.value)}
-                    style={{ border: '1px solid var(--line)', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
+                    style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
                   >
                     <option value="Technical Issue">Technical Issue</option>
                     <option value="Billing Dispute">Billing Dispute</option>
@@ -212,7 +212,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    style={{ border: '1px solid var(--line)', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
+                    style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
                   >
                     <option value="Platform Downtime">Platform Downtime</option>
                     <option value="Payment Processing">Payment Processing</option>
@@ -227,7 +227,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                 <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)' }}>CUSTOMER SELECTION</span>
                 
                 <div style={{
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   padding: '8px 12px',
                   background: '#fff',
@@ -278,9 +278,9 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                 Detailed Description
               </h3>
 
-              <div style={{ border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
+              <div style={{ border: '1.5px solid #25108f', borderRadius: '8px', overflow: 'hidden' }}>
                 {/* Editor Toolbar layout mock */}
-                <div style={{ display: 'flex', gap: '12px', background: 'var(--soft)', borderBottom: '1px solid var(--line)', padding: '10px 14px' }}>
+                <div style={{ display: 'flex', gap: '12px', background: 'var(--soft)', borderBottom: '1.5px solid #25108f', padding: '10px 14px' }}>
                   <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} title="Bold">
                     <Bold size={15} />
                   </button>
@@ -338,7 +338,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                         gap: '12px',
                         padding: '14px',
                         borderRadius: '8px',
-                        border: isChecked ? `2px solid ${item.color}` : '1px solid var(--line)',
+                        border: isChecked ? `2px solid ${item.color}` : '1.5px solid #25108f',
                         background: isChecked ? item.bg : '#fff',
                         cursor: 'pointer',
                         transition: 'all 0.15s ease'
@@ -428,7 +428,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                     style={{
                       padding: '10px 12px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: '#fff',
                       display: 'flex',
                       alignItems: 'center',
@@ -491,7 +491,7 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                 style={{
                   width: '100%',
                   height: '40px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   color: 'var(--text)',
                   borderRadius: '6px',
@@ -536,3 +536,5 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
     </AdminShell>
   );
 }
+
+

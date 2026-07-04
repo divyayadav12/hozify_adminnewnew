@@ -168,7 +168,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
             </div>
 
             {/* IF Conditions block */}
-            <div style={{ background: 'var(--soft)', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+            <div style={{ background: 'var(--soft)', padding: '16px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '900', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   IF (Match all conditions)
@@ -193,7 +193,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         next[idx].field = e.target.value;
                         setConditions(next);
                       }}
-                      style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12.5px' }}
+                      style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
                     >
                       <option>Ticket Category</option>
                       <option>Customer Tier</option>
@@ -208,7 +208,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         next[idx].operator = e.target.value;
                         setConditions(next);
                       }}
-                      style={{ flex: 1, minWidth: '120px', height: '34px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12.5px' }}
+                      style={{ flex: 1, minWidth: '120px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
                     >
                       <option>is equal to</option>
                       <option>is not equal to</option>
@@ -223,7 +223,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         next[idx].value = e.target.value;
                         setConditions(next);
                       }}
-                      style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12.5px' }}
+                      style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
                     >
                       <option>Billing & Payments</option>
                       <option>KYC Verification</option>
@@ -246,7 +246,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
             </div>
 
             {/* THEN Actions block */}
-            <div style={{ background: 'var(--soft)', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+            <div style={{ background: 'var(--soft)', padding: '16px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '900', color: 'var(--green)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   THEN (Execute operations)
@@ -271,7 +271,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         next[idx].type = e.target.value;
                         setActions(next);
                       }}
-                      style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12.5px' }}
+                      style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
                     >
                       <option>Assign to Agent Group</option>
                       <option>Set Ticket Priority</option>
@@ -290,7 +290,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         next[idx].target = e.target.value;
                         setActions(next);
                       }}
-                      style={{ flex: 2, minWidth: '180px', height: '34px', borderRadius: '6px', border: '1px solid var(--line)', padding: '0 10px', fontSize: '12.5px' }}
+                      style={{ flex: 2, minWidth: '180px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
                     >
                       <option>Finance Prime Team</option>
                       <option>L2 Escalations</option>
@@ -324,7 +324,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                   height: '36px',
                   padding: '0 16px',
                   borderRadius: '6px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   color: 'var(--text)',
                   fontSize: '12.5px',
@@ -444,7 +444,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                   height: '34px',
                   width: '100%',
                   borderRadius: '6px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: 'var(--soft)',
                   color: 'var(--text)',
                   fontSize: '12px',
@@ -503,7 +503,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)', color: 'var(--muted)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f', color: 'var(--muted)' }}>
                   <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px' }}>TRIGGER RULE NAME</th>
                   <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px' }}>BREACH THRESHOLD</th>
                   <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px' }}>ALERT RECIPIENTS</th>
@@ -580,3 +580,5 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
     </AdminShell>
   );
 }
+
+

@@ -87,7 +87,7 @@ export default function AvailabilityBoard() {
       <div className="fraud-top-grid" style={{ gap: '16px', alignItems: 'flex-start' }}>
         
         {/* Column Available */}
-        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1px solid var(--line)', minHeight: '500px' }}>
+        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1.5px solid #25108f', minHeight: '500px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', padding: '0 4px' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '800', color: '#15803d' }}>
               <span style={{ width: '8px', height: '8px', background: '#10b981', borderRadius: '50%' }} />
@@ -147,7 +147,7 @@ export default function AvailabilityBoard() {
         </div>
 
         {/* Column Busy */}
-        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1px solid var(--line)', minHeight: '500px' }}>
+        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1.5px solid #25108f', minHeight: '500px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', padding: '0 4px' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '800', color: '#b45309' }}>
               <span style={{ width: '8px', height: '8px', background: '#f59e0b', borderRadius: '50%' }} />
@@ -198,7 +198,7 @@ export default function AvailabilityBoard() {
         </div>
 
         {/* Column On Job */}
-        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1px solid var(--line)', minHeight: '500px' }}>
+        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1.5px solid #25108f', minHeight: '500px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', padding: '0 4px' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '800', color: '#2563eb' }}>
               <span style={{ width: '8px', height: '8px', background: '#3b82f6', borderRadius: '50%' }} />
@@ -249,7 +249,7 @@ export default function AvailabilityBoard() {
         </div>
 
         {/* Column On Leave */}
-        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1px solid var(--line)', minHeight: '500px' }}>
+        <div style={{ flex: 1, backgroundColor: '#f8fafc', padding: '16px 12px', borderRadius: '8px', border: '1.5px solid #25108f', minHeight: '500px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', padding: '0 4px' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '800', color: '#6b7280' }}>
               <span style={{ width: '8px', height: '8px', background: '#9ca3af', borderRadius: '50%' }} />
@@ -294,3 +294,5 @@ export default function AvailabilityBoard() {
     </div>
   );
 }
+
+

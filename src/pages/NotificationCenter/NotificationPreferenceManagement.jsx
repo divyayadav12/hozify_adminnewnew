@@ -88,7 +88,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '13px',
@@ -227,7 +227,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
                   style={{
                     height: '28px',
                     padding: '0 12px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '4px',
                     fontSize: '11px',
                     fontWeight: '800',
@@ -329,7 +329,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
                       gap: '6px',
                       height: '32px',
                       borderRadius: '6px',
-                      border: ev.inApp ? '1px solid var(--primary)' : '1px solid var(--line)',
+                      border: ev.inApp ? '1.5px solid #25108f' : '1.5px solid #25108f',
                       background: ev.inApp ? 'rgba(37, 16, 143, 0.03)' : '#fff',
                       cursor: 'pointer',
                       fontSize: '11.5px',
@@ -354,7 +354,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
                       gap: '6px',
                       height: '32px',
                       borderRadius: '6px',
-                      border: ev.email ? '1px solid var(--primary)' : '1px solid var(--line)',
+                      border: ev.email ? '1.5px solid #25108f' : '1.5px solid #25108f',
                       background: ev.email ? 'rgba(37, 16, 143, 0.03)' : '#fff',
                       cursor: 'pointer',
                       fontSize: '11.5px',
@@ -379,7 +379,7 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
                       gap: '6px',
                       height: '32px',
                       borderRadius: '6px',
-                      border: ev.push ? '1px solid var(--primary)' : '1px solid var(--line)',
+                      border: ev.push ? '1.5px solid #25108f' : '1.5px solid #25108f',
                       background: ev.push ? 'rgba(37, 16, 143, 0.03)' : '#fff',
                       cursor: 'pointer',
                       fontSize: '11.5px',
@@ -408,3 +408,5 @@ export default function NotificationPreferenceManagement({ activeTab = 'Notifica
     </AdminShell>
   );
 }
+
+

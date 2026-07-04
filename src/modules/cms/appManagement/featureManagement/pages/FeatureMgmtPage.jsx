@@ -221,7 +221,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
         </div>
 
         {/* SOW Specific Navigation */}
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--line)', paddingBottom: '1px' }}>
+        <div style={{ display: 'flex', gap: '8px', borderBottom: '1.5px solid #25108f', paddingBottom: '1px' }}>
           {TABS.map(tab => (
             <button
               key={tab}
@@ -247,7 +247,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
         {(activeTab === 'Feature Toggle' || activeTab === 'Enable Feature' || activeTab === 'Disable Feature') && (
           <>
             {/* Search */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
               <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
                 <input 
                   type="text" 
@@ -261,7 +261,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
             </div>
 
             {/* Responsive Table */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                   <thead>
@@ -355,7 +355,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
 
         {activeTab === 'Beta Features' && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 'var(--spacing-section)' }}>
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 16px 0' }}>Beta Targets Configuration</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {features.filter(f => f.target === 'Beta Group').map(feat => (
@@ -373,7 +373,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
               </div>
             </div>
 
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Authorized Beta User Pool</h3>
               <div style={{ display: 'flex', gap: '8px' }}>
                 <input 
@@ -413,7 +413,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
             {['v3.0.0', 'v3.1.0', 'v3.2.0', 'v3.3.0', 'v3.4.0-beta'].map(ver => {
               const matchingFeats = features.filter(f => f.version === ver);
               return (
-                <div key={ver} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+                <div key={ver} style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px', marginBottom: '16px' }}>
                     <div style={{ padding: '4px 10px', background: '#e0e7ff', color: '#4f46e5', borderRadius: '6px', fontSize: '12px', fontWeight: '800', fontFamily: "var(--materio-space)", }}>RELEASE BUILD {ver}</div>
                     <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600' }}>{matchingFeats.length} Mapped Features</span>
@@ -494,3 +494,5 @@ export default function FeatureMgmtPage({ defaultTab }) {
     </AdminShell>
   );
 }
+
+

@@ -114,7 +114,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
               style={{
                 height: '38px',
                 padding: '0 16px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 borderRadius: '6px',
@@ -208,11 +208,11 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
         <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <button style={{ height: '34px', padding: '0 14px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', fontSize: '12.5px', fontWeight: '750', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <button style={{ height: '34px', padding: '0 14px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', fontSize: '12.5px', fontWeight: '750', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                 <Filter size={14} />
                 Filter
               </button>
-              <button style={{ height: '34px', padding: '0 14px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', fontSize: '12.5px', fontWeight: '750' }}>
+              <button style={{ height: '34px', padding: '0 14px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', fontSize: '12.5px', fontWeight: '750' }}>
                 Recently Updated
               </button>
               {selectedIds.length > 0 && (
@@ -240,7 +240,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   style={{
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     height: '32px',
                     padding: '0 10px 0 30px',
@@ -256,7 +256,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', width: '40px' }}>
                     <input
                       type="checkbox"
@@ -447,7 +447,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
           <div style={{
             background: '#fff',
             borderRadius: '8px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             width: '100%',
             maxWidth: '480px',
             boxShadow: '0 8px 24px rgba(17, 12, 60, 0.15)',
@@ -455,7 +455,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
             flexDirection: 'column',
             overflow: 'hidden'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1.5px solid #25108f' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Add In-App Notification Trigger</h3>
               <button onClick={() => setShowNewTriggerModal(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={18} style={{ color: 'var(--muted)' }} />
@@ -474,7 +474,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                   style={{
                     width: '100%',
                     height: '36px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px'
@@ -492,7 +492,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                   style={{
                     width: '100%',
                     height: '36px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px'
@@ -509,7 +509,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                     style={{
                       width: '100%',
                       height: '36px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       borderRadius: '6px',
                       padding: '0 12px',
                       fontSize: '13px',
@@ -531,7 +531,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                     style={{
                       width: '100%',
                       height: '36px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       borderRadius: '6px',
                       padding: '0 12px',
                       fontSize: '13px',
@@ -577,7 +577,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                   style={{
                     height: '36px',
                     padding: '0 16px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '13px',
@@ -609,3 +609,5 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
     </AdminShell>
   );
 }
+
+

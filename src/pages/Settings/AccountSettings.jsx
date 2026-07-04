@@ -56,7 +56,7 @@ export default function AccountSettings() {
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Section 1: Personal Details */}
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
               <User size={16} /> Personal Details
             </h3>
@@ -67,7 +67,7 @@ export default function AccountSettings() {
                   type="text" 
                   value={settings.name}
                   onChange={(e) => setSettings({ ...settings, name: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                   required
                 />
               </div>
@@ -77,7 +77,7 @@ export default function AccountSettings() {
                   type="text" 
                   value={settings.username}
                   onChange={(e) => setSettings({ ...settings, username: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                   required
                 />
               </div>
@@ -87,7 +87,7 @@ export default function AccountSettings() {
                   type="email" 
                   value={settings.email}
                   onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                   required
                 />
               </div>
@@ -97,14 +97,14 @@ export default function AccountSettings() {
                   type="text" 
                   value={settings.phone}
                   onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                 />
               </div>
             </div>
           </div>
 
           {/* Section 2: Localization */}
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Globe size={16} /> Preferences &amp; Localization
             </h3>
@@ -114,7 +114,7 @@ export default function AccountSettings() {
                 <select 
                   value={settings.language}
                   onChange={(e) => setSettings({ ...settings, language: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
                 >
                   <option value="English (US)">English (US)</option>
                   <option value="Hindi">Hindi (हिन्दी)</option>
@@ -126,7 +126,7 @@ export default function AccountSettings() {
                 <select 
                   value={settings.theme}
                   onChange={(e) => setSettings({ ...settings, theme: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
                 >
                   <option value="Light">Light Mode</option>
                   <option value="Dark">Dark Mode</option>
@@ -138,7 +138,7 @@ export default function AccountSettings() {
                 <select 
                   value={settings.timezone}
                   onChange={(e) => setSettings({ ...settings, timezone: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
                 >
                   <option value="Asia/Kolkata (GMT+05:30)">Asia/Kolkata (GMT+05:30)</option>
                   <option value="UTC (GMT+00:00)">UTC (GMT+00:00)</option>
@@ -149,7 +149,7 @@ export default function AccountSettings() {
           </div>
 
           {/* Section 3: Notification Alerts */}
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Bell size={16} /> Notification Alerts
             </h3>
@@ -182,7 +182,7 @@ export default function AccountSettings() {
           </div>
 
           {/* Section 4: Email Subscriptions */}
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Mail size={16} /> Email Preferences
             </h3>
@@ -222,3 +222,5 @@ export default function AccountSettings() {
     </AdminShell>
   );
 }
+
+

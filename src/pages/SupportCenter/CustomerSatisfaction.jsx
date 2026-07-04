@@ -142,7 +142,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 Survey Response Rate
               </span>
-              <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--muted)', border: '1px solid var(--line)', padding: '2px 6px', borderRadius: '4px' }}>
+              <span style={{ fontSize: '10px', fontWeight: '850', color: 'var(--muted)', border: '1.5px solid #25108f', padding: '2px 6px', borderRadius: '4px' }}>
                 Benchmark 30%
               </span>
             </div>
@@ -234,7 +234,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
               </div>
 
               {/* X Axis Labels */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--muted)', fontWeight: '750', borderTop: '1px solid var(--line)', paddingTop: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--muted)', fontWeight: '750', borderTop: '1.5px solid #25108f', paddingTop: '8px' }}>
                 <span>June 1</span>
                 <span>June 7</span>
                 <span>June 14</span>
@@ -341,7 +341,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
                       height: '28px',
                       padding: '0 10px',
                       borderRadius: '4px',
-                      border: activeReviewFilter === flt ? '1px solid var(--primary)' : '1px solid var(--line)',
+                      border: activeReviewFilter === flt ? '1.5px solid #25108f' : '1.5px solid #25108f',
                       background: activeReviewFilter === flt ? 'var(--primary)' : '#fff',
                       color: activeReviewFilter === flt ? '#fff' : 'var(--muted)',
                       fontSize: '11px',
@@ -524,7 +524,7 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
         {/* Bottom Banner: Insights Engine */}
         <div style={{
           background: 'linear-gradient(135deg, rgba(37, 16, 143, 0.05) 0%, rgba(70, 56, 175, 0.08) 100%)',
-          border: '1px solid var(--line)',
+          border: '1.5px solid #25108f',
           borderRadius: '12px',
           padding: 'var(--spacing-section)',
           display: 'flex',
@@ -595,3 +595,5 @@ export default function CustomerSatisfaction({ activeTab = 'Support Center' }) {
     </AdminShell>
   );
 }
+
+

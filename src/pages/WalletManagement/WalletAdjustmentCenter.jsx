@@ -91,7 +91,7 @@ export default function WalletAdjustmentCenter() {
                 <select
                   value={walletId}
                   onChange={(e) => setWalletId(e.target.value)}
-                  style={{ border: '1px solid var(--line)', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
+                  style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
                 >
                   {mockWallets.map(w => (
                     <option key={w.id} value={w.id}>
@@ -113,7 +113,7 @@ export default function WalletAdjustmentCenter() {
                       style={{
                         flex: 1,
                         height: '38px',
-                        border: type === t ? 'none' : '1px solid var(--line)',
+                        border: type === t ? 'none' : '1.5px solid #25108f',
                         background: type === t ? (t === 'Credit' ? '#07956f' : '#d32929') : '#fff',
                         color: type === t ? '#fff' : 'var(--text)',
                         borderRadius: '6px',
@@ -136,7 +136,7 @@ export default function WalletAdjustmentCenter() {
                   placeholder="Enter amount in ₹"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  style={{ border: '1px solid var(--line)', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
+                  style={{ border: '1.5px solid #25108f', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
                 />
               </div>
 
@@ -146,7 +146,7 @@ export default function WalletAdjustmentCenter() {
                 <select
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
-                  style={{ border: '1px solid var(--line)', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
+                  style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
                 >
                   <option value="Manual Compensation">Manual Compensation</option>
                   <option value="SLA Resolution adjustment">SLA Resolution adjustment</option>
@@ -164,7 +164,7 @@ export default function WalletAdjustmentCenter() {
                   value={remarks}
                   onChange={(e) => setRemarks(e.target.value)}
                   rows={3}
-                  style={{ border: '1px solid var(--line)', borderRadius: '6px', padding: '10px 12px', fontSize: '13px', outline: 'none', resize: 'vertical' }}
+                  style={{ border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 12px', fontSize: '13px', outline: 'none', resize: 'vertical' }}
                 />
               </div>
 
@@ -221,3 +221,5 @@ export default function WalletAdjustmentCenter() {
     </AdminShell>
   );
 }
+
+

@@ -68,7 +68,7 @@ export default function WalletListing({ defaultType = 'All' }) {
         {/* Filter bar */}
         <div className="panel" style={{ padding: '16px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', flex: 1, minWidth: '200px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', flex: 1, minWidth: '200px' }}>
             <Search size={14} style={{ color: 'var(--muted)' }} />
             <input
               placeholder="Search by wallet ID or owner name..."
@@ -78,7 +78,7 @@ export default function WalletListing({ defaultType = 'All' }) {
             />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Type</span>
             <select
               value={typeFilter}
@@ -94,7 +94,7 @@ export default function WalletListing({ defaultType = 'All' }) {
             </select>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Status</span>
             <select
               value={statusFilter}
@@ -115,7 +115,7 @@ export default function WalletListing({ defaultType = 'All' }) {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Wallet ID</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Owner</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Entity Type</th>
@@ -189,3 +189,5 @@ export default function WalletListing({ defaultType = 'All' }) {
     </AdminShell>
   );
 }
+
+

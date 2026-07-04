@@ -127,7 +127,7 @@ export default function GlobalSearch() {
             if (e.key === 'Enter') executeSearch();
             if (e.key === 'Escape') inputRef.current?.blur();
           }}
-          placeholder="Global search operations..."
+          placeholder="Search pages & modules..."
           style={{
             border: 'none',
             background: 'transparent',
@@ -174,7 +174,7 @@ export default function GlobalSearch() {
             background: '#ffffff',
             borderRadius: '12px',
             boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             padding: '12px',
             zIndex: 1000,
             maxHeight: '400px',
@@ -241,3 +241,5 @@ export default function GlobalSearch() {
     </div>
   );
 }
+
+

@@ -34,7 +34,7 @@ export default function BranchAnalytics() {
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Date Range</span>
-            <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
               <select
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
@@ -49,7 +49,7 @@ export default function BranchAnalytics() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service Type</span>
-            <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
               <select
                 value={serviceType}
                 onChange={(e) => setServiceType(e.target.value)}
@@ -65,7 +65,7 @@ export default function BranchAnalytics() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee</span>
-            <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
               <select
                 value={employee}
                 onChange={(e) => setEmployee(e.target.value)}
@@ -88,7 +88,7 @@ export default function BranchAnalytics() {
       {/* KPI Cards Row */}
       <section className="kpi-grid" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginBottom: '24px', gap: '20px' }}>
         {/* Total Revenue */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Revenue</span>
@@ -102,7 +102,7 @@ export default function BranchAnalytics() {
         </div>
 
         {/* Avg Booking */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg. Booking</span>
@@ -116,7 +116,7 @@ export default function BranchAnalytics() {
         </div>
 
         {/* Service Ops */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Service Ops</span>
@@ -130,7 +130,7 @@ export default function BranchAnalytics() {
         </div>
 
         {/* Utilization */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
               <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Utilization</span>
@@ -308,3 +308,5 @@ export default function BranchAnalytics() {
     </div>
   );
 }
+
+

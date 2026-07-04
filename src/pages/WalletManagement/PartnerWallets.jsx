@@ -87,7 +87,7 @@ export default function PartnerWallets() {
       header: 'Classification', 
       accessor: 'type',
       render: (p) => (
-        <Badge variant="default" style={{ border: '1px solid var(--line)' }}>{p.type}</Badge>
+        <Badge variant="default" style={{ border: '1.5px solid #25108f' }}>{p.type}</Badge>
       )
     },
     { header: 'Current Balance', accessor: 'balance', render: (p) => <strong style={{ color: 'var(--text)' }}>{formatCurrency(p.balance)}</strong> },
@@ -148,7 +148,7 @@ export default function PartnerWallets() {
                 </div>
               ))}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--muted)', fontWeight: '800', borderTop: '1px solid var(--line)', paddingTop: '4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--muted)', fontWeight: '800', borderTop: '1.5px solid #25108f', paddingTop: '4px' }}>
               <span>Mon</span><span>Sun</span>
             </div>
           </Card>
@@ -185,7 +185,7 @@ export default function PartnerWallets() {
       {activeModalData && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(15,23,42,0.4)', padding: '16px' }}>
           <Card style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
               <div>
                 <Badge variant="info">{activeModalData.type} Node Profile</Badge>
                 <h3 style={{ fontSize: '18px', margin: '8px 0 0', color: 'var(--text)' }}>{activeModalData.name}</h3>
@@ -208,3 +208,4 @@ export default function PartnerWallets() {
     </AdminShell>
   );
 }
+

@@ -53,7 +53,7 @@ export default function LeaveManagement() {
             <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '16px', color: 'var(--text)' }}>Apply for Leave</h2>
             <div style={{ marginBottom: '16px' }}>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px' }}>LEAVE TYPE</label>
-              <select style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--line)', fontSize: '13px', outline: 'none' }}>
+              <select style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1.5px solid #25108f', fontSize: '13px', outline: 'none' }}>
                 <option>Annual Leave</option>
                 <option>Sick Leave</option>
                 <option>Bereavement</option>
@@ -63,19 +63,19 @@ export default function LeaveManagement() {
             <div style={{ marginBottom: '16px', display: 'flex', gap: '12px' }}>
               <div style={{ flex: 1 }}>
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px' }}>START DATE</label>
-                <input type="date" style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--line)', fontSize: '13px', outline: 'none' }} />
+                <input type="date" style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1.5px solid #25108f', fontSize: '13px', outline: 'none' }} />
               </div>
               <div style={{ flex: 1 }}>
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px' }}>END DATE</label>
-                <input type="date" style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--line)', fontSize: '13px', outline: 'none' }} />
+                <input type="date" style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1.5px solid #25108f', fontSize: '13px', outline: 'none' }} />
               </div>
             </div>
             <div style={{ marginBottom: '24px' }}>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px' }}>REASON / JUSTIFICATION</label>
-              <textarea placeholder="Please provide details for your leave request..." style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--line)', fontSize: '13px', minHeight: '80px', resize: 'vertical', outline: 'none' }}></textarea>
+              <textarea placeholder="Please provide details for your leave request..." style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1.5px solid #25108f', fontSize: '13px', minHeight: '80px', resize: 'vertical', outline: 'none' }}></textarea>
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
-              <button onClick={() => setApplyModalOpen(false)} style={{ padding: '8px 16px', borderRadius: '6px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', cursor: 'pointer', fontSize: '13px', fontWeight: '700' }}>Cancel</button>
+              <button onClick={() => setApplyModalOpen(false)} style={{ padding: '8px 16px', borderRadius: '6px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', cursor: 'pointer', fontSize: '13px', fontWeight: '700' }}>Cancel</button>
               <button onClick={() => { addToast("Leave application submitted successfully!", "success"); setApplyModalOpen(false); }} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#4f46e5', color: '#fff', cursor: 'pointer', fontSize: '13px', fontWeight: '700' }}>Submit Application</button>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function LeaveManagement() {
         <div 
           onClick={() => addToast("Card clicked: Pending leave requests details", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Pending Requests</span>
@@ -128,21 +128,21 @@ export default function LeaveManagement() {
         <div 
           onClick={() => addToast("Card clicked: Active leaves today list", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Active Leaves</span>
             <strong style={{ display: 'block', fontSize: '20px', margin: '4px 0 2px', color: 'var(--text)' }}>42</strong>
             <span style={{ fontSize: '10px', color: '#10b981', fontWeight: '800' }}>↘ -5% vs last month</span>
           </div>
-          <span style={{ fontSize: '9px', padding: '3px 6px', background: '#f8fafc', color: 'var(--muted)', borderRadius: '4px', border: '1px solid var(--line)', fontWeight: '800' }}>TODAY</span>
+          <span style={{ fontSize: '9px', padding: '3px 6px', background: '#f8fafc', color: 'var(--muted)', borderRadius: '4px', border: '1.5px solid #25108f', fontWeight: '800' }}>TODAY</span>
         </div>
 
         {/* Approval Rate */}
         <div 
           onClick={() => addToast("Card clicked: Leave approval rate analysis", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Approval Rate</span>
@@ -155,7 +155,7 @@ export default function LeaveManagement() {
         <div 
           onClick={() => addToast("Card clicked: Present staff count details", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '16px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Staff on Floor</span>
@@ -344,3 +344,4 @@ export default function LeaveManagement() {
     </div>
   );
 }
+

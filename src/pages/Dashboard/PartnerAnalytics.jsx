@@ -175,7 +175,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
             </div>
 
             {/* Growth column bars with March tooltip */}
-            <div style={{ height: '220px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', position: 'relative', padding: '10px 10px 0', marginTop: '10px' }}>
+            <div style={{ height: '220px', borderBottom: '1.5px solid #25108f', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', position: 'relative', padding: '10px 10px 0', marginTop: '10px' }}>
               
               {/* Tooltip bubble on March (index 2) */}
               <div style={{
@@ -284,7 +284,7 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Partner Entity</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Type</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Revenue Contribution</th>
@@ -346,3 +346,5 @@ export default function PartnerAnalytics({ activeTab = 'Partner Management' }) {
     </AdminShell>
   );
 }
+
+

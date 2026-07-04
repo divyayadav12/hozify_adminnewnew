@@ -106,7 +106,7 @@ export default function FinancialReconciliation() {
                 key={status}
                 onClick={() => setFilterStatus(status)}
                 style={{
-                  border: filterStatus === status ? 'none' : '1px solid var(--line)',
+                  border: filterStatus === status ? 'none' : '1.5px solid #25108f',
                   background: filterStatus === status ? '#25108f' : '#fff',
                   color: filterStatus === status ? '#fff' : 'var(--text)',
                   padding: '6px 12px',
@@ -127,7 +127,7 @@ export default function FinancialReconciliation() {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Reconciliation Date</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Gateway aggregate</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Wallet ledger total</th>
@@ -167,7 +167,7 @@ export default function FinancialReconciliation() {
                         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
                           <button
                             onClick={() => alert(`Showing digital log details for audit batch ${item.id}`)}
-                            style={{ border: '1px solid var(--line)', background: '#fff', padding: '4px 8px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', cursor: 'pointer', fontWeight: '700' }}
+                            style={{ border: '1.5px solid #25108f', background: '#fff', padding: '4px 8px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', cursor: 'pointer', fontWeight: '700' }}
                           >
                             <Eye size={12} />
                             <span>Logs</span>
@@ -195,3 +195,5 @@ export default function FinancialReconciliation() {
     </AdminShell>
   );
 }
+
+

@@ -92,7 +92,7 @@ export default function EmployeeOverview({ onNavigateToWorkforce }) {
           <p className="page-subtitle">Real-time status of your global workforce at Hozify.</p>
         </div>
         <div className="partners-header-buttons">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
             <Calendar size={16} />
             <span style={{ fontWeight: '700', fontSize: '13px' }}>{dateRange ? '' : 'Last 30 Days'}</span>
             <input 
@@ -347,3 +347,5 @@ export default function EmployeeOverview({ onNavigateToWorkforce }) {
     </div>
   );
 }
+
+

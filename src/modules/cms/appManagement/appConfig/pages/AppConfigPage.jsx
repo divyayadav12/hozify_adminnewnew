@@ -40,7 +40,7 @@ export default function AppConfigPage() {
                 type="text" 
                 value={gatewayUrl} 
                 onChange={(e) => setGatewayUrl(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
               />
             </div>
             <div>
@@ -49,7 +49,7 @@ export default function AppConfigPage() {
                 type="text" 
                 value={secondaryGateway} 
                 onChange={(e) => setSecondaryGateway(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
               />
             </div>
             <div>
@@ -58,7 +58,7 @@ export default function AppConfigPage() {
                 type="text" 
                 value={emergencyPhone} 
                 onChange={(e) => setEmergencyPhone(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
               />
             </div>
           </div>
@@ -72,7 +72,7 @@ export default function AppConfigPage() {
                 type="number" 
                 value={cacheTtl} 
                 onChange={(e) => setCacheTtl(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
               />
             </div>
             <div>
@@ -81,7 +81,7 @@ export default function AppConfigPage() {
                 type="number" 
                 value={maxRetries} 
                 onChange={(e) => setMaxRetries(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
               />
             </div>
             <div style={{ marginTop: '12px' }}>
@@ -104,7 +104,7 @@ export default function AppConfigPage() {
                 type="text" 
                 value={apiKey} 
                 onChange={(e) => setApiKey(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none', fontFamily: "var(--materio-space)", }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none', fontFamily: "var(--materio-space)", }}
               />
             </div>
             <div>
@@ -113,7 +113,7 @@ export default function AppConfigPage() {
                 type="number" 
                 value={sessionTimeout} 
                 onChange={(e) => setSessionTimeout(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '14px', outline: 'none' }}
               />
             </div>
           </div>
@@ -148,10 +148,10 @@ export default function AppConfigPage() {
         </div>
 
         {/* Config Container */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 3fr', gap: 'var(--spacing-section)', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden', minHeight: '400px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 3fr', gap: 'var(--spacing-section)', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden', minHeight: '400px' }}>
           
           {/* Tabs Sidebar */}
-          <div style={{ borderRight: '1px solid var(--line)', background: '#f8fafc', padding: '16px 0' }}>
+          <div style={{ borderRight: '1.5px solid #25108f', background: '#f8fafc', padding: '16px 0' }}>
             {[
               { label: 'Core Gateway', icon: Link },
               { label: 'Cache & Performance', icon: Database },
@@ -199,3 +199,5 @@ export default function AppConfigPage() {
     </AdminShell>
   );
 }
+
+

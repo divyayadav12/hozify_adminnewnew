@@ -254,7 +254,7 @@ export default function BusinessDetails() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', borderTop: '1px solid var(--line)', paddingTop: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', borderTop: '1.5px solid #25108f', paddingTop: '20px' }}>
         <div>
           <span style={{ fontSize: '11px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: '800' }}>Email Address</span>
           <p style={{ margin: '4px 0 0', fontWeight: '700', fontSize: '14px' }}>{businessOwner.toLowerCase().replace(' ', '.')}@hozify-partner.com</p>
@@ -284,7 +284,7 @@ export default function BusinessDetails() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {/* GST */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <FileText className="text-[#4f46e5]" size={24} />
             <div>
@@ -301,7 +301,7 @@ export default function BusinessDetails() {
         </div>
 
         {/* PAN */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <FileText className="text-[#4f46e5]" size={24} />
             <div>
@@ -318,7 +318,7 @@ export default function BusinessDetails() {
         </div>
 
         {/* Trade License */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <FileText className="text-[#eab308]" size={24} />
             <div>
@@ -335,7 +335,7 @@ export default function BusinessDetails() {
         </div>
 
         {/* Ownership */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <FileText className="text-[#ef4444]" size={24} />
             <div>
@@ -362,7 +362,7 @@ export default function BusinessDetails() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <div style={{ border: '1px solid var(--line)', padding: '16px', borderRadius: '8px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <strong style={{ display: 'block', fontSize: '14px' }}>Downtown Flagship Hub</strong>
             <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)' }}>442 Broadway, New York, NY 10013</span>
@@ -370,7 +370,7 @@ export default function BusinessDetails() {
           <span style={{ fontSize: '10px', fontWeight: '800', color: '#16a34a', background: '#d1fae5', padding: '2px 8px', borderRadius: '4px' }}>ACTIVE</span>
         </div>
 
-        <div style={{ border: '1px solid var(--line)', padding: '16px', borderRadius: '8px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <strong style={{ display: 'block', fontSize: '14px' }}>East Bay Logistics Terminal</strong>
             <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)' }}>2100 Powell St, Emeryville, CA 94608</span>
@@ -378,7 +378,7 @@ export default function BusinessDetails() {
           <span style={{ fontSize: '10px', fontWeight: '800', color: '#b45309', background: '#fef3c7', padding: '2px 8px', borderRadius: '4px' }}>INACTIVE</span>
         </div>
 
-        <div style={{ border: '1px solid var(--line)', padding: '16px', borderRadius: '8px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px', display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <strong style={{ display: 'block', fontSize: '14px' }}>West Coast Distribution Center</strong>
             <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)' }}>1201 Third Ave, Seattle, WA 98101</span>
@@ -393,15 +393,15 @@ export default function BusinessDetails() {
     <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Registered Services</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <div style={{ border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <strong style={{ display: 'block', fontSize: '14px', color: 'var(--text)' }}>Express Freight Delivery</strong>
           <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Category: Freight Logistics • Status: Active</span>
         </div>
-        <div style={{ border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <strong style={{ display: 'block', fontSize: '14px', color: 'var(--text)' }}>Climate-Controlled Warehousing</strong>
           <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Category: Storage Solutions • Status: Active</span>
         </div>
-        <div style={{ border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <strong style={{ display: 'block', fontSize: '14px', color: 'var(--text)' }}>Custom Clearance Brokerage</strong>
           <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Category: Compliance • Status: Active</span>
         </div>
@@ -413,7 +413,7 @@ export default function BusinessDetails() {
     <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Staff & Employees</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <div>
             <strong style={{ display: 'block', fontSize: '14px' }}>Sarah Chen</strong>
             <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Senior Operations Manager (Logistics)</span>
@@ -421,7 +421,7 @@ export default function BusinessDetails() {
           <span style={{ fontSize: '10px', fontWeight: '800', background: '#d1fae5', color: '#065f46', padding: '2px 8px', borderRadius: '4px' }}>EXCEEDING</span>
         </div>
 
-        <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <div>
             <strong style={{ display: 'block', fontSize: '14px' }}>Marcus Holloway</strong>
             <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Product Lead (Growth)</span>
@@ -429,7 +429,7 @@ export default function BusinessDetails() {
           <span style={{ fontSize: '10px', fontWeight: '800', background: '#eff6ff', color: '#1e40af', padding: '2px 8px', borderRadius: '4px' }}>CONSISTENT</span>
         </div>
 
-        <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', border: '1px solid var(--line)', padding: '16px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', border: '1.5px solid #25108f', padding: '16px', borderRadius: '8px' }}>
           <div>
             <strong style={{ display: 'block', fontSize: '14px' }}>Elena Rodriguez</strong>
             <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Support Specialist (Relations)</span>
@@ -444,15 +444,15 @@ export default function BusinessDetails() {
     <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>FY 2024 Revenue Audit</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
-        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
           <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800' }}>GROSS REVENUE</span>
           <strong style={{ display: 'block', fontSize: '20px', marginTop: '4px' }}>$450,000</strong>
         </div>
-        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
           <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800' }}>MONTHLY AVERAGE</span>
           <strong style={{ display: 'block', fontSize: '20px', marginTop: '4px' }}>$45,000</strong>
         </div>
-        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
           <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800' }}>PENDING SETTLEMENTS</span>
           <strong style={{ display: 'block', fontSize: '20px', marginTop: '4px', color: '#b45309' }}>$12,500</strong>
         </div>
@@ -464,7 +464,7 @@ export default function BusinessDetails() {
     <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h2 style={{ fontSize: '16px', fontWeight: '800', margin: 0 }}>Customer Reviews & Ratings</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+        <div style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
           <div style={{ display: 'flex', gap: '4px', color: '#f59e0b' }}>
             {Array.from({ length: 5 }).map((_, i) => <Star key={i} size={14} fill="#f59e0b" />)}
           </div>
@@ -472,7 +472,7 @@ export default function BusinessDetails() {
           <span style={{ fontSize: '11px', color: 'var(--muted)' }}>— Robert D., Operations Director</span>
         </div>
 
-        <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+        <div style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
           <div style={{ display: 'flex', gap: '4px', color: '#f59e0b' }}>
             {Array.from({ length: 4 }).map((_, i) => <Star key={i} size={14} fill="#f59e0b" />)}
             <Star size={14} />
@@ -499,7 +499,7 @@ export default function BusinessDetails() {
         </button>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1px solid var(--line)', paddingTop: '16px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1.5px solid #25108f', paddingTop: '16px' }}>
         <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', fontSize: '13px' }}>
           <span>GSTIN Verification Status</span>
           <span style={{ color: '#16a34a', fontWeight: '800' }}>✓ VERIFIED</span>
@@ -677,7 +677,7 @@ export default function BusinessDetails() {
               style={{
                 display: 'flex', alignItems: 'flex-start', gap: '12px',
                 padding: '12px 0',
-                borderBottom: idx < auditEntries.length - 1 ? '1px solid var(--line)' : 'none',
+                borderBottom: idx < auditEntries.length - 1 ? '1.5px solid #25108f' : 'none',
               }}
             >
               {/* Left dot indicator */}
@@ -719,7 +719,7 @@ export default function BusinessDetails() {
 
         {/* Footer summary */}
         <div style={{
-          borderTop: '1px solid var(--line)', paddingTop: '14px',
+          borderTop: '1.5px solid #25108f', paddingTop: '14px',
           display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px',
           fontSize: '11px', color: 'var(--muted)'
         }}>
@@ -822,7 +822,7 @@ export default function BusinessDetails() {
               <Edit2 size={13} /> Edit Profile
             </button>
             <button
-              style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 16px', borderRadius: '6px', cursor: 'pointer' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 16px', borderRadius: '6px', cursor: 'pointer' }}
               onClick={() => addToast('Opening share access permissions...', 'info')}
               type="button"
             >
@@ -884,7 +884,7 @@ export default function BusinessDetails() {
         </div>
 
         {/* Tab Selection Row */}
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', gap: 'var(--spacing-section)', overflowX: 'auto', paddingBottom: '2px' }}>
+        <div style={{ display: 'flex', borderBottom: '1.5px solid #25108f', gap: 'var(--spacing-section)', overflowX: 'auto', paddingBottom: '2px' }}>
           {subTabs.map((tab) => {
             const isActive = activeSubTab === tab;
             return (
@@ -919,3 +919,5 @@ export default function BusinessDetails() {
     </AdminShell>
   );
 }
+
+

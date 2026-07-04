@@ -289,7 +289,7 @@ export default function Dashboard() {
           {/* Dashboard KPI Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
             {/* KPI 1: Total Services */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#eff6ff', color: '#2563eb' }}>
                   <Layers size={20} />
@@ -308,7 +308,7 @@ export default function Dashboard() {
             </div>
 
             {/* KPI 2: Active Nodes */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#ecfdf5', color: '#059669' }}>
                   <CheckCircle2 size={20} />
@@ -327,7 +327,7 @@ export default function Dashboard() {
             </div>
 
             {/* KPI 3: Pending Orders */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#fffbeb', color: '#d97706' }}>
                   <Clock size={20} />
@@ -346,7 +346,7 @@ export default function Dashboard() {
             </div>
 
             {/* KPI 4: Disabled Services */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#fef2f2', color: '#dc2626' }}>
                   <AlertCircle size={20} />
@@ -369,7 +369,7 @@ export default function Dashboard() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
             {/* Left Column (Chart & Table) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: 2 }}>
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <div>
                     <h2 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue & Booking Dynamics</h2>
@@ -418,7 +418,7 @@ export default function Dashboard() {
                     <div style={{ position: 'absolute', left: 0, right: 0, top: '50%', borderTop: '1px dashed rgba(0,0,0,0.05)' }} />
                     <div style={{ position: 'absolute', left: 0, right: 0, top: '75%', borderTop: '1px dashed rgba(0,0,0,0.05)' }} />
 
-                    {[
+                    {(chartMode === 'Volume' ? [
                       { day: 'MON', height1: 65, height2: 15 },
                       { day: 'TUE', height1: 85, height2: 30 },
                       { day: 'WED', height1: 95, height2: 45 },
@@ -426,7 +426,15 @@ export default function Dashboard() {
                       { day: 'FRI', height1: 110, height2: 60 },
                       { day: 'SAT', height1: 90, height2: 40 },
                       { day: 'SUN', height1: 105, height2: 55 }
-                    ].map((col, idx) => (
+                    ] : [
+                      { day: 'MON', height1: 45, height2: 25 },
+                      { day: 'TUE', height1: 65, height2: 40 },
+                      { day: 'WED', height1: 105, height2: 65 },
+                      { day: 'THU', height1: 55, height2: 15 },
+                      { day: 'FRI', height1: 120, height2: 80 },
+                      { day: 'SAT', height1: 110, height2: 70 },
+                      { day: 'SUN', height1: 95, height2: 45 }
+                    ]).map((col, idx) => (
                       <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '12%', gap: '8px', zIndex: 1 }}>
                         <div style={{ width: '100%', height: '140px', display: 'flex', flexDirection: 'column-reverse', background: '#eff6ff', borderRadius: '4px', overflow: 'hidden' }}>
                           <div style={{ height: `${col.height1}%`, background: '#818cf8', display: 'flex', flexDirection: 'column-reverse' }}>
@@ -441,7 +449,7 @@ export default function Dashboard() {
               </div>
 
               {/* High-Priority Work Orders Table */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>High-Priority Work Orders</h2>
                   <button onClick={() => navigate(ROUTES.bookings)} style={{ border: 'none', background: 'transparent', color: '#4f46e5', fontSize: '12px', fontWeight: '800', cursor: 'pointer' }} type="button">
@@ -452,7 +460,7 @@ export default function Dashboard() {
                 <div style={{ overflowX: 'auto' }}>
                   <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
-                      <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                      <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                         <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>ID</th>
                         <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service Type</th>
                         <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Client Name</th>
@@ -592,7 +600,7 @@ export default function Dashboard() {
               </div>
 
               {/* Recently Added Services */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
                 <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
                   Recently Added Services
                 </h3>
@@ -677,7 +685,7 @@ export default function Dashboard() {
             style={{ 
               background: '#ffffff', 
               borderRadius: '12px', 
-              border: '1px solid var(--line)', 
+              border: '1.5px solid #25108f', 
               padding: '20px', 
               display: 'flex', 
               flexDirection: 'column', 
@@ -721,7 +729,7 @@ export default function Dashboard() {
             style={{ 
               background: '#ffffff', 
               borderRadius: '12px', 
-              border: '1px solid var(--line)', 
+              border: '1.5px solid #25108f', 
               padding: '20px', 
               display: 'flex', 
               flexDirection: 'column', 
@@ -765,7 +773,7 @@ export default function Dashboard() {
             style={{ 
               background: '#ffffff', 
               borderRadius: '12px', 
-              border: '1px solid var(--line)', 
+              border: '1.5px solid #25108f', 
               padding: '20px', 
               display: 'flex', 
               flexDirection: 'column', 
@@ -809,7 +817,7 @@ export default function Dashboard() {
             style={{ 
               background: '#ffffff', 
               borderRadius: '12px', 
-              border: '1px solid var(--line)', 
+              border: '1.5px solid #25108f', 
               padding: '20px', 
               display: 'flex', 
               flexDirection: 'column', 
@@ -851,12 +859,12 @@ export default function Dashboard() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           {/* Left Column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
                   Material Cost Trend (Quarterly)
                 </h2>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fcfaff' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fcfaff' }}>
                   <select
                     value={preset === 'Current Year' ? 'Current Year' : 'Last Quarter'}
                     onChange={(e) => {}}
@@ -909,7 +917,7 @@ export default function Dashboard() {
             </div>
 
             {/* Top Supplier Performance Table */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>
                 Top Supplier Performance
               </h2>
@@ -917,7 +925,7 @@ export default function Dashboard() {
               <div style={{ overflowX: 'auto' }}>
                 <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '550px' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                    <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>SUPPLIER</th>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', width: '150px' }}>RELIABILITY</th>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>ORDER VOL.</th>
@@ -957,7 +965,7 @@ export default function Dashboard() {
           {/* Right Column (Sidebar widgets) */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             {/* Recent Requests Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Recent Requests</h3>
                 <button onClick={handleViewAll} style={{ border: 'none', background: 'transparent', color: 'var(--primary)', fontSize: '12px', fontWeight: '800', cursor: 'pointer' }} type="button">View All</button>
@@ -1026,7 +1034,7 @@ export default function Dashboard() {
             </div>
 
             {/* Market Intelligence Widget */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Market Intelligence</h3>
               <div style={{ background: '#fff5f5', borderLeft: '4px solid #ef4444', borderRadius: '0 8px 8px 0', padding: '16px' }}>
                 <strong style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#dc2626', letterSpacing: '0.5px' }}>PRICE SPIKE ALERT</strong>
@@ -1163,3 +1171,5 @@ export default function Dashboard() {
     </AdminShell>
   );
 }
+
+

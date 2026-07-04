@@ -43,7 +43,7 @@ export default function FeaturedManagement() {
         alignItems: 'center',
         flexWrap: 'wrap',
         gap: '16px',
-        borderBottom: '1px solid var(--line)',
+        borderBottom: '1.5px solid #25108f',
         paddingBottom: '20px'
       }}>
         <div>
@@ -57,7 +57,7 @@ export default function FeaturedManagement() {
             style={{
               padding: '8px 16px',
               borderRadius: '6px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               background: 'white',
               color: 'var(--text)',
               fontWeight: '600',
@@ -105,7 +105,7 @@ export default function FeaturedManagement() {
           <div className="panel" style={{
             background: 'white',
             borderRadius: '12px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             padding: '20px'
           }}>
             <div style={{
@@ -233,7 +233,7 @@ export default function FeaturedManagement() {
           <div className="panel" style={{
             background: 'white',
             borderRadius: '12px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             padding: '20px'
           }}>
             <div style={{
@@ -276,7 +276,7 @@ export default function FeaturedManagement() {
               {/* Slot 1: Home Protection Plus */}
               <div style={{
                 background: 'white',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 borderRadius: '8px',
                 padding: '16px',
                 display: 'flex',
@@ -324,7 +324,7 @@ export default function FeaturedManagement() {
               {/* Slot 2: Energy Audit 360 */}
               <div style={{
                 background: 'white',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 borderRadius: '8px',
                 padding: '16px',
                 display: 'flex',
@@ -409,7 +409,7 @@ export default function FeaturedManagement() {
           <div className="panel" style={{
             background: 'white',
             borderRadius: '12px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             padding: '20px'
           }}>
             <div style={{
@@ -444,7 +444,7 @@ export default function FeaturedManagement() {
               {/* Card 1: Air Quality Master */}
               <div style={{
                 borderRadius: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 overflow: 'hidden',
                 background: 'white',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
@@ -486,7 +486,7 @@ export default function FeaturedManagement() {
               {/* Card 2: Leak Shield Pro */}
               <div style={{
                 borderRadius: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 overflow: 'hidden',
                 background: 'white',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
@@ -566,7 +566,7 @@ export default function FeaturedManagement() {
           <div className="panel" style={{
             background: 'white',
             borderRadius: '12px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             padding: '20px'
           }}>
             <div style={{
@@ -591,7 +591,7 @@ export default function FeaturedManagement() {
             <div className="table-wrap">
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="approval-queue-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
                 <thead>
-                  <tr style={{ textAlign: 'left', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ textAlign: 'left', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Service Name</th>
                     <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Placement</th>
                     <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Impression Share</th>
@@ -666,3 +666,5 @@ export default function FeaturedManagement() {
     </div>
   );
 }
+
+

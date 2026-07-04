@@ -89,7 +89,7 @@ export default function ServiceAuditLogs() {
         .audit-kpi-card {
           padding: 16px;
           background: #fff;
-          border: 1px solid var(--line);
+          border: 1.5px solid #25108f;
           border-radius: 12px;
           display: flex;
           flex-direction: column;
@@ -196,13 +196,13 @@ export default function ServiceAuditLogs() {
       <section className="audit-middle-grid">
         
         {/* Analytics / Charts Section */}
-        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0' }}>
             Activity Trends
           </h2>
           <div style={{ display: 'flex', gap: '16px', flex: 1 }}>
             {/* Mock Bar Chart */}
-            <div style={{ flex: 2, display: 'flex', alignItems: 'flex-end', gap: '12px', height: '180px', borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
+            <div style={{ flex: 2, display: 'flex', alignItems: 'flex-end', gap: '12px', height: '180px', borderBottom: '1.5px solid #25108f', paddingBottom: '8px' }}>
               <div style={{ flex: 1, height: '40%', background: '#e0e7ff' }} className="analytics-bar"></div>
               <div style={{ flex: 1, height: '70%', background: '#c7d2fe' }} className="analytics-bar"></div>
               <div style={{ flex: 1, height: '50%', background: '#a5b4fc' }} className="analytics-bar"></div>
@@ -213,7 +213,7 @@ export default function ServiceAuditLogs() {
             </div>
             
             {/* Mock Donut Data */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '12px', paddingLeft: '16px', borderLeft: '1px solid var(--line)' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '12px', paddingLeft: '16px', borderLeft: '1.5px solid #25108f' }}>
               <div>
                 <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '700', textTransform: 'uppercase' }}>Catalog Logs</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
@@ -243,7 +243,7 @@ export default function ServiceAuditLogs() {
         </div>
 
         {/* Recent Security Events */}
-        <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
+        <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <ShieldAlert size={16} color="#ef4444" /> Alert Highlights
           </h2>
@@ -271,7 +271,7 @@ export default function ServiceAuditLogs() {
       {/* ========================================== */}
       {/* LOGS TABLE SECTION                                */}
       {/* ================================================= */}
-      <section className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
+      <section className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0' }}>
@@ -280,7 +280,7 @@ export default function ServiceAuditLogs() {
           
           {/* Filter Panel (Inline) */}
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
-            <div className="dash-search" style={{ width: '240px', margin: 0, height: '34px', border: '1px solid var(--line)', borderRadius: '6px' }}>
+            <div className="dash-search" style={{ width: '240px', margin: 0, height: '34px', border: '1.5px solid #25108f', borderRadius: '6px' }}>
               <Search size={14} style={{ marginLeft: '12px', color: 'var(--muted)' }} />
               <input
                 placeholder="Search logs by ID, user, or action..."
@@ -290,7 +290,7 @@ export default function ServiceAuditLogs() {
               />
             </div>
             
-            <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
+            <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
               <option value="">All Severities</option>
               <option value="CRITICAL">Critical</option>
               <option value="HIGH">High</option>
@@ -298,7 +298,7 @@ export default function ServiceAuditLogs() {
               <option value="LOW">Low</option>
             </select>
 
-            <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
+            <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
               <option value="">All Modules</option>
               <option value="Catalog">Catalog</option>
               <option value="Pricing">Pricing</option>
@@ -311,7 +311,7 @@ export default function ServiceAuditLogs() {
         <div className="table-wrap">
           <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--line)' }}>
+              <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>LOG ID</th>
                 <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>TIMESTAMP</th>
                 <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>USER / ACTOR</th>
@@ -324,7 +324,7 @@ export default function ServiceAuditLogs() {
             </thead>
             <tbody>
               {filteredLogs.map((row) => (
-                <tr key={row.id} style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr key={row.id} style={{ borderBottom: '1.5px solid #25108f' }}>
                   <td style={{ padding: '12px', fontSize: '12px' }}>
                     <span style={{ color: '#4f46e5', fontWeight: '700', cursor: 'pointer' }}>{row.id}</span>
                   </td>
@@ -376,15 +376,15 @@ export default function ServiceAuditLogs() {
         <div className="directory-table-footer" style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>Showing {filteredLogs.length} of 24,500 logs</span>
           <div className="pagination-wrap" style={{ display: 'flex', gap: '4px' }}>
-             <button onClick={() => addToast('Opening previous page...', 'info')} className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
+             <button onClick={() => addToast('Opening previous page...', 'info')} className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
               <ChevronLeft size={14} />
             </button>
             <button onClick={() => addToast('Switched to page 1.', 'success')} style={{ padding: '6px 12px', border: '1px solid #4f46e5', background: '#4f46e5', color: '#fff', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">1</button>
-            <button onClick={() => addToast('Switched to page 2.', 'success')} style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">2</button>
-            <button onClick={() => addToast('Switched to page 3.', 'success')} style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">3</button>
+            <button onClick={() => addToast('Switched to page 2.', 'success')} style={{ padding: '6px 12px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">2</button>
+            <button onClick={() => addToast('Switched to page 3.', 'success')} style={{ padding: '6px 12px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">3</button>
             <span style={{ padding: '6px 4px', color: 'var(--muted)' }}>...</span>
-            <button onClick={() => addToast('Switched to page 100.', 'success')} style={{ padding: '6px 12px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">100</button>
-            <button onClick={() => addToast('Opening next page...', 'info')} className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
+            <button onClick={() => addToast('Switched to page 100.', 'success')} style={{ padding: '6px 12px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} type="button">100</button>
+            <button onClick={() => addToast('Opening next page...', 'info')} className="pag-nav-btn" type="button" style={{ padding: '6px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', color: 'var(--text)', cursor: 'pointer' }}>
               <ChevronRight size={14} />
             </button>
           </div>
@@ -394,3 +394,5 @@ export default function ServiceAuditLogs() {
     </div>
   );
 }
+
+

@@ -131,7 +131,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
             </div>
 
             {/* SVG Bars Column Chart */}
-            <div style={{ height: '180px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '10px 10px 0' }}>
+            <div style={{ height: '180px', borderBottom: '1.5px solid #25108f', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '10px 10px 0' }}>
               {[
                 { label: "Mon", new: 60, ret: 30 },
                 { label: "Tue", new: 45, ret: 40 },
@@ -250,7 +250,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
             <div className="table-wrap">
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Referrals</th>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', textAlign: 'right' }}>Conversion</th>
@@ -289,7 +289,7 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
             <div className="table-wrap">
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Reason</th>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Date</th>
@@ -337,3 +337,5 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
     </AdminShell>
   );
 }
+
+

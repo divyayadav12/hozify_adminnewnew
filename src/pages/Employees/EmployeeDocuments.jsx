@@ -31,10 +31,10 @@ export default function EmployeeDocuments() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
       
       {/* Table Section */}
-      <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+      <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Document Repository</h3>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
             <Calendar size={16} />
             <input 
               type="date"
@@ -48,7 +48,7 @@ export default function EmployeeDocuments() {
         <div className="table-wrap" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--line)' }}>
+              <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px', fontSize: '11px', color: 'var(--muted)' }}>Employee Name</th>
                 <th style={{ padding: '12px', fontSize: '11px', color: 'var(--muted)' }}>Document Type</th>
                 <th style={{ padding: '12px', fontSize: '11px', color: 'var(--muted)' }}>Status</th>
@@ -68,13 +68,13 @@ export default function EmployeeDocuments() {
                       <div style={{ position: 'relative' }}>
                         <button 
                           onClick={() => setActiveDropdown(activeDropdown === row.id ? null : row.id)} 
-                          style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
+                          style={{ background: '#f8fafc', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
                         >
                           <Eye size={14} /> View
                         </button>
 
                         {activeDropdown === row.id && (
-                          <div style={{ position: 'absolute', right: 0, top: '100%', marginTop: '5px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 10, width: '160px', padding: '5px 0' }}>
+                          <div style={{ position: 'absolute', right: 0, top: '100%', marginTop: '5px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 10, width: '160px', padding: '5px 0' }}>
                             <button onClick={() => { setPreviewDoc(row); setActiveDropdown(null); }} style={{ display: 'block', width: '100%', padding: '8px 12px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer' }}>View Document</button>
                             <button onClick={() => { addToast(`Upload triggered for ${row.id}`); setActiveDropdown(null); }} style={{ display: 'block', width: '100%', padding: '8px 12px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer' }}>Upload New Version</button>
                             <button onClick={() => { addToast(`Delete ${row.id}`); setActiveDropdown(null); }} style={{ display: 'block', width: '100%', padding: '8px 12px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', color: 'red' }}>Delete</button>
@@ -82,7 +82,7 @@ export default function EmployeeDocuments() {
                         )}
                       </div>
 
-                      <button onClick={() => addToast(`Downloading ${row.id}`)} style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '6px', borderRadius: '6px', cursor: 'pointer' }}>
+                      <button onClick={() => addToast(`Downloading ${row.id}`)} style={{ background: '#f8fafc', border: '1.5px solid #25108f', padding: '6px', borderRadius: '6px', cursor: 'pointer' }}>
                         <Download size={14} />
                       </button>
                     </div>
@@ -98,3 +98,4 @@ export default function EmployeeDocuments() {
     </div>
   );
 }
+

@@ -148,7 +148,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
               gap: '8px',
               background: statusFilter === 'Pending' ? '#eff6ff' : '#ffffff',
               color: statusFilter === 'Pending' ? '#2563eb' : 'var(--text)',
-              border: statusFilter === 'Pending' ? '1px solid #2563eb' : '1px solid var(--line)',
+              border: statusFilter === 'Pending' ? '1px solid #2563eb' : '1.5px solid #25108f',
               borderRadius: '6px',
               padding: '8px 16px',
               fontSize: '13px',
@@ -171,7 +171,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
               gap: '8px',
               background: '#ffffff',
               color: 'var(--text)',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '6px',
               padding: '8px 16px',
               fontSize: '13px',
@@ -190,7 +190,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
         
         {/* Total Pending */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Pending</span>
             <FileSearch size={18} style={{ color: '#d97706' }} />
@@ -203,7 +203,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
         </div>
 
         {/* Rejected (7d) */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Rejected (7d)</span>
             <XCircle size={18} style={{ color: '#dc2626' }} />
@@ -216,7 +216,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
         </div>
 
         {/* Avg Response */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg. Response</span>
             <Clock size={18} style={{ color: '#2563eb' }} />
@@ -229,7 +229,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
         </div>
 
         {/* Approval Rate */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Approval Rate</span>
             <ThumbsUp size={18} style={{ color: '#059669' }} />
@@ -243,7 +243,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
       </div>
 
       {/* Approvals Table Card */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         
         {/* Table Filter Top header - Unnecessary controls completely removed */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
@@ -260,7 +260,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
           <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service Name</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Partner</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Category</th>
@@ -349,7 +349,7 @@ export default function ApprovalsList({ onViewDetails, onClose }) {
             Showing <strong>{displayedApprovals.length}</strong> of <strong>{approvals.length}</strong> results
           </span>
 
-          <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
+          <div style={{ display: 'flex', border: '1.5px solid #25108f', borderRadius: '6px', overflow: 'hidden' }}>
             <button style={{ border: 'none', background: '#ffffff', color: 'var(--muted)', padding: '8px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
               <ChevronLeft size={16} />
             </button>
@@ -382,3 +382,5 @@ function ArrowLeftIcon() {
     </svg>
   );
 }
+
+

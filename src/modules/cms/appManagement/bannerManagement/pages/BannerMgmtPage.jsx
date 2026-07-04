@@ -252,7 +252,7 @@ export default function BannerMgmtPage({ defaultTab }) {
         </div>
 
         {/* 8 Tab Navigation */}
-        <div style={{ display: 'flex', gap: '4px', borderBottom: '1px solid var(--line)', paddingBottom: '1px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+        <div style={{ display: 'flex', gap: '4px', borderBottom: '1.5px solid #25108f', paddingBottom: '1px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
           {TABS.map(tab => (
             <button
               key={tab}
@@ -277,7 +277,7 @@ export default function BannerMgmtPage({ defaultTab }) {
 
         {/* Tab Contents */}
         {activeTab === 'Upload Banner' ? (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-page)', textAlign: 'center' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-page)', textAlign: 'center' }}>
             <input 
               type="file"
               ref={fileInputRef}
@@ -320,7 +320,7 @@ export default function BannerMgmtPage({ defaultTab }) {
           </div>
         ) : activeTab === 'Banner Preview' ? (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 'var(--spacing-section)' }}>
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Select Banner to Preview</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '16px' }}>
                 {banners.map(b => (
@@ -375,7 +375,7 @@ export default function BannerMgmtPage({ defaultTab }) {
             </div>
           </div>
         ) : activeTab === 'Banner Scheduling' ? (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Banner Campaigns Publishing Schedules</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {banners.map(b => (
@@ -396,7 +396,7 @@ export default function BannerMgmtPage({ defaultTab }) {
           </div>
         ) : (
           /* List & Table view for types and status */
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
             <div style={{ padding: '20px', borderBottom: '1px solid #e2e8f0' }}>
               <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
                 <input 
@@ -514,3 +514,5 @@ export default function BannerMgmtPage({ defaultTab }) {
     </AdminShell>
   );
 }
+
+

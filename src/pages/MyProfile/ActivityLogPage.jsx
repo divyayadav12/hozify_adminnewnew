@@ -54,8 +54,8 @@ export default function ActivityLogPage() {
         </div>
 
         {/* Filters */}
-        <div style={{ display: 'flex', gap: '16px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#f8fafc', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', flex: 1, minWidth: '240px' }}>
+        <div style={{ display: 'flex', gap: '16px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#f8fafc', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', flex: 1, minWidth: '240px' }}>
             <Search size={16} color="var(--muted)" />
             <input 
               type="text" 
@@ -73,7 +73,7 @@ export default function ActivityLogPage() {
             <select 
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              style={{ padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#fff', outline: 'none' }}
+              style={{ padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff', outline: 'none' }}
             >
               <option value="All">All Types</option>
               <option value="Security">Security Events</option>
@@ -83,10 +83,10 @@ export default function ActivityLogPage() {
         </div>
 
         {/* Audit Table */}
-        <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+        <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
           <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ background: '#f8fafc', borderBottom: '1px solid var(--line)' }}>
+              <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '14px 20px', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase' }}>Log ID</th>
                 <th style={{ padding: '14px 20px', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase' }}>Timestamp</th>
                 <th style={{ padding: '14px 20px', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase' }}>Action Detail</th>
@@ -99,7 +99,7 @@ export default function ActivityLogPage() {
             <tbody>
               {filteredLogs.length > 0 ? (
                 filteredLogs.map(log => (
-                  <tr key={log.id} style={{ borderBottom: '1px solid var(--line)', fontSize: '13px', color: 'var(--text)' }}>
+                  <tr key={log.id} style={{ borderBottom: '1.5px solid #25108f', fontSize: '13px', color: 'var(--text)' }}>
                     <td style={{ padding: '14px 20px', fontWeight: '700' }}>{log.id}</td>
                     <td style={{ padding: '14px 20px', color: 'var(--muted)' }}>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -146,3 +146,5 @@ export default function ActivityLogPage() {
     </AdminShell>
   );
 }
+
+

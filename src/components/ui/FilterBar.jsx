@@ -19,7 +19,7 @@ export default function FilterBar({
       background: '#fff',
       padding: '16px',
       borderRadius: 'var(--radius-card)',
-      border: '1px solid var(--line)',
+      border: '1.5px solid #25108f',
       boxShadow: '0 1px 2px rgba(15, 23, 42, 0.04)',
       marginBottom: 'var(--spacing-section)'
     }}>
@@ -72,3 +72,5 @@ export default function FilterBar({
     </div>
   );
 }
+
+

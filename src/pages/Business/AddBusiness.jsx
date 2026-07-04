@@ -110,7 +110,7 @@ export default function AddBusiness() {
   const inputStyle = {
     width: '100%',
     height: '40px',
-    border: '1px solid var(--line)',
+    border: '1.5px solid #25108f',
     borderRadius: '6px',
     padding: '0 12px',
     fontSize: '13px',
@@ -297,7 +297,7 @@ export default function AddBusiness() {
                 alignItems: 'center',
                 gap: '6px',
                 padding: '8px 14px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 borderRadius: '6px',
                 background: '#fff',
                 fontSize: '12px',
@@ -326,7 +326,7 @@ export default function AddBusiness() {
         <p style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '4px' }}>Confirm all details before submitting this registration to the Hozify platform.</p>
       </div>
 
-      <div style={{ background: '#f8fafc', border: '1px solid var(--line)', borderRadius: '8px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div style={{ background: '#f8fafc', border: '1.5px solid #25108f', borderRadius: '8px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div>
           <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', margin: '0 0 10px' }}>Business Details</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '13px' }}>
@@ -337,7 +337,7 @@ export default function AddBusiness() {
           </div>
         </div>
 
-        <div style={{ borderTop: '1px solid var(--line)', paddingTop: '16px' }}>
+        <div style={{ borderTop: '1.5px solid #25108f', paddingTop: '16px' }}>
           <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', margin: '0 0 10px' }}>Owner Details</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '13px' }}>
             <div><span style={{ color: 'var(--muted)', fontSize: '11px' }}>Owner Name</span><p style={{ margin: '2px 0 0', fontWeight: '700' }}>{ownerName || '—'}</p></div>
@@ -347,14 +347,14 @@ export default function AddBusiness() {
           </div>
         </div>
 
-        <div style={{ borderTop: '1px solid var(--line)', paddingTop: '16px' }}>
+        <div style={{ borderTop: '1.5px solid #25108f', paddingTop: '16px' }}>
           <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', margin: '0 0 10px' }}>Address</h3>
           <p style={{ margin: 0, fontSize: '13px', fontWeight: '700' }}>
             {[street, city, state, pincode, country].filter(Boolean).join(', ') || '—'}
           </p>
         </div>
 
-        <div style={{ borderTop: '1px solid var(--line)', paddingTop: '16px' }}>
+        <div style={{ borderTop: '1.5px solid #25108f', paddingTop: '16px' }}>
           <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', margin: '0 0 10px' }}>Uploaded Documents</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {[
@@ -460,7 +460,7 @@ export default function AddBusiness() {
               {renderStepContent()}
 
               {/* Footer Navigation */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '16px', borderTop: '1.5px solid #25108f' }}>
                 <button
                   type="button"
                   onClick={handleBack}
@@ -471,7 +471,7 @@ export default function AddBusiness() {
                     gap: '6px',
                     height: '38px',
                     padding: '0 16px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     color: currentStep === 1 ? '#cbd5e1' : 'var(--text)',
                     fontSize: '13px',
@@ -539,3 +539,5 @@ export default function AddBusiness() {
     </AdminShell>
   );
 }
+
+

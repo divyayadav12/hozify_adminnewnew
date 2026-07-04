@@ -101,9 +101,9 @@ export default function BranchSchedule() {
               </div>
 
               {/* Calendar Grid */}
-              <div style={{ marginTop: '20px', border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
+              <div style={{ marginTop: '20px', border: '1.5px solid #25108f', borderRadius: '8px', overflow: 'hidden' }}>
                 {/* Day Titles */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', background: '#f8fafc', borderBottom: '1px solid var(--line)', textAlign: 'center', fontWeight: '700', fontSize: '11px', color: 'var(--muted)', padding: '10px 0' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', background: '#f8fafc', borderBottom: '1.5px solid #25108f', textAlign: 'center', fontWeight: '700', fontSize: '11px', color: 'var(--muted)', padding: '10px 0' }}>
                   <span>SUN</span>
                   <span>MON</span>
                   <span>TUE</span>
@@ -120,8 +120,8 @@ export default function BranchSchedule() {
                       key={i}
                       style={{
                         minHeight: '80px',
-                        borderRight: '1px solid var(--line)',
-                        borderBottom: '1px solid var(--line)',
+                        borderRight: '1.5px solid #25108f',
+                        borderBottom: '1.5px solid #25108f',
                         padding: '6px',
                         backgroundColor: dayObj.active ? '#fff' : '#f8fafc',
                         color: dayObj.active ? (dayObj.isRed ? '#ef4444' : 'var(--text)') : '#cbd5e1',
@@ -171,7 +171,7 @@ export default function BranchSchedule() {
               .schedule-kpi-card {
                 padding: 20px;
                 background: #fff;
-                border: 1px solid var(--line);
+                border: 1.5px solid #25108f;
                 border-radius: 8px;
                 display: flex;
                 flex-direction: column;
@@ -328,3 +328,5 @@ export default function BranchSchedule() {
     </AdminShell>
   );
 }
+
+

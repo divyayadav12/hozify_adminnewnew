@@ -39,7 +39,7 @@ export default function NotificationCostCenter({ activeTab = 'Notification Cente
           </div>
 
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
               <Calendar size={14} style={{ color: 'var(--muted)' }} />
               <span style={{ fontWeight: '700', fontSize: '12.5px', color: 'var(--text)', cursor: 'pointer' }} onClick={() => alert('Selecting date range...')}>
                 {dateRange}
@@ -166,7 +166,7 @@ export default function NotificationCostCenter({ activeTab = 'Notification Cente
             </div>
 
             {/* Custom SVG Line Chart */}
-            <div style={{ height: '200px', position: 'relative', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'flex-end', marginTop: '24px' }}>
+            <div style={{ height: '200px', position: 'relative', borderBottom: '1.5px solid #25108f', display: 'flex', alignItems: 'flex-end', marginTop: '24px' }}>
               
               {/* Tooltip bubble */}
               <div style={{
@@ -388,3 +388,5 @@ export default function NotificationCostCenter({ activeTab = 'Notification Cente
     </AdminShell>
   );
 }
+
+

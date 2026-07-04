@@ -103,7 +103,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   color: 'var(--text)',
                   fontSize: '13px',
@@ -250,7 +250,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                     type="text"
                     value={twilioAccountSid}
                     onChange={(e) => setTwilioAccountSid(e.target.value)}
-                    style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontFamily: "var(--materio-space)", }}
+                    style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontFamily: "var(--materio-space)", }}
                   />
                 </div>
 
@@ -260,7 +260,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                     type="password"
                     value={twilioAuthToken}
                     onChange={(e) => setTwilioAuthToken(e.target.value)}
-                    style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
+                    style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
                   />
                 </div>
 
@@ -270,7 +270,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                     type="text"
                     value={senderId}
                     onChange={(e) => setSenderId(e.target.value)}
-                    style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700' }}
+                    style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700' }}
                   />
                 </div>
 
@@ -282,14 +282,14 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                         type="time"
                         value={quietHoursStart}
                         onChange={(e) => setQuietHoursStart(e.target.value)}
-                        style={{ height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
+                        style={{ height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
                       />
                       <span style={{ fontSize: '13px', color: 'var(--muted)' }}>to</span>
                       <input
                         type="time"
                         value={quietHoursEnd}
                         onChange={(e) => setQuietHoursEnd(e.target.value)}
-                        style={{ height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
+                        style={{ height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
                       />
                     </div>
                   </div>
@@ -323,7 +323,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                     type="number"
                     value={pushTtl}
                     onChange={(e) => setPushTtl(Number(e.target.value))}
-                    style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
+                    style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px' }}
                   />
                 </div>
 
@@ -333,7 +333,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                     type="url"
                     value={callbackUrl}
                     onChange={(e) => setCallbackUrl(e.target.value)}
-                    style={{ width: '100%', height: '38px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: 'var(--muted)' }}
+                    style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: 'var(--muted)' }}
                   />
                 </div>
 
@@ -455,7 +455,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '700px' }}>
               <thead>
-                <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Failure Trigger</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Max Retry Attempts</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Backoff Algorithm</th>
@@ -490,7 +490,7 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
                           height: '24px',
                           padding: '0 12px',
                           borderRadius: '4px',
-                          border: '1px solid var(--line)',
+                          border: '1.5px solid #25108f',
                           background: strategy.enabled ? '#fee2e2' : '#ecfdf5',
                           color: strategy.enabled ? '#dc2626' : '#07956f',
                           fontSize: '11px',
@@ -513,3 +513,5 @@ export default function GlobalNotificationSettings({ activeTab = 'Notification C
     </AdminShell>
   );
 }
+
+

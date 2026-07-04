@@ -65,7 +65,7 @@ export default function BranchApproval() {
       {/* KPI Summary Cards */}
       <section className="kpi-grid" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginBottom: '24px', gap: '20px' }}>
         {/* Pending Branches */}
-        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Branches</span>
             <strong style={{ display: 'block', fontSize: '26px', margin: '4px 0 2px', color: 'var(--text)' }}>24</strong>
@@ -77,7 +77,7 @@ export default function BranchApproval() {
         </div>
 
         {/* Pending Documents */}
-        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Documents</span>
             <strong style={{ display: 'block', fontSize: '26px', margin: '4px 0 2px', color: 'var(--text)' }}>142</strong>
@@ -89,7 +89,7 @@ export default function BranchApproval() {
         </div>
 
         {/* Pending Services */}
-        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Services</span>
             <strong style={{ display: 'block', fontSize: '26px', margin: '4px 0 2px', color: 'var(--text)' }}>18</strong>
@@ -249,3 +249,5 @@ export default function BranchApproval() {
     </div>
   );
 }
+
+

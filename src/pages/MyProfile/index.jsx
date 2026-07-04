@@ -96,7 +96,7 @@ export default function MyProfile() {
         </div>
 
         {/* Tab Selector Links */}
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', gap: 'var(--spacing-section)', paddingBottom: '4px' }}>
+        <div style={{ display: 'flex', borderBottom: '1.5px solid #25108f', gap: 'var(--spacing-section)', paddingBottom: '4px' }}>
           <button 
             onClick={() => setActiveSubTab('personal')}
             style={{ border: 'none', background: 'none', padding: '8px 4px', fontSize: '13px', fontWeight: '700', color: activeSubTab === 'personal' ? '#2563eb' : 'var(--muted)', borderBottom: activeSubTab === 'personal' ? '2px solid #2563eb' : 'none', cursor: 'pointer' }}
@@ -119,7 +119,7 @@ export default function MyProfile() {
 
         {/* TAB 1: PERSONAL INFORMATION */}
         {activeSubTab === 'personal' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '800', margin: 0, color: 'var(--text)' }}>Personal Information Details</h2>
               {!isEditing ? (
@@ -146,7 +146,7 @@ export default function MyProfile() {
                   disabled={!isEditing}
                   value={isEditing ? tempInfo.fullName : personalInfo.fullName}
                   onChange={(e) => setTempInfo({ ...tempInfo, fullName: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
                 />
               </div>
               <div>
@@ -156,7 +156,7 @@ export default function MyProfile() {
                   disabled={!isEditing}
                   value={isEditing ? tempInfo.username : personalInfo.username}
                   onChange={(e) => setTempInfo({ ...tempInfo, username: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
                 />
               </div>
               <div>
@@ -166,7 +166,7 @@ export default function MyProfile() {
                   disabled={!isEditing}
                   value={isEditing ? tempInfo.email : personalInfo.email}
                   onChange={(e) => setTempInfo({ ...tempInfo, email: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
                 />
               </div>
               <div>
@@ -176,7 +176,7 @@ export default function MyProfile() {
                   disabled={!isEditing}
                   value={isEditing ? tempInfo.mobile : personalInfo.mobile}
                   onChange={(e) => setTempInfo({ ...tempInfo, mobile: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: isEditing ? '#fff' : '#f8fafc' }}
                 />
               </div>
               <div>
@@ -185,7 +185,7 @@ export default function MyProfile() {
                   type="text" 
                   disabled={true}
                   value={personalInfo.department}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
                 />
               </div>
               <div>
@@ -194,7 +194,7 @@ export default function MyProfile() {
                   type="text" 
                   disabled={true}
                   value={personalInfo.designation}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
                 />
               </div>
               <div>
@@ -203,7 +203,7 @@ export default function MyProfile() {
                   type="text" 
                   disabled={true}
                   value={personalInfo.joiningDate}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
                 />
               </div>
               <div>
@@ -212,7 +212,7 @@ export default function MyProfile() {
                   type="text" 
                   disabled={true}
                   value={personalInfo.lastLogin}
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
+                  style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#f8fafc', color: 'var(--muted)' }}
                 />
               </div>
             </form>
@@ -224,7 +224,7 @@ export default function MyProfile() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Account Specs */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px' }}>Account Properties</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                 <div>
@@ -251,10 +251,10 @@ export default function MyProfile() {
             </div>
 
             {/* Security Config Buttons */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Security Control CenterCenter</h3>
               
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
                 <div>
                   <strong style={{ fontSize: '14px', color: 'var(--text)', display: 'block' }}>Change System Password</strong>
                   <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Regularly updating your password prevents unauthorized platform access.</span>
@@ -264,7 +264,7 @@ export default function MyProfile() {
                 </button>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
                 <div>
                   <strong style={{ fontSize: '14px', color: 'var(--text)', display: 'block' }}>Two-Factor Authentication (2FA)</strong>
                   <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Adds an additional security layer requiring a dynamic authenticator OTP on login.</span>
@@ -293,7 +293,7 @@ export default function MyProfile() {
 
         {/* TAB 3: ACTIVITY LOGS */}
         {activeSubTab === 'activity' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Recent Security &amp; Activity Log</h3>
               <button onClick={() => navigate('/profile/activity-log')} className="custom-btn-secondary" style={{ height: '32px', padding: '0 12px', fontSize: '12px' }}>
@@ -303,7 +303,7 @@ export default function MyProfile() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {recentActivities.map((act) => (
-                <div key={act.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+                <div key={act.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
                   <div style={{ padding: '8px', borderRadius: '8px', background: act.type === 'security' ? '#fee2e2' : '#e0e7ff', color: act.type === 'security' ? '#ef4444' : '#4f46e5' }}>
                     {act.type === 'security' ? <ShieldAlert size={16} /> : <Activity size={16} />}
                   </div>
@@ -324,3 +324,5 @@ export default function MyProfile() {
     </AdminShell>
   );
 }
+
+

@@ -61,7 +61,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
           </div>
 
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
               <Calendar size={14} style={{ color: 'var(--muted)' }} />
               <select
                 value={timeframe}
@@ -152,7 +152,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
           <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: 'var(--muted)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Avg. Resolution Time</span>
-              <span style={{ fontSize: '9px', fontWeight: '900', color: 'var(--primary)', border: '1px solid var(--line)', padding: '2px 6px', borderRadius: '4px' }}>TARGET: 4H</span>
+              <span style={{ fontSize: '9px', fontWeight: '900', color: 'var(--primary)', border: '1.5px solid #25108f', padding: '2px 6px', borderRadius: '4px' }}>TARGET: 4H</span>
             </div>
             <div>
               <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', fontWeight: '850' }}>3h 22m</strong>
@@ -185,7 +185,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
             </div>
 
             {/* CSS Flex Bar Chart */}
-            <div style={{ height: '220px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid var(--line)', paddingBottom: '12px', gap: '12px', marginTop: '20px' }}>
+            <div style={{ height: '220px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1.5px solid #25108f', paddingBottom: '12px', gap: '12px', marginTop: '20px' }}>
               {getTrendBars().map((val, idx) => (
                 <div key={idx} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '8px' }}>
                   {/* The interactive bar with light shades */}
@@ -277,7 +277,7 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '700px' }}>
               <thead>
-                <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Ticket ID</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Priority</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Category</th>
@@ -335,3 +335,5 @@ export default function SlaMonitoring({ activeTab = 'Support Center' }) {
     </AdminShell>
   );
 }
+
+

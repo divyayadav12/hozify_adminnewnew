@@ -77,7 +77,7 @@ export default function WalletFreezeCenter() {
                 <select
                   value={walletId}
                   onChange={(e) => setWalletId(e.target.value)}
-                  style={{ border: '1px solid var(--line)', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
+                  style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
                 >
                   {mockWallets.map(w => (
                     <option key={w.id} value={w.id}>
@@ -98,7 +98,7 @@ export default function WalletFreezeCenter() {
                       style={{
                         flex: 1,
                         height: '38px',
-                        border: actionType === act ? 'none' : '1px solid var(--line)',
+                        border: actionType === act ? 'none' : '1.5px solid #25108f',
                         background: actionType === act ? (act === 'Freeze' ? '#d32929' : '#07956f') : '#fff',
                         color: actionType === act ? '#fff' : 'var(--text)',
                         borderRadius: '6px',
@@ -118,7 +118,7 @@ export default function WalletFreezeCenter() {
                 <select
                   value={freezeReason}
                   onChange={(e) => setFreezeReason(e.target.value)}
-                  style={{ border: '1px solid var(--line)', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
+                  style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
                 >
                   <option value="Suspected refund manipulation rule RFD-88">Suspected refund manipulation rule RFD-88</option>
                   <option value="Pending document validation update">Pending document validation update</option>
@@ -134,7 +134,7 @@ export default function WalletFreezeCenter() {
                   placeholder="PIN code authorization"
                   value={confirmPin}
                   onChange={(e) => setConfirmPin(e.target.value)}
-                  style={{ border: '1px solid var(--line)', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
+                  style={{ border: '1.5px solid #25108f', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
                 />
               </div>
 
@@ -204,3 +204,5 @@ export default function WalletFreezeCenter() {
     </AdminShell>
   );
 }
+
+

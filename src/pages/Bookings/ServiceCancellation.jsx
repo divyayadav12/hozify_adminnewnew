@@ -98,7 +98,7 @@ export default function ServiceCancellation() {
             
             {/* Service Information Card */}
             <div className="panel" style={{ padding: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--line)', paddingBottom: '12px', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1.5px solid #25108f', paddingBottom: '12px', marginBottom: '16px' }}>
                 <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Service Information</h2>
                 <strong style={{ fontSize: '14px', color: 'var(--primary)' }}>BK-77202</strong>
               </div>
@@ -150,7 +150,7 @@ export default function ServiceCancellation() {
                       key={reason.id}
                       onClick={() => setSelectedReason(reason.id)}
                       style={{
-                        border: isActive ? '2px solid #25108f' : '1px solid var(--line)',
+                        border: isActive ? '2px solid #25108f' : '1.5px solid #25108f',
                         borderRadius: '6px',
                         padding: '16px 12px',
                         cursor: 'pointer',
@@ -180,7 +180,7 @@ export default function ServiceCancellation() {
                   value={internalNotes}
                   onChange={(e) => setInternalNotes(e.target.value)}
                   placeholder="Enter justification for audit trail..."
-                  style={{ width: '100%', height: '80px', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px', fontSize: '13px', outline: 'none', resize: 'none' }}
+                  style={{ width: '100%', height: '80px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px', fontSize: '13px', outline: 'none', resize: 'none' }}
                 />
               </div>
             </div>
@@ -270,7 +270,7 @@ export default function ServiceCancellation() {
             <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Refund Impact Breakdown</h2>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', borderBottom: '1px solid var(--line)', paddingBottom: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', borderBottom: '1.5px solid #25108f', paddingBottom: '14px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
                   <span>Service Total</span>
                   <span style={{ color: 'var(--text)' }}>$1,250.00</span>
@@ -312,7 +312,7 @@ export default function ServiceCancellation() {
               </div>
               
               {/* Toggle switch */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--line)', paddingTop: '12px', marginTop: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1.5px solid #25108f', paddingTop: '12px', marginTop: '4px' }}>
                 <span style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text)' }}>Waive penalty fees</span>
                 <button
                   onClick={() => setWaiveFees(!waiveFees)}
@@ -395,7 +395,7 @@ export default function ServiceCancellation() {
         </div>
         
         {/* Footer info text matching Screen 3 */}
-        <div style={{ borderTop: '1px solid var(--line)', paddingTop: '16px', marginTop: '16px', textAlign: 'center', fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>
+        <div style={{ borderTop: '1.5px solid #25108f', paddingTop: '16px', marginTop: '16px', textAlign: 'center', fontSize: '11px', color: 'var(--muted)', fontWeight: '700' }}>
           OpsManager Pro v4.2.0 • Data refreshed real-time • Session expires in 14m
         </div>
 
@@ -403,3 +403,5 @@ export default function ServiceCancellation() {
     </AdminShell>
   );
 }
+
+

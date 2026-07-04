@@ -317,10 +317,10 @@ export default function SlaCompliance() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
             <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '700' }}>Showing 4 of 282 active bookings</span>
             <div style={{ display: 'flex', gap: '8px' }}>
-              <button style={{ height: '34px', padding: '0 14px', border: '1px solid var(--line)', background: '#fff', color: 'var(--muted)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'not-allowed' }} disabled>
+              <button style={{ height: '34px', padding: '0 14px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--muted)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'not-allowed' }} disabled>
                 <ChevronLeft size={16} />
               </button>
-              <button style={{ height: '34px', padding: '0 14px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} onClick={() => alert('Next bookings')}>
+              <button style={{ height: '34px', padding: '0 14px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }} onClick={() => alert('Next bookings')}>
                 <ChevronRight size={16} />
               </button>
             </div>
@@ -362,3 +362,5 @@ export default function SlaCompliance() {
     </AdminShell>
   );
 }
+
+

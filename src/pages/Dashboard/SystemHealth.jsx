@@ -90,7 +90,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
 
             <button
               onClick={handleManualRefresh}
-              style={{ height: '36px', width: '36px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ height: '36px', width: '36px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               aria-label="Refresh status"
             >
               <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
@@ -221,7 +221,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
               style={{
                 width: '100%',
                 height: '38px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '12px',
@@ -247,7 +247,7 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Region</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Status</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Load</th>
@@ -294,3 +294,5 @@ export default function SystemHealth({ activeTab = 'Dashboard' }) {
     </AdminShell>
   );
 }
+
+

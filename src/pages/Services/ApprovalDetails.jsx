@@ -96,7 +96,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
               padding: '0 20px',
               background: '#ffffff',
               color: 'var(--text)',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '6px',
               fontSize: '13px',
               fontWeight: '700',
@@ -134,7 +134,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Specifications */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <FileCheck size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Service Specifications</h3>
@@ -176,7 +176,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
           </div>
 
           {/* Compliance Documents */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <CheckCircle2 size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Compliance Documents</h3>
@@ -208,7 +208,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Pricing Structure */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <CheckCircle2 size={18} style={{ color: 'var(--primary)' }} />
@@ -221,7 +221,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
 
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '8px 0', color: 'var(--muted)', fontWeight: '800', fontSize: '10px', textTransform: 'uppercase', textAlign: 'left' }}>Cost Item</th>
                   <th style={{ padding: '8px 0', color: 'var(--muted)', fontWeight: '800', fontSize: '10px', textTransform: 'uppercase', textAlign: 'right' }}>Amount (USD)</th>
                 </tr>
@@ -253,7 +253,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Risk Scorecard */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <ShieldAlert size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Risk Scorecard</h3>
@@ -301,7 +301,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
           </div>
 
           {/* Approval Notes */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <MessageSquare size={18} style={{ color: 'var(--primary)' }} />
               <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Approval Notes</h3>
@@ -334,7 +334,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
                 onChange={(e) => setReviewNote(e.target.value)}
                 style={{
                   height: '64px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   padding: '8px 10px',
                   borderRadius: '6px',
                   fontSize: '12px',
@@ -348,7 +348,7 @@ export default function ApprovalDetails({ requestId, onBack }) {
                 style={{
                   height: '32px',
                   background: '#ffffff',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   color: 'var(--text)',
                   fontSize: '11px',
                   fontWeight: '700',
@@ -370,3 +370,5 @@ export default function ApprovalDetails({ requestId, onBack }) {
     </div>
   );
 }
+
+

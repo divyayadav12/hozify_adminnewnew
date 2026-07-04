@@ -67,7 +67,7 @@ export default function EmployeeProfile({ employee, onBack }) {
       </div>
 
       {/* Main Profile Summary Banner */}
-      <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', borderRadius: '8px', border: '1px solid var(--line)', marginBottom: '24px' }}>
+      <div className="panel" style={{ padding: 'var(--spacing-section)', background: '#fff', borderRadius: '8px', border: '1.5px solid #25108f', marginBottom: '24px' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-section)', alignItems: 'center', justifyContent: 'space-between' }}>
           
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
@@ -134,7 +134,7 @@ export default function EmployeeProfile({ employee, onBack }) {
             </div>
 
             {/* Rating */}
-            <div className="kpi-card" style={{ minWidth: '120px', minHeight: '80px', padding: '12px 16px', backgroundColor: '#f8fafc', border: '1px solid var(--line)' }}>
+            <div className="kpi-card" style={{ minWidth: '120px', minHeight: '80px', padding: '12px 16px', backgroundColor: '#f8fafc', border: '1.5px solid #25108f' }}>
               <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800' }}>RATING</span>
               <strong style={{ display: 'block', fontSize: '20px', margin: '4px 0 2px', color: 'var(--text)' }}>4.9</strong>
               <div style={{ display: 'flex', gap: '2px' }}>
@@ -147,7 +147,7 @@ export default function EmployeeProfile({ employee, onBack }) {
       </div>
 
       {/* Profile Navigation sub-tabs */}
-      <div style={{ borderBottom: '1px solid var(--line)', marginBottom: '24px', display: 'flex', gap: 'var(--spacing-section)', overflowX: 'auto' }}>
+      <div style={{ borderBottom: '1.5px solid #25108f', marginBottom: '24px', display: 'flex', gap: 'var(--spacing-section)', overflowX: 'auto' }}>
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -337,3 +337,5 @@ export default function EmployeeProfile({ employee, onBack }) {
     </div>
   );
 }
+
+

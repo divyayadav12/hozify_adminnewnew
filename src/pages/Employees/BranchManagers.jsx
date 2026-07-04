@@ -37,7 +37,7 @@ export default function BranchManagers() {
         <div 
           onClick={() => addToast("Card clicked: Total Branch Managers details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -54,7 +54,7 @@ export default function BranchManagers() {
         <div 
           onClick={() => addToast("Card clicked: Active Managers list", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -71,7 +71,7 @@ export default function BranchManagers() {
         <div 
           onClick={() => addToast("Card clicked: Branches Managed coverage", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -88,7 +88,7 @@ export default function BranchManagers() {
         <div 
           onClick={() => addToast("Card clicked: Average Performance analysis", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -108,11 +108,11 @@ export default function BranchManagers() {
         {/* Left Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Manager Directory</h3>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1px solid var(--line)', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
+                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
                   <Search size={14} style={{ marginLeft: '12px', color: 'var(--muted)' }} />
                   <input
                     placeholder="Search managers..."
@@ -124,7 +124,7 @@ export default function BranchManagers() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  style={{ height: '34px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
+                  style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
                   aria-label="Filter managers by status"
                 >
                   <option value="All">All Statuses</option>
@@ -203,7 +203,7 @@ export default function BranchManagers() {
 
         {/* Right Column: Leaderboard */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px' }}>Top Branch Managers</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -230,3 +230,5 @@ export default function BranchManagers() {
     </div>
   );
 }
+
+

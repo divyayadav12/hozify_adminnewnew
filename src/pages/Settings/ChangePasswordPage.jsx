@@ -65,7 +65,7 @@ export default function ChangePasswordPage() {
         </div>
 
         {/* Editor */}
-        <form onSubmit={handleSave} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleSave} style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <h3 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Lock size={16} /> Update Password Credentials
           </h3>
@@ -79,7 +79,7 @@ export default function ChangePasswordPage() {
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter current password"
-                style={{ width: '100%', padding: '8px 40px 8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                style={{ width: '100%', padding: '8px 40px 8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                 required
               />
               <button 
@@ -101,7 +101,7 @@ export default function ChangePasswordPage() {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter strong new password"
-                style={{ width: '100%', padding: '8px 40px 8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                style={{ width: '100%', padding: '8px 40px 8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                 required
               />
               <button 
@@ -136,7 +136,7 @@ export default function ChangePasswordPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm new password"
-                style={{ width: '100%', padding: '8px 40px 8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                style={{ width: '100%', padding: '8px 40px 8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                 required
               />
               <button 
@@ -165,3 +165,5 @@ export default function ChangePasswordPage() {
     </AdminShell>
   );
 }
+
+

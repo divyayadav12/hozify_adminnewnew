@@ -85,7 +85,7 @@ export default function BranchSuspend() {
                     id="suspend-reason"
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
-                    style={{ height: '38px', border: '1px solid var(--line)', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
+                    style={{ height: '38px', border: '1.5px solid #25108f', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
                     required
                   >
                     <option value="">Select a regulatory reason...</option>
@@ -102,14 +102,14 @@ export default function BranchSuspend() {
                     <button
                       type="button"
                       onClick={() => setDuration('Temporary')}
-                      style={{ flex: 1, border: '1px solid var(--line)', background: duration === 'Temporary' ? '#eee9f6' : '#fff', color: duration === 'Temporary' ? 'var(--primary)' : 'var(--text)', fontWeight: '800', fontSize: '12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                      style={{ flex: 1, border: '1.5px solid #25108f', background: duration === 'Temporary' ? '#eee9f6' : '#fff', color: duration === 'Temporary' ? 'var(--primary)' : 'var(--text)', fontWeight: '800', fontSize: '12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
                     >
                       <Clock size={14} /> Temporary
                     </button>
                     <button
                       type="button"
                       onClick={() => setDuration('Indefinite')}
-                      style={{ flex: 1, border: '1px solid var(--line)', background: duration === 'Indefinite' ? '#eee9f6' : '#fff', color: duration === 'Indefinite' ? 'var(--primary)' : 'var(--text)', fontWeight: '800', fontSize: '12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                      style={{ flex: 1, border: '1.5px solid #25108f', background: duration === 'Indefinite' ? '#eee9f6' : '#fff', color: duration === 'Indefinite' ? 'var(--primary)' : 'var(--text)', fontWeight: '800', fontSize: '12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
                     >
                       <span>∞</span> Indefinite
                     </button>
@@ -126,7 +126,7 @@ export default function BranchSuspend() {
                     id="reactivate-date"
                     value={reactivateDate}
                     onChange={(e) => setReactivateDate(e.target.value)}
-                    style={{ height: '38px', border: '1px solid var(--line)', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
+                    style={{ height: '38px', border: '1.5px solid #25108f', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
                     disabled={duration === 'Indefinite'}
                     required={duration === 'Temporary'}
                   />
@@ -156,7 +156,7 @@ export default function BranchSuspend() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value.slice(0, 500))}
                   placeholder="Document the justification for this suspension. Notes are viewable by Regional Directors and Audit Teams."
-                  style={{ height: '90px', border: '1px solid var(--line)', padding: '10px', borderRadius: '6px', fontSize: '13px', outline: 'none', resize: 'none' }}
+                  style={{ height: '90px', border: '1.5px solid #25108f', padding: '10px', borderRadius: '6px', fontSize: '13px', outline: 'none', resize: 'none' }}
                   required={duration === 'Indefinite'}
                 />
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--muted)', fontWeight: '700', marginTop: '2px' }}>
@@ -166,7 +166,7 @@ export default function BranchSuspend() {
               </div>
 
               {/* Cancel and Submit row */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', borderTop: '1px solid var(--line)', paddingTop: '20px', marginTop: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', borderTop: '1.5px solid #25108f', paddingTop: '20px', marginTop: '10px' }}>
                 <button
                   onClick={() => navigate(ROUTES.branchSchedule)}
                   type="button"
@@ -214,7 +214,7 @@ export default function BranchSuspend() {
               </div>
 
               {/* SVG Map context */}
-              <div style={{ border: '1px solid var(--line)', borderRadius: '6px', height: '110px', background: '#f8fafc', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ border: '1.5px solid #25108f', borderRadius: '6px', height: '110px', background: '#f8fafc', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="100%" height="100%" viewBox="0 0 200 110" style={{ fill: 'none', stroke: '#cbd5e1', strokeWidth: '1.5' }}>
                   {/* Grid of city roads */}
                   <line x1="20" y1="0" x2="20" y2="110" />
@@ -272,3 +272,5 @@ export default function BranchSuspend() {
     </AdminShell>
   );
 }
+
+

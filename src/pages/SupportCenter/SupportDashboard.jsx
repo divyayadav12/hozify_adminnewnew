@@ -272,7 +272,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
                     height: '32px',
                     padding: '0 12px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     color: 'var(--muted)',
                     fontSize: '12px',
@@ -289,7 +289,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
                     height: '32px',
                     padding: '0 12px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     color: 'var(--muted)',
                     fontSize: '12px',
@@ -306,7 +306,7 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
             <div style={{ overflowX: 'auto', flex: 1 }}>
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '500px' }}>
                 <thead>
-                  <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Agent Name</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Status</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', width: '130px' }}>Current Load</th>
@@ -405,3 +405,5 @@ export default function SupportDashboard({ activeTab = 'Support Center' }) {
     </AdminShell>
   );
 }
+
+

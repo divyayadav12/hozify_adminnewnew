@@ -64,14 +64,14 @@ export default function BusinessRisk() {
 
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
-              style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
+              style={{ border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
               onClick={() => { setRiskStatus('CLEARED'); addToast(`${entityName} has been marked as Safe. Risk cleared.`, 'success'); }}
               type="button"
             >
               Mark Safe
             </button>
             <button
-              style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
+              style={{ border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '36px', padding: '0 14px', borderRadius: '6px', cursor: 'pointer' }}
               onClick={() => { setRiskStatus('ESCALATED'); addToast(`${entityName} escalated to Senior Risk Officer.`, 'info'); }}
               type="button"
             >
@@ -259,7 +259,7 @@ export default function BusinessRisk() {
               <h2 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Entity Intelligence</h2>
               
               {/* Registration HQ */}
-              <div style={{ display: 'flex', gap: '12px', border: '1px solid var(--line)', padding: '12px', borderRadius: '6px', background: '#f8fafc' }}>
+              <div style={{ display: 'flex', gap: '12px', border: '1.5px solid #25108f', padding: '12px', borderRadius: '6px', background: '#f8fafc' }}>
                 <MapPin size={20} style={{ color: '#4f46e5', flexShrink: 0, marginTop: '2px' }} />
                 <div>
                   <span style={{ display: 'block', fontSize: '8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase' }}>Registration HQ</span>
@@ -292,3 +292,5 @@ export default function BusinessRisk() {
     </AdminShell>
   );
 }
+
+

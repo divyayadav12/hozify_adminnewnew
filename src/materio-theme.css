@@ -496,7 +496,7 @@ body {
   background: var(--materio-surface);
   border-radius: 0 !important;
   box-shadow: none !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #25108f !important;
   overflow: auto;
 }
 
@@ -522,7 +522,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   background: #1B0B90 !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #25108f !important;
   border-radius: 0 !important;
   position: sticky;
   top: 0;
@@ -534,7 +534,7 @@ body {
   padding: 12px 16px !important;
   font-size: 14px;
   color: var(--materio-text-main);
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #25108f !important;
   vertical-align: middle !important;
   text-align: left !important;
 }
@@ -692,7 +692,7 @@ body {
   background: var(--materio-surface);
   border-radius: 0 !important;
   box-shadow: none !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #25108f !important;
   overflow: auto;
   margin-bottom: 24px;
 }
@@ -733,7 +733,7 @@ table th {
   letter-spacing: 0.5px;
   padding: 12px 16px !important;
   text-align: left !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #25108f !important;
   border-radius: 0 !important;
   position: sticky;
   top: 0;
@@ -744,7 +744,7 @@ table th {
 table.partner-table td,
 table td {
   padding: 12px 16px !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #25108f !important;
   color: var(--materio-text-main);
   font-size: 14px;
   vertical-align: middle !important;
@@ -969,7 +969,7 @@ button.secondary-action-btn:hover,
 [class*="matrix-wrap"] {
   border-radius: 0 !important;
   box-shadow: none !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #25108f !important;
   overflow: auto !important;
 }
 
@@ -1006,3 +1006,4 @@ button.secondary-action-btn:hover,
 [class*="matrix-wrap"]::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+

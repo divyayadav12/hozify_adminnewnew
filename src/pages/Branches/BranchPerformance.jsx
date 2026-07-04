@@ -99,7 +99,7 @@ export default function BranchPerformance() {
           <p className="page-subtitle">Comprehensive analysis for downtown logistics and service execution.</p>
         </div>
         <div className="partners-header-buttons">
-          <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
+          <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
             <Calendar size={16} />
             <select
               value={timeframe}
@@ -201,7 +201,7 @@ export default function BranchPerformance() {
       <div className="kpi-grid" style={{ gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', marginBottom: '24px', gap: '16px' }}>
         
         {/* Best Services */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Best Services</span>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', margin: '10px 0' }}>
             <div>
@@ -236,7 +236,7 @@ export default function BranchPerformance() {
         </div>
 
         {/* Customer Satisfaction */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer Satisfaction</span>
           <div>
             <strong style={{ display: 'block', fontSize: '24px', fontWeight: '800', margin: '2px 0 0', color: 'var(--text)' }}>4.92<span style={{ fontSize: '14px', color: 'var(--muted)', fontWeight: 'normal' }}>/5.0</span></strong>
@@ -248,7 +248,7 @@ export default function BranchPerformance() {
         </div>
 
         {/* Completion Rate */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Completion Rate</span>
           <div>
             <strong style={{ display: 'block', fontSize: '24px', fontWeight: '800', margin: '2px 0 2px', color: 'var(--text)' }}>99.1%</strong>
@@ -263,7 +263,7 @@ export default function BranchPerformance() {
         </div>
 
         {/* Booking Success */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '120px', background: '#fff', border: '1.5px solid #25108f' }}>
           <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Booking Success</span>
           <div>
             <strong style={{ display: 'block', fontSize: '24px', fontWeight: '800', margin: '2px 0 2px', color: 'var(--text)' }}>86.4%</strong>
@@ -343,3 +343,4 @@ export default function BranchPerformance() {
     </div>
   );
 }
+

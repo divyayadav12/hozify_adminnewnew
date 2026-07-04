@@ -50,7 +50,7 @@ export default function RefundPolicy() {
         </div>
 
         {/* Top Actions Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff', border: '1px solid var(--line)', padding: '16px 24px', borderRadius: '12px', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff', border: '1.5px solid #25108f', padding: '16px 24px', borderRadius: '12px', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', background: '#312e81', color: '#fff', padding: '6px 10px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               DRAFT V2.4.1
@@ -61,10 +61,10 @@ export default function RefundPolicy() {
           </div>
           
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <button onClick={() => addToast('Generating PDF preview document...', 'info')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button onClick={() => addToast('Generating PDF preview document...', 'info')} style={{ padding: '8px 16px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Preview PDF
             </button>
-            <button onClick={() => addToast('Changes discarded', 'info')} style={{ padding: '8px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+            <button onClick={() => addToast('Changes discarded', 'info')} style={{ padding: '8px 16px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
               Discard Changes
             </button>
             <button onClick={() => addToast('Policy changes published successfully!', 'success')} style={{ padding: '8px 16px', background: '#312e81', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
@@ -79,8 +79,8 @@ export default function RefundPolicy() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
             
             {/* Financial Framework Clauses */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
                 Financial Framework Clauses
               </h3>
               
@@ -90,7 +90,7 @@ export default function RefundPolicy() {
                   rows={3}
                   value={legalHeader}
                   onChange={(e) => setLegalHeader(e.target.value)}
-                  style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '13px', color: 'var(--text)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
+                  style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '13px', color: 'var(--text)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
                 />
               </div>
 
@@ -101,7 +101,7 @@ export default function RefundPolicy() {
                     type="number" 
                     value={refundWindow}
                     onChange={(e) => setRefundWindow(e.target.value)}
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
                   />
                 </div>
                 <div>
@@ -111,17 +111,17 @@ export default function RefundPolicy() {
                     step="0.1"
                     value={processingFee}
                     onChange={(e) => setProcessingFee(e.target.value)}
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
                   />
                 </div>
               </div>
             </div>
 
             {/* Detailed Terms Editor */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
               
               {/* Toolbar */}
-              <div style={{ padding: '16px 24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+              <div style={{ padding: '16px 24px', borderBottom: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     Detailed Terms Editor
@@ -134,7 +134,7 @@ export default function RefundPolicy() {
                     <button onClick={() => addToast('Link formatting applied', 'info')} className="editor-btn"><LinkIcon size={16} /></button>
                   </div>
                 </div>
-                <button onClick={addClause} style={{ background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                <button onClick={addClause} style={{ background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                   <Plus size={14} /> Add Sub-clause
                 </button>
               </div>
@@ -142,7 +142,7 @@ export default function RefundPolicy() {
               {/* Editor Blocks */}
               <div style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {clauses.map((clause, idx) => (
-                  <div key={clause.id} style={{ position: 'relative', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px 20px', background: '#fff', display: 'flex', gap: '16px' }}>
+                  <div key={clause.id} style={{ position: 'relative', border: '1.5px solid #25108f', borderRadius: '8px', padding: '16px 20px', background: '#fff', display: 'flex', gap: '16px' }}>
                     
                     {/* Visual left indicator block for some entries just to mimic design variation */}
                     {idx === 0 && (
@@ -172,7 +172,7 @@ export default function RefundPolicy() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
             
             {/* Compliance Monitor */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Compliance Monitor
               </h3>
@@ -200,7 +200,7 @@ export default function RefundPolicy() {
             </div>
 
             {/* Operational Impact */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Operational Impact
               </h3>
@@ -220,11 +220,11 @@ export default function RefundPolicy() {
             </div>
 
             {/* Documentation Lead */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Documentation Lead
               </h3>
-              <div style={{ background: '#f1f5f9', height: '120px', borderRadius: '8px', marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--line)', overflow: 'hidden', position: 'relative' }}>
+              <div style={{ background: '#f1f5f9', height: '120px', borderRadius: '8px', marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid #25108f', overflow: 'hidden', position: 'relative' }}>
                 {/* Mocked image background representation */}
                 <div style={{ position: 'absolute', inset: 0, opacity: 0.2, backgroundImage: 'repeating-linear-gradient(45deg, #cbd5e1 0, #cbd5e1 2px, transparent 2px, transparent 10px)' }} />
                 <span style={{ position: 'relative', fontSize: '24px', fontWeight: '900', color: 'var(--muted)', opacity: 0.3, transform: 'rotate(-15deg)' }}>POLICY DOC</span>
@@ -233,7 +233,7 @@ export default function RefundPolicy() {
             </div>
 
             {/* Version History */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Version History
@@ -242,11 +242,11 @@ export default function RefundPolicy() {
               </div>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+                <div style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
                   <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)', marginBottom: '4px' }}>v2.4.0 (Live)</strong>
                   <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Applied June 14, 2024 • Sarah K.</span>
                 </div>
-                <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+                <div style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
                   <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)', marginBottom: '4px' }}>v2.3.9</strong>
                   <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Applied May 22, 2024 • Admin</span>
                 </div>
@@ -283,3 +283,5 @@ export default function RefundPolicy() {
     </AdminShell>
   );
 }
+
+

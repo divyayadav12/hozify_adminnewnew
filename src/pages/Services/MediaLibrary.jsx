@@ -117,7 +117,7 @@ export default function MediaLibrary() {
       <div style={{ width: '260px', display: 'flex', flexDirection: 'column', gap: '20px', flexShrink: 0 }}>
         
         {/* Categories Panel */}
-        <div className="panel" style={{ background: 'white', borderRadius: '12px', border: '1px solid var(--line)', padding: '16px' }}>
+        <div className="panel" style={{ background: 'white', borderRadius: '12px', border: '1.5px solid #25108f', padding: '16px' }}>
           <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 12px' }}>
             Asset Categories
           </h3>
@@ -158,7 +158,7 @@ export default function MediaLibrary() {
         </div>
 
         {/* File Types checkboxes */}
-        <div className="panel" style={{ background: 'white', borderRadius: '12px', border: '1px solid var(--line)', padding: '16px' }}>
+        <div className="panel" style={{ background: 'white', borderRadius: '12px', border: '1.5px solid #25108f', padding: '16px' }}>
           <h3 style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 12px' }}>
             File Types
           </h3>
@@ -225,7 +225,7 @@ export default function MediaLibrary() {
             style={{
               padding: '6px 16px',
               borderRadius: '6px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               background: 'white',
               color: 'var(--text)',
               fontSize: '12px',
@@ -252,7 +252,7 @@ export default function MediaLibrary() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'flex-start',
-          borderBottom: '1px solid var(--line)',
+          borderBottom: '1.5px solid #25108f',
           paddingBottom: '20px'
         }}>
           <div>
@@ -264,7 +264,7 @@ export default function MediaLibrary() {
           <div style={{ display: 'flex', gap: '12px' }}>
             <div style={{
               background: 'white',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '8px',
               padding: '8px 12px',
               fontSize: '11px',
@@ -275,7 +275,7 @@ export default function MediaLibrary() {
             </div>
             <div style={{
               background: 'white',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '8px',
               padding: '8px 12px',
               fontSize: '11px',
@@ -344,7 +344,7 @@ export default function MediaLibrary() {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 style={{
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   background: 'white',
                   padding: '4px 8px',
@@ -359,7 +359,7 @@ export default function MediaLibrary() {
               </select>
             </div>
 
-            <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', border: '1.5px solid #25108f', borderRadius: '6px', overflow: 'hidden' }}>
               <button
                 onClick={() => setViewMode('grid')}
                 style={{
@@ -409,7 +409,7 @@ export default function MediaLibrary() {
                 key={asset.id}
                 style={{
                   borderRadius: '10px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   overflow: 'hidden',
                   background: 'white',
                   display: 'flex',
@@ -514,7 +514,7 @@ export default function MediaLibrary() {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             background: 'white',
             color: 'var(--text)',
             fontSize: '12px',
@@ -537,3 +537,5 @@ export default function MediaLibrary() {
     </div>
   );
 }
+
+

@@ -47,13 +47,13 @@ export default function EmployeeAnalytics() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
       
       {/* Top Filter Section */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', background: '#fff', padding: '16px', borderRadius: '12px', border: '1px solid var(--line)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', background: '#fff', padding: '16px', borderRadius: '12px', border: '1.5px solid #25108f' }}>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <select 
             value={branchFilter} 
             onChange={(e) => setBranchFilter(e.target.value)} 
             className="dash-select" 
-            style={{ height: '36px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '600', color: 'var(--text)', background: '#f8fafc', minWidth: '140px', outline: 'none', cursor: 'pointer' }}
+            style={{ height: '36px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '600', color: 'var(--text)', background: '#f8fafc', minWidth: '140px', outline: 'none', cursor: 'pointer' }}
           >
             <option value="All Branches">All Branches</option>
             <option value="Indore">Indore</option>
@@ -66,7 +66,7 @@ export default function EmployeeAnalytics() {
             value={deptFilter} 
             onChange={(e) => setDeptFilter(e.target.value)} 
             className="dash-select" 
-            style={{ height: '36px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '600', color: 'var(--text)', background: '#f8fafc', minWidth: '140px', outline: 'none', cursor: 'pointer' }}
+            style={{ height: '36px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '600', color: 'var(--text)', background: '#f8fafc', minWidth: '140px', outline: 'none', cursor: 'pointer' }}
           >
             <option value="All Departments">All Departments</option>
             <option value="Operations">Operations</option>
@@ -76,7 +76,7 @@ export default function EmployeeAnalytics() {
             <option value="Support">Support</option>
             <option value="Administration">Administration</option>
           </select>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
             <Calendar size={14} />
             <span style={{ fontWeight: '600', fontSize: '13px' }}>{dateRange ? '' : 'Oct 1 - Oct 31, 2026'}</span>
             <input 
@@ -119,7 +119,7 @@ export default function EmployeeAnalytics() {
         <div 
           onClick={() => addToast("Card clicked: Productivity Score details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Productivity Score</span>
@@ -140,7 +140,7 @@ export default function EmployeeAnalytics() {
         <div 
           onClick={() => addToast("Card clicked: Avg Efficiency details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Avg Efficiency</span>
@@ -161,7 +161,7 @@ export default function EmployeeAnalytics() {
         <div 
           onClick={() => addToast("Card clicked: Avg Rating details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Avg Rating</span>
@@ -182,7 +182,7 @@ export default function EmployeeAnalytics() {
         <div 
           onClick={() => addToast("Card clicked: Attendance Compliance metrics", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer', color: 'var(--text)' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Attendance Compliance</span>
@@ -210,7 +210,7 @@ export default function EmployeeAnalytics() {
           {/* Charts Row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
             {/* Chart 1: Performance Matrix */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Department Performance</h3>
               </div>
@@ -224,7 +224,7 @@ export default function EmployeeAnalytics() {
             </div>
 
             {/* Chart 2: Attendance Heatmap / Line */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', minHeight: '320px', display: 'flex', flexDirection: 'column', marginBottom: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Attendance Analytics</h3>
               </div>
@@ -248,11 +248,11 @@ export default function EmployeeAnalytics() {
           </div>
 
           {/* Employee Efficiency Matrix Table */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Employee Efficiency Matrix</h3>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1px solid var(--line)', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
+                <div className="dash-search" style={{ margin: 0, height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
                   <Search size={14} style={{ marginLeft: '12px', color: 'var(--muted)' }} />
                   <input
                     placeholder="Search employees..."
@@ -263,7 +263,7 @@ export default function EmployeeAnalytics() {
                 </div>
                 <button 
                   onClick={() => addToast("Efficiency Matrix filter options loaded", "success")}
-                  style={{ height: '34px', padding: '0 12px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
+                  style={{ height: '34px', padding: '0 12px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
                 >
                   <ListFilter size={14} /> Filter
                 </button>
@@ -273,7 +273,7 @@ export default function EmployeeAnalytics() {
             <div className="table-wrap" style={{ overflowX: 'auto' }}>
               <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee</th>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', textAlign: 'right' }}>Productivity</th>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', textAlign: 'right' }}>Rev. Contribution</th>
@@ -338,8 +338,8 @@ export default function EmployeeAnalytics() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '12px', color: 'var(--muted)' }}>
               <span>Showing {filteredEmployees.length} of {MOCK_EMPLOYEES.length} employees</span>
               <div style={{ display: 'flex', gap: '4px' }}>
-                <button onClick={() => addToast("Loaded previous matrix page", "success")} style={{ padding: '4px 8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', cursor: 'pointer' }}>Prev</button>
-                <button onClick={() => addToast("Loaded next matrix page", "success")} style={{ padding: '4px 8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '4px', cursor: 'pointer' }}>Next</button>
+                <button onClick={() => addToast("Loaded previous matrix page", "success")} style={{ padding: '4px 8px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', cursor: 'pointer' }}>Prev</button>
+                <button onClick={() => addToast("Loaded next matrix page", "success")} style={{ padding: '4px 8px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '4px', cursor: 'pointer' }}>Next</button>
               </div>
             </div>
           </div>
@@ -349,7 +349,7 @@ export default function EmployeeAnalytics() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '1' }}>
           
           {/* Top Performers Leaders Panel */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
               <Award size={18} style={{ color: '#10b981' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue Leaders</h3>
@@ -381,14 +381,14 @@ export default function EmployeeAnalytics() {
             <button 
               onClick={() => addToast("Navigating to full rankings roster page...", "success")}
               className="cursor-pointer"
-              style={{ width: '100%', marginTop: '20px', padding: '10px', background: 'transparent', border: '1px solid var(--line)', borderRadius: '8px', fontSize: '12px', fontWeight: '800', color: 'var(--text)' }}
+              style={{ width: '100%', marginTop: '20px', padding: '10px', background: 'transparent', border: '1.5px solid #25108f', borderRadius: '8px', fontSize: '12px', fontWeight: '800', color: 'var(--text)' }}
             >
               VIEW FULL RANKING
             </button>
           </div>
 
           {/* Branch Performance Leaderboard */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
               <MapPin size={18} style={{ color: '#ec4899' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Branch Leaderboard</h3>
@@ -399,7 +399,7 @@ export default function EmployeeAnalytics() {
                 <div 
                   key={b.rank} 
                   onClick={() => addToast(`Opening branch analytics dashboard for ${b.branch}`, "success")}
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid var(--line)', cursor: 'pointer' }}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1.5px solid #25108f', cursor: 'pointer' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ width: '24px', height: '24px', borderRadius: '12px', background: b.rank === 1 ? '#d1fae5' : '#e2e8f0', color: b.rank === 1 ? '#059669' : 'var(--muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '800' }}>
@@ -422,7 +422,7 @@ export default function EmployeeAnalytics() {
           </div>
 
           {/* Rating Distribution (Pie/Doughnut Placeholder) */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
               <Star size={18} style={{ color: '#f59e0b' }} />
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Rating Distribution</h3>
@@ -453,3 +453,5 @@ export default function EmployeeAnalytics() {
     </div>
   );
 }
+
+

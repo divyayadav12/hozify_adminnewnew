@@ -173,7 +173,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
             </div>
 
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
                 <Clock size={14} style={{ color: 'var(--muted)' }} />
                 <select
                   value={timeframe}
@@ -193,7 +193,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   color: 'var(--text)',
                   fontSize: '13px',
@@ -260,7 +260,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
             
             {/* Filters Row */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff', width: '280px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff', width: '280px' }}>
                 <Search size={14} style={{ color: 'var(--muted)' }} />
                 <input
                   type="text"
@@ -281,7 +281,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
                       height: '28px',
                       padding: '0 12px',
                       borderRadius: '4px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: channelFilter === channel ? 'var(--primary)' : '#fff',
                       color: channelFilter === channel ? '#fff' : 'var(--muted)',
                       fontSize: '11.5px',
@@ -300,7 +300,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
             <div style={{ overflowX: 'auto', flex: 1 }}>
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '600px' }}>
                 <thead>
-                  <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Timestamp</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Recipient Details</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', width: '90px' }}>Channel</th>
@@ -393,9 +393,9 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
                 Showing 1-{filteredLogs.length} of {logs.length} ledger events
               </span>
               <div style={{ display: 'flex', gap: '6px' }}>
-                <button style={{ height: '28px', padding: '0 12px', borderRadius: '4px', border: '1px solid var(--line)', background: '#fff', fontSize: '11px', fontWeight: '800', cursor: 'pointer', color: 'var(--muted)' }} type="button">Prev</button>
+                <button style={{ height: '28px', padding: '0 12px', borderRadius: '4px', border: '1.5px solid #25108f', background: '#fff', fontSize: '11px', fontWeight: '800', cursor: 'pointer', color: 'var(--muted)' }} type="button">Prev</button>
                 <button style={{ height: '28px', padding: '0 12px', borderRadius: '4px', border: 'none', background: 'var(--primary)', fontSize: '11px', fontWeight: '800', cursor: 'pointer', color: '#fff' }} type="button">1</button>
-                <button style={{ height: '28px', padding: '0 12px', borderRadius: '4px', border: '1px solid var(--line)', background: '#fff', fontSize: '11px', fontWeight: '800', cursor: 'pointer', color: 'var(--muted)' }} type="button">Next</button>
+                <button style={{ height: '28px', padding: '0 12px', borderRadius: '4px', border: '1.5px solid #25108f', background: '#fff', fontSize: '11px', fontWeight: '800', cursor: 'pointer', color: 'var(--muted)' }} type="button">Next</button>
               </div>
             </div>
 
@@ -412,7 +412,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
             bottom: 0,
             width: '360px',
             background: '#fff',
-            borderLeft: '1px solid var(--line)',
+            borderLeft: '1.5px solid #25108f',
             boxShadow: '-4px 0 20px rgba(17, 12, 60, 0.08)',
             display: 'flex',
             flexDirection: 'column',
@@ -497,7 +497,7 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
                 style={{
                   flex: 1,
                   height: '38px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   background: '#fff',
                   fontSize: '13px',
@@ -542,3 +542,5 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
     </AdminShell>
   );
 }
+
+

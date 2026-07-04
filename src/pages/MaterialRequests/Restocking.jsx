@@ -124,7 +124,7 @@ export default function Restocking() {
           </div>
 
           {/* Procurement Health */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Procurement Health</span>
@@ -159,7 +159,7 @@ export default function Restocking() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1.2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Create Restock Request Form */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
               <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#f5f3ff', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Send size={16} />
@@ -296,7 +296,7 @@ export default function Restocking() {
               {/* Estimated Cost Block */}
               <div style={{ 
                 background: '#f8fafc', 
-                border: '1px solid var(--line)', 
+                border: '1.5px solid #25108f', 
                 borderRadius: '8px', 
                 padding: '16px',
                 display: 'flex',
@@ -345,7 +345,7 @@ export default function Restocking() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Current Approval Workflow Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                   Current Approval Workflow
@@ -411,7 +411,7 @@ export default function Restocking() {
             {/* Vendor Performance Card */}
             <div className="panel" style={{ 
               background: '#ffffff', 
-              border: '1px solid var(--line)', 
+              border: '1.5px solid #25108f', 
               borderRadius: '12px', 
               padding: '20px',
               display: 'flex',
@@ -482,3 +482,5 @@ export default function Restocking() {
     </AdminShell>
   );
 }
+
+

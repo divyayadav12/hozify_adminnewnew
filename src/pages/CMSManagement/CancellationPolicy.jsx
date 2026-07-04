@@ -70,7 +70,7 @@ export default function CancellationPolicy() {
         </div>
 
         {/* Top Actions Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff', border: '1px solid var(--line)', padding: '16px 24px', borderRadius: '12px', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff', border: '1.5px solid #25108f', padding: '16px 24px', borderRadius: '12px', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', background: '#312e81', color: '#fff', padding: '6px 10px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               DRAFT V1.8.0
@@ -109,8 +109,8 @@ export default function CancellationPolicy() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
             
             {/* Cancellation Framework Toggles */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+              <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '0.5px', borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
                 Cancellation Rules Framework
               </h3>
               
@@ -120,7 +120,7 @@ export default function CancellationPolicy() {
                   rows={3}
                   value={legalHeader}
                   onChange={(e) => setLegalHeader(e.target.value)}
-                  style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '13px', color: 'var(--text)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
+                  style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '13px', color: 'var(--text)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
                 />
               </div>
 
@@ -131,7 +131,7 @@ export default function CancellationPolicy() {
                     type="number" 
                     value={gracePeriod}
                     onChange={(e) => setGracePeriod(e.target.value)}
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
                   />
                 </div>
                 <div>
@@ -140,17 +140,17 @@ export default function CancellationPolicy() {
                     type="number" 
                     value={cancellationFee}
                     onChange={(e) => setCancellationFee(e.target.value)}
-                    style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', color: 'var(--text)', outline: 'none' }}
                   />
                 </div>
               </div>
             </div>
 
             {/* Detailed Terms Editor */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               
               {/* Toolbar */}
-              <div style={{ padding: '16px 24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+              <div style={{ padding: '16px 24px', borderBottom: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <h3 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     Detailed Terms Editor
@@ -165,7 +165,7 @@ export default function CancellationPolicy() {
                 </div>
                 <button 
                   onClick={() => setShowAddClause(true)}
-                  style={{ background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}
+                  style={{ background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}
                 >
                   <Plus size={14} /> Add Sub-clause
                 </button>
@@ -173,7 +173,7 @@ export default function CancellationPolicy() {
 
               {/* Add Clause Form */}
               {showAddClause && (
-                <div style={{ padding: 'var(--spacing-section)', background: 'var(--soft)', borderBottom: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ padding: 'var(--spacing-section)', background: 'var(--soft)', borderBottom: '1.5px solid #25108f', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '6px' }}>Section Code / Title</label>
                     <input 
@@ -181,7 +181,7 @@ export default function CancellationPolicy() {
                       placeholder="e.g. SECTION 4.0: FORCE MAJEURE" 
                       value={newTitle} 
                       onChange={(e) => setNewTitle(e.target.value)}
-                      style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', outline: 'none' }}
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', outline: 'none' }}
                     />
                   </div>
                   <div>
@@ -191,7 +191,7 @@ export default function CancellationPolicy() {
                       rows={3} 
                       value={newContent} 
                       onChange={(e) => setNewContent(e.target.value)}
-                      style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', outline: 'none', resize: 'vertical' }}
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', outline: 'none', resize: 'vertical' }}
                     />
                   </div>
                   <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
@@ -216,7 +216,7 @@ export default function CancellationPolicy() {
               {/* Editor Blocks */}
               <div style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {clauses.map((clause, idx) => (
-                  <div key={clause.id} style={{ position: 'relative', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px 20px', background: '#fff', display: 'flex', gap: '16px' }}>
+                  <div key={clause.id} style={{ position: 'relative', border: '1.5px solid #25108f', borderRadius: '8px', padding: '16px 20px', background: '#fff', display: 'flex', gap: '16px' }}>
                     
                     {idx === 0 && (
                       <div style={{ position: 'absolute', left: '-1px', top: '16px', bottom: '16px', width: '3px', background: '#ef4444', borderRadius: '0 4px 4px 0' }} />
@@ -245,7 +245,7 @@ export default function CancellationPolicy() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
             
             {/* Compliance Monitor */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Operational Compliance
               </h3>
@@ -273,7 +273,7 @@ export default function CancellationPolicy() {
             </div>
 
             {/* Version History */}
-            <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Version History
@@ -287,7 +287,7 @@ export default function CancellationPolicy() {
               </div>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '12px' }}>
+                <div style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '12px' }}>
                   <strong style={{ display: 'block', fontSize: '12px', color: 'var(--text)', marginBottom: '4px' }}>v1.7.9 (Live)</strong>
                   <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Applied Feb 10, 2024 • Operations</span>
                 </div>
@@ -324,3 +324,5 @@ export default function CancellationPolicy() {
     </AdminShell>
   );
 }
+
+

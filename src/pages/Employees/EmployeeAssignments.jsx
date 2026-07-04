@@ -38,7 +38,7 @@ export default function EmployeeAssignments() {
         <div 
           onClick={() => addToast("Card clicked: Active Assignments details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -55,7 +55,7 @@ export default function EmployeeAssignments() {
         <div 
           onClick={() => addToast("Card clicked: Pending tasks list", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -72,7 +72,7 @@ export default function EmployeeAssignments() {
         <div 
           onClick={() => addToast("Card clicked: Completed assignments records", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -89,7 +89,7 @@ export default function EmployeeAssignments() {
         <div 
           onClick={() => addToast("Card clicked: Reassigned tasks metrics", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '80px', cursor: 'pointer' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div>
@@ -104,11 +104,11 @@ export default function EmployeeAssignments() {
         </div>
       </div>
 
-      <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
+      <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Assignment Log</h3>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <div className="dash-search" style={{ margin: 0, height: '34px', border: '1px solid var(--line)', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
+            <div className="dash-search" style={{ margin: 0, height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', width: '220px', display: 'flex', alignItems: 'center' }}>
               <Search size={14} style={{ marginLeft: '12px', color: 'var(--muted)' }} />
               <input
                 placeholder="Search assignments..."
@@ -121,7 +121,7 @@ export default function EmployeeAssignments() {
               className="dash-select" 
               value={statusFilter} 
               onChange={(e) => setStatusFilter(e.target.value)}
-              style={{ height: '34px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
+              style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
             >
               <option value="All">All Statuses</option>
               <option value="ACTIVE">Active</option>
@@ -135,7 +135,7 @@ export default function EmployeeAssignments() {
         <div className="table-wrap" style={{ overflowX: 'auto' }}>
           <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--line)' }}>
+              <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee</th>
                 <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Branch</th>
                 <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Assigned Task</th>
@@ -167,7 +167,7 @@ export default function EmployeeAssignments() {
                       <button 
                         onClick={() => { setSelectedAssignment(row); addToast(`Opening assignment details for ${row.id}`, "success"); }} 
                         className="cursor-pointer"
-                        style={{ background: '#f8fafc', border: '1px solid var(--line)', color: 'var(--text)', fontSize: '12px', fontWeight: '700', padding: '6px 12px', borderRadius: '6px' }}
+                        style={{ background: '#f8fafc', border: '1.5px solid #25108f', color: 'var(--text)', fontSize: '12px', fontWeight: '700', padding: '6px 12px', borderRadius: '6px' }}
                       >
                         Details
                       </button>
@@ -194,7 +194,7 @@ export default function EmployeeAssignments() {
             onClick={() => setSelectedAssignment(null)}
           />
           <div style={{ position: 'fixed', top: 0, right: 0, bottom: 0, width: '400px', background: '#fff', zIndex: 1000, boxShadow: '-8px 0 24px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
+            <div style={{ padding: 'var(--spacing-section)', borderBottom: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
               <div>
                 <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Assignment Details</h3>
                 <span style={{ fontSize: '12px', color: 'var(--muted)' }}>{selectedAssignment.id}</span>
@@ -206,7 +206,7 @@ export default function EmployeeAssignments() {
             
             <div style={{ padding: 'var(--spacing-section)', flex: 1, overflowY: 'auto' }}>
               
-              <div style={{ background: '#f8fafc', border: '1px solid var(--line)', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+              <div style={{ background: '#f8fafc', border: '1.5px solid #25108f', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                   <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <FileText size={20} />
@@ -217,7 +217,7 @@ export default function EmployeeAssignments() {
                   </div>
                 </div>
 
-                <p style={{ fontSize: '13px', color: 'var(--text)', lineHeight: '1.6', margin: 0, padding: '12px 0', borderTop: '1px solid var(--line)' }}>
+                <p style={{ fontSize: '13px', color: 'var(--text)', lineHeight: '1.6', margin: 0, padding: '12px 0', borderTop: '1.5px solid #25108f' }}>
                   This is a detailed description of the assignment. Please ensure all steps are followed according to the standard operating procedures. Report any anomalies directly to the branch manager.
                 </p>
               </div>
@@ -256,10 +256,10 @@ export default function EmployeeAssignments() {
               )}
             </div>
 
-            <div style={{ padding: '20px', borderTop: '1px solid var(--line)', display: 'flex', gap: '12px' }}>
+            <div style={{ padding: '20px', borderTop: '1.5px solid #25108f', display: 'flex', gap: '12px' }}>
               <button 
                 onClick={() => setSelectedAssignment(null)}
-                style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '10px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', color: 'var(--text)', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
               >
                 Close
               </button>
@@ -278,3 +278,5 @@ export default function EmployeeAssignments() {
     </div>
   );
 }
+
+

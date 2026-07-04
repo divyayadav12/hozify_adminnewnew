@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import {
   Wallet,
   Download,
@@ -151,7 +151,7 @@ export default function Settlements() {
           <p className="page-subtitle">Process batch payments, verify bank accounts, and configure auto-compliance payout criteria.</p>
         </div>
         <div className="partners-header-buttons">
-          <div className="date-select-picker-wrap" style={{ display: "flex", alignItems: "center", gap: "8px", border: "1px solid var(--line)", padding: "6px 12px", borderRadius: "6px", background: "#fff" }}>
+          <div className="date-select-picker-wrap" style={{ display: "flex", alignItems: "center", gap: "8px", border: "1.5px solid #25108f", padding: "6px 12px", borderRadius: "6px", background: "#fff" }}>
             <Calendar size={16} />
             <select style={{ border: "none", background: "transparent", outline: "none", fontWeight: "700", fontSize: "13px", cursor: "pointer" }} value={selectedMonth} onChange={(e) => { setSelectedMonth(e.target.value); toast(`Settlement period changed to ${e.target.value}`); }} aria-label="Settlement month selection">
               <option value="October 2023">October 2023</option>
@@ -270,3 +270,5 @@ export default function Settlements() {
     </AdminShell>
   );
 }
+
+

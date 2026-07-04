@@ -86,7 +86,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
         
         {/* Active Services */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active Services</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>{services.filter(s => s.status === 'Verified' || s.status === 'Active').length}</strong>
           <span style={{ fontSize: '12px', color: '#059669', fontWeight: '700', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -95,7 +95,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
         </div>
 
         {/* Total Revenue */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Revenue</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>$42.8k</strong>
           <span style={{ fontSize: '12px', color: '#059669', fontWeight: '700', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -104,7 +104,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
         </div>
 
         {/* Avg. Rating */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg. Rating</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>4.82</strong>
           <div style={{ display: 'flex', gap: '2px', color: '#4f46e5', marginTop: '6px' }}>
@@ -115,7 +115,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
         </div>
 
         {/* Pending Review */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Review</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>{services.filter(s => s.status === 'Pending').length}</strong>
           <span style={{ fontSize: '12px', color: '#d97706', fontWeight: '700', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -125,7 +125,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
       </div>
 
       {/* Main Filter Section */}
-      <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         
         {/* Top search & basic filters */}
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -135,14 +135,14 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
             <input 
               type="text"
               placeholder="Search services by ID, Name or Keyword..."
-              style={{ width: '100%', height: '42px', paddingLeft: '40px', paddingRight: '16px', borderRadius: '8px', border: '1px solid var(--line)', fontSize: '13px', background: '#f8fafc', outline: 'none' }}
+              style={{ width: '100%', height: '42px', paddingLeft: '40px', paddingRight: '16px', borderRadius: '8px', border: '1.5px solid #25108f', fontSize: '13px', background: '#f8fafc', outline: 'none' }}
             />
           </div>
 
           <select 
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            style={{ height: '42px', padding: '0 16px', borderRadius: '8px', border: '1px solid var(--line)', fontSize: '13px', background: '#f8fafc', fontWeight: '600', color: 'var(--text)', outline: 'none', minWidth: '180px' }}
+            style={{ height: '42px', padding: '0 16px', borderRadius: '8px', border: '1.5px solid #25108f', fontSize: '13px', background: '#f8fafc', fontWeight: '600', color: 'var(--text)', outline: 'none', minWidth: '180px' }}
           >
             <option>All Categories</option>
             <option>Engineering & Facilities</option>
@@ -154,7 +154,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
           <select 
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            style={{ height: '42px', padding: '0 16px', borderRadius: '8px', border: '1px solid var(--line)', fontSize: '13px', background: '#f8fafc', fontWeight: '600', color: 'var(--text)', outline: 'none', minWidth: '160px' }}
+            style={{ height: '42px', padding: '0 16px', borderRadius: '8px', border: '1.5px solid #25108f', fontSize: '13px', background: '#f8fafc', fontWeight: '600', color: 'var(--text)', outline: 'none', minWidth: '160px' }}
           >
             <option>All Locations</option>
             <option>New York</option>
@@ -170,7 +170,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
           {/* Status selector */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Status</label>
-            <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden', height: '38px' }}>
+            <div style={{ display: 'flex', border: '1.5px solid #25108f', borderRadius: '6px', overflow: 'hidden', height: '38px' }}>
               {['Active', 'Pending', 'Disabled'].map((status) => (
                 <button
                   key={status}
@@ -184,7 +184,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
                     color: statusFilter === status ? '#ffffff' : 'var(--muted)',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
-                    borderRight: status !== 'Disabled' ? '1px solid var(--line)' : 'none'
+                    borderRight: status !== 'Disabled' ? '1.5px solid #25108f' : 'none'
                   }}
                   type="button"
                 >
@@ -201,7 +201,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
                 padding: '0 16px',
                 background: '#ffffff',
                 color: 'var(--text)',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 borderRadius: '6px',
                 fontSize: '13px',
                 fontWeight: '600',
@@ -248,7 +248,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
           <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
             <table className="user-management-inner-table user-detail-wide-table" style={{ width: '100%', minWidth: '900px', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service ID</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service Name</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Base Price</th>
@@ -279,7 +279,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
                         <img
                           src={service.image}
                           alt={service.name}
-                          style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover', border: '1px solid var(--line)' }}
+                          style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover', border: '1.5px solid #25108f' }}
                         />
                       <div>
                         <strong style={{ display: 'block', fontSize: '14px', color: 'var(--text)' }}>{service.name}</strong>
@@ -395,7 +395,7 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
           </span>
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', border: '1.5px solid #25108f', borderRadius: '6px', overflow: 'hidden' }}>
               <button style={{ border: 'none', background: '#fff', color: 'var(--muted)', padding: '8px 12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }} type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 Previous
               </button>
@@ -440,3 +440,5 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
     </div>
   );
 }
+
+

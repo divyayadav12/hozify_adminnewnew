@@ -84,7 +84,7 @@ export default function BusinessSuspension() {
           <div style={{ display: 'flex', gap: '10px' }}>
             <button
               onClick={handleCancel}
-              style={{ height: '36px', padding: '0 16px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+              style={{ height: '36px', padding: '0 16px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
             >
               Cancel
             </button>
@@ -147,7 +147,7 @@ export default function BusinessSuspension() {
                       onClick={() => setSelectedReason(reason.id)}
                       style={{
                         padding: '16px 14px',
-                        border: isActive ? '2px solid #25108f' : '1px solid var(--line)',
+                        border: isActive ? '2px solid #25108f' : '1.5px solid #25108f',
                         borderRadius: '6px',
                         cursor: 'pointer',
                         background: '#fff',
@@ -177,7 +177,7 @@ export default function BusinessSuspension() {
                 value={adminNotes}
                 onChange={(e) => setAdminNotes(e.target.value)}
                 placeholder="Provide detailed reasoning for this action to be recorded in the audit log..."
-                style={{ width: '100%', height: '100px', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px', fontSize: '13px', outline: 'none', resize: 'none' }}
+                style={{ width: '100%', height: '100px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px', fontSize: '13px', outline: 'none', resize: 'none' }}
               />
             </div>
 
@@ -227,7 +227,7 @@ export default function BusinessSuspension() {
             {strategy === 'temporary' && (
               <div>
                 <label htmlFor="release-date-cancellation" style={{ display: 'block', fontSize: '11px', fontWeight: '850', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Release Date</label>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', height: '40px', background: '#fff' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', height: '40px', background: '#fff' }}>
                   <Calendar size={14} style={{ color: 'var(--muted)' }} />
                   <input
                     id="release-date-cancellation"
@@ -340,3 +340,5 @@ export default function BusinessSuspension() {
     </AdminShell>
   );
 }
+
+

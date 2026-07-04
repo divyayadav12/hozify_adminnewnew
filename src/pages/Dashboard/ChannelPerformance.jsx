@@ -55,7 +55,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 fontSize: '13px',
@@ -190,7 +190,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             {/* Comparison Table */}
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left', marginTop: '4px' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '8px 4px', color: 'var(--muted)', fontWeight: '800' }}>METRIC</th>
                   <th style={{ padding: '8px 4px', color: 'var(--primary)', fontWeight: '800' }}>PUSH</th>
                   <th style={{ padding: '8px 4px', color: '#10b981', fontWeight: '800' }}>SMS</th>
@@ -250,7 +250,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             {/* Comparison Table */}
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left', marginTop: '4px' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '8px 4px', color: 'var(--muted)', fontWeight: '800' }}>METRIC</th>
                   <th style={{ padding: '8px 4px', color: '#10b981', fontWeight: '800' }}>WHATSAPP</th>
                   <th style={{ padding: '8px 4px', color: '#ef4444', fontWeight: '800' }}>EMAIL</th>
@@ -311,7 +311,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </div>
 
             {/* Custom Bar Graph Layout */}
-            <div style={{ height: '170px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid var(--line)', paddingBottom: '8px', marginTop: '16px' }}>
+            <div style={{ height: '170px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1.5px solid #25108f', paddingBottom: '8px', marginTop: '16px' }}>
               {[
                 { hPush: 30, hSms: 40, hEmail: 15 },
                 { hPush: 45, hSms: 30, hEmail: 20 },
@@ -421,7 +421,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </h3>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
                 <select
                   value={regionFilter}
                   onChange={(e) => setRegionFilter(e.target.value)}
@@ -443,7 +443,7 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '650px' }}>
               <thead>
-                <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Channel Segment</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Messages Sent</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Cost Per Acquisition</th>
@@ -526,3 +526,5 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
     </AdminShell>
   );
 }
+
+

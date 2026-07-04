@@ -167,7 +167,7 @@ export default function OfferMgmtPage() {
         </div>
 
         {/* Filters */}
-        <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+        <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
             <input 
               type="text" 
@@ -181,7 +181,7 @@ export default function OfferMgmtPage() {
         </div>
 
         {/* Table */}
-        <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+        <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
           <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
               <thead>
@@ -263,3 +263,4 @@ export default function OfferMgmtPage() {
     </AdminShell>
   );
 }
+

@@ -61,7 +61,7 @@ export default function BranchBookings() {
           .branch-kpi-card {
             padding: 16px;
             background: #fff;
-            border: 1px solid var(--line);
+            border: 1.5px solid #25108f;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -237,3 +237,5 @@ export default function BranchBookings() {
     </AdminShell>
   );
 }
+
+

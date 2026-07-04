@@ -178,7 +178,7 @@ export default function CommunicationsCenter() {
       searchPlaceholder="Search conversations..."
     >
       {/* Dynamic toggle at the top to switch between Inbox and Campaigns */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', paddingBottom: '12px', marginBottom: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #25108f', paddingBottom: '12px', marginBottom: '16px' }}>
         <div>
           <h1 style={{ margin: 0, fontSize: '20px', fontWeight: '800', color: 'var(--text)' }}>
             {viewMode === 'inbox' ? 'Communications Workspace' : 'Campaign Manager'}
@@ -190,7 +190,7 @@ export default function CommunicationsCenter() {
             style={{
               padding: '6px 14px',
               borderRadius: '6px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               background: viewMode === 'inbox' ? '#25108f' : '#fff',
               color: viewMode === 'inbox' ? '#fff' : 'var(--text)',
               fontSize: '12px',
@@ -205,7 +205,7 @@ export default function CommunicationsCenter() {
             style={{
               padding: '6px 14px',
               borderRadius: '6px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               background: viewMode === 'campaign' ? '#25108f' : '#fff',
               color: viewMode === 'campaign' ? '#fff' : 'var(--text)',
               fontSize: '12px',
@@ -239,7 +239,7 @@ export default function CommunicationsCenter() {
               <Search size={14} style={{ position: 'absolute', left: '10px', color: 'var(--muted)' }} />
               <input
                 placeholder="Search..."
-                style={{ width: '100%', height: '34px', border: '1px solid var(--line)', borderRadius: '6px', paddingLeft: '32px', paddingRight: '12px', fontSize: '12px', outline: 'none' }}
+                style={{ width: '100%', height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', paddingLeft: '32px', paddingRight: '12px', fontSize: '12px', outline: 'none' }}
               />
             </div>
 
@@ -285,7 +285,7 @@ export default function CommunicationsCenter() {
           {/* COLUMN 2: ACTIVE CONVERSATION PANE (Center) */}
           <div className="panel" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             {/* Chat Header */}
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: '16px 20px', borderBottom: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ height: '36px', width: '36px', borderRadius: '50%', background: '#eee9f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', color: 'var(--primary)' }}>
                   GS
@@ -337,7 +337,7 @@ export default function CommunicationsCenter() {
                         {msg.text}
                         
                         {msg.attachment && (
-                          <div style={{ marginTop: '10px', background: '#f8f4fc', border: '1px solid var(--line)', borderRadius: '6px', padding: '10px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', gap: '12px', color: 'var(--text)' }}>
+                          <div style={{ marginTop: '10px', background: '#f8f4fc', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px', display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', gap: '12px', color: 'var(--text)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                               <div style={{ height: '30px', width: '24px', background: '#fee2e2', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ef4444', fontWeight: '900', fontSize: '8px' }}>PDF</div>
                               <div>
@@ -363,7 +363,7 @@ export default function CommunicationsCenter() {
             </div>
 
             {/* Quick Actions Row */}
-            <div style={{ padding: '10px 20px', background: '#fff', borderTop: '1px solid var(--line)', display: 'flex', gap: '10px' }}>
+            <div style={{ padding: '10px 20px', background: '#fff', borderTop: '1.5px solid #25108f', display: 'flex', gap: '10px' }}>
               <button
                 onClick={() => alert('Quote approved')}
                 style={{ background: 'rgba(37, 16, 143, 0.05)', border: '1px solid #25108f', color: 'var(--primary)', fontSize: '12px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
@@ -372,21 +372,21 @@ export default function CommunicationsCenter() {
               </button>
               <button
                 onClick={() => alert('Modification requested')}
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: 'var(--text)', fontSize: '12px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: 'var(--text)', fontSize: '12px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
               >
                 Request Modification
               </button>
               <button
                 onClick={() => alert('Delivery confirmed')}
-                style={{ background: 'transparent', border: '1px solid var(--line)', color: 'var(--text)', fontSize: '12px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: '1.5px solid #25108f', color: 'var(--text)', fontSize: '12px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
               >
                 Confirm Delivery
               </button>
             </div>
 
             {/* Chat Input Bar */}
-            <div style={{ padding: '16px 20px', borderTop: '1px solid var(--line)', background: '#fff' }}>
-              <div style={{ border: '1px solid var(--line)', borderRadius: '8px', padding: '10px', background: '#f8f9fa' }}>
+            <div style={{ padding: '16px 20px', borderTop: '1.5px solid #25108f', background: '#fff' }}>
+              <div style={{ border: '1.5px solid #25108f', borderRadius: '8px', padding: '10px', background: '#f8f9fa' }}>
                 <textarea
                   placeholder="Type a message or use / for templates..."
                   value={messageText}
@@ -442,8 +442,8 @@ export default function CommunicationsCenter() {
               </div>
               
               {/* Ratings / Orders info box */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', width: '100%', borderTop: '1px solid var(--line)', paddingTop: '10px', marginTop: '4px' }}>
-                <div style={{ borderRight: '1px solid var(--line)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', width: '100%', borderTop: '1.5px solid #25108f', paddingTop: '10px', marginTop: '4px' }}>
+                <div style={{ borderRight: '1.5px solid #25108f' }}>
                   <strong style={{ display: 'block', fontSize: '14px', color: 'var(--text)' }}>4.8</strong>
                   <span style={{ display: 'block', fontSize: '9px', color: 'var(--muted)', textTransform: 'uppercase' }}>Rating</span>
                 </div>
@@ -506,7 +506,7 @@ export default function CommunicationsCenter() {
               style={{
                 width: '100%',
                 height: '40px',
-                border: '1px solid var(--line)',
+                border: '1.5px solid #25108f',
                 background: '#fff',
                 color: 'var(--text)',
                 borderRadius: '6px',
@@ -597,7 +597,7 @@ export default function CommunicationsCenter() {
                   <input
                     id="campaign-name"
                     type="text"
-                    style={{ width: '100%', height: '40px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
+                    style={{ width: '100%', height: '40px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
                     placeholder="e.g., Q4 Compliance Update"
                     value={campaignName}
                     onChange={(e) => setCampaignName(e.target.value)}
@@ -607,7 +607,7 @@ export default function CommunicationsCenter() {
                 {/* Recipient Selection tags */}
                 <div>
                   <label htmlFor="recipient-input" style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Recipient Selection</label>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', padding: '6px 10px', minHeight: '40px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', padding: '6px 10px', minHeight: '40px' }}>
                     {recipients.map((rec, idx) => (
                       <span key={idx} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: '#eff6ff', color: '#1e40af', padding: '2px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: '700' }}>
                         {rec}
@@ -630,13 +630,13 @@ export default function CommunicationsCenter() {
                 <div>
                   <label htmlFor="msg-body" style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Message Body</label>
                   
-                  <div style={{ border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
+                  <div style={{ border: '1.5px solid #25108f', borderRadius: '6px', overflow: 'hidden' }}>
                     {/* WYSIWYG bar */}
-                    <div style={{ display: 'flex', gap: '10px', background: '#f1f5f9', borderBottom: '1px solid var(--line)', padding: '6px 12px', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
+                    <div style={{ display: 'flex', gap: '10px', background: '#f1f5f9', borderBottom: '1.5px solid #25108f', padding: '6px 12px', fontSize: '12px', fontWeight: '700', color: 'var(--muted)' }}>
                       <button type="button" style={{ border: 'none', background: 'transparent', fontWeight: '800', cursor: 'pointer' }}>B</button>
                       <button type="button" style={{ border: 'none', background: 'transparent', fontStyle: 'italic', cursor: 'pointer' }}>I</button>
                       <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}>🔗</button>
-                      <span style={{ borderLeft: '1px solid var(--line)', height: '14px', margin: '2px 0' }} />
+                      <span style={{ borderLeft: '1.5px solid #25108f', height: '14px', margin: '2px 0' }} />
                       <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}>☷</button>
                       <button type="button" style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}>🖼</button>
                     </div>
@@ -689,7 +689,7 @@ export default function CommunicationsCenter() {
                   </label>
 
                   {/* Schedule */}
-                  <label style={{ display: 'flex', gap: '10px', alignItems: 'center', border: '1px solid var(--line)', background: scheduleMode === 'schedule' ? '#eff6ff' : '#fff', padding: '12px', borderRadius: '6px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', gap: '10px', alignItems: 'center', border: '1.5px solid #25108f', background: scheduleMode === 'schedule' ? '#eff6ff' : '#fff', padding: '12px', borderRadius: '6px', cursor: 'pointer' }}>
                     <input
                       type="radio"
                       name="schedule"
@@ -705,7 +705,7 @@ export default function CommunicationsCenter() {
                   </label>
 
                   {/* Date input */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', borderRadius: '6px', padding: '0 10px', height: '36px', background: scheduleMode === 'schedule' ? '#fff' : '#f1f5f9' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', height: '36px', background: scheduleMode === 'schedule' ? '#fff' : '#f1f5f9' }}>
                     <Calendar size={14} style={{ color: 'var(--muted)' }} />
                     <input
                       type="text"
@@ -743,7 +743,7 @@ export default function CommunicationsCenter() {
               {/* Form actions (Deploy / Save) */}
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button
-                  style={{ flex: 1, border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '800', height: '40px', borderRadius: '6px', cursor: 'pointer' }}
+                  style={{ flex: 1, border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '800', height: '40px', borderRadius: '6px', cursor: 'pointer' }}
                   onClick={() => alert('Saved Draft.')}
                   type="button"
                 >
@@ -820,3 +820,5 @@ export default function CommunicationsCenter() {
     </AdminShell>
   );
 }
+
+

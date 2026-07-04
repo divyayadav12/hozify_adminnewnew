@@ -129,7 +129,7 @@ export default function InventoryListing() {
           {/* Header KPI Badge */}
           <div style={{ 
             background: '#ffffff', 
-            border: '1px solid var(--line)', 
+            border: '1.5px solid #25108f', 
             borderRadius: '8px', 
             padding: '12px 20px', 
             display: 'flex', 
@@ -153,7 +153,7 @@ export default function InventoryListing() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Filter Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               {/* Category Dropdown */}
@@ -306,11 +306,11 @@ export default function InventoryListing() {
         </div>
 
         {/* Master Registry Table */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '850px' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Material ID</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Name</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Category</th>
@@ -428,7 +428,7 @@ export default function InventoryListing() {
           alignItems: 'center', 
           fontSize: '12px', 
           color: '#7a7688', 
-          borderTop: '1px solid var(--line)', 
+          borderTop: '1.5px solid #25108f', 
           paddingTop: '20px', 
           marginTop: '12px',
           flexWrap: 'wrap',
@@ -473,3 +473,5 @@ export default function InventoryListing() {
     </AdminShell>
   );
 }
+
+

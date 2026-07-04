@@ -123,7 +123,7 @@ export default function NewMaterialRequest() {
         </div>
 
         {/* Stepper Card */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px 24px' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px 24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', flexWrap: 'wrap', gap: 'var(--spacing-section)' }}>
             
             {[1, 2, 3, 4].map((step, index) => {
@@ -149,7 +149,7 @@ export default function NewMaterialRequest() {
         {currentStep === 1 && (
           <>
             {/* Select Associated Booking Card */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
             Select Associated Booking
           </h2>
@@ -169,7 +169,7 @@ export default function NewMaterialRequest() {
                     width: '100%',
                     height: '38px',
                     background: '#ffffff',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 38px 0 12px',
                     fontSize: '13px',
@@ -194,7 +194,7 @@ export default function NewMaterialRequest() {
                     width: '100%',
                     height: '38px',
                     background: '#ffffff',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px',
@@ -283,7 +283,7 @@ export default function NewMaterialRequest() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* Project Timeline Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               PROJECT TIMELINE
             </span>
@@ -348,7 +348,7 @@ export default function NewMaterialRequest() {
         )}
 
         {currentStep === 2 && (
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Step 2: Material Specifications</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Please specify the required materials, quantities, and supplier details.</p>
             <div style={{ border: '1px dashed var(--line)', padding: '40px', textAlign: 'center', borderRadius: '8px' }}>
@@ -358,7 +358,7 @@ export default function NewMaterialRequest() {
         )}
 
         {currentStep === 3 && (
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Step 3: Budgeting & Approvals</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Allocate budgets and assign respective approvers for this request.</p>
             <div style={{ border: '1px dashed var(--line)', padding: '40px', textAlign: 'center', borderRadius: '8px' }}>
@@ -368,7 +368,7 @@ export default function NewMaterialRequest() {
         )}
 
         {currentStep === 4 && (
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Step 4: Final Review</h2>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Review all details before finalizing and submitting the material request.</p>
             <div style={{ border: '1px dashed var(--line)', padding: '40px', textAlign: 'center', borderRadius: '8px' }}>
@@ -378,7 +378,7 @@ export default function NewMaterialRequest() {
         )}
 
         {/* Action Buttons Row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', borderBottom: '1px solid var(--line)', paddingBottom: '24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', borderBottom: '1.5px solid #25108f', paddingBottom: '24px' }}>
           <button 
             onClick={handleCancel}
             style={{ background: 'transparent', border: 'none', color: '#1d1b84', fontSize: '14px', fontWeight: '700', cursor: 'pointer' }}
@@ -394,7 +394,7 @@ export default function NewMaterialRequest() {
                 style={{
                   background: '#ffffff',
                   color: 'var(--text)',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   padding: '10px 20px',
                   fontSize: '13px',
@@ -413,7 +413,7 @@ export default function NewMaterialRequest() {
                 style={{
                   background: '#ffffff',
                   color: 'var(--text)',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   borderRadius: '6px',
                   padding: '10px 20px',
                   fontSize: '13px',
@@ -459,7 +459,7 @@ export default function NewMaterialRequest() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
             
             {/* KPI 1 */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Total Active Requests
               </span>
@@ -472,7 +472,7 @@ export default function NewMaterialRequest() {
             </div>
 
             {/* KPI 2 */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Pending Approval
               </span>
@@ -485,7 +485,7 @@ export default function NewMaterialRequest() {
             </div>
 
             {/* KPI 3 */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Budget Utilization
@@ -500,7 +500,7 @@ export default function NewMaterialRequest() {
             </div>
 
             {/* KPI 4 */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <span style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Critical Shortfalls
               </span>
@@ -520,3 +520,5 @@ export default function NewMaterialRequest() {
     </AdminShell>
   );
 }
+
+

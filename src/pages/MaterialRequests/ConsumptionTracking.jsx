@@ -155,7 +155,7 @@ export default function ConsumptionTracking() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
           
           {/* KPI 1 */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Total Allocated</span>
               <strong style={{ display: 'block', fontSize: '24px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>12,480 <span style={{ fontSize: '13px', color: '#7a7688', fontWeight: '500' }}>units</span></strong>
@@ -166,7 +166,7 @@ export default function ConsumptionTracking() {
           </div>
 
           {/* KPI 2 */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Used to Date</span>
               <strong style={{ display: 'block', fontSize: '24px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>8,924 <span style={{ fontSize: '13px', color: '#7a7688', fontWeight: '500' }}>units</span></strong>
@@ -178,7 +178,7 @@ export default function ConsumptionTracking() {
           </div>
 
           {/* KPI 3 */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Wastage Rate</span>
               <strong style={{ display: 'block', fontSize: '24px', color: '#dc2626', fontWeight: '800', marginTop: '6px' }}>3.2%</strong>
@@ -190,7 +190,7 @@ export default function ConsumptionTracking() {
           </div>
 
           {/* KPI 4 */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Real-Time Stock</span>
               <strong style={{ display: 'block', fontSize: '24px', color: '#1c2536', fontWeight: '800', marginTop: '6px' }}>2,142 <span style={{ fontSize: '13px', color: '#7a7688', fontWeight: '500' }}>units</span></strong>
@@ -204,7 +204,7 @@ export default function ConsumptionTracking() {
         </div>
 
         {/* Consumption Log Card */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <BookOpen size={18} style={{ color: 'var(--primary)' }} />
@@ -241,7 +241,7 @@ export default function ConsumptionTracking() {
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--line)', paddingBottom: '8px' }}>
+                <tr style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '8px' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Material ID & Description</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', textAlign: 'center' }}>Allocated</th>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', textAlign: 'center', width: '120px' }}>Used</th>
@@ -433,7 +433,7 @@ export default function ConsumptionTracking() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Consumption Velocity Chart */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Consumption Velocity
@@ -488,7 +488,7 @@ export default function ConsumptionTracking() {
           </div>
 
           {/* Central Warehouse Live Feed */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             <div style={{ position: 'relative', height: '140px' }}>
               <img 
                 src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=300&h=140&q=80" 
@@ -531,7 +531,7 @@ export default function ConsumptionTracking() {
         </div>
 
         {/* Footer info line */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#7a7688', borderTop: '1px solid var(--line)', paddingTop: '20px', marginTop: '12px', flexWrap: 'wrap', gap: '12px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#7a7688', borderTop: '1.5px solid #25108f', paddingTop: '20px', marginTop: '12px', flexWrap: 'wrap', gap: '12px' }}>
           <span>© 2024 Hozify Procurement Systems. All Rights Reserved.</span>
           <div style={{ display: 'flex', gap: '20px' }}>
             <span style={{ cursor: 'pointer' }}>Compliance Guidelines</span>
@@ -860,3 +860,5 @@ export default function ConsumptionTracking() {
     </AdminShell>
   );
 }
+
+

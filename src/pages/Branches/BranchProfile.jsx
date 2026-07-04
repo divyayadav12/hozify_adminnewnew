@@ -71,7 +71,7 @@ export default function BranchProfile() {
           </div>
 
           {/* Profile Metrics mini bars row */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '16px', marginTop: '20px', paddingTop: '20px', borderTop: '1px solid var(--line)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '16px', marginTop: '20px', paddingTop: '20px', borderTop: '1.5px solid #25108f' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', color: 'var(--muted)', fontWeight: '700' }}>Employees</span>
               <strong style={{ display: 'block', fontSize: '18px', color: 'var(--text)', margin: '2px 0' }}>142 <span style={{ fontSize: '11px', color: '#10b981', fontWeight: '700' }}>+4.2%</span></strong>
@@ -114,7 +114,7 @@ export default function BranchProfile() {
         </div>
 
         {/* Sub-tab menu selectors */}
-        <div style={{ display: 'flex', gap: '16px', borderBottom: '1px solid var(--line)', marginBottom: '24px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+        <div style={{ display: 'flex', gap: '16px', borderBottom: '1.5px solid #25108f', marginBottom: '24px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
           {[
             'Overview',
             'Services',
@@ -232,14 +232,14 @@ export default function BranchProfile() {
                   Operational Boundary
                 </h2>
 
-                <div style={{ border: '1px solid var(--line)', borderRadius: '6px', height: '120px', background: '#f8fafc', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ border: '1.5px solid #25108f', borderRadius: '6px', height: '120px', background: '#f8fafc', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg width="100%" height="100%" viewBox="0 0 200 120" style={{ fill: 'none', stroke: '#cbd5e1', strokeWidth: '1.5' }}>
                     <path d="M 10 20 L 120 15 L 180 80 L 80 110 Z" fill="#4f46e5" fillOpacity="0.05" stroke="#4f46e5" strokeWidth="1.5" />
                     <circle cx="100" cy="55" r="4" fill="#4f46e5" />
                   </svg>
                   <div style={{ position: 'absolute', right: '8px', bottom: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <button style={{ cursor: 'pointer',  width: '20px', height: '20px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }} onClick={() => addToast('Action performed successfully.', 'success')}>+</button>
-                    <button style={{ cursor: 'pointer',  width: '20px', height: '20px', border: '1px solid var(--line)', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }} onClick={() => addToast('Action performed successfully.', 'success')}>-</button>
+                    <button style={{ cursor: 'pointer',  width: '20px', height: '20px', border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }} onClick={() => addToast('Action performed successfully.', 'success')}>+</button>
+                    <button style={{ cursor: 'pointer',  width: '20px', height: '20px', border: '1.5px solid #25108f', background: '#fff', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderRadius: '3px' }} onClick={() => addToast('Action performed successfully.', 'success')}>-</button>
                   </div>
                 </div>
 
@@ -307,3 +307,5 @@ export default function BranchProfile() {
     </AdminShell>
   );
 }
+
+

@@ -125,7 +125,7 @@ export default function PenaltyManagement() {
                   <select
                     value={walletId}
                     onChange={(e) => setWalletId(e.target.value)}
-                    style={{ border: '1px solid var(--line)', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
+                    style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
                   >
                     {mockWallets.map(w => (
                       <option key={w.id} value={w.id}>{w.owner} ({w.type} - {w.id})</option>
@@ -140,7 +140,7 @@ export default function PenaltyManagement() {
                     placeholder="e.g. 1500"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    style={{ border: '1px solid var(--line)', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
+                    style={{ border: '1.5px solid #25108f', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', outline: 'none' }}
                   />
                 </div>
 
@@ -149,7 +149,7 @@ export default function PenaltyManagement() {
                   <select
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
-                    style={{ border: '1px solid var(--line)', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
+                    style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
                   >
                     <option value="No-show for urgent plumbing assignment">No-show for urgent plumbing assignment</option>
                     <option value="SLA delay over 120 minutes">SLA delay over 120 minutes</option>
@@ -181,7 +181,7 @@ export default function PenaltyManagement() {
 
         {/* Filter bar */}
         <div className="panel" style={{ padding: '16px', display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', flex: 1 }}>
             <Search size={14} style={{ color: 'var(--muted)' }} />
             <input
               placeholder="Search by owner name, penalty ID, or infraction..."
@@ -197,7 +197,7 @@ export default function PenaltyManagement() {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Penalty ID</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Owner</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Wallet Reference</th>
@@ -241,7 +241,7 @@ export default function PenaltyManagement() {
                               display: 'inline-flex',
                               alignItems: 'center',
                               gap: '4px',
-                              border: '1px solid var(--line)',
+                              border: '1.5px solid #25108f',
                               background: '#fff',
                               color: 'var(--primary)',
                               padding: '5px 10px',
@@ -273,3 +273,5 @@ export default function PenaltyManagement() {
     </AdminShell>
   );
 }
+
+

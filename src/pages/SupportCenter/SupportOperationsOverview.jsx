@@ -75,7 +75,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
           </div>
 
           {/* Timeframe selector toggle */}
-          <div style={{ display: 'flex', gap: '2px', background: 'var(--soft)', padding: '2px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+          <div style={{ display: 'flex', gap: '2px', background: 'var(--soft)', padding: '2px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
             <button
               onClick={() => setTimeframe('Last 30 Days')}
               style={{
@@ -166,7 +166,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
             </div>
 
             {/* Custom Side-by-side columns representation */}
-            <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid var(--line)', paddingBottom: '8px', gap: '20px', marginTop: '16px' }}>
+            <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1.5px solid #25108f', paddingBottom: '8px', gap: '20px', marginTop: '16px' }}>
               {[
                 { incoming: 48, resolved: 36 },
                 { incoming: 62, resolved: 58 },
@@ -284,7 +284,7 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
             <div style={{ overflowX: 'auto', flex: 1 }}>
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--line)', paddingBottom: '6px' }}>
+                  <tr style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '6px' }}>
                     <th style={{ padding: '8px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>AGENT</th>
                     <th style={{ padding: '8px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>TICKETS</th>
                     <th style={{ padding: '8px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>RATING</th>
@@ -391,3 +391,5 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
     </AdminShell>
   );
 }
+
+

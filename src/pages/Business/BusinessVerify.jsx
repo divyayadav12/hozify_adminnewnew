@@ -57,7 +57,7 @@ export default function BusinessVerify() {
           </div>
 
           <button
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '34px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '34px', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
             onClick={() => {
               addToast('Navigating to Audit Logs...', 'info');
               navigate(ROUTES.businessAuditLogs);
@@ -87,7 +87,7 @@ export default function BusinessVerify() {
 
               {/* Photo & Details row */}
               <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                <div style={{ width: '100px', height: '120px', borderRadius: '6px', overflow: 'hidden', background: '#f1f5f9', border: '1px solid var(--line)', position: 'relative' }}>
+                <div style={{ width: '100px', height: '120px', borderRadius: '6px', overflow: 'hidden', background: '#f1f5f9', border: '1.5px solid #25108f', position: 'relative' }}>
                   <img
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=180&q=80"
                     alt="ID scan portrait"
@@ -169,11 +169,11 @@ export default function BusinessVerify() {
               </div>
 
               {/* Double photos container */}
-              <div style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'center', position: 'relative', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'center', position: 'relative', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
                 
                 {/* Passport photo */}
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '100%', height: '160px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--line)' }}>
+                  <div style={{ width: '100%', height: '160px', borderRadius: '6px', overflow: 'hidden', border: '1.5px solid #25108f' }}>
                     <img
                       src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&h=240&q=80"
                       alt="Passport scan portrait"
@@ -195,7 +195,7 @@ export default function BusinessVerify() {
 
                 {/* Live Capture photo */}
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '100%', height: '160px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--line)', position: 'relative' }}>
+                  <div style={{ width: '100%', height: '160px', borderRadius: '6px', overflow: 'hidden', border: '1.5px solid #25108f', position: 'relative' }}>
                     <img
                       src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&h=240&q=80"
                       alt="Live selfie scan"
@@ -245,7 +245,7 @@ export default function BusinessVerify() {
                 </button>
               </div>
               <button
-                style={{ border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '800', height: '40px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                style={{ border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '800', height: '40px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                 onClick={handleEscalate}
                 type="button"
               >
@@ -258,7 +258,7 @@ export default function BusinessVerify() {
         </div>
 
         {/* Footer info (Image 2) */}
-        <div style={{ borderTop: '1px solid var(--line)', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--muted)', fontWeight: '700' }}>
+        <div style={{ borderTop: '1.5px solid #25108f', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--muted)', fontWeight: '700' }}>
           <div style={{ display: 'flex', gap: '16px' }}>
             <span>⦿ Session: K-092-221</span>
             <span>⏱ Processing time: 1.2s</span>
@@ -270,3 +270,5 @@ export default function BusinessVerify() {
     </AdminShell>
   );
 }
+
+

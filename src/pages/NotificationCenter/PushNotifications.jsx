@@ -178,7 +178,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     style={{
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       borderRadius: '6px',
                       height: '32px',
                       padding: '0 10px 0 30px',
@@ -188,10 +188,10 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                     }}
                   />
                 </div>
-                <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                <button style={{ height: '32px', width: '32px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                   <Filter size={14} style={{ color: 'var(--muted)' }} />
                 </button>
-                <button style={{ height: '32px', width: '32px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                <button style={{ height: '32px', width: '32px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                   <Download size={14} style={{ color: 'var(--muted)' }} />
                 </button>
               </div>
@@ -200,7 +200,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
             <div className="table-wrap">
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Audience Segment</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Status</th>
@@ -249,7 +249,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                             <MoreVertical size={16} />
                           </button>
                           {openDropdownId === i && (
-                            <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
+                            <div style={{ position: 'absolute', right: '40px', top: '16px', width: '140px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 50, padding: '4px 0', textAlign: 'left' }}>
                               <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('View Details clicked'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--text)' }}>View Details</button>
                               <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('Resend Notification'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: 'var(--green)' }}>Resend</button>
                               <button onClick={(e) => { e.stopPropagation(); setOpenDropdownId(null); alert('Delete Campaign'); }} style={{ display: 'block', width: '100%', padding: '8px 16px', border: 'none', background: 'transparent', textAlign: 'left', fontSize: '12px', fontWeight: '600', cursor: 'pointer', color: '#e11d48' }}>Delete</button>
@@ -281,7 +281,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                   style={{
                     height: '32px',
                     padding: '0 12px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '12px',
@@ -298,7 +298,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                   style={{
                     height: '32px',
                     padding: '0 12px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '12px',
@@ -439,7 +439,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
           <div style={{
             background: '#fff',
             borderRadius: '8px',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             width: '100%',
             maxWidth: '480px',
             boxShadow: '0 8px 24px rgba(17, 12, 60, 0.15)',
@@ -447,7 +447,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
             flexDirection: 'column',
             overflow: 'hidden'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1.5px solid #25108f' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Create New Push Campaign</h3>
               <button onClick={() => setShowNewPushModal(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={18} style={{ color: 'var(--muted)' }} />
@@ -466,7 +466,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                   style={{
                     width: '100%',
                     height: '36px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px'
@@ -482,7 +482,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                   style={{
                     width: '100%',
                     height: '36px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '0 12px',
                     fontSize: '13px',
@@ -505,7 +505,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                   onChange={(e) => setNewPush({ ...newPush, message: e.target.value })}
                   style={{
                     width: '100%',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     borderRadius: '6px',
                     padding: '8px 12px',
                     fontSize: '13px',
@@ -545,7 +545,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                   style={{
                     height: '36px',
                     padding: '0 16px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     borderRadius: '6px',
                     fontSize: '13px',
@@ -577,3 +577,5 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
     </AdminShell>
   );
 }
+
+

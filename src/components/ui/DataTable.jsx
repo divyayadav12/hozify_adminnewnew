@@ -6,10 +6,10 @@ export default function DataTable({ columns, data, className = '', onRowClick, a
       background: '#fff', 
       borderRadius: 'var(--radius-table)', 
       boxShadow: 'var(--shadow-standard)',
-      border: '1px solid var(--line)'
+      border: '1.5px solid #25108f'
     }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-        <thead style={{ background: '#f8fafc', borderBottom: '1px solid var(--line)' }}>
+        <thead style={{ background: '#f8fafc', borderBottom: '1.5px solid #25108f' }}>
           <tr>
             {columns.map((col, index) => (
               <th key={index} style={{
@@ -71,3 +71,5 @@ export default function DataTable({ columns, data, className = '', onRowClick, a
     </div>
   );
 }
+
+

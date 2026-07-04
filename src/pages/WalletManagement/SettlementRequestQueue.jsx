@@ -71,7 +71,7 @@ export default function SettlementRequestQueue() {
 
         {/* Filter bar */}
         <div className="panel" style={{ padding: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', maxWidth: '400px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', maxWidth: '400px' }}>
             <Search size={14} style={{ color: 'var(--muted)' }} />
             <input
               placeholder="Search by ID or partner..."
@@ -87,7 +87,7 @@ export default function SettlementRequestQueue() {
           <div className="table-wrap">
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Settlement ID</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Partner</th>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Bank Name</th>
@@ -197,14 +197,14 @@ export default function SettlementRequestQueue() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Enter notes for audit compliance trail..."
-                  style={{ width: '100%', height: '80px', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px', fontSize: '13px', resize: 'none', outline: 'none' }}
+                  style={{ width: '100%', height: '80px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px', fontSize: '13px', resize: 'none', outline: 'none' }}
                 />
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                 <button
                   onClick={handleCloseConfirm}
-                  style={{ height: '36px', padding: '0 16px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', fontSize: '12px', fontWeight: '750', cursor: 'pointer' }}
+                  style={{ height: '36px', padding: '0 16px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', fontSize: '12px', fontWeight: '750', cursor: 'pointer' }}
                 >
                   Cancel
                 </button>
@@ -252,7 +252,7 @@ export default function SettlementRequestQueue() {
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                 <button
                   onClick={() => setShowDetail(false)}
-                  style={{ height: '36px', padding: '0 20px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                  style={{ height: '36px', padding: '0 20px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
                 >
                   Close
                 </button>
@@ -282,3 +282,5 @@ export default function SettlementRequestQueue() {
     </AdminShell>
   );
 }
+
+

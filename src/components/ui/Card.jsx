@@ -9,7 +9,7 @@ export default function Card({ children, className = '', noPadding = false, styl
         borderRadius: 'var(--radius-card)',
         boxShadow: 'var(--shadow-standard)',
         padding: noPadding ? '0' : '24px',
-        border: '1px solid var(--line)',
+        border: '1.5px solid #25108f',
         ...style
       }}
       {...props}
@@ -18,3 +18,4 @@ export default function Card({ children, className = '', noPadding = false, styl
     </div>
   );
 }
+

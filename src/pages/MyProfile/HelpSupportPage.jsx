@@ -51,7 +51,7 @@ export default function HelpSupportPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
           
           {/* Option 1: Live Chat */}
-          <div className="report-kpi-card" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="report-kpi-card" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ padding: '8px', width: 'fit-content', borderRadius: '8px', background: '#e0e7ff', color: '#4f46e5' }}>
               <MessageSquare size={20} />
             </div>
@@ -63,7 +63,7 @@ export default function HelpSupportPage() {
           </div>
 
           {/* Option 2: Direct Contact */}
-          <div className="report-kpi-card" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="report-kpi-card" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ padding: '8px', width: 'fit-content', borderRadius: '8px', background: '#ecfdf5', color: '#10b981' }}>
               <PhoneCall size={20} />
             </div>
@@ -75,7 +75,7 @@ export default function HelpSupportPage() {
           </div>
 
           {/* Option 3: Documentation */}
-          <div className="report-kpi-card" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="report-kpi-card" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ padding: '8px', width: 'fit-content', borderRadius: '8px', background: '#fef2f2', color: '#ef4444' }}>
               <FileText size={20} />
             </div>
@@ -92,7 +92,7 @@ export default function HelpSupportPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* FAQ Accordion */}
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <HelpCircle size={18} /> Frequently Asked Questions
             </h3>
@@ -100,7 +100,7 @@ export default function HelpSupportPage() {
               {faqs.map((faq) => {
                 const isActive = activeFaq === faq.id;
                 return (
-                  <div key={faq.id} style={{ border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div key={faq.id} style={{ border: '1.5px solid #25108f', borderRadius: '8px', overflow: 'hidden' }}>
                     <button 
                       onClick={() => setActiveFaq(isActive ? null : faq.id)}
                       style={{ width: '100%', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: 'none', background: '#f8fafc', cursor: 'pointer', textAlign: 'left', outline: 'none' }}
@@ -109,7 +109,7 @@ export default function HelpSupportPage() {
                       {isActive ? <ChevronDown size={16} color="var(--muted)" /> : <ChevronRight size={16} color="var(--muted)" />}
                     </button>
                     {isActive && (
-                      <div style={{ padding: '12px 16px', fontSize: '12px', color: 'var(--muted)', lineHeight: '1.5', background: '#fff', borderTop: '1px solid var(--line)' }}>
+                      <div style={{ padding: '12px 16px', fontSize: '12px', color: 'var(--muted)', lineHeight: '1.5', background: '#fff', borderTop: '1.5px solid #25108f' }}>
                         {faq.a}
                       </div>
                     )}
@@ -120,7 +120,7 @@ export default function HelpSupportPage() {
           </div>
 
           {/* Ticket Registration */}
-          <form onSubmit={handleRaiseTicket} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <form onSubmit={handleRaiseTicket} style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Ticket size={18} /> Raise Operations Support Ticket
             </h3>
@@ -132,7 +132,7 @@ export default function HelpSupportPage() {
                 placeholder="e.g. UPI payout settlement failure"
                 value={ticketSubject}
                 onChange={(e) => setTicketSubject(e.target.value)}
-                style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px' }}
+                style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px' }}
                 required
               />
             </div>
@@ -144,7 +144,7 @@ export default function HelpSupportPage() {
                 placeholder="Provide a detailed description of the error or request..."
                 value={ticketDescription}
                 onChange={(e) => setTicketDescription(e.target.value)}
-                style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px',  resize: 'vertical' }}
+                style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px',  resize: 'vertical' }}
                 required
               />
             </div>
@@ -154,7 +154,7 @@ export default function HelpSupportPage() {
               <select 
                 value={ticketPriority}
                 onChange={(e) => setTicketPriority(e.target.value)}
-                style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--line)', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
+                style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
               >
                 <option value="Low">Low</option>
                 <option value="Medium">Medium Priority</option>
@@ -174,3 +174,5 @@ export default function HelpSupportPage() {
     </AdminShell>
   );
 }
+
+

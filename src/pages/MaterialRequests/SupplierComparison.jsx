@@ -122,7 +122,7 @@ export default function SupplierComparison() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* KPI 1: Average Price Variance */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Critical Metric</span>
               <span style={{ fontSize: '11px', fontWeight: '700', color: '#059669', background: '#ecfdf5', padding: '3px 8px', borderRadius: '4px' }}>+4.2%</span>
@@ -137,7 +137,7 @@ export default function SupplierComparison() {
           </div>
 
           {/* KPI 2: Mean Lead Time */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Efficiency Factor</span>
               <span style={{ fontSize: '11px', fontWeight: '700', color: '#dc2626', background: '#fef2f2', padding: '3px 8px', borderRadius: '4px' }}>↑1.5d</span>
@@ -152,7 +152,7 @@ export default function SupplierComparison() {
           </div>
 
           {/* KPI 3: Reliability Score */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Risk Profile</span>
               <span style={{ fontSize: '11px', fontWeight: '700', color: '#059669', background: '#ecfdf5', padding: '3px 8px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -171,11 +171,11 @@ export default function SupplierComparison() {
         </div>
 
         {/* Evaluation Attribute Matrix Table */}
-        <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+        <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
           <div style={{ overflowX: 'auto' }}>
             <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
               <thead>
-                <tr style={{ background: '#f8fafc', borderBottom: '1px solid var(--line)' }}>
+                <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '20px 24px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', width: '25%' }}>Evaluation Attribute</th>
                   <th style={{ padding: '20px 24px', width: '25%' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -357,7 +357,7 @@ export default function SupplierComparison() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
           
           {/* Price Volatility Card */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Price Volatility Index
@@ -409,7 +409,7 @@ export default function SupplierComparison() {
           </div>
 
           {/* Supplier Risk Distribution */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1c2536', margin: 0 }}>
                 Supplier Risk Distribution
@@ -461,3 +461,5 @@ export default function SupplierComparison() {
     </AdminShell>
   );
 }
+
+

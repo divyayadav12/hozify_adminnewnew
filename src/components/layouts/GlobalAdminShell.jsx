@@ -510,7 +510,7 @@ export default function GlobalAdminShell({ children }) {
                     onClick={() => setNotifDropdownOpen(false)}
                     style={{ position: 'fixed', inset: 0, zIndex: 998 }}
                   />
-                  <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', width: '320px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05)', padding: '16px', zIndex: 999, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', width: '320px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05)', padding: '16px', zIndex: 999, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <strong style={{ fontSize: '14px', color: 'var(--text)' }}>Notifications</strong>
                       {unreadCount > 0 && (
@@ -597,7 +597,7 @@ export default function GlobalAdminShell({ children }) {
                     onClick={() => setProfileDropdownOpen(false)}
                     style={{ position: 'fixed', inset: 0, zIndex: 998 }}
                   />
-                  <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', width: '280px', background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05)', padding: '16px', zIndex: 999, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', width: '280px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05)', padding: '16px', zIndex: 999, display: 'flex', flexDirection: 'column', gap: '8px' }}>
 
                     {/* Premium Profile Header Info */}
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -736,7 +736,7 @@ export default function GlobalAdminShell({ children }) {
                         width: '100%',
                         padding: '12px 16px',
                         borderRadius: '8px',
-                        border: isCurrent ? '2px solid #2563eb' : '1px solid var(--line)',
+                        border: isCurrent ? '2px solid #2563eb' : '1.5px solid #25108f',
                         background: isCurrent ? '#eff6ff' : '#fff',
                         fontSize: '13px',
                         fontWeight: '700',
@@ -790,3 +790,5 @@ export default function GlobalAdminShell({ children }) {
     </main>
   );
 }
+
+

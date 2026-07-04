@@ -35,7 +35,7 @@ export default function PerformanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Highest Revenue stats details", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', display: 'block' }}>Highest Revenue Generator</span>
@@ -48,7 +48,7 @@ export default function PerformanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Top Rated Employee profile", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', display: 'block' }}>Top Rated Employee</span>
@@ -61,7 +61,7 @@ export default function PerformanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Average Productivity score distribution", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', display: 'block' }}>Avg Productivity Score</span>
@@ -74,7 +74,7 @@ export default function PerformanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Active Employees list", "success")}
           className="kpi-card" 
-          style={{ padding: '12px', borderRadius: '12px', border: '1px solid var(--line)', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
+          style={{ padding: '12px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '80px', cursor: 'pointer' }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', display: 'block' }}>Active Employees</span>
@@ -99,7 +99,7 @@ export default function PerformanceDashboard() {
               <select
                 value={trendRange}
                 onChange={(e) => setTrendRange(e.target.value)}
-                style={{ border: '1px solid var(--line)', borderRadius: '6px', padding: '4px 8px', fontWeight: '700', fontSize: '12px', background: '#fff', outline: 'none', cursor: 'pointer' }}
+                style={{ border: '1.5px solid #25108f', borderRadius: '6px', padding: '4px 8px', fontWeight: '700', fontSize: '12px', background: '#fff', outline: 'none', cursor: 'pointer' }}
                 aria-label="Select trend range"
               >
                 <option value="Weekly">Weekly</option>
@@ -211,3 +211,5 @@ export default function PerformanceDashboard() {
     </div>
   );
 }
+
+

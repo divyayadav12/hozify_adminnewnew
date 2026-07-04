@@ -103,7 +103,7 @@ export default function DeliveryTracking() {
             {/* Map Container */}
             <div style={{
               height: '380px',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '12px',
               background: '#090e1a',
               position: 'relative',
@@ -211,7 +211,7 @@ export default function DeliveryTracking() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '20px' }}>
               
               {/* Courier Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <img 
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80" 
                   alt="Marcus courier" 
@@ -225,7 +225,7 @@ export default function DeliveryTracking() {
               </div>
 
               {/* Contact Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Phone size={18} />
                 </div>
@@ -242,7 +242,7 @@ export default function DeliveryTracking() {
               </div>
 
               {/* Shipment Weight Card */}
-              <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#f5f3ff', color: '#8b5cf6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Scale size={18} />
                 </div>
@@ -261,7 +261,7 @@ export default function DeliveryTracking() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
             
             {/* Delivery Progress */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <span style={{ fontSize: '14px', fontWeight: '800', color: '#1c2536' }}>Delivery Progress</span>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: '#7c3aed', background: '#f5f3ff', padding: '4px 8px', borderRadius: '4px' }}>
@@ -331,7 +331,7 @@ export default function DeliveryTracking() {
             </div>
 
             {/* Shipment Contents */}
-            <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+            <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
               <strong style={{ display: 'block', fontSize: '14px', color: '#1c2536', marginBottom: '6px' }}>Shipment Contents</strong>
               <span style={{ display: 'block', fontSize: '11.5px', color: '#7a7688', marginBottom: '16px' }}>PO #440029-X</span>
 
@@ -402,3 +402,5 @@ export default function DeliveryTracking() {
     </AdminShell>
   );
 }
+
+

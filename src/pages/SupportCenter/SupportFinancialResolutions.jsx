@@ -99,7 +99,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
         </div>
 
         {/* Page Header (Resolutions, Unassigned, Escalated Sub Tabs + Wallet Reserve Badge) */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
           {/* Sub Tabs */}
           <div style={{ display: 'flex', gap: 'var(--spacing-section)' }}>
             {['Resolutions', 'Unassigned', 'Escalated'].map((tName) => {
@@ -134,7 +134,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
             alignItems: 'center',
             gap: '10px',
             background: 'var(--soft)',
-            border: '1px solid var(--line)',
+            border: '1.5px solid #25108f',
             padding: '8px 16px',
             borderRadius: '8px'
           }}>
@@ -170,7 +170,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
               <div style={{ overflowX: 'auto' }}>
                 <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '400px' }}>
                   <thead>
-                    <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                    <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '10px 14px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Ticket ID</th>
                       <th style={{ padding: '10px 14px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Customer</th>
                       <th style={{ padding: '10px 14px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Reason</th>
@@ -263,7 +263,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
 
             {/* Compensation Terminal Form Form */}
             {selectedTicket ? (
-              <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff', border: '1px solid var(--primary)' }}>
+              <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff', border: '1.5px solid #25108f' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>
                   Compensation Terminal: {selectedTicket.id}
                 </h3>
@@ -276,7 +276,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                     <select
                       value={selectedTicket.reason}
                       onChange={(e) => setSelectedTicket({ ...selectedTicket, reason: e.target.value })}
-                      style={{ border: '1px solid var(--line)', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
+                      style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
                     >
                       <option value="Subscription Double Billing">Subscription Double Billing</option>
                       <option value="Invoice Mistake">Invoice Mistake</option>
@@ -314,7 +314,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                   {/* Amount input */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <span style={{ fontSize: '11.5px', fontWeight: '800', color: 'var(--muted)' }}>Amount (USD)</span>
-                    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', padding: '0 12px', borderRadius: '6px', background: '#fff' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #25108f', padding: '0 12px', borderRadius: '6px', background: '#fff' }}>
                       <span style={{ fontSize: '13.5px', color: 'var(--muted)', fontWeight: '800', marginRight: '4px' }}>$</span>
                       <input
                         type="text"
@@ -334,7 +334,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                         onClick={() => setSelectedTicket({ ...selectedTicket, type: 'Wallet' })}
                         style={{
                           flex: 1,
-                          border: selectedTicket.type === 'Wallet' ? '2px solid var(--primary)' : '1px solid var(--line)',
+                          border: selectedTicket.type === 'Wallet' ? '2px solid var(--primary)' : '1.5px solid #25108f',
                           borderRadius: '6px',
                           background: selectedTicket.type === 'Wallet' ? 'var(--primary)' : '#fff',
                           color: selectedTicket.type === 'Wallet' ? '#fff' : 'var(--text)',
@@ -350,7 +350,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                         onClick={() => setSelectedTicket({ ...selectedTicket, type: 'Card' })}
                         style={{
                           flex: 1,
-                          border: selectedTicket.type === 'Card' ? '2px solid var(--primary)' : '1px solid var(--line)',
+                          border: selectedTicket.type === 'Card' ? '2px solid var(--primary)' : '1.5px solid #25108f',
                           borderRadius: '6px',
                           background: selectedTicket.type === 'Card' ? 'var(--primary)' : '#fff',
                           color: selectedTicket.type === 'Card' ? '#fff' : 'var(--text)',
@@ -374,7 +374,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                     value={selectedTicket.notes}
                     onChange={(e) => setSelectedTicket({ ...selectedTicket, notes: e.target.value })}
                     rows={3}
-                    style={{ width: '100%', border: '1px solid var(--line)', padding: '10px', borderRadius: '6px', fontSize: '13px', outline: 'none', resize: 'vertical' }}
+                    style={{ width: '100%', border: '1.5px solid #25108f', padding: '10px', borderRadius: '6px', fontSize: '13px', outline: 'none', resize: 'vertical' }}
                   />
                 </div>
 
@@ -402,7 +402,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                       height: '36px',
                       padding: '0 16px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: '#fff',
                       color: 'var(--text)',
                       fontSize: '13px',
@@ -541,7 +541,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                 style={{
                   width: '100%',
                   height: '35px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff',
                   borderRadius: '6px',
                   fontSize: '12px',
@@ -569,7 +569,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginTop: '4px' }}>
             
             {/* L1 Support */}
-            <div style={{ padding: '16px', border: '1px solid var(--line)', borderRadius: '8px', background: 'var(--soft)' }}>
+            <div style={{ padding: '16px', border: '1.5px solid #25108f', borderRadius: '8px', background: 'var(--soft)' }}>
               <span style={{ display: 'block', fontSize: '10.5px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase' }}>
                 L1 Support (Standard)
               </span>
@@ -585,7 +585,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
             </div>
 
             {/* Team Leads */}
-            <div style={{ padding: '16px', border: '1px solid var(--line)', borderRadius: '8px', background: 'var(--soft)' }}>
+            <div style={{ padding: '16px', border: '1.5px solid #25108f', borderRadius: '8px', background: 'var(--soft)' }}>
               <span style={{ display: 'block', fontSize: '10.5px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase' }}>
                 Team Leads
               </span>
@@ -601,7 +601,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
             </div>
 
             {/* Finance Dept */}
-            <div style={{ padding: '16px', border: '1px solid var(--line)', borderRadius: '8px', background: 'var(--soft)' }}>
+            <div style={{ padding: '16px', border: '1.5px solid #25108f', borderRadius: '8px', background: 'var(--soft)' }}>
               <span style={{ display: 'block', fontSize: '10.5px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase' }}>
                 Finance Dept
               </span>
@@ -617,7 +617,7 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
             </div>
 
             {/* VP Approval */}
-            <div style={{ padding: '16px', border: '1px solid var(--line)', borderRadius: '8px', background: 'var(--soft)' }}>
+            <div style={{ padding: '16px', border: '1.5px solid #25108f', borderRadius: '8px', background: 'var(--soft)' }}>
               <span style={{ display: 'block', fontSize: '10.5px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase' }}>
                 VP Approval (Executive)
               </span>
@@ -639,3 +639,5 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
     </AdminShell>
   );
 }
+
+

@@ -2,17 +2,43 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, Command, X } from 'lucide-react';
 import { useApp } from '../../../hooks/useApp';
 
-const searchData = [
-  { group: 'Operations', items: ['Dashboard', 'Bookings', 'Orders', 'Payments', 'Wallets', 'Reports'] },
-  { group: 'Management', items: ['Users', 'Service Providers', 'Business Sellers', 'Settings', 'Roles', 'Permissions'] },
-  { group: 'System', items: ['Notifications'] }
-];
+import { sidebarNavigation } from '../../../config/sidebarNavigation';
 
 export default function HeaderSearch() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const searchRef = useRef(null);
   const { navigate } = useApp();
+
+  const searchItems = React.useMemo(() => {
+    return sidebarNavigation.reduce((acc, module) => {
+      if (module.children) {
+        module.children.forEach(child => {
+          acc.push({
+            group: module.label,
+            label: child.label,
+            route: child.route
+          });
+          if (child.children) {
+            child.children.forEach(subchild => {
+              acc.push({
+                group: `${module.label} > ${child.label}`,
+                label: subchild.label,
+                route: subchild.route
+              });
+            });
+          }
+        });
+      } else if (module.route) {
+        acc.push({
+          group: 'Module',
+          label: module.label,
+          route: module.route
+        });
+      }
+      return acc;
+    }, []);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -41,14 +67,31 @@ export default function HeaderSearch() {
   const handleSelect = (item) => {
     setIsOpen(false);
     setQuery('');
-    // Dummy navigation logic based on item
-    navigate(`/${item.toLowerCase().replace(/\s+/g, '-')}`);
+    if (item.route) {
+      navigate(item.route);
+    }
   };
 
-  const filteredData = searchData.map(group => ({
-    ...group,
-    items: group.items.filter(item => item.toLowerCase().includes(query.toLowerCase()))
-  })).filter(group => group.items.length > 0);
+  const filteredData = React.useMemo(() => {
+    if (!query) return [];
+    const lowerQuery = query.toLowerCase();
+    
+    const matching = searchItems.filter(item => 
+      item.label.toLowerCase().includes(lowerQuery) || 
+      item.group.toLowerCase().includes(lowerQuery)
+    ).slice(0, 15);
+
+    const groups = {};
+    matching.forEach(item => {
+      if (!groups[item.group]) groups[item.group] = [];
+      groups[item.group].push(item);
+    });
+
+    return Object.keys(groups).map(key => ({
+      group: key,
+      items: groups[key]
+    }));
+  }, [query, searchItems]);
 
   return (
     <div className="relative w-full max-w-md" ref={searchRef}>
@@ -60,7 +103,7 @@ export default function HeaderSearch() {
         <Search size={18} className="text-white/60 flex-shrink-0" />
         <input 
           type="text" 
-          placeholder="Global search operations..." 
+          placeholder="Search pages & modules..." 
           className="w-full bg-transparent text-white placeholder-white/60 outline-none"
           value={query}
           onChange={(e) => {
@@ -103,7 +146,7 @@ export default function HeaderSearch() {
                         className="flex w-full items-center rounded-lg px-3 py-2 text-sm text-slate-700 transition-colors hover:bg-indigo-50 hover:text-indigo-700 text-left"
                       >
                         <Search size={14} className="mr-2 text-slate-400 opacity-50" />
-                        {item}
+                        {item.label}
                       </button>
                     ))}
                   </div>

@@ -81,7 +81,7 @@ export default function ServiceDashboard() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
         
         {/* TOTAL REVENUE */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Revenue</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>$4.2M</strong>
           <span style={{ fontSize: '11px', color: '#059669', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '2px' }}>
@@ -93,7 +93,7 @@ export default function ServiceDashboard() {
         </div>
 
         {/* AVG. FULFILLMENT */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg. Fulfillment</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>2.4d</strong>
           <span style={{ fontSize: '11px', color: '#dc2626', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '2px' }}>
@@ -105,7 +105,7 @@ export default function ServiceDashboard() {
         </div>
 
         {/* ACTIVE ORDERS */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active Orders</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>1,842</strong>
           <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>Stable</span>
@@ -115,7 +115,7 @@ export default function ServiceDashboard() {
         </div>
 
         {/* CUSTOMER CSAT */}
-        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--line)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer CSAT</span>
           <strong style={{ fontSize: '28px', color: 'var(--text)', fontWeight: '800' }}>4.8/5</strong>
           <span style={{ fontSize: '11px', color: '#059669', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '2px' }}>
@@ -134,7 +134,7 @@ export default function ServiceDashboard() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Top Performing Services */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Top Performing Services</h3>
               <a href="#details" onClick={(e) => e.preventDefault()} style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: '800', textDecoration: 'none', display: 'flex', gap: '4px', alignItems: 'center' }}>
@@ -161,10 +161,10 @@ export default function ServiceDashboard() {
           </div>
 
           {/* Revenue Mix */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue Mix</h3>
             
-            <div style={{ display: 'flex', gap: '32px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', background: '#f8fafc', padding: '20px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+            <div style={{ display: 'flex', gap: '32px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', background: '#f8fafc', padding: '20px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
               {/* Radial donut chart */}
               <div style={{ position: 'relative', width: '110px', height: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="110" height="110" viewBox="0 0 36 36">
@@ -212,7 +212,7 @@ export default function ServiceDashboard() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Performance Watchlist */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Performance Watchlist</h3>
               <a href="#audit" onClick={(e) => e.preventDefault()} style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '800', textDecoration: 'none' }}>
@@ -239,7 +239,7 @@ export default function ServiceDashboard() {
           </div>
 
           {/* Growth Trajectory quarterly chart */}
-          <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Growth Trajectory</h3>
               
@@ -292,7 +292,7 @@ export default function ServiceDashboard() {
       </div>
 
       {/* Bottom Global Service Density Map card */}
-      <div className="panel" style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative' }}>
+      <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Global Service Density</h3>
@@ -340,7 +340,7 @@ export default function ServiceDashboard() {
               top: '60px',
               left: '80px',
               background: '#ffffff',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '8px',
               padding: '10px 14px',
               boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)'
@@ -362,7 +362,7 @@ export default function ServiceDashboard() {
               bottom: '60px',
               right: '120px',
               background: '#ffffff',
-              border: '1px solid var(--line)',
+              border: '1.5px solid #25108f',
               borderRadius: '8px',
               padding: '10px 14px',
               boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)'
@@ -406,3 +406,5 @@ export default function ServiceDashboard() {
     </div>
   );
 }
+
+

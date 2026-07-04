@@ -257,7 +257,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     color: 'var(--text)',
                     height: '34px',
@@ -279,7 +279,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '6px',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       background: filterType !== 'All' ? 'var(--soft)' : '#fff',
                       color: filterType !== 'All' ? 'var(--primary)' : 'var(--text)',
                       height: '34px',
@@ -301,7 +301,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                       right: 0,
                       marginTop: '8px',
                       background: '#fff',
-                      border: '1px solid var(--line)',
+                      border: '1.5px solid #25108f',
                       borderRadius: '6px',
                       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                       zIndex: 50,
@@ -337,7 +337,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
             <div style={{ overflowX: 'auto', flex: 1 }}>
               <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '600px' }}>
                 <thead>
-                  <tr style={{ background: 'var(--soft)', borderBottom: '1px solid var(--line)' }}>
+                  <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Recipient</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Error Code</th>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Attempts</th>
@@ -396,7 +396,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                               height: '30px',
                               width: '30px',
                               borderRadius: '6px',
-                              border: '1px solid var(--line)',
+                              border: '1.5px solid #25108f',
                               background: '#fff',
                               display: 'flex',
                               alignItems: 'center',
@@ -415,7 +415,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                               height: '30px',
                               width: '30px',
                               borderRadius: '6px',
-                              border: '1px solid var(--line)',
+                              border: '1.5px solid #25108f',
                               background: '#fff',
                               display: 'flex',
                               alignItems: 'center',
@@ -452,7 +452,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     style={{ 
-                      border: '1px solid var(--line)', 
+                      border: '1.5px solid #25108f', 
                       background: currentPage === 1 ? 'var(--soft)' : '#fff', 
                       cursor: currentPage === 1 ? 'not-allowed' : 'pointer', 
                       display: 'flex', 
@@ -467,7 +467,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     style={{ 
-                      border: '1px solid var(--line)', 
+                      border: '1.5px solid #25108f', 
                       background: currentPage === totalPages ? 'var(--soft)' : '#fff', 
                       cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', 
                       display: 'flex', 
@@ -499,7 +499,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
               </div>
 
               {/* Sketchy vertical bar chart */}
-              <div style={{ height: '70px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid var(--line)', paddingBottom: '4px' }}>
+              <div style={{ height: '70px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1.5px solid #25108f', paddingBottom: '4px' }}>
                 {[30, 45, 35, 65, 50, 80, 40, 50, 70, 45, 90, 60, 40].map((h, i) => (
                   <div 
                     key={i} 
@@ -543,7 +543,7 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
                 style={{
                   width: '100%',
                   height: '36px',
-                  border: '1px solid var(--primary)',
+                  border: '1.5px solid #25108f',
                   background: 'transparent',
                   color: 'var(--primary)',
                   fontSize: '12.5px',
@@ -603,3 +603,5 @@ export default function DeliveryReports({ activeTab = 'Notification Center' }) {
     </AdminShell>
   );
 }
+
+

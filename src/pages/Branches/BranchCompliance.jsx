@@ -51,7 +51,7 @@ export default function BranchCompliance() {
       <section className="kpi-grid" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginBottom: '24px', gap: '20px' }}>
         
         {/* License Status */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>License Status</span>
@@ -63,7 +63,7 @@ export default function BranchCompliance() {
         </div>
 
         {/* Insurance Status */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Insurance Status</span>
@@ -75,7 +75,7 @@ export default function BranchCompliance() {
         </div>
 
         {/* Registration Status */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Registration Status</span>
@@ -87,7 +87,7 @@ export default function BranchCompliance() {
         </div>
 
         {/* Verification Status */}
-        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1px solid var(--line)' }}>
+        <div className="kpi-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '16px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Verification Status</span>
@@ -218,10 +218,10 @@ export default function BranchCompliance() {
             </h2>
             
             {/* Visual Globe/Grid representation */}
-            <div style={{ border: '1px solid var(--line)', borderRadius: '6px', height: '110px', background: '#f8fafc', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ border: '1.5px solid #25108f', borderRadius: '6px', height: '110px', background: '#f8fafc', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Globe size={32} style={{ color: '#cbd5e1' }} />
               <div style={{ position: 'absolute', bottom: '8px', display: 'flex', gap: '8px', fontSize: '9px', fontWeight: '800' }}>
-                <span style={{ background: '#f8fafc', padding: '2px 6px', borderRadius: '4px', border: '1px solid var(--line)' }}>84 High Compliance</span>
+                <span style={{ background: '#f8fafc', padding: '2px 6px', borderRadius: '4px', border: '1.5px solid #25108f' }}>84 High Compliance</span>
                 <span style={{ background: '#fee2e2', color: '#ef4444', padding: '2px 6px', borderRadius: '4px' }}>12 Critical</span>
               </div>
             </div>
@@ -292,3 +292,5 @@ export default function BranchCompliance() {
     </div>
   );
 }
+
+

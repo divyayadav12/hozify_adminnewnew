@@ -333,7 +333,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '16px',
-                      borderLeft: esc.isOverdue ? '4px solid #dc2626' : '1px solid var(--line)',
+                      borderLeft: esc.isOverdue ? '4px solid #dc2626' : '1.5px solid #25108f',
                       transition: 'all 0.2s ease',
                       background: '#ffffff'
                     }}
@@ -433,7 +433,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
                             height: '32px',
                             padding: '0 14px',
                             borderRadius: '4px',
-                            border: '1px solid var(--primary)',
+                            border: '1.5px solid #25108f',
                             background: esc.agent === 'Manager (Self)' ? 'var(--soft)' : '#fff',
                             color: 'var(--primary)',
                             fontSize: '12.5px',
@@ -502,7 +502,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
                     width: '100%',
                     padding: '12px 16px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     textAlign: 'left',
                     cursor: 'pointer',
@@ -561,7 +561,7 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
                   gap: '10px',
                   padding: '12px 16px',
                   borderRadius: '6px',
-                  border: '1px solid var(--line)',
+                  border: '1.5px solid #25108f',
                   background: '#fff'
                 }}>
                   <BellOff size={16} style={{ color: alertsSilenced ? '#d97706' : 'var(--muted)' }} />
@@ -745,3 +745,5 @@ export default function EscalationCommandCenter({ activeTab = 'Support Center' }
     </AdminShell>
   );
 }
+
+

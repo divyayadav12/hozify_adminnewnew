@@ -163,7 +163,7 @@ export default function SupplierPerformance() {
           <div style={{ display: 'flex', gap: '12px', position: 'relative' }}>
             <div 
               onClick={() => setActiveDateMenu(!activeDateMenu)}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', background: '#fff', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
             >
               <Calendar size={15} style={{ color: 'var(--muted)' }} />
               <span>{dateRange}</span>
@@ -386,8 +386,8 @@ export default function SupplierPerformance() {
               </div>
 
               {/* Performer 2 */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '14px', border: '1px solid var(--line)', borderRadius: '8px' }}>
-                <div style={{ height: '36px', width: '36px', background: '#f1f5f9', color: '#565365', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '15px', border: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '14px', border: '1.5px solid #25108f', borderRadius: '8px' }}>
+                <div style={{ height: '36px', width: '36px', background: '#f1f5f9', color: '#565365', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '15px', border: '1.5px solid #25108f' }}>
                   2
                 </div>
                 <div style={{ flex: 1 }}>
@@ -398,8 +398,8 @@ export default function SupplierPerformance() {
               </div>
 
               {/* Performer 3 */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '14px', border: '1px solid var(--line)', borderRadius: '8px' }}>
-                <div style={{ height: '36px', width: '36px', background: '#f1f5f9', color: '#565365', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '15px', border: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '14px', border: '1.5px solid #25108f', borderRadius: '8px' }}>
+                <div style={{ height: '36px', width: '36px', background: '#f1f5f9', color: '#565365', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '15px', border: '1.5px solid #25108f' }}>
                   3
                 </div>
                 <div style={{ flex: 1 }}>
@@ -427,7 +427,7 @@ export default function SupplierPerformance() {
             <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Detailed Performance Audit</h2>
             <div style={{ display: 'flex', gap: '10px', position: 'relative' }}>
               <button 
-                style={{ height: '34px', width: '34px', background: '#fff', border: '1px solid var(--line)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text)' }} 
+                style={{ height: '34px', width: '34px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text)' }} 
                 onClick={() => setActiveSlidersMenu(!activeSlidersMenu)}
               >
                 <Sliders size={16} />
@@ -484,7 +484,7 @@ export default function SupplierPerformance() {
               )}
 
               <button 
-                style={{ height: '34px', width: '34px', background: '#fff', border: '1px solid var(--line)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text)' }} 
+                style={{ height: '34px', width: '34px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text)' }} 
                 onClick={() => {
                   const data = [
                     ["Supplier Name", "Supplier ID", "On-Time %", "Defect Rate", "Cost Index", "Status"],
@@ -551,14 +551,14 @@ export default function SupplierPerformance() {
             </span>
             <div style={{ display: 'flex', gap: '8px' }}>
               <button 
-                style={{ height: '34px', padding: '0 14px', border: '1px solid var(--line)', background: '#fff', color: auditPage === 1 ? 'var(--muted)' : 'var(--text)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: auditPage === 1 ? 'default' : 'pointer', opacity: auditPage === 1 ? 0.5 : 1 }} 
+                style={{ height: '34px', padding: '0 14px', border: '1.5px solid #25108f', background: '#fff', color: auditPage === 1 ? 'var(--muted)' : 'var(--text)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: auditPage === 1 ? 'default' : 'pointer', opacity: auditPage === 1 ? 0.5 : 1 }} 
                 onClick={() => { if (auditPage > 1) { setAuditPage(1); addToast('Loaded page 1', 'info'); } }}
                 disabled={auditPage === 1}
               >
                 Previous
               </button>
               <button 
-                style={{ height: '34px', padding: '0 14px', border: '1px solid var(--line)', background: '#fff', color: auditPage === 2 ? 'var(--muted)' : 'var(--text)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: auditPage === 2 ? 'default' : 'pointer', opacity: auditPage === 2 ? 0.5 : 1 }} 
+                style={{ height: '34px', padding: '0 14px', border: '1.5px solid #25108f', background: '#fff', color: auditPage === 2 ? 'var(--muted)' : 'var(--text)', borderRadius: '6px', fontSize: '12px', fontWeight: '700', cursor: auditPage === 2 ? 'default' : 'pointer', opacity: auditPage === 2 ? 0.5 : 1 }} 
                 onClick={() => { if (auditPage === 1) { setAuditPage(2); addToast('Loaded page 2', 'info'); } }}
                 disabled={auditPage === 2}
               >
@@ -571,7 +571,7 @@ export default function SupplierPerformance() {
       </div>
       
       {/* System Status footer matching Screen 1 exactly */}
-      <footer style={{ borderTop: '1px solid var(--line)', padding: '16px 0', marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+      <footer style={{ borderTop: '1.5px solid #25108f', padding: '16px 0', marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
         <div>
           SYSTEM STATUS: <span style={{ color: 'var(--green)' }}>NOMINAL</span> | ALL NODES SYNCING
         </div>
@@ -583,3 +583,5 @@ export default function SupplierPerformance() {
     </AdminShell>
   );
 }
+
+

@@ -234,7 +234,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
         </div>
 
         {/* Tab Filters */}
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--line)', paddingBottom: '1px' }}>
+        <div style={{ display: 'flex', gap: '8px', borderBottom: '1.5px solid #25108f', paddingBottom: '1px' }}>
           {['Partner Configuration', 'Partner Features', 'Partner Menus', 'Partner Roles'].map(tab => (
             <button
               key={tab}
@@ -260,7 +260,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
         {activeTab === 'Partner Configuration' && (
           <>
             {/* Search */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
               <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
                 <input 
                   type="text" 
@@ -274,7 +274,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
             </div>
 
             {/* Configs Table */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                   <thead>
@@ -369,7 +369,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
         {activeTab === 'Partner Features' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             {configs.filter(c => c.category === 'Partner Features').map(feat => (
-              <div key={feat.id} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+              <div key={feat.id} style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
                     <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 4px 0' }}>{feat.key.replace('PARTNER_', '').replace(/_/g, ' ')}</h3>
@@ -398,7 +398,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
         {activeTab === 'Partner Roles' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--spacing-section)' }}>
             {/* ISP Role config */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyItems: 'center', gap: '10px' }}>
                 <div style={{ width: '32px', height: '32px', background: '#e0e7ff', color: '#4f46e5', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900' }}>ISP</div>
                 <div>
@@ -422,7 +422,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
             </div>
 
             {/* BSP Role config */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyItems: 'center', gap: '10px' }}>
                 <div style={{ width: '32px', height: '32px', background: '#d1fae5', color: '#065f46', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900' }}>BSP</div>
                 <div>
@@ -446,7 +446,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
             </div>
 
             {/* BS Role config */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyItems: 'center', gap: '10px' }}>
                 <div style={{ width: '32px', height: '32px', background: '#fef3c7', color: '#d97706', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900' }}>BS</div>
                 <div>
@@ -472,7 +472,7 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
         )}
 
         {activeTab === 'Partner Menus' && (
-          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+          <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
             <div style={{ padding: '16px 24px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
               <span style={{ fontSize: '14px', fontWeight: '800', color: '#1e1b4b' }}>Partner Portal Sidebar Navigation Nodes</span>
             </div>
@@ -561,3 +561,5 @@ export default function PartnerAppPage({ defaultTab = 'config' }) {
     </AdminShell>
   );
 }
+
+

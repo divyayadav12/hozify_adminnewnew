@@ -26,7 +26,7 @@ export default function AttendanceDashboard() {
           <p className="page-subtitle">Monitoring real-time presence across all branches.</p>
         </div>
         <div className="partners-header-buttons">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
             <Calendar size={16} />
             <input 
               type="date"
@@ -54,7 +54,7 @@ export default function AttendanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Today's Attendance details", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Today's Attendance</span>
@@ -68,7 +68,7 @@ export default function AttendanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Absent employees list", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Absent</span>
@@ -82,7 +82,7 @@ export default function AttendanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Late arrivals roster", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Late Arrivals</span>
@@ -96,7 +96,7 @@ export default function AttendanceDashboard() {
         <div 
           onClick={() => addToast("Card clicked: Total cumulative hours logged", "success")}
           className="panel kpi-card" 
-          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1px solid var(--line)', cursor: 'pointer', marginBottom: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', minHeight: '80px', background: '#fff', border: '1.5px solid #25108f', cursor: 'pointer', marginBottom: 0 }}
         >
           <div>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>Total Hours (Today)</span>
@@ -119,7 +119,7 @@ export default function AttendanceDashboard() {
             </div>
             <div 
               onClick={() => addToast("Opened trend analytics picker", "success")}
-              style={{ display: 'flex', gap: '8px', border: '1px solid var(--line)', padding: '4px 8px', borderRadius: '6px', fontSize: '12px', fontWeight: '700', backgroundColor: '#fff', cursor: 'pointer' }}
+              style={{ display: 'flex', gap: '8px', border: '1.5px solid #25108f', padding: '4px 8px', borderRadius: '6px', fontSize: '12px', fontWeight: '700', backgroundColor: '#fff', cursor: 'pointer' }}
             >
               <span>Last 14 Days</span>
             </div>
@@ -169,7 +169,7 @@ export default function AttendanceDashboard() {
 
       {/* Attendance List */}
       <section className="panel partner-directory-panel" style={{ marginBottom: '24px' }}>
-        <div className="panel-head" style={{ padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
+        <div className="panel-head" style={{ padding: '16px 20px', borderBottom: '1.5px solid #25108f' }}>
           <h2 style={{ fontSize: '15px', fontWeight: '800' }}>Attendance Records</h2>
           <div style={{ display: 'flex', gap: '12px' }}>
             <button 
@@ -243,7 +243,7 @@ export default function AttendanceDashboard() {
                       </button>
                       
                       {activeDropdown === index && (
-                        <div style={{ position: 'absolute', right: 0, top: '100%', background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)', minWidth: '140px', padding: '6px 0', marginTop: '4px' }}>
+                        <div style={{ position: 'absolute', right: 0, top: '100%', background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)', minWidth: '140px', padding: '6px 0', marginTop: '4px' }}>
                           <button onClick={(e) => { e.stopPropagation(); addToast(`Editing record for ${emp.name}...`, "info"); setActiveDropdown(null); }} style={{ width: '100%', textAlign: 'left', padding: '8px 16px', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '13px', color: 'var(--text)' }}>Edit Record</button>
                           <button onClick={(e) => { e.stopPropagation(); addToast(`Marking ${emp.name} as absent...`, "info"); setActiveDropdown(null); }} style={{ width: '100%', textAlign: 'left', padding: '8px 16px', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '13px', color: 'var(--text)' }}>Mark Absent</button>
                           <button onClick={(e) => { e.stopPropagation(); addToast(`Deleting record for ${emp.name}...`, "error"); setActiveDropdown(null); }} style={{ width: '100%', textAlign: 'left', padding: '8px 16px', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '13px', color: '#ef4444' }}>Delete</button>
@@ -285,3 +285,5 @@ export default function AttendanceDashboard() {
     </div>
   );
 }
+
+

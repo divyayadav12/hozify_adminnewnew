@@ -37,7 +37,7 @@ export default function Faqs() {
             </p>
           </div>
           
-          <button style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', background: '#fff', border: '1px solid var(--line)', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+          <button style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', background: '#fff', border: '1.5px solid #25108f', color: 'var(--text)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
             <History size={16} style={{ color: 'var(--muted)' }} /> View Audit Log
           </button>
         </div>
@@ -46,7 +46,7 @@ export default function Faqs() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--spacing-section)' }}>
           
           {/* Total FAQs */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
             <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
               TOTAL FAQS
             </span>
@@ -59,7 +59,7 @@ export default function Faqs() {
           </div>
 
           {/* Completion Rate */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', padding: 'var(--spacing-section)' }}>
             <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
               COMPLETION RATE
             </span>
@@ -69,7 +69,7 @@ export default function Faqs() {
           </div>
 
           {/* Auto-Categorization */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gridColumn: 'span 2 / span 2' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', padding: 'var(--spacing-section)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gridColumn: 'span 2 / span 2' }}>
             <div>
               <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
                 AUTO-CATEGORIZATION
@@ -91,10 +91,10 @@ export default function Faqs() {
         </div>
 
         {/* Main List Container */}
-        <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '8px', overflow: 'hidden' }}>
+        <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '8px', overflow: 'hidden' }}>
           
           {/* List Header */}
-          <div style={{ background: '#f8fafc', padding: '16px 24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ background: '#f8fafc', padding: '16px 24px', borderBottom: '1.5px solid #25108f', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               DRAG TO REORDER Q/A PAIRS
             </span>
@@ -107,7 +107,7 @@ export default function Faqs() {
           {/* List Items */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {faqs.map((faq, index) => (
-              <div key={faq.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: index === faqs.length - 1 ? 'none' : '1px solid var(--line)', background: '#fff' }}>
+              <div key={faq.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: index === faqs.length - 1 ? 'none' : '1.5px solid #25108f', background: '#fff' }}>
                 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <GripVertical size={16} style={{ color: '#cbd5e1', cursor: 'grab' }} />
@@ -150,3 +150,5 @@ export default function Faqs() {
     </AdminShell>
   );
 }
+
+

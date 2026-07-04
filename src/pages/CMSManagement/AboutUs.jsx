@@ -34,14 +34,14 @@ export default function AboutUs() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '7' }}>
           
           {/* SEO & Meta Fields */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ marginBottom: '20px' }}>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '8px' }}>Page Title</label>
               <input 
                 type="text" 
                 value={pageTitle}
                 onChange={(e) => setPageTitle(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', fontWeight: '700', color: 'var(--text)', outline: 'none' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '15px', fontWeight: '700', color: 'var(--text)', outline: 'none' }}
               />
             </div>
             <div>
@@ -50,15 +50,15 @@ export default function AboutUs() {
                 rows={3}
                 value={metaDesc}
                 onChange={(e) => setMetaDesc(e.target.value)}
-                style={{ width: '100%', border: '1px solid var(--line)', borderRadius: '6px', padding: '12px 16px', fontSize: '13px', color: 'var(--muted)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
+                style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '12px 16px', fontSize: '13px', color: 'var(--muted)', outline: 'none', resize: 'vertical', lineHeight: '1.5' }}
               />
             </div>
           </div>
 
           {/* Rich Text Editor */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', overflow: 'hidden' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
             {/* Toolbar */}
-            <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--line)', background: '#f8fafc', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <div style={{ padding: '12px 16px', borderBottom: '1.5px solid #25108f', background: '#f8fafc', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '4px' }}>
                 <button className="editor-btn"><Bold size={16} /></button>
                 <button className="editor-btn"><Italic size={16} /></button>
@@ -90,7 +90,7 @@ export default function AboutUs() {
                 Deliver trusted home services through technology and operational excellence. Our platform is engineered for high-stakes environments where clarity, speed of service ingestion, and professional authority are paramount.
               </p>
 
-              <div style={{ display: 'flex', gap: 'var(--spacing-section)', marginBottom: '32px', alignItems: 'flex-start', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-section)', marginBottom: '32px', alignItems: 'flex-start', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1.5px solid #25108f' }}>
                 <div style={{ width: '200px', height: '120px', background: '#1e293b', borderRadius: '6px', flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(45deg, #0f172a 25%, transparent 25%, transparent 75%, #0f172a 75%, #0f172a), linear-gradient(45deg, #0f172a 25%, transparent 25%, transparent 75%, #0f172a 75%, #0f172a)', backgroundSize: '20px 20px', backgroundPosition: '0 0, 10px 10px', opacity: 0.5 }} />
                 </div>
@@ -114,7 +114,7 @@ export default function AboutUs() {
           </div>
           
           {/* Image Upload Area */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Media Assets</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-section)' }}>
               <div>
@@ -142,7 +142,7 @@ export default function AboutUs() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', flex: '3' }}>
           
           {/* Publishing Panel */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Publishing</h3>
               <span style={{ fontSize: '10px', fontWeight: '800', background: '#d1fae5', color: '#059669', padding: '4px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>Published</span>
@@ -171,10 +171,10 @@ export default function AboutUs() {
                 <UploadCloud size={16} /> Update Live Page
               </button>
               <div style={{ display: 'flex', gap: '12px' }}>
-                <button style={{ flex: 1, padding: '10px', background: '#fff', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '8px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+                <button style={{ flex: 1, padding: '10px', background: '#fff', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '8px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
                   Preview
                 </button>
-                <button style={{ flex: 1, padding: '10px', background: '#fff', color: 'var(--text)', border: '1px solid var(--line)', borderRadius: '8px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
+                <button style={{ flex: 1, padding: '10px', background: '#fff', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '8px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>
                   Save Draft
                 </button>
               </div>
@@ -182,14 +182,14 @@ export default function AboutUs() {
           </div>
 
           {/* Analytics Overview */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: '0 0 16px 0' }}>Analytics</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div style={{ padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid var(--line)' }}>
+              <div style={{ padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1.5px solid #25108f' }}>
                 <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: '800', marginBottom: '4px' }}>Total Views</span>
                 <strong style={{ fontSize: '18px', color: 'var(--text)', fontWeight: '900' }}>42.5K</strong>
               </div>
-              <div style={{ padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid var(--line)' }}>
+              <div style={{ padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1.5px solid #25108f' }}>
                 <span style={{ display: 'block', fontSize: '11px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: '800', marginBottom: '4px' }}>SEO Score</span>
                 <strong style={{ fontSize: '18px', color: '#10b981', fontWeight: '900' }}>94/100</strong>
               </div>
@@ -197,7 +197,7 @@ export default function AboutUs() {
           </div>
 
           {/* Revision History */}
-          <div className="panel" style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
+          <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revision History</h3>
               <button style={{ background: 'transparent', border: 'none', color: '#4f46e5', fontSize: '12px', fontWeight: '700', cursor: 'pointer' }}>View All</button>
@@ -205,7 +205,7 @@ export default function AboutUs() {
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {/* Item 1 */}
-              <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+              <div style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                   <strong style={{ fontSize: '13px', color: 'var(--text)' }}>Current Version</strong>
                   <span style={{ fontSize: '11px', color: 'var(--muted)' }}>2 mins ago</span>
@@ -215,7 +215,7 @@ export default function AboutUs() {
               </div>
               
               {/* Item 2 */}
-              <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+              <div style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                   <strong style={{ fontSize: '13px', color: 'var(--text)' }}>Version 1.4.2</strong>
                   <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Yesterday</span>
@@ -271,3 +271,5 @@ export default function AboutUs() {
     </AdminShell>
   );
 }
+
+

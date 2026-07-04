@@ -84,7 +84,7 @@ export default function Analytics() {
       <div className="analytics-reports-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         
         {/* Toggle sub-header: Insights vs Reports */}
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', paddingBottom: '2px', gap: '16px' }}>
+        <div style={{ display: 'flex', borderBottom: '1.5px solid #25108f', paddingBottom: '2px', gap: '16px' }}>
           <button
             onClick={() => setActiveView('insights')}
             style={{
@@ -155,7 +155,7 @@ export default function Analytics() {
                 </div>
                 
                 <button
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid var(--line)', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '32px', padding: '0 12px', borderRadius: '6px' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', background: '#fff', color: 'var(--text)', fontSize: '12px', fontWeight: '700', height: '32px', padding: '0 12px', borderRadius: '6px' }}
                   onClick={() => downloadDummyPDF('Analytics Export', 'Consolidated System Analytics Performance Ledger.')}
                   type="button"
                 >
@@ -355,7 +355,7 @@ export default function Analytics() {
                   <h2 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Revenue Distribution</h2>
                   
                   {/* Visual distribution container */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', background: '#f8fafc', padding: 'var(--spacing-section)', borderRadius: '8px', border: '1px solid var(--line)' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', background: '#f8fafc', padding: 'var(--spacing-section)', borderRadius: '8px', border: '1.5px solid #25108f' }}>
                     {/* Ring Dial */}
                     <div style={{ position: 'relative', width: '100px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <svg width="100" height="100" viewBox="0 0 36 36">
@@ -491,7 +491,7 @@ export default function Analytics() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
-                    border: '1px solid var(--line)',
+                    border: '1.5px solid #25108f',
                     background: '#fff',
                     color: 'var(--text)',
                     fontSize: '12px',
@@ -535,7 +535,7 @@ export default function Analytics() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
               
               {/* Card 1: Service Revenue */}
-              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1.5px solid #25108f', borderRadius: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Service Revenue</span>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: '#10b981', background: '#e6f4ea', padding: '2px 6px', borderRadius: '4px' }}>+12.4%</span>
@@ -552,7 +552,7 @@ export default function Analytics() {
               </div>
 
               {/* Card 2: Customer Rating */}
-              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1.5px solid #25108f', borderRadius: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer Rating</span>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: '#10b981', background: '#e6f4ea', padding: '2px 6px', borderRadius: '4px' }}>+2.1%</span>
@@ -569,7 +569,7 @@ export default function Analytics() {
               </div>
 
               {/* Card 3: Risk Alerts */}
-              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+              <div className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', background: 'white', border: '1.5px solid #25108f', borderRadius: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Risk Alerts</span>
                   <span style={{ fontSize: '9px', fontWeight: '800', color: '#ef4444', background: '#fce8e6', padding: '2px 6px', borderRadius: '4px' }}>-8%</span>
@@ -591,7 +591,7 @@ export default function Analytics() {
             <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '20px', alignItems: 'start' }}>
               
               {/* Consolidated Export Center (Left) */}
-              <div className="panel" style={{ padding: '20px', background: 'white', border: '1px solid var(--line)', borderRadius: '12px' }}>
+              <div className="panel" style={{ padding: '20px', background: 'white', border: '1.5px solid #25108f', borderRadius: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                   <div>
                     <h2 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Consolidated Export Center</h2>
@@ -610,7 +610,7 @@ export default function Analytics() {
                 <div className="table-wrap">
                   <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="approval-queue-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
                     <thead>
-                      <tr style={{ textAlign: 'left', borderBottom: '1px solid var(--line)' }}>
+                      <tr style={{ textAlign: 'left', borderBottom: '1.5px solid #25108f' }}>
                         <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Report Name</th>
                         <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Type</th>
                         <th style={{ padding: '10px 8px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Date</th>
@@ -674,7 +674,7 @@ export default function Analytics() {
                   </table></div>
                 </div>
 
-                <div style={{ borderTop: '1px solid var(--line)', textAlign: 'center', padding: '12px 0 0', marginTop: '12px' }}>
+                <div style={{ borderTop: '1.5px solid #25108f', textAlign: 'center', padding: '12px 0 0', marginTop: '12px' }}>
                   <button
                     onClick={() => alert('Viewing all 152 reports')}
                     style={{ border: 'none', background: 'transparent', color: 'var(--primary)', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
@@ -861,7 +861,7 @@ export default function Analytics() {
               </div>
 
               {/* Proactive Monitoring (Right) */}
-              <div className="panel" style={{ padding: '20px', background: 'white', border: '1px solid var(--line)', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between' }}>
+              <div className="panel" style={{ padding: '20px', background: 'white', border: '1.5px solid #25108f', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch', justifyContent: 'space-between' }}>
                 <div>
                   <div style={{
                     width: '32px',
@@ -913,3 +913,5 @@ export default function Analytics() {
     </AdminShell>
   );
 }
+
+
