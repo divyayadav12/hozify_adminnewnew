@@ -287,80 +287,154 @@ export default function Dashboard() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
           
           {/* Dashboard KPI Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
-            {/* KPI 1: Total Services */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '12px' }}>
+            {/* KPI 1: Total Users */}
+            <div 
+              className="panel" 
+              onClick={() => navigate(ROUTES.users)}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(37,16,143,0.1)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#eff6ff', color: '#2563eb' }}>
-                  <Layers size={20} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '6px', background: '#eff6ff', color: '#2563eb' }}>
+                  <Users size={16} />
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#16a34a', background: '#dcfce7', padding: '3px 8px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
-                  ↑ 12.5%
-                </span>
-              </div>
-              <div>
-                <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Resolution Time</span>
-                <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', marginTop: '4px', fontWeight: '800' }}>{applyMultiplier('14')}m</strong>
-              </div>
-              <div style={{ height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-                <div style={{ width: '75%', height: '100%', background: 'var(--primary)' }} />
-              </div>
-            </div>
-
-            {/* KPI 2: Active Nodes */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#ecfdf5', color: '#059669' }}>
-                  <CheckCircle2 size={20} />
-                </div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#16a34a', background: '#dcfce7', padding: '3px 8px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                <span style={{ fontSize: '10px', fontWeight: '800', color: '#16a34a', background: '#dcfce7', padding: '2px 6px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
                   ↑ 8.2%
                 </span>
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active Nodes</span>
-                <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', marginTop: '4px', fontWeight: '800' }}>{applyMultiplier('1,142')}</strong>
+                <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Users</span>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--text)', marginTop: '2px', fontWeight: '800' }}>{applyMultiplier('128,402')}</strong>
               </div>
-              <div style={{ height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-                <div style={{ width: '80%', height: '100%', background: '#22c55e' }} />
+              <div style={{ height: '3px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
+                <div style={{ width: '75%', height: '100%', background: '#2563eb' }} />
               </div>
             </div>
 
-            {/* KPI 3: Pending Orders */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+            {/* KPI 2: Total Partners */}
+            <div 
+              className="panel" 
+              onClick={() => navigate(ROUTES.partners)}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(37,16,143,0.1)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#fffbeb', color: '#d97706' }}>
-                  <Clock size={20} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '6px', background: '#ecfdf5', color: '#059669' }}>
+                  <Store size={16} />
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#d97706', background: '#fef3c7', padding: '3px 8px', borderRadius: '12px' }}>
+                <span style={{ fontSize: '10px', fontWeight: '800', color: '#16a34a', background: '#dcfce7', padding: '2px 6px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                  ↑ 12.4%
+                </span>
+              </div>
+              <div>
+                <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Partners</span>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--text)', marginTop: '2px', fontWeight: '800' }}>{applyMultiplier('4,810')}</strong>
+              </div>
+              <div style={{ height: '3px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
+                <div style={{ width: '65%', height: '100%', background: '#059669' }} />
+              </div>
+            </div>
+
+            {/* KPI 3: Bookings */}
+            <div 
+              className="panel" 
+              onClick={() => navigate(ROUTES.bookings)}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(37,16,143,0.1)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '6px', background: '#fffbeb', color: '#d97706' }}>
+                  <CalendarCheck size={16} />
+                </div>
+                <span style={{ fontSize: '10px', fontWeight: '800', color: '#16a34a', background: '#dcfce7', padding: '2px 6px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                  ↑ 22.5%
+                </span>
+              </div>
+              <div>
+                <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Bookings</span>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--text)', marginTop: '2px', fontWeight: '800' }}>{applyMultiplier('42,911')}</strong>
+              </div>
+              <div style={{ height: '3px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
+                <div style={{ width: '85%', height: '100%', background: '#d97706' }} />
+              </div>
+            </div>
+
+            {/* KPI 4: Referrals */}
+            <div 
+              className="panel" 
+              onClick={() => navigate(ROUTES.reportsReferral || ROUTES.users)}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(37,16,143,0.1)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '6px', background: '#faf5ff', color: '#9333ea' }}>
+                  <Activity size={16} />
+                </div>
+                <span style={{ fontSize: '10px', fontWeight: '800', color: '#9333ea', background: '#f3e8ff', padding: '2px 6px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
                   — Steady
                 </span>
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Orders</span>
-                <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', marginTop: '4px', fontWeight: '800' }}>{applyMultiplier('2,845')}</strong>
+                <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Referrals</span>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--text)', marginTop: '2px', fontWeight: '800' }}>{applyMultiplier('8,204')}</strong>
               </div>
-              <div style={{ height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-                <div style={{ width: '45%', height: '100%', background: '#d97706' }} />
+              <div style={{ height: '3px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
+                <div style={{ width: '45%', height: '100%', background: '#9333ea' }} />
               </div>
             </div>
 
-            {/* KPI 4: Disabled Services */}
-            <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative' }}>
+            {/* KPI 5: Total Earnings */}
+            <div 
+              className="panel" 
+              onClick={() => navigate(ROUTES.reportsRevenue || ROUTES.bookings)}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(37,16,143,0.1)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '8px', background: '#fef2f2', color: '#dc2626' }}>
-                  <AlertCircle size={20} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '6px', background: '#ecfdf5', color: '#059669' }}>
+                  <TrendingUp size={16} />
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#dc2626', background: '#fee2e2', padding: '3px 8px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
-                  ↓ 2.1%
+                <span style={{ fontSize: '10px', fontWeight: '800', color: '#16a34a', background: '#dcfce7', padding: '2px 6px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                  ↑ 15.3%
                 </span>
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Disabled Services</span>
-                <strong style={{ display: 'block', fontSize: '28px', color: 'var(--text)', marginTop: '4px', fontWeight: '800' }}>48</strong>
+                <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Earnings</span>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--text)', marginTop: '2px', fontWeight: '800' }}>{applyMultiplier('$2.48M')}</strong>
               </div>
-              <div style={{ height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '4px' }}>
-                <div style={{ width: '15%', height: '100%', background: '#dc2626' }} />
+              <div style={{ height: '3px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
+                <div style={{ width: '90%', height: '100%', background: '#059669' }} />
+              </div>
+            </div>
+
+            {/* KPI 6: Quotations */}
+            <div 
+              className="panel" 
+              onClick={() => navigate(ROUTES.orderManagement || ROUTES.bookings)}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(37,16,143,0.1)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '6px', background: '#eef2ff', color: '#4f46e5' }}>
+                  <FileText size={16} />
+                </div>
+                <span style={{ fontSize: '10px', fontWeight: '800', color: '#4f46e5', background: '#e0e7ff', padding: '2px 6px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                  ↑ 4.1%
+                </span>
+              </div>
+              <div>
+                <span style={{ display: 'block', fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Quotations</span>
+                <strong style={{ display: 'block', fontSize: '20px', color: 'var(--text)', marginTop: '2px', fontWeight: '800' }}>{applyMultiplier('1,245')}</strong>
+              </div>
+              <div style={{ height: '3px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
+                <div style={{ width: '55%', height: '100%', background: '#4f46e5' }} />
               </div>
             </div>
           </div>

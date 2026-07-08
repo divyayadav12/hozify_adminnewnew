@@ -504,8 +504,8 @@ export default function UserApprovalPage() {
         </div>
 
         {/* TABLE */}
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "900px" }}>
+        <div className="table-wrap" style={{ overflowX: "auto" }}>
+          <table className="materio-table" style={{ width: "100%", borderCollapse: 'collapse', minWidth: "900px" }}>
             <thead>
               <tr style={{ background: "#f8fafc", borderBottom: "1px solid #f1f5f9" }}>
                 {["USER PROFILE", "SUBMISSION DATE", "TYPE", "DOC STATUS", "ACTIONS"].map(col => (

@@ -172,7 +172,7 @@ export default function UserWalletPage() {
             </div>
           </div>
 
-          <table className="w-full" style={{ borderCollapse: "collapse", textAlign: "left", fontSize: "13px" }}>
+          <table className="w-full" style={{ borderCollapse: 'collapse', textAlign: "left", fontSize: "13px" }}>
             <thead>
               <tr className="custom-table-header">
                 <th className="p-4" style={{ color: "#fff", fontWeight: "700" }}>User</th>

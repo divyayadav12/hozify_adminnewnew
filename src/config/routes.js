@@ -567,6 +567,11 @@ export const ROUTES = {
   userAppMenus: '/cms/app-management/user-app/menus',
   userAppConfig: '/cms/app-management/user-app/config',
   userAppVersion: '/cms/app-management/user-app/version',
+  userAppHomeBuilder: '/cms/app-management/user-app/home-builder',
+  userAppServiceCategories: '/cms/app-management/user-app/service-categories',
+  userAppPowerpass: '/cms/app-management/user-app/powerpass',
+  userAppInstahelp: '/cms/app-management/user-app/instahelp',
+  userAppOnboarding: '/cms/app-management/user-app/onboarding',
 
   // Partner App Consolidated
   partnerAppFeatures: '/cms/app-management/partner-app/features',

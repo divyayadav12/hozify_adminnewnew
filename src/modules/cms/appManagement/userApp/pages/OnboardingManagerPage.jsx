@@ -1,0 +1,131 @@
+import React, { useState } from 'react';
+import AdminShell from '../../../../../components/layouts/AdminShell';
+import { 
+  MonitorPlay, Image as ImageIcon, Plus, Trash2, Smartphone, Save
+} from 'lucide-react';
+
+const INITIAL_SCREENS = [
+  { id: '1', title: 'Welcome to Hozify', subtitle: 'Your one stop solution for all home services.', image: 'welcome.png' },
+  { id: '2', title: 'Verified Professionals', subtitle: 'All our pros undergo strict background checks.', image: 'trusted.png' },
+  { id: '3', title: 'Secure Payments', subtitle: 'Pay online securely or after the service.', image: 'payment.png' }
+];
+
+export default function OnboardingManagerPage() {
+  const [screens, setScreens] = useState(INITIAL_SCREENS);
+
+  return (
+    <AdminShell activeTab="CMS" headerTitle="Onboarding & Splash Screen Manager">
+      <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        
+        {/* Breadcrumb */}
+        <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>
+          CMS &gt; App Management &gt; User App &gt; <span style={{ color: '#2A2454' }}>Onboarding Screens</span>
+        </div>
+
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+          <div>
+            <h1 className="custom-page-heading">Onboarding & Splash Manager</h1>
+            <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Configure the first impressions of your app (Splash Screen & Onboarding Slider).</p>
+          </div>
+          <button className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-blue-700">
+            <Save size={16} strokeWidth={2.5} /> Publish Screens
+          </button>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px', alignItems: 'start' }}>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            
+            {/* Splash Screen */}
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '24px' }}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                 <div style={{ width: '32px', height: '32px', background: '#d1fae5', color: '#059669', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                   <MonitorPlay size={16} />
+                 </div>
+                 <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Splash Screen Config</h3>
+               </div>
+               
+               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                 <div>
+                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#475569', marginBottom: '8px' }}>Splash Duration (Seconds)</label>
+                   <input type="number" defaultValue={2} style={{ width: '100%', padding: '10px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px' }} />
+                 </div>
+                 <div>
+                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#475569', marginBottom: '8px' }}>Background Color (HEX)</label>
+                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                     <div style={{ width: '30px', height: '30px', background: '#25108f', borderRadius: '4px' }} />
+                     <input type="text" defaultValue="#25108f" style={{ flexGrow: 1, padding: '10px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px' }} />
+                   </div>
+                 </div>
+               </div>
+            </div>
+
+            {/* Onboarding Screens */}
+            <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '24px' }}>
+               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                   <div style={{ width: '32px', height: '32px', background: '#e0e7ff', color: '#4f46e5', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                     <Smartphone size={16} />
+                   </div>
+                   <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Onboarding Carousel</h3>
+                 </div>
+                 <button className="flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-600 hover:bg-indigo-100 transition-colors">
+                   <Plus size={14} /> Add Slide
+                 </button>
+               </div>
+
+               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                 {screens.map((screen, index) => (
+                   <div key={screen.id} style={{ display: 'flex', gap: '16px', padding: '16px', border: '1px solid #e2e8f0', borderRadius: '8px', background: '#f8fafc' }}>
+                     <div style={{ width: '80px', height: '80px', background: '#e2e8f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
+                       <ImageIcon size={24} />
+                     </div>
+                     <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                       <input type="text" defaultValue={screen.title} style={{ padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold' }} />
+                       <input type="text" defaultValue={screen.subtitle} style={{ padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '13px' }} />
+                     </div>
+                     <button style={{ alignSelf: 'flex-start', padding: '8px', border: 'none', background: '#fef2f2', borderRadius: '6px', color: '#ef4444', cursor: 'pointer' }}>
+                       <Trash2 size={16} />
+                     </button>
+                   </div>
+                 ))}
+               </div>
+            </div>
+          </div>
+
+          {/* Device Preview */}
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', position: 'sticky', top: '100px' }}>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+               <Smartphone size={20} color="#4f46e5" />
+               <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>Live Preview</h3>
+             </div>
+             
+             {/* Mock Phone Frame */}
+             <div style={{ width: '100%', height: '450px', border: '4px solid #1e293b', borderRadius: '24px', overflow: 'hidden', position: 'relative', background: '#fff', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '40%', height: '16px', background: '#1e293b', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }} />
+                
+                {/* Mock Content */}
+                <div style={{ flexGrow: 1, padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                   <div style={{ width: '120px', height: '120px', background: '#e2e8f0', borderRadius: '50%', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
+                     <ImageIcon size={32} />
+                   </div>
+                   <h4 style={{ fontSize: '18px', fontWeight: '800', color: '#1e1b4b', margin: '0 0 8px 0' }}>{screens[0].title}</h4>
+                   <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>{screens[0].subtitle}</p>
+                </div>
+
+                <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    <div style={{ width: '16px', height: '6px', background: '#4f46e5', borderRadius: '3px' }} />
+                    <div style={{ width: '6px', height: '6px', background: '#e2e8f0', borderRadius: '3px' }} />
+                    <div style={{ width: '6px', height: '6px', background: '#e2e8f0', borderRadius: '3px' }} />
+                  </div>
+                  <button style={{ width: '100%', padding: '12px', background: '#4f46e5', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold' }}>Next</button>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </AdminShell>
+  );
+}

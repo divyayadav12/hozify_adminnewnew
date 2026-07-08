@@ -10899,3 +10899,104 @@ td:first-child strong {
 
 
 
+
+
+
+table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+}
+
+table th {
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
+
+table th {
+    background: linear-gradient(90deg, #1B0B90 0%, #2F1DB8 100%) !important;
+    color: #ffffff !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
+
+table th, table td {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+
+
+
+table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+}
+
+table thead tr {
+    background: linear-gradient(90deg, #1B0B90 0%, #2F1DB8 100%) !important;
+}
+
+table thead th {
+    background: transparent !important; /* Forces row background to show through, eliminating gaps */
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
+/* Rounded corners only on the outermost header cells */
+table thead th:first-child {
+    border-top-left-radius: 8px !important;
+}
+table thead th:last-child {
+    border-top-right-radius: 8px !important;
+}
+
+/* Remove side borders from all td cells to prevent vertical lines */
+table tbody td {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+
+
+
+/* --- ULTIMATE SUPER SPECIFIC FIX FOR TABLE HEADERS --- */
+#root table th, 
+#root .materio-table th, 
+#root [class*="table-wrap"] th, 
+#root [class*="matrix-wrap"] th, 
+#root thead th {
+    border-radius: 0 !important;
+}
+
+
+/* --- ULTIMATE HEADER TOP BORDER FIX --- */
+.dash-header, .global-header, .page-header, header {
+    border-top: none !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* --- GLOBAL TABLE VERTICAL BORDERS FIX --- */
+table, .materio-table, .matrix-wrap table {
+    border-collapse: collapse !important;
+}
+
+table th, 
+table td {
+    border-left: 1px solid #e2e8f0 !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+
+table thead th {
+    border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+}

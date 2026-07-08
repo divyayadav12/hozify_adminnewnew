@@ -488,6 +488,11 @@ export const sidebarNavigation = [
           {
             label: 'User App Management',
             children: [
+              { label: 'Home Screen Builder', route: ROUTES.userAppHomeBuilder },
+              { label: 'Service Categories', route: ROUTES.userAppServiceCategories },
+              { label: 'Powerpass Subscriptions', route: ROUTES.userAppPowerpass },
+              { label: 'Onboarding Screens', route: ROUTES.userAppOnboarding },
+              { label: 'Instahelp Support', route: ROUTES.userAppInstahelp },
               { label: 'User Features', route: ROUTES.userAppFeatures },
               { label: 'User Menus', route: ROUTES.userAppMenus },
               { label: 'User Configuration', route: ROUTES.userAppConfig },

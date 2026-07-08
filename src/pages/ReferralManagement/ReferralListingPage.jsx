@@ -31,8 +31,9 @@ export default function ReferralListingPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  const [referrals, setReferrals] = useState(MOCK_REFERRALS);
 
-  const filteredReferrals = MOCK_REFERRALS.filter((ref) => {
+  const filteredReferrals = referrals.filter((ref) => {
     const matchesStatus = statusFilter === "All Statuses" || ref.status === statusFilter;
     const matchesCampaign = campaignFilter === "All Campaigns" || ref.campaign === campaignFilter;
     const matchesStartDate = !startDate || ref.date >= startDate;
@@ -254,14 +255,49 @@ export default function ReferralListingPage() {
                       <StatusBadge status={row.status} />
                     </td>
                     <td className="px-4 py-4 font-black text-slate-900 text-xs">{row.amount}</td>
-                    <td className="px-4 py-4 text-right pr-6" onClick={(e) => e.stopPropagation()}>
+                    <td className="px-4 py-4 text-right pr-6 relative" onClick={(e) => e.stopPropagation()}>
                       <button 
-                        onClick={() => addToast(`Opening configuration menu for referral ${row.id}`, "success")}
-                        className="hover:text-indigo-900 cursor-pointer"
+                        onClick={() => setOpenDropdownId(openDropdownId === row.id ? null : row.id)}
+                        className="hover:text-indigo-900 cursor-pointer p-1 hover:bg-slate-100 rounded"
                         aria-label={`Actions for referral ${row.id}`}
                       >
                         <MoreVertical size={14} />
                       </button>
+
+                      {openDropdownId === row.id && (
+                        <div className="absolute right-6 top-10 bg-white border border-slate-200 rounded-lg shadow-lg py-1 z-10 w-32 text-left">
+                          <button 
+                            onClick={() => {
+                              setReferrals(referrals.map(r => r.id === row.id ? { ...r, status: 'SUCCESSFUL' } : r));
+                              setOpenDropdownId(null);
+                              addToast('Referral successfully approved', 'success');
+                            }}
+                            className="block w-full text-left px-4 py-2 text-xs font-bold text-emerald-600 hover:bg-slate-50 cursor-pointer"
+                          >
+                            Approve
+                          </button>
+                          <button 
+                            onClick={() => {
+                              setReferrals(referrals.map(r => r.id === row.id ? { ...r, status: 'PENDING' } : r));
+                              setOpenDropdownId(null);
+                              addToast('Referral has been suspended', 'warning');
+                            }}
+                            className="block w-full text-left px-4 py-2 text-xs font-bold text-amber-600 hover:bg-slate-50 cursor-pointer"
+                          >
+                            Suspend
+                          </button>
+                          <button 
+                            onClick={() => {
+                              setReferrals(referrals.map(r => r.id === row.id ? { ...r, status: 'REJECTED' } : r));
+                              setOpenDropdownId(null);
+                              addToast('Referral has been rejected', 'error');
+                            }}
+                            className="block w-full text-left px-4 py-2 text-xs font-bold text-rose-600 hover:bg-slate-50 cursor-pointer"
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))}

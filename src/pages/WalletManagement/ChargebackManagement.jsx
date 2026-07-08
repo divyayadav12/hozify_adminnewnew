@@ -203,7 +203,7 @@ export default function ChargebackManagement() {
 
           {/* Table */}
           <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
+            <table style={{ width: "100%", borderCollapse: 'collapse', fontSize: "13px" }}>
               <thead>
                 <tr style={{ background: "#f8fafc", borderBottom: "1px solid #e2e8f0" }}>
                   {["CASE ID", "TXN ID", "CUSTOMER", "AMOUNT", "REASON", "BANK", "STATUS", "DUE DATE", "ACTIONS"].map(h => (

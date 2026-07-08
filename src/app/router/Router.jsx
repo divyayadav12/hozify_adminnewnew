@@ -309,6 +309,13 @@ import CancellationPolicy from '../../pages/CMSManagement/CancellationPolicy';
 import RemoteConfigPage from '../../modules/cms/appManagement/remoteConfig/pages/RemoteConfigPage';
 import AppConfigPage from '../../modules/cms/appManagement/appConfig/pages/AppConfigPage';
 import MaintenanceModePage from '../../modules/cms/appManagement/maintenance/pages/MaintenanceModePage';
+
+// New User App Visual Builders
+import HomeBuilderPage from '../../modules/cms/appManagement/userApp/pages/HomeBuilderPage';
+import ServiceCategoriesUI from '../../modules/cms/appManagement/userApp/pages/ServiceCategoriesUI';
+import PowerpassManagerPage from '../../modules/cms/appManagement/userApp/pages/PowerpassManagerPage';
+import InstahelpConfigPage from '../../modules/cms/appManagement/userApp/pages/InstahelpConfigPage';
+import OnboardingManagerPage from '../../modules/cms/appManagement/userApp/pages/OnboardingManagerPage';
 import OrderMgmtPage from '../../pages/OrderManagement/OrderMgmtPage';
 import PriceMgmtPage from '../../pages/PriceManagement/PriceMgmtPage';
 import OfferMgmtPage from '../../pages/OfferManagement/OfferMgmtPage';
@@ -1084,6 +1091,16 @@ export function Router() {
       return <UserAppPage defaultTab="config" />;
     case ROUTES.userAppVersion:
       return <UserAppPage defaultTab="version" />;
+    case ROUTES.userAppHomeBuilder:
+      return <HomeBuilderPage />;
+    case ROUTES.userAppServiceCategories:
+      return <ServiceCategoriesUI />;
+    case ROUTES.userAppPowerpass:
+      return <PowerpassManagerPage />;
+    case ROUTES.userAppInstahelp:
+      return <InstahelpConfigPage />;
+    case ROUTES.userAppOnboarding:
+      return <OnboardingManagerPage />;
 
     // Partner App Consolidated
     case ROUTES.partnerAppFeatures:

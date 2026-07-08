@@ -248,18 +248,18 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', tableLayout: 'fixed' }}>
                 <thead>
                   <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
-                    <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
-                    <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Referrals</th>
-                    <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', textAlign: 'right' }}>Conversion</th>
+                    <th style={{ width: '50%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
+                    <th style={{ width: '25%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Referrals</th>
+                    <th style={{ width: '25%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', textAlign: 'right' }}>Conv.</th>
                   </tr>
                 </thead>
                 <tbody>
                   {referringUsers.map((item, idx) => (
                     <tr key={idx} style={{ borderBottom: '1px solid var(--lavender)' }}>
-                      <td style={{ padding: '12px' }}>
+                      <td style={{ padding: '8px 6px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <div style={{ height: '28px', width: '28px', borderRadius: '50%', background: item.bg, color: item.text, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '850' }}>
                             {item.initials}
@@ -270,8 +270,8 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
                           </div>
                         </div>
                       </td>
-                      <td style={{ padding: '12px', fontWeight: '750' }}>{item.count}</td>
-                      <td style={{ padding: '12px', fontWeight: '850', color: 'var(--green)', textAlign: 'right' }}>{item.conv}</td>
+                      <td style={{ padding: '8px 6px', fontWeight: '750' }}>{item.count}</td>
+                      <td style={{ padding: '8px 6px', fontWeight: '850', color: 'var(--green)', textAlign: 'right' }}>{item.conv}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -287,23 +287,23 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left' }}>
+              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left', tableLayout: 'fixed' }}>
                 <thead>
                   <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
-                    <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
-                    <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Reason</th>
-                    <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Date</th>
-                    <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', textAlign: 'right' }}>Actions</th>
+                    <th style={{ width: '35%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
+                    <th style={{ width: '25%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Reason</th>
+                    <th style={{ width: '25%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Date</th>
+                    <th style={{ width: '15%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', textAlign: 'right' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {blockedUsers.map((item, idx) => (
                     <tr key={idx} style={{ borderBottom: '1px solid var(--lavender)' }}>
-                      <td style={{ padding: '12px' }}>
+                      <td style={{ padding: '8px 6px' }}>
                         <strong style={{ display: 'block', color: 'var(--text)' }}>{item.name}</strong>
                         <span style={{ fontSize: '10px', color: 'var(--muted)' }}>ID: #{item.id}</span>
                       </td>
-                      <td style={{ padding: '12px' }}>
+                      <td style={{ padding: '8px 6px' }}>
                         <span style={{
                           fontSize: '9px',
                           fontWeight: '850',
@@ -315,8 +315,8 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
                           {item.reason}
                         </span>
                       </td>
-                      <td style={{ padding: '12px', color: 'var(--muted)' }}>{item.date}</td>
-                      <td style={{ padding: '12px', textAlign: 'right' }}>
+                      <td style={{ padding: '8px 6px', color: 'var(--muted)' }}>{item.date}</td>
+                      <td style={{ padding: '8px 6px', textAlign: 'right' }}>
                         <button
                           onClick={() => alert(`Reviewing security flags log for ${item.name}`)}
                           style={{ border: 'none', background: 'transparent', color: 'var(--primary)', cursor: 'pointer', fontWeight: '800' }}
