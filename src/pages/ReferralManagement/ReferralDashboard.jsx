@@ -11,6 +11,7 @@ import {
   X,
 } from "lucide-react";
 import { useToast } from "../../components/common/ToastNotification";
+import GlobalDashboardFilters from "../../components/common/GlobalDashboardFilters";
 
 function MetricCard({ title, value, change, icon, onClick }) {
   return (
@@ -193,6 +194,8 @@ export default function ReferralDashboard() {
             </button>
           </div>
         </div>
+
+        <GlobalDashboardFilters />
 
         {/* KPI CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-6">

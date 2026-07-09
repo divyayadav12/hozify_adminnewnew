@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AdminShell from '../../components/layouts/AdminShell';
+import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 import { useToast } from '../../components/common/ToastNotification';
 import { 
   AddEditModal, DeleteConfirmationModal, PreviewModal, SuccessModal 
@@ -57,6 +58,7 @@ export default function PaymentMgmtPage() {
   return (
     <AdminShell activeTab="Payments" headerTitle="Financial Ledger">
       <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
+        <GlobalDashboardFilters />
         
         {/* Breadcrumb */}
         <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>

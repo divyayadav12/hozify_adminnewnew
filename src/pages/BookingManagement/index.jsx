@@ -40,6 +40,7 @@ import {
 import AdminShell from '../../components/layouts/AdminShell';
 import { ROUTES } from '../../config/routes';
 import { useApp } from '../../hooks/useApp';
+import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 
 const money = (value) =>
   new Intl.NumberFormat('en-IN', {
@@ -1241,6 +1242,7 @@ export default function BookingManagement() {
             <ActionButton icon={Bell} onClick={() => toast('Operational alerts refreshed.')}>Alerts</ActionButton>
           </div>
         </div>
+        {!selectedBooking && <GlobalDashboardFilters />}
         {content()}
       </section>
     </AdminShell>

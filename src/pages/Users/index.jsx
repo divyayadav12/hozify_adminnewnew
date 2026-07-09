@@ -23,6 +23,7 @@ import { useToast } from '../../components/common/ToastNotification';
 
 import UserEditModal from './UserEditModal';
 import UserSubTabs from "../../components/users/UserSubTabs";
+import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 
 const statusOptions = ['All', 'Active', 'Suspended', 'Blocked', 'Deleted'];
 
@@ -143,6 +144,8 @@ export default function Users() {
 
         {/* PROFILE SUB-TABS */}
         <UserSubTabs />
+
+        <GlobalDashboardFilters />
 
         {/* KPI Cards */}
         <div className="materio-kpi-grid">

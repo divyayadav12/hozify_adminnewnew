@@ -3,9 +3,37 @@ import AdminShell from '../../../../../components/layouts/AdminShell';
 import { 
   HeartHandshake, PhoneCall, ShieldAlert, MessageCircle, Save, Settings
 } from 'lucide-react';
+import { useToast } from '../../../../../components/common/ToastNotification';
 import Toggle from '../../../../../components/common/Toggle';
 
 export default function InstahelpConfigPage() {
+  const { addToast } = useToast();
+  
+  const [toggles, setToggles] = React.useState({
+    liveChat: true,
+    callback: true,
+    aiBot: false
+  });
+
+  const [emergency, setEmergency] = React.useState({
+    police: '100',
+    ambulance: '108',
+    hozify: '1800-889-9999'
+  });
+
+  const handleToggle = (key) => {
+    setToggles(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEmergency(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = () => {
+    addToast('Instahelp settings saved successfully!', 'success');
+  };
+
   return (
     <AdminShell activeTab="CMS" headerTitle="Instahelp & Support Configuration">
       <div style={{ padding: 'var(--spacing-section)', maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -21,7 +49,7 @@ export default function InstahelpConfigPage() {
             <h1 className="custom-page-heading">Instahelp Center Config</h1>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Configure the emergency numbers and support options presented in the user app.</p>
           </div>
-          <button className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-blue-700">
+          <button onClick={handleSave} className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-blue-700">
             <Save size={16} strokeWidth={2.5} /> Save Settings
           </button>
         </div>
@@ -44,7 +72,7 @@ export default function InstahelpConfigPage() {
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#475569', marginBottom: '8px' }}>Police Department (Direct Dial)</label>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <PhoneCall size={16} color="#94a3b8" />
-                  <input type="text" defaultValue="100" style={{ flexGrow: 1, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold' }} />
+                  <input type="text" name="police" value={emergency.police} onChange={handleInputChange} style={{ flexGrow: 1, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold' }} />
                 </div>
               </div>
               
@@ -52,7 +80,7 @@ export default function InstahelpConfigPage() {
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#475569', marginBottom: '8px' }}>Ambulance (Direct Dial)</label>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <PhoneCall size={16} color="#94a3b8" />
-                  <input type="text" defaultValue="108" style={{ flexGrow: 1, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold' }} />
+                  <input type="text" name="ambulance" value={emergency.ambulance} onChange={handleInputChange} style={{ flexGrow: 1, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold' }} />
                 </div>
               </div>
 
@@ -60,7 +88,7 @@ export default function InstahelpConfigPage() {
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#475569', marginBottom: '8px' }}>Hozify Central Trust & Safety</label>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <PhoneCall size={16} color="#94a3b8" />
-                  <input type="text" defaultValue="1800-889-9999" style={{ flexGrow: 1, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold' }} />
+                  <input type="text" name="hozify" value={emergency.hozify} onChange={handleInputChange} style={{ flexGrow: 1, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold' }} />
                 </div>
               </div>
             </div>
@@ -87,7 +115,7 @@ export default function InstahelpConfigPage() {
                     <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Enable users to chat with support agents within the app.</p>
                   </div>
                 </div>
-                <Toggle checked={true} onChange={() => {}} />
+                <Toggle checked={toggles.liveChat} onChange={() => handleToggle('liveChat')} />
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
@@ -98,7 +126,7 @@ export default function InstahelpConfigPage() {
                     <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Allow users to request a callback from the support team.</p>
                   </div>
                 </div>
-                <Toggle checked={true} onChange={() => {}} />
+                <Toggle checked={toggles.callback} onChange={() => handleToggle('callback')} />
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
@@ -109,7 +137,7 @@ export default function InstahelpConfigPage() {
                     <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Use AI to answer common queries before routing to human agents.</p>
                   </div>
                 </div>
-                <Toggle checked={false} onChange={() => {}} />
+                <Toggle checked={toggles.aiBot} onChange={() => handleToggle('aiBot')} />
               </div>
             </div>
           </div>

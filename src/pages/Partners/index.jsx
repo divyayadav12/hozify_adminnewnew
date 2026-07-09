@@ -23,6 +23,7 @@ import { ROUTES } from '../../config/routes';
 import KpiCard from '../../features/dashboard/KpiCard';
 import AdminShell from '../../components/layouts/AdminShell';
 import ExportReportModal from '../../components/common/ExportReportModal';
+import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 
 // Render styled logos directly using inline SVGs to match the Figma mockups pixel-perfectly
 function PartnerLogo({ style }) {
@@ -280,6 +281,8 @@ export default function Partners() {
           </button>
         </div>
       </div>
+
+      <GlobalDashboardFilters />
 
       <section className="kpi-grid partners-kpis">
         {kpiCardsData.map((kpi, idx) => (

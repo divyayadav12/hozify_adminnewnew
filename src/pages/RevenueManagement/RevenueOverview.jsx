@@ -4,6 +4,7 @@ import AdminShell from "../../components/layouts/AdminShell";
 import { ArrowUpRight, TrendingUp, Users, Building2, AlertCircle, Globe } from "lucide-react";
 import { useDateFilter } from "../../contexts/DateFilterContext";
 import DateFilter from "../../components/common/DateFilter";
+import GlobalDashboardFilters from "../../components/common/GlobalDashboardFilters";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import EmptyState from "../../components/common/EmptyState";
 
@@ -68,6 +69,7 @@ export default function RevenueOverview() {
           <EmptyState />
         ) : (
           <>
+        <GlobalDashboardFilters />
         {/* Compact & Slim KPI Metrics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 

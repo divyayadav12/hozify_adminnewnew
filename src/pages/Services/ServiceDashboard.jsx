@@ -13,6 +13,7 @@ import {
   Info
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
+import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 
 const topServices = [
   { name: 'Premium On-Demand Support', value: '$842k', label: 'Excellent', progress: 85 },
@@ -32,7 +33,7 @@ export default function ServiceDashboard() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
-      
+      <GlobalDashboardFilters />
       {/* SLA Alert banner */}
       <div
         style={{

@@ -34,6 +34,7 @@ import {
 import AdminShell from '../../components/layouts/AdminShell';
 import { ROUTES } from '../../config/routes';
 import { useApp } from '../../hooks/useApp';
+import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 import { downloadDummyPDF, triggerDownload, generateCSV } from '../../utils/downloadHelper';
 
 const inr = (value) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
@@ -1459,6 +1460,7 @@ export default function QuotationManagement() {
             ['Bulk', ROUTES.quotationBulkApproval]
           ].map(([label, r]) => <button key={r} className={route === r ? 'active' : ''} onClick={() => navigate(r)}>{label}</button>)}
         </div>
+        <GlobalDashboardFilters />
         {content}
       </section>
       <Modal title={modal?.[0]} body={modal?.[1]} onClose={() => setModal(null)} onConfirm={modal?.[2]} />
