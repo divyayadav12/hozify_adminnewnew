@@ -490,6 +490,9 @@ export const sidebarNavigation = [
             children: [
               { label: 'Home Screen Builder', route: ROUTES.userAppHomeBuilder },
               { label: 'Service Categories', route: ROUTES.userAppServiceCategories },
+              { label: 'App Flow & Catalog', route: ROUTES.userAppFlowServices },
+              { label: 'Bookings Ledger', route: ROUTES.userAppAdminBookings },
+              { label: 'Payments Ledger', route: ROUTES.userAppAdminPayments },
               { label: 'Powerpass Subscriptions', route: ROUTES.userAppPowerpass },
               { label: 'Onboarding Screens', route: ROUTES.userAppOnboarding },
               { label: 'Instahelp Support', route: ROUTES.userAppInstahelp },

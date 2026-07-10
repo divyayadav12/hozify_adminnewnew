@@ -186,7 +186,7 @@ export default function MenuMgmtPage({ defaultTab }) {
         </div>
 
         {/* Page Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
           <div>
             <h1 className="custom-page-heading">App Sidebar Menu Control - {activeTab}</h1>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Dynamically adjust client app sidebar hierarchies, re-order tabs, and verify role accessibility permissions.</p>
@@ -211,59 +211,7 @@ export default function MenuMgmtPage({ defaultTab }) {
           </div>
         </div>
 
-        {/* Statistics Cards */}
-        <div className="custom-kpi-card-container">
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Layers size={20} strokeWidth={2.5} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Menu Nodes</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text)', margin: '2px 0 0 0' }}>{totalMenus} Nodes</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#d1fae5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Smartphone size={20} strokeWidth={2.5} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>User Portal Menus</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#059669', margin: '2px 0 0 0' }}>{userMenusCount} Nodes</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#ffedd5', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Handshake size={20} strokeWidth={2.5} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Partner App Menus</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#d97706', margin: '2px 0 0 0' }}>{partnerMenusCount} Nodes</h2>
-            </div>
-          </div>
-        </div>
-
-        {/* SOW Specific Navigation */}
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1.5px solid #25108f', paddingBottom: '1px' }}>
-          {TABS.map(tab => (
-            <button
-              key={tab}
-              onClick={() => { setActiveTab(tab); setCurrentPage(1); }}
-              style={{
-                padding: '12px 20px',
-                border: 'none',
-                background: 'none',
-                fontSize: '13px',
-                fontWeight: '700',
-                color: activeTab === tab ? '#2A2454' : '#64748b',
-                borderBottom: activeTab === tab ? '2px solid #2A2454' : '2px solid transparent',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        {/* Tab Specific Content */}
 
         {/* Tab Specific Content */}
         {(activeTab === 'User Menu' || activeTab === 'Partner Menu') && (

@@ -573,6 +573,22 @@ export const ROUTES = {
   userAppInstahelp: '/cms/app-management/user-app/instahelp',
   userAppOnboarding: '/cms/app-management/user-app/onboarding',
 
+  // User App Full Page Flow Routes
+  userAppFlowServices: '/cms/app-management/user-app/flow/services',
+  userAppFlowPackages: '/cms/app-management/user-app/flow/services/:id/packages',
+  userAppFlowPackageDetails: '/cms/app-management/user-app/flow/packages/:id',
+  userAppFlowSuccess: '/cms/app-management/user-app/flow/success',
+  userAppFlowCart: '/cms/app-management/user-app/flow/cart',
+  userAppFlowAddress: '/cms/app-management/user-app/flow/address',
+  userAppFlowAddAddress: '/cms/app-management/user-app/flow/address/add',
+  userAppFlowSlot: '/cms/app-management/user-app/flow/slot',
+  userAppFlowCheckout: '/cms/app-management/user-app/flow/checkout',
+  userAppFlowPayment: '/cms/app-management/user-app/flow/payment',
+  userAppFlowConfirmation: '/cms/app-management/user-app/flow/confirmation',
+  userAppAdminBookings: '/cms/app-management/user-app/bookings',
+  userAppAdminPayments: '/cms/app-management/user-app/payments',
+
+
   // Partner App Consolidated
   partnerAppFeatures: '/cms/app-management/partner-app/features',
   partnerAppRoles: '/cms/app-management/partner-app/roles',

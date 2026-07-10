@@ -316,6 +316,22 @@ import ServiceCategoriesUI from '../../modules/cms/appManagement/userApp/pages/S
 import PowerpassManagerPage from '../../modules/cms/appManagement/userApp/pages/PowerpassManagerPage';
 import InstahelpConfigPage from '../../modules/cms/appManagement/userApp/pages/InstahelpConfigPage';
 import OnboardingManagerPage from '../../modules/cms/appManagement/userApp/pages/OnboardingManagerPage';
+
+// User App Flow Components
+import FlowServicesPage from '../../modules/cms/appManagement/userApp/pages/FlowServicesPage';
+import FlowPackagesPage from '../../modules/cms/appManagement/userApp/pages/FlowPackagesPage';
+import FlowPackageDetailsPage from '../../modules/cms/appManagement/userApp/pages/FlowPackageDetailsPage';
+import FlowSuccessPage from '../../modules/cms/appManagement/userApp/pages/FlowSuccessPage';
+import FlowCartPage from '../../modules/cms/appManagement/userApp/pages/FlowCartPage';
+import FlowAddressPage from '../../modules/cms/appManagement/userApp/pages/FlowAddressPage';
+import FlowAddAddressPage from '../../modules/cms/appManagement/userApp/pages/FlowAddAddressPage';
+import FlowSlotPage from '../../modules/cms/appManagement/userApp/pages/FlowSlotPage';
+import FlowCheckoutPage from '../../modules/cms/appManagement/userApp/pages/FlowCheckoutPage';
+import FlowPaymentPage from '../../modules/cms/appManagement/userApp/pages/FlowPaymentPage';
+import FlowConfirmationPage from '../../modules/cms/appManagement/userApp/pages/FlowConfirmationPage';
+import AdminBookingsPage from '../../modules/cms/appManagement/userApp/pages/AdminBookingsPage';
+import AdminPaymentsPage from '../../modules/cms/appManagement/userApp/pages/AdminPaymentsPage';
+
 import OrderMgmtPage from '../../pages/OrderManagement/OrderMgmtPage';
 import PriceMgmtPage from '../../pages/PriceManagement/PriceMgmtPage';
 import OfferMgmtPage from '../../pages/OfferManagement/OfferMgmtPage';
@@ -1101,6 +1117,34 @@ export function Router() {
       return <InstahelpConfigPage />;
     case ROUTES.userAppOnboarding:
       return <OnboardingManagerPage />;
+
+    // User App Flow Routes
+    case ROUTES.userAppFlowServices:
+      return <FlowServicesPage />;
+    case ROUTES.userAppFlowPackages:
+      return <FlowPackagesPage />;
+    case ROUTES.userAppFlowPackageDetails:
+      return <FlowPackageDetailsPage />;
+    case ROUTES.userAppFlowSuccess:
+      return <FlowSuccessPage />;
+    case ROUTES.userAppFlowCart:
+      return <FlowCartPage />;
+    case ROUTES.userAppFlowAddress:
+      return <FlowAddressPage />;
+    case ROUTES.userAppFlowAddAddress:
+      return <FlowAddAddressPage />;
+    case ROUTES.userAppFlowSlot:
+      return <FlowSlotPage />;
+    case ROUTES.userAppFlowCheckout:
+      return <FlowCheckoutPage />;
+    case ROUTES.userAppFlowPayment:
+      return <FlowPaymentPage />;
+    case ROUTES.userAppFlowConfirmation:
+      return <FlowConfirmationPage />;
+    case ROUTES.userAppAdminBookings:
+      return <AdminBookingsPage />;
+    case ROUTES.userAppAdminPayments:
+      return <AdminPaymentsPage />;
 
     // Partner App Consolidated
     case ROUTES.partnerAppFeatures:

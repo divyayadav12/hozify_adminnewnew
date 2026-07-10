@@ -9,7 +9,8 @@ import {
   PreviewModal
 } from '../../../../../components/common/popups/Modals';
 import { triggerDownload, generateCSV } from '../../../../../utils/downloadHelper';
-import { Search, Plus, Download, Edit, Trash2, Eye, Smartphone, AlertTriangle, ArrowUpDown, ChevronLeft, ChevronRight, Database, Settings, CheckCircle2, Layers } from 'lucide-react';
+import { Search, Plus, Download, Edit, Trash2, Eye, Smartphone, AlertTriangle, ArrowUpDown, ChevronLeft, ChevronRight, Database, Settings, CheckCircle, Layers } from 'lucide-react';
+import { useApp } from '../../../../../hooks/useApp';
 
 const INITIAL_CONFIGS = [
   { id: 'UC-101', category: 'User Configuration', key: 'USER_BOOKING_SLOT_INTERVAL_MINS', value: '60', status: 'Active', description: 'Sets duration between available booking slots on customer application.' },
@@ -30,6 +31,8 @@ export default function UserAppPage({ defaultTab = 'config' }) {
   const [configs, setConfigs] = useState(INITIAL_CONFIGS);
   const [searchTerm, setSearchTerm] = useState('');
   
+  const { navigate } = useApp();
+
   const getTabLabel = (t) => {
     if (t === 'features') return 'User Features';
     if (t === 'menus') return 'User Menus';
@@ -173,7 +176,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
         </div>
 
         {/* Page Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
           <div>
             <h1 className="custom-page-heading">User App Management - {activeTab}</h1>
             <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0 }}>Configure consumer application layouts, enable features, and schedule playstore forced updates.</p>
@@ -200,70 +203,9 @@ export default function UserAppPage({ defaultTab = 'config' }) {
           </div>
         </div>
 
-        {/* Statistics Cards */}
-        <div className="custom-kpi-card-container">
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Database size={20} strokeWidth={2.5} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Configurations</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text)', margin: '2px 0 0 0' }}>{totalKeys} Keys</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#d1fae5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <CheckCircle2 size={20} strokeWidth={2.5} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active/Propagated</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#059669', margin: '2px 0 0 0' }}>{activeKeys} Active</h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#fef3c7', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Layers size={20} strokeWidth={2.5} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Sidebar Nodes</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#d97706', margin: '2px 0 0 0' }}>{menuToggles} </h2>
-            </div>
-          </div>
-          <div className="custom-kpi-card">
-            <div style={{ padding: '10px', borderRadius: '10px', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Smartphone size={20} strokeWidth={2.5} />
-            </div>
-            <div>
-              <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Target Release</span>
-              <h2 style={{ fontSize: '20px', fontWeight: '900', color: 'var(--text)', margin: '2px 0 0 0' }}>v4.2.0</h2>
-            </div>
-          </div>
-        </div>
-
-        {/* Tab Filters */}
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1.5px solid #25108f', paddingBottom: '1px' }}>
-          {['User Configuration', 'User Features', 'User Menus', 'App Version'].map(tab => (
-            <button
-              key={tab}
-              onClick={() => { setActiveTab(tab); setCurrentPage(1); }}
-              style={{
-                padding: '12px 20px',
-                border: 'none',
-                background: 'none',
-                fontSize: '13px',
-                fontWeight: '700',
-                color: activeTab === tab ? '#2A2454' : '#64748b',
-                borderBottom: activeTab === tab ? '2px solid #2A2454' : '2px solid transparent',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
+        
         {/* Tab Specific Content */}
+        
         {activeTab === 'User Configuration' && (
           <>
             {/* Search */}
