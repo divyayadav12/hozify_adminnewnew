@@ -13,6 +13,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const mockBookings = [
   {
     id: 'BOK-2023-089',
@@ -187,7 +189,7 @@ export default function NewMaterialRequest() {
                 Department
               </label>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
                   style={{
@@ -204,11 +206,16 @@ export default function NewMaterialRequest() {
                     fontWeight: '600'
                   }}
                   aria-label="Select department"
-                >
-                  <option value="Infrastructure & Civil">Infrastructure & Civil</option>
-                  <option value="Maintenance & Ops">Maintenance & Ops</option>
-                  <option value="Logistics & Fleet">Logistics & Fleet</option>
-                </select>
+                  options={[{
+                    label: "Infrastructure & Civil",
+                    value: "Infrastructure & Civil"
+                  }, {
+                    label: "Maintenance & Ops",
+                    value: "Maintenance & Ops"
+                  }, {
+                    label: "Logistics & Fleet",
+                    value: "Logistics & Fleet"
+                  }]} />
                 <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#7a7688' }}>
                   <ChevronDown size={14} />
                 </div>

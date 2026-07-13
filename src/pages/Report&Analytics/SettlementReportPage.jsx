@@ -216,7 +216,8 @@ export default function SettlementReport() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="bg-[#f8fafd] text-gray-400 uppercase text-[10px] font-bold tracking-wider border-b border-gray-200">
                   <th className="p-4 pl-6 font-semibold">Settlement ID</th>
@@ -251,6 +252,7 @@ export default function SettlementReport() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
 
           <div className="flex justify-between items-center px-6 py-4 border-t border-gray-100 text-xs text-gray-400 font-medium">

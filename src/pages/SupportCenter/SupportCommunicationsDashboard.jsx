@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SupportCommunicationsDashboard({ activeTab = 'Support Center' }) {
   const [selectedChannel, setSelectedChannel] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -357,7 +359,8 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
 
             {/* Activities Table */}
             <div style={{ overflowX: 'auto', flex: 1 }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f', color: 'var(--muted)' }}>
                     <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10px' }}>CHANNEL</th>
@@ -425,7 +428,8 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                     })
                   )}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
 
             {/* Pagination Footer */}
@@ -483,7 +487,6 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
         </div>
 
       </div>
-
       {/* Broadcast Message Modal Overlay */}
       {showBroadcastModal && (
         <div style={{
@@ -528,16 +531,23 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
                 <label style={{ fontSize: '11.5px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>
                   Target Delivery Channel
                 </label>
-                <select
+                <Select
                   value={broadcastChannel}
                   onChange={(e) => setBroadcastChannel(e.target.value)}
                   style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
-                >
-                  <option>Email</option>
-                  <option>SMS</option>
-                  <option>WhatsApp</option>
-                  <option>In-App</option>
-                </select>
+                  options={[{
+                    label: "Email",
+                    value: "Email"
+                  }, {
+                    label: "SMS",
+                    value: "SMS"
+                  }, {
+                    label: "WhatsApp",
+                    value: "WhatsApp"
+                  }, {
+                    label: "In-App",
+                    value: "In-App"
+                  }]} />
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -601,7 +611,6 @@ export default function SupportCommunicationsDashboard({ activeTab = 'Support Ce
           </div>
         </div>
       )}
-
     </AdminShell>
   );
 }

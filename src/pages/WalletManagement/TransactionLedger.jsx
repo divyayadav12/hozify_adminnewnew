@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { Download, Printer, ArrowUpRight, ArrowDownRight, HelpCircle, Landmark } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 // Mock global database pool array holding ledger objects
 const INITIAL_TRANSACTIONS = [
   { id: "#TXN-882104-B", ownerInitials: "AS", ownerName: "Acme Solutions Corp", credit: 12450.00, debit: 0, balance: 1042550.00, source: "Wire Transfer", reference: "Settlement Payout", status: "COM", date: "2026-06-25" },
@@ -93,7 +95,6 @@ export default function TransactionLedger() {
 
   return (
     <AdminShell activeTab="Transactions" searchPlaceholder="Search ledgers...">
-      
       {/* Background container layout rendering framework setup structure */}
       <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-6 space-y-6 ">
         
@@ -152,33 +153,51 @@ export default function TransactionLedger() {
           {/* Transaction Type Dropdown */}
           <div className="bg-white rounded p-3 border border-slate-200 shadow-xs">
             <label className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Transaction Type</label>
-            <select 
+            <Select
               value={txnType}
               onChange={(e) => setTxnType(e.target.value)}
               className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs text-slate-700 font-bold outline-none focus:border-indigo-500"
-            >
-              <option value="All Types">All Types</option>
-              <option value="Credit Only">Credit Only (+)</option>
-              <option value="Debit Only">Debit Only (-)</option>
-            </select>
+              options={[{
+                label: "All Types",
+                value: "All Types"
+              }, {
+                label: "Credit Only (+)",
+                value: "Credit Only"
+              }, {
+                label: "Debit Only (-)",
+                value: "Debit Only"
+              }]} />
           </div>
 
           {/* Source Channel Dropdown */}
           <div className="bg-white rounded p-3 border border-slate-200 shadow-xs">
             <label className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Source Channel</label>
-            <select 
+            <Select
               value={sourceChannel}
               onChange={(e) => setSourceChannel(e.target.value)}
               className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs text-slate-700 font-bold outline-none focus:border-indigo-500"
-            >
-              <option value="All Sources">All Sources</option>
-              <option value="Wire Transfer">Wire Transfer</option>
-              <option value="ACH Batch">ACH Batch</option>
-              <option value="Swift Payment">Swift Payment</option>
-              <option value="Card Chargeback">Card Chargeback</option>
-              <option value="Internal Transfer">Internal Transfer</option>
-              <option value="Gateway Credit">Gateway Credit</option>
-            </select>
+              options={[{
+                label: "All Sources",
+                value: "All Sources"
+              }, {
+                label: "Wire Transfer",
+                value: "Wire Transfer"
+              }, {
+                label: "ACH Batch",
+                value: "ACH Batch"
+              }, {
+                label: "Swift Payment",
+                value: "Swift Payment"
+              }, {
+                label: "Card Chargeback",
+                value: "Card Chargeback"
+              }, {
+                label: "Internal Transfer",
+                value: "Internal Transfer"
+              }, {
+                label: "Gateway Credit",
+                value: "Gateway Credit"
+              }]} />
           </div>
 
           {/* Core Apply Action Button */}
@@ -193,7 +212,8 @@ export default function TransactionLedger() {
         {/* ================= MAIN TRANSACTION LEDGER TABLE ================= */}
         <div className="bg-white rounded text-slate-800 border border-slate-200 overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left text-xs border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase tracking-wider text-slate-500">
                   <th className="px-5 py-4">Transaction ID</th>
@@ -246,7 +266,8 @@ export default function TransactionLedger() {
                 )}
 
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Table Control Pagination Footer Block */}

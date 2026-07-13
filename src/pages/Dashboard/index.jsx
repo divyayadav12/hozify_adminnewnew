@@ -46,6 +46,8 @@ import PendingKyc from '../../features/dashboard/PendingKyc';
 import PartnerGrowth from '../../features/dashboard/PartnerGrowth';
 import RecentBookings from '../../features/dashboard/RecentBookings';
 
+import Select from "../../components/ui/Select";
+
 const originalKpis = [
   { title: 'Total Users', value: '128,402', trend: '+8.2%', icon: Users, positive: true },
   { title: 'Total Partners', value: '4,810', trend: '+12.4%', icon: Gift, positive: true },
@@ -532,7 +534,8 @@ export default function Dashboard() {
                 </div>
 
                 <div style={{ overflowX: 'auto' }}>
-                  <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                  <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
                       <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                         <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>ID</th>
@@ -637,7 +640,8 @@ export default function Dashboard() {
                         </tr>
                       ))}
                     </tbody>
-                  </table></div>
+                  </table>
+</div>
                 </div>
               </div>
             </div>
@@ -749,7 +753,6 @@ export default function Dashboard() {
     // Procurement View (Screen 1)
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', position: 'relative' }}>
-        
         {/* 4 Stats Cards Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
           {/* Card 1: TOTAL REQUESTS */}
@@ -928,7 +931,6 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
         {/* Main Content Layout Block: Left Column & Right Sidebar */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
           {/* Left Column */}
@@ -939,16 +941,21 @@ export default function Dashboard() {
                   Material Cost Trend (Quarterly)
                 </h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fcfaff' }}>
-                  <select
+                  <Select
                     value={preset === 'Current Year' ? 'Current Year' : 'Last Quarter'}
                     onChange={(e) => {}}
                     style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer', color: '#565365' }}
                     aria-label="Select timeframe"
-                  >
-                    <option value="Current Year">Current Year</option>
-                    <option value="Last Quarter">Last Quarter</option>
-                    <option value="Previous Year">Previous Year</option>
-                  </select>
+                    options={[{
+                      label: "Current Year",
+                      value: "Current Year"
+                    }, {
+                      label: "Last Quarter",
+                      value: "Last Quarter"
+                    }, {
+                      label: "Previous Year",
+                      value: "Previous Year"
+                    }]} />
                 </div>
               </div>
 
@@ -997,7 +1004,8 @@ export default function Dashboard() {
               </h2>
 
               <div style={{ overflowX: 'auto' }}>
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '550px' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '550px' }}>
                   <thead>
                     <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>SUPPLIER</th>
@@ -1031,7 +1039,8 @@ export default function Dashboard() {
                       </tr>
                     ))}
                   </tbody>
-                </table></div>
+                </table>
+</div>
               </div>
             </div>
           </div>
@@ -1117,7 +1126,6 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
         {/* Floating Toast Notification */}
         {showToast && (
           <div style={{ position: 'fixed', bottom: '24px', right: '24px', background: '#ffffff', boxShadow: '0 10px 25px rgba(0,0,0,0.15)', borderRadius: '8px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px', borderLeft: '4px solid #10b981', zIndex: 9999, animation: 'slideIn 0.3s ease-out' }}>

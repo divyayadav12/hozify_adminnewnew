@@ -248,7 +248,8 @@ export default function SmsGatewayManagement() {
             </div>
           </div>
 
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
                 <th style={{ padding: '0 0 12px', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Timestamp</th>
@@ -293,7 +294,8 @@ export default function SmsGatewayManagement() {
                 <td style={{ padding: '16px 0', fontSize: '12px', color: 'var(--muted)' }}>180ms</td>
               </tr>
             </tbody>
-          </table></div>
+          </table>
+</div>
         </div>
 
       </div>

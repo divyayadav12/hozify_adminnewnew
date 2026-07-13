@@ -128,7 +128,8 @@ export default function CommissionSettings() {
               </div>
 
               <div style={{ border: '1px solid #e2e8f0', borderRadius: '6px', overflow: 'hidden' }}>
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead>
                     <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                       <th style={{ padding: '16px', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Category Name</th>
@@ -179,7 +180,8 @@ export default function CommissionSettings() {
                       </td>
                     </tr>
                   </tbody>
-                </table></div>
+                </table>
+</div>
                 <div style={{ padding: '16px', textAlign: 'center', borderTop: '1px solid #e2e8f0', background: '#fafafa' }}>
                   <a href="#" style={{ fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textDecoration: 'none' }}>View All 42 Categories</a>
                 </div>

@@ -233,7 +233,8 @@ export default function MenuMgmtPage({ defaultTab }) {
             {/* Responsive Table */}
             <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                   <thead>
                     <tr className="custom-table-header">
                       <th style={{ padding: '16px 24px' }}>SIDEBAR ORDER</th>
@@ -282,6 +283,7 @@ export default function MenuMgmtPage({ defaultTab }) {
                     )}
                   </tbody>
                 </table>
+</div>
               </div>
 
               {/* Pagination */}
@@ -365,7 +367,8 @@ export default function MenuMgmtPage({ defaultTab }) {
               <span style={{ fontSize: '14px', fontWeight: '800', color: '#1e1b4b' }}>Allowed Roles Access Matrix</span>
             </div>
             <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                 <thead>
                   <tr className="custom-table-header">
                     <th style={{ padding: '16px 24px' }}>MENU NODE</th>
@@ -398,6 +401,7 @@ export default function MenuMgmtPage({ defaultTab }) {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
         )}

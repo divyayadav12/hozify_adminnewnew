@@ -22,6 +22,8 @@ import {
   CheckCircle
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 // Mock Data Source for Dynamic State
 const INITIAL_TEMPLATES = [
   { id: 1, title: "Welcome Onboard", channel: "email", status: "APPROVED", desc: "First interaction email sent to new users...", time: "2h ago", author: "Admin", internalId: "TMPL_001" },
@@ -320,8 +322,8 @@ export default function NotificationTemplates() {
             </div>
 
             <div className="overflow-x-auto">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-                <table className="w-full border-collapse text-left text-xs min-w-[800px]">
+              <div className="table-responsive-wrapper">
+<table className="w-full border-collapse text-left text-xs min-w-[800px]">
                   <thead>
                     <tr className="bg-slate-200 text-slate-700 font-bold border-b border-slate-300 text-left">
                       <th className="border border-slate-300 bg-slate-300/60 w-8 text-center text-slate-500 text-[10px]"></th>
@@ -397,7 +399,7 @@ export default function NotificationTemplates() {
                     )}
                   </tbody>
                 </table>
-              </div>
+</div>
             </div>
           </div>
         )}
@@ -436,7 +438,6 @@ export default function NotificationTemplates() {
         </div>
 
       </div>
-
       {/* CREATE NEW TEMPLATE MODAL */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center p-4 z-[9999] backdrop-blur-sm">
@@ -461,15 +462,20 @@ export default function NotificationTemplates() {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Channel</label>
-                <select
+                <Select
                   value={newTemplate.channel}
                   onChange={(e) => setNewTemplate({...newTemplate, channel: e.target.value})}
                   className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#251fa3] focus:border-[#251fa3] text-sm bg-white"
-                >
-                  <option value="email">Email</option>
-                  <option value="sms">SMS</option>
-                  <option value="push">Push Notification</option>
-                </select>
+                  options={[{
+                    label: "Email",
+                    value: "email"
+                  }, {
+                    label: "SMS",
+                    value: "sms"
+                  }, {
+                    label: "Push Notification",
+                    value: "push"
+                  }]} />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Description</label>

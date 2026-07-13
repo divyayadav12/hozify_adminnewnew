@@ -341,7 +341,8 @@ export default function PartnerBanking() {
           </div>
 
           <div className="overflow-x-auto w-full">
-            <table className="w-full min-w-[720px] text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full min-w-[720px] text-left border-collapse">
               <thead className="bg-slate-50">
                 <tr className="text-left text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 border-b border-slate-200">
                   <th className="px-6 py-4">Partner</th>
@@ -421,6 +422,7 @@ export default function PartnerBanking() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

@@ -152,7 +152,8 @@ export default function CoverageMapping() {
           </div>
 
           <div className="table-wrap">
-            <table className="partner-table">
+            <div className="table-responsive-wrapper">
+<table className="partner-table">
               <thead>
                 <tr>
                   <th>REGION ID</th>
@@ -202,6 +203,7 @@ export default function CoverageMapping() {
                 ))}
               </tbody>
             </table>
+</div>
 
             {filteredRegions.length === 0 && (
               <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>

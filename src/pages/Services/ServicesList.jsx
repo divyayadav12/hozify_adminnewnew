@@ -10,6 +10,8 @@ import {
   Plus
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 const initialServices = [
   {
     id: '#SRV-9821',
@@ -81,7 +83,6 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
-      
       {/* KPI Stats widgets */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
         
@@ -123,7 +124,6 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
           </span>
         </div>
       </div>
-
       {/* Main Filter Section */}
       <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         
@@ -139,28 +139,44 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
             />
           </div>
 
-          <select 
+          <Select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             style={{ height: '42px', padding: '0 16px', borderRadius: '8px', border: '1.5px solid #25108f', fontSize: '13px', background: '#f8fafc', fontWeight: '600', color: 'var(--text)', outline: 'none', minWidth: '180px' }}
-          >
-            <option>All Categories</option>
-            <option>Engineering & Facilities</option>
-            <option>IT & Cybersecurity</option>
-            <option>Cleaning Services</option>
-            <option>Consulting</option>
-          </select>
+            options={[{
+              label: "All Categories",
+              value: "All Categories"
+            }, {
+              label: "Engineering & Facilities",
+              value: "Engineering & Facilities"
+            }, {
+              label: "IT & Cybersecurity",
+              value: "IT & Cybersecurity"
+            }, {
+              label: "Cleaning Services",
+              value: "Cleaning Services"
+            }, {
+              label: "Consulting",
+              value: "Consulting"
+            }]} />
 
-          <select 
+          <Select
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
             style={{ height: '42px', padding: '0 16px', borderRadius: '8px', border: '1.5px solid #25108f', fontSize: '13px', background: '#f8fafc', fontWeight: '600', color: 'var(--text)', outline: 'none', minWidth: '160px' }}
-          >
-            <option>All Locations</option>
-            <option>New York</option>
-            <option>London</option>
-            <option>Singapore</option>
-          </select>
+            options={[{
+              label: "All Locations",
+              value: "All Locations"
+            }, {
+              label: "New York",
+              value: "New York"
+            }, {
+              label: "London",
+              value: "London"
+            }, {
+              label: "Singapore",
+              value: "Singapore"
+            }]} />
 
         </div>
 
@@ -241,12 +257,11 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
 
         </div>
       </div>
-
       {/* Services Table Card */}
       <div className="panel user-detail-table-panel">
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-            <table className="user-management-inner-table user-detail-wide-table" style={{ width: '100%', minWidth: '900px', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="table-responsive-wrapper">
+<table className="user-management-inner-table user-detail-wide-table" style={{ width: '100%', minWidth: '900px', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service ID</th>
@@ -385,7 +400,8 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
                 </tr>
               ))}
             </tbody>
-          </table></div>
+          </table>
+</div>
         </div>
 
         {/* Bottom table actions & pagination */}
@@ -436,7 +452,6 @@ export default function ServicesList({ onAddService, onViewProfile, onViewApprov
           </div>
         </div>
       </div>
-
     </div>
   );
 }

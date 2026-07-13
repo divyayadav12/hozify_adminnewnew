@@ -12,6 +12,8 @@ import {
   Award 
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function EmployeeRevenue() {
   // --- Core States for Interactivity ---
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
@@ -119,32 +121,50 @@ export default function EmployeeRevenue() {
                 <div className="absolute top-full right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-lg p-4 min-w-[220px] z-50 space-y-3">
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Department</label>
-                    <select 
+                    <Select
                       value={selectedDept}
                       onChange={(e) => setSelectedDept(e.target.value)}
                       className="mt-1 w-full bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-xs font-semibold text-slate-700 focus:outline-none"
-                    >
-                      <option value="All">All Departments</option>
-                      <option value="Enterprise Sales">Enterprise Sales</option>
-                      <option value="Technical Fulfillment">Technical Fulfillment</option>
-                      <option value="Logistics">Logistics</option>
-                      <option value="Retail Banking">Retail Banking</option>
-                    </select>
+                      options={[{
+                        label: "All Departments",
+                        value: "All"
+                      }, {
+                        label: "Enterprise Sales",
+                        value: "Enterprise Sales"
+                      }, {
+                        label: "Technical Fulfillment",
+                        value: "Technical Fulfillment"
+                      }, {
+                        label: "Logistics",
+                        value: "Logistics"
+                      }, {
+                        label: "Retail Banking",
+                        value: "Retail Banking"
+                      }]} />
                   </div>
 
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Tier</label>
-                    <select 
+                    <Select
                       value={selectedStatusFilter}
                       onChange={(e) => setSelectedStatusFilter(e.target.value)}
                       className="mt-1 w-full bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-xs font-semibold text-slate-700 focus:outline-none"
-                    >
-                      <option value="All">All Status Tiers</option>
-                      <option value="ELITE TIER">Elite Tier</option>
-                      <option value="HIGH PERFORMER">High Performer</option>
-                      <option value="TARGET MET">Target Met</option>
-                      <option value="IMPROVING">Improving</option>
-                    </select>
+                      options={[{
+                        label: "All Status Tiers",
+                        value: "All"
+                      }, {
+                        label: "Elite Tier",
+                        value: "ELITE TIER"
+                      }, {
+                        label: "High Performer",
+                        value: "HIGH PERFORMER"
+                      }, {
+                        label: "Target Met",
+                        value: "TARGET MET"
+                      }, {
+                        label: "Improving",
+                        value: "IMPROVING"
+                      }]} />
                   </div>
                 </div>
               )}
@@ -212,7 +232,8 @@ export default function EmployeeRevenue() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/70 border-b border-slate-200 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   <th className="px-6 py-3.5 w-24">ID</th>
@@ -277,6 +298,7 @@ export default function EmployeeRevenue() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           <div className="flex items-center justify-between px-6 py-4 border-t border-slate-100 bg-white text-[11px] font-bold text-slate-400">
@@ -362,7 +384,6 @@ export default function EmployeeRevenue() {
 
         {/* =================================== */}
       </div>
-
       {/* FORECAST MODAL */}
       {showForecastModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm" onClick={() => setShowForecastModal(false)}>
@@ -397,7 +418,6 @@ export default function EmployeeRevenue() {
           </div>
         </div>
       )}
-
       {/* CRITERIA MODAL */}
       {showCriteriaModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm" onClick={() => setShowCriteriaModal(false)}>

@@ -4,6 +4,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_KYC = [
   { id: 'KYC-501', employee: 'John Doe', aadhaar: 'VERIFIED', pan: 'VERIFIED', bank: 'VERIFIED', date: 'Sep 10, 2025', status: 'APPROVED' },
   { id: 'KYC-502', employee: 'Alice Smith', aadhaar: 'VERIFIED', pan: 'PENDING', bank: 'PENDING', date: 'Oct 05, 2026', status: 'PENDING' },
@@ -40,7 +42,6 @@ export default function EmployeeKyc() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
-      
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         <div 
@@ -107,7 +108,6 @@ export default function EmployeeKyc() {
           </div>
         </div>
       </div>
-
       <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
         <div style={{ display: 'flex', justifycontent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>KYC Applications</h3>
@@ -121,22 +121,30 @@ export default function EmployeeKyc() {
                 style={{ fontSize: '12px', border: 'none', background: 'transparent', outline: 'none', paddingLeft: '8px', flex: 1 }}
               />
             </div>
-            <select 
-              className="dash-select" 
-              value={statusFilter} 
+            <Select
+              className="dash-select"
+              value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
-            >
-              <option value="All">All Statuses</option>
-              <option value="APPROVED">Approved</option>
-              <option value="PENDING">Pending</option>
-              <option value="REJECTED">Rejected</option>
-            </select>
+              options={[{
+                label: "All Statuses",
+                value: "All"
+              }, {
+                label: "Approved",
+                value: "APPROVED"
+              }, {
+                label: "Pending",
+                value: "PENDING"
+              }, {
+                label: "Rejected",
+                value: "REJECTED"
+              }]} />
           </div>
         </div>
 
         <div className="table-wrap" style={{ overflowX: 'auto' }}>
-          <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '900px' }}>
+          <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '900px' }}>
             <thead>
               <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee</th>
@@ -179,9 +187,9 @@ export default function EmployeeKyc() {
                 )}
             </tbody>
           </table>
+</div>
         </div>
       </div>
-
       {/* KYC Review Drawer */}
       {previewKyc && (
         <>
@@ -274,7 +282,6 @@ export default function EmployeeKyc() {
           </div>
         </>
       )}
-
     </div>
   );
 }

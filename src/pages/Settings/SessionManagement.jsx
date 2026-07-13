@@ -7,6 +7,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import toast from 'react-hot-toast';
 import Toggle from '../../components/common/Toggle';
 
+import Select from "../../components/ui/Select";
+
 export default function SessionManagement() {
   return (
     <AdminShell
@@ -96,11 +98,18 @@ export default function SessionManagement() {
 
               <div style={{ marginBottom: '32px' }}>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '8px' }}>Concurrent Login Limits</label>
-                <select style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '14px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', background: '#fff', cursor: 'pointer', appearance: 'none' }}>
-                  <option>3 Devices</option>
-                  <option>5 Devices</option>
-                  <option>Unlimited</option>
-                </select>
+                <Select
+                  style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '14px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', background: '#fff', cursor: 'pointer', appearance: 'none' }}
+                  options={[{
+                    label: "3 Devices",
+                    value: "3 Devices"
+                  }, {
+                    label: "5 Devices",
+                    value: "5 Devices"
+                  }, {
+                    label: "Unlimited",
+                    value: "Unlimited"
+                  }]} />
                 {/* Custom dropdown arrow to simulate appearance */}
                 <div style={{ position: 'relative', marginTop: '-26px', right: '-90%', pointerEvents: 'none' }}>
                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -137,7 +146,8 @@ export default function SessionManagement() {
             </div>
           </div>
 
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                 <th style={{ padding: '12px 24px', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', width: '35%' }}>USER IDENTITY</th>
@@ -232,7 +242,8 @@ export default function SessionManagement() {
                 </td>
               </tr>
             </tbody>
-          </table></div>
+          </table>
+</div>
           <div style={{ padding: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
             <button onClick={(e) => { e.preventDefault(); toast.success("Action performed successfully!"); }} style={{ background: 'none', border: 'none', fontSize: '11px', fontWeight: '800', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
               View all sessions <ArrowRight size={14} />

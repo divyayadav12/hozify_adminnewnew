@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function InAppNotifications({ activeTab = 'Notification Center' }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showNewTriggerModal, setShowNewTriggerModal] = useState(false);
@@ -254,7 +256,8 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', width: '40px' }}>
@@ -327,7 +330,8 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
@@ -428,7 +432,6 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
         </div>
 
       </div>
-
       {/* Create New Trigger Dialog */}
       {showNewTriggerModal && (
         <div style={{
@@ -503,7 +506,7 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '750', color: 'var(--text)', marginBottom: '6px' }}>Trigger Type</label>
-                  <select
+                  <Select
                     value={newTrigger.type}
                     onChange={(e) => setNewTrigger({ ...newTrigger, type: e.target.value })}
                     style={{
@@ -515,17 +518,24 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                       fontSize: '13px',
                       background: '#fff'
                     }}
-                  >
-                    <option value="Critical Alert">Critical Alert</option>
-                    <option value="System Info">System Info</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Urgent">Urgent</option>
-                  </select>
+                    options={[{
+                      label: "Critical Alert",
+                      value: "Critical Alert"
+                    }, {
+                      label: "System Info",
+                      value: "System Info"
+                    }, {
+                      label: "Marketing",
+                      value: "Marketing"
+                    }, {
+                      label: "Urgent",
+                      value: "Urgent"
+                    }]} />
                 </div>
 
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '750', color: 'var(--text)', marginBottom: '6px' }}>Audience Segment</label>
-                  <select
+                  <Select
                     value={newTrigger.segment}
                     onChange={(e) => setNewTrigger({ ...newTrigger, segment: e.target.value })}
                     style={{
@@ -537,12 +547,19 @@ export default function InAppNotifications({ activeTab = 'Notification Center' }
                       fontSize: '13px',
                       background: '#fff'
                     }}
-                  >
-                    <option value="All Users">All Users</option>
-                    <option value="C-Suite Executive">C-Suite Executive</option>
-                    <option value="System Admins">System Admins</option>
-                    <option value="Standard Users">Standard Users</option>
-                  </select>
+                    options={[{
+                      label: "All Users",
+                      value: "All Users"
+                    }, {
+                      label: "C-Suite Executive",
+                      value: "C-Suite Executive"
+                    }, {
+                      label: "System Admins",
+                      value: "System Admins"
+                    }, {
+                      label: "Standard Users",
+                      value: "Standard Users"
+                    }]} />
                 </div>
               </div>
 

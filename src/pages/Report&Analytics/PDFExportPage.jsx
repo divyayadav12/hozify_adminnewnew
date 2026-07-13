@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 
+import Select from "../../components/ui/Select";
+
 export default function PDFExportPage() {
   const [isCompiling, setIsCompiling] = useState(false);
   const [reportName, setReportName] = useState("Enterprise_Intelligence_Snapshot_v1");
@@ -69,17 +71,27 @@ export default function PDFExportPage() {
                 </div>
                 <div>
                   <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2">Target Timeline Filter</label>
-                  <select className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-[#1d0094] font-bold bg-white text-slate-700">
-                    <option>Last 30 Days (Standard)</option>
-                    <option>Current Quarter (Q3)</option>
-                  </select>
+                  <Select
+                    className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-[#1d0094] font-bold bg-white text-slate-700"
+                    options={[{
+                      label: "Last 30 Days (Standard)",
+                      value: "Last 30 Days (Standard)"
+                    }, {
+                      label: "Current Quarter (Q3)",
+                      value: "Current Quarter (Q3)"
+                    }]} />
                 </div>
                 <div>
                   <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2">Page Structure Format</label>
-                  <select className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-[#1d0094] font-bold bg-white text-slate-700">
-                    <option>Portrait (Standard Corporate)</option>
-                    <option>Landscape (Data-heavy Tables)</option>
-                  </select>
+                  <Select
+                    className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-[#1d0094] font-bold bg-white text-slate-700"
+                    options={[{
+                      label: "Portrait (Standard Corporate)",
+                      value: "Portrait (Standard Corporate)"
+                    }, {
+                      label: "Landscape (Data-heavy Tables)",
+                      value: "Landscape (Data-heavy Tables)"
+                    }]} />
                 </div>
               </div>
             </div>

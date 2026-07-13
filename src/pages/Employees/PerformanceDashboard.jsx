@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { TrendingUp, Users, Star, Award, BarChart3, ArrowUpRight, HelpCircle, ShieldAlert } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const topPerformers = [
   { name: 'Alex Murphy', revenue: '$12,450', score: '98%', status: 'PROMOTED', statusBg: '#e0e7ff', statusColor: '#4f46e5', initials: 'AM', bg: '#e0e7ff', color: '#4f46e5' },
   { name: 'Elena Wright', revenue: '$11,920', score: '96%', status: 'ELITE', statusBg: '#ecfdf5', statusColor: '#10b981', initials: 'EW', bg: '#ecfdf5', color: '#10b981' },
@@ -27,7 +29,6 @@ export default function PerformanceDashboard() {
           <p className="page-subtitle">Track operational efficiency and individual performance scores.</p>
         </div>
       </div>
-
       {/* KPI Cards Row */}
       <section className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         
@@ -84,7 +85,6 @@ export default function PerformanceDashboard() {
         </div>
 
       </section>
-
       {/* Middle Row Grid */}
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
@@ -96,16 +96,21 @@ export default function PerformanceDashboard() {
               <p style={{ margin: '2px 0 0', color: 'var(--muted)', fontSize: '12px' }}>Operational metrics for target periods</p>
             </div>
             <div style={{ display: 'flex', gap: '12px' }}>
-              <select
+              <Select
                 value={trendRange}
                 onChange={(e) => setTrendRange(e.target.value)}
                 style={{ border: '1.5px solid #25108f', borderRadius: '6px', padding: '4px 8px', fontWeight: '700', fontSize: '12px', background: '#fff', outline: 'none', cursor: 'pointer' }}
                 aria-label="Select trend range"
-              >
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Quarterly">Quarterly</option>
-              </select>
+                options={[{
+                  label: "Weekly",
+                  value: "Weekly"
+                }, {
+                  label: "Monthly",
+                  value: "Monthly"
+                }, {
+                  label: "Quarterly",
+                  value: "Quarterly"
+                }]} />
             </div>
           </div>
 
@@ -153,7 +158,6 @@ export default function PerformanceDashboard() {
         </div>
 
       </div>
-
       {/* Bottom Grid: Performers & Improvements */}
       <div className="fraud-top-grid" style={{ gap: '20px' }}>
         
@@ -207,7 +211,6 @@ export default function PerformanceDashboard() {
         </div>
 
       </div>
-
     </div>
   );
 }

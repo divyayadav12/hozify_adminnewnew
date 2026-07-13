@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SupportFinancialResolutions({ activeTab = 'Support Center' }) {
   const [activeSubTab, setActiveSubTab] = useState('Resolutions');
   const [selectedTicket, setSelectedTicket] = useState({
@@ -168,7 +170,8 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
               </div>
 
               <div style={{ overflowX: 'auto' }}>
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '400px' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '400px' }}>
                   <thead>
                     <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '10px 14px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Ticket ID</th>
@@ -257,7 +260,8 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                       })
                     )}
                   </tbody>
-                </table></div>
+                </table>
+</div>
               </div>
             </div>
 
@@ -273,16 +277,23 @@ export default function SupportFinancialResolutions({ activeTab = 'Support Cente
                   {/* Reason for Compensation dropdown */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <span style={{ fontSize: '11.5px', fontWeight: '800', color: 'var(--muted)' }}>Reason for Compensation</span>
-                    <select
+                    <Select
                       value={selectedTicket.reason}
                       onChange={(e) => setSelectedTicket({ ...selectedTicket, reason: e.target.value })}
                       style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
-                    >
-                      <option value="Subscription Double Billing">Subscription Double Billing</option>
-                      <option value="Invoice Mistake">Invoice Mistake</option>
-                      <option value="Service Delay">Service Delay</option>
-                      <option value="SLA Breach Compensation">SLA Breach Compensation</option>
-                    </select>
+                      options={[{
+                        label: "Subscription Double Billing",
+                        value: "Subscription Double Billing"
+                      }, {
+                        label: "Invoice Mistake",
+                        value: "Invoice Mistake"
+                      }, {
+                        label: "Service Delay",
+                        value: "Service Delay"
+                      }, {
+                        label: "SLA Breach Compensation",
+                        value: "SLA Breach Compensation"
+                      }]} />
                   </div>
 
                   {/* Approval level required */}

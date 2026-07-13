@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
+import DateRangePicker from "../../components/common/DateRangePicker";
+import { format } from "date-fns";
+import { Calendar } from "lucide-react";
 import { Download, Plus, MoreVertical, Sparkles, Target, ShieldAlert } from "lucide-react";
+import Select from "../../components/ui/Select";
 
 const MOCK_REFERRALS = [
   { id: "#REF-88421", initials: "JD", referrer: "Jane Doe", referee: "Michael Smith", campaign: "Summer Growth", date: "2023-10-12", status: "SUCCESSFUL", amount: "$50.00" },
@@ -28,24 +32,25 @@ export default function ReferralListingPage() {
   const { addToast } = useToast();
   const [statusFilter, setStatusFilter] = useState("All Statuses");
   const [campaignFilter, setCampaignFilter] = useState("All Campaigns");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [dateRange, setDateRange] = useState(null);
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const [referrals, setReferrals] = useState(MOCK_REFERRALS);
 
   const filteredReferrals = referrals.filter((ref) => {
     const matchesStatus = statusFilter === "All Statuses" || ref.status === statusFilter;
     const matchesCampaign = campaignFilter === "All Campaigns" || ref.campaign === campaignFilter;
-    const matchesStartDate = !startDate || ref.date >= startDate;
-    const matchesEndDate = !endDate || ref.date <= endDate;
+    const startStr = dateRange?.startDate ? format(dateRange.startDate, 'yyyy-MM-dd') : "";
+    const endStr = dateRange?.endDate ? format(dateRange.endDate, 'yyyy-MM-dd') : "";
+
+    const matchesStartDate = !startStr || ref.date >= startStr;
+    const matchesEndDate = !endStr || ref.date <= endStr;
     return matchesStatus && matchesCampaign && matchesStartDate && matchesEndDate;
   });
 
   const handleClearFilters = () => {
     setStatusFilter("All Statuses");
     setCampaignFilter("All Campaigns");
-    setStartDate("");
-    setEndDate("");
+    setDateRange(null);
   };
 
   return (
@@ -166,41 +171,66 @@ export default function ReferralListingPage() {
         {/* FILTERS */}
         <div className="bg-white border border-slate-300 rounded-2xl p-4 mb-5 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-            <select 
+            <Select 
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold bg-white outline-none cursor-pointer"
-            >
-              <option value="All Statuses">All Statuses</option>
-              <option value="SUCCESSFUL">Successful</option>
-              <option value="PENDING">Pending</option>
-              <option value="REJECTED">Rejected</option>
-            </select>
-
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold outline-none"
+              options={[
+                { value: "All Statuses", label: "All Statuses" },
+                { value: "SUCCESSFUL", label: "Successful" },
+                { value: "PENDING", label: "Pending" },
+                { value: "REJECTED", label: "Rejected" }
+              ]}
+              className="w-full h-[40px]"
             />
 
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold outline-none"
-            />
+            <div className="md:col-span-2 xl:col-span-2">
+              <DateRangePicker 
+                value={dateRange}
+                onChange={(range) => setDateRange(range)}
+                className="w-full"
+                compact={true}
+                buttonContent={(label) => (
+                  <button
+                    type="button"
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      height: '40px',
+                      padding: '0 14px',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      color: '#334155',
+                      backgroundColor: '#fff',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      boxShadow: '0 1px 2px rgba(15, 23, 42, 0.05)',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#94a3b8'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#cbd5e1'; }}
+                  >
+                    <Calendar size={16} color="#64748b" />
+                    <span>{dateRange ? label : 'Select Date Range'}</span>
+                  </button>
+                )}
+              />
+            </div>
 
-            <select 
+            <Select 
               value={campaignFilter}
               onChange={(e) => setCampaignFilter(e.target.value)}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold bg-white outline-none cursor-pointer"
-            >
-              <option value="All Campaigns">All Campaigns</option>
-              <option value="Summer Growth">Summer Growth</option>
-              <option value="Q3 Loyalty">Q3 Loyalty</option>
-              <option value="Influencer Tier 1">Influencer Tier 1</option>
-            </select>
+              options={[
+                { value: "All Campaigns", label: "All Campaigns" },
+                { value: "Summer Growth", label: "Summer Growth" },
+                { value: "Q3 Loyalty", label: "Q3 Loyalty" },
+                { value: "Influencer Tier 1", label: "Influencer Tier 1" }
+              ]}
+              className="w-full h-[40px]"
+            />
 
             <button 
               onClick={handleClearFilters}

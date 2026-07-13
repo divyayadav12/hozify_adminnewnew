@@ -10,6 +10,8 @@ import { useApp } from '../../hooks/useApp';
 import AdminShell from '../../components/layouts/AdminShell';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_LOGS = [
   { id: 'LOG-99201', user: 'Admin (System)', action: 'Firewall Policy Update', module: 'Security', severity: 'CRITICAL', time: '10 mins ago', ip: '192.168.1.1', status: 'SUCCESS', statusBg: '#ecfdf5', statusColor: '#059669' },
   { id: 'LOG-99200', user: 'Sarah Jenkins', action: 'Failed Login Attempt', module: 'Auth', severity: 'HIGH', time: '15 mins ago', ip: '45.22.11.90', status: 'FAILED', statusBg: '#fee2e2', statusColor: '#ef4444' },
@@ -362,36 +364,59 @@ export default function BranchAuditLogs() {
                 />
               </div>
               
-              <select 
+              <Select
                 value={severityFilter}
                 onChange={(e) => setSeverityFilter(e.target.value)}
                 style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
-              >
-                <option value="">All Severities</option>
-                <option value="CRITICAL">Critical</option>
-                <option value="HIGH">High</option>
-                <option value="MEDIUM">Medium</option>
-                <option value="LOW">Low</option>
-              </select>
+                options={[{
+                  label: "All Severities",
+                  value: ""
+                }, {
+                  label: "Critical",
+                  value: "CRITICAL"
+                }, {
+                  label: "High",
+                  value: "HIGH"
+                }, {
+                  label: "Medium",
+                  value: "MEDIUM"
+                }, {
+                  label: "Low",
+                  value: "LOW"
+                }]} />
 
-              <select 
+              <Select
                 value={moduleFilter}
                 onChange={(e) => setModuleFilter(e.target.value)}
                 style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
-              >
-                <option value="">All Modules</option>
-                <option value="Auth">Auth</option>
-                <option value="System">System</option>
-                <option value="Security">Security</option>
-                <option value="Users">Users</option>
-                <option value="Developer">Developer</option>
-                <option value="Reports">Reports</option>
-              </select>
+                options={[{
+                  label: "All Modules",
+                  value: ""
+                }, {
+                  label: "Auth",
+                  value: "Auth"
+                }, {
+                  label: "System",
+                  value: "System"
+                }, {
+                  label: "Security",
+                  value: "Security"
+                }, {
+                  label: "Users",
+                  value: "Users"
+                }, {
+                  label: "Developer",
+                  value: "Developer"
+                }, {
+                  label: "Reports",
+                  value: "Reports"
+                }]} />
             </div>
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
                   <th style={{ width: '10%' }}>LOG ID</th>
@@ -448,7 +473,8 @@ export default function BranchAuditLogs() {
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
 
             {filteredLogs.length === 0 && (
               <div style={{ padding: '30px', textAlign: 'center', color: '#6b7280', fontSize: '12px', background: '#fff', border: '1px solid #d1d5db', borderTop: 'none' }}>

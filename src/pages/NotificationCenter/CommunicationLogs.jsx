@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function CommunicationLogs({ activeTab = 'Notification Center' }) {
   const [timeframe, setTimeframe] = useState('Last 24 Hours');
   const [channelFilter, setChannelFilter] = useState('All');
@@ -175,16 +177,21 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
                 <Clock size={14} style={{ color: 'var(--muted)' }} />
-                <select
+                <Select
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)}
                   style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '12px', cursor: 'pointer', color: '#565365' }}
                   aria-label="Filter timeframe log history"
-                >
-                  <option value="Last 24 Hours">Last 24 Hours</option>
-                  <option value="Last 7 Days">Last 7 Days</option>
-                  <option value="Last 30 Days">Last 30 Days</option>
-                </select>
+                  options={[{
+                    label: "Last 24 Hours",
+                    value: "Last 24 Hours"
+                  }, {
+                    label: "Last 7 Days",
+                    value: "Last 7 Days"
+                  }, {
+                    label: "Last 30 Days",
+                    value: "Last 30 Days"
+                  }]} />
               </div>
 
               <button
@@ -298,7 +305,8 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
 
             {/* Table Container */}
             <div style={{ overflowX: 'auto', flex: 1 }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '600px' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '600px' }}>
                 <thead>
                   <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Timestamp</th>
@@ -384,7 +392,8 @@ export default function CommunicationLogs({ activeTab = 'Notification Center' })
                     })
                   )}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
 
             {/* Pagination footer */}

@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { useApp } from '../../hooks/useApp';
 
+import Select from "../../components/ui/Select";
+
 const initialSubCategories = [
   { id: 'SCAT-01', name: 'Home Cleaning', parent: 'Cleaning Services', serviceCount: 15, status: 'ACTIVE', statusBg: '#ecfdf5', statusColor: '#059669', date: '2023-10-15', icon: '🧹' },
   { id: 'SCAT-02', name: 'Plumbing Repair', parent: 'Maintenance', serviceCount: 8, status: 'ACTIVE', statusBg: '#ecfdf5', statusColor: '#059669', date: '2023-10-16', icon: '🔧' },
@@ -127,7 +129,6 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
           background-color: #f8fafc;
         }
       `}</style>
-
       {/* Header section */}
       <div className="partners-page-header" style={{ marginBottom: '24px', alignItems: 'center' }}>
         <div>
@@ -147,7 +148,6 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
           </button>
         </div>
       </div>
-
       {/* KPI Cards */}
       <section className="premium-kpi-grid">
         <div className="premium-kpi-card">
@@ -198,7 +198,6 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
           </div>
         </div>
       </section>
-
       {/* Table Panel */}
       <section className="panel" style={{ padding: '0', overflow: 'hidden', borderRadius: '12px' }}>
         <div style={{ padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #25108f', position: 'relative', zIndex: 20 }}>
@@ -233,8 +232,8 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
         </div>
 
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-            <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead style={{ background: '#f8fafc' }}>
                 <tr>
                   <th style={{ padding: '14px 24px', fontSize: '11px', color: '#64748b', fontWeight: '800', textAlign: 'left' }}>SUB CATEGORY INFO</th>
@@ -306,7 +305,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
                 ))}
               </tbody>
             </table>
-          </div>
+</div>
 
           {filteredSubCategories.length === 0 && (
             <div style={{ padding: '60px', textAlign: 'center' }}>
@@ -330,7 +329,6 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
           </div>
         </div>
       </section>
-
       {/* Action View / Edit Modal Box Dynamic Layer */}
       {activeModal && selectedSubCategory && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(15,23,42,0.35)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
@@ -380,7 +378,7 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', marginBottom: '4px' }}>STATUS</label>
-                  <select
+                  <Select
                     disabled={activeModal === 'view'}
                     value={selectedSubCategory.status}
                     onChange={(e) => {
@@ -390,10 +388,13 @@ export default function ServiceSubCategories({ onAddSubCategory }) {
                       setSelectedSubCategory({ ...selectedSubCategory, status, statusBg, statusColor });
                     }}
                     style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
-                  >
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="INACTIVE">INACTIVE</option>
-                  </select>
+                    options={[{
+                      label: "ACTIVE",
+                      value: "ACTIVE"
+                    }, {
+                      label: "INACTIVE",
+                      value: "INACTIVE"
+                    }]} />
                 </div>
               </div>
             </div>

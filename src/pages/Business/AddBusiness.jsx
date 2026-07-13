@@ -17,6 +17,8 @@ import {
   Eye
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 const STEPS = [
   { num: 1, title: 'Business Info', desc: 'Core identification', icon: Building2 },
   { num: 2, title: 'Owner Info', desc: 'Contact & ownership', icon: User },
@@ -147,24 +149,52 @@ export default function AddBusiness() {
         </div>
         <div>
           <label style={labelStyle}>Entity Type</label>
-          <select style={inputStyle} value={entityType} onChange={e => setEntityType(e.target.value)}>
-            <option value="LLC">LLC (Limited Liability Company)</option>
-            <option value="Corporation">Private Limited Corporation</option>
-            <option value="Partnership">Partnership Firm</option>
-            <option value="Sole">Sole Proprietorship</option>
-          </select>
+          <Select
+            style={inputStyle}
+            value={entityType}
+            onChange={e => setEntityType(e.target.value)}
+            options={[{
+              label: "LLC (Limited Liability Company)",
+              value: "LLC"
+            }, {
+              label: "Private Limited Corporation",
+              value: "Corporation"
+            }, {
+              label: "Partnership Firm",
+              value: "Partnership"
+            }, {
+              label: "Sole Proprietorship",
+              value: "Sole"
+            }]} />
         </div>
         <div>
           <label style={labelStyle}>Primary Business Category *</label>
-          <select style={inputStyle} value={primaryCategory} onChange={e => setPrimaryCategory(e.target.value)}>
-            <option value="">Select Category</option>
-            <option value="Logistics">Logistics & Supply Chain</option>
-            <option value="Retail">Retail & E-Commerce</option>
-            <option value="Healthcare">Healthcare & Pharma</option>
-            <option value="SaaS">SaaS & Technology</option>
-            <option value="Finance">Finance & FinTech</option>
-            <option value="Manufacturing">Manufacturing & Industrial</option>
-          </select>
+          <Select
+            style={inputStyle}
+            value={primaryCategory}
+            onChange={e => setPrimaryCategory(e.target.value)}
+            options={[{
+              label: "Select Category",
+              value: ""
+            }, {
+              label: "Logistics & Supply Chain",
+              value: "Logistics"
+            }, {
+              label: "Retail & E-Commerce",
+              value: "Retail"
+            }, {
+              label: "Healthcare & Pharma",
+              value: "Healthcare"
+            }, {
+              label: "SaaS & Technology",
+              value: "SaaS"
+            }, {
+              label: "Finance & FinTech",
+              value: "Finance"
+            }, {
+              label: "Manufacturing & Industrial",
+              value: "Manufacturing"
+            }]} />
         </div>
         <div>
           <label style={labelStyle}>Sub-Category</label>
@@ -208,12 +238,21 @@ export default function AddBusiness() {
         </div>
         <div>
           <label style={labelStyle}>Owner Role</label>
-          <select style={inputStyle}>
-            <option>Managing Director</option>
-            <option>CEO / Founder</option>
-            <option>Partner</option>
-            <option>Trustee</option>
-          </select>
+          <Select
+            style={inputStyle}
+            options={[{
+              label: "Managing Director",
+              value: "Managing Director"
+            }, {
+              label: "CEO / Founder",
+              value: "CEO / Founder"
+            }, {
+              label: "Partner",
+              value: "Partner"
+            }, {
+              label: "Trustee",
+              value: "Trustee"
+            }]} />
         </div>
       </div>
     </div>
@@ -244,14 +283,29 @@ export default function AddBusiness() {
         </div>
         <div>
           <label style={labelStyle}>Country</label>
-          <select style={inputStyle} value={country} onChange={e => setCountry(e.target.value)}>
-            <option>India</option>
-            <option>United States</option>
-            <option>United Kingdom</option>
-            <option>Netherlands</option>
-            <option>Singapore</option>
-            <option>UAE</option>
-          </select>
+          <Select
+            style={inputStyle}
+            value={country}
+            onChange={e => setCountry(e.target.value)}
+            options={[{
+              label: "India",
+              value: "India"
+            }, {
+              label: "United States",
+              value: "United States"
+            }, {
+              label: "United Kingdom",
+              value: "United Kingdom"
+            }, {
+              label: "Netherlands",
+              value: "Netherlands"
+            }, {
+              label: "Singapore",
+              value: "Singapore"
+            }, {
+              label: "UAE",
+              value: "UAE"
+            }]} />
         </div>
       </div>
     </div>

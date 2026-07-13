@@ -20,6 +20,8 @@ import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 
+import Select from "../../components/ui/Select";
+
 export default function MaterialReturns() {
   const { navigate } = useApp();
   const { addToast } = useToast();
@@ -369,7 +371,8 @@ export default function MaterialReturns() {
             </div>
 
             <div style={{ overflowX: 'auto' }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '550px' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '550px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Return ID</th>
@@ -469,7 +472,8 @@ export default function MaterialReturns() {
                     });
                   })()}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
 
             {/* Pagination */}
@@ -569,7 +573,7 @@ export default function MaterialReturns() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     <label htmlFor="condition" style={{ fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Condition</label>
                     <div style={{ position: 'relative' }}>
-                      <select
+                      <Select
                         id="condition"
                         value={condition}
                         onChange={(e) => setCondition(e.target.value)}
@@ -586,11 +590,16 @@ export default function MaterialReturns() {
                           color: '#1c2536',
                           cursor: 'pointer'
                         }}
-                      >
-                        <option value="Unused">Unused</option>
-                        <option value="Damaged">Damaged</option>
-                        <option value="Defective">Defective</option>
-                      </select>
+                        options={[{
+                          label: "Unused",
+                          value: "Unused"
+                        }, {
+                          label: "Damaged",
+                          value: "Damaged"
+                        }, {
+                          label: "Defective",
+                          value: "Defective"
+                        }]} />
                       <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
                     </div>
                   </div>
@@ -810,16 +819,23 @@ export default function MaterialReturns() {
               <form onSubmit={handleModalProcessReturn} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <div>
                   <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Vendor</label>
-                  <select
+                  <Select
                     value={modalVendor}
                     onChange={(e) => setModalVendor(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
-                  >
-                    <option value="SteelFab Inc.">SteelFab Inc.</option>
-                    <option value="Lumber Metrics">Lumber Metrics</option>
-                    <option value="Global Circuits">Global Circuits</option>
-                    <option value="PipeMaster Ltd.">PipeMaster Ltd.</option>
-                  </select>
+                    options={[{
+                      label: "SteelFab Inc.",
+                      value: "SteelFab Inc."
+                    }, {
+                      label: "Lumber Metrics",
+                      value: "Lumber Metrics"
+                    }, {
+                      label: "Global Circuits",
+                      value: "Global Circuits"
+                    }, {
+                      label: "PipeMaster Ltd.",
+                      value: "PipeMaster Ltd."
+                    }]} />
                 </div>
 
                 <div>
@@ -861,15 +877,20 @@ export default function MaterialReturns() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Condition</label>
-                  <select
+                  <Select
                     value={modalCondition}
                     onChange={(e) => setModalCondition(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
-                  >
-                    <option value="Unused">Unused</option>
-                    <option value="Damaged">Damaged</option>
-                    <option value="Defective">Defective</option>
-                  </select>
+                    options={[{
+                      label: "Unused",
+                      value: "Unused"
+                    }, {
+                      label: "Damaged",
+                      value: "Damaged"
+                    }, {
+                      label: "Defective",
+                      value: "Defective"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>

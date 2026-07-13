@@ -5,6 +5,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function BranchSuspend() {
   const { addToast } = useToast();
   const { navigate, currentBranchId } = useApp();
@@ -81,19 +83,28 @@ export default function BranchSuspend() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label htmlFor="suspend-reason" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Reason for Action</label>
-                  <select
+                  <Select
                     id="suspend-reason"
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                     style={{ height: '38px', border: '1.5px solid #25108f', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
                     required
-                  >
-                    <option value="">Select a regulatory reason...</option>
-                    <option value="regulatory">Regulatory Compliance Audit</option>
-                    <option value="safety">Safety Hazard Reporting</option>
-                    <option value="restructure">Operational Restructuring</option>
-                    <option value="maintenance">Unscheduled System Maintenance</option>
-                  </select>
+                    options={[{
+                      label: "Select a regulatory reason...",
+                      value: ""
+                    }, {
+                      label: "Regulatory Compliance Audit",
+                      value: "regulatory"
+                    }, {
+                      label: "Safety Hazard Reporting",
+                      value: "safety"
+                    }, {
+                      label: "Operational Restructuring",
+                      value: "restructure"
+                    }, {
+                      label: "Unscheduled System Maintenance",
+                      value: "maintenance"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>

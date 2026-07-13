@@ -3,6 +3,8 @@ import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
 import { Download, Plus, Filter, Play, Check, X, ShieldAlert, Sparkles, Target, Trash2 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function CouponManagementPage() {
   const { addToast } = useToast();
 
@@ -263,7 +265,8 @@ export default function CouponManagementPage() {
 
           {/* DATA TABLE */}
           <div className="overflow-x-auto min-h-[300px]">
-            <table className="w-full text-left text-xs border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
               <thead className="bg-[#fcfdfe] border-b border-gray-200 text-gray-500 font-medium">
                 <tr>
                   <th className="p-4">Coupon Code</th>
@@ -322,6 +325,7 @@ export default function CouponManagementPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           {/* TABLE PAGINATION */}
@@ -388,14 +392,17 @@ export default function CouponManagementPage() {
 
             <div className="flex flex-col gap-1">
               <label className="text-[10px] font-bold text-gray-400 uppercase">Campaign Association</label>
-              <select 
+              <Select
                 value={campaignAssociation}
                 onChange={(e) => setCampaignAssociation(e.target.value)}
                 className="border border-gray-200 rounded p-2 text-xs bg-white outline-none focus:border-[#1c0094] text-gray-600 font-semibold cursor-pointer"
-              >
-                <option value="Summer 2024 Launch">Summer 2024 Launch</option>
-                <option value="Winter Campaign">Winter Campaign</option>
-              </select>
+                options={[{
+                  label: "Summer 2024 Launch",
+                  value: "Summer 2024 Launch"
+                }, {
+                  label: "Winter Campaign",
+                  value: "Winter Campaign"
+                }]} />
             </div>
           </div>
 
@@ -414,7 +421,6 @@ export default function CouponManagementPage() {
         </div>
 
       </div>
-
       {/* DYNAMIC MODAL FOR "ADD NEW COUPON" */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-xs animate-fadeIn">
@@ -483,7 +489,6 @@ export default function CouponManagementPage() {
           </div>
         </div>
       )}
-
     </AdminShell>
   );
 }

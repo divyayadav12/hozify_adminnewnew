@@ -25,6 +25,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import ExportReportModal from '../../components/common/ExportReportModal';
 import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 
+import Select from "../../components/ui/Select";
+
 // Render styled logos directly using inline SVGs to match the Figma mockups pixel-perfectly
 function PartnerLogo({ style }) {
   if (style === 'nexus') {
@@ -281,15 +283,12 @@ export default function Partners() {
           </button>
         </div>
       </div>
-
       <GlobalDashboardFilters />
-
       <section className="kpi-grid partners-kpis">
         {kpiCardsData.map((kpi, idx) => (
           <KpiCard key={idx} {...kpi} />
         ))}
       </section>
-
       <section className="panel partner-directory-panel">
         <div className="directory-panel-header">
           <h2>Partner Directory</h2>
@@ -319,8 +318,8 @@ export default function Partners() {
         </div>
 
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-            <table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
               <thead>
                 <tr>
                   <th style={{ width: '40px', paddingLeft: '16px' }}>
@@ -450,7 +449,7 @@ export default function Partners() {
                 )}
               </tbody>
             </table>
-          </div>
+</div>
         </div>
 
         <div className="directory-table-footer">
@@ -470,7 +469,6 @@ export default function Partners() {
           </div>
         </div>
       </section>
-
       <footer className="partner-page-bottom-strip">
         <div className="strip-left">
           <span className="status-dot-green">●</span>
@@ -482,7 +480,6 @@ export default function Partners() {
           <span>LAST SYNC: 2 MINS AGO</span>
         </div>
       </footer>
-
       {/* ========================================================
           MODAL: BULK ACTIONS OPTIONS
           ======================================================== */}
@@ -503,14 +500,17 @@ export default function Partners() {
             <div className="space-y-4">
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Select Action</label>
-                <select
+                <Select
                   value={bulkActionType}
                   onChange={(e) => setBulkActionType(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold"
-                >
-                  <option value="Activate">Activate Account Operations</option>
-                  <option value="Suspend">Suspend Account Operations</option>
-                </select>
+                  options={[{
+                    label: "Activate Account Operations",
+                    value: "Activate"
+                  }, {
+                    label: "Suspend Account Operations",
+                    value: "Suspend"
+                  }]} />
               </div>
 
               <div className="flex gap-2">
@@ -535,7 +535,6 @@ export default function Partners() {
           </div>
         </div>
       )}
-
       {/* ========================================================
           MODAL: EDIT INDIVIDUAL PARTNER
           ======================================================== */}
@@ -604,7 +603,6 @@ export default function Partners() {
           </div>
         </div>
       )}
-
       <ExportReportModal 
         isOpen={isExportModalOpen} 
         onClose={() => setIsExportModalOpen(false)} 

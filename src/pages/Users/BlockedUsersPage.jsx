@@ -143,7 +143,8 @@ export default function BlockedUsersPage() {
         </div>
 
         <div className="table-wrap blocked-users-table-wrap">
-          <table className="partner-table user-management-table blocked-users-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table user-management-table blocked-users-table">
             <thead>
               <tr>
                 <th>NAME</th>
@@ -206,6 +207,7 @@ export default function BlockedUsersPage() {
               })}
             </tbody>
           </table>
+</div>
         </div>
 
         <div className="directory-table-footer">

@@ -316,7 +316,8 @@ export default function FraudMonitoringCenter() {
 
             <div className="overflow-x-auto">
 
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left text-xs border-collapse">
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
 
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase tracking-wider text-slate-400">
@@ -362,7 +363,8 @@ export default function FraudMonitoringCenter() {
                   ))}
                 </tbody>
 
-              </table></div>
+              </table>
+</div>
 
             </div>
 

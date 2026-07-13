@@ -17,6 +17,8 @@ import {
   DollarSign
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 const initialCategories = [
   { id: 'CAT-2024-001', name: 'Facility Maintenance', total: 12, active: 8, revenue: 42500.00, status: 'VERIFIED', basePrice: 150 },
   { id: 'CAT-2024-002', name: 'HVAC Systems', total: 8, active: 8, revenue: 31200.00, status: 'VERIFIED', basePrice: 200 },
@@ -96,7 +98,6 @@ export default function ServiceCategories({ onAddCategory }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', position: 'relative' }}>
-      
       {/* CSS Styles for Clean Printing Print Engine Layout inside JS */}
       <style>{`
         @media print {
@@ -106,7 +107,6 @@ export default function ServiceCategories({ onAddCategory }) {
           th:last-child, td:last-child { display: none !important; }
         }
       `}</style>
-
       {/* Title & Actions Row */}
       <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div>
@@ -197,7 +197,6 @@ export default function ServiceCategories({ onAddCategory }) {
           </button>
         </div>
       </div>
-
       {/* KPI Cards Row */}
       <div className="no-print" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
         <div className="panel" style={{ background: '#ffffff', borderRadius: '12px', border: '1.5px solid #25108f', padding: '20px', display: 'flex', flexDirection: 'column' }}>
@@ -252,11 +251,10 @@ export default function ServiceCategories({ onAddCategory }) {
           <span style={{ fontSize: '11px', color: '#dc2626', fontWeight: '800', marginTop: '12px', display: 'block' }}>-1.2% PEAK LOAD DOWN</span>
         </div>
       </div>
-
       {/* Table Section */}
       <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
-        <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Category ID</th>
@@ -309,7 +307,7 @@ export default function ServiceCategories({ onAddCategory }) {
               ))}
             </tbody>
           </table>
-        </div>
+</div>
 
         {/* Pagination Row */}
         <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', flexWrap: 'wrap', gap: '16px' }}>
@@ -323,7 +321,6 @@ export default function ServiceCategories({ onAddCategory }) {
           </div>
         </div>
       </div>
-
       {/* Bottom Insights */}
       <div className="no-print" style={{ display: 'grid', gridTemplateColumns: '1fr', mdGridTemplateColumns: '1.5fr 1fr', gap: '20px' }}>
         <div className="panel" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
@@ -364,7 +361,6 @@ export default function ServiceCategories({ onAddCategory }) {
           </div>
         </div>
       </div>
-
       {/* Dynamic Modal Layer Framework (Supports View, Edit, and Price Config) */}
       {activeModal && selectedCategory && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(15,23,42,0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
@@ -400,7 +396,7 @@ export default function ServiceCategories({ onAddCategory }) {
                 </div>
               ) : (
                 /* STANDARD MATRIX FIELDS */
-                <>
+                (<>
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '4px' }}>CATEGORY NAME</label>
                     <input
@@ -411,7 +407,6 @@ export default function ServiceCategories({ onAddCategory }) {
                       style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff', outline: 'none' }}
                     />
                   </div>
-
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '4px' }}>TOTAL SERVICES</label>
@@ -434,21 +429,25 @@ export default function ServiceCategories({ onAddCategory }) {
                       />
                     </div>
                   </div>
-
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '4px' }}>STATUS CLASSIFICATION</label>
-                    <select
+                    <Select
                       disabled={activeModal === 'view'}
                       value={selectedCategory.status}
                       onChange={(e) => setSelectedCategory({ ...selectedCategory, status: e.target.value })}
                       style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #25108f', background: activeModal === 'view' ? '#f8fafc' : '#fff' }}
-                    >
-                      <option value="VERIFIED">VERIFIED</option>
-                      <option value="PENDING">PENDING</option>
-                      <option value="SUSPENDED">SUSPENDED</option>
-                    </select>
+                      options={[{
+                        label: "VERIFIED",
+                        value: "VERIFIED"
+                      }, {
+                        label: "PENDING",
+                        value: "PENDING"
+                      }, {
+                        label: "SUSPENDED",
+                        value: "SUSPENDED"
+                      }]} />
                   </div>
-                </>
+                </>)
               )}
             </div>
 
@@ -466,7 +465,6 @@ export default function ServiceCategories({ onAddCategory }) {
           </div>
         </div>
       )}
-
     </div>
   );
 }

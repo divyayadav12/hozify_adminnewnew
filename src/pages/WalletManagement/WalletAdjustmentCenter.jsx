@@ -5,6 +5,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { mockWallets, mockAuditLogs } from './data/mockData';
 
+import Select from "../../components/ui/Select";
+
 export default function WalletAdjustmentCenter() {
   const { navigate } = useApp();
   const [walletId, setWalletId] = useState(mockWallets[0].id);
@@ -88,17 +90,15 @@ export default function WalletAdjustmentCenter() {
               {/* Select Wallet */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Target Wallet Owner</label>
-                <select
+                <Select
                   value={walletId}
                   onChange={(e) => setWalletId(e.target.value)}
+                  options={mockWallets.map(w => ({
+                    value: w.id,
+                    label: `${w.owner} (${w.type} - Available: ₹${w.available.toLocaleString('en-IN')})`
+                  }))}
                   style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
-                >
-                  {mockWallets.map(w => (
-                    <option key={w.id} value={w.id}>
-                      {w.owner} ({w.type} - Available: ₹{w.available.toLocaleString('en-IN')})
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
 
               {/* Adjustment Type */}
@@ -143,17 +143,26 @@ export default function WalletAdjustmentCenter() {
               {/* Reason Category */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Reason Category</label>
-                <select
+                <Select
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
-                >
-                  <option value="Manual Compensation">Manual Compensation</option>
-                  <option value="SLA Resolution adjustment">SLA Resolution adjustment</option>
-                  <option value="Marketing Promotion Bonus">Marketing Promotion Bonus</option>
-                  <option value="Discrepancy Correction">Discrepancy Correction</option>
-                  <option value="Dispute Reversal">Dispute Reversal</option>
-                </select>
+                  options={[{
+                    label: "Manual Compensation",
+                    value: "Manual Compensation"
+                  }, {
+                    label: "SLA Resolution adjustment",
+                    value: "SLA Resolution adjustment"
+                  }, {
+                    label: "Marketing Promotion Bonus",
+                    value: "Marketing Promotion Bonus"
+                  }, {
+                    label: "Discrepancy Correction",
+                    value: "Discrepancy Correction"
+                  }, {
+                    label: "Dispute Reversal",
+                    value: "Dispute Reversal"
+                  }]} />
               </div>
 
               {/* Remarks */}

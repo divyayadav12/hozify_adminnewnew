@@ -5,6 +5,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { mockWallets } from './data/mockData';
 
+import Select from "../../components/ui/Select";
+
 export default function WalletListing({ defaultType = 'All' }) {
   const { navigate } = useApp();
   const [searchTerm, setSearchTerm] = useState('');
@@ -80,32 +82,46 @@ export default function WalletListing({ defaultType = 'All' }) {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Type</span>
-            <select
+            <Select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
               aria-label="Filter by wallet type"
-            >
-              <option value="All">All Roles</option>
-              <option value="Partner">Partner</option>
-              <option value="User">User</option>
-              <option value="Seller">Seller</option>
-              <option value="Employee">Employee</option>
-            </select>
+              options={[{
+                label: "All Roles",
+                value: "All"
+              }, {
+                label: "Partner",
+                value: "Partner"
+              }, {
+                label: "User",
+                value: "User"
+              }, {
+                label: "Seller",
+                value: "Seller"
+              }, {
+                label: "Employee",
+                value: "Employee"
+              }]} />
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Status</span>
-            <select
+            <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
               aria-label="Filter by wallet status"
-            >
-              <option value="All">All Statuses</option>
-              <option value="Active">Active</option>
-              <option value="Frozen">Frozen</option>
-            </select>
+              options={[{
+                label: "All Statuses",
+                value: "All"
+              }, {
+                label: "Active",
+                value: "Active"
+              }, {
+                label: "Frozen",
+                value: "Frozen"
+              }]} />
           </div>
 
         </div>
@@ -113,7 +129,8 @@ export default function WalletListing({ defaultType = 'All' }) {
         {/* Directory Table */}
         <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Wallet ID</th>
@@ -181,7 +198,8 @@ export default function WalletListing({ defaultType = 'All' }) {
                   );
                 })}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

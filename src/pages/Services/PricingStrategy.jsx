@@ -12,6 +12,8 @@ import {
   X
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 const INITIAL_PRICING_CATALOG = [
   { name: 'Deep Home Sanitization', category: 'Maintenance & Care', basePrice: 120.00, gst: 21.60, platformFee: 10.00, finalPrice: 151.60, status: 'ACTIVE' },
   { name: 'AC Maintenance (Premium)', category: 'Appliances', basePrice: 45.00, gst: 8.10, platformFee: 5.00, finalPrice: 58.10, status: 'ACTIVE' },
@@ -149,7 +151,6 @@ export default function PricingStrategy() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px', position: 'relative' }}>
-      
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div>
@@ -175,7 +176,6 @@ export default function PricingStrategy() {
           </button>
         </div>
       </div>
-
       {/* Bulk Update Collapsible Panel Form */}
       {isBulkUpdateOpen && (
         <div style={{ background: '#f8fafc', border: '1px dashed #25108f', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -199,7 +199,6 @@ export default function PricingStrategy() {
           </form>
         </div>
       )}
-
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
         <div className="kpi-card" style={{ padding: '20px', borderRadius: '12px', border: '1.5px solid #25108f', background: '#fff' }}>
@@ -250,7 +249,6 @@ export default function PricingStrategy() {
           </div>
         </div>
       </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: '1fr', lgGridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
         
         {/* Left Column: Pricing Catalog */}
@@ -271,8 +269,8 @@ export default function PricingStrategy() {
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-                <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead>
                     <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service Name</th>
@@ -303,7 +301,7 @@ export default function PricingStrategy() {
                     ))}
                   </tbody>
                 </table>
-              </div>
+</div>
             </div>
           </div>
 
@@ -431,7 +429,6 @@ export default function PricingStrategy() {
 
         </div>
       </div>
-
       {/* Floating Modal Popup Form for Creating an Individual Price/Service */}
       {isAddServiceOpen && (
         <div style={{
@@ -460,15 +457,20 @@ export default function PricingStrategy() {
 
               <div>
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', marginBottom: '4px' }}>Category</label>
-                <select 
-                  value={newService.category} 
+                <Select
+                  value={newService.category}
                   onChange={(e) => setNewService({...newService, category: e.target.value})}
                   style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box', background: '#fff' }}
-                >
-                  <option value="Maintenance & Care">Maintenance & Care</option>
-                  <option value="Appliances">Appliances</option>
-                  <option value="Urgent Services">Urgent Services</option>
-                </select>
+                  options={[{
+                    label: "Maintenance & Care",
+                    value: "Maintenance & Care"
+                  }, {
+                    label: "Appliances",
+                    value: "Appliances"
+                  }, {
+                    label: "Urgent Services",
+                    value: "Urgent Services"
+                  }]} />
               </div>
 
               <div>
@@ -500,14 +502,17 @@ export default function PricingStrategy() {
 
               <div>
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', marginBottom: '4px' }}>Status</label>
-                <select 
-                  value={newService.status} 
+                <Select
+                  value={newService.status}
                   onChange={(e) => setNewService({...newService, status: e.target.value})}
                   style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '6px', border: '1.5px solid #25108f', boxSizing: 'border-box', background: '#fff' }}
-                >
-                  <option value="ACTIVE">ACTIVE</option>
-                  <option value="PENDING">PENDING</option>
-                </select>
+                  options={[{
+                    label: "ACTIVE",
+                    value: "ACTIVE"
+                  }, {
+                    label: "PENDING",
+                    value: "PENDING"
+                  }]} />
               </div>
 
               <div style={{ display: 'flex', gap: '12px', marginTop: '10px', justifyContent: 'flex-end' }}>
@@ -522,7 +527,6 @@ export default function PricingStrategy() {
           </div>
         </div>
       )}
-
       {/* Floating Modal Popup Form for Creating a New Dynamic Pricing Rule */}
       {isAddRuleOpen && (
         <div style={{
@@ -585,7 +589,6 @@ export default function PricingStrategy() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

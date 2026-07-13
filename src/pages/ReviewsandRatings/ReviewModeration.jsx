@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { SlidersHorizontal, ChevronDown } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function ReviewModeration() {
   const [currentTab, setCurrentTab] = useState("Pending");
   const [selectedId, setSelectedId] = useState(1);
@@ -41,11 +43,20 @@ export default function ReviewModeration() {
               <p className="text-sm text-slate-500">{filteredData.length} items waiting.</p>
             </div>
             <div className="flex items-center gap-3">
-              <select value={currentTab} onChange={(e) => { setCurrentTab(e.target.value); setSelectedId(null); }} className="border border-slate-300 px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer">
-                <option value="Pending">Pending</option>
-                <option value="Approved">Approved</option>
-                <option value="Rejected">Rejected</option>
-              </select>
+              <Select
+                value={currentTab}
+                onChange={(e) => { setCurrentTab(e.target.value); setSelectedId(null); }}
+                className="border border-slate-300 px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer"
+                options={[{
+                  label: "Pending",
+                  value: "Pending"
+                }, {
+                  label: "Approved",
+                  value: "Approved"
+                }, {
+                  label: "Rejected",
+                  value: "Rejected"
+                }]} />
               
               {/* WORKING FILTER BUTTON */}
               <button 

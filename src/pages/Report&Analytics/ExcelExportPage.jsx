@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 
+import Select from "../../components/ui/Select";
+
 export default function ExcelExportPage() {
   // States for interactive actions
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,13 +56,24 @@ export default function ExcelExportPage() {
             {/* Clean Data Type Dropdown (No Side Icon Here) */}
             <div className="flex flex-col">
               <span className="text-[10px] font-bold text-gray-400 mb-1">Data Type</span>
-              <select className="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs font-bold text-slate-700 shadow-sm focus:outline-none focus:border-indigo-500 min-w-[120px] h-[28px]">
-                <option>All Types</option>
-                <option>Financial</option>
-                <option>Marketing</option>
-                <option>System</option>
-                <option>Operational</option>
-              </select>
+              <Select
+                className="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs font-bold text-slate-700 shadow-sm focus:outline-none focus:border-indigo-500 min-w-[120px] h-[28px]"
+                options={[{
+                  label: "All Types",
+                  value: "All Types"
+                }, {
+                  label: "Financial",
+                  value: "Financial"
+                }, {
+                  label: "Marketing",
+                  value: "Marketing"
+                }, {
+                  label: "System",
+                  value: "System"
+                }, {
+                  label: "Operational",
+                  value: "Operational"
+                }]} />
             </div>
 
           </div>
@@ -121,7 +134,8 @@ export default function ExcelExportPage() {
 
           {/* Table Framework */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-[#f8fafd] text-gray-400 border-b border-gray-200/60 uppercase text-[9px] font-black tracking-wider">
                   <th className="py-3 px-5">File Name</th>
@@ -159,6 +173,7 @@ export default function ExcelExportPage() {
                 </tr>
               </tbody>
             </table>
+</div>
           </div>
 
           {/* Pagination Controls */}

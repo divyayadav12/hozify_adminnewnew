@@ -963,6 +963,10 @@ button.secondary-action-btn:hover,
     display: block !important;
   }
 
+  .mobile-header-logo {
+    display: block !important;
+  }
+
   .header-title-override-label {
     display: none;
   }

@@ -4,6 +4,8 @@ import Toggle from '../../components/common/Toggle';
 import AdminShell from '../../components/layouts/AdminShell';
 import toast from 'react-hot-toast';
 
+import Select from "../../components/ui/Select";
+
 export default function PlatformConfiguration() {
   const [level1Checked, setLevel1Checked] = useState(true);
   const [level2Checked, setLevel2Checked] = useState(true);
@@ -103,15 +105,20 @@ export default function PlatformConfiguration() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Level 1: Basic</label>
                   <div style={{ position: 'relative' }}>
-                    <select 
+                    <Select
                       defaultValue="Self-Declaration"
                       onChange={(e) => toast.success('Level 1 updated!')}
                       style={{ width: '100%', height: '40px', padding: '0 36px 0 12px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', outline: 'none', appearance: 'none', backgroundColor: '#f8fafc', cursor: 'pointer', opacity: level1Checked ? 1 : 0.6 }}
-                    >
-                      <option value="Self-Declaration">Self-Declaration</option>
-                      <option value="Document Upload">Document Upload</option>
-                      <option value="Manual Review">Manual Review</option>
-                    </select>
+                      options={[{
+                        label: "Self-Declaration",
+                        value: "Self-Declaration"
+                      }, {
+                        label: "Document Upload",
+                        value: "Document Upload"
+                      }, {
+                        label: "Manual Review",
+                        value: "Manual Review"
+                      }]} />
                     <div 
                       onClick={() => {
                         setLevel1Checked(!level1Checked);
@@ -126,26 +133,32 @@ export default function PlatformConfiguration() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Verification Logic</label>
-                  <select 
+                  <Select
                     defaultValue="Automated API Only"
                     style={{ width: '100%', height: '40px', padding: '0 12px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', outline: 'none', backgroundColor: '#f8fafc' }}
-                  >
-                    <option value="Automated API Only">Automated API Only</option>
-                  </select>
+                    options={[{
+                      label: "Automated API Only",
+                      value: "Automated API Only"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Level 2: Advanced</label>
                   <div style={{ position: 'relative' }}>
-                    <select 
+                    <Select
                       defaultValue="Biometric ID Scan"
                       onChange={(e) => toast.success('Level 2 updated!')}
                       style={{ width: '100%', height: '40px', padding: '0 36px 0 12px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', outline: 'none', appearance: 'none', backgroundColor: '#f8fafc', cursor: 'pointer', opacity: level2Checked ? 1 : 0.6 }}
-                    >
-                      <option value="Biometric ID Scan">Biometric ID Scan</option>
-                      <option value="Video KYC">Video KYC</option>
-                      <option value="In-Person Verification">In-Person Verification</option>
-                    </select>
+                      options={[{
+                        label: "Biometric ID Scan",
+                        value: "Biometric ID Scan"
+                      }, {
+                        label: "Video KYC",
+                        value: "Video KYC"
+                      }, {
+                        label: "In-Person Verification",
+                        value: "In-Person Verification"
+                      }]} />
                     <div 
                       onClick={() => {
                         setLevel2Checked(!level2Checked);
@@ -208,7 +221,8 @@ export default function PlatformConfiguration() {
             </div>
             
             <div style={{ overflowX: 'auto' }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                     <th style={{ padding: '12px 24px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Administrator</th>
@@ -248,7 +262,8 @@ export default function PlatformConfiguration() {
                     </td>
                   </tr>
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
           </div>
 

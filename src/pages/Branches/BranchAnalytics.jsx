@@ -2,6 +2,8 @@ import { useToast } from '../../components/common/ToastNotification';
 import React, { useState } from 'react';
 import { Download, SlidersHorizontal, TrendingUp, HelpCircle, Star, ArrowUpRight } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 const serviceRevenues = [
   { name: 'Executive Consulting', bookings: '1,204', revenue: '$124,500', trend: 'up' },
   { name: 'Managed Infrastructure', bookings: '842', revenue: '$89,200', trend: 'up' },
@@ -35,46 +37,57 @@ export default function BranchAnalytics() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Date Range</span>
             <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
-              <select
+              <Select
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
                 style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
                 aria-label="Filter by date range"
-              >
-                <option value="Last 30 Days">Last 30 Days</option>
-                <option value="Last 90 Days">Last 90 Days</option>
-              </select>
+                options={[{
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }, {
+                  label: "Last 90 Days",
+                  value: "Last 90 Days"
+                }]} />
             </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Service Type</span>
             <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
-              <select
+              <Select
                 value={serviceType}
                 onChange={(e) => setServiceType(e.target.value)}
                 style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
                 aria-label="Filter by service type"
-              >
-                <option value="All Services">All Services</option>
-                <option value="Consulting">Consulting</option>
-                <option value="Security">Security</option>
-              </select>
+                options={[{
+                  label: "All Services",
+                  value: "All Services"
+                }, {
+                  label: "Consulting",
+                  value: "Consulting"
+                }, {
+                  label: "Security",
+                  value: "Security"
+                }]} />
             </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <span style={{ fontSize: '9px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee</span>
             <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
-              <select
+              <Select
                 value={employee}
                 onChange={(e) => setEmployee(e.target.value)}
                 style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
                 aria-label="Filter by employee"
-              >
-                <option value="All Staff">All Staff</option>
-                <option value="Alex Thorne">Alex Thorne</option>
-              </select>
+                options={[{
+                  label: "All Staff",
+                  value: "All Staff"
+                }, {
+                  label: "Alex Thorne",
+                  value: "Alex Thorne"
+                }]} />
             </div>
           </div>
 
@@ -84,7 +97,6 @@ export default function BranchAnalytics() {
           </button>
         </div>
       </div>
-
       {/* KPI Cards Row */}
       <section className="kpi-grid" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginBottom: '24px', gap: '20px' }}>
         {/* Total Revenue */}
@@ -143,7 +155,6 @@ export default function BranchAnalytics() {
           </div>
         </div>
       </section>
-
       {/* Middle Row (Revenue Growth & Booking Conversion) */}
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
@@ -232,7 +243,6 @@ export default function BranchAnalytics() {
         </div>
 
       </div>
-
       {/* Bottom Grid (Service Revenue Table & Employee Performance) */}
       <div className="fraud-top-grid" style={{ gap: '20px' }}>
         
@@ -246,7 +256,8 @@ export default function BranchAnalytics() {
           </div>
 
           <div className="table-wrap">
-            <table className="approval-queue-table" style={{ width: '100%', minWidth: 'auto' }}>
+            <div className="table-responsive-wrapper">
+<table className="approval-queue-table" style={{ width: '100%', minWidth: 'auto' }}>
               <thead>
                 <tr>
                   <th style={{ padding: '10px 14px', fontSize: '10px' }}>SERVICE NAME</th>
@@ -270,6 +281,7 @@ export default function BranchAnalytics() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 
@@ -304,7 +316,6 @@ export default function BranchAnalytics() {
         </div>
 
       </div>
-
     </div>
   );
 }

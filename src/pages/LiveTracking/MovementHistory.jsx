@@ -19,6 +19,8 @@ import {
   Settings
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function MovementHistory() {
   // ==========================================
   // INTERACTIVE STATES
@@ -87,14 +89,17 @@ export default function MovementHistory() {
             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Partner ID</label>
             <div className="relative">
               <Briefcase className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-              <select 
+              <Select
                 value={partnerId}
                 onChange={(e) => setPartnerId(e.target.value)}
                 className="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-3 py-2.5 focus:outline-none focus:bg-white focus:border-blue-600 cursor-pointer appearance-none"
-              >
-                <option value="Hozify Logistics South">Hozify Logistics South</option>
-                <option value="Matrix Cargo North">Matrix Cargo North</option>
-              </select>
+                options={[{
+                  label: "Hozify Logistics South",
+                  value: "Hozify Logistics South"
+                }, {
+                  label: "Matrix Cargo North",
+                  value: "Matrix Cargo North"
+                }]} />
             </div>
           </div>
 

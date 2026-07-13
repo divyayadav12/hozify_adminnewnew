@@ -185,7 +185,8 @@ export default function AttendanceDashboard() {
         </div>
 
         <div className="table-wrap">
-          <table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
             <thead>
               <tr>
                 <th>EMPLOYEE</th>
@@ -255,6 +256,7 @@ export default function AttendanceDashboard() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* Footer pagination */}

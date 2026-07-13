@@ -210,7 +210,8 @@ export default function WeeklyRevenue() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/40 border-b border-slate-200 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   <th className="p-3 pl-5">Branch Name</th>
@@ -239,6 +240,7 @@ export default function WeeklyRevenue() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

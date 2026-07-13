@@ -660,7 +660,8 @@ export default function MaterialRequestDetails() {
               </div>
 
               <div style={{ overflowX: 'auto' }}>
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '580px' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '580px' }}>
                   <thead>
                     <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>SKU</th>
@@ -710,7 +711,8 @@ export default function MaterialRequestDetails() {
                       </tr>
                     ))}
                   </tbody>
-                </table></div>
+                </table>
+</div>
               </div>
             </div>
 

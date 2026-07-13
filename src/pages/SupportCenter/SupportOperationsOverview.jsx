@@ -282,7 +282,8 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
             </div>
 
             <div style={{ overflowX: 'auto', flex: 1 }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '6px' }}>
                     <th style={{ padding: '8px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>AGENT</th>
@@ -332,7 +333,8 @@ export default function SupportOperationsOverview({ activeTab = 'Support Center'
                     </tr>
                   ))}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
           </div>
 

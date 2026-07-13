@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { SlidersHorizontal, Download, Eye, Edit2, ShieldAlert, ShieldCheck, Trophy, Calendar } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function PartnerRevenue() {
   // --- States for Filters & Functionalities ---
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
@@ -85,30 +87,44 @@ export default function PartnerRevenue() {
           {/* Connected Functional Filters */}
           <div className="flex gap-3">
             <div className="relative">
-              <select 
+              <Select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="appearance-none bg-white border border-slate-200 rounded-lg pl-3 pr-8 py-2 text-xs font-semibold text-slate-600 focus:outline-none cursor-pointer hover:border-slate-300 transition"
-              >
-                <option value="All Categories">All Categories</option>
-                <option value="Technology">Technology</option>
-                <option value="Delivery">Delivery</option>
-                <option value="Consulting">Consulting</option>
-              </select>
+                options={[{
+                  label: "All Categories",
+                  value: "All Categories"
+                }, {
+                  label: "Technology",
+                  value: "Technology"
+                }, {
+                  label: "Delivery",
+                  value: "Delivery"
+                }, {
+                  label: "Consulting",
+                  value: "Consulting"
+                }]} />
               <div className="absolute right-3 top-3.5 pointer-events-none border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-400 w-0 h-0" />
             </div>
 
             <div className="relative">
-              <select 
+              <Select
                 value={selectedTimeframe}
                 onChange={(e) => setSelectedTimeframe(e.target.value)}
                 className="appearance-none bg-white border border-slate-200 rounded-lg pl-8 pr-8 py-2 text-xs font-semibold text-slate-600 focus:outline-none cursor-pointer hover:border-slate-300 transition"
-              >
-                <option value="Last 30 Days">Last 30 Days</option>
-                <option value="This Month">This Month</option>
-                <option value="Last Month">Last Month</option>
-                <option value="Last Quarter">Last Quarter</option>
-              </select>
+                options={[{
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }, {
+                  label: "This Month",
+                  value: "This Month"
+                }, {
+                  label: "Last Month",
+                  value: "Last Month"
+                }, {
+                  label: "Last Quarter",
+                  value: "Last Quarter"
+                }]} />
               <Calendar className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-400 pointer-events-none" />
               <div className="absolute right-3 top-3.5 pointer-events-none border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-400 w-0 h-0" />
             </div>
@@ -222,8 +238,8 @@ export default function PartnerRevenue() {
 
           {/* Table Data */}
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-              <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50/70 border-b border-slate-100 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                     <th className="px-5 py-3">Partner Information</th>
@@ -316,7 +332,7 @@ export default function PartnerRevenue() {
                   )}
                 </tbody>
               </table>
-            </div>
+</div>
           </div>
 
           {/* Table Pagination with dynamic active state */}

@@ -173,8 +173,8 @@ export default function CommissionManagement() {
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-                <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead>
                     <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                       <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Rule Name</th>
@@ -202,7 +202,7 @@ export default function CommissionManagement() {
                     ))}
                   </tbody>
                 </table>
-              </div>
+</div>
             </div>
           </div>
 
@@ -319,7 +319,8 @@ export default function CommissionManagement() {
             </div>
             
             <div style={{ overflowY: 'auto', flex: 1, paddingRight: '4px' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ borderBottom: '2px solid var(--line)', background: '#f8fafc' }}>
                     <th style={{ padding: '10px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)' }}>SETTLEMENT ID</th>
@@ -345,6 +346,7 @@ export default function CommissionManagement() {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>

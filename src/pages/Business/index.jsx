@@ -24,6 +24,8 @@ import {
   RotateCcw
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 export default function BusinessRegistry() {
   const { route, navigate } = useApp();
   const { addToast } = useToast();
@@ -211,7 +213,7 @@ export default function BusinessRegistry() {
         
         {isComplianceTab ? (
           /* ================= COMPLIANCE VIEW ================= */
-          <>
+          (<>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
               <div>
                 <h1 className="page-title" style={{ margin: 0, fontSize: '24px', fontWeight: '800' }}>
@@ -260,7 +262,6 @@ export default function BusinessRegistry() {
                 </button>
               </div>
             </div>
-
             {/* KPI Cards Row */}
             <div className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
               
@@ -335,7 +336,6 @@ export default function BusinessRegistry() {
               </div>
 
             </div>
-
             {/* Bulk Actions Header */}
             {selectedIds.length > 0 && (
               <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '8px', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
@@ -370,10 +370,9 @@ export default function BusinessRegistry() {
                 </div>
               </div>
             )}
-
             {showApprovalQueueOnly ? (
               /* COMPLIANCE SUBVIEW: PENDING REGISTRATION QUEUE */
-              <section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              (<section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ background: '#dbeafe', color: '#1e40af', fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '4px' }}>PENDING TASKS</span>
@@ -387,9 +386,9 @@ export default function BusinessRegistry() {
                     ← Back to Dashboard
                   </button>
                 </div>
-
                 <div className="table-wrap">
-                  <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="approval-queue-table">
+                  <div className="table-responsive-wrapper">
+<table className="approval-queue-table">
                     <thead>
                       <tr>
                         <th style={{ width: '40px', padding: '12px 16px' }}>
@@ -455,13 +454,13 @@ export default function BusinessRegistry() {
                         </tr>
                       ))}
                     </tbody>
-                  </table></div>
+                  </table>
+</div>
                 </div>
-              </section>
+              </section>)
             ) : (
               /* MAIN COMPLIANCE DASHBOARD: BUSINESS MANAGEMENT VIEW */
-              <section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                
+              (<section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 1fr 1fr auto', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   
                   <div>
@@ -479,48 +478,71 @@ export default function BusinessRegistry() {
 
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Business Type</label>
-                    <select
+                    <Select
                       style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
                       value={businessType}
                       onChange={(e) => setBusinessType(e.target.value)}
                       aria-label="Filter Business Type"
-                    >
-                      <option value="All">All Types</option>
-                      <option value="LLC">LLC</option>
-                      <option value="Corporation">Corporation</option>
-                    </select>
+                      options={[{
+                        label: "All Types",
+                        value: "All"
+                      }, {
+                        label: "LLC",
+                        value: "LLC"
+                      }, {
+                        label: "Corporation",
+                        value: "Corporation"
+                      }]} />
                   </div>
 
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Category</label>
-                    <select
+                    <Select
                       style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
                       value={categoryFilter}
                       onChange={(e) => setCategoryFilter(e.target.value)}
                       aria-label="Filter Category"
-                    >
-                      <option value="All">All Categories</option>
-                      <option value="Retail">Retail</option>
-                      <option value="Logistics">Logistics</option>
-                      <option value="SaaS">SaaS</option>
-                      <option value="Tech">Tech / AI</option>
-                      <option value="Healthcare">Healthcare</option>
-                    </select>
+                      options={[{
+                        label: "All Categories",
+                        value: "All"
+                      }, {
+                        label: "Retail",
+                        value: "Retail"
+                      }, {
+                        label: "Logistics",
+                        value: "Logistics"
+                      }, {
+                        label: "SaaS",
+                        value: "SaaS"
+                      }, {
+                        label: "Tech / AI",
+                        value: "Tech"
+                      }, {
+                        label: "Healthcare",
+                        value: "Healthcare"
+                      }]} />
                   </div>
 
                   <div>
                     <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Status</label>
-                    <select
+                    <Select
                       style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', background: '#fff', padding: '0 12px', fontSize: '12px', color: 'var(--text)', fontWeight: '700', outline: 'none' }}
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
                       aria-label="Filter Status"
-                    >
-                      <option value="All">All Statuses</option>
-                      <option value="Active">Active</option>
-                      <option value="Pending">Pending</option>
-                      <option value="Suspended">Suspended</option>
-                    </select>
+                      options={[{
+                        label: "All Statuses",
+                        value: "All"
+                      }, {
+                        label: "Active",
+                        value: "Active"
+                      }, {
+                        label: "Pending",
+                        value: "Pending"
+                      }, {
+                        label: "Suspended",
+                        value: "Suspended"
+                      }]} />
                   </div>
 
                   <button
@@ -533,9 +555,9 @@ export default function BusinessRegistry() {
                   </button>
 
                 </div>
-
                 <div className="table-wrap">
-                  <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="approval-queue-table">
+                  <div className="table-responsive-wrapper">
+<table className="approval-queue-table">
                     <thead>
                       <tr>
                         <th style={{ width: '40px', padding: '12px 16px' }}>
@@ -637,9 +659,9 @@ export default function BusinessRegistry() {
                           </tr>
                         ))}
                     </tbody>
-                  </table></div>
+                  </table>
+</div>
                 </div>
-
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '16px', flexWrap: 'wrap', gap: '12px' }}>
                   <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>Showing 1 to {businessManagementList.length} of {totalCount.toLocaleString()} entries</span>
                   <div className="pagination-wrap" style={{ display: 'flex', gap: '6px' }}>
@@ -651,20 +673,18 @@ export default function BusinessRegistry() {
                     <button className="pag-nav-btn" type="button" onClick={() => addToast('Opening next page...', 'info')}>Next</button>
                   </div>
                 </div>
-
-              </section>
+              </section>)
             )}
-          </>
+          </>)
         ) : (
           /* ================= DIRECTORY VIEW ================= */
-          <>
+          (<>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
               <div>
                 <h1 className="page-title" style={{ margin: 0, fontSize: '24px', fontWeight: '800' }}>Business Registry Directory</h1>
                 <p className="page-subtitle" style={{ margin: '4px 0 0', color: 'var(--muted)', fontSize: '13px' }}>Monitor and audit operations for all active registered entities.</p>
               </div>
             </div>
-
             <section className="panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
@@ -687,7 +707,8 @@ export default function BusinessRegistry() {
               </div>
 
               <div className="table-wrap">
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+                <div className="table-responsive-wrapper">
+<table className="partner-table">
                   <thead>
                     <tr>
                       <th style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', padding: '12px 16px' }}>BUSINESS ID</th>
@@ -741,10 +762,11 @@ export default function BusinessRegistry() {
                         </tr>
                       ))}
                   </tbody>
-                </table></div>
+                </table>
+</div>
               </div>
             </section>
-          </>
+          </>)
         )}
 
       </div>

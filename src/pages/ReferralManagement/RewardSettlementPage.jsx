@@ -240,7 +240,8 @@ export default function RewardSettlementsPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[1200px] border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full min-w-[1200px] border-collapse">
               <thead className="bg-slate-50">
                 <tr className="text-left text-[10px] font-bold text-slate-500 uppercase border-b border-slate-200">
                   <th className="p-4 pl-6">Settlement ID</th>
@@ -326,6 +327,7 @@ export default function RewardSettlementsPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           {/* Pagination */}

@@ -155,7 +155,8 @@ export default function BranchServices() {
           </div>
 
           <div className="table-wrap">
-            <table className="partner-table">
+            <div className="table-responsive-wrapper">
+<table className="partner-table">
               <thead>
                 <tr>
                   <th>SERVICE ID</th>
@@ -212,6 +213,7 @@ export default function BranchServices() {
                 ))}
               </tbody>
             </table>
+</div>
             
             {filteredServices.length === 0 && (
               <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>

@@ -20,6 +20,8 @@ import {
   Eye
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 // Mock Data Matrix
 const INITIAL_CAMPAIGNS = [
   { id: "CAM-7294", name: "Q4 Seasonal Product Launch", status: "SENT", sent: "42,500", openRate: "24.8%", clickRate: "3.2%", date: "Oct 24, 2023" },
@@ -246,16 +248,23 @@ export default function CampaignListing() {
 
             {/* Status Dropdown */}
             <div className="relative">
-              <select 
+              <Select
                 value={statusFilter}
                 onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
                 className="appearance-none pl-4 pr-10 py-2 rounded-md border border-slate-200 bg-white text-slate-700 text-sm font-normal focus:outline-none focus:border-indigo-500 min-w-[150px] cursor-pointer"
-              >
-                <option value="All Statuses">All Statuses</option>
-                <option value="SENT">SENT</option>
-                <option value="SCHEDULED">SCHEDULED</option>
-                <option value="DRAFT">DRAFT</option>
-              </select>
+                options={[{
+                  label: "All Statuses",
+                  value: "All Statuses"
+                }, {
+                  label: "SENT",
+                  value: "SENT"
+                }, {
+                  label: "SCHEDULED",
+                  value: "SCHEDULED"
+                }, {
+                  label: "DRAFT",
+                  value: "DRAFT"
+                }]} />
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
             </div>
 
@@ -322,8 +331,8 @@ export default function CampaignListing() {
         {/* ================= CAMPAIGNS TABLE ================= */}
         <div className="bg-white rounded-md border border-slate-300 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-              <table className="w-full border-collapse text-left min-w-[800px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full border-collapse text-left min-w-[800px]">
                 <thead>
                   <tr className="bg-slate-100 text-slate-700 font-bold border-b border-slate-300">
                     <th className="p-2 border-r border-slate-300 w-10 text-center bg-slate-100">
@@ -414,7 +423,7 @@ export default function CampaignListing() {
                   )}
                 </tbody>
               </table>
-            </div>
+</div>
           </div>
 
           {/* Excel-style Pagination Footer */}
@@ -537,7 +546,6 @@ export default function CampaignListing() {
         </div>
 
       </div>
-
       {/* CREATE CAMPAIGN MODAL */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center p-4 z-[9999] backdrop-blur-sm">
@@ -562,14 +570,17 @@ export default function CampaignListing() {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Initial Status</label>
-                <select
+                <Select
                   value={newCampaign.status}
                   onChange={(e) => setNewCampaign({...newCampaign, status: e.target.value})}
                   className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white"
-                >
-                  <option value="DRAFT">Draft</option>
-                  <option value="SCHEDULED">Scheduled</option>
-                </select>
+                  options={[{
+                    label: "Draft",
+                    value: "DRAFT"
+                  }, {
+                    label: "Scheduled",
+                    value: "SCHEDULED"
+                  }]} />
               </div>
               <div className="pt-4 flex justify-end gap-3 border-t border-slate-100 mt-6">
                 <button 

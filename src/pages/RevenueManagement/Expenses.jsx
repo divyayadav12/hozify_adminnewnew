@@ -298,7 +298,8 @@ export default function Expenses() {
 
           {/* Fixed max height layout container to keep structure intact */}
           <div className="overflow-x-auto max-h-[260px] overflow-y-auto custom-scrollbar transition-all duration-300 ease-in-out">
-            <table className="w-full text-left border-collapse sticky-header">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse sticky-header">
               <thead className="sticky top-0 bg-white z-20 shadow-[0_1px_0_0_rgba(226,232,240,1)]">
                 <tr className="bg-slate-50/80 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   <th className="px-6 py-3">VENDOR / ENTITY</th>
@@ -341,6 +342,7 @@ export default function Expenses() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

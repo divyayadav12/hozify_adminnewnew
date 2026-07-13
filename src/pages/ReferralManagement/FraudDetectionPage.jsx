@@ -190,7 +190,8 @@ export default function FraudDetectionPage() {
             </div>
 
             <div className="overflow-x-auto flex-1">
-              <table className="w-full text-left text-xs border-collapse">
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
                 <thead className="text-slate-500 border-b border-slate-100 font-bold uppercase text-[10px]">
                   <tr>
                     <th className="py-2.5">Entity</th>
@@ -230,6 +231,7 @@ export default function FraudDetectionPage() {
                   )}
                 </tbody>
               </table>
+</div>
             </div>
             
             {showAllRecords && visibleRecords.length > 3 && (

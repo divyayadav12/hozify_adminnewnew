@@ -114,7 +114,8 @@ export default function ReferralReport() {
               <h3 className="text-sm font-bold text-slate-900">Top Referral Sources</h3>
               <button className="text-xs font-bold text-[#1a0dab] hover:underline">View All</button>
             </div>
-            <table className="w-full text-left text-xs border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
                <thead>
                 <tr className="text-gray-400 border-b border-gray-100 uppercase text-[10px] font-bold tracking-wider">
                   <th className="pb-3 pl-2">Source</th><th className="pb-3 text-center">Referrals</th><th className="pb-3 text-center">CR%</th><th className="pb-3 text-right pr-2">Value</th>
@@ -131,6 +132,7 @@ export default function ReferralReport() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
           <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
             <h3 className="text-sm font-bold text-rose-600 mb-4">Anomalies Detected</h3>

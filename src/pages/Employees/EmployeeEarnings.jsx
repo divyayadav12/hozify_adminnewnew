@@ -4,6 +4,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_EARNINGS = [
   { id: 'EMP-001', name: 'John Doe', branch: 'Downtown HQ', base: 45000, incentive: 5500, total: 50500, status: 'PAID', date: 'Oct 01, 2026' },
   { id: 'EMP-002', name: 'Alice Smith', branch: 'North Suburbs', base: 42000, incentive: 3200, total: 45200, status: 'PENDING', date: 'Oct 01, 2026' },
@@ -31,7 +33,6 @@ export default function EmployeeEarnings() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
-      
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         <div 
@@ -102,7 +103,6 @@ export default function EmployeeEarnings() {
           </div>
         </div>
       </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
         
         {/* Left Column */}
@@ -121,17 +121,24 @@ export default function EmployeeEarnings() {
                     style={{ fontSize: '12px', border: 'none', background: 'transparent', outline: 'none', paddingLeft: '8px', flex: 1, color: 'var(--text)' }}
                   />
                 </div>
-                <select 
-                  className="dash-select" 
-                  value={statusFilter} 
+                <Select
+                  className="dash-select"
+                  value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
                   style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
-                >
-                  <option value="All">All Statuses</option>
-                  <option value="PAID">Paid</option>
-                  <option value="PROCESSING">Processing</option>
-                  <option value="PENDING">Pending</option>
-                </select>
+                  options={[{
+                    label: "All Statuses",
+                    value: "All"
+                  }, {
+                    label: "Paid",
+                    value: "PAID"
+                  }, {
+                    label: "Processing",
+                    value: "PROCESSING"
+                  }, {
+                    label: "Pending",
+                    value: "PENDING"
+                  }]} />
                 <button 
                   onClick={() => addToast("Exporting earnings spreadsheet...", "success")}
                   style={{ height: '34px', padding: '0 12px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
@@ -142,7 +149,8 @@ export default function EmployeeEarnings() {
             </div>
 
             <div className="table-wrap" style={{ overflowX: 'auto' }}>
-              <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+              <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee Name</th>
@@ -184,6 +192,7 @@ export default function EmployeeEarnings() {
                     )}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
 

@@ -17,6 +17,8 @@ import {
   ArrowLeft
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function DelayMonitoring() {
   const { navigate } = useApp();
   // ==========================================
@@ -200,27 +202,41 @@ export default function DelayMonitoring() {
             <span>Exceptions Filter:</span>
           </div>
 
-          <select 
-            value={impactFilter} 
+          <Select
+            value={impactFilter}
             onChange={(e) => setImpactFilter(e.target.value)}
             className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none cursor-pointer"
-          >
-            <option value="All">Impact Level: All</option>
-            <option value="Critical">Critical Impact</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-          </select>
+            options={[{
+              label: "Impact Level: All",
+              value: "All"
+            }, {
+              label: "Critical Impact",
+              value: "Critical"
+            }, {
+              label: "High",
+              value: "High"
+            }, {
+              label: "Medium",
+              value: "Medium"
+            }]} />
 
-          <select 
-            value={reasonFilter} 
+          <Select
+            value={reasonFilter}
             onChange={(e) => setReasonFilter(e.target.value)}
             className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none cursor-pointer"
-          >
-            <option value="All">Root Cause: All</option>
-            <option value="Traffic">Traffic Congestion</option>
-            <option value="Mechanical">Mechanical / Inspection</option>
-            <option value="Weather">Severe Weather</option>
-          </select>
+            options={[{
+              label: "Root Cause: All",
+              value: "All"
+            }, {
+              label: "Traffic Congestion",
+              value: "Traffic"
+            }, {
+              label: "Mechanical / Inspection",
+              value: "Mechanical"
+            }, {
+              label: "Severe Weather",
+              value: "Weather"
+            }]} />
         </div>
 
         {/* MAIN BODY LAYOUT GRID */}
@@ -229,7 +245,8 @@ export default function DelayMonitoring() {
           {/* DELAY TABLE MATRIX FEED */}
           <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
             <div className="overflow-x-auto">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse">
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-black tracking-wider text-slate-400 uppercase">
                     <th className="py-3 px-4">INCIDENT / JOB ID</th>
@@ -276,7 +293,8 @@ export default function DelayMonitoring() {
                     </tr>
                   ))}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
           </div>
 

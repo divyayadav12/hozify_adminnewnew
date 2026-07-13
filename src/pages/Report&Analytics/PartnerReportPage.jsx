@@ -302,7 +302,8 @@ export default function PartnerReportPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-[#f8fafd] text-gray-400 border-b border-gray-200/60 uppercase text-[9px] font-black tracking-wider">
                   <th className="py-3 px-6">Partner Name</th>
@@ -377,6 +378,7 @@ export default function PartnerReportPage() {
 
               </tbody>
             </table>
+</div>
           </div>
 
           {/* Table Footer Controls Segment with Fully Operational Pagination Links */}

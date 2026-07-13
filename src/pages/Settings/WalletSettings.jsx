@@ -7,6 +7,8 @@ import Toggle from '../../components/common/Toggle';
 import AdminShell from '../../components/layouts/AdminShell';
 import toast from 'react-hot-toast';
 
+import Select from "../../components/ui/Select";
+
 export default function WalletSettings() {
   return (
     <AdminShell
@@ -112,22 +114,36 @@ export default function WalletSettings() {
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>PAYOUT FREQUENCY</label>
                   <div style={{ position: 'relative' }}>
-                    <select style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '14px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}>
-                      <option>Weekly</option>
-                      <option>Daily</option>
-                      <option>Monthly</option>
-                    </select>
+                    <Select
+                      style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '14px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}
+                      options={[{
+                        label: "Weekly",
+                        value: "Weekly"
+                      }, {
+                        label: "Daily",
+                        value: "Daily"
+                      }, {
+                        label: "Monthly",
+                        value: "Monthly"
+                      }]} />
                     <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '13px', pointerEvents: 'none' }} />
                   </div>
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>PREFERRED CURRENCY</label>
                   <div style={{ position: 'relative' }}>
-                    <select style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '14px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}>
-                      <option>USD - United States Dollar</option>
-                      <option>EUR - Euro</option>
-                      <option>GBP - British Pound</option>
-                    </select>
+                    <Select
+                      style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '14px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}
+                      options={[{
+                        label: "USD - United States Dollar",
+                        value: "USD - United States Dollar"
+                      }, {
+                        label: "EUR - Euro",
+                        value: "EUR - Euro"
+                      }, {
+                        label: "GBP - British Pound",
+                        value: "GBP - British Pound"
+                      }]} />
                     <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '13px', pointerEvents: 'none' }} />
                   </div>
                 </div>

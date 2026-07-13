@@ -167,7 +167,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
   const currentItems = filteredConfigs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <AdminShell activeTab="CMS" headerTitle="User App Configuration Console">
+    <AdminShell activeTab={activeTab} headerTitle={activeTab}>
       <div style={{ padding: 'var(--spacing-section)', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Breadcrumb */}
@@ -225,7 +225,8 @@ export default function UserAppPage({ defaultTab = 'config' }) {
             {/* Configs Table */}
             <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                   <thead>
                     <tr className="custom-table-header">
                       <th onClick={() => toggleSort('key')} style={{ padding: '16px 24px', cursor: 'pointer' }}>
@@ -283,6 +284,7 @@ export default function UserAppPage({ defaultTab = 'config' }) {
                     )}
                   </tbody>
                 </table>
+</div>
               </div>
 
               {/* Pagination */}

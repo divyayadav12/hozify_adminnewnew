@@ -5,6 +5,8 @@ import {
 import AdminShell from '../../components/layouts/AdminShell';
 import toast from 'react-hot-toast';
 
+import Select from "../../components/ui/Select";
+
 export default function EmailSmtpIntegration() {
   return (
     <AdminShell
@@ -67,11 +69,18 @@ export default function EmailSmtpIntegration() {
             <div style={{ marginBottom: '24px' }}>
               <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>AUTHENTICATION METHOD</label>
               <div style={{ position: 'relative' }}>
-                <select style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}>
-                  <option>OAuth2 (Recommended)</option>
-                  <option>Basic Auth</option>
-                  <option>API Key</option>
-                </select>
+                <Select
+                  style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}
+                  options={[{
+                    label: "OAuth2 (Recommended)",
+                    value: "OAuth2 (Recommended)"
+                  }, {
+                    label: "Basic Auth",
+                    value: "Basic Auth"
+                  }, {
+                    label: "API Key",
+                    value: "API Key"
+                  }]} />
                 <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '13px', pointerEvents: 'none' }} />
               </div>
             </div>

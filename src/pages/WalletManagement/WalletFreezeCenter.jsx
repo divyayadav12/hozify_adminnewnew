@@ -5,6 +5,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { mockWallets } from './data/mockData';
 
+import Select from "../../components/ui/Select";
+
 export default function WalletFreezeCenter() {
   const { navigate } = useApp();
   const [walletId, setWalletId] = useState(mockWallets[0].id);
@@ -74,17 +76,15 @@ export default function WalletFreezeCenter() {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Select Target Wallet</label>
-                <select
+                <Select
                   value={walletId}
                   onChange={(e) => setWalletId(e.target.value)}
+                  options={mockWallets.map(w => ({
+                    value: w.id,
+                    label: `${w.owner} (Status: ${w.status})`
+                  }))}
                   style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
-                >
-                  {mockWallets.map(w => (
-                    <option key={w.id} value={w.id}>
-                      {w.owner} (Status: {w.status})
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -115,16 +115,23 @@ export default function WalletFreezeCenter() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Risk Reason for locking/unlocking</label>
-                <select
+                <Select
                   value={freezeReason}
                   onChange={(e) => setFreezeReason(e.target.value)}
                   style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
-                >
-                  <option value="Suspected refund manipulation rule RFD-88">Suspected refund manipulation rule RFD-88</option>
-                  <option value="Pending document validation update">Pending document validation update</option>
-                  <option value="Multiple dispute chargeback alerts from gateway">Multiple dispute chargeback alerts from gateway</option>
-                  <option value="SLA delay rate over SLA compliance baseline">SLA delay rate over SLA compliance baseline</option>
-                </select>
+                  options={[{
+                    label: "Suspected refund manipulation rule RFD-88",
+                    value: "Suspected refund manipulation rule RFD-88"
+                  }, {
+                    label: "Pending document validation update",
+                    value: "Pending document validation update"
+                  }, {
+                    label: "Multiple dispute chargeback alerts from gateway",
+                    value: "Multiple dispute chargeback alerts from gateway"
+                  }, {
+                    label: "SLA delay rate over SLA compliance baseline",
+                    value: "SLA delay rate over SLA compliance baseline"
+                  }]} />
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>

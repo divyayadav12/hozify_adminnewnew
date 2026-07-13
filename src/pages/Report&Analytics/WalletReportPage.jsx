@@ -202,7 +202,8 @@ export default function WalletReportPage() {
 
         {/* TABLE SECTION */}
         <div className="bg-white border border-gray-200/80 rounded-xl shadow-sm overflow-hidden">
-          <table className="w-full text-left text-xs border-collapse">
+          <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
              <thead>
                 <tr className="bg-[#f8fafd] text-gray-400 border-b uppercase text-[9px] font-black">
                   <th className="py-3.5 px-6">Transaction ID</th>
@@ -222,6 +223,7 @@ export default function WalletReportPage() {
                 <tr className="cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => setSelectedTxn({id: 'TRX-99205', userName: 'Tech Pro', type: 'Credit', amount: 8920, method: 'Bank Transfer', status: 'Completed', date: new Date().toISOString(), referenceId: 'REF-39102930'})}><td className="py-4 px-6">#TRX-99205</td><td className="py-4 px-6">Tech Pro (Seller)</td><td className="py-4 px-4">Settlement</td><td className="py-4 px-4">Oct 23, 2023</td><td className="py-4 px-4">+$8,920.00</td><td className="py-4 px-6 text-right">Completed</td></tr>
              </tbody>
           </table>
+</div>
 
           {/* Pagination */}
           <div className="bg-[#f8fafd] border-t px-6 py-3 flex justify-between items-center text-xs font-bold text-gray-400">

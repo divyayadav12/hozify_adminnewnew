@@ -14,6 +14,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 
+import Select from "../../components/ui/Select";
+
 export default function MaterialAnalytics() {
   const { navigate } = useApp();
   const [period, setPeriod] = useState('Last 30 Days');
@@ -52,7 +54,7 @@ export default function MaterialAnalytics() {
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
             <div style={{ position: 'relative' }}>
-              <select
+              <Select
                 value={period}
                 onChange={(e) => setPeriod(e.target.value)}
                 style={{
@@ -68,11 +70,16 @@ export default function MaterialAnalytics() {
                   cursor: 'pointer'
                 }}
                 aria-label="Analytics timeframe dropdown"
-              >
-                <option value="Last 30 Days">Last 30 Days</option>
-                <option value="Last Quarter">Last Quarter</option>
-                <option value="Last Year">Last Year</option>
-              </select>
+                options={[{
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }, {
+                  label: "Last Quarter",
+                  value: "Last Quarter"
+                }, {
+                  label: "Last Year",
+                  value: "Last Year"
+                }]} />
               <ChevronDown size={15} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
             </div>
             <button
@@ -298,7 +305,8 @@ export default function MaterialAnalytics() {
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Supplier</th>
@@ -363,7 +371,8 @@ export default function MaterialAnalytics() {
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

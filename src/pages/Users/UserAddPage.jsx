@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Save, UserPlus } from 'lucide-react';
+import Select from "../../components/ui/Select";
 
 const initialForm = {
   name: '',
@@ -192,10 +193,14 @@ export default function UserAddPage({ onBack, onSave }) {
             <input type="date" value={formData.dob} onChange={(event) => updateField('dob', event.target.value)} />
           </Field>
           <Field label="Gender" error={errors.gender}>
-            <select value={formData.gender} onChange={(event) => updateField('gender', event.target.value)}>
-              <option value="">Select gender</option>
-              {genderOptions.map((gender) => <option value={gender} key={gender}>{gender}</option>)}
-            </select>
+            <Select
+              value={formData.gender}
+              onChange={(e) => updateField('gender', e.target.value)}
+              options={[
+                { value: "", label: "Select gender" },
+                ...genderOptions.map(g => ({ value: g, label: g }))
+              ]}
+            />
           </Field>
         </FormSection>
 
@@ -213,25 +218,37 @@ export default function UserAddPage({ onBack, onSave }) {
 
         <FormSection title="Verification">
           <Field label="Mobile Verification" error={errors.mobileVerification}>
-            <select value={formData.mobileVerification} onChange={(event) => updateField('mobileVerification', event.target.value)}>
-              <option value="">Select verification</option>
-              {verificationOptions.map((option) => <option value={option} key={option}>{option}</option>)}
-            </select>
+            <Select
+              value={formData.mobileVerification}
+              onChange={(e) => updateField('mobileVerification', e.target.value)}
+              options={[
+                { value: "", label: "Select verification" },
+                ...verificationOptions.map(v => ({ value: v, label: v }))
+              ]}
+            />
           </Field>
           <Field label="Email Verification" error={errors.emailVerification}>
-            <select value={formData.emailVerification} onChange={(event) => updateField('emailVerification', event.target.value)}>
-              <option value="">Select verification</option>
-              {verificationOptions.map((option) => <option value={option} key={option}>{option}</option>)}
-            </select>
+            <Select
+              value={formData.emailVerification}
+              onChange={(e) => updateField('emailVerification', e.target.value)}
+              options={[
+                { value: "", label: "Select verification" },
+                ...verificationOptions.map(v => ({ value: v, label: v }))
+              ]}
+            />
           </Field>
         </FormSection>
 
         <FormSection title="Status">
           <Field label="Account Status" error={errors.status}>
-            <select value={formData.status} onChange={(event) => updateField('status', event.target.value)}>
-              <option value="">Select status</option>
-              {statusOptions.map((status) => <option value={status} key={status}>{status}</option>)}
-            </select>
+            <Select
+              value={formData.status}
+              onChange={(e) => updateField('status', e.target.value)}
+              options={[
+                { value: "", label: "Select status" },
+                ...statusOptions.map(s => ({ value: s, label: s }))
+              ]}
+            />
           </Field>
         </FormSection>
 

@@ -447,7 +447,8 @@ export default function ISPPartners() {
 
           {/* Directory Table */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead className="bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">
                 <tr>
                   <th className="px-6 py-4">PROVIDER</th>
@@ -616,6 +617,7 @@ export default function ISPPartners() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           <div className="flex items-center justify-between border-t border-slate-200 px-6 py-4 text-xs font-medium text-slate-400 bg-white">

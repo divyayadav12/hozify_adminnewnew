@@ -406,16 +406,38 @@ export default function GlobalAdminShell({ children }) {
       </aside>
 
       <section className="dashboard-main" style={{ background: '#f8fafc' }}>
-        <header className="dash-header global-header" style={{ position: 'sticky', top: 0, zIndex: 90, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px', height: '64px', background: 'linear-gradient(90deg, #1B0B90 0%, #2F1DB8 100%)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)' }}>
+        <header 
+          className="dash-header global-header" 
+          style={{ 
+            position: 'sticky', 
+            top: 0, 
+            zIndex: 90, 
+            display: 'flex', 
+            flexDirection: 'row',
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            flexWrap: 'nowrap',
+            padding: '10px 24px', 
+            minHeight: '64px', 
+            background: 'linear-gradient(90deg, #1B0B90 0%, #2F1DB8 100%)', 
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)' 
+          }}
+        >
           {/* Left Combo */}
-          <div className="header-left-combo" style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '1 1 0%', minWidth: 0 }}>
+          <div className="header-left-combo" style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '0 0 auto', minWidth: 0 }}>
             <button
               className="mobile-menu-btn"
               onClick={() => setSidebarOpen(true)}
-              style={{ display: 'none', background: 'none', border: 'none', color: 'var(--text)', cursor: 'pointer' }}
+              style={{ display: 'none', background: 'none', border: 'none', color: '#ffffff', cursor: 'pointer' }}
             >
               <Menu size={24} />
             </button>
+            <img 
+              src={brandLogo} 
+              alt="Brand Logo" 
+              className="mobile-header-logo"
+              style={{ display: 'none', width: '32px', height: '32px', objectFit: 'contain', flexShrink: 0, background: '#ffffff', borderRadius: '4px', padding: '2px' }} 
+            />
             {canGoBack && (
               <button
                 onClick={(e) => { e.preventDefault(); goBack(); }}
@@ -446,15 +468,21 @@ export default function GlobalAdminShell({ children }) {
             </span>
           </div>
 
-          {/* Center Search Bar */}
-          <div className="header-center-search" style={{ display: 'flex', justifyContent: 'center', flex: '1 1 auto', margin: '0 24px', minWidth: 0 }}>
-            <div style={{ width: '100%', maxWidth: '480px' }}>
-              <GlobalSearch />
-            </div>
+          {/* Center Area (Tabs or Search) */}
+          <div className="header-center-area" style={{ display: 'flex', justifyContent: 'center', flex: '1 1 auto', margin: '0 24px', minWidth: 0, overflow: 'hidden' }}>
+            {headerTabs ? (
+              <div className="secondary-page-tabs" style={{ display: 'flex', gap: '24px', width: '100%', overflowX: 'auto', whiteSpace: 'nowrap', padding: '0 16px' }}>
+                {headerTabs}
+              </div>
+            ) : (
+              <div style={{ width: '100%', maxWidth: '480px' }}>
+                <GlobalSearch />
+              </div>
+            )}
           </div>
 
           {/* Right Actions Combo */}
-          <div className="dash-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '16px', flex: '1 1 0%' }}>
+          <div className="dash-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '16px', flex: '0 0 auto' }}>
 
             {/* Fullscreen Button */}
             <button
@@ -755,12 +783,6 @@ export default function GlobalAdminShell({ children }) {
           </div>
         )}
         <div className="dash-content global-content" style={{ padding: 'var(--spacing-section, 24px)' }}>
-          {/* Secondary Navigation for Page-Specific Tabs */}
-          {headerTabs && (
-            <div className="secondary-page-tabs" style={{ display: 'flex', gap: '24px', paddingBottom: '16px', marginBottom: '16px', borderBottom: '1px solid #E2E8F0', overflowX: 'auto', whiteSpace: 'nowrap' }}>
-              {headerTabs}
-            </div>
-          )}
 
           {/* Page Title Banner - rendered in content area, below the sticky header */}
           {pageTitle && (

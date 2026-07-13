@@ -273,7 +273,8 @@ export default function SlaCompliance() {
 
           {/* Audit Log Table */}
           <div className="table-wrap">
-            <table className="partner-table" style={{ border: 'none' }}>
+            <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ border: 'none' }}>
               <thead>
                 <tr style={{ background: '#f4eff8' }}>
                   <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textAlign: 'left', borderRadius: '6px 0 0 6px' }}>Booking ID</th>
@@ -311,6 +312,7 @@ export default function SlaCompliance() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
 
           {/* Table Footer */}

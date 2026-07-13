@@ -17,6 +17,8 @@ import {
   CheckCircle2
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function Targets() {
   // Operational Hooks & States
   const [activeFilter, setActiveFilter] = useState("All");
@@ -420,7 +422,8 @@ export default function Targets() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/70 border-b border-slate-200 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   <th className="px-6 py-3">Region / Department</th>
@@ -471,6 +474,7 @@ export default function Targets() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 
@@ -586,17 +590,26 @@ export default function Targets() {
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Status</label>
-                  <select className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" value={editingRow.status} onChange={e => {
-                    const status = e.target.value;
-                    let style = "bg-blue-50 text-blue-600 border border-blue-100";
-                    if(status === "At Risk") style = "bg-rose-50 text-rose-600 border border-rose-100";
-                    if(status === "Exceeded") style = "bg-emerald-50 text-emerald-600 border border-emerald-100";
-                    setEditingRow({...editingRow, status, statusStyle: style});
-                  }}>
-                    <option>Near Target</option>
-                    <option>Exceeded</option>
-                    <option>At Risk</option>
-                  </select>
+                  <Select
+                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    value={editingRow.status}
+                    onChange={e => {
+                      const status = e.target.value;
+                      let style = "bg-blue-50 text-blue-600 border border-blue-100";
+                      if(status === "At Risk") style = "bg-rose-50 text-rose-600 border border-rose-100";
+                      if(status === "Exceeded") style = "bg-emerald-50 text-emerald-600 border border-emerald-100";
+                      setEditingRow({...editingRow, status, statusStyle: style});
+                    }}
+                    options={[{
+                      label: "Near Target",
+                      value: "Near Target"
+                    }, {
+                      label: "Exceeded",
+                      value: "Exceeded"
+                    }, {
+                      label: "At Risk",
+                      value: "At Risk"
+                    }]} />
                 </div>
               </div>
               <div className="px-6 py-4 bg-slate-50 flex justify-end gap-2 border-t border-slate-100">
@@ -611,6 +624,6 @@ export default function Targets() {
         )}
 
     </div>
-</AdminShell>
+    </AdminShell>
   );
 }

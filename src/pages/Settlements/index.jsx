@@ -18,6 +18,8 @@ import { useApp } from "../../hooks/useApp";
 import KpiCard from "../../features/dashboard/KpiCard";
 import AdminShell from "../../components/layouts/AdminShell";
 
+import Select from "../../components/ui/Select";
+
 const settlementRequestsList = [
   { id: "SET-99021", bankName: "HDFC Bank Ltd", partnerName: "Nexis Logistics", accNo: "******9902", amount: "24,800", status: "Approved", statusColor: "green" },
   { id: "SET-98911", bankName: "ICICI Bank", partnerName: "Sarah Chen", accNo: "******1128", amount: "15,450", status: "Pending", statusColor: "blue" },
@@ -141,7 +143,6 @@ export default function Settlements() {
     >
       <ToastStack toasts={toasts} />
       <ConfirmModal modal={modal} onClose={() => setModal(null)} />
-
       <div className="partners-page-header">
         <div>
           <span className="queue-verification-control-tag font-bold green-text bg-green-soft" style={{ padding: "4px 8px", borderRadius: "4px", color: "#047857", background: "#ecfdf5" }}>
@@ -153,22 +154,30 @@ export default function Settlements() {
         <div className="partners-header-buttons">
           <div className="date-select-picker-wrap" style={{ display: "flex", alignItems: "center", gap: "8px", border: "1.5px solid #25108f", padding: "6px 12px", borderRadius: "6px", background: "#fff" }}>
             <Calendar size={16} />
-            <select style={{ border: "none", background: "transparent", outline: "none", fontWeight: "700", fontSize: "13px", cursor: "pointer" }} value={selectedMonth} onChange={(e) => { setSelectedMonth(e.target.value); toast(`Settlement period changed to ${e.target.value}`); }} aria-label="Settlement month selection">
-              <option value="October 2023">October 2023</option>
-              <option value="September 2023">September 2023</option>
-              <option value="August 2023">August 2023</option>
-            </select>
+            <Select
+              style={{ border: "none", background: "transparent", outline: "none", fontWeight: "700", fontSize: "13px", cursor: "pointer" }}
+              value={selectedMonth}
+              onChange={(e) => { setSelectedMonth(e.target.value); toast(`Settlement period changed to ${e.target.value}`); }}
+              aria-label="Settlement month selection"
+              options={[{
+                label: "October 2023",
+                value: "October 2023"
+              }, {
+                label: "September 2023",
+                value: "September 2023"
+              }, {
+                label: "August 2023",
+                value: "August 2023"
+              }]} />
           </div>
           <button className="primary-action-btn font-bold" type="button" onClick={handleDownloadCSV}>
             <Download size={16} /><span>Download CSV</span>
           </button>
         </div>
       </div>
-
       <section className="kpi-grid queue-kpi-grid" style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}>
         {settlementKPIs.map((kpi, idx) => <KpiCard key={idx} {...kpi} />)}
       </section>
-
       <section className="panel approval-queue-directory-panel">
         <div className="directory-panel-header">
           <h2>Settlement Request Queue</h2>
@@ -185,8 +194,8 @@ export default function Settlements() {
         </div>
 
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: "auto", width: "100%", WebkitOverflowScrolling: "touch" }}>
-            <table className="approval-queue-table">
+          <div className="table-responsive-wrapper">
+<table className="approval-queue-table">
               <thead>
                 <tr>
                   <th>SETTLEMENT ID</th>
@@ -231,13 +240,21 @@ export default function Settlements() {
                 })}
               </tbody>
             </table>
-          </div>
+</div>
         </div>
 
         <div className="directory-table-footer">
           <div className="rows-per-page-combo">
             <span>Rows per page:</span>
-            <select aria-label="Rows per page select"><option value="10">10</option><option value="20">20</option></select>
+            <Select
+              aria-label="Rows per page select"
+              options={[{
+                label: "10",
+                value: "10"
+              }, {
+                label: "20",
+                value: "20"
+              }]} />
           </div>
           <div className="pagination-wrap">
             <button className="pag-nav-btn" type="button" disabled><ChevronLeft size={16} /></button>
@@ -246,7 +263,6 @@ export default function Settlements() {
           </div>
         </div>
       </section>
-
       <section className="panel queue-automation-big-panel" style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)", border: "1px solid #334155" }}>
         <div className="automation-panel-left-content">
           <h2>Automated Settlement Rules</h2>

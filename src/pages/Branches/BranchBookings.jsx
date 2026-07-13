@@ -156,7 +156,8 @@ export default function BranchBookings() {
           </div>
 
           <div className="table-wrap">
-            <table className="partner-table">
+            <div className="table-responsive-wrapper">
+<table className="partner-table">
               <thead>
                 <tr>
                   <th>BOOKING ID</th>
@@ -208,6 +209,7 @@ export default function BranchBookings() {
                 ))}
               </tbody>
             </table>
+</div>
 
             {filteredBookings.length === 0 && (
               <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>

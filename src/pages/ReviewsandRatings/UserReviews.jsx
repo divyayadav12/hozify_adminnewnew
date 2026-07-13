@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { Download, Plus, SlidersHorizontal, ChevronDown, Check, CheckCircle2, XCircle, Trash2, Filter, ShieldAlert } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function UserReviews() {
   // --- Clickable & Active States ---
   const [activeTab, setActiveTab] = useState("All");
@@ -186,15 +188,20 @@ export default function UserReviews() {
               </div>
               <div className="space-y-1">
                 <label className="text-[10px] font-bold text-slate-400 uppercase">Automated Strategy Pipeline</label>
-                <select 
+                <Select
                   value={ruleMeta.condition}
                   onChange={(e) => setRuleMeta(prev => ({ ...prev, condition: e.target.value }))}
                   className="w-full text-xs font-semibold bg-white border border-slate-200 rounded-lg p-2 focus:outline-none focus:border-black transition-all"
-                >
-                  <option value="Auto-Flag Inappropriate">Auto-Flag Inappropriate Content</option>
-                  <option value="Escalate Root Scope">Escalate to Senior Admin</option>
-                  <option value="Instant Wipe Matrix">Pre-Reject Lowest Level Entries</option>
-                </select>
+                  options={[{
+                    label: "Auto-Flag Inappropriate Content",
+                    value: "Auto-Flag Inappropriate"
+                  }, {
+                    label: "Escalate to Senior Admin",
+                    value: "Escalate Root Scope"
+                  }, {
+                    label: "Pre-Reject Lowest Level Entries",
+                    value: "Instant Wipe Matrix"
+                  }]} />
               </div>
             </div>
             <div className="flex justify-end gap-2 pt-1">
@@ -350,8 +357,8 @@ export default function UserReviews() {
 
           {/* Table Container */}
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-              <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50/70 border-b border-slate-200 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                     <th className="px-6 py-3.5">User</th>
@@ -457,7 +464,7 @@ export default function UserReviews() {
                   )}
                 </tbody>
               </table>
-            </div>
+</div>
           </div>
 
           {/* Table Pagination Engine */}

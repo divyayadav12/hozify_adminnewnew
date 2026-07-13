@@ -374,7 +374,8 @@ export default function OperationalReports() {
 
             {/* Scheduled Deliveries Table */}
             <div className="table-wrap" style={{ marginTop: '10px' }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', fontSize: '10px', fontWeight: '850', color: 'var(--muted)', letterSpacing: '0.3px', borderRadius: '4px 0 0 4px' }}>
@@ -471,7 +472,8 @@ export default function OperationalReports() {
                   </tr>
 
                 </tbody>
-              </table></div>
+              </table>
+</div>
               
             </div>
           </div>

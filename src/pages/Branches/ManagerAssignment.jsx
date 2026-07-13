@@ -5,6 +5,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 const initialCandidates = [
   { id: 1, name: 'Eleanor Vance', role: 'Senior Ops Specialist', experience: '12 Years', sector: 'Logistics', loadVal: 2, loadMax: 5, rating: 4.9, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=60&h=60&q=80', status: 'Available' },
   { id: 2, name: 'Julian Thorne', role: 'Regional Lead', experience: '8 Years', sector: 'Retail', loadVal: 4, loadMax: 5, rating: 4.7, avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=60&h=60&q=80', status: 'Assigned' },
@@ -80,16 +82,21 @@ export default function ManagerAssignment() {
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label htmlFor="experience-select" style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Experience Level</label>
-                  <select
+                  <Select
                     id="experience-select"
                     value={experience}
                     onChange={(e) => setExperience(e.target.value)}
                     style={{ height: '36px', border: '1.5px solid #25108f', padding: '0 10px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', outline: 'none', background: '#fff' }}
-                  >
-                    <option value="All Experience Levels">All Experience Levels</option>
-                    <option value="Senior">10+ Years (Senior)</option>
-                    <option value="Mid">5-10 Years (Mid)</option>
-                  </select>
+                    options={[{
+                      label: "All Experience Levels",
+                      value: "All Experience Levels"
+                    }, {
+                      label: "10+ Years (Senior)",
+                      value: "Senior"
+                    }, {
+                      label: "5-10 Years (Mid)",
+                      value: "Mid"
+                    }]} />
                 </div>
 
                 <div>
@@ -146,7 +153,8 @@ export default function ManagerAssignment() {
             
             <div>
               <div className="table-wrap">
-                <table className="partner-table">
+                <div className="table-responsive-wrapper">
+<table className="partner-table">
                   <thead>
                     <tr>
                       <th>MANAGER IDENTITY</th>
@@ -219,6 +227,7 @@ export default function ManagerAssignment() {
                     ))}
                   </tbody>
                 </table>
+</div>
               </div>
 
               {/* Table Footer */}

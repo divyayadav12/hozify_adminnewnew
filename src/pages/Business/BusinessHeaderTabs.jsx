@@ -13,7 +13,7 @@ export default function BusinessHeaderTabs({ activeTab }) {
   ];
 
   return (
-    <div style={{ display: 'flex', gap: '8px', background: '#f1f5f9', padding: '4px', borderRadius: '6px', fontSize: '11px', fontWeight: '700' }}>
+    <div style={{ display: 'flex', gap: '8px', background: 'rgba(255, 255, 255, 0.15)', padding: '4px', borderRadius: '8px', fontSize: '13px', fontWeight: '600' }}>
       {tabs.map((tab) => {
         const isActive = activeTab === tab.label;
         return (
@@ -22,14 +22,15 @@ export default function BusinessHeaderTabs({ activeTab }) {
             onClick={() => tab.route !== '#' && navigate(tab.route)}
             style={{
               border: 'none',
-              padding: '4px 10px',
-              background: isActive ? '#fff' : 'transparent',
-              color: isActive ? '#0f172a' : 'var(--muted)',
-              borderRadius: '4px',
-              boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.05)' : 'none',
+              padding: '6px 14px',
+              background: isActive ? '#ffffff' : 'transparent',
+              color: isActive ? '#1e3a8a' : '#f1f5f9',
+              borderRadius: '6px',
+              boxShadow: isActive ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
               cursor: tab.route !== '#' ? 'pointer' : 'default',
               outline: 'none',
-              transition: 'all 0.15s ease'
+              transition: 'all 0.2s ease',
+              fontWeight: isActive ? '700' : '500'
             }}
             type="button"
           >

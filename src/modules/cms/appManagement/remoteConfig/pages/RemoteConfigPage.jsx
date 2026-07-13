@@ -12,6 +12,8 @@ import { triggerDownload, generateCSV } from '../../../../../utils/downloadHelpe
 import { Search, Plus, Download, Edit, Trash2, Eye, Server, RefreshCw, Cpu, Layers, AlertCircle, Play, Sparkles } from 'lucide-react';
 import { useToast } from '../../../../../components/common/ToastNotification';
 
+import Select from "../../../../../components/ui/Select";
+
 const INITIAL_KEYS = [
   { id: 'RC-901', key: 'MAP_API_ZOOM_LEVEL', app: 'User App', value: '16', rollout: 100, env: 'Production', status: 'Active', description: 'Sets default scale for maps during booking tracking.' },
   { id: 'RC-902', key: 'BSP_ENABLE_COMPLEX_GST_CALCULATIONS', app: 'Partner App', value: 'true', rollout: 10, env: 'Staging', status: 'Active', description: 'Surfaces advanced tax summary panel for registered businesses.' },
@@ -173,32 +175,45 @@ export default function RemoteConfigPage() {
             <Search size={16} style={{ position: 'absolute', left: '14px', top: '12px', color: '#94a3b8' }} />
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
-            <select
+            <Select
               value={appFilter}
               onChange={(e) => setAppFilter(e.target.value)}
               style={{ padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px' }}
-            >
-              <option value="All">All Apps</option>
-              <option value="User App">User App</option>
-              <option value="Partner App">Partner App</option>
-              <option value="Admin Panel">Admin Panel</option>
-            </select>
-            <select
+              options={[{
+                label: "All Apps",
+                value: "All"
+              }, {
+                label: "User App",
+                value: "User App"
+              }, {
+                label: "Partner App",
+                value: "Partner App"
+              }, {
+                label: "Admin Panel",
+                value: "Admin Panel"
+              }]} />
+            <Select
               value={envFilter}
               onChange={(e) => setEnvFilter(e.target.value)}
               style={{ padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px' }}
-            >
-              <option value="All">All Environments</option>
-              <option value="Production">Production</option>
-              <option value="Staging">Staging</option>
-            </select>
+              options={[{
+                label: "All Environments",
+                value: "All"
+              }, {
+                label: "Production",
+                value: "Production"
+              }, {
+                label: "Staging",
+                value: "Staging"
+              }]} />
           </div>
         </div>
 
         {/* Table */}
         <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px', minWidth: '900px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px', minWidth: '900px' }}>
               <thead>
                 <tr className="custom-table-header">
                   <th style={{ padding: '16px 24px' }}>CONFIG KEY</th>
@@ -276,11 +291,11 @@ export default function RemoteConfigPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 
       </div>
-
       {/* Modals */}
       <AddEditModal 
         isOpen={isAddOpen} 
@@ -289,7 +304,6 @@ export default function RemoteConfigPage() {
         fields={formFields} 
         onSave={handleAddSave} 
       />
-
       <AddEditModal 
         isOpen={isEditOpen} 
         onClose={() => setIsEditOpen(false)} 
@@ -298,14 +312,12 @@ export default function RemoteConfigPage() {
         initialValues={selectedConfig} 
         onSave={handleEditSave} 
       />
-
       <DeleteConfirmationModal 
         isOpen={isDeleteOpen} 
         onClose={() => setIsDeleteOpen(false)} 
         onConfirm={handleDeleteConfirm} 
         itemName={`remote key "${selectedConfig?.key}"`} 
       />
-
       <PreviewModal 
         isOpen={isPreviewOpen} 
         onClose={() => setIsPreviewOpen(false)} 
@@ -321,13 +333,11 @@ export default function RemoteConfigPage() {
           'Description Detail': selectedConfig?.description
         }} 
       />
-
       <SuccessModal 
         isOpen={isSuccessOpen} 
         onClose={() => setIsSuccessOpen(false)} 
         message={successMessage} 
       />
-
       <WarningModal 
         isOpen={isWarningOpen} 
         onClose={() => setIsWarningOpen(false)} 
@@ -335,7 +345,6 @@ export default function RemoteConfigPage() {
         message="Changing remote config values alters target client runtime parameters instantly. Proceed?" 
         onConfirm={warningAction} 
       />
-
     </AdminShell>
   );
 }

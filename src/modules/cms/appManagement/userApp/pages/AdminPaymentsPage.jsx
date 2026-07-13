@@ -5,12 +5,13 @@ import { Eye } from 'lucide-react';
 
 export default function AdminPaymentsPage() {
   return (
-    <AdminShell>
+    <AdminShell headerTitle="Payments Ledger" activeTab="Payments Ledger">
       <div style={{ padding: '24px' }}>
         <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '24px' }}>Payments Ledger</h1>
         
         <div style={{ background: '#fff', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                 <th style={{ padding: '16px', fontWeight: 'bold', color: '#475569' }}>TXN ID</th>
@@ -38,6 +39,7 @@ export default function AdminPaymentsPage() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
       </div>
     </AdminShell>

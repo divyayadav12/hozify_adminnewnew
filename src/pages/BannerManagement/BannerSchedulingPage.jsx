@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 // Bottom section me dikhne wale slots cards
 function ScheduledSlotCard({ title, status, zone, dateRange, bgImg }) {
   const { addToast } = useToast();
@@ -265,11 +267,20 @@ export default function BannerSchedulingPage() {
                 {/* Selection dropdown menu placement fields option box block container */}
                 <div className="space-y-1">
                   <label className="font-bold text-slate-600 block">Zone Placement</label>
-                  <select value={newZone} onChange={(e) => setNewZone(e.target.value)} className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl outline-none font-medium text-slate-700">
-                    <option>Homepage Hero</option>
-                    <option>Offers Sidebar</option>
-                    <option>Category Header</option>
-                  </select>
+                  <Select
+                    value={newZone}
+                    onChange={(e) => setNewZone(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl outline-none font-medium text-slate-700"
+                    options={[{
+                      label: "Homepage Hero",
+                      value: "Homepage Hero"
+                    }, {
+                      label: "Offers Sidebar",
+                      value: "Offers Sidebar"
+                    }, {
+                      label: "Category Header",
+                      value: "Category Header"
+                    }]} />
                 </div>
                 
                 {/* Start and end time limits grid fields selection box elements lines */}
@@ -363,7 +374,6 @@ export default function BannerSchedulingPage() {
         </div>
 
       </div>
-
       {showAllSlotsModal && typeof document !== 'undefined' && createPortal(
         <div className="fixed inset-0 bg-slate-900/60 z-[99999] flex items-center justify-center p-6 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[80vh] flex flex-col animate-in fade-in zoom-in duration-200">
@@ -380,7 +390,6 @@ export default function BannerSchedulingPage() {
         </div>,
         document.body
       )}
-
       {showScheduleModal && typeof document !== 'undefined' && createPortal(
         <div className="fixed inset-0 bg-slate-900/60 z-[99999] flex items-center justify-center p-6 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md flex flex-col p-6 space-y-4 animate-in fade-in zoom-in duration-200">
@@ -400,11 +409,20 @@ export default function BannerSchedulingPage() {
               
               <div className="space-y-1">
                 <label className="font-bold text-slate-600 block text-sm">Zone Placement</label>
-                <select value={newZone} onChange={(e) => setNewZone(e.target.value)} className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl outline-none font-medium text-slate-700 bg-white">
-                  <option>Homepage Hero</option>
-                  <option>Offers Sidebar</option>
-                  <option>Category Header</option>
-                </select>
+                <Select
+                  value={newZone}
+                  onChange={(e) => setNewZone(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl outline-none font-medium text-slate-700 bg-white"
+                  options={[{
+                    label: "Homepage Hero",
+                    value: "Homepage Hero"
+                  }, {
+                    label: "Offers Sidebar",
+                    value: "Offers Sidebar"
+                  }, {
+                    label: "Category Header",
+                    value: "Category Header"
+                  }]} />
               </div>
               
               <div className="grid grid-cols-2 gap-3">

@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
 
+import Select from "../../components/ui/Select";
+
 export default function EmployeeReportPage() {
   const { addToast } = useToast();
   // --- UI Interactivity States ---
@@ -110,16 +112,23 @@ export default function EmployeeReportPage() {
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block mb-1">Department</label>
-                    <select
+                    <Select
                       value={teamFilter}
                       onChange={(e) => setTeamFilter(e.target.value)}
                       className="w-full border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs bg-white text-slate-700 focus:outline-none"
-                    >
-                      <option value="All Departments">All Departments</option>
-                      <option value="Customer Experience">Customer Experience</option>
-                      <option value="Logistics Lead">Logistics Lead</option>
-                      <option value="Support Tier III">Support Tier III</option>
-                    </select>
+                      options={[{
+                        label: "All Departments",
+                        value: "All Departments"
+                      }, {
+                        label: "Customer Experience",
+                        value: "Customer Experience"
+                      }, {
+                        label: "Logistics Lead",
+                        value: "Logistics Lead"
+                      }, {
+                        label: "Support Tier III",
+                        value: "Support Tier III"
+                      }]} />
                   </div>
                   {(searchQuery || teamFilter !== "All Departments") && (
                     <button 
@@ -200,10 +209,15 @@ export default function EmployeeReportPage() {
           <div className="bg-white border border-gray-200/70 rounded-xl p-6 shadow-sm lg:col-span-2 flex flex-col justify-between">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-sm font-black text-slate-800 uppercase tracking-wide">Productivity Trends</h3>
-              <select className="text-xs font-bold border border-gray-200 px-2 py-1 rounded bg-white text-slate-600 focus:outline-none cursor-pointer">
-                <option>Weekly</option>
-                <option>Monthly</option>
-              </select>
+              <Select
+                className="text-xs font-bold border border-gray-200 px-2 py-1 rounded bg-white text-slate-600 focus:outline-none cursor-pointer"
+                options={[{
+                  label: "Weekly",
+                  value: "Weekly"
+                }, {
+                  label: "Monthly",
+                  value: "Monthly"
+                }]} />
             </div>
 
             {/* Weekly Bar Graph Frame */}
@@ -293,7 +307,8 @@ export default function EmployeeReportPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-[#f8fafd] text-gray-400 border-b border-gray-200/60 uppercase text-[9px] font-black tracking-wider">
                   <th className="py-3 px-6">Employee</th>
@@ -348,6 +363,7 @@ export default function EmployeeReportPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           {/* Pagination Blocks Footer */}

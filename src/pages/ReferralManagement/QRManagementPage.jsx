@@ -325,7 +325,8 @@ export default function QRManagementPage() {
           </div>
 
           <div className="overflow-x-auto min-h-[200px]">
-            <table className="w-full text-left border-collapse text-xs md:text-sm">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse text-xs md:text-sm">
               <thead>
                 <tr className="bg-[#f5f7fc] text-gray-400 uppercase text-[10px] font-bold tracking-wider border-b border-gray-200">
                   <th className="p-4 pl-6">Campaign Name</th>
@@ -377,6 +378,7 @@ export default function QRManagementPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

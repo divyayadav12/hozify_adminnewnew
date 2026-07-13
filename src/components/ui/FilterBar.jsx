@@ -2,6 +2,8 @@ import React from 'react';
 import { Search } from 'lucide-react';
 import Button from './Button';
 
+import Select from './Select';
+
 export default function FilterBar({ 
   onSearch, 
   searchPlaceholder = "Search...", 
@@ -44,25 +46,15 @@ export default function FilterBar({
       </div>
 
       {filters.map((filter, index) => (
-        <select
+        <Select
           key={index}
           onChange={(e) => onFilterChange && onFilterChange(filter.key, e.target.value)}
-          style={{
-            height: '40px',
-            padding: '0 32px 0 16px',
-            borderRadius: 'var(--radius-input)',
-            border: '1px solid #cbd5e1',
-            fontSize: 'var(--text-body)',
-            backgroundColor: '#fff',
-            outline: 'none',
-            cursor: 'pointer'
-          }}
-        >
-          <option value="">{filter.label}</option>
-          {filter.options.map((opt, i) => (
-            <option key={i} value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
+          options={[
+            { value: "", label: filter.label },
+            ...(filter.options || [])
+          ]}
+          style={{ minWidth: '200px' }}
+        />
       ))}
 
       <div style={{ display: 'flex', gap: '8px', marginLeft: 'auto' }}>

@@ -34,6 +34,8 @@ import { ROUTES } from '../../config/routes';
 import { useApp } from '../../hooks/useApp';
 import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 
+import Select from "../../components/ui/Select";
+
 const sections = [
   'Dashboard',
   'Pending KYC',
@@ -343,7 +345,6 @@ export default function KycQueue() {
 
         {renderSection()}
       </div>
-
       {/* ========================================================
           MODAL: REUPLOAD REQUEST FORM
           ======================================================== */}
@@ -364,21 +365,37 @@ export default function KycQueue() {
             <div className="space-y-4 text-xs">
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Document Target</label>
-                <select className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold">
-                  <option>{selectedProfile.doc} Front Page</option>
-                  <option>{selectedProfile.doc} Back Page</option>
-                  <option>Selfie Verification Photo</option>
-                </select>
+                <Select
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold"
+                  options={[{
+                    label: "Front Page",
+                    value: "Front Page"
+                  }, {
+                    label: "Back Page",
+                    value: "Back Page"
+                  }, {
+                    label: "Selfie Verification Photo",
+                    value: "Selfie Verification Photo"
+                  }]} />
               </div>
 
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Rejection Reason</label>
-                <select className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold">
-                  <option>Blurry or Unreadable text details</option>
-                  <option>Document corners cropped or obstructed</option>
-                  <option>Expired Identity document date range</option>
-                  <option>Name spelling mismatch on Registry records</option>
-                </select>
+                <Select
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold"
+                  options={[{
+                    label: "Blurry or Unreadable text details",
+                    value: "Blurry or Unreadable text details"
+                  }, {
+                    label: "Document corners cropped or obstructed",
+                    value: "Document corners cropped or obstructed"
+                  }, {
+                    label: "Expired Identity document date range",
+                    value: "Expired Identity document date range"
+                  }, {
+                    label: "Name spelling mismatch on Registry records",
+                    value: "Name spelling mismatch on Registry records"
+                  }]} />
               </div>
 
               <div className="flex gap-2 pt-2">
@@ -404,7 +421,6 @@ export default function KycQueue() {
           </div>
         </div>
       )}
-
       {/* ========================================================
           MODAL: DOCUMENT PREVIEW ZOOM
           ======================================================== */}
@@ -434,7 +450,6 @@ export default function KycQueue() {
           </div>
         </div>
       )}
-
     </AdminShell>
   );
 }
@@ -463,7 +478,8 @@ function DashboardSection({ metrics, setActiveSection, setSelectedProfileId }) {
           <div className="kyc-mini-bars">{[30, 42, 56, 71, 85, 62].map((height, index) => <i key={index} style={{ height }} />)}</div>
         </Panel>
         <Panel title="Latest Submitted KYC">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table compact">
+          <div className="table-responsive-wrapper">
+<table className="kyc-flow-table compact">
             <tbody>
               {latestSubmissions.map((row) => (
                 <tr key={row.id}>
@@ -484,7 +500,8 @@ function DashboardSection({ metrics, setActiveSection, setSelectedProfileId }) {
                 </tr>
               ))}
             </tbody>
-          </table></div>
+          </table>
+</div>
         </Panel>
         <Panel title="High Risk & Escalations" action={<Badge tone="danger">21 cases</Badge>}>
           {['Vanguard Logistics Ltd', 'Ahmed Al-Farsi', 'Cryptflow LLC'].map((item, index) => (
@@ -532,7 +549,8 @@ function StatusKycSection({ title, status, profiles, query, setQuery, setActiveS
           <button type="button" className="cursor-pointer" onClick={() => setQuery('')}>Clear Search</button>
         </div>
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table">
+          <div className="table-responsive-wrapper">
+<table className="kyc-flow-table">
             <thead>
               <tr>
                 <th>KYC ID</th>
@@ -587,7 +605,8 @@ function StatusKycSection({ title, status, profiles, query, setQuery, setActiveS
                 </tr>
               ))}
             </tbody>
-          </table></div>
+          </table>
+</div>
         </div>
       </Panel>
     </>
@@ -642,7 +661,8 @@ function QueueSection({ profiles, query, setQuery, setActiveSection, setSelected
         </button>
       </div>
       <div className="table-wrap">
-        <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table">
+        <div className="table-responsive-wrapper">
+<table className="kyc-flow-table">
           <thead><tr><th>KYC ID</th><th>User Name</th><th>User Type</th><th>Submitted Date</th><th>Verification Type</th><th>Risk Score</th><th>Status</th><th>Reviewer</th><th>Actions</th></tr></thead>
           <tbody>
             {profiles.map((row) => (
@@ -681,7 +701,8 @@ function QueueSection({ profiles, query, setQuery, setActiveSection, setSelected
               </tr>
             )}
           </tbody>
-        </table></div>
+        </table>
+</div>
       </div>
       <div className="kyc-flow-bottom-kpis">
         <StatCard label="Average Review Time" value="4m 12s" sub="-8%" />
@@ -864,9 +885,11 @@ function BulkSection({ profiles, selectedIds, toggleSelected, bulkUpdate, setAct
         <button type="button" className="danger cursor-pointer" onClick={() => bulkUpdate('Rejected')}>Reject Selected</button>
         <button type="button" className="cursor-pointer" onClick={() => toast.success(`Assigned ${selectedIds.length} selected profiles to compliance reviewer.`)}>Assign Reviewer</button>
       </div>
-      <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table"><thead><tr><th></th><th>Profile</th><th>Risk Score</th><th>Documents</th><th>Verification Score</th><th>Last Updated</th><th>Actions</th></tr></thead><tbody>
+      <div className="table-responsive-wrapper">
+<table className="kyc-flow-table"><thead><tr><th></th><th>Profile</th><th>Risk Score</th><th>Documents</th><th>Verification Score</th><th>Last Updated</th><th>Actions</th></tr></thead><tbody>
         {profiles.slice(0, 5).map((row, index) => <tr key={row.id}><td><input type="checkbox" checked={selectedIds.includes(row.id)} onChange={() => toggleSelected(row.id)} /></td><td><span className="kyc-person"><i>{row.avatar}</i>{row.name}</span></td><td><Progress value={row.risk} danger={row.risk > 70} /></td><td><FileText size={18} /></td><td><Badge tone="success">{98 - index}%</Badge></td><td>{20 + index * 8} mins ago</td><td><button type="button" className="cursor-pointer" onClick={() => setActiveSection('Review')}>Review</button></td></tr>)}
-      </tbody></table></div>
+      </tbody></table>
+</div>
     </Panel>
   );
 }
@@ -875,9 +898,11 @@ function ReuploadSection() {
   return (
     <Panel title="Reupload Requests" action={<button className="primary-action-btn cursor-pointer" type="button" onClick={() => toast.success('Bulk notifications sent to all 4 pending users via email and SMS.')}><Send size={14} />Bulk Notify</button>}>
       <div className="kyc-flow-stats four"><StatCard label="Pending Reuploads" value="42" sub="+12%" /><StatCard label="Avg Response Time" value="4.2h" /><StatCard label="Blurry Image Rate" value="18%" /><StatCard label="Successful Re-submits" value="94%" tone="success" /></div>
-      <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table"><thead><tr><th>User</th><th>Rejected Document</th><th>Reason</th><th>Request Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+      <div className="table-responsive-wrapper">
+<table className="kyc-flow-table"><thead><tr><th>User</th><th>Rejected Document</th><th>Reason</th><th>Request Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>
         {reuploads.map((row) => <tr key={row[0]}><td>{row[0]}</td><td>{row[1]}</td><td><Badge tone="danger">{row[2]}</Badge></td><td>{row[3]}</td><td>{row[4]}</td><td><button type="button" className="cursor-pointer" onClick={() => toast.success(`${row[0]} has been re-notified.`)}>Re-notify</button></td></tr>)}
-      </tbody></table></div>
+      </tbody></table>
+</div>
     </Panel>
   );
 }
@@ -1232,8 +1257,8 @@ function AuditSection() {
               <Loader2 size={24} className="text-indigo-900 animate-spin" />
             </div>
           )}
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-            <table className="kyc-flow-table">
+          <div className="table-responsive-wrapper">
+<table className="kyc-flow-table">
               <thead>
                 <tr>
                   <th>Timestamp</th>
@@ -1268,7 +1293,7 @@ function AuditSection() {
                 )}
               </tbody>
             </table>
-          </div>
+</div>
         </div>
         <div className="kyc-pagination">
           <button 
@@ -1403,9 +1428,8 @@ function ReviewerSection() {
         <StatCard label="Unassigned Cases" value="142" tone="danger" />
         <StatCard label="Average Throughput" value="89.4 Cases / Day" />
       </div>
-      
-      <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-        <table className="kyc-flow-table">
+      <div className="table-responsive-wrapper">
+<table className="kyc-flow-table">
           <thead>
             <tr>
               <th>Reviewer Name</th>
@@ -1441,8 +1465,7 @@ function ReviewerSection() {
             ))}
           </tbody>
         </table>
-      </div>
-      
+</div>
       <div className="kyc-load-card">
         <BarChart3 size={34} />
         <div>
@@ -1459,7 +1482,6 @@ function ReviewerSection() {
           <span>Apply Optimization</span>
         </button>
       </div>
-
       {/* ========================================================
           MODAL: ASSIGN CASES DIRECT DIALOG
           ======================================================== */}
@@ -1480,19 +1502,32 @@ function ReviewerSection() {
             <div className="space-y-4 text-xs">
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Source Queue</label>
-                <select 
+                <Select
                   value={assignmentQueue}
                   onChange={(e) => setAssignmentQueue(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold"
-                >
-                  <option>Aadhaar Verification</option>
-                  <option>PAN Verification</option>
-                  <option>GST Verification & Analytics</option>
-                  <option>Driving License Verification</option>
-                  <option>Voter ID Identity Match</option>
-                  <option>Live Selfie Preview</option>
-                  <option>Video KYC</option>
-                </select>
+                  options={[{
+                    label: "Aadhaar Verification",
+                    value: "Aadhaar Verification"
+                  }, {
+                    label: "PAN Verification",
+                    value: "PAN Verification"
+                  }, {
+                    label: "GST Verification & Analytics",
+                    value: "GST Verification & Analytics"
+                  }, {
+                    label: "Driving License Verification",
+                    value: "Driving License Verification"
+                  }, {
+                    label: "Voter ID Identity Match",
+                    value: "Voter ID Identity Match"
+                  }, {
+                    label: "Live Selfie Preview",
+                    value: "Live Selfie Preview"
+                  }, {
+                    label: "Video KYC",
+                    value: "Video KYC"
+                  }]} />
               </div>
 
               <div>
@@ -1527,14 +1562,17 @@ function ReviewerSection() {
           </div>
         </div>
       )}
-    </Panel>);
+    </Panel>
+  );
 }
 
 function RejectionSection() {
   return (
     <Panel title="Rejection Management">
       <div className="kyc-flow-stats four"><StatCard label="Total Rejections" value="1,284" tone="danger" /><StatCard label="Restore Rate" value="4.2%" /><StatCard label="Avg Review Time" value="18m" /><StatCard label="Top Category" value="ID Expiry" /></div>
-      <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="kyc-flow-table"><thead><tr><th>User</th><th>Reason Category</th><th>Rejection Date</th><th>Reviewer Name</th><th>Verification Score</th><th>Actions</th></tr></thead><tbody>{rejectionRows.map((row) => <tr key={row[0]}>{row.map((cell, index) => <td key={index}>{index === 1 ? <Badge tone="danger">{cell}</Badge> : cell}</td>)}<td><button type="button" className="cursor-pointer" onClick={() => toast.success(`Reupload request sent to user: ${row[0]}.`)}>Request Reupload</button></td></tr>)}</tbody></table></div>
+      <div className="table-responsive-wrapper">
+<table className="kyc-flow-table"><thead><tr><th>User</th><th>Reason Category</th><th>Rejection Date</th><th>Reviewer Name</th><th>Verification Score</th><th>Actions</th></tr></thead><tbody>{rejectionRows.map((row) => <tr key={row[0]}>{row.map((cell, index) => <td key={index}>{index === 1 ? <Badge tone="danger">{cell}</Badge> : cell}</td>)}<td><button type="button" className="cursor-pointer" onClick={() => toast.success(`Reupload request sent to user: ${row[0]}.`)}>Request Reupload</button></td></tr>)}</tbody></table>
+</div>
     </Panel>
   );
 }

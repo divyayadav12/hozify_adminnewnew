@@ -12,8 +12,34 @@ export default function FlowServicesPage() {
     navigate(`/cms/app-management/user-app/flow/services/${serviceId}/packages`);
   };
 
+  const handleCopyCode = () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText('CLEAN30').then(() => {
+          alert('Code CLEAN30 copied to clipboard!');
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = 'CLEAN30';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          alert('Code CLEAN30 copied to clipboard!');
+        } catch (err) {
+          console.error('Fallback: Oops, unable to copy', err);
+        }
+        document.body.removeChild(textArea);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
-    <AdminShell>
+    <AdminShell headerTitle="App Flow & Catalog" activeTab="App Flow & Catalog">
       <div style={{ maxWidth: '1200px', margin: '0 auto', background: '#eef2ff', minHeight: 'calc(100vh - 80px)', position: 'relative', overflow: 'hidden', padding: '48px' }}>
         {/* Background Gradient */}
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '400px', background: 'linear-gradient(180deg, #bae6fd 0%, #eef2ff 100%)', zIndex: 0 }} />
@@ -49,7 +75,7 @@ export default function FlowServicesPage() {
               <h2 style={{ fontSize: '24px', color: '#9a3412', margin: '0 0 12px 0', fontWeight: 'bold' }}>20% Off</h2>
               <p style={{ color: '#9a3412', margin: '0 0 8px 0', fontWeight: '600', fontSize: '16px' }}>On your first women saloon</p>
               <p style={{ color: '#64748b', fontSize: '12px', margin: '0 0 24px 0' }}>up to ₹100 off</p>
-              <button style={{ background: '#ea580c', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
+              <button onClick={() => alert('Offer claimed successfully!')} style={{ background: '#ea580c', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
                 Claim now
               </button>
             </div>
@@ -59,7 +85,7 @@ export default function FlowServicesPage() {
               <h2 style={{ fontSize: '24px', color: '#312e81', margin: '0 0 12px 0', fontWeight: 'bold' }}>Free</h2>
               <p style={{ color: '#312e81', margin: '0 0 8px 0', fontWeight: '600', fontSize: '16px' }}>AC Inspection & Checkup</p>
               <p style={{ color: '#64748b', fontSize: '12px', margin: '0 0 24px 0' }}>valid for this week only</p>
-              <button style={{ background: '#4f46e5', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
+              <button onClick={() => alert('Redirecting to booking page...')} style={{ background: '#4f46e5', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
                 Book now
               </button>
             </div>
@@ -69,7 +95,7 @@ export default function FlowServicesPage() {
               <h2 style={{ fontSize: '24px', color: '#064e3b', margin: '0 0 12px 0', fontWeight: 'bold' }}>Save 30%</h2>
               <p style={{ color: '#064e3b', margin: '0 0 8px 0', fontWeight: '600', fontSize: '16px' }}>On all cleaning services</p>
               <p style={{ color: '#64748b', fontSize: '12px', margin: '0 0 24px 0' }}>Use code: CLEAN30</p>
-              <button style={{ background: '#10b981', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
+              <button onClick={handleCopyCode} style={{ background: '#10b981', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }}>
                 Copy Code
               </button>
             </div>

@@ -4,6 +4,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_ASSIGNMENTS = [
   { id: 'ASN-2010', employee: 'John Doe', branch: 'Downtown HQ', task: 'Monthly Inventory Audit', assignedBy: 'Michael Chen', date: 'Oct 12, 2026', status: 'ACTIVE' },
   { id: 'ASN-2011', employee: 'Alice Smith', branch: 'North Suburbs', task: 'Customer Feedback Review', assignedBy: 'David Rodriguez', date: 'Oct 13, 2026', status: 'PENDING' },
@@ -32,7 +34,6 @@ export default function EmployeeAssignments() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
-      
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         <div 
@@ -103,7 +104,6 @@ export default function EmployeeAssignments() {
           </div>
         </div>
       </div>
-
       <div className="panel" style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)', marginBottom: 0 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Assignment Log</h3>
@@ -117,23 +117,33 @@ export default function EmployeeAssignments() {
                 style={{ fontSize: '12px', border: 'none', background: 'transparent', outline: 'none', paddingLeft: '8px', flex: 1, color: 'var(--text)' }}
               />
             </div>
-            <select 
-              className="dash-select" 
-              value={statusFilter} 
+            <Select
+              className="dash-select"
+              value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
-            >
-              <option value="All">All Statuses</option>
-              <option value="ACTIVE">Active</option>
-              <option value="PENDING">Pending</option>
-              <option value="COMPLETED">Completed</option>
-              <option value="REASSIGNED">Reassigned</option>
-            </select>
+              options={[{
+                label: "All Statuses",
+                value: "All"
+              }, {
+                label: "Active",
+                value: "ACTIVE"
+              }, {
+                label: "Pending",
+                value: "PENDING"
+              }, {
+                label: "Completed",
+                value: "COMPLETED"
+              }, {
+                label: "Reassigned",
+                value: "REASSIGNED"
+              }]} />
           </div>
         </div>
 
         <div className="table-wrap" style={{ overflowX: 'auto' }}>
-          <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+          <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
             <thead>
               <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee</th>
@@ -183,9 +193,9 @@ export default function EmployeeAssignments() {
                 )}
             </tbody>
           </table>
+</div>
         </div>
       </div>
-
       {/* Drawer for Assignment Details */}
       {selectedAssignment && (
         <>
@@ -274,7 +284,6 @@ export default function EmployeeAssignments() {
           </div>
         </>
       )}
-
     </div>
   );
 }

@@ -16,6 +16,8 @@ import {
   XCircle,
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 const stats = [
   {
     title: "Total Activities (30d)",
@@ -152,7 +154,7 @@ export default function UserAuditLog() {
           </div>
 
           <div className="flex gap-3">
-            <select
+            <Select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
               style={{
@@ -163,13 +165,22 @@ export default function UserAuditLog() {
                 outline: "none",
                 background: "var(--materio-surface)",
               }}
-            >
-              <option value="All">All Severities</option>
-              <option value="success">Success</option>
-              <option value="info">Info</option>
-              <option value="warning">Warning</option>
-              <option value="danger">Danger</option>
-            </select>
+              options={[{
+                label: "All Severities",
+                value: "All"
+              }, {
+                label: "Success",
+                value: "success"
+              }, {
+                label: "Info",
+                value: "info"
+              }, {
+                label: "Warning",
+                value: "warning"
+              }, {
+                label: "Danger",
+                value: "danger"
+              }]} />
             <button onClick={handleExportCSV} className="secondary-action-btn">
               <Download size={16} /> Export CSV
             </button>

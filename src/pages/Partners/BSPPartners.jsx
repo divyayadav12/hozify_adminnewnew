@@ -260,7 +260,8 @@ export default function BSPPartners() {
 
           {/* Table Container */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-100 bg-slate-50/30 text-xs font-bold uppercase tracking-wider text-slate-400">
                   <th className="px-6 py-4">Business</th>
@@ -401,6 +402,7 @@ export default function BSPPartners() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
       </div>

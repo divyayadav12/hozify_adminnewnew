@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, ChevronDown, X, Check } from 'lucide-react';
-import { DateRange } from 'react-date-range';
+import { Calendar, ChevronDown, Check } from 'lucide-react';
 import { format } from 'date-fns';
 import { useDateFilter } from '../../contexts/DateFilterContext';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-import './DateFilter.css'; // We will create this for custom styling if needed
 
 const PRESETS = [
   { label: 'Today', id: 'Today' },
@@ -21,6 +17,14 @@ const PRESETS = [
   { label: 'This Year', id: 'This Year' },
   { label: 'Custom Range', id: 'Custom' }
 ];
+
+// Returns yyyy-mm-dd for the native date input
+const toInputDate = (dateObj) => {
+  if (!dateObj) return '';
+  const d = new Date(dateObj);
+  const offset = d.getTimezoneOffset() * 60000;
+  return new Date(d.getTime() - offset).toISOString().split('T')[0];
+};
 
 export default function DateFilter() {
   const { preset, dateRange, setDateFilter } = useDateFilter();
@@ -111,7 +115,7 @@ export default function DateFilter() {
             boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
             display: 'flex',
             overflow: 'hidden',
-            minWidth: localPreset === 'Custom' ? '300px' : 'auto'
+            minWidth: localPreset === 'Custom' ? '420px' : 'auto'
           }}
         >
           {/* Sidebar Presets */}
@@ -152,19 +156,36 @@ export default function DateFilter() {
 
           {/* Calendar or Actions (ONLY SHOW FOR CUSTOM) */}
           {localPreset === 'Custom' && (
-            <div style={{ display: 'flex', flexDirection: 'column', background: '#ffffff', borderLeft: '1px solid #e2e8f0' }}>
-              <div style={{ padding: '12px' }}>
-                <DateRange
-                  editableDateInputs={true}
-                  onChange={(item) => setLocalRange([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={localRange}
-                  rangeColors={['#2563eb']}
-                />
+            <div style={{ display: 'flex', flexDirection: 'column', background: '#ffffff', borderLeft: '1px solid #e2e8f0', minWidth: '240px' }}>
+              <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <label style={{ fontSize: '11px', fontWeight: '700', color: '#64748b' }}>Start Date</label>
+                  <input
+                    type="date"
+                    value={toInputDate(localRange[0]?.startDate)}
+                    onChange={(e) => {
+                       const date = e.target.value ? new Date(e.target.value) : new Date();
+                       setLocalRange([{...localRange[0], startDate: date}]);
+                    }}
+                    style={{ padding: '8px 12px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
+                  />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <label style={{ fontSize: '11px', fontWeight: '700', color: '#64748b' }}>End Date</label>
+                  <input
+                    type="date"
+                    value={toInputDate(localRange[0]?.endDate)}
+                    onChange={(e) => {
+                       const date = e.target.value ? new Date(e.target.value) : new Date();
+                       setLocalRange([{...localRange[0], endDate: date}]);
+                    }}
+                    style={{ padding: '8px 12px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
+                  />
+                </div>
               </div>
               
               {/* Footer actions */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', padding: '12px', borderTop: '1px solid #e2e8f0', background: '#f8fafc' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', padding: '12px', borderTop: '1px solid #e2e8f0', background: '#f8fafc', marginTop: 'auto' }}>
                 <button
                   onClick={handleReset}
                   style={{

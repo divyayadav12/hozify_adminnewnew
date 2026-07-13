@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function NotificationReports({ activeTab = 'Notification Center' }) {
   const [selectedCategory, setSelectedCategory] = useState('Campaign');
   const [fileFormat, setFileFormat] = useState('PDF');
@@ -99,17 +101,24 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
               <Calendar size={14} style={{ color: 'var(--muted)' }} />
-              <select
+              <Select
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
                 style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '12px', cursor: 'pointer', color: '#565365' }}
                 aria-label="Report timeframe filter"
-              >
-                <option value="Last 30 Days">Last 30 Days</option>
-                <option value="Last 7 Days">Last 7 Days</option>
-                <option value="This Month">This Month</option>
-                <option value="Custom Range">Custom Range</option>
-              </select>
+                options={[{
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }, {
+                  label: "Last 7 Days",
+                  value: "Last 7 Days"
+                }, {
+                  label: "This Month",
+                  value: "This Month"
+                }, {
+                  label: "Custom Range",
+                  value: "Custom Range"
+                }]} />
             </div>
 
             <button
@@ -286,7 +295,7 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
                     2. Select Network Provider
                   </label>
                   <div style={{ position: 'relative' }}>
-                    <select
+                    <Select
                       value={selectedProvider}
                       onChange={(e) => setSelectedProvider(e.target.value)}
                       style={{
@@ -303,13 +312,22 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
                         color: 'var(--text)'
                       }}
                       aria-label="Select gateway network provider"
-                    >
-                      <option value="All Providers">All Providers (Twilio, APNs, FCM)</option>
-                      <option value="Twilio SMS">Twilio SMS Gateway</option>
-                      <option value="AWS SES">AWS SES Email Node</option>
-                      <option value="Google FCM">Google FCM (Android Push)</option>
-                      <option value="Apple APNs">Apple APNs (iOS Push)</option>
-                    </select>
+                      options={[{
+                        label: "All Providers (Twilio, APNs, FCM)",
+                        value: "All Providers"
+                      }, {
+                        label: "Twilio SMS Gateway",
+                        value: "Twilio SMS"
+                      }, {
+                        label: "AWS SES Email Node",
+                        value: "AWS SES"
+                      }, {
+                        label: "Google FCM (Android Push)",
+                        value: "Google FCM"
+                      }, {
+                        label: "Apple APNs (iOS Push)",
+                        value: "Apple APNs"
+                      }]} />
                     <ChevronDown size={14} style={{ position: 'absolute', right: '12px', top: '12px', color: 'var(--muted)', pointerEvents: 'none' }} />
                   </div>
                 </div>
@@ -524,7 +542,8 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '700px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '700px' }}>
               <thead>
                 <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
@@ -582,7 +601,8 @@ export default function NotificationReports({ activeTab = 'Notification Center' 
                   ))
                 )}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import Toggle from '../../../../../components/common/Toggle';
 import { useToast } from '../../../../../components/common/ToastNotification';
+import Select from '../../../../../components/ui/Select';
 
 const INITIAL_CATEGORIES = [
   { id: '1', parentId: null, name: 'InstaSupport', navKey: 'InstaSupport', icon: 'Icon_InstaSupport', displayOrder: 1, active: true },
@@ -113,6 +114,7 @@ export default function ServiceCategoriesUI() {
 
         {/* List */}
         <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
+          <div className="table-responsive-wrapper" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
             <thead>
               <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
@@ -166,6 +168,7 @@ export default function ServiceCategoriesUI() {
               )}
             </tbody>
           </table>
+          </div>
         </div>
 
         {/* Create Modal */}
@@ -210,17 +213,15 @@ export default function ServiceCategoriesUI() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '6px' }}>Parent Category ID (Optional)</label>
-                    <select 
+                    <Select 
                       name="parentId"
                       value={formData.parentId}
-                      onChange={handleInputChange}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', backgroundColor: '#fff' }}
-                    >
-                      <option value="">NULL (No Parent)</option>
-                      {categories.map(c => (
-                        <option key={c.id} value={c.id}>{c.name}</option>
-                      ))}
-                    </select>
+                      onChange={(val) => handleInputChange({ target: { name: 'parentId', value: val }})}
+                      options={[
+                        { value: '', label: 'NULL (No Parent)' },
+                        ...categories.map(c => ({ value: c.id, label: c.name }))
+                      ]}
+                    />
                   </div>
                   <div>
                     <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '6px' }}>Icon Name</label>

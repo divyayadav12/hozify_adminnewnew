@@ -22,6 +22,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
   const { navigate } = useApp();
   const [ticketType, setTicketType] = useState('Technical Issue');
@@ -194,31 +196,45 @@ export default function SupportTicketCreate({ activeTab = 'Support Center' }) {
                 {/* Ticket Type */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)' }}>TICKET TYPE</span>
-                  <select
+                  <Select
                     value={ticketType}
                     onChange={(e) => setTicketType(e.target.value)}
                     style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
-                  >
-                    <option value="Technical Issue">Technical Issue</option>
-                    <option value="Billing Dispute">Billing Dispute</option>
-                    <option value="Account Lockout">Account Lockout</option>
-                    <option value="Feature Request">Feature Request</option>
-                  </select>
+                    options={[{
+                      label: "Technical Issue",
+                      value: "Technical Issue"
+                    }, {
+                      label: "Billing Dispute",
+                      value: "Billing Dispute"
+                    }, {
+                      label: "Account Lockout",
+                      value: "Account Lockout"
+                    }, {
+                      label: "Feature Request",
+                      value: "Feature Request"
+                    }]} />
                 </div>
 
                 {/* Category */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)' }}>CATEGORY</span>
-                  <select
+                  <Select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
-                  >
-                    <option value="Platform Downtime">Platform Downtime</option>
-                    <option value="Payment Processing">Payment Processing</option>
-                    <option value="KYC Verification">KYC Verification</option>
-                    <option value="API Integration">API Integration</option>
-                  </select>
+                    options={[{
+                      label: "Platform Downtime",
+                      value: "Platform Downtime"
+                    }, {
+                      label: "Payment Processing",
+                      value: "Payment Processing"
+                    }, {
+                      label: "KYC Verification",
+                      value: "KYC Verification"
+                    }, {
+                      label: "API Integration",
+                      value: "API Integration"
+                    }]} />
                 </div>
               </div>
 

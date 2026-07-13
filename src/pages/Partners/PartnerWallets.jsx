@@ -352,7 +352,8 @@ export default function PartnerWallets() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead className="bg-slate-50/80 border-b border-slate-200/60">
                 <tr className="text-slate-400 font-bold text-[10px] uppercase tracking-wider">
                   <th className="px-5 py-3">Partner Identity</th>
@@ -402,6 +403,7 @@ export default function PartnerWallets() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

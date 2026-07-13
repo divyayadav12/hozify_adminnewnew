@@ -336,7 +336,8 @@ export default function ReferralSourcesPage() {
             </div>
 
             <div className="overflow-x-auto flex-1">
-              <table className="w-full min-w-[500px] border-collapse">
+              <div className="table-responsive-wrapper">
+<table className="w-full min-w-[500px] border-collapse">
                 <thead className="bg-slate-50">
                   <tr className="text-left text-[10px] font-bold text-slate-500 uppercase border-b border-slate-200">
                     <th className="p-4">Source Detail</th>
@@ -380,6 +381,7 @@ export default function ReferralSourcesPage() {
                   )}
                 </tbody>
               </table>
+</div>
             </div>
 
             <div className="text-center p-5 border-t border-slate-200">

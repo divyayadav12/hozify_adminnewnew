@@ -18,6 +18,8 @@ import {
   ArrowLeft
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function ETAMonitoring() {
   const { navigate } = useApp();
   // ==========================================
@@ -227,28 +229,42 @@ export default function ETAMonitoring() {
             </div>
             
             {/* Priority Selector Filter Dropdown/Tabs */}
-            <select 
-              value={priorityFilter} 
+            <Select
+              value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value)}
               className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none cursor-pointer"
-            >
-              <option value="All">Priority: All</option>
-              <option value="Critical">Critical Only</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-            </select>
+              options={[{
+                label: "Priority: All",
+                value: "All"
+              }, {
+                label: "Critical Only",
+                value: "Critical"
+              }, {
+                label: "High",
+                value: "High"
+              }, {
+                label: "Medium",
+                value: "Medium"
+              }]} />
 
             {/* Status Selector Filter */}
-            <select 
-              value={statusFilter} 
+            <Select
+              value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none cursor-pointer"
-            >
-              <option value="All">Status: All</option>
-              <option value="In Transit">In Transit</option>
-              <option value="Delayed">Delayed</option>
-              <option value="At Destination">At Destination</option>
-            </select>
+              options={[{
+                label: "Status: All",
+                value: "All"
+              }, {
+                label: "In Transit",
+                value: "In Transit"
+              }, {
+                label: "Delayed",
+                value: "Delayed"
+              }, {
+                label: "At Destination",
+                value: "At Destination"
+              }]} />
           </div>
 
           <div className="text-[11px] font-bold text-slate-400">
@@ -264,7 +280,8 @@ export default function ETAMonitoring() {
           {/* MIDDLE COLUMN: LIVE ETA TRACKING DATAGRID */}
           <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs flex flex-col">
             <div className="overflow-x-auto">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse">
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-black tracking-wider text-slate-400 uppercase">
                     <th className="py-3 px-4">Job ID / Partner</th>
@@ -319,7 +336,8 @@ export default function ETAMonitoring() {
                     </tr>
                   ))}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
           </div>
 

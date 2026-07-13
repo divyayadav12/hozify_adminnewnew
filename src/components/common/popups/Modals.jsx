@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, AlertTriangle, CheckCircle, UploadCloud, Eye } from 'lucide-react';
+import Select from '../../ui/Select';
 
 // Wrapper component for consistent styling and modal overlay behavior
 function ModalWrapper({ isOpen, onClose, children }) {
@@ -94,16 +95,15 @@ export function AddEditModal({ isOpen, onClose, title, fields = [], initialValue
                   {field.label} {field.required && <span style={{ color: '#ef4444' }}>*</span>}
                 </label>
                 {field.type === 'select' ? (
-                  <select
+                  <Select
                     value={values[field.name] || ''}
                     onChange={(e) => handleChange(field.name, e.target.value)}
-                    style={{ height: '40px', padding: '0 12px', border: errors[field.name] ? '1px solid #ef4444' : '1px solid #cbd5e1', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
-                  >
-                    <option value="">Select option...</option>
-                    {field.options?.map(opt => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
+                    options={[
+                      { value: "", label: "Select option..." },
+                      ...(field.options || [])
+                    ]}
+                    style={{ height: '40px', border: errors[field.name] ? '1px solid #ef4444' : '1px solid #cbd5e1', borderRadius: '6px', fontSize: '13px', outline: 'none' }}
+                  />
                 ) : field.type === 'textarea' ? (
                   <textarea
                     rows={field.rows || 3}

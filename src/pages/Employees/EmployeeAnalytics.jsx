@@ -4,6 +4,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_EMPLOYEES = [
   { id: 'EMP-001', name: 'John Doe', branch: 'Downtown HQ', score: '88.4%', revenue: '$12,450', rating: '4.8', status: 'ACTIVE' },
   { id: 'EMP-002', name: 'Alice Smith', branch: 'Westside Heights', score: '92.1%', revenue: '$9,200', rating: '4.5', status: 'ACTIVE' },
@@ -45,37 +47,60 @@ export default function EmployeeAnalytics() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
-      
       {/* Top Filter Section */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', background: '#fff', padding: '16px', borderRadius: '12px', border: '1.5px solid #25108f' }}>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-          <select 
-            value={branchFilter} 
-            onChange={(e) => setBranchFilter(e.target.value)} 
-            className="dash-select" 
+          <Select
+            value={branchFilter}
+            onChange={(e) => setBranchFilter(e.target.value)}
+            className="dash-select"
             style={{ height: '36px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '600', color: 'var(--text)', background: '#f8fafc', minWidth: '140px', outline: 'none', cursor: 'pointer' }}
-          >
-            <option value="All Branches">All Branches</option>
-            <option value="Indore">Indore</option>
-            <option value="Bhopal">Bhopal</option>
-            <option value="Jaipur">Jaipur</option>
-            <option value="Pune">Pune</option>
-            <option value="Ahmedabad">Ahmedabad</option>
-          </select>
-          <select 
-            value={deptFilter} 
-            onChange={(e) => setDeptFilter(e.target.value)} 
-            className="dash-select" 
+            options={[{
+              label: "All Branches",
+              value: "All Branches"
+            }, {
+              label: "Indore",
+              value: "Indore"
+            }, {
+              label: "Bhopal",
+              value: "Bhopal"
+            }, {
+              label: "Jaipur",
+              value: "Jaipur"
+            }, {
+              label: "Pune",
+              value: "Pune"
+            }, {
+              label: "Ahmedabad",
+              value: "Ahmedabad"
+            }]} />
+          <Select
+            value={deptFilter}
+            onChange={(e) => setDeptFilter(e.target.value)}
+            className="dash-select"
             style={{ height: '36px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '600', color: 'var(--text)', background: '#f8fafc', minWidth: '140px', outline: 'none', cursor: 'pointer' }}
-          >
-            <option value="All Departments">All Departments</option>
-            <option value="Operations">Operations</option>
-            <option value="Cleaning">Cleaning</option>
-            <option value="Plumbing">Plumbing</option>
-            <option value="Electrical">Electrical</option>
-            <option value="Support">Support</option>
-            <option value="Administration">Administration</option>
-          </select>
+            options={[{
+              label: "All Departments",
+              value: "All Departments"
+            }, {
+              label: "Operations",
+              value: "Operations"
+            }, {
+              label: "Cleaning",
+              value: "Cleaning"
+            }, {
+              label: "Plumbing",
+              value: "Plumbing"
+            }, {
+              label: "Electrical",
+              value: "Electrical"
+            }, {
+              label: "Support",
+              value: "Support"
+            }, {
+              label: "Administration",
+              value: "Administration"
+            }]} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff', cursor: 'pointer' }}>
             <Calendar size={14} />
             <span style={{ fontWeight: '600', fontSize: '13px' }}>{dateRange ? '' : 'Oct 1 - Oct 31, 2026'}</span>
@@ -111,7 +136,6 @@ export default function EmployeeAnalytics() {
           </button>
         </div>
       </div>
-
       {/* KPI Cards Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         
@@ -200,7 +224,6 @@ export default function EmployeeAnalytics() {
         </div>
 
       </div>
-
       {/* Analytics Charts and Tables */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
         
@@ -271,7 +294,8 @@ export default function EmployeeAnalytics() {
             </div>
 
             <div className="table-wrap" style={{ overflowX: 'auto' }}>
-              <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+              <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee</th>
@@ -334,6 +358,7 @@ export default function EmployeeAnalytics() {
                     )}
                 </tbody>
               </table>
+</div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '12px', color: 'var(--muted)' }}>
               <span>Showing {filteredEmployees.length} of {MOCK_EMPLOYEES.length} employees</span>

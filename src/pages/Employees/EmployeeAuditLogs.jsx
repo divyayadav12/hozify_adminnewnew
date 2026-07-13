@@ -4,6 +4,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_LOGS = [
   { id: 'LOG-9001', user: 'Admin User', action: 'Approved KYC', module: 'Employee KYC', timestamp: '2026-10-12 14:32:01', ip: '192.168.1.45', status: 'SUCCESS' },
   { id: 'LOG-9002', user: 'System', action: 'Auto-assigned task', module: 'Assignments', timestamp: '2026-10-12 12:00:00', ip: '10.0.0.1', status: 'SUCCESS' },
@@ -32,7 +34,6 @@ export default function EmployeeAuditLogs() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
-      
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         <div 
@@ -99,7 +100,6 @@ export default function EmployeeAuditLogs() {
           </div>
         </div>
       </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
         
         {/* Left Column */}
@@ -118,17 +118,24 @@ export default function EmployeeAuditLogs() {
                     style={{ fontSize: '12px', border: 'none', background: 'transparent', outline: 'none', paddingLeft: '8px', flex: 1 }}
                   />
                 </div>
-                <select 
-                  className="dash-select" 
-                  value={activityFilter} 
+                <Select
+                  className="dash-select"
+                  value={activityFilter}
                   onChange={(e) => setActivityFilter(e.target.value)}
                   style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
-                >
-                  <option value="All">All Severity Levels</option>
-                  <option value="SUCCESS">Success</option>
-                  <option value="WARNING">Warning</option>
-                  <option value="FAILED">Failed</option>
-                </select>
+                  options={[{
+                    label: "All Severity Levels",
+                    value: "All"
+                  }, {
+                    label: "Success",
+                    value: "SUCCESS"
+                  }, {
+                    label: "Warning",
+                    value: "WARNING"
+                  }, {
+                    label: "Failed",
+                    value: "FAILED"
+                  }]} />
                 <button 
                   onClick={() => addToast("Exporting security log audits spreadsheet...", "success")}
                   style={{ height: '34px', padding: '0 12px', border: '1.5px solid #25108f', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700', color: 'var(--text)', cursor: 'pointer' }}
@@ -139,7 +146,8 @@ export default function EmployeeAuditLogs() {
             </div>
 
             <div className="table-wrap" style={{ overflowX: 'auto' }}>
-              <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+              <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>LOG ID</th>
@@ -180,6 +188,7 @@ export default function EmployeeAuditLogs() {
                     )}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
 

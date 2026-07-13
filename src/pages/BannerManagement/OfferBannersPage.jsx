@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 // ========================================================================
 // 1. HELPER COMPONENTS
 // ========================================================================
@@ -368,7 +370,8 @@ export default function OfferBannersPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[700px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
                 <tr className="border-b border-slate-100 text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
                   <th className="pb-3 px-4">Campaign Name</th>
@@ -397,6 +400,7 @@ export default function OfferBannersPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 
@@ -445,15 +449,20 @@ export default function OfferBannersPage() {
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">Lifecycle Status</label>
-                  <select 
+                  <Select
                     value={formData.status}
                     onChange={(e) => setFormData({...formData, status: e.target.value})}
                     className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo-500 transition-all bg-white"
-                  >
-                    <option value="Active">Active</option>
-                    <option value="Scheduled">Scheduled</option>
-                    <option value="Archived">Archived</option>
-                  </select>
+                    options={[{
+                      label: "Active",
+                      value: "Active"
+                    }, {
+                      label: "Scheduled",
+                      value: "Scheduled"
+                    }, {
+                      label: "Archived",
+                      value: "Archived"
+                    }]} />
                 </div>
               </div>
               <div className="px-6 py-4 border-t border-slate-100 flex justify-end space-x-3 bg-slate-50">

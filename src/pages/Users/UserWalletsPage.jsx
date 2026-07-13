@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import UserSubTabs from "../../components/users/UserSubTabs";
 
+import Select from "../../components/ui/Select";
+
 export default function UserWalletPage() {
   const { navigate } = useApp();
   const { addToast } = useToast();
@@ -150,7 +152,7 @@ export default function UserWalletPage() {
               <p className="text-xs text-slate-500">Real-time ledger list for all users</p>
             </div>
             <div className="flex gap-2">
-              <select
+              <Select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
                 style={{
@@ -161,18 +163,24 @@ export default function UserWalletPage() {
                   outline: "none",
                   background: "var(--materio-surface)",
                 }}
-              >
-                <option value="All">All Types</option>
-                <option value="Credit">Credits Only</option>
-                <option value="Debit">Debits Only</option>
-              </select>
+                options={[{
+                  label: "All Types",
+                  value: "All"
+                }, {
+                  label: "Credits Only",
+                  value: "Credit"
+                }, {
+                  label: "Debits Only",
+                  value: "Debit"
+                }]} />
               <button onClick={handleExportReport} className="secondary-action-btn">
                 <Download size={16} /> Export CSV
               </button>
             </div>
           </div>
 
-          <table className="w-full" style={{ borderCollapse: 'collapse', textAlign: "left", fontSize: "13px" }}>
+          <div className="table-responsive-wrapper">
+<table className="w-full" style={{ borderCollapse: 'collapse', textAlign: "left", fontSize: "13px" }}>
             <thead>
               <tr className="custom-table-header">
                 <th className="p-4" style={{ color: "#fff", fontWeight: "700" }}>User</th>
@@ -230,13 +238,13 @@ export default function UserWalletPage() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
 
         <div className="text-xs text-slate-400 text-center mt-4">
           Showing {filteredTransactions.length} transactions • Auto-updated every 5 min
         </div>
       </div>
-
       {/* TRANSACTION DETAILS MODAL */}
       {selectedTransaction && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">

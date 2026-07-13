@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
   const [timeframe, setTimeframe] = useState('Last 30 Days');
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -216,21 +218,27 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
               </h2>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
-                <select
+                <Select
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)}
                   style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '12px', cursor: 'pointer', color: '#565365' }}
                   aria-label="Filter timeframe"
-                >
-                  <option value="Last 30 Days">Last 30 Days</option>
-                  <option value="Last 7 Days">Last 7 Days</option>
-                  <option value="This Month">This Month</option>
-                </select>
+                  options={[{
+                    label: "Last 30 Days",
+                    value: "Last 30 Days"
+                  }, {
+                    label: "Last 7 Days",
+                    value: "Last 7 Days"
+                  }, {
+                    label: "This Month",
+                    value: "This Month"
+                  }]} />
               </div>
             </div>
 
             <div style={{ overflowX: 'auto', flex: 1 }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '580px' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '580px' }}>
                 <thead>
                   <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
@@ -287,7 +295,8 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
                     </tr>
                   ))}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
 
             {/* Pagination */}
@@ -489,7 +498,6 @@ export default function SmsCampaigns({ activeTab = 'Notification Center' }) {
         </button>
 
       </div>
-
       {/* New Campaign Creation Modal */}
       {showNewCampaignModal && (
         <div style={{

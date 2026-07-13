@@ -1,37 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Calendar } from 'lucide-react';
-import { DateRangePicker as RDRDateRangePicker, createStaticRanges } from 'react-date-range';
 import { addDays, subDays, startOfMonth, endOfMonth, startOfDay, endOfDay, subMonths, isSameDay } from 'date-fns';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 
 // Custom defined ranges for the side panel
-const customStaticRanges = createStaticRanges([
-  {
-    label: 'Today',
-    range: () => ({ startDate: startOfDay(new Date()), endDate: endOfDay(new Date()) })
-  },
-  {
-    label: 'Yesterday',
-    range: () => ({ startDate: startOfDay(subDays(new Date(), 1)), endDate: endOfDay(subDays(new Date(), 1)) })
-  },
-  {
-    label: 'Last 7 Days',
-    range: () => ({ startDate: startOfDay(subDays(new Date(), 6)), endDate: endOfDay(new Date()) })
-  },
-  {
-    label: 'Last 30 Days',
-    range: () => ({ startDate: startOfDay(subDays(new Date(), 29)), endDate: endOfDay(new Date()) })
-  },
-  {
-    label: 'This Month',
-    range: () => ({ startDate: startOfMonth(new Date()), endDate: endOfMonth(new Date()) })
-  },
-  {
-    label: 'Previous Month',
-    range: () => ({ startDate: startOfMonth(subMonths(new Date(), 1)), endDate: endOfMonth(subMonths(new Date(), 1)) })
-  }
-]);
+const customStaticRanges = [
+  { label: 'Today', range: () => ({ startDate: startOfDay(new Date()), endDate: endOfDay(new Date()) }) },
+  { label: 'Yesterday', range: () => ({ startDate: startOfDay(subDays(new Date(), 1)), endDate: endOfDay(subDays(new Date(), 1)) }) },
+  { label: 'Last 7 Days', range: () => ({ startDate: startOfDay(subDays(new Date(), 6)), endDate: endOfDay(new Date()) }) },
+  { label: 'Last 30 Days', range: () => ({ startDate: startOfDay(subDays(new Date(), 29)), endDate: endOfDay(new Date()) }) },
+  { label: 'This Month', range: () => ({ startDate: startOfMonth(new Date()), endDate: endOfMonth(new Date()) }) },
+  { label: 'Previous Month', range: () => ({ startDate: startOfMonth(subMonths(new Date(), 1)), endDate: endOfMonth(subMonths(new Date(), 1)) }) }
+];
 
 // Format date to e.g., "Oct 24 - Oct 30"
 const formatRange = (start, end) => {
@@ -45,30 +24,36 @@ const formatRange = (start, end) => {
   return `${startStr} - ${endStr}`;
 };
 
+// Returns yyyy-mm-dd for the native date input
+const toInputDate = (dateObj) => {
+  if (!dateObj) return '';
+  const d = new Date(dateObj);
+  const offset = d.getTimezoneOffset() * 60000;
+  return new Date(d.getTime() - offset).toISOString().split('T')[0];
+};
+
 export default function DateRangePicker({ 
   value, 
   onChange, 
   className,
   style,
-  buttonContent // Allows overriding the internal button content
+  buttonContent,
+  align = 'left', // Allows changing the dropdown alignment
+  compact = false // When true, skips presets
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
-  const [clickCount, setClickCount] = useState(0);
+  const [customView, setCustomView] = useState(false);
 
-  const [dateRange, setDateRange] = useState([
-    {
-      startDate: subDays(new Date(), 6),
-      endDate: new Date(),
-      key: 'selection'
-    }
-  ]);
+  const [dateRange, setDateRange] = useState({
+    startDate: subDays(new Date(), 6),
+    endDate: new Date()
+  });
   const ref = useRef(null);
 
   // Sync internal state if value prop is provided (controlled component)
   useEffect(() => {
     if (value && value.startDate && value.endDate) {
-      setDateRange([{ ...value, key: 'selection' }]);
+      setDateRange({ startDate: value.startDate, endDate: value.endDate });
     }
   }, [value]);
 
@@ -77,63 +62,24 @@ export default function DateRangePicker({
       if (ref.current && !ref.current.contains(e.target)) setIsOpen(false);
     };
     document.addEventListener('mousedown', handler);
-    
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    
     return () => {
       document.removeEventListener('mousedown', handler);
-      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  const handleSelect = (ranges) => {
-    const selection = ranges.selection;
-    setDateRange([selection]);
-    
+  const handleSelect = (start, end) => {
+    setDateRange({ startDate: start, endDate: end });
     if (onChange) {
       onChange({
-        startDate: selection.startDate,
-        endDate: selection.endDate,
-        label: formatRange(selection.startDate, selection.endDate)
+        startDate: start,
+        endDate: end,
+        label: formatRange(start, end)
       });
     }
-
-    // Auto-close logic
-    const isPreset = customStaticRanges.some(preset => {
-      const pRange = preset.range();
-      return isSameDay(pRange.startDate, selection.startDate) && isSameDay(pRange.endDate, selection.endDate);
-    });
-
-    if (isPreset) {
-      setIsOpen(false);
-      setClickCount(0);
-    } else {
-      // It's a custom date selection from the calendar
-      if (selection.startDate !== selection.endDate) {
-        // Range selected
-        setTimeout(() => {
-          setIsOpen(false);
-          setClickCount(0);
-        }, 150);
-      } else {
-        // Either first click or single day selection
-        const newCount = clickCount + 1;
-        setClickCount(newCount);
-        if (newCount >= 2) {
-          // Second click on the same day means they want a 1-day range
-          setTimeout(() => {
-            setIsOpen(false);
-            setClickCount(0);
-          }, 150);
-        }
-      }
-    }
+    setIsOpen(false);
   };
 
-  const currentLabel = formatRange(dateRange[0].startDate, dateRange[0].endDate);
-  
-  const isMobile = windowWidth < 768;
+  const currentLabel = formatRange(dateRange.startDate, dateRange.endDate);
 
   return (
     <div className={`relative ${className || ''}`} ref={ref} style={style}>
@@ -166,8 +112,8 @@ export default function DateRangePicker({
         <div style={{
           position: 'absolute',
           top: 'calc(100% + 8px)',
-          right: 0,
-          zIndex: 1000,
+          ...(align === 'right' ? { right: 0 } : { left: 0 }),
+          zIndex: 99999,
           background: '#fff',
           borderRadius: '12px',
           boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
@@ -175,68 +121,68 @@ export default function DateRangePicker({
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
-          maxWidth: '90vw'
+          width: '260px'
         }}>
-          <div style={{ overflowX: 'auto', display: 'flex' }}>
-            <RDRDateRangePicker
-              onChange={handleSelect}
-              showSelectionPreview={true}
-              moveRangeOnFirstSelection={false}
-              months={isMobile ? 1 : 2}
-              ranges={dateRange}
-              direction="horizontal"
-              rangeColors={['#25108f']} // The application's primary purple
-              staticRanges={customStaticRanges}
-              inputRanges={[]} // Disable the "days up to today" input boxes
-            />
-          </div>
+          {!compact && (
+            <div style={{ display: 'flex', flexDirection: 'column', padding: '12px', borderBottom: customView ? '1px solid #e2e8f0' : 'none' }}>
+              {customStaticRanges.map((preset, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => { const r = preset.range(); handleSelect(r.startDate, r.endDate); }}
+                  style={{ textAlign: 'left', padding: '10px 12px', borderRadius: '6px', background: 'transparent', border: 'none', fontSize: '13px', fontWeight: '600', color: 'var(--text)', cursor: 'pointer', transition: 'background 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  {preset.label}
+                </button>
+              ))}
+              <button
+                onClick={() => setCustomView(!customView)}
+                style={{ textAlign: 'left', padding: '10px 12px', borderRadius: '6px', background: customView ? '#eef2ff' : 'transparent', border: 'none', fontSize: '13px', fontWeight: '600', color: customView ? '#4f46e5' : 'var(--text)', cursor: 'pointer', transition: 'background 0.2s' }}
+              >
+                Custom Range...
+              </button>
+            </div>
+          )}
+          
+          {(compact || customView) && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', background: '#f8fafc' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label style={{ fontSize: '11px', fontWeight: '700', color: '#64748b' }}>Start Date</label>
+                <input
+                  type="date"
+                  value={toInputDate(dateRange.startDate)}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setDateRange({ ...dateRange, startDate: startOfDay(new Date(e.target.value)) });
+                    }
+                  }}
+                  style={{ padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label style={{ fontSize: '11px', fontWeight: '700', color: '#64748b' }}>End Date</label>
+                <input
+                  type="date"
+                  value={toInputDate(dateRange.endDate)}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setDateRange({ ...dateRange, endDate: endOfDay(new Date(e.target.value)) });
+                    }
+                  }}
+                  style={{ padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '13px', outline: 'none', background: '#fff' }}
+                />
+              </div>
+              <button
+                onClick={() => handleSelect(dateRange.startDate, dateRange.endDate)}
+                style={{ padding: '8px 16px', marginTop: '8px', borderRadius: '6px', border: 'none', background: '#25108f', color: '#ffffff', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}
+              >
+                Apply Range
+              </button>
+            </div>
+          )}
         </div>
       )}
-      
-      {/* Global overrides for react-date-range aesthetics */}
-      <style dangerouslySetInnerHTML={{__html: `
-        .rdrDateRangePickerWrapper {
-          font-family: inherit;
-        }
-        .rdrDefinedRangesWrapper {
-          border-right: 1.5px solid #25108f !important;
-          background: #f9f8fa;
-        }
-        .rdrStaticRange {
-          border-bottom: 1.5px solid #25108f !important;
-          background: #f9f8fa !important;
-        }
-        .rdrStaticRange:hover .rdrStaticRangeLabel, .rdrStaticRange:focus .rdrStaticRangeLabel {
-          background: #f4eff8 !important;
-          color: #25108f !important;
-        }
-        .rdrStaticRangeSelected {
-          color: #25108f !important;
-          font-weight: bold;
-        }
-        .rdrStaticRangeLabel {
-          padding: 10px 20px !important;
-          color: var(--text) !important;
-        }
-        .rdrDayToday .rdrDayNumber span:after {
-          background: #25108f !important;
-        }
-        .rdrDayHovered {
-          border-color: #25108f !important;
-        }
-        @media (max-width: 768px) {
-          .rdrDateRangePickerWrapper {
-            flex-direction: column !important;
-          }
-          .rdrDefinedRangesWrapper {
-            border-right: none !important;
-            border-bottom: 1.5px solid #25108f !important;
-            width: 100% !important;
-          }
-        }
-      `}} />
     </div>
   );
 }
-
-

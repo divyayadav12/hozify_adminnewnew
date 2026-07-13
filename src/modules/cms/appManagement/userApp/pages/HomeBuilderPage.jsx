@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../../../../components/common/ToastNotification';
 
+import Select from "../../../../../components/ui/Select";
+
 const INITIAL_SECTIONS = [
   { id: '1', type: 'Banner Carousel', title: 'Top Promotions', active: true },
   { id: '2', type: 'Category Grid', title: 'Main Services', active: true },
@@ -205,18 +207,27 @@ export default function HomeBuilderPage() {
                 
                 <div>
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '6px' }}>Section Type</label>
-                  <select 
+                  <Select
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
                     style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', backgroundColor: '#fff' }}
-                  >
-                    <option value="Banner Carousel">Banner Carousel</option>
-                    <option value="Category Grid">Category Grid</option>
-                    <option value="Horizontal List">Horizontal List</option>
-                    <option value="Vertical List">Vertical List</option>
-                    <option value="Promo Banner">Promo Banner</option>
-                  </select>
+                    options={[{
+                      label: "Banner Carousel",
+                      value: "Banner Carousel"
+                    }, {
+                      label: "Category Grid",
+                      value: "Category Grid"
+                    }, {
+                      label: "Horizontal List",
+                      value: "Horizontal List"
+                    }, {
+                      label: "Vertical List",
+                      value: "Vertical List"
+                    }, {
+                      label: "Promo Banner",
+                      value: "Promo Banner"
+                    }]} />
                 </div>
 
                 <div style={{ padding: '16px 20px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', marginTop: '8px', borderRadius: '0 0 12px 12px', margin: '0 -20px -20px -20px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>

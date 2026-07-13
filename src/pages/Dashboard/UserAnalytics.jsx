@@ -244,11 +244,12 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
           <div className="panel" style={{ padding: 'var(--spacing-section)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '14px', fontWeight: '850', color: 'var(--text)', margin: 0 }}>Top Referring Users</h2>
-              <MoreVertical size={16} style={{ color: 'var(--muted)', cursor: 'pointer' }} />
+              <MoreVertical onClick={() => alert("Options menu for Top Referring Users")} size={16} style={{ color: 'var(--muted)', cursor: 'pointer' }} />
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', tableLayout: 'fixed' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', minWidth: '500px', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', tableLayout: 'fixed' }}>
                 <thead>
                   <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ width: '50%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
@@ -275,7 +276,8 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
                     </tr>
                   ))}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
           </div>
 
@@ -287,7 +289,8 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left', tableLayout: 'fixed' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', minWidth: '500px', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left', tableLayout: 'fixed' }}>
                 <thead>
                   <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ width: '35%', padding: '8px 6px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>User</th>
@@ -327,7 +330,8 @@ export default function UserAnalytics({ activeTab = 'Dashboard' }) {
                     </tr>
                   ))}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
           </div>
         </div>

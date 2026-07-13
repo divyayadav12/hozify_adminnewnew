@@ -173,7 +173,8 @@ export default function SettlementSettings() {
             </div>
 
             {/* Table Redesign */}
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', borderSpacing: 0, textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', borderSpacing: 0, textAlign: 'left' }}>
               <thead>
                 <tr>
                   <th style={{ padding: '0 20px 12px', fontSize: '12px', fontWeight: '600', color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em', background: '#fff', borderBottom: '1px solid #E2E8F0' }}>Validation Rule</th>
@@ -317,7 +318,8 @@ export default function SettlementSettings() {
                   </td>
                 </tr>
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Bottom Action Bar */}

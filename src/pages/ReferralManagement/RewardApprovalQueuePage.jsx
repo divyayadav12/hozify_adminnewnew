@@ -290,7 +290,8 @@ export default function RewardApprovalQueuePage() {
         {/* Table */}
         <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[1100px] border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full min-w-[1100px] border-collapse">
               <thead className="bg-slate-50">
                 <tr className="text-left text-[10px] font-bold text-slate-500 uppercase border-b border-slate-200">
                   <th className="p-4 w-12 cursor-pointer" onClick={handleToggleAll}>
@@ -413,6 +414,7 @@ export default function RewardApprovalQueuePage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           {/* Footer */}

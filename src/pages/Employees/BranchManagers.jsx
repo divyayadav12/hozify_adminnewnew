@@ -4,6 +4,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_MANAGERS = [
   { id: 'BM-1001', name: 'Michael Chen', branch: 'Downtown HQ', contact: '+1 234-567-8900', employees: 45, rating: 4.8, status: 'ACTIVE' },
   { id: 'BM-1002', name: 'Sarah Jenkins', branch: 'Westside Heights', contact: '+1 234-567-8901', employees: 32, rating: 4.5, status: 'ACTIVE' },
@@ -31,7 +33,6 @@ export default function BranchManagers() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '40px' }}>
-      
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         <div 
@@ -102,7 +103,6 @@ export default function BranchManagers() {
           </div>
         </div>
       </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--spacing-section)' }}>
         
         {/* Left Column */}
@@ -121,22 +121,30 @@ export default function BranchManagers() {
                     style={{ fontSize: '12px', border: 'none', background: 'transparent', outline: 'none', paddingLeft: '8px', flex: 1 }}
                   />
                 </div>
-                <select
+                <Select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
                   style={{ height: '34px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', fontSize: '12px', color: 'var(--text)', background: '#fff', outline: 'none', cursor: 'pointer', fontWeight: '700' }}
                   aria-label="Filter managers by status"
-                >
-                  <option value="All">All Statuses</option>
-                  <option value="ACTIVE">Active</option>
-                  <option value="ON LEAVE">On Leave</option>
-                  <option value="INACTIVE">Inactive</option>
-                </select>
+                  options={[{
+                    label: "All Statuses",
+                    value: "All"
+                  }, {
+                    label: "Active",
+                    value: "ACTIVE"
+                  }, {
+                    label: "On Leave",
+                    value: "ON LEAVE"
+                  }, {
+                    label: "Inactive",
+                    value: "INACTIVE"
+                  }]} />
               </div>
             </div>
 
             <div className="table-wrap">
-              <table className="partner-table">
+              <div className="table-responsive-wrapper">
+<table className="partner-table">
                 <thead>
                   <tr>
                     <th>MANAGER ID</th>
@@ -196,6 +204,7 @@ export default function BranchManagers() {
                   )}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
 
@@ -226,7 +235,6 @@ export default function BranchManagers() {
         </div>
 
       </div>
-
     </div>
   );
 }

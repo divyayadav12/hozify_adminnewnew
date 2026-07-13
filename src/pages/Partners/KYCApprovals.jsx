@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import AdminShell from "../../components/layouts/AdminShell"; // Aapka AdminShell
+import Select from "../../components/ui/Select";
 
 import {
   ShieldCheck,
@@ -194,17 +195,15 @@ export default function KYCApprovals() {
           
           <div className="flex items-center gap-2 w-full sm:w-auto border border-slate-200 rounded-lg px-3 py-1.5 bg-white">
             <Filter size={14} className="text-slate-400" />
-            <select
+            <Select
               value={selectedDocType}
               onChange={(e) => setSelectedDocType(e.target.value)}
-              className="w-full sm:w-auto bg-transparent text-xs font-bold text-slate-600 outline-none cursor-pointer"
-            >
-              {uniqueDocTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type === "All" ? "All Documents" : type}
-                </option>
-              ))}
-            </select>
+              options={uniqueDocTypes.map((type) => ({
+                value: type,
+                label: type === "All" ? "All Documents" : type
+              }))}
+              className="w-full sm:w-auto bg-transparent text-xs font-bold text-slate-600 outline-none cursor-pointer border-none"
+            />
           </div>
         </div>
 

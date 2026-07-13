@@ -6,6 +6,8 @@ import {
   ChevronRight, ChevronDown, CheckCircle2, Ticket
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 export default function HelpSupportPage() {
   const { addToast } = useToast();
   const [ticketSubject, setTicketSubject] = useState('');
@@ -151,16 +153,23 @@ export default function HelpSupportPage() {
 
             <div>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '6px' }}>Priority Level</label>
-              <select 
+              <Select
                 value={ticketPriority}
                 onChange={(e) => setTicketPriority(e.target.value)}
                 style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
-              >
-                <option value="Low">Low</option>
-                <option value="Medium">Medium Priority</option>
-                <option value="High">High Priority</option>
-                <option value="Critical">Critical blocker</option>
-              </select>
+                options={[{
+                  label: "Low",
+                  value: "Low"
+                }, {
+                  label: "Medium Priority",
+                  value: "Medium"
+                }, {
+                  label: "High Priority",
+                  value: "High"
+                }, {
+                  label: "Critical blocker",
+                  value: "Critical"
+                }]} />
             </div>
 
             <button type="submit" className="custom-btn-primary" style={{ width: '100%', height: '38px', marginTop: '4px' }}>

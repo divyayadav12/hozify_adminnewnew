@@ -127,7 +127,8 @@ export default function BusinessSellers() {
 
           {/* Compact Table */}
           <div className="overflow-x-auto text-sm">
-            <table className="w-full border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full border-collapse">
               <thead className="bg-slate-50 text-left text-xs font-semibold text-slate-500 border-b border-slate-100">
                 <tr>
                   <th className="px-5 py-3">BUSINESS</th>
@@ -176,6 +177,7 @@ export default function BusinessSellers() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

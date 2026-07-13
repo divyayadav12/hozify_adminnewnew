@@ -11,6 +11,8 @@ import {
   ArrowUpDown
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function GeofenceLogs() {
   // ==========================================
   // MASTER GEOFENCE AUDIT TRAIL LOGS DATA
@@ -212,28 +214,42 @@ export default function GeofenceLogs() {
             </div>
 
             {/* Severity Filter */}
-            <select 
+            <Select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
               className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none cursor-pointer"
-            >
-              <option value="All">Severity: All</option>
-              <option value="Critical">Critical Only</option>
-              <option value="High">High</option>
-              <option value="Normal">Normal</option>
-            </select>
+              options={[{
+                label: "Severity: All",
+                value: "All"
+              }, {
+                label: "Critical Only",
+                value: "Critical"
+              }, {
+                label: "High",
+                value: "High"
+              }, {
+                label: "Normal",
+                value: "Normal"
+              }]} />
 
             {/* Event Type Filter */}
-            <select 
+            <Select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none cursor-pointer"
-            >
-              <option value="All">Event: All Actions</option>
-              <option value="UNAUTHORIZED ENTRY">Unauthorized Entry</option>
-              <option value="ZONE ENTRY">Standard Entry</option>
-              <option value="ZONE EXIT">Standard Exit</option>
-            </select>
+              options={[{
+                label: "Event: All Actions",
+                value: "All"
+              }, {
+                label: "Unauthorized Entry",
+                value: "UNAUTHORIZED ENTRY"
+              }, {
+                label: "Standard Entry",
+                value: "ZONE ENTRY"
+              }, {
+                label: "Standard Exit",
+                value: "ZONE EXIT"
+              }]} />
           </div>
 
           {/* Action Tools (Export) */}
@@ -260,7 +276,8 @@ export default function GeofenceLogs() {
            ========================================== */}
         <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse text-xs">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200 text-slate-400 font-black uppercase tracking-wider text-[10px]">
                   <th className="py-3 px-4 flex items-center gap-1">Log ID <ArrowUpDown className="h-3 w-3" /></th>
@@ -330,7 +347,8 @@ export default function GeofenceLogs() {
                   </tr>
                 )}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
           
           <div className="p-3 bg-slate-50 border-t border-slate-100 text-[11px] font-bold text-slate-400 text-right">

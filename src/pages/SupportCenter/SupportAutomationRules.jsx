@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SupportAutomationRules({ activeTab = 'Support Center' }) {
   const [activeFlows, setActiveFlows] = useState({
     vipRouting: true,
@@ -186,7 +188,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {conditions.map((cond, idx) => (
                   <div key={cond.id} style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <select
+                    <Select
                       value={cond.field}
                       onChange={(e) => {
                         const next = [...conditions];
@@ -194,14 +196,21 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         setConditions(next);
                       }}
                       style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
-                    >
-                      <option>Ticket Category</option>
-                      <option>Customer Tier</option>
-                      <option>Ticket Source</option>
-                      <option>Time Elapsed</option>
-                    </select>
+                      options={[{
+                        label: "Ticket Category",
+                        value: "Ticket Category"
+                      }, {
+                        label: "Customer Tier",
+                        value: "Customer Tier"
+                      }, {
+                        label: "Ticket Source",
+                        value: "Ticket Source"
+                      }, {
+                        label: "Time Elapsed",
+                        value: "Time Elapsed"
+                      }]} />
 
-                    <select
+                    <Select
                       value={cond.operator}
                       onChange={(e) => {
                         const next = [...conditions];
@@ -209,14 +218,21 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         setConditions(next);
                       }}
                       style={{ flex: 1, minWidth: '120px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
-                    >
-                      <option>is equal to</option>
-                      <option>is not equal to</option>
-                      <option>contains</option>
-                      <option>greater than</option>
-                    </select>
+                      options={[{
+                        label: "is equal to",
+                        value: "is equal to"
+                      }, {
+                        label: "is not equal to",
+                        value: "is not equal to"
+                      }, {
+                        label: "contains",
+                        value: "contains"
+                      }, {
+                        label: "greater than",
+                        value: "greater than"
+                      }]} />
 
-                    <select
+                    <Select
                       value={cond.value}
                       onChange={(e) => {
                         const next = [...conditions];
@@ -224,12 +240,19 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         setConditions(next);
                       }}
                       style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
-                    >
-                      <option>Billing & Payments</option>
-                      <option>KYC Verification</option>
-                      <option>Technical Support</option>
-                      <option>Enterprise VIP</option>
-                    </select>
+                      options={[{
+                        label: "Billing & Payments",
+                        value: "Billing & Payments"
+                      }, {
+                        label: "KYC Verification",
+                        value: "KYC Verification"
+                      }, {
+                        label: "Technical Support",
+                        value: "Technical Support"
+                      }, {
+                        label: "Enterprise VIP",
+                        value: "Enterprise VIP"
+                      }]} />
 
                     {conditions.length > 1 && (
                       <button
@@ -264,7 +287,7 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {actions.map((act, idx) => (
                   <div key={act.id} style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <select
+                    <Select
                       value={act.type}
                       onChange={(e) => {
                         const next = [...actions];
@@ -272,18 +295,25 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         setActions(next);
                       }}
                       style={{ flex: 1.5, minWidth: '150px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
-                    >
-                      <option>Assign to Agent Group</option>
-                      <option>Set Ticket Priority</option>
-                      <option>Escalate Level</option>
-                      <option>Trigger Notification</option>
-                    </select>
+                      options={[{
+                        label: "Assign to Agent Group",
+                        value: "Assign to Agent Group"
+                      }, {
+                        label: "Set Ticket Priority",
+                        value: "Set Ticket Priority"
+                      }, {
+                        label: "Escalate Level",
+                        value: "Escalate Level"
+                      }, {
+                        label: "Trigger Notification",
+                        value: "Trigger Notification"
+                      }]} />
 
                     <span style={{ display: 'flex', alignItems: 'center', color: 'var(--muted)' }}>
                       <ArrowRight size={14} />
                     </span>
 
-                    <select
+                    <Select
                       value={act.target}
                       onChange={(e) => {
                         const next = [...actions];
@@ -291,13 +321,22 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                         setActions(next);
                       }}
                       style={{ flex: 2, minWidth: '180px', height: '34px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
-                    >
-                      <option>Finance Prime Team</option>
-                      <option>L2 Escalations</option>
-                      <option>Technical Support Leads</option>
-                      <option>High</option>
-                      <option>Critical</option>
-                    </select>
+                      options={[{
+                        label: "Finance Prime Team",
+                        value: "Finance Prime Team"
+                      }, {
+                        label: "L2 Escalations",
+                        value: "L2 Escalations"
+                      }, {
+                        label: "Technical Support Leads",
+                        value: "Technical Support Leads"
+                      }, {
+                        label: "High",
+                        value: "High"
+                      }, {
+                        label: "Critical",
+                        value: "Critical"
+                      }]} />
 
                     {actions.length > 1 && (
                       <button
@@ -501,7 +540,8 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f', color: 'var(--muted)' }}>
                   <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px' }}>TRIGGER RULE NAME</th>
@@ -572,7 +612,8 @@ export default function SupportAutomationRules({ activeTab = 'Support Center' })
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

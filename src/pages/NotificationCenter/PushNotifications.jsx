@@ -20,6 +20,8 @@ import {
 
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function PushNotifications({ activeTab = 'Notification Center' }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -198,7 +200,8 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
@@ -266,7 +269,8 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                     </tr>
                   )}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
 
             {/* Pagination Controls */}
@@ -420,7 +424,6 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
         </div>
 
       </div>
-
       {/* New Push creation Dialog Overlay */}
       {showNewPushModal && (
         <div style={{
@@ -476,7 +479,7 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
 
               <div>
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '750', color: 'var(--text)', marginBottom: '6px' }}>Target Segment</label>
-                <select
+                <Select
                   value={newPush.segment}
                   onChange={(e) => setNewPush({ ...newPush, segment: e.target.value })}
                   style={{
@@ -488,12 +491,19 @@ export default function PushNotifications({ activeTab = 'Notification Center' })
                     fontSize: '13px',
                     background: '#fff'
                   }}
-                >
-                  <option value="All Active Users">All Active Users</option>
-                  <option value="Tier 1 Executives">Tier 1 Executives</option>
-                  <option value="Standard Tier">Standard Tier</option>
-                  <option value="Risk Segment">Risk Segment</option>
-                </select>
+                  options={[{
+                    label: "All Active Users",
+                    value: "All Active Users"
+                  }, {
+                    label: "Tier 1 Executives",
+                    value: "Tier 1 Executives"
+                  }, {
+                    label: "Standard Tier",
+                    value: "Standard Tier"
+                  }, {
+                    label: "Risk Segment",
+                    value: "Risk Segment"
+                  }]} />
               </div>
 
               <div>

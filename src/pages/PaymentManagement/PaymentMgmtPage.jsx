@@ -145,7 +145,8 @@ export default function PaymentMgmtPage() {
 
         {/* Table */}
         <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+          <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
             <thead>
               <tr className="custom-table-header">
                 <th style={{ padding: '16px 24px' }}>TRANSACTION ID</th>
@@ -200,7 +201,8 @@ export default function PaymentMgmtPage() {
                 </tr>
               )}
             </tbody>
-          </table></div>
+          </table>
+</div>
         </div>
 
       </div>

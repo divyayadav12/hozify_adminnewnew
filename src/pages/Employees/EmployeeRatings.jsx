@@ -132,7 +132,8 @@ export default function EmployeeRatings() {
             </div>
 
             <div className="table-wrap" style={{ overflowX: 'auto' }}>
-              <table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+              <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Employee Name</th>
@@ -178,6 +179,7 @@ export default function EmployeeRatings() {
                     )}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
 

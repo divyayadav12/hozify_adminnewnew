@@ -133,7 +133,8 @@ export default function VendorRecommendation() {
             </div>
 
             <div style={{ overflowX: 'auto' }}>
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '550px' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '550px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 8px', width: '30px' }} />
@@ -242,7 +243,8 @@ export default function VendorRecommendation() {
                     );
                   })}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
           </div>
 

@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 
+import Select from "../../components/ui/Select";
+
 // Helper for downloading generated files
 const downloadFile = (content, filename, contentType) => {
   const blob = new Blob([content], { type: contentType });
@@ -719,7 +721,6 @@ export default function TrackingAnalytics() {
         )}
 
       </div>
-
       {/* ==========================================
           DYNAMIC EXPORT MODAL LAYER
          ========================================== */}
@@ -808,9 +809,8 @@ export default function TrackingAnalytics() {
               </div>
             ) : (
               /* Export Processing View */
-              <div className="py-8 space-y-6 flex flex-col items-center text-center">
+              (<div className="py-8 space-y-6 flex flex-col items-center text-center">
                 <Loader2 className="h-8 w-8 text-[#0c0563] animate-spin" />
-                
                 <div className="w-full space-y-2">
                   <div className="flex justify-between items-center text-xs font-bold px-1">
                     <span className="text-slate-500">Compiling Report...</span>
@@ -824,12 +824,11 @@ export default function TrackingAnalytics() {
                   </div>
                   <p className="text-[11px] font-semibold text-slate-400 animate-pulse">{exportStatusText}</p>
                 </div>
-              </div>
+              </div>)
             )}
           </div>
         </div>
       )}
-
       {/* ==========================================
           DYNAMIC VIEW ALL PARTNERS MODAL
          ========================================== */}
@@ -869,22 +868,28 @@ export default function TrackingAnalytics() {
 
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-bold text-slate-500 shrink-0">Sort By:</span>
-                <select
+                <Select
                   value={partnerSortKey}
                   onChange={(e) => setPartnerSortKey(e.target.value)}
                   className="px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 font-bold focus:outline-none focus:border-[#0c0563]"
-                >
-                  <option value="rank">Rank / Performance</option>
-                  <option value="fulfillment">Fulfillment Rate</option>
-                  <option value="utilization">Utilization Rate</option>
-                </select>
+                  options={[{
+                    label: "Rank / Performance",
+                    value: "rank"
+                  }, {
+                    label: "Fulfillment Rate",
+                    value: "fulfillment"
+                  }, {
+                    label: "Utilization Rate",
+                    value: "utilization"
+                  }]} />
               </div>
             </div>
 
             {/* Registry Table */}
             <div className="border border-slate-100 rounded-xl overflow-hidden shadow-2xs">
               <div className="max-h-[350px] overflow-y-auto">
-                <table className="w-full text-left border-collapse">
+                <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                   <thead className="bg-slate-50/75 sticky top-0 backdrop-blur-xs text-[10px] font-black uppercase text-slate-400 tracking-wider border-b border-slate-100">
                     <tr>
                       <th className="p-3 pl-4 text-center">Rank</th>
@@ -927,6 +932,7 @@ export default function TrackingAnalytics() {
                     )}
                   </tbody>
                 </table>
+</div>
               </div>
             </div>
 
