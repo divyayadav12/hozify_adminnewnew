@@ -36,6 +36,8 @@ import {
   riskRules
 } from './data';
 
+import Select from "../../components/ui/Select";
+
 const routePageMap = {
   [ROUTES.fraudCenter]: 'dashboard',
   [ROUTES.fraudDashboard]: 'dashboard',
@@ -226,13 +228,17 @@ function GenericFraudPage({ page, navigate, onModal, onDrawer }) {
         {['Fraud Type', 'Risk Score Range', 'Status', 'Investigator'].map((label) => (
           <label key={label}>
             <span>{label}</span>
-            <select style={{width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', cursor: 'pointer', appearance: 'auto', outline: 'none'}} onChange={(e) => addToast(`Filter applied: ${e.target.value}`, 'success')}>
-              <option>All {label.split(' ')[0]}</option>
-              {label === 'Fraud Type' && <><option>Financial</option><option>Identity</option><option>Operational</option></>}
-              {label === 'Risk Score Range' && <><option>Critical (90-100)</option><option>High (70-89)</option><option>Medium (40-69)</option><option>Low (0-39)</option></>}
-              {label === 'Status' && <><option>Open</option><option>Investigating</option><option>Resolved</option></>}
-              {label === 'Investigator' && <><option>Alex Mercer</option><option>Sarah Connor</option><option>Unassigned</option></>}
-            </select>
+            <Select
+              onChange={(e) => addToast(`Filter applied: ${e.target.value}`, 'success')}
+              style={{ width: '100%', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)' }}
+              options={[
+                { value: `All ${label.split(' ')[0]}`, label: `All ${label.split(' ')[0]}` },
+                ...(label === 'Fraud Type' ? ['Financial', 'Identity', 'Operational'].map(v => ({ value: v, label: v })) : []),
+                ...(label === 'Risk Score Range' ? ['Critical (90-100)', 'High (70-89)', 'Medium (40-69)', 'Low (0-39)'].map(v => ({ value: v, label: v })) : []),
+                ...(label === 'Status' ? ['Open', 'Investigating', 'Resolved'].map(v => ({ value: v, label: v })) : []),
+                ...(label === 'Investigator' ? ['Alex Mercer', 'Sarah Connor', 'Unassigned'].map(v => ({ value: v, label: v })) : [])
+              ]}
+            />
           </label>
         ))}
         <button className="fraud-btn soft" type="button" onClick={() => addToast('Advanced Filters Opened', 'info')}><Filter size={18} />Advanced Filters</button>
@@ -610,7 +616,8 @@ function FraudTable({ title, rows = fraudCases, navigate, onDrawer }) {
         <button type="button" onClick={() => addToast('Table Filter Opened', 'info')}><Filter size={16} />Filter</button>
       </div>
       <div className="fraud-table-wrap">
-        <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="fraud-table">
+        <div className="table-responsive-wrapper">
+<table className="fraud-table">
           <thead>
             <tr>
               <th>Case ID</th>
@@ -640,7 +647,8 @@ function FraudTable({ title, rows = fraudCases, navigate, onDrawer }) {
               </tr>
             ))}
           </tbody>
-        </table></div>
+        </table>
+</div>
       </div>
       <footer className="fraud-table-foot">Showing 1-4 of 248 cases <span>1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;...&nbsp;&nbsp;62</span></footer>
     </section>
@@ -666,7 +674,22 @@ function ChartCard({ title, subtitle }) {
   const { addToast } = useToast();
   return (
     <section className="fraud-card fraud-chart">
-      <div className="fraud-card-head"><div><h3>{title}</h3><p>{subtitle}</p></div><select style={{padding: '0.5rem', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none'}} onChange={(e) => addToast(`Timeframe changed to ${e.target.value}`, 'success')}><option>Last 30 Days</option><option>Last 7 Days</option><option>Today</option><option>All Time</option></select></div>
+      <div className="fraud-card-head"><div><h3>{title}</h3><p>{subtitle}</p></div><Select
+        style={{padding: '0.5rem', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none'}}
+        onChange={(e) => addToast(`Timeframe changed to ${e.target.value}`, 'success')}
+        options={[{
+          label: "Last 30 Days",
+          value: "Last 30 Days"
+        }, {
+          label: "Last 7 Days",
+          value: "Last 7 Days"
+        }, {
+          label: "Today",
+          value: "Today"
+        }, {
+          label: "All Time",
+          value: "All Time"
+        }]} /></div>
       <div className="fraud-chart-lines"><span /><span /><span /><svg viewBox="0 0 600 220" preserveAspectRatio="none"><path d="M0 155 C70 100 120 190 180 140 C240 90 270 20 335 105 C390 180 430 65 500 70 C545 75 570 90 600 88" /><path className="dash" d="M0 178 C80 140 140 170 195 132 C260 86 312 70 362 125 C412 175 470 100 600 112" /></svg></div>
     </section>
   );
@@ -745,10 +768,12 @@ function AuditTable() {
     <section className="fraud-card wide">
       <div className="fraud-card-head"><h3>Audit Trail</h3><button onClick={() => addToast('Exporting Audit Trail...', 'success')}>Export</button></div>
       <div className="fraud-table-wrap">
-        <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="fraud-table">
+        <div className="table-responsive-wrapper">
+<table className="fraud-table">
           <thead><tr><th>Timestamp</th><th>Actor</th><th>Event Type</th><th>Action</th><th>IP</th></tr></thead>
           <tbody>{auditLogs.map((log) => <tr key={log.time}><td>{log.time}</td><td>{log.actor}</td><td>{log.type}</td><td>{log.action}</td><td>{log.ip}</td></tr>)}</tbody>
-        </table></div>
+        </table>
+</div>
       </div>
     </section>
   );
@@ -798,10 +823,12 @@ function WebhookTable() {
     <section className="fraud-card wide">
       <div className="fraud-card-head"><h3>Webhook Log</h3><button onClick={() => addToast('Event log refreshed', 'success')}>All Events</button></div>
       <div className="fraud-table-wrap">
-        <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="fraud-table">
+        <div className="table-responsive-wrapper">
+<table className="fraud-table">
           <thead><tr><th>Timestamp</th><th>Provider</th><th>Event Type</th><th>Status</th><th>Response</th></tr></thead>
           <tbody>{integrationRows.map((row, index) => <tr key={row.provider}><td>14:2{index}:01.042</td><td>{row.provider}</td><td>{row.product}</td><td><StatusBadge status={row.response} /></td><td>View JSON</td></tr>)}</tbody>
-        </table></div>
+        </table>
+</div>
       </div>
     </section>
   );
@@ -837,7 +864,18 @@ function FraudModal({ type, onClose, onComplete }) {
         <p>{modalCopy(type)}</p>
         <div className="fraud-form-grid">
           <label>Entity / Case ID<input placeholder="#FC-9281-X" /></label>
-          <label>Priority<select defaultValue="critical"><option value="critical">Critical</option><option>High</option><option>Medium</option></select></label>
+          <label>Priority<Select
+            defaultValue="critical"
+            options={[{
+              label: "Critical",
+              value: "critical"
+            }, {
+              label: "High",
+              value: "High"
+            }, {
+              label: "Medium",
+              value: "Medium"
+            }]} /></label>
         </div>
         <label className="fraud-field">Investigation Notes<textarea placeholder="Add notes for audit trail..." /></label>
         <div className="fraud-actions right">

@@ -17,6 +17,8 @@ import {
   ArrowLeft
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function ActiveJobs() {
   const { navigate } = useApp();
   // ==========================================
@@ -157,43 +159,62 @@ export default function ActiveJobs() {
 
           {/* Priority Dropdown Select */}
           <div className="flex items-center gap-1.5 text-xs">
-            <select 
+            <Select
               value={priorityFilter}
               onChange={(e) => { setPriorityFilter(e.target.value); setCurrentPage(1); }}
               className="bg-slate-50 border border-slate-200 text-slate-700 font-semibold px-3 py-1.5 rounded-lg focus:outline-none focus:border-slate-400 cursor-pointer text-xs"
-            >
-              <option value="All">Priority: All</option>
-              <option value="Critical">Critical Only</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-            </select>
+              options={[{
+                label: "Priority: All",
+                value: "All"
+              }, {
+                label: "Critical Only",
+                value: "Critical"
+              }, {
+                label: "High",
+                value: "High"
+              }, {
+                label: "Medium",
+                value: "Medium"
+              }]} />
           </div>
 
           {/* Partner Type Dropdown Select */}
           <div className="flex items-center gap-1.5 text-xs">
-            <select 
+            <Select
               value={partnerFilter}
               onChange={(e) => { setPartnerFilter(e.target.value); setCurrentPage(1); }}
               className="bg-slate-50 border border-slate-200 text-slate-700 font-semibold px-3 py-1.5 rounded-lg focus:outline-none focus:border-slate-400 cursor-pointer text-xs"
-            >
-              <option value="All">Partner Type: All</option>
-              <option value="Global Logistics">Global Logistics</option>
-              <option value="FastTrack">FastTrack Delivery</option>
-              <option value="Summit">Summit Supply</option>
-            </select>
+              options={[{
+                label: "Partner Type: All",
+                value: "All"
+              }, {
+                label: "Global Logistics",
+                value: "Global Logistics"
+              }, {
+                label: "FastTrack Delivery",
+                value: "FastTrack"
+              }, {
+                label: "Summit Supply",
+                value: "Summit"
+              }]} />
           </div>
 
           {/* Region Selector */}
           <div className="flex items-center gap-1.5 text-xs">
-            <select 
+            <Select
               value={regionFilter}
               onChange={(e) => { setRegionFilter(e.target.value); setCurrentPage(1); }}
               className="bg-slate-50 border border-slate-200 text-slate-700 font-semibold px-3 py-1.5 rounded-lg focus:outline-none focus:border-slate-400 cursor-pointer text-xs"
-            >
-              <option value="Global">Region: Global</option>
-              <option value="Express">Express Routes</option>
-              <option value="Standard">Standard Area</option>
-            </select>
+              options={[{
+                label: "Region: Global",
+                value: "Global"
+              }, {
+                label: "Express Routes",
+                value: "Express"
+              }, {
+                label: "Standard Area",
+                value: "Standard"
+              }]} />
           </div>
         </div>
 
@@ -202,7 +223,8 @@ export default function ActiveJobs() {
            ========================================== */}
         <div className="bg-white border border-slate-200 rounded-xl shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-100 bg-slate-50/70 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
                   <th className="py-3 px-5">JOB ID</th>
@@ -254,7 +276,8 @@ export default function ActiveJobs() {
                   ))
                 )}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* TABLE INTERACTIVE PAGINATION PANEL FOOTER */}

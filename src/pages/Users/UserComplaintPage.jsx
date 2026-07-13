@@ -15,6 +15,8 @@ import {
   UserCheck
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function UserComplaintsPage() {
   const { navigate } = useApp();
   const { addToast } = useToast();
@@ -185,7 +187,7 @@ export default function UserComplaintsPage() {
               Complaint Tickets
             </h3>
             <div className="flex gap-2">
-              <select
+              <Select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
                 style={{
@@ -196,18 +198,24 @@ export default function UserComplaintsPage() {
                   outline: "none",
                   background: "var(--materio-surface)",
                 }}
-              >
-                <option value="All">All Statuses</option>
-                <option value="OPEN">Open</option>
-                <option value="RESOLVED">Resolved</option>
-              </select>
+                options={[{
+                  label: "All Statuses",
+                  value: "All"
+                }, {
+                  label: "Open",
+                  value: "OPEN"
+                }, {
+                  label: "Resolved",
+                  value: "RESOLVED"
+                }]} />
               <button onClick={handleExport} className="secondary-action-btn cursor-pointer">
                 Export
               </button>
             </div>
           </div>
 
-          <table className="w-full">
+          <div className="table-responsive-wrapper">
+<table className="w-full">
             <thead>
               <tr className="bg-slate-50 text-left">
                 <th className="p-4">Ticket ID</th>
@@ -256,6 +264,7 @@ export default function UserComplaintsPage() {
               )}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* Support Note */}
@@ -269,7 +278,6 @@ export default function UserComplaintsPage() {
         </div>
 
       </div>
-
       {/* ========================================================
           MODAL: PROFILE EXECUTIVE ACTIONS
           ======================================================== */}
@@ -334,7 +342,6 @@ export default function UserComplaintsPage() {
           </div>
         </div>
       )}
-
       {/* ========================================================
           MODAL: TICKET DETAILS
           ======================================================== */}
@@ -403,7 +410,6 @@ export default function UserComplaintsPage() {
           </div>
         </div>
       )}
-
       {/* ========================================================
           MODAL: EXPORT COMPILING SPINNER
           ======================================================== */}
@@ -424,7 +430,6 @@ export default function UserComplaintsPage() {
           </div>
         </div>
       )}
-
     </AdminShell>
   );
 }

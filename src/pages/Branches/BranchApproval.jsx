@@ -145,7 +145,8 @@ export default function BranchApproval() {
         </div>
 
         <div className="table-wrap">
-          <table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
             <thead>
               <tr>
                 <th>BRANCH</th>
@@ -225,6 +226,7 @@ export default function BranchApproval() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* Directory Table Footer */}

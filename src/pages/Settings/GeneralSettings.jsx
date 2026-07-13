@@ -3,6 +3,8 @@ import { Info, Palette } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 export default function GeneralSettings() {
   const { addToast } = useToast();
   return (
@@ -129,24 +131,30 @@ export default function GeneralSettings() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Timezone</label>
-                  <select 
+                  <Select
                     defaultValue="(UTC-05:00) Eastern Time (US & Canada)"
                     style={{ width: '100%', height: '40px', padding: '0 12px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', outline: 'none', backgroundColor: '#fff' }}
-                  >
-                    <option value="(UTC-05:00) Eastern Time (US & Canada)">(UTC-05:00) Eastern Time (US & Canada)</option>
-                    <option value="(UTC-08:00) Pacific Time (US & Canada)">(UTC-08:00) Pacific Time (US & Canada)</option>
-                  </select>
+                    options={[{
+                      label: "(UTC-05:00) Eastern Time (US & Canada)",
+                      value: "(UTC-05:00) Eastern Time (US & Canada)"
+                    }, {
+                      label: "(UTC-08:00) Pacific Time (US & Canada)",
+                      value: "(UTC-08:00) Pacific Time (US & Canada)"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>System Language</label>
-                  <select 
+                  <Select
                     defaultValue="English (United States)"
                     style={{ width: '100%', height: '40px', padding: '0 12px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px', color: 'var(--text)', outline: 'none', backgroundColor: '#fff' }}
-                  >
-                    <option value="English (United States)">English (United States)</option>
-                    <option value="Spanish (Spain)">Spanish (Spain)</option>
-                  </select>
+                    options={[{
+                      label: "English (United States)",
+                      value: "English (United States)"
+                    }, {
+                      label: "Spanish (Spain)",
+                      value: "Spanish (Spain)"
+                    }]} />
                 </div>
               </div>
             </div>

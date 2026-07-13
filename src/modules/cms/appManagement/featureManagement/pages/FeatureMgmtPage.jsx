@@ -263,7 +263,8 @@ export default function FeatureMgmtPage({ defaultTab }) {
             {/* Responsive Table */}
             <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
               <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                   <thead>
                     <tr className="custom-table-header">
                       <th style={{ padding: '16px 24px' }}>TECHNICAL FLAG KEY</th>
@@ -321,6 +322,7 @@ export default function FeatureMgmtPage({ defaultTab }) {
                     )}
                   </tbody>
                 </table>
+</div>
               </div>
 
               {/* Pagination */}

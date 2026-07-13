@@ -17,6 +17,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 
+import Select from "../../components/ui/Select";
+
 export default function Restocking() {
   const { navigate } = useApp();
   
@@ -177,7 +179,7 @@ export default function Restocking() {
                   Material Selection
                 </label>
                 <div style={{ position: 'relative' }}>
-                  <select
+                  <Select
                     value={material}
                     onChange={(e) => setMaterial(e.target.value)}
                     style={{
@@ -194,12 +196,19 @@ export default function Restocking() {
                       outline: 'none'
                     }}
                     aria-label="Select material to restock"
-                  >
-                    <option value="Industrial Grade Steel - S400">Industrial Grade Steel - S400</option>
-                    <option value="Copper Bus Bar 200A">Copper Bus Bar 200A</option>
-                    <option value="Reinforced Structural Rebar">Reinforced Structural Rebar</option>
-                    <option value="M12 Fasteners">M12 Fasteners</option>
-                  </select>
+                    options={[{
+                      label: "Industrial Grade Steel - S400",
+                      value: "Industrial Grade Steel - S400"
+                    }, {
+                      label: "Copper Bus Bar 200A",
+                      value: "Copper Bus Bar 200A"
+                    }, {
+                      label: "Reinforced Structural Rebar",
+                      value: "Reinforced Structural Rebar"
+                    }, {
+                      label: "M12 Fasteners",
+                      value: "M12 Fasteners"
+                    }]} />
                   <ChevronDown size={14} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
                 </div>
               </div>
@@ -213,7 +222,7 @@ export default function Restocking() {
                     Supplier
                   </label>
                   <div style={{ position: 'relative' }}>
-                    <select
+                    <Select
                       value={supplier}
                       onChange={(e) => setSupplier(e.target.value)}
                       style={{
@@ -230,11 +239,16 @@ export default function Restocking() {
                         outline: 'none'
                       }}
                       aria-label="Select supplier"
-                    >
-                      <option value="Apex Metalworks">Apex Metalworks</option>
-                      <option value="Titan Steel Industries">Titan Steel Industries</option>
-                      <option value="Global Alloys Ltd.">Global Alloys Ltd.</option>
-                    </select>
+                      options={[{
+                        label: "Apex Metalworks",
+                        value: "Apex Metalworks"
+                      }, {
+                        label: "Titan Steel Industries",
+                        value: "Titan Steel Industries"
+                      }, {
+                        label: "Global Alloys Ltd.",
+                        value: "Global Alloys Ltd."
+                      }]} />
                     <ChevronDown size={14} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
                   </div>
                 </div>

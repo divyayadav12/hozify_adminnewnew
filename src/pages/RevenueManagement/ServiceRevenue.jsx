@@ -207,7 +207,8 @@ export default function ServiceRevenue() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/70 border-b border-slate-200 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   <th className="px-6 py-3">Service Line</th>
@@ -240,6 +241,7 @@ export default function ServiceRevenue() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 
@@ -282,7 +284,8 @@ export default function ServiceRevenue() {
                 Comprehensive data breakdown of all active service lines across global regions.
               </p>
               <div className="overflow-x-auto border border-slate-100 rounded-lg">
-                <table className="w-full text-left border-collapse">
+                <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       <th className="px-4 py-2 border-b border-slate-100">Service Line</th>
@@ -318,6 +321,7 @@ export default function ServiceRevenue() {
                     </tr>
                   </tbody>
                 </table>
+</div>
               </div>
             </div>
             <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">

@@ -209,7 +209,8 @@ export default function CampaignListingPage() {
         {/* CAMPAIGN TABLE */}
         <div className="bg-white border border-slate-300 rounded-xl overflow-hidden shadow-sm mb-6">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[1000px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full min-w-[1000px]">
               <thead className="bg-slate-50">
                 <tr className="text-left text-[10px] uppercase font-bold text-slate-500">
                   <th className="p-4">Campaign Name</th>
@@ -281,6 +282,7 @@ export default function CampaignListingPage() {
                 />
               </tbody>
             </table>
+</div>
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 p-4 border-t border-slate-200">

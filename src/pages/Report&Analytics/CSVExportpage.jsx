@@ -257,7 +257,8 @@ export default function CSVExportPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-[#f8fafd] text-gray-400 border-b border-gray-200/60 uppercase text-[9px] font-black tracking-wider">
                   <th className="py-3 px-6 w-[35%]">File Name</th>
@@ -314,6 +315,7 @@ export default function CSVExportPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           <div className="bg-[#f8fafd] border-t border-gray-100 px-6 py-3.5 flex justify-between items-center text-xs font-bold text-gray-400">

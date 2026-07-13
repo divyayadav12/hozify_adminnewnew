@@ -8,7 +8,8 @@ export default function RecentBookings({ bookings = [], onViewAll }) {
         <button type="button" onClick={onViewAll}>View All Bookings</button>
       </div>
       <div className="table-wrap">
-        <table>
+        <div className="table-responsive-wrapper">
+<table>
           <thead>
             <tr><th>ORDER ID</th><th>CUSTOMER</th><th>SERVICE</th><th>DATE</th><th>AMOUNT</th><th>STATUS</th></tr>
           </thead>
@@ -25,6 +26,7 @@ export default function RecentBookings({ bookings = [], onViewAll }) {
             ))}
           </tbody>
         </table>
+</div>
       </div>
     </div>
   );

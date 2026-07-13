@@ -3,6 +3,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell
 } from 'recharts';
 
+import Select from "../ui/Select";
+
 const dummyData = {
   Weekly: [
     { name: 'Mon', value: 4000 },
@@ -58,17 +60,21 @@ export default function ProfessionalGraph({ title = "Performance Overview", init
     <div className="flex h-full w-full flex-col rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all hover:shadow-md">
       <div className="mb-6 flex items-center justify-between">
         <h3 className="text-lg font-bold text-slate-900">{title}</h3>
-        <select 
+        <Select
           value={timeframe}
           onChange={(e) => setTimeframe(e.target.value)}
           className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 outline-none ring-indigo-500/20 focus:ring-4 transition-all"
-        >
-          <option value="Weekly">Weekly</option>
-          <option value="Monthly">Monthly</option>
-          <option value="Yearly">Yearly</option>
-        </select>
+          options={[{
+            label: "Weekly",
+            value: "Weekly"
+          }, {
+            label: "Monthly",
+            value: "Monthly"
+          }, {
+            label: "Yearly",
+            value: "Yearly"
+          }]} />
       </div>
-      
       <div className="h-[280px] w-full flex-1">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={currentData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>

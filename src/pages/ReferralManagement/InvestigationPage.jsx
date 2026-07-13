@@ -224,7 +224,8 @@ export default function InvestigationPage() {
 
           {/* TABLE */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs min-w-[700px] border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs min-w-[700px] border-collapse">
               <thead className="text-slate-500 border-b border-slate-100 font-bold uppercase text-[10px]">
                 <tr>
                   <th className="py-2">User Account</th>
@@ -272,6 +273,7 @@ export default function InvestigationPage() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

@@ -21,6 +21,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 
+import Select from "../../components/ui/Select";
+
 export default function SupplierComparison() {
   const { navigate } = useApp();
   const [volatilityPeriod, setVolatilityPeriod] = useState('Last 12 Months');
@@ -173,7 +175,8 @@ export default function SupplierComparison() {
         {/* Evaluation Attribute Matrix Table */}
         <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
               <thead>
                 <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '20px 24px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase', width: '25%' }}>Evaluation Attribute</th>
@@ -299,7 +302,8 @@ export default function SupplierComparison() {
                 </tr>
 
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 
@@ -363,7 +367,7 @@ export default function SupplierComparison() {
                 Price Volatility Index
               </h3>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={volatilityPeriod}
                   onChange={(e) => setVolatilityPeriod(e.target.value)}
                   style={{
@@ -379,10 +383,13 @@ export default function SupplierComparison() {
                     cursor: 'pointer'
                   }}
                   aria-label="Volatility timeframe"
-                >
-                  <option value="Last 12 Months">Last 12 Months</option>
-                  <option value="Last 30 Days">Last 30 Days</option>
-                </select>
+                  options={[{
+                    label: "Last 12 Months",
+                    value: "Last 12 Months"
+                  }, {
+                    label: "Last 30 Days",
+                    value: "Last 30 Days"
+                  }]} />
                 <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
               </div>
             </div>

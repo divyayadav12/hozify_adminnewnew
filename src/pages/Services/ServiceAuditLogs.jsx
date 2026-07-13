@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const MOCK_LOGS = [
   { id: 'LOG-SVC-901', user: 'Admin (System)', action: 'Updated Global Pricing Strategy', module: 'Pricing', severity: 'HIGH', time: '10 mins ago', ip: '192.168.1.1', status: 'SUCCESS', statusBg: '#ecfdf5', statusColor: '#059669' },
   { id: 'LOG-SVC-900', user: 'Sarah Jenkins', action: 'Failed to delete Category (Has Services)', module: 'Catalog', severity: 'MEDIUM', time: '15 mins ago', ip: '45.22.11.90', status: 'FAILED', statusBg: '#fee2e2', statusColor: '#ef4444' },
@@ -53,7 +55,6 @@ export default function ServiceAuditLogs() {
 
   return (
     <div style={{ paddingBottom: '40px', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
-      
       {/* ========================================== */}
       {/* HEADER                                            */}
       {/* ================================================= */}
@@ -74,7 +75,6 @@ export default function ServiceAuditLogs() {
           </button>
         </div>
       </div>
-
       {/* ========================================== */}
       {/* STATISTICS CARDS                                  */}
       {/* ================================================= */}
@@ -175,7 +175,6 @@ export default function ServiceAuditLogs() {
           <span className="audit-kpi-card-footer" style={{ color: '#10b981' }}>Strategy overrides</span>
         </div>
       </section>
-
       {/* ========================================== */}
       {/* MIDDLE SECTION: TIMELINE & EVENTS                 */}
       {/* ================================================= */}
@@ -267,7 +266,6 @@ export default function ServiceAuditLogs() {
         </div>
         
       </section>
-
       {/* ========================================== */}
       {/* LOGS TABLE SECTION                                */}
       {/* ================================================= */}
@@ -290,26 +288,49 @@ export default function ServiceAuditLogs() {
               />
             </div>
             
-            <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
-              <option value="">All Severities</option>
-              <option value="CRITICAL">Critical</option>
-              <option value="HIGH">High</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="LOW">Low</option>
-            </select>
+            <Select
+              style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
+              options={[{
+                label: "All Severities",
+                value: ""
+              }, {
+                label: "Critical",
+                value: "CRITICAL"
+              }, {
+                label: "High",
+                value: "HIGH"
+              }, {
+                label: "Medium",
+                value: "MEDIUM"
+              }, {
+                label: "Low",
+                value: "LOW"
+              }]} />
 
-            <select style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}>
-              <option value="">All Modules</option>
-              <option value="Catalog">Catalog</option>
-              <option value="Pricing">Pricing</option>
-              <option value="Commission">Commission</option>
-              <option value="Reports">Reports</option>
-            </select>
+            <Select
+              style={{ height: '34px', fontSize: '12px', fontWeight: '600', color: 'var(--text)', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 12px', outline: 'none', cursor: 'pointer' }}
+              options={[{
+                label: "All Modules",
+                value: ""
+              }, {
+                label: "Catalog",
+                value: "Catalog"
+              }, {
+                label: "Pricing",
+                value: "Pricing"
+              }, {
+                label: "Commission",
+                value: "Commission"
+              }, {
+                label: "Reports",
+                value: "Reports"
+              }]} />
           </div>
         </div>
 
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <div className="table-responsive-wrapper">
+<table className="partner-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px', textAlign: 'left', fontSize: '11px', color: 'var(--muted)', fontWeight: '800' }}>LOG ID</th>
@@ -364,7 +385,8 @@ export default function ServiceAuditLogs() {
                 </tr>
               ))}
             </tbody>
-          </table></div>
+          </table>
+</div>
 
           {filteredLogs.length === 0 && (
             <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontSize: '13px' }}>
@@ -390,7 +412,6 @@ export default function ServiceAuditLogs() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

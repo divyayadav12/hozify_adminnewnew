@@ -646,7 +646,8 @@ export default function PartnerDetails() {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left" style={{ borderCollapse: 'collapse', fontSize: "13px" }}>
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left" style={{ borderCollapse: 'collapse', fontSize: "13px" }}>
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-100 text-slate-500">
                     <th className="p-4 font-bold">Employee ID</th>
@@ -685,6 +686,7 @@ export default function PartnerDetails() {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
         </div>
@@ -724,7 +726,8 @@ export default function PartnerDetails() {
           <div className="panel overview-card">
             <h3 className="font-bold text-lg mb-4">Escrow Settlements Ledger</h3>
             <div className="overflow-x-auto">
-              <table className="w-full text-left" style={{ borderCollapse: 'collapse', fontSize: "13px" }}>
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left" style={{ borderCollapse: 'collapse', fontSize: "13px" }}>
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-100 text-slate-500">
                     <th className="p-4 font-bold">Transaction Reference</th>
@@ -751,6 +754,7 @@ export default function PartnerDetails() {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
         </div>

@@ -23,6 +23,7 @@ import { useToast } from '../../components/common/ToastNotification';
 
 import UserEditModal from './UserEditModal';
 import UserSubTabs from "../../components/users/UserSubTabs";
+import Select from "../../components/ui/Select";
 import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 
 const statusOptions = ['All', 'Active', 'Suspended', 'Blocked', 'Deleted'];
@@ -216,9 +217,13 @@ export default function Users() {
                   }}
                 />
               </div>
-              <select 
+              <Select 
                 value={filters.status} 
                 onChange={(e) => updateFilter('status', e.target.value)}
+                options={statusOptions.map(opt => ({
+                  value: opt,
+                  label: opt
+                }))}
                 style={{ 
                   padding: '8px 12px', 
                   border: '1px solid var(--materio-border)', 
@@ -227,14 +232,13 @@ export default function Users() {
                   outline: 'none',
                   background: 'var(--materio-surface)'
                 }}
-              >
-                {statusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
+              />
             </div>
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <table className="materio-table">
+            <div className="table-responsive-wrapper">
+<table className="materio-table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -311,6 +315,7 @@ export default function Users() {
                 })}
               </tbody>
             </table>
+</div>
           </div>
           
           <div style={{ padding: '16px 24px', borderTop: '1px solid var(--materio-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

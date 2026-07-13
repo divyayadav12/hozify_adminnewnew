@@ -105,7 +105,8 @@ export default function TaxSettings() {
               </div>
 
               <div>
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
                       <th style={{ padding: '0 0 16px', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Region</th>
@@ -146,7 +147,8 @@ export default function TaxSettings() {
                       </td>
                     </tr>
                   </tbody>
-                </table></div>
+                </table>
+</div>
               </div>
             </div>
 

@@ -6,6 +6,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 export default function NewServiceWizard({ onClose }) {
   const [activeStep, setActiveStep] = useState(1);
   const [serviceName, setServiceName] = useState('');
@@ -34,7 +36,6 @@ export default function NewServiceWizard({ onClose }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', padding: '24px 0' }}>
-      
       {/* Wizard Header Bar */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <button
@@ -58,7 +59,6 @@ export default function NewServiceWizard({ onClose }) {
           New Service Wizard
         </h1>
       </div>
-
       {/* Progress tracker checkpoint indicators */}
       <div style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto' }}>
@@ -127,7 +127,6 @@ export default function NewServiceWizard({ onClose }) {
           ))}
         </div>
       </div>
-
       {/* Main Step Panel */}
       <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '0', overflow: 'hidden' }}>
         
@@ -182,7 +181,7 @@ export default function NewServiceWizard({ onClose }) {
                   <label htmlFor="wizard-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>
                     Category
                   </label>
-                  <select
+                  <Select
                     id="wizard-category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
@@ -197,20 +196,29 @@ export default function NewServiceWizard({ onClose }) {
                       background: '#ffffff'
                     }}
                     required
-                  >
-                    <option value="">Select Category</option>
-                    <option value="facilities">Engineering & Facilities</option>
-                    <option value="it">IT & Cybersecurity</option>
-                    <option value="cleaning">Cleaning Services</option>
-                    <option value="consulting">Consulting</option>
-                  </select>
+                    options={[{
+                      label: "Select Category",
+                      value: ""
+                    }, {
+                      label: "Engineering & Facilities",
+                      value: "facilities"
+                    }, {
+                      label: "IT & Cybersecurity",
+                      value: "it"
+                    }, {
+                      label: "Cleaning Services",
+                      value: "cleaning"
+                    }, {
+                      label: "Consulting",
+                      value: "consulting"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label htmlFor="wizard-sub-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>
                     Sub-Category
                   </label>
-                  <select
+                  <Select
                     id="wizard-sub-category"
                     value={subCategory}
                     onChange={(e) => setSubCategory(e.target.value)}
@@ -225,13 +233,22 @@ export default function NewServiceWizard({ onClose }) {
                       background: '#ffffff'
                     }}
                     required
-                  >
-                    <option value="">Select Sub-Category</option>
-                    <option value="hvac">HVAC Systems</option>
-                    <option value="electrical">Electrical Maintenance</option>
-                    <option value="networking">Enterprise Infrastructure</option>
-                    <option value="strategy">Operational Audit</option>
-                  </select>
+                    options={[{
+                      label: "Select Sub-Category",
+                      value: ""
+                    }, {
+                      label: "HVAC Systems",
+                      value: "hvac"
+                    }, {
+                      label: "Electrical Maintenance",
+                      value: "electrical"
+                    }, {
+                      label: "Enterprise Infrastructure",
+                      value: "networking"
+                    }, {
+                      label: "Operational Audit",
+                      value: "strategy"
+                    }]} />
                 </div>
               </div>
 
@@ -370,7 +387,6 @@ export default function NewServiceWizard({ onClose }) {
           </div>
         </form>
       </div>
-
       {/* Tip & Status cards bottom row */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr', mdGridTemplateColumns: '1fr 1fr', gap: '20px' }}>
         {/* Pro Tip Card */}
@@ -399,7 +415,6 @@ export default function NewServiceWizard({ onClose }) {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

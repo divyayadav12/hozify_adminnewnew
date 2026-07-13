@@ -19,6 +19,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 
+import Select from "../../components/ui/Select";
+
 export default function MaterialReports() {
   const { navigate } = useApp();
   const [branch, setBranch] = useState('All Regional Hubs');
@@ -74,7 +76,7 @@ export default function MaterialReports() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Branch Selection</span>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
                   style={{
@@ -91,11 +93,16 @@ export default function MaterialReports() {
                     minWidth: '160px'
                   }}
                   aria-label="Branch selection filter"
-                >
-                  <option value="All Regional Hubs">All Regional Hubs</option>
-                  <option value="North Hub">North Hub</option>
-                  <option value="South Hub">South Hub</option>
-                </select>
+                  options={[{
+                    label: "All Regional Hubs",
+                    value: "All Regional Hubs"
+                  }, {
+                    label: "North Hub",
+                    value: "North Hub"
+                  }, {
+                    label: "South Hub",
+                    value: "South Hub"
+                  }]} />
                 <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
               </div>
             </div>
@@ -103,7 +110,7 @@ export default function MaterialReports() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <span style={{ fontSize: '10px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Reporting Period</span>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={period}
                   onChange={(e) => setPeriod(e.target.value)}
                   style={{
@@ -120,10 +127,13 @@ export default function MaterialReports() {
                     minWidth: '130px'
                   }}
                   aria-label="Reporting period timeframe"
-                >
-                  <option value="Last 30 Days">Last 30 Days</option>
-                  <option value="Last 90 Days">Last 90 Days</option>
-                </select>
+                  options={[{
+                    label: "Last 30 Days",
+                    value: "Last 30 Days"
+                  }, {
+                    label: "Last 90 Days",
+                    value: "Last 90 Days"
+                  }]} />
                 <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
               </div>
             </div>
@@ -408,7 +418,8 @@ export default function MaterialReports() {
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Report Name</th>
@@ -479,7 +490,8 @@ export default function MaterialReports() {
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

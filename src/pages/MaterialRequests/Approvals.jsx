@@ -18,6 +18,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const initialRequests = [
   { id: '#PR-8821', name: 'James Dalton', dept: 'Infrastructure Div.', initial: 'JD', category: 'Structural Steel', amount: '$42,500.00', status: 'PENDING REVIEW', statusColor: '#d97706', timeline: 'Requested 2h ago', barColor: '#f59e0b' },
   { id: '#PR-8819', name: 'Sarah Kovic', dept: 'Maintenance', initial: 'SK', category: 'HVAC Systems', amount: '$12,800.00', status: 'URGENT ACTION', statusColor: '#dc2626', timeline: 'Delayed 18h', barColor: '#ef4444' },
@@ -333,7 +335,8 @@ export default function ApprovalPipeline() {
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>ID</th>
@@ -488,7 +491,8 @@ export default function ApprovalPipeline() {
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Table Footer */}
@@ -637,7 +641,6 @@ export default function ApprovalPipeline() {
         </div>
 
       </div>
-
       {/* ==========================================
           DYNAMIC FILTERS MODAL LAYER
          ========================================== */}
@@ -667,34 +670,54 @@ export default function ApprovalPipeline() {
               {/* Department Option */}
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Department</label>
-                <select
+                <Select
                   value={filterDept}
                   onChange={(e) => setFilterDept(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 font-bold focus:outline-none focus:border-[#25108f]"
-                >
-                  <option value="All">All Departments</option>
-                  <option value="Infrastructure Div.">Infrastructure Div.</option>
-                  <option value="Maintenance">Maintenance</option>
-                  <option value="Logistics Ops.">Logistics Ops.</option>
-                  <option value="Procurement Analyst">Procurement Analyst</option>
-                </select>
+                  options={[{
+                    label: "All Departments",
+                    value: "All"
+                  }, {
+                    label: "Infrastructure Div.",
+                    value: "Infrastructure Div."
+                  }, {
+                    label: "Maintenance",
+                    value: "Maintenance"
+                  }, {
+                    label: "Logistics Ops.",
+                    value: "Logistics Ops."
+                  }, {
+                    label: "Procurement Analyst",
+                    value: "Procurement Analyst"
+                  }]} />
               </div>
 
               {/* Status Option */}
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Status</label>
-                <select
+                <Select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-800 font-bold focus:outline-none focus:border-[#25108f]"
-                >
-                  <option value="All">All Statuses</option>
-                  <option value="PENDING REVIEW">PENDING REVIEW</option>
-                  <option value="URGENT ACTION">URGENT ACTION</option>
-                  <option value="HIGH VALUE CHECK">HIGH VALUE CHECK</option>
-                  <option value="APPROVED">APPROVED</option>
-                  <option value="REJECTED">REJECTED</option>
-                </select>
+                  options={[{
+                    label: "All Statuses",
+                    value: "All"
+                  }, {
+                    label: "PENDING REVIEW",
+                    value: "PENDING REVIEW"
+                  }, {
+                    label: "URGENT ACTION",
+                    value: "URGENT ACTION"
+                  }, {
+                    label: "HIGH VALUE CHECK",
+                    value: "HIGH VALUE CHECK"
+                  }, {
+                    label: "APPROVED",
+                    value: "APPROVED"
+                  }, {
+                    label: "REJECTED",
+                    value: "REJECTED"
+                  }]} />
               </div>
 
               {/* Minimum Value Input */}
@@ -739,7 +762,6 @@ export default function ApprovalPipeline() {
           </div>
         </div>
       )}
-
       {/* ==========================================
           DYNAMIC EXPORT MODAL LAYER
          ========================================== */}
@@ -828,9 +850,8 @@ export default function ApprovalPipeline() {
               </div>
             ) : (
               /* Export Processing View */
-              <div className="py-8 space-y-6 flex flex-col items-center text-center">
+              (<div className="py-8 space-y-6 flex flex-col items-center text-center">
                 <Loader2 className="h-8 w-8 text-[#25108f] animate-spin" />
-                
                 <div className="w-full space-y-2">
                   <div className="flex justify-between items-center text-xs font-bold px-1">
                     <span className="text-slate-500">Compiling Report...</span>
@@ -844,7 +865,7 @@ export default function ApprovalPipeline() {
                   </div>
                   <p className="text-[11px] font-semibold text-slate-400 animate-pulse">{exportStatusText}</p>
                 </div>
-              </div>
+              </div>)
             )}
           </div>
         </div>

@@ -23,6 +23,8 @@ import {
 import PartnerExportModal from "../../components/ui/PartnerExportModal";
 import { triggerDownload, generateCSV } from "../../utils/downloadHelper";
 
+import Select from "../../components/ui/Select";
+
 const INITIAL_TASKS = [
   {
     id: "PRT-99201",
@@ -371,8 +373,8 @@ export default function PartnerApprovals() {
 
           {/* Responsive Table */}
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-              <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50/70 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
                     <th className="px-6 py-3.5">Partner</th>
@@ -466,7 +468,7 @@ export default function PartnerApprovals() {
                   )}
                 </tbody>
               </table>
-            </div>
+</div>
           </div>
 
           {/* Table Pagination Controls */}
@@ -515,7 +517,6 @@ export default function PartnerApprovals() {
         </div>
 
       </div>
-
       {/* ========================================================
           MODAL: FILTER REQUESTS OPTIONS
           ======================================================== */}
@@ -536,29 +537,41 @@ export default function PartnerApprovals() {
             <div className="space-y-4 text-xs">
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Priority Level</label>
-                <select
+                <Select
                   value={priorityFilter}
                   onChange={(e) => setPriorityFilter(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold"
-                >
-                  <option value="All">All Priorities</option>
-                  <option value="High">High Priority</option>
-                  <option value="Medium">Medium Priority</option>
-                  <option value="Low">Low Priority</option>
-                </select>
+                  options={[{
+                    label: "All Priorities",
+                    value: "All"
+                  }, {
+                    label: "High Priority",
+                    value: "High"
+                  }, {
+                    label: "Medium Priority",
+                    value: "Medium"
+                  }, {
+                    label: "Low Priority",
+                    value: "Low"
+                  }]} />
               </div>
 
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Partner Classification</label>
-                <select
+                <Select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold"
-                >
-                  <option value="All">All Types</option>
-                  <option value="ISP">ISP (Integrated Services)</option>
-                  <option value="BSP">BSP (Basic Services)</option>
-                </select>
+                  options={[{
+                    label: "All Types",
+                    value: "All"
+                  }, {
+                    label: "ISP (Integrated Services)",
+                    value: "ISP"
+                  }, {
+                    label: "BSP (Basic Services)",
+                    value: "BSP"
+                  }]} />
               </div>
 
               <div className="flex gap-2 pt-2">
@@ -585,7 +598,6 @@ export default function PartnerApprovals() {
           </div>
         </div>
       )}
-
       {/* ========================================================
           MODAL: CONFIGURE AUTOMATION RULES
           ======================================================== */}
@@ -649,7 +661,6 @@ export default function PartnerApprovals() {
           </div>
         </div>
       )}
-
       {/* ========================================================
           MODAL: EXPORT COMPILING SPINNER
           ======================================================== */}
@@ -670,7 +681,6 @@ export default function PartnerApprovals() {
           </div>
         </div>
       )}
-
     </AdminShell>
   );
 }

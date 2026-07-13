@@ -162,7 +162,8 @@ export default function BranchCompliance() {
             </div>
 
             <div className="table-wrap">
-              <table className="partner-table">
+              <div className="table-responsive-wrapper">
+<table className="partner-table">
                 <thead>
                   <tr>
                     <th>BRANCH ID</th>
@@ -203,6 +204,7 @@ export default function BranchCompliance() {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
           </section>
 

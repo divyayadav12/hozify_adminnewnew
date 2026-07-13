@@ -14,6 +14,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 
+import Select from "../../components/ui/Select";
+
 const initialInventoryData = [
   {
     id: 'MAT-7721',
@@ -162,7 +164,7 @@ export default function InventoryListing() {
                   Category
                 </label>
                 <div style={{ position: 'relative' }}>
-                  <select
+                  <Select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     style={{
@@ -180,13 +182,22 @@ export default function InventoryListing() {
                       alignItems: 'center'
                     }}
                     aria-label="Filter by category"
-                  >
-                    <option value="All Materials">All Materials</option>
-                    <option value="Raw Structural">Raw Structural</option>
-                    <option value="Electrical Systems">Electrical Systems</option>
-                    <option value="Finishing Hardware">Finishing Hardware</option>
-                    <option value="HVAC Components">HVAC Components</option>
-                  </select>
+                    options={[{
+                      label: "All Materials",
+                      value: "All Materials"
+                    }, {
+                      label: "Raw Structural",
+                      value: "Raw Structural"
+                    }, {
+                      label: "Electrical Systems",
+                      value: "Electrical Systems"
+                    }, {
+                      label: "Finishing Hardware",
+                      value: "Finishing Hardware"
+                    }, {
+                      label: "HVAC Components",
+                      value: "HVAC Components"
+                    }]} />
                   <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
                 </div>
               </div>
@@ -308,7 +319,8 @@ export default function InventoryListing() {
         {/* Master Registry Table */}
         <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '850px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '850px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Material ID</th>
@@ -398,7 +410,8 @@ export default function InventoryListing() {
                   </tr>
                 )}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Table Footer */}
@@ -443,7 +456,6 @@ export default function InventoryListing() {
         </div>
 
       </div>
-
       {/* Floating Plus button on bottom right */}
       <button
         onClick={handleCreateRequest}
@@ -469,7 +481,6 @@ export default function InventoryListing() {
       >
         <Plus size={24} />
       </button>
-
     </AdminShell>
   );
 }

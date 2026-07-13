@@ -234,7 +234,8 @@ export default function UserDocumentsPage() {
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <div className="table-responsive-wrapper">
+<table className="w-full">
                   <thead className="bg-slate-50">
                     <tr>
                       <th className="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase">Document</th>
@@ -285,6 +286,7 @@ export default function UserDocumentsPage() {
                     />
                   </tbody>
                 </table>
+</div>
               </div>
 
               <div className="px-5 py-4 border-t border-slate-100 flex justify-between items-center">

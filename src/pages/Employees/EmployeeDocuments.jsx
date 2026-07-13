@@ -46,7 +46,8 @@ export default function EmployeeDocuments() {
         </div>
 
         <div className="table-wrap" style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '12px', fontSize: '11px', color: 'var(--muted)' }}>Employee Name</th>
@@ -91,6 +92,7 @@ export default function EmployeeDocuments() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
       </div>
 

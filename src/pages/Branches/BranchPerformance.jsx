@@ -4,6 +4,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const topPerformers = [
   { rank: 1, name: 'Sarah Miller', efficiency: '98% Efficiency', value: '+$12k', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80', active: true },
   { rank: 2, name: 'Marcus Chen', efficiency: '94% Efficiency', value: '+$9.5k', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80', active: false }
@@ -91,7 +93,6 @@ export default function BranchPerformance() {
           display: inline-block;
         }
       `}</style>
-
       {/* Page Header */}
       <div className="partners-page-header">
         <div>
@@ -101,16 +102,21 @@ export default function BranchPerformance() {
         <div className="partners-header-buttons">
           <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
             <Calendar size={16} />
-            <select
+            <Select
               value={timeframe}
               onChange={(e) => setTimeframe(e.target.value)}
               style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}
               aria-label="Select timeframe"
-            >
-              <option value="Last 30 Days">Last 30 Days</option>
-              <option value="Last 90 Days">Last 90 Days</option>
-              <option value="Year to Date">Year to Date</option>
-            </select>
+              options={[{
+                label: "Last 30 Days",
+                value: "Last 30 Days"
+              }, {
+                label: "Last 90 Days",
+                value: "Last 90 Days"
+              }, {
+                label: "Year to Date",
+                value: "Year to Date"
+              }]} />
           </div>
 
           <button 
@@ -124,7 +130,6 @@ export default function BranchPerformance() {
           </button>
         </div>
       </div>
-
       {/* Top Section Layout (Performance Score & Top Performers) */}
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
@@ -196,7 +201,6 @@ export default function BranchPerformance() {
         </div>
 
       </div>
-
       {/* Middle Row (KPI Mini-Cards Grid) */}
       <div className="kpi-grid" style={{ gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', marginBottom: '24px', gap: '16px' }}>
         
@@ -278,7 +282,6 @@ export default function BranchPerformance() {
         </div>
 
       </div>
-
       {/* Bottom Table Section (Operational Audit) */}
       <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)', background: '#fff', border: '1px solid #d1d5db', borderRadius: '8px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -296,7 +299,8 @@ export default function BranchPerformance() {
         </div>
 
         <div className="table-wrap">
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
             <thead>
               <tr>
                 <th>BRANCH NAME</th>
@@ -336,10 +340,10 @@ export default function BranchPerformance() {
                 </tr>
               ))}
             </tbody>
-          </table></div>
+          </table>
+</div>
         </div>
       </section>
-
     </div>
   );
 }

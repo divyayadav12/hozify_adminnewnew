@@ -166,7 +166,8 @@ export default function CampaignReportPage() {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="text-gray-400 border-b border-gray-100 uppercase text-[10px] font-bold tracking-wider">
                     <th className="pb-3 pl-2">Campaign Name</th>
@@ -203,6 +204,7 @@ export default function CampaignReportPage() {
                   )}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
 

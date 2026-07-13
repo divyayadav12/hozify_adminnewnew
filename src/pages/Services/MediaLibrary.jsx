@@ -13,6 +13,8 @@ import {
   X
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 export default function MediaLibrary() {
   const [activeCategory, setActiveCategory] = useState('All Assets');
   const [selectedTypes, setSelectedTypes] = useState({
@@ -112,7 +114,6 @@ export default function MediaLibrary() {
 
   return (
     <div style={{ display: 'flex', gap: 'var(--spacing-section)', fontFamily: 'Inter, sans-serif' }}>
-      
       {/* Left Sidebar Category & File Upload panel */}
       <div style={{ width: '260px', display: 'flex', flexDirection: 'column', gap: '20px', flexShrink: 0 }}>
         
@@ -243,7 +244,6 @@ export default function MediaLibrary() {
         </div>
 
       </div>
-
       {/* Right Main Panel */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
         
@@ -340,7 +340,7 @@ export default function MediaLibrary() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}>
               <span style={{ color: 'var(--muted)', fontWeight: '600' }}>Sort by:</span>
-              <select
+              <Select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 style={{
@@ -352,11 +352,16 @@ export default function MediaLibrary() {
                   fontWeight: '700',
                   outline: 'none'
                 }}
-              >
-                <option>Date Modified</option>
-                <option>File Size</option>
-                <option>Alphabetical</option>
-              </select>
+                options={[{
+                  label: "Date Modified",
+                  value: "Date Modified"
+                }, {
+                  label: "File Size",
+                  value: "File Size"
+                }, {
+                  label: "Alphabetical",
+                  value: "Alphabetical"
+                }]} />
             </div>
 
             <div style={{ display: 'flex', border: '1.5px solid #25108f', borderRadius: '6px', overflow: 'hidden' }}>
@@ -533,7 +538,6 @@ export default function MediaLibrary() {
         </button>
 
       </div>
-
     </div>
   );
 }

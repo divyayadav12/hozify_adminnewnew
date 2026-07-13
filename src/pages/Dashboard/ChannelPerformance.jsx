@@ -20,6 +20,8 @@ import SkeletonLoader from '../../components/common/SkeletonLoader';
 import EmptyState from '../../components/common/EmptyState';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
   const { preset, isFiltering, hasData } = useDateFilter();
   const [regionFilter, setRegionFilter] = useState('Filter by Region');
@@ -188,7 +190,8 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </div>
 
             {/* Comparison Table */}
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left', marginTop: '4px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left', marginTop: '4px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '8px 4px', color: 'var(--muted)', fontWeight: '800' }}>METRIC</th>
@@ -213,7 +216,8 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
                   <td style={{ padding: '10px 4px', fontWeight: '700' }}>9.1x</td>
                 </tr>
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Card 2: WhatsApp vs Email */}
@@ -248,7 +252,8 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             </div>
 
             {/* Comparison Table */}
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left', marginTop: '4px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left', marginTop: '4px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '8px 4px', color: 'var(--muted)', fontWeight: '800' }}>METRIC</th>
@@ -273,7 +278,8 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
                   <td style={{ padding: '10px 4px', fontWeight: '700' }}>22.4x</td>
                 </tr>
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
         </div>
@@ -422,17 +428,24 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1.5px solid #25108f', padding: '6px 12px', borderRadius: '6px', background: '#fff' }}>
-                <select
+                <Select
                   value={regionFilter}
                   onChange={(e) => setRegionFilter(e.target.value)}
                   style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '12px', cursor: 'pointer', color: '#565365' }}
                   aria-label="Filter region"
-                >
-                  <option value="Filter by Region">Filter by Region</option>
-                  <option value="North America">North America</option>
-                  <option value="EMEA">EMEA</option>
-                  <option value="APAC">APAC</option>
-                </select>
+                  options={[{
+                    label: "Filter by Region",
+                    value: "Filter by Region"
+                  }, {
+                    label: "North America",
+                    value: "North America"
+                  }, {
+                    label: "EMEA",
+                    value: "EMEA"
+                  }, {
+                    label: "APAC",
+                    value: "APAC"
+                  }]} />
               </div>
               <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--muted)' }} aria-label="More options" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toast.success("Action performed successfully!"); }}>
                 <MoreVertical size={16} />
@@ -441,7 +454,8 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '650px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left', minWidth: '650px' }}>
               <thead>
                 <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Channel Segment</th>
@@ -516,7 +530,8 @@ export default function ChannelPerformance({ activeTab = 'Dashboard' }) {
                   </td>
                 </tr>
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

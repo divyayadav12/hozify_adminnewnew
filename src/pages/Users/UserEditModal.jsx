@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Save, X } from 'lucide-react';
+import Select from "../../components/ui/Select";
 
 const statusOptions = ['Active', 'Suspended', 'Blocked'];
 const membershipOptions = ['Standard User', 'Verified User', 'Premium User'];
@@ -99,20 +100,20 @@ export default function UserEditModal({ user, onClose, onSave }) {
 
           <label>
             <span>Status</span>
-            <select value={formData.status} onChange={(event) => updateField('status', event.target.value)}>
-              {statusOptions.map((status) => (
-                <option value={status} key={status}>{status}</option>
-              ))}
-            </select>
+            <Select
+              value={formData.status}
+              onChange={(e) => updateField('status', e.target.value)}
+              options={statusOptions.map((status) => ({ value: status, label: status }))}
+            />
           </label>
 
           <label>
             <span>Membership Type</span>
-            <select value={formData.membershipType} onChange={(event) => updateField('membershipType', event.target.value)}>
-              {membershipOptions.map((membership) => (
-                <option value={membership} key={membership}>{membership}</option>
-              ))}
-            </select>
+            <Select
+              value={formData.membershipType}
+              onChange={(e) => updateField('membershipType', e.target.value)}
+              options={membershipOptions.map((membership) => ({ value: membership, label: membership }))}
+            />
           </label>
 
           <div className="user-management-modal-actions">

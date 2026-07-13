@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import UserSubTabs from "../../components/users/UserSubTabs";
 
+import Select from "../../components/ui/Select";
+
 export default function UserReferralsPage() {
   const { navigate } = useApp();
   const { addToast } = useToast();
@@ -145,7 +147,7 @@ export default function UserReferralsPage() {
               <p className="text-xs text-slate-500">Showing all users referred by {user.name}</p>
             </div>
             <div className="flex gap-2">
-              <select
+              <Select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
                 style={{
@@ -156,19 +158,27 @@ export default function UserReferralsPage() {
                   outline: "none",
                   background: "var(--materio-surface)",
                 }}
-              >
-                <option value="All">All Statuses</option>
-                <option value="Successful">Successful</option>
-                <option value="Pending">Pending</option>
-                <option value="Failed">Failed</option>
-              </select>
+                options={[{
+                  label: "All Statuses",
+                  value: "All"
+                }, {
+                  label: "Successful",
+                  value: "Successful"
+                }, {
+                  label: "Pending",
+                  value: "Pending"
+                }, {
+                  label: "Failed",
+                  value: "Failed"
+                }]} />
               <button onClick={handleExportReport} className="secondary-action-btn">
                 <Download size={16} /> Export Report
               </button>
             </div>
           </div>
 
-          <table className="w-full" style={{ borderCollapse: 'collapse', textAlign: "left", fontSize: "13px" }}>
+          <div className="table-responsive-wrapper">
+<table className="w-full" style={{ borderCollapse: 'collapse', textAlign: "left", fontSize: "13px" }}>
             <thead>
               <tr className="custom-table-header">
                 <th className="p-4" style={{ color: "#fff", fontWeight: "700" }}>User</th>
@@ -207,6 +217,7 @@ export default function UserReferralsPage() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* Boost Banner */}
@@ -221,7 +232,6 @@ export default function UserReferralsPage() {
         </div>
 
       </div>
-
       {/* REFERRED USER PROFILE MODAL */}
       {selectedReferredUser && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">

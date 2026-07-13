@@ -24,6 +24,8 @@ import KpiCard from '../../features/dashboard/KpiCard';
 import AdminShell from '../../components/layouts/AdminShell';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 // Queue specific navigation menu list mapping Image 5
 const queueNavItems = [
   { label: 'Dashboard', route: ROUTES.dashboard, icon: LayoutGrid },
@@ -134,14 +136,12 @@ export default function ApprovalQueue() {
           </button>
         </div>
       </div>
-
       {/* 5 KPI Cards Row */}
       <section className="kpi-grid queue-kpi-grid">
         {kpisData.map((kpi, idx) => (
           <KpiCard key={idx} {...kpi} />
         ))}
       </section>
-
       {/* Table Card */}
       <section className="panel approval-queue-directory-panel">
         <div className="directory-panel-header">
@@ -168,7 +168,8 @@ export default function ApprovalQueue() {
         </div>
 
         <div className="table-wrap">
-          <table className="approval-queue-table">
+          <div className="table-responsive-wrapper">
+<table className="approval-queue-table">
             <thead>
               <tr>
                 <th>PARTNER</th>
@@ -224,16 +225,24 @@ export default function ApprovalQueue() {
               })}
             </tbody>
           </table>
+</div>
         </div>
 
         <div className="directory-table-footer">
           <div className="rows-per-page-combo">
             <span>Rows per page:</span>
-            <select aria-label="Rows per page select">
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-            </select>
+            <Select
+              aria-label="Rows per page select"
+              options={[{
+                label: "10",
+                value: "10"
+              }, {
+                label: "20",
+                value: "20"
+              }, {
+                label: "50",
+                value: "50"
+              }]} />
           </div>
 
           <div className="pagination-wrap">
@@ -251,7 +260,6 @@ export default function ApprovalQueue() {
           </div>
         </div>
       </section>
-
       {/* Bottom Automate Queue Banner */}
       <section className="panel queue-automation-big-panel">
         <div className="automation-panel-left-content">

@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import StatCard from "../../components/ui/StatCard";
 
+import Select from "../../components/ui/Select";
+
 const initialAtRiskPartners = [
   {
     id: "#1001",
@@ -301,8 +303,8 @@ export default function PartnerFraudMonitoring() {
           </div>
 
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-              <table className="w-full">
+            <div className="table-responsive-wrapper">
+<table className="w-full">
                 <thead className="bg-[#111166]">
                   <tr className="text-left text-xs font-bold uppercase tracking-wider text-white">
                     <th className="px-6 py-4">Partner</th>
@@ -373,7 +375,7 @@ export default function PartnerFraudMonitoring() {
                   )}
                 </tbody>
               </table>
-            </div>
+</div>
           </div>
         </div>
 
@@ -437,7 +439,6 @@ export default function PartnerFraudMonitoring() {
 
         </div>
       </div>
-
       {/* ========================================================
           MODAL: VIEW ALL PARTNERS AT RISK
           ======================================================== */}
@@ -486,7 +487,6 @@ export default function PartnerFraudMonitoring() {
           </div>
         </div>
       )}
-
       {/* ========================================================
           MODAL: MANUAL FRAUD AUDIT REVIEW
           ======================================================== */}
@@ -532,15 +532,20 @@ export default function PartnerFraudMonitoring() {
 
               <div>
                 <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-1.5">Administrative Action</label>
-                <select
+                <Select
                   value={reviewActionType}
                   onChange={(e) => setReviewActionType(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-slate-800 focus:outline-none focus:border-[#25108f] font-semibold"
-                >
-                  <option value="Resolve">Approve & Resolve Active Alert</option>
-                  <option value="Escalate">Escalate to Specialized Security Team</option>
-                  <option value="Deactivate">Deactivate & Suspend Account Operations</option>
-                </select>
+                  options={[{
+                    label: "Approve & Resolve Active Alert",
+                    value: "Resolve"
+                  }, {
+                    label: "Escalate to Specialized Security Team",
+                    value: "Escalate"
+                  }, {
+                    label: "Deactivate & Suspend Account Operations",
+                    value: "Deactivate"
+                  }]} />
               </div>
 
               <div className="flex gap-2 pt-2">
@@ -565,7 +570,6 @@ export default function PartnerFraudMonitoring() {
           </div>
         </div>
       )}
-
     </AdminShell>
   );
 }

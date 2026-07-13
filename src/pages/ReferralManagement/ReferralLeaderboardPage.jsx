@@ -241,7 +241,8 @@ export default function ReferralLeaderboardPage() {
 
           {/* table */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse min-w-[600px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left text-xs border-collapse min-w-[600px]">
               <thead className="bg-slate-50 text-gray-500 font-bold uppercase text-[10px] border-b border-slate-200">
                 <tr>
                   <th className="p-4 pl-6">Rank</th>
@@ -285,6 +286,7 @@ export default function ReferralLeaderboardPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import AdminShell from "../../components/layouts/AdminShell"; // Aapka AdminShell
+import Select from "../../components/ui/Select";
 
 import {
   Sparkles,
@@ -204,17 +205,15 @@ export default function ServiceApprovals() {
           
           <div className="flex items-center gap-2 w-full sm:w-auto border border-slate-200 rounded-lg px-3 py-1.5 bg-white">
             <Filter size={14} className="text-slate-400" />
-            <select
+            <Select
               value={selectedTier}
               onChange={(e) => setSelectedTier(e.target.value)}
-              className="w-full sm:w-auto bg-transparent text-xs font-bold text-slate-600 outline-none cursor-pointer"
-            >
-              {uniqueTiers.map((tier) => (
-                <option key={tier} value={tier}>
-                  {tier === "All" ? "All Service Tiers" : `${tier} Tier`}
-                </option>
-              ))}
-            </select>
+              options={uniqueTiers.map((tier) => ({
+                value: tier,
+                label: tier === "All" ? "All Service Tiers" : `${tier} Tier`
+              }))}
+              className="w-full sm:w-auto bg-transparent text-xs font-bold text-slate-600 outline-none cursor-pointer border-none"
+            />
           </div>
         </div>
 

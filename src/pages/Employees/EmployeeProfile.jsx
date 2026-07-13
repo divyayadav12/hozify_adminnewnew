@@ -213,7 +213,8 @@ export default function EmployeeProfile({ employee, onBack }) {
               </div>
 
               <div className="table-wrap" style={{ border: '1px solid #e1dce8', borderRadius: '8px', overflow: 'hidden' }}>
-                <table className="approval-queue-table" style={{ width: '100%', minWidth: 'auto' }}>
+                <div className="table-responsive-wrapper">
+<table className="approval-queue-table" style={{ width: '100%', minWidth: 'auto' }}>
                   <thead>
                     <tr>
                       <th style={{ padding: '10px 14px', fontSize: '10px' }}>SERVICE</th>
@@ -252,6 +253,7 @@ export default function EmployeeProfile({ employee, onBack }) {
                     ))}
                   </tbody>
                 </table>
+</div>
               </div>
             </div>
 

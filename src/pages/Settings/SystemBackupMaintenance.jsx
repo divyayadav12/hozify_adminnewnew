@@ -7,6 +7,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import toast from 'react-hot-toast';
 import Toggle from '../../components/common/Toggle';
 
+import Select from "../../components/ui/Select";
+
 export default function SystemBackupMaintenance() {
   return (
     <AdminShell
@@ -53,11 +55,18 @@ export default function SystemBackupMaintenance() {
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>Target Destination</label>
                 <div style={{ position: 'relative' }}>
-                  <select style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}>
-                    <option>AWS S3 - North Virginia (us-east-1)</option>
-                    <option>GCP Cloud Storage (Multi-region)</option>
-                    <option>Azure Blob Storage</option>
-                  </select>
+                  <Select
+                    style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: '#0f172a', boxSizing: 'border-box', outline: 'none', appearance: 'none', background: '#fff', cursor: 'pointer' }}
+                    options={[{
+                      label: "AWS S3 - North Virginia (us-east-1)",
+                      value: "AWS S3 - North Virginia (us-east-1)"
+                    }, {
+                      label: "GCP Cloud Storage (Multi-region)",
+                      value: "GCP Cloud Storage (Multi-region)"
+                    }, {
+                      label: "Azure Blob Storage",
+                      value: "Azure Blob Storage"
+                    }]} />
                   <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '13px', pointerEvents: 'none' }} />
                 </div>
               </div>
@@ -145,7 +154,8 @@ export default function SystemBackupMaintenance() {
             </div>
           </div>
 
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                 <th style={{ padding: '16px 24px', fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>ID</th>
@@ -249,7 +259,8 @@ export default function SystemBackupMaintenance() {
                 </td>
               </tr>
             </tbody>
-          </table></div>
+          </table>
+</div>
         </div>
 
       </div>

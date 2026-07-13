@@ -250,7 +250,8 @@ export default function EmployeeTracking() {
 
               {/* Data Grid Table layout */}
               <div className="overflow-x-auto">
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse">
+                <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-slate-100 text-[10px] font-bold text-slate-400 tracking-wider uppercase bg-slate-50/50">
                       <th className="py-3 px-5">EMPLOYEE</th>
@@ -315,7 +316,8 @@ export default function EmployeeTracking() {
                       </tr>
                     ))}
                   </tbody>
-                </table></div>
+                </table>
+</div>
               </div>
             </div>
             

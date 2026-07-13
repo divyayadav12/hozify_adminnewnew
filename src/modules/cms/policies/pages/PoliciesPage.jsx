@@ -255,7 +255,8 @@ export default function PoliciesPage() {
         {/* Responsive Table */}
         <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
               <thead>
                 <tr className="custom-table-header">
                   <th onClick={() => toggleSort('name')} style={{ padding: '16px 24px', cursor: 'pointer' }}>
@@ -323,6 +324,7 @@ export default function PoliciesPage() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
 
           {/* Pagination Controls */}

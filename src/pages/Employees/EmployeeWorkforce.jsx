@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const initialWorkforce = [
   {
     id: 'HZ - 9821',
@@ -129,71 +131,102 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           </button>
         </div>
       </div>
-
       {/* Filter Options Controls Panel */}
       <div className="panel" style={{ padding: '16px 20px', marginBottom: '24px', background: '#fff', borderRadius: '8px', border: '1.5px solid #25108f' }}>
         <div className="fraud-top-grid" style={{ gap: '14px', alignItems: 'center' }}>
           
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>Branch Office</label>
-            <select
+            <Select
               style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={branchFilter}
               onChange={(e) => setBranchFilter(e.target.value)}
               aria-label="Select Branch Office"
-            >
-              <option value="All Branches">All Branches</option>
-              <option value="New York HQ">New York HQ</option>
-              <option value="London East">London East</option>
-              <option value="Berlin Center">Berlin Center</option>
-              <option value="Tokyo Hub">Tokyo Hub</option>
-            </select>
+              options={[{
+                label: "All Branches",
+                value: "All Branches"
+              }, {
+                label: "New York HQ",
+                value: "New York HQ"
+              }, {
+                label: "London East",
+                value: "London East"
+              }, {
+                label: "Berlin Center",
+                value: "Berlin Center"
+              }, {
+                label: "Tokyo Hub",
+                value: "Tokyo Hub"
+              }]} />
           </div>
 
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>Metropolitan City</label>
-            <select
+            <Select
               style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={cityFilter}
               onChange={(e) => setCityFilter(e.target.value)}
               aria-label="Select Metropolitan City"
-            >
-              <option value="All Cities">All Cities</option>
-              <option value="Manhattan">Manhattan</option>
-              <option value="Canary Wharf">Canary Wharf</option>
-              <option value="Mitte">Mitte</option>
-              <option value="Shibuya">Shibuya</option>
-            </select>
+              options={[{
+                label: "All Cities",
+                value: "All Cities"
+              }, {
+                label: "Manhattan",
+                value: "Manhattan"
+              }, {
+                label: "Canary Wharf",
+                value: "Canary Wharf"
+              }, {
+                label: "Mitte",
+                value: "Mitte"
+              }, {
+                label: "Shibuya",
+                value: "Shibuya"
+              }]} />
           </div>
 
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>Employee Type</label>
-            <select
+            <Select
               style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               aria-label="Select Employee Type"
-            >
-              <option value="All Types">All Types</option>
-              <option value="Field Tech">Field Tech</option>
-              <option value="Operations">Operations</option>
-              <option value="Support">Support</option>
-            </select>
+              options={[{
+                label: "All Types",
+                value: "All Types"
+              }, {
+                label: "Field Tech",
+                value: "Field Tech"
+              }, {
+                label: "Operations",
+                value: "Operations"
+              }, {
+                label: "Support",
+                value: "Support"
+              }]} />
           </div>
 
           <div style={{ flex: 1 }}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase' }}>KYC Verification</label>
-            <select
+            <Select
               style={{ width: '100%', height: '38px', border: '1.5px solid #25108f', borderRadius: '6px', padding: '0 10px', fontSize: '13px', background: '#fff', fontWeight: '700', outline: 'none', cursor: 'pointer' }}
               value={kycFilter}
               onChange={(e) => setKycFilter(e.target.value)}
               aria-label="Select KYC status"
-            >
-              <option value="All Status">All Status</option>
-              <option value="Verified">Verified</option>
-              <option value="Pending">Pending</option>
-              <option value="High Risk">High Risk</option>
-            </select>
+              options={[{
+                label: "All Status",
+                value: "All Status"
+              }, {
+                label: "Verified",
+                value: "Verified"
+              }, {
+                label: "Pending",
+                value: "Pending"
+              }, {
+                label: "High Risk",
+                value: "High Risk"
+              }]} />
           </div>
 
           <button 
@@ -206,11 +239,11 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           </button>
         </div>
       </div>
-
       {/* Directory Table Panel */}
       <section className="panel partner-directory-panel" style={{ marginBottom: '24px' }}>
         <div className="table-wrap">
-          <table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
             <thead>
               <tr>
                 <th>EMPLOYEE ID</th>
@@ -317,6 +350,7 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
               )}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* Pager Footer */}
@@ -337,7 +371,6 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           </div>
         </div>
       </section>
-
       {/* Bottom widgets with sparklines */}
       <div className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
         {/* Utilization */}
@@ -394,7 +427,6 @@ export default function EmployeeWorkforce({ onSelectEmployee }) {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -8,6 +8,8 @@ import {
   Download,
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 function MetricCard({
   title,
   value,
@@ -85,10 +87,15 @@ export default function BannerAnalyticsPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <select className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm font-medium">
-              <option>Last 30 Days</option>
-              <option>Last 7 Days</option>
-            </select>
+            <Select
+              className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm font-medium"
+              options={[{
+                label: "Last 30 Days",
+                value: "Last 30 Days"
+              }, {
+                label: "Last 7 Days",
+                value: "Last 7 Days"
+              }]} />
 
             <button className="flex items-center gap-2 bg-indigo-950 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-md">
               <Download size={16} />
@@ -149,11 +156,18 @@ export default function BannerAnalyticsPage() {
                 </p>
               </div>
 
-              <select className="border border-slate-200 rounded-lg px-3 py-2 text-xs">
-                <option>Daily</option>
-                <option>Weekly</option>
-                <option>Monthly</option>
-              </select>
+              <Select
+                className="border border-slate-200 rounded-lg px-3 py-2 text-xs"
+                options={[{
+                  label: "Daily",
+                  value: "Daily"
+                }, {
+                  label: "Weekly",
+                  value: "Weekly"
+                }, {
+                  label: "Monthly",
+                  value: "Monthly"
+                }]} />
             </div>
 
             {/* FAKE CHART */}

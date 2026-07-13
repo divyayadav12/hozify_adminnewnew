@@ -163,8 +163,8 @@ export default function MonthlyRevenue() {
             </button>
           </div>
 
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-            <table className="w-full">
+          <div className="table-responsive-wrapper">
+<table className="w-full">
               <thead>
                 <tr className="bg-slate-50 text-left text-sm text-slate-500 border-b">
                   <th className="p-4 font-medium">Date</th>
@@ -186,7 +186,7 @@ export default function MonthlyRevenue() {
                 ))}
               </tbody>
             </table>
-          </div>
+</div>
         </div>
 
         {/* Insight */}

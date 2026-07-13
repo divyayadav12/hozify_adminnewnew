@@ -5,6 +5,8 @@ import { useToast } from '../../components/common/ToastNotification';
 import { triggerDownload, generateCSV } from '../../utils/downloadHelper';
 import { Search, Filter, Download, Clock, Terminal, ShieldAlert, Monitor, ShieldCheck } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 const INITIAL_LOGS = [
   { id: 'LOG-901', date: '2026-06-27 10:14 AM', action: 'User Login Success', ip: '192.168.1.104', device: 'Windows 11', browser: 'Chrome v120.0', type: 'Security' },
   { id: 'LOG-902', date: '2026-06-26 04:30 PM', action: 'Modified Commissions Multiplier', ip: '192.168.1.104', device: 'Windows 11', browser: 'Chrome v120.0', type: 'Operation' },
@@ -70,21 +72,27 @@ export default function ActivityLogPage() {
             <span style={{ fontSize: '13px', color: 'var(--muted)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <Filter size={14} /> Category:
             </span>
-            <select 
+            <Select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               style={{ padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff', outline: 'none' }}
-            >
-              <option value="All">All Types</option>
-              <option value="Security">Security Events</option>
-              <option value="Operation">Operational Actions</option>
-            </select>
+              options={[{
+                label: "All Types",
+                value: "All"
+              }, {
+                label: "Security Events",
+                value: "Security"
+              }, {
+                label: "Operational Actions",
+                value: "Operation"
+              }]} />
           </div>
         </div>
 
         {/* Audit Table */}
         <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', overflow: 'hidden' }}>
-          <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #25108f' }}>
                 <th style={{ padding: '14px 20px', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase' }}>Log ID</th>
@@ -139,7 +147,8 @@ export default function ActivityLogPage() {
                 </tr>
               )}
             </tbody>
-          </table></div>
+          </table>
+</div>
         </div>
 
       </div>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { Download, SlidersHorizontal, Eye, Edit2, X } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function PartnerReviews() {
   // --- Active Interactive Controls State Handling ---
   const [activeTab, setActiveTab] = useState("All Reviews");
@@ -73,12 +75,22 @@ export default function PartnerReviews() {
         {/* ADVANCED FILTER PANEL */}
         {isFilterOpen && (
           <div className="bg-white p-4 border border-slate-200 rounded-xl flex flex-wrap gap-4 items-center shadow-sm">
-             <select onChange={(e) => setFilterCriteria({...filterCriteria, sentiment: e.target.value})} className="border border-slate-200 rounded px-2 py-1 text-xs">
-               <option value="All">All Sentiments</option>
-               <option value="Positive">Positive</option>
-               <option value="Neutral">Neutral</option>
-               <option value="Negative">Negative</option>
-             </select>
+             <Select
+               onChange={(e) => setFilterCriteria({...filterCriteria, sentiment: e.target.value})}
+               className="border border-slate-200 rounded px-2 py-1 text-xs"
+               options={[{
+                 label: "All Sentiments",
+                 value: "All"
+               }, {
+                 label: "Positive",
+                 value: "Positive"
+               }, {
+                 label: "Neutral",
+                 value: "Neutral"
+               }, {
+                 label: "Negative",
+                 value: "Negative"
+               }]} />
              <input type="number" placeholder="Min Rating (0-5)" className="border border-slate-200 rounded px-2 py-1 text-xs w-32" onChange={(e) => setFilterCriteria({...filterCriteria, minRating: Number(e.target.value)})} />
              <button onClick={() => setIsFilterOpen(false)} className="ml-auto text-slate-400 hover:text-red-500"><X size={16}/></button>
           </div>
@@ -94,7 +106,8 @@ export default function PartnerReviews() {
         {/* TABLE SECTION */}
         <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
-            <table className="w-full text-left min-w-[900px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left min-w-[900px]">
               <thead>
                 <tr className="bg-slate-50 border-b text-[11px] font-bold text-slate-400 uppercase">
                   <th className="px-6 py-4">Partner</th>
@@ -125,6 +138,7 @@ export default function PartnerReviews() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
       </div>

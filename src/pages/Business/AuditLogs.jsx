@@ -15,6 +15,8 @@ import {
   ChevronRight
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 // ─── Deterministic seed helper ────────────────────────────────────────────────
 function seedFromId(id = '') {
   const num = parseInt(id.replace(/\D/g, ''), 10) || 1000;
@@ -312,22 +314,37 @@ export default function AuditLogs() {
           {/* Filters Bar */}
           <div className="p-4 border-b border-[#E4E4E7] flex flex-wrap items-center justify-between gap-4 bg-[#FAFAFA]">
             <div className="flex items-center gap-3">
-              <select 
+              <Select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
                 className="h-[36px] px-3 pr-8 rounded-lg border border-[#E4E4E7] bg-white text-[13px] font-medium text-[#27272A] shadow-sm hover:bg-slate-50 transition-colors focus:outline-none appearance-none"
                 style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%2371717A\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'%3E%3C/path%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.5rem center', backgroundSize: '1.2em 1.2em' }}
-              >
-                <option value="All">All Categories</option>
-                <option value="SECURITY">Security</option>
-                <option value="FINANCE">Finance</option>
-                <option value="ACCESS">Access</option>
-                <option value="CONFIGURATION">Configuration</option>
-                <option value="STATUS">Status</option>
-                <option value="COMPLIANCE">Compliance</option>
-                <option value="KYC">KYC</option>
-              </select>
-              <select 
+                options={[{
+                  label: "All Categories",
+                  value: "All"
+                }, {
+                  label: "Security",
+                  value: "SECURITY"
+                }, {
+                  label: "Finance",
+                  value: "FINANCE"
+                }, {
+                  label: "Access",
+                  value: "ACCESS"
+                }, {
+                  label: "Configuration",
+                  value: "CONFIGURATION"
+                }, {
+                  label: "Status",
+                  value: "STATUS"
+                }, {
+                  label: "Compliance",
+                  value: "COMPLIANCE"
+                }, {
+                  label: "KYC",
+                  value: "KYC"
+                }]} />
+              <Select
                 value={dateFilter}
                 onChange={(e) => {
                   setDateFilter(e.target.value);
@@ -335,12 +352,19 @@ export default function AuditLogs() {
                 }}
                 className="h-[36px] px-3 pr-8 rounded-lg border border-[#E4E4E7] bg-white text-[13px] font-medium text-[#27272A] shadow-sm hover:bg-slate-50 transition-colors focus:outline-none appearance-none"
                 style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%2371717A\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\'%3E%3C/path%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.5rem center', backgroundSize: '1.2em 1.2em' }}
-              >
-                <option value="7Days">Last 7 Days</option>
-                <option value="30Days">Last 30 Days</option>
-                <option value="ThisMonth">This Month</option>
-                <option value="AllTime">All Time</option>
-              </select>
+                options={[{
+                  label: "Last 7 Days",
+                  value: "7Days"
+                }, {
+                  label: "Last 30 Days",
+                  value: "30Days"
+                }, {
+                  label: "This Month",
+                  value: "ThisMonth"
+                }, {
+                  label: "All Time",
+                  value: "AllTime"
+                }]} />
             </div>
             <div className="text-[13px] text-[#71717A]">
               Business: <span className="font-semibold text-[#4f46e5]">{business.name}</span>
@@ -350,7 +374,8 @@ export default function AuditLogs() {
 
           {/* Table */}
           <div className="overflow-x-auto">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full text-left border-collapse min-w-[900px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse min-w-[900px]">
               <thead>
                 <tr className="border-b border-[#E4E4E7] bg-[#F4F4F5] text-[11px] font-bold uppercase tracking-wider text-[#71717A]">
                   <th className="py-3.5 px-5">Timestamp</th>
@@ -409,7 +434,8 @@ export default function AuditLogs() {
                   </tr>
                 )}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Pagination */}

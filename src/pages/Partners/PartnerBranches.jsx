@@ -571,7 +571,8 @@ export default function PartnerBranches() {
 
   <div className="overflow-x-auto">
 
-    <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="w-full">
+    <div className="table-responsive-wrapper">
+<table className="w-full">
 
       <thead className="bg-slate-50">
 
@@ -694,7 +695,8 @@ export default function PartnerBranches() {
 
       </tbody>
 
-    </table></div>
+    </table>
+</div>
 
   </div>
 

@@ -8,6 +8,8 @@ import {
 } from 'recharts';
 import { RefreshCw, Download, Layers, ShieldCheck, Activity, Smartphone, Play, Plus } from 'lucide-react';
 
+import Select from "../../../../../components/ui/Select";
+
 const VERSION_DATA = [
   { name: 'v2.1.0 (Old)', value: 1400, fill: '#ef4444' },
   { name: 'v3.0.0 (Stable)', value: 8900, fill: '#4f46e5' },
@@ -135,15 +137,20 @@ export default function AppDashboardPage() {
           <div style={{ background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text)', margin: 0 }}>Active Configuration Elements</h3>
-              <select 
-                value={timeframe} 
+              <Select
+                value={timeframe}
                 onChange={(e) => setTimeframe(e.target.value)}
                 className="custom-select"
-              >
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Yearly">Yearly</option>
-              </select>
+                options={[{
+                  label: "Weekly",
+                  value: "Weekly"
+                }, {
+                  label: "Monthly",
+                  value: "Monthly"
+                }, {
+                  label: "Yearly",
+                  value: "Yearly"
+                }]} />
             </div>
             <div style={{ height: '280px' }}>
               <ResponsiveContainer width="100%" height="100%">
@@ -208,7 +215,6 @@ export default function AppDashboardPage() {
         </div>
 
       </div>
-
       <AddEditModal 
         isOpen={isAddOpen} 
         onClose={() => setIsAddOpen(false)} 
@@ -220,7 +226,6 @@ export default function AppDashboardPage() {
         ]} 
         onSave={handleAddGlobalConfig} 
       />
-
       <SuccessModal 
         isOpen={isSuccessOpen} 
         onClose={() => setIsSuccessOpen(false)} 

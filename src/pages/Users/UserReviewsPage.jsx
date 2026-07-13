@@ -14,6 +14,8 @@ import {
   Check,
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 const initialReviews = [
   {
     id: "BK-90210",
@@ -108,7 +110,7 @@ export default function UserReviewsPage() {
           </div>
 
           <div className="flex gap-2">
-            <select
+            <Select
               value={filterRating}
               onChange={(e) => setFilterRating(e.target.value)}
               style={{
@@ -119,12 +121,19 @@ export default function UserReviewsPage() {
                 outline: "none",
                 background: "var(--materio-surface)",
               }}
-            >
-              <option value="All">All Ratings</option>
-              <option value="5">5 Stars</option>
-              <option value="4">4 Stars</option>
-              <option value="2">2 Stars</option>
-            </select>
+              options={[{
+                label: "All Ratings",
+                value: "All"
+              }, {
+                label: "5 Stars",
+                value: "5"
+              }, {
+                label: "4 Stars",
+                value: "4"
+              }, {
+                label: "2 Stars",
+                value: "2"
+              }]} />
             <button onClick={handleExportReviews} className="secondary-action-btn">
               <Download size={16} /> Export Reviews
             </button>
@@ -213,7 +222,8 @@ export default function UserReviewsPage() {
                 </h3>
               </div>
 
-              <table className="w-full">
+              <div className="table-responsive-wrapper">
+<table className="w-full">
                 <thead>
                   <tr className="bg-slate-50 text-left text-sm">
                     <th className="p-4">BOOKING ID</th>
@@ -275,6 +285,7 @@ export default function UserReviewsPage() {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
 
             {/* Bottom Cards */}
@@ -298,7 +309,6 @@ export default function UserReviewsPage() {
           </div>
         </div>
       </div>
-
       {/* RESPOND TO FEEDBACK MODAL */}
       {activeModalId && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs select-none animate-in fade-in duration-200">

@@ -219,7 +219,8 @@ export default function ApprovalDetails({ requestId, onBack }) {
               </span>
             </div>
 
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '8px 0', color: 'var(--muted)', fontWeight: '800', fontSize: '10px', textTransform: 'uppercase', textAlign: 'left' }}>Cost Item</th>
@@ -244,7 +245,8 @@ export default function ApprovalDetails({ requestId, onBack }) {
                   <td style={{ padding: '16px 0 8px', color: 'var(--primary)', fontWeight: '800', fontSize: '16px', textAlign: 'right' }}>$6,600.00</td>
                 </tr>
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
         </div>

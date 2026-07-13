@@ -25,6 +25,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' }) {
   const { navigate } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
@@ -387,20 +389,21 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                 </div>
 
                 {/* Category select dropdown */}
-                <select
+                <Select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
+                  options={categories.map(cat => ({
+                    value: cat,
+                    label: cat === 'All' ? 'All Categories' : cat
+                  }))}
                   style={{ height: '32px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 10px', fontSize: '12.5px' }}
-                >
-                  {categories.map(cat => (
-                    <option key={cat} value={cat}>{cat === 'All' ? 'All Categories' : cat}</option>
-                  ))}
-                </select>
+                />
               </div>
 
               {/* Table ledger */}
               <div style={{ overflowX: 'auto' }}>
-                <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+                <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                   <thead>
                     <tr style={{ borderBottom: '1.5px solid #25108f', color: 'var(--muted)' }}>
                       <th style={{ padding: '10px 12px', fontWeight: '800', fontSize: '10.5px' }}>ARTICLE DETAILS</th>
@@ -486,7 +489,8 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                       ))
                     )}
                   </tbody>
-                </table></div>
+                </table>
+</div>
               </div>
             </div>
 
@@ -560,27 +564,30 @@ export default function SupportKnowledgeBaseList({ activeTab = 'Support Center' 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Category</label>
-                    <select
+                    <Select
                       value={formCategory}
                       onChange={(e) => setFormCategory(e.target.value)}
+                      options={categories.filter(c => c !== 'All').map(cat => ({
+                        value: cat,
+                        label: cat
+                      }))}
                       style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 8px', fontSize: '12px' }}
-                    >
-                      {categories.filter(c => c !== 'All').map(cat => (
-                        <option key={cat} value={cat}>{cat}</option>
-                      ))}
-                    </select>
+                    />
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Visibility</label>
-                    <select
+                    <Select
                       value={formVisibility}
                       onChange={(e) => setFormVisibility(e.target.value)}
                       style={{ height: '36px', borderRadius: '6px', border: '1.5px solid #25108f', padding: '0 8px', fontSize: '12px' }}
-                    >
-                      <option>Public</option>
-                      <option>Internal</option>
-                    </select>
+                      options={[{
+                        label: "Public",
+                        value: "Public"
+                      }, {
+                        label: "Internal",
+                        value: "Internal"
+                      }]} />
                   </div>
                 </div>
 

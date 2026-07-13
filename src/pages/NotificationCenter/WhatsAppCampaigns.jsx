@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function WhatsAppCampaigns({ activeTab = 'Notification Center' }) {
   const [dateFilter, setDateFilter] = useState('Last 30 Days');
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -331,7 +333,8 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Campaign Name</th>
@@ -433,7 +436,8 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                   ))
                 )}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Table Footer / Pagination */}
@@ -616,7 +620,6 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
         </div>
 
       </div>
-
       {/* Floating Refresh Alert Toast */}
       {showToast && (
         <div style={{
@@ -655,7 +658,6 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
           </button>
         </div>
       )}
-
       {/* New Campaign Creation Modal */}
       {showNewCampaignModal && (
         <div style={{
@@ -711,7 +713,7 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
 
               <div>
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '750', color: 'var(--text)', marginBottom: '6px' }}>Select Template</label>
-                <select
+                <Select
                   value={newCampaign.template}
                   onChange={(e) => setNewCampaign({ ...newCampaign, template: e.target.value })}
                   style={{
@@ -724,12 +726,19 @@ export default function WhatsAppCampaigns({ activeTab = 'Notification Center' })
                     background: '#fff',
                     fontFamily: "var(--materio-space)",
                   }}
-                >
-                  <option value="re_engage_v2">re_engage_v2</option>
-                  <option value="promo_alert_L1">promo_alert_L1</option>
-                  <option value="content_digest">content_digest</option>
-                  <option value="bill_reminder">bill_reminder</option>
-                </select>
+                  options={[{
+                    label: "re_engage_v2",
+                    value: "re_engage_v2"
+                  }, {
+                    label: "promo_alert_L1",
+                    value: "promo_alert_L1"
+                  }, {
+                    label: "content_digest",
+                    value: "content_digest"
+                  }, {
+                    label: "bill_reminder",
+                    value: "bill_reminder"
+                  }]} />
               </div>
 
               <div>

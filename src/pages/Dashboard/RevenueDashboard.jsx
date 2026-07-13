@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
   // Working filter states
   const [selectedRange, setSelectedRange] = useState('Last 30 Days');
@@ -101,31 +103,41 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
             {/* Calendar Selector */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
               <Calendar size={14} style={{ color: 'var(--muted)' }} />
-              <select
+              <Select
                 value={selectedRange}
                 onChange={(e) => setSelectedRange(e.target.value)}
                 style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer', color: 'var(--text)' }}
                 aria-label="Timeframe selection"
-              >
-                <option value="Last 30 Days">Last 30 Days</option>
-                <option value="Last 7 Days">Last 7 Days</option>
-                <option value="This Month">This Month</option>
-              </select>
+                options={[{
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }, {
+                  label: "Last 7 Days",
+                  value: "Last 7 Days"
+                }, {
+                  label: "This Month",
+                  value: "This Month"
+                }]} />
             </div>
 
             {/* City Dropdown Filter */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', padding: '6px 12px', borderRadius: '6px' }}>
               <MapPin size={14} style={{ color: 'var(--muted)' }} />
-              <select
+              <Select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
                 style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer', color: 'var(--text)' }}
                 aria-label="City selection"
-              >
-                <option value="All Cities">All Cities</option>
-                <option value="New York">New York</option>
-                <option value="Los Angeles">Los Angeles</option>
-              </select>
+                options={[{
+                  label: "All Cities",
+                  value: "All Cities"
+                }, {
+                  label: "New York",
+                  value: "New York"
+                }, {
+                  label: "Los Angeles",
+                  value: "Los Angeles"
+                }]} />
             </div>
 
             {/* CLICKABLE INTERACTIVE FILTER ICON */}
@@ -248,8 +260,8 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '10px 12px', color: 'var(--muted)', fontWeight: '800', fontSize: '10px' }}>Transaction ID</th>
@@ -299,7 +311,7 @@ export default function RevenueDashboard({ activeTab = 'Revenue Management' }) {
                   )}
                 </tbody>
               </table>
-            </div>
+</div>
           </div>
         </div>
 

@@ -19,6 +19,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 export default function InventoryDashboard() {
   const { navigate } = useApp();
   const { addToast } = useToast();
@@ -249,7 +251,7 @@ export default function InventoryDashboard() {
                 Inventory Levels Trend
               </h2>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)}
                   style={{
@@ -265,11 +267,16 @@ export default function InventoryDashboard() {
                     cursor: 'pointer'
                   }}
                   aria-label="Select trend timeframe"
-                >
-                  <option value="Last 30 Days">Last 30 Days</option>
-                  <option value="Last 6 Months">Last 6 Months</option>
-                  <option value="Yearly">Yearly</option>
-                </select>
+                  options={[{
+                    label: "Last 30 Days",
+                    value: "Last 30 Days"
+                  }, {
+                    label: "Last 6 Months",
+                    value: "Last 6 Months"
+                  }, {
+                    label: "Yearly",
+                    value: "Yearly"
+                  }]} />
                 <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
               </div>
             </div>
@@ -364,7 +371,8 @@ export default function InventoryDashboard() {
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Material Name</th>
@@ -525,7 +533,8 @@ export default function InventoryDashboard() {
                   );
                 })}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Pagination */}
@@ -574,15 +583,20 @@ export default function InventoryDashboard() {
 
                 <div>
                   <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Stock Alert Category</label>
-                  <select
+                  <Select
                     value={newStockUnit}
                     onChange={(e) => setNewStockUnit(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
-                  >
-                    <option value="Units">Normal (Units)</option>
-                    <option value="Reorder">Low Stock Alert (Reorder)</option>
-                    <option value="Critical">Critical Alert (Critical)</option>
-                  </select>
+                    options={[{
+                      label: "Normal (Units)",
+                      value: "Units"
+                    }, {
+                      label: "Low Stock Alert (Reorder)",
+                      value: "Reorder"
+                    }, {
+                      label: "Critical Alert (Critical)",
+                      value: "Critical"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
@@ -637,15 +651,20 @@ export default function InventoryDashboard() {
 
                 <div>
                   <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Status</label>
-                  <select
+                  <Select
                     value={newStatusValue}
                     onChange={(e) => setNewStatusValue(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
-                  >
-                    <option value="Approved">Approved</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Suspended">Suspended</option>
-                  </select>
+                    options={[{
+                      label: "Approved",
+                      value: "Approved"
+                    }, {
+                      label: "Pending",
+                      value: "Pending"
+                    }, {
+                      label: "Suspended",
+                      value: "Suspended"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>

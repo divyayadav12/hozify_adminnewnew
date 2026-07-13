@@ -6,6 +6,8 @@ import {
   Trash2, CheckCircle2
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 export default function TermsAndConditions() {
   return (
     <AdminShell 
@@ -206,10 +208,16 @@ export default function TermsAndConditions() {
                   <label style={{ display: 'block', fontSize: '10px', color: 'var(--muted)', marginBottom: '8px' }}>Language</label>
                   <div style={{ position: 'relative' }}>
                     <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', background: '#ef4444', color: '#fff', fontSize: '8px', padding: '2px 4px', borderRadius: '12px' }}>EN</div>
-                    <select className="dash-select" style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 10px 10px 32px', fontSize: '12px', color: 'var(--text)', outline: 'none', appearance: 'none', background: '#fff' }}>
-                      <option>English (United States)</option>
-                      <option>Spanish (ES)</option>
-                    </select>
+                    <Select
+                      className="dash-select"
+                      style={{ width: '100%', border: '1.5px solid #25108f', borderRadius: '6px', padding: '10px 10px 10px 32px', fontSize: '12px', color: 'var(--text)', outline: 'none', appearance: 'none', background: '#fff' }}
+                      options={[{
+                        label: "English (United States)",
+                        value: "English (United States)"
+                      }, {
+                        label: "Spanish (ES)",
+                        value: "Spanish (ES)"
+                      }]} />
                   </div>
                 </div>
                 

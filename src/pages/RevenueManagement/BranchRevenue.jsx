@@ -5,6 +5,8 @@ import {
   Calendar, Globe, ArrowUpRight, ArrowDownRight, TrendingUp, CheckCircle 
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function BranchRevenue() {
   // --- States ---
   const [selectedTimeframe, setSelectedTimeframe] = useState("Last 30 Days");
@@ -85,35 +87,49 @@ export default function BranchRevenue() {
             {/* Native Calendar Dropdown */}
             <div className="relative flex items-center bg-white border border-slate-200 rounded-lg px-2.5 hover:border-slate-300 shadow-sm transition">
               <Calendar className="h-3.5 w-3.5 text-slate-400 mr-1.5 pointer-events-none" />
-              <select 
+              <Select
                 value={selectedTimeframe}
                 onChange={(e) => setSelectedTimeframe(e.target.value)}
                 className="bg-transparent text-xs font-semibold text-slate-700 py-2 pr-6 focus:outline-none cursor-pointer appearance-none"
-              >
-                <option value="Today">Today</option>
-                <option value="Last 7 Days">Last 7 Days</option>
-                <option value="Last 30 Days">Last 30 Days</option>
-                <option value="This Quarter">This Quarter</option>
-              </select>
+                options={[{
+                  label: "Today",
+                  value: "Today"
+                }, {
+                  label: "Last 7 Days",
+                  value: "Last 7 Days"
+                }, {
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }, {
+                  label: "This Quarter",
+                  value: "This Quarter"
+                }]} />
               <div className="absolute right-2.5 pointer-events-none border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-400 w-0 h-0" />
             </div>
 
             {/* Native Region Filter Dropdown */}
             <div className="relative flex items-center bg-white border border-slate-200 rounded-lg px-2.5 hover:border-slate-300 shadow-sm transition">
               <SlidersHorizontal className="h-3.5 w-3.5 text-slate-400 mr-1.5 pointer-events-none" />
-              <select
+              <Select
                 value={activeRegionFilter}
                 onChange={(e) => {
                   console.log("Region Changed To:", e.target.value); // Debugging line
                   setActiveRegionFilter(e.target.value);
                 }}
                 className="bg-transparent text-xs font-semibold text-slate-700 py-2 pr-6 focus:outline-none cursor-pointer appearance-none"
-              >
-                <option value="All">All Regions</option>
-                <option value="NA">North America (NA)</option>
-                <option value="EU">Europe (EMEA)</option>
-                <option value="APAC">Asia Pacific (APAC)</option>
-              </select>
+                options={[{
+                  label: "All Regions",
+                  value: "All"
+                }, {
+                  label: "North America (NA)",
+                  value: "NA"
+                }, {
+                  label: "Europe (EMEA)",
+                  value: "EU"
+                }, {
+                  label: "Asia Pacific (APAC)",
+                  value: "APAC"
+                }]} />
               <div className="absolute right-2.5 pointer-events-none border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-400 w-0 h-0" />
             </div>
 
@@ -263,7 +279,8 @@ export default function BranchRevenue() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/80 border-b border-slate-100 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                   <th className="px-5 py-3">Branch ID</th>
@@ -342,6 +359,7 @@ export default function BranchRevenue() {
                 )}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 

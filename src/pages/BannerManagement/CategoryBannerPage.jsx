@@ -253,7 +253,8 @@ export default function CategoryBannersPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[750px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse min-w-[750px]">
               <thead>
                 <tr className="border-b border-slate-100 text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
                   <th className="pb-3 px-4">Category Name</th>
@@ -270,6 +271,7 @@ export default function CategoryBannersPage() {
                 <CategoryTableRow name="Men's Fashion" id="#BN-9930-FASH" status="DRAFT" impressions="0" ctr="--" trendUp={false} />
               </tbody>
             </table>
+</div>
           </div>
 
           {/* TABLE FOOTER WITH PAGINATION CONTROLS */}

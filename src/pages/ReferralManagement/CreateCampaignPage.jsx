@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 import { useToast } from "../../components/common/ToastNotification";
 
+import Select from "../../components/ui/Select";
+
 function StepItem({ number, title, active }) {
   return (
     <div className="flex items-center flex-1">
@@ -175,13 +177,18 @@ export default function CreateCampaignPage() {
                     Reward Type
                   </label>
 
-                  <select
+                  <Select
                     className="w-full h-12 px-4 border border-slate-400 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-                  >
-                    <option>Fixed Amount ($)</option>
-                    <option>Percentage Discount (%)</option>
-                    <option>Loyalty Points</option>
-                  </select>
+                    options={[{
+                      label: "Fixed Amount ($)",
+                      value: "Fixed Amount ($)"
+                    }, {
+                      label: "Percentage Discount (%)",
+                      value: "Percentage Discount (%)"
+                    }, {
+                      label: "Loyalty Points",
+                      value: "Loyalty Points"
+                    }]} />
                 </div>
 
                 <div>
@@ -189,13 +196,18 @@ export default function CreateCampaignPage() {
                     Reward Trigger Event
                   </label>
 
-                  <select
+                  <Select
                     className="w-full h-12 px-4 border border-slate-400 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-                  >
-                    <option>Upon Successful Purchase</option>
-                    <option>Upon Registration</option>
-                    <option>Upon KYC Completion</option>
-                  </select>
+                    options={[{
+                      label: "Upon Successful Purchase",
+                      value: "Upon Successful Purchase"
+                    }, {
+                      label: "Upon Registration",
+                      value: "Upon Registration"
+                    }, {
+                      label: "Upon KYC Completion",
+                      value: "Upon KYC Completion"
+                    }]} />
                 </div>
               </div>
 

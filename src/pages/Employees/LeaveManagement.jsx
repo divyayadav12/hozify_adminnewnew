@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Search, SlidersHorizontal, Download, ChevronLeft, ChevronRight, CheckCircle2, ShieldAlert, Ban, Trash2 } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const leaveRequests = [
   { id: 'emp_1', name: 'John Doe', role: 'Senior Developer', type: 'SICK LEAVE', typeClass: 'sick', duration: 'Oct 24 - Oct 26 (3 Days)', reason: 'Severe seasonal flu and high fever.', status: 'Pending', statusClass: 'pending', initials: 'JD', bg: '#f1ebf8', color: 'var(--primary)', isOnLeave: true },
   { id: 'emp_2', name: 'Sarah Smith', role: 'UI Designer', type: 'ANNUAL', typeClass: 'annual', duration: 'Nov 12 - Nov 20 (9 Days)', reason: 'Pre-planned family vacation to Greece.', status: 'Approved', statusClass: 'active', initials: 'SS', bg: '#ecfdf5', color: '#059669', isOnLeave: true },
@@ -53,12 +55,21 @@ export default function LeaveManagement() {
             <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '16px', color: 'var(--text)' }}>Apply for Leave</h2>
             <div style={{ marginBottom: '16px' }}>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: 'var(--muted)', marginBottom: '6px' }}>LEAVE TYPE</label>
-              <select style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1.5px solid #25108f', fontSize: '13px', outline: 'none' }}>
-                <option>Annual Leave</option>
-                <option>Sick Leave</option>
-                <option>Bereavement</option>
-                <option>Unpaid Leave</option>
-              </select>
+              <Select
+                style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1.5px solid #25108f', fontSize: '13px', outline: 'none' }}
+                options={[{
+                  label: "Annual Leave",
+                  value: "Annual Leave"
+                }, {
+                  label: "Sick Leave",
+                  value: "Sick Leave"
+                }, {
+                  label: "Bereavement",
+                  value: "Bereavement"
+                }, {
+                  label: "Unpaid Leave",
+                  value: "Unpaid Leave"
+                }]} />
             </div>
             <div style={{ marginBottom: '16px', display: 'flex', gap: '12px' }}>
               <div style={{ flex: 1 }}>
@@ -81,7 +92,6 @@ export default function LeaveManagement() {
           </div>
         </>
       )}
-
       {/* Title Header */}
       <div className="partners-page-header">
         <div>
@@ -107,7 +117,6 @@ export default function LeaveManagement() {
           </button>
         </div>
       </div>
-
       {/* KPI Cards Row */}
       <section className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', marginBottom: '24px', gap: '16px' }}>
         {/* Pending Requests */}
@@ -164,7 +173,6 @@ export default function LeaveManagement() {
           </div>
         </div>
       </section>
-
       {/* Recent Leave Requests Table */}
       <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)', marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -192,7 +200,8 @@ export default function LeaveManagement() {
         </div>
 
         <div className="table-wrap">
-          <table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
             <thead>
               <tr>
                 <th>EMPLOYEE</th>
@@ -325,6 +334,7 @@ export default function LeaveManagement() {
               )}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* Pagination footer */}

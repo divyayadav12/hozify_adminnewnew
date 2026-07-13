@@ -18,6 +18,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SupportOperationsList({ activeTab = 'Support Center', defaultFilter = 'all' }) {
   const { navigate } = useApp();
 
@@ -342,51 +344,74 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
           {/* Priority dropdown */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)' }}>Priority</span>
-            <select
+            <Select
               value={selectedPriority}
               onChange={(e) => setSelectedPriority(e.target.value)}
               style={{ border: '1.5px solid #25108f', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
               aria-label="Filter Priority"
-            >
-              <option value="All">All Priorities</option>
-              <option value="Critical">Critical</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
+              options={[{
+                label: "All Priorities",
+                value: "All"
+              }, {
+                label: "Critical",
+                value: "Critical"
+              }, {
+                label: "High",
+                value: "High"
+              }, {
+                label: "Medium",
+                value: "Medium"
+              }, {
+                label: "Low",
+                value: "Low"
+              }]} />
           </div>
 
           {/* Category dropdown */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)' }}>Category</span>
-            <select
+            <Select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               style={{ border: '1.5px solid #25108f', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
               aria-label="Filter Category"
-            >
-              <option value="All">All Categories</option>
-              <option value="Technical">Technical</option>
-              <option value="Billing">Billing</option>
-              <option value="Account">Account</option>
-            </select>
+              options={[{
+                label: "All Categories",
+                value: "All"
+              }, {
+                label: "Technical",
+                value: "Technical"
+              }, {
+                label: "Billing",
+                value: "Billing"
+              }, {
+                label: "Account",
+                value: "Account"
+              }]} />
           </div>
 
           {/* Agent dropdown */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <span style={{ fontSize: '12px', fontWeight: '800', color: 'var(--muted)' }}>Agent</span>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <select
+              <Select
                 value={selectedAgent}
                 onChange={(e) => setSelectedAgent(e.target.value)}
                 style={{ border: '1.5px solid #25108f', padding: '8px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600', width: '100%' }}
                 aria-label="Filter Agent"
-              >
-                <option value="All">All Agents</option>
-                <option value="Sarah J.">Sarah J.</option>
-                <option value="Mark T.">Mark T.</option>
-                <option value="Unassigned">Unassigned</option>
-              </select>
+                options={[{
+                  label: "All Agents",
+                  value: "All"
+                }, {
+                  label: "Sarah J.",
+                  value: "Sarah J."
+                }, {
+                  label: "Mark T.",
+                  value: "Mark T."
+                }, {
+                  label: "Unassigned",
+                  value: "Unassigned"
+                }]} />
 
               <button
                 onClick={handleResetFilters}
@@ -415,7 +440,8 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
         {/* Tickets Queue Table */}
         <div className="panel" style={{ padding: '0', background: '#fff', overflow: 'hidden' }}>
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13.5px', textAlign: 'left', minWidth: '850px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13.5px', textAlign: 'left', minWidth: '850px' }}>
               <thead>
                 <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '16px 20px', width: '40px' }}>
@@ -630,7 +656,8 @@ export default function SupportOperationsList({ activeTab = 'Support Center', de
                   ))
                 )}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Table pagination footer */}

@@ -197,7 +197,8 @@ export default function BranchInventory() {
         </div>
 
         <div className="table-wrap">
-          <table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
             <thead>
               <tr>
                 <th>BRANCH ID</th>
@@ -245,6 +246,7 @@ export default function BranchInventory() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* Table Footer */}

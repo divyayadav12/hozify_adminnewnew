@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ChevronDown, Calendar, MapPin, Building, Wrench, Users } from 'lucide-react';
 
+import Select from "../ui/Select";
+
 export default function GlobalDashboardFilters({ onFilterChange }) {
   const [filters, setFilters] = useState({
     city: 'All Cities',
@@ -75,90 +77,100 @@ export default function GlobalDashboardFilters({ onFilterChange }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '8px' }}>
         <strong style={{ fontSize: '13px', color: '#1e293b' }}>Filters:</strong>
       </div>
-
       <div style={wrapperStyle}>
         <MapPin size={14} style={leftIconStyle} />
-        <select 
+        <Select
           style={getSelectStyleWithIcon()}
           value={filters.city}
           onChange={(e) => updateFilter('city', e.target.value)}
-        >
-          <option value="All Cities">All Cities</option>
-          <option value="Mumbai">Mumbai</option>
-          <option value="Delhi">Delhi</option>
-          <option value="Bangalore">Bangalore</option>
-          <option value="Hyderabad">Hyderabad</option>
-        </select>
+          options={[{
+            label: "All Cities",
+            value: "All Cities"
+          }, {
+            label: "Mumbai",
+            value: "Mumbai"
+          }, {
+            label: "Delhi",
+            value: "Delhi"
+          }, {
+            label: "Bangalore",
+            value: "Bangalore"
+          }, {
+            label: "Hyderabad",
+            value: "Hyderabad"
+          }]} />
         <ChevronDown size={14} style={iconStyle} />
       </div>
-
       <div style={wrapperStyle}>
         <Building size={14} style={leftIconStyle} />
-        <select 
+        <Select
           style={getSelectStyleWithIcon()}
           value={filters.district}
           onChange={(e) => updateFilter('district', e.target.value)}
-        >
-          <option value="All Districts">All Districts</option>
-          <option value="District 1">District 1</option>
-          <option value="District 2">District 2</option>
-          <option value="District 3">District 3</option>
-        </select>
+          options={[{
+            label: "All Districts",
+            value: "All Districts"
+          }, {
+            label: "District 1",
+            value: "District 1"
+          }, {
+            label: "District 2",
+            value: "District 2"
+          }, {
+            label: "District 3",
+            value: "District 3"
+          }]} />
         <ChevronDown size={14} style={iconStyle} />
       </div>
-
       <div style={wrapperStyle}>
         <Wrench size={14} style={leftIconStyle} />
-        <select 
+        <Select
           style={getSelectStyleWithIcon()}
           value={filters.service}
           onChange={(e) => updateFilter('service', e.target.value)}
-        >
-          <option value="All Services">All Services</option>
-          <option value="AC Repair">AC Repair</option>
-          <option value="Cleaning">Cleaning</option>
-          <option value="Plumbing">Plumbing</option>
-          <option value="Painting">Painting</option>
-        </select>
+          options={[{
+            label: "All Services",
+            value: "All Services"
+          }, {
+            label: "AC Repair",
+            value: "AC Repair"
+          }, {
+            label: "Cleaning",
+            value: "Cleaning"
+          }, {
+            label: "Plumbing",
+            value: "Plumbing"
+          }, {
+            label: "Painting",
+            value: "Painting"
+          }]} />
         <ChevronDown size={14} style={iconStyle} />
       </div>
-
       <div style={wrapperStyle}>
         <Users size={14} style={leftIconStyle} />
-        <select 
+        <Select
           style={getSelectStyleWithIcon()}
           value={filters.partner}
           onChange={(e) => updateFilter('partner', e.target.value)}
-        >
-          <option value="All Partners">Partner Wise</option>
-          <option value="Partner A">Partner A</option>
-          <option value="Partner B">Partner B</option>
-        </select>
+          options={[{
+            label: "Partner Wise",
+            value: "All Partners"
+          }, {
+            label: "Partner A",
+            value: "Partner A"
+          }, {
+            label: "Partner B",
+            value: "Partner B"
+          }]} />
         <ChevronDown size={14} style={iconStyle} />
       </div>
-
       <div style={wrapperStyle}>
         <Calendar size={14} style={leftIconStyle} />
-        <select 
+        <Select
           style={getSelectStyleWithIcon()}
           value={filters.timeframe}
           onChange={(e) => updateFilter('timeframe', e.target.value)}
-        >
-          <optgroup label="Preset">
-            <option value="Daily">Daily</option>
-            <option value="Weekly">Weekly</option>
-          </optgroup>
-          <optgroup label="Monthly">
-            {months.map(m => (
-              <option key={m} value={`Month: ${m}`}>Monthly ({m})</option>
-            ))}
-          </optgroup>
-          <optgroup label="Yearly">
-            {years.map(y => (
-              <option key={y} value={`Year: ${y}`}>Yearly ({y})</option>
-            ))}
-          </optgroup>
-        </select>
+          options={[]} />
         <ChevronDown size={14} style={iconStyle} />
       </div>
     </div>

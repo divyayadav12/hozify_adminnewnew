@@ -356,7 +356,8 @@ export default function ServiceAreas({ mode = 'areas' }) {
           </div>
 
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table className="partner-table">
+            <div className="table-responsive-wrapper">
+<table className="partner-table">
               <thead>
                 <tr>
                   <th>AREA ID</th>
@@ -415,7 +416,8 @@ export default function ServiceAreas({ mode = 'areas' }) {
                   </td>
                 </tr>
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </section>
 

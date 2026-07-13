@@ -12,6 +12,8 @@ import {
   Loader2
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 export default function LiveDashboard() {
   // ==========================================
   // CLICKABLE / INTERACTIVE STATES
@@ -397,14 +399,17 @@ export default function LiveDashboard() {
               </div>
               
               {/* Dynamic Data Dropdown Selector Trigger */}
-              <select 
+              <Select
                 value={timeframe}
                 onChange={(e) => setTimeframe(e.target.value)}
                 className="border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs bg-white text-slate-700 font-bold focus:outline-none focus:border-indigo-500 cursor-pointer transition-colors"
-              >
-                <option value="Last 14 Days">Last 14 Days</option>
-                <option value="Last 30 Days">Last 30 Days</option>
-              </select>
+                options={[{
+                  label: "Last 14 Days",
+                  value: "Last 14 Days"
+                }, {
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }]} />
             </div>
           </div>
 

@@ -13,6 +13,8 @@ import {
 import { useToast } from "../../components/common/ToastNotification";
 import GlobalDashboardFilters from "../../components/common/GlobalDashboardFilters";
 
+import Select from "../../components/ui/Select";
+
 function MetricCard({ title, value, change, icon, onClick }) {
   return (
     <div className="bg-white border border-slate-300 rounded-2xl p-5 shadow-md hover:shadow-lg transition-all cursor-pointer" onClick={onClick}>
@@ -312,7 +314,8 @@ export default function ReferralDashboard() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full min-w-[900px]">
               <thead className="bg-slate-50">
                 <tr>
                   <th className="text-left p-4 text-xs font-bold text-slate-500">USER</th>
@@ -346,10 +349,10 @@ export default function ReferralDashboard() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
       </div>
-
       {/* CREATE REFERRAL MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[999] p-4 animate-in fade-in duration-200">
@@ -383,16 +386,23 @@ export default function ReferralDashboard() {
                 <label className="block text-xs uppercase tracking-wider font-bold text-slate-600 mb-2">
                   Select Campaign
                 </label>
-                <select
+                <Select
                   value={formData.campaign}
                   onChange={(e) => setFormData({ ...formData, campaign: e.target.value })}
                   className="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 bg-white transition-all"
-                >
-                  <option value="Summer Growth">Summer Growth</option>
-                  <option value="Early Adopter">Early Adopter</option>
-                  <option value="Loyalty v2">Loyalty v2</option>
-                  <option value="Black Friday">Black Friday</option>
-                </select>
+                  options={[{
+                    label: "Summer Growth",
+                    value: "Summer Growth"
+                  }, {
+                    label: "Early Adopter",
+                    value: "Early Adopter"
+                  }, {
+                    label: "Loyalty v2",
+                    value: "Loyalty v2"
+                  }, {
+                    label: "Black Friday",
+                    value: "Black Friday"
+                  }]} />
               </div>
 
               <div>
@@ -428,7 +438,6 @@ export default function ReferralDashboard() {
           </div>
         </div>
       )}
-
       {/* HISTORY MODAL */}
       {isHistoryModalOpen && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[999] p-4 animate-in fade-in duration-200">
@@ -443,7 +452,8 @@ export default function ReferralDashboard() {
               </button>
             </div>
             <div className="overflow-auto p-4">
-              <table className="w-full text-left border-collapse">
+              <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse">
                 <thead className="bg-slate-50">
                   <tr>
                     <th className="p-4 text-xs font-bold text-slate-500">USER</th>
@@ -477,6 +487,7 @@ export default function ReferralDashboard() {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
           </div>
         </div>

@@ -160,7 +160,8 @@ export default function ServiceActivation() {
       <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: 'var(--spacing-section)' }}>
         <div style={{ overflowX: 'auto' }}>
           <div style={{ overflowX: 'auto', width: '100%' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', width: '40px' }}>
@@ -258,6 +259,7 @@ export default function ServiceActivation() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
       </div>

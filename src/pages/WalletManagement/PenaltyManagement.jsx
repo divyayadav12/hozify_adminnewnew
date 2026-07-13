@@ -3,6 +3,8 @@ import { ShieldAlert, Plus, X, Search, CheckCircle2 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 import { mockPenalties, mockWallets } from './data/mockData';
 
+import Select from "../../components/ui/Select";
+
 export default function PenaltyManagement() {
   const [penalties, setPenalties] = useState(mockPenalties);
   const [showForm, setShowForm] = useState(false);
@@ -122,15 +124,15 @@ export default function PenaltyManagement() {
               <form onSubmit={handleCreatePenalty} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Target Partner Wallet</label>
-                  <select
+                  <Select
                     value={walletId}
                     onChange={(e) => setWalletId(e.target.value)}
+                    options={mockWallets.map(w => ({
+                      value: w.id,
+                      label: `${w.owner} (${w.type} - ${w.id})`
+                    }))}
                     style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
-                  >
-                    {mockWallets.map(w => (
-                      <option key={w.id} value={w.id}>{w.owner} ({w.type} - {w.id})</option>
-                    ))}
-                  </select>
+                  />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -146,16 +148,23 @@ export default function PenaltyManagement() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Reason/Rule Violated</label>
-                  <select
+                  <Select
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                     style={{ border: '1.5px solid #25108f', background: '#fff', height: '38px', borderRadius: '6px', padding: '0 12px', fontSize: '13px', fontWeight: '700', outline: 'none' }}
-                  >
-                    <option value="No-show for urgent plumbing assignment">No-show for urgent plumbing assignment</option>
-                    <option value="SLA delay over 120 minutes">SLA delay over 120 minutes</option>
-                    <option value="Unprofessional service standard complaint">Unprofessional service standard complaint</option>
-                    <option value="Client dispute resolution deduction">Client dispute resolution deduction</option>
-                  </select>
+                    options={[{
+                      label: "No-show for urgent plumbing assignment",
+                      value: "No-show for urgent plumbing assignment"
+                    }, {
+                      label: "SLA delay over 120 minutes",
+                      value: "SLA delay over 120 minutes"
+                    }, {
+                      label: "Unprofessional service standard complaint",
+                      value: "Unprofessional service standard complaint"
+                    }, {
+                      label: "Client dispute resolution deduction",
+                      value: "Client dispute resolution deduction"
+                    }]} />
                 </div>
 
                 <button
@@ -195,7 +204,8 @@ export default function PenaltyManagement() {
         {/* Listing Grid */}
         <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Penalty ID</th>
@@ -265,7 +275,8 @@ export default function PenaltyManagement() {
                   );
                 })}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

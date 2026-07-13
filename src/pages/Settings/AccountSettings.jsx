@@ -5,6 +5,8 @@ import { useToast } from '../../components/common/ToastNotification';
 import { Save, X, Settings, Bell, Globe, Moon, Clock, Mail, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+import Select from "../../components/ui/Select";
+
 export default function AccountSettings() {
   const { session, navigate } = useApp();
   const { addToast } = useToast();
@@ -111,39 +113,54 @@ export default function AccountSettings() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '6px' }}>Language</label>
-                <select 
+                <Select
                   value={settings.language}
                   onChange={(e) => setSettings({ ...settings, language: e.target.value })}
                   style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
-                >
-                  <option value="English (US)">English (US)</option>
-                  <option value="Hindi">Hindi (हिन्दी)</option>
-                  <option value="Spanish">Spanish (Español)</option>
-                </select>
+                  options={[{
+                    label: "English (US)",
+                    value: "English (US)"
+                  }, {
+                    label: "Hindi (हिन्दी)",
+                    value: "Hindi"
+                  }, {
+                    label: "Spanish (Español)",
+                    value: "Spanish"
+                  }]} />
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '6px' }}>Theme Mode</label>
-                <select 
+                <Select
                   value={settings.theme}
                   onChange={(e) => setSettings({ ...settings, theme: e.target.value })}
                   style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
-                >
-                  <option value="Light">Light Mode</option>
-                  <option value="Dark">Dark Mode</option>
-                  <option value="System">System Default</option>
-                </select>
+                  options={[{
+                    label: "Light Mode",
+                    value: "Light"
+                  }, {
+                    label: "Dark Mode",
+                    value: "Dark"
+                  }, {
+                    label: "System Default",
+                    value: "System"
+                  }]} />
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: 'var(--text)', textTransform: 'uppercase', marginBottom: '6px' }}>Time Zone</label>
-                <select 
+                <Select
                   value={settings.timezone}
                   onChange={(e) => setSettings({ ...settings, timezone: e.target.value })}
                   style={{ width: '100%', padding: '8px 12px', border: '1.5px solid #25108f', borderRadius: '6px', fontSize: '13px', background: '#fff' }}
-                >
-                  <option value="Asia/Kolkata (GMT+05:30)">Asia/Kolkata (GMT+05:30)</option>
-                  <option value="UTC (GMT+00:00)">UTC (GMT+00:00)</option>
-                  <option value="America/New_York (GMT-05:00)">America/New_York (GMT-05:00)</option>
-                </select>
+                  options={[{
+                    label: "Asia/Kolkata (GMT+05:30)",
+                    value: "Asia/Kolkata (GMT+05:30)"
+                  }, {
+                    label: "UTC (GMT+00:00)",
+                    value: "UTC (GMT+00:00)"
+                  }, {
+                    label: "America/New_York (GMT-05:00)",
+                    value: "America/New_York (GMT-05:00)"
+                  }]} />
               </div>
             </div>
           </div>

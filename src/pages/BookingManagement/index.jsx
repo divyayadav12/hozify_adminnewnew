@@ -42,6 +42,8 @@ import { ROUTES } from '../../config/routes';
 import { useApp } from '../../hooks/useApp';
 import GlobalDashboardFilters from '../../components/common/GlobalDashboardFilters';
 
+import Select from "../../components/ui/Select";
+
 const money = (value) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -469,7 +471,8 @@ function BookingTable({
 
   return (
     <div className="booking-table-wrap">
-      <table className="booking-table">
+      <div className="table-responsive-wrapper">
+<table className="booking-table">
         <thead>
           <tr>
             <th>Booking ID</th>
@@ -511,6 +514,7 @@ function BookingTable({
           )}
         </tbody>
       </table>
+</div>
     </div>
   );
 }
@@ -521,7 +525,7 @@ function DashboardScreen({ bookings, handlers }) {
     <>
       <section className="booking-kpi-grid">
         <KpiCard title="Total Bookings" value={bookings.length} icon={ClipboardCheck} trend="+12% vs last week" />
-        <KpiCard title="Active Bookings" value={active} icon={Route} trend="Ongoing operations" tone="solid" />
+        <KpiCard title="Active Bookings" value={active} icon={Route} trend="Ongoing operations" />
         <KpiCard title="Pending Bookings" value={bookings.filter((item) => item.status.includes('Pending')).length} icon={Clock} trend="Requires action" tone="amber" />
         <KpiCard title="Completed Bookings" value={bookings.filter((item) => item.status === 'Completed').length} icon={CheckCircle2} trend="This period" tone="green" />
         <KpiCard title="Cancelled" value={bookings.filter((item) => item.status === 'Cancelled').length} icon={XCircle} trend="-4%" tone="red" />
@@ -607,10 +611,14 @@ function ListingScreen({ bookings, handlers }) {
           <input placeholder="Customer name" value={filters.customer} onChange={(e) => update('customer', e.target.value)} />
           <input placeholder="Service" value={filters.service} onChange={(e) => update('service', e.target.value)} />
           <input placeholder="Partner" value={filters.partner} onChange={(e) => update('partner', e.target.value)} />
-          <select value={filters.status} onChange={(e) => update('status', e.target.value)}>
-            <option>All</option>
-            {Object.keys(statusTone).map((status) => <option key={status}>{status}</option>)}
-          </select>
+          <Select
+            value={filters.status}
+            onChange={(e) => update('status', e.target.value)}
+            options={[
+              { value: "All", label: "All" },
+              ...Object.keys(statusTone).map((status) => ({ value: status, label: status }))
+            ]}
+          />
         </div>
       </section>
 
@@ -799,7 +807,8 @@ function RefundScreen({ bookings, onToast }) {
         <KpiCard title="Failed Refunds" value={failedCount} icon={AlertTriangle} trend="-18%" tone="red" />
       </section>
       <div className="booking-table-wrap">
-        <table className="booking-table">
+        <div className="table-responsive-wrapper">
+<table className="booking-table">
           <thead><tr><th>Booking</th><th>Customer</th><th>Amount</th><th>Reason</th><th>Status</th><th>Actions</th></tr></thead>
           <tbody>{rows.map((row) => {
             const isResolved = row.status === 'REFUNDED' || row.status === 'REJECTED' || row.status.toUpperCase() === 'REFUNDED';
@@ -826,6 +835,7 @@ function RefundScreen({ bookings, onToast }) {
             );
           })}</tbody>
         </table>
+</div>
       </div>
     </>
   );
@@ -963,16 +973,30 @@ function CommunicationsScreen({ onToast }) {
           ))}
         </div>
         <div className="booking-filter-grid">
-          <select defaultValue="Customers">
-            <option>Customers</option>
-            <option>Partners</option>
-            <option>Employees</option>
-          </select>
-          <select defaultValue="Booking confirmation">
-            <option>Booking confirmation</option>
-            <option>Delay alert</option>
-            <option>Invoice ready</option>
-          </select>
+          <Select
+            defaultValue="Customers"
+            options={[{
+              label: "Customers",
+              value: "Customers"
+            }, {
+              label: "Partners",
+              value: "Partners"
+            }, {
+              label: "Employees",
+              value: "Employees"
+            }]} />
+          <Select
+            defaultValue="Booking confirmation"
+            options={[{
+              label: "Booking confirmation",
+              value: "Booking confirmation"
+            }, {
+              label: "Delay alert",
+              value: "Delay alert"
+            }, {
+              label: "Invoice ready",
+              value: "Invoice ready"
+            }]} />
         </div>
         <textarea className="booking-message-box" defaultValue={`Hello {{first_name}}, your booking {{service_type}} has been updated. Our team will arrive at {{scheduled_time}}.`} />
         <ActionButton icon={Send} variant="primary" onClick={() => onToast(`${channel} outreach queued locally.`)}>Blast Outreach</ActionButton>

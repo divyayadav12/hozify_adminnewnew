@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { useToast } from "../../components/common/ToastNotification";
 
+import Select from "../../components/ui/Select";
+
 const MOCK_CAMPAIGNS = [
   {
     image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300",
@@ -351,19 +353,25 @@ export default function CampaignDashboard() {
               Campaign Details
             </h3>
 
-            <select 
+            <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold outline-none bg-white cursor-pointer"
-            >
-              <option value="All Statuses">All Statuses</option>
-              <option value="ACTIVE">Active</option>
-              <option value="PAUSED">Paused</option>
-            </select>
+              options={[{
+                label: "All Statuses",
+                value: "All Statuses"
+              }, {
+                label: "Active",
+                value: "ACTIVE"
+              }, {
+                label: "Paused",
+                value: "PAUSED"
+              }]} />
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full min-w-[900px]">
               <thead className="bg-slate-50">
                 <tr>
                   <th className="text-left p-4 text-xs font-bold text-slate-500 uppercase">Campaign Name</th>
@@ -389,6 +397,7 @@ export default function CampaignDashboard() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
 
           <div className="flex justify-between items-center p-5 border-t border-slate-200">
@@ -414,7 +423,6 @@ export default function CampaignDashboard() {
           </div>
         </div>
       </div>
-
       {/* INSIGHTS MODAL */}
       {showInsightsModal && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[999] p-4 animate-in fade-in duration-200">

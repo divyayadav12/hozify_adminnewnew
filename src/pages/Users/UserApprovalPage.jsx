@@ -17,6 +17,8 @@ import {
   TrendingDown,
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 const queueData = [
   {
     id: 1,
@@ -347,7 +349,7 @@ export default function UserApprovalPage() {
         </div>
 
         <div style={{ display: "flex", gap: "10px" }}>
-          <select
+          <Select
             value={filterDocStatus}
             onChange={(e) => setFilterDocStatus(e.target.value)}
             style={{
@@ -361,11 +363,16 @@ export default function UserApprovalPage() {
               cursor: "pointer",
               outline: "none",
             }}
-          >
-            <option value="All">All Documents Status</option>
-            <option value="Pending">Pending Review</option>
-            <option value="Action">Action Required</option>
-          </select>
+            options={[{
+              label: "All Documents Status",
+              value: "All"
+            }, {
+              label: "Pending Review",
+              value: "Pending"
+            }, {
+              label: "Action Required",
+              value: "Action"
+            }]} />
           <button
             type="button"
             onClick={handleExportCSV}
@@ -505,7 +512,8 @@ export default function UserApprovalPage() {
 
         {/* TABLE */}
         <div className="table-wrap" style={{ overflowX: "auto" }}>
-          <table className="materio-table" style={{ width: "100%", borderCollapse: 'collapse', minWidth: "900px" }}>
+          <div className="table-responsive-wrapper">
+<table className="materio-table" style={{ width: "100%", borderCollapse: 'collapse', minWidth: "900px" }}>
             <thead>
               <tr style={{ background: "#f8fafc", borderBottom: "1px solid #f1f5f9" }}>
                 {["USER PROFILE", "SUBMISSION DATE", "TYPE", "DOC STATUS", "ACTIONS"].map(col => (
@@ -533,6 +541,7 @@ export default function UserApprovalPage() {
               )}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* TABLE FOOTER */}

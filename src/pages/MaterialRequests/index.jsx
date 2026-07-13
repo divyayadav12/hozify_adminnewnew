@@ -20,6 +20,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const initialRequests = [
   { id: 'REQ-8902', bookingId: 'BK-2024-112', type: 'Premium Oak Flooring', qty: '450 sq ft', cost: '$12,450.00', status: 'Pending', branch: 'North Hub' },
   { id: 'REQ-8899', bookingId: 'BK-2024-098', type: 'Industrial Copper Piping', qty: '120 Units', cost: '$4,200.00', status: 'Approved', branch: 'South Hub' },
@@ -215,7 +217,7 @@ export default function MaterialRequests() {
                 Material Type
               </label>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={materialType}
                   onChange={(e) => setMaterialType(e.target.value)}
                   style={{
@@ -232,14 +234,25 @@ export default function MaterialRequests() {
                     fontWeight: '600'
                   }}
                   aria-label="Select material type"
-                >
-                  <option value="All Types">All Types</option>
-                  <option value="Flooring">Flooring</option>
-                  <option value="Piping">Piping</option>
-                  <option value="Structural">Structural</option>
-                  <option value="Electrical">Electrical</option>
-                  <option value="Lighting">Lighting</option>
-                </select>
+                  options={[{
+                    label: "All Types",
+                    value: "All Types"
+                  }, {
+                    label: "Flooring",
+                    value: "Flooring"
+                  }, {
+                    label: "Piping",
+                    value: "Piping"
+                  }, {
+                    label: "Structural",
+                    value: "Structural"
+                  }, {
+                    label: "Electrical",
+                    value: "Electrical"
+                  }, {
+                    label: "Lighting",
+                    value: "Lighting"
+                  }]} />
                 <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#7a7688' }}>
                   <ChevronDown size={14} />
                 </div>
@@ -252,7 +265,7 @@ export default function MaterialRequests() {
                 Branch
               </label>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
                   style={{
@@ -269,13 +282,22 @@ export default function MaterialRequests() {
                     fontWeight: '600'
                   }}
                   aria-label="Select branch"
-                >
-                  <option value="All Branches">All Branches</option>
-                  <option value="North Hub">North Hub</option>
-                  <option value="South Hub">South Hub</option>
-                  <option value="East Hub">East Hub</option>
-                  <option value="West Hub">West Hub</option>
-                </select>
+                  options={[{
+                    label: "All Branches",
+                    value: "All Branches"
+                  }, {
+                    label: "North Hub",
+                    value: "North Hub"
+                  }, {
+                    label: "South Hub",
+                    value: "South Hub"
+                  }, {
+                    label: "East Hub",
+                    value: "East Hub"
+                  }, {
+                    label: "West Hub",
+                    value: "West Hub"
+                  }]} />
                 <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#7a7688' }}>
                   <ChevronDown size={14} />
                 </div>
@@ -288,7 +310,7 @@ export default function MaterialRequests() {
                 Status
               </label>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                   style={{
@@ -305,12 +327,19 @@ export default function MaterialRequests() {
                     fontWeight: '600'
                   }}
                   aria-label="Select status"
-                >
-                  <option value="All Statuses">All Statuses</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Approved">Approved</option>
-                  <option value="Rejected">Rejected</option>
-                </select>
+                  options={[{
+                    label: "All Statuses",
+                    value: "All Statuses"
+                  }, {
+                    label: "Pending",
+                    value: "Pending"
+                  }, {
+                    label: "Approved",
+                    value: "Approved"
+                  }, {
+                    label: "Rejected",
+                    value: "Rejected"
+                  }]} />
                 <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#7a7688' }}>
                   <ChevronDown size={14} />
                 </div>
@@ -367,7 +396,8 @@ export default function MaterialRequests() {
         {/* Requests Table Panel */}
         <div className="panel" style={{ background: '#ffffff', border: '1.5px solid #25108f', borderRadius: '12px', padding: '20px' }}>
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Request ID</th>
@@ -453,7 +483,8 @@ export default function MaterialRequests() {
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           {/* Pagination Footer */}

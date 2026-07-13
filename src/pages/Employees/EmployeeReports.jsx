@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Download, FileText, Star, MoreVertical, SlidersHorizontal, Search, ChevronLeft, ChevronRight, ShieldAlert } from 'lucide-react';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 const revenueLeaders = [
   { name: 'Jane Doe', role: 'Lead Consultant', revenue: '$12.4k', badge: 'Top 1%', initials: 'JD', bg: '#e0e7ff', color: '#4f46e5' },
   { name: 'Marcus Smith', role: 'Project Manager', revenue: '$9.2k', badge: 'Top 5%', initials: 'MS', bg: '#f1ebf8', color: 'var(--primary)' },
@@ -30,7 +32,6 @@ export default function EmployeeReports() {
 
   return (
     <div className="reports-dashboard-flow" style={{ paddingBottom: '40px' }}>
-      
       {/* Title Header */}
       <div className="partners-page-header">
         <div>
@@ -40,28 +41,36 @@ export default function EmployeeReports() {
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           
           <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
-            <select
+            <Select
               style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}
               value={branch}
               onChange={(e) => setBranch(e.target.value)}
               aria-label="Filter reports by branch"
-            >
-              <option value="All Branches">All Branches</option>
-              <option value="Downtown HQ">Downtown HQ</option>
-              <option value="Westside Heights">Westside Heights</option>
-            </select>
+              options={[{
+                label: "All Branches",
+                value: "All Branches"
+              }, {
+                label: "Downtown HQ",
+                value: "Downtown HQ"
+              }, {
+                label: "Westside Heights",
+                value: "Westside Heights"
+              }]} />
           </div>
 
           <div className="date-select-picker-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', padding: '4px 10px', borderRadius: '6px', background: '#fff' }}>
-            <select
+            <Select
               style={{ border: 'none', background: 'transparent', outline: 'none', fontWeight: '700', fontSize: '13px', cursor: 'pointer' }}
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
               aria-label="Filter reports by date range"
-            >
-              <option value="Oct 1 - Oct 31, 2023">Oct 1 - Oct 31, 2023</option>
-              <option value="Nov 1 - Nov 30, 2023">Nov 1 - Nov 30, 2023</option>
-            </select>
+              options={[{
+                label: "Oct 1 - Oct 31, 2023",
+                value: "Oct 1 - Oct 31, 2023"
+              }, {
+                label: "Nov 1 - Nov 30, 2023",
+                value: "Nov 1 - Nov 30, 2023"
+              }]} />
           </div>
 
           <button 
@@ -85,7 +94,6 @@ export default function EmployeeReports() {
           </button>
         </div>
       </div>
-
       {/* KPI Cards Row */}
       <section className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         {/* Productivity Score */}
@@ -160,7 +168,6 @@ export default function EmployeeReports() {
           </div>
         </div>
       </section>
-
       {/* Middle Row Grid */}
       <div className="fraud-top-grid" style={{ marginBottom: '24px', gap: '20px' }}>
         
@@ -247,7 +254,6 @@ export default function EmployeeReports() {
         </div>
 
       </div>
-
       {/* Bottom Efficiency Matrix Table */}
       <section className="panel partner-directory-panel" style={{ padding: 'var(--spacing-section)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -275,7 +281,8 @@ export default function EmployeeReports() {
         </div>
 
         <div className="table-wrap">
-          <table className="partner-table">
+          <div className="table-responsive-wrapper">
+<table className="partner-table">
             <thead>
               <tr>
                 <th>EMPLOYEE</th>
@@ -337,6 +344,7 @@ export default function EmployeeReports() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
 
         <div className="directory-table-footer">
@@ -353,7 +361,6 @@ export default function EmployeeReports() {
         </div>
 
       </section>
-
     </div>
   );
 }

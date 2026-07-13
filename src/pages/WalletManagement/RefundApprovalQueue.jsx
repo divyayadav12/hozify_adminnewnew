@@ -5,6 +5,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { mockRefunds } from './data/mockData';
 
+import Select from "../../components/ui/Select";
+
 export default function RefundApprovalQueue() {
   const { navigate } = useApp();
   const [refunds, setRefunds] = useState(mockRefunds);
@@ -95,24 +97,32 @@ export default function RefundApprovalQueue() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Status</span>
-            <select
+            <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
               aria-label="Filter by refund status"
-            >
-              <option value="All">All Statuses</option>
-              <option value="Pending">Pending</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
+              options={[{
+                label: "All Statuses",
+                value: "All"
+              }, {
+                label: "Pending",
+                value: "Pending"
+              }, {
+                label: "Approved",
+                value: "Approved"
+              }, {
+                label: "Rejected",
+                value: "Rejected"
+              }]} />
           </div>
         </div>
 
         {/* Table List */}
         <div className="panel" style={{ padding: 'var(--spacing-section)' }}>
           <div className="table-wrap">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
                   <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Refund ID</th>
@@ -203,7 +213,8 @@ export default function RefundApprovalQueue() {
                   );
                 })}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
         </div>
 

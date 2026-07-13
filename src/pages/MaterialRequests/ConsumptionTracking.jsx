@@ -24,6 +24,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import { useToast } from '../../components/common/ToastNotification';
 
+import Select from "../../components/ui/Select";
+
 export default function ConsumptionTracking() {
   const { navigate } = useApp();
   const { addToast } = useToast();
@@ -239,7 +241,8 @@ export default function ConsumptionTracking() {
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
               <thead>
                 <tr style={{ borderBottom: '1.5px solid #25108f', paddingBottom: '8px' }}>
                   <th style={{ padding: '12px 8px', fontSize: '11px', fontWeight: '800', color: '#7a7688', textTransform: 'uppercase' }}>Material ID & Description</th>
@@ -415,7 +418,8 @@ export default function ConsumptionTracking() {
                   </tr>
                 ))}
               </tbody>
-            </table></div>
+            </table>
+</div>
           </div>
 
           <div style={{ marginTop: '16px' }}>
@@ -439,7 +443,7 @@ export default function ConsumptionTracking() {
                 Consumption Velocity
               </h3>
               <div style={{ position: 'relative' }}>
-                <select
+                <Select
                   value={velocityFrame}
                   onChange={(e) => setVelocityFrame(e.target.value)}
                   style={{
@@ -455,10 +459,13 @@ export default function ConsumptionTracking() {
                     cursor: 'pointer'
                   }}
                   aria-label="Velocity chart timeframe"
-                >
-                  <option value="Last 14 Days">Last 14 Days</option>
-                  <option value="Last 30 Days">Last 30 Days</option>
-                </select>
+                  options={[{
+                    label: "Last 14 Days",
+                    value: "Last 14 Days"
+                  }, {
+                    label: "Last 30 Days",
+                    value: "Last 30 Days"
+                  }]} />
                 <ChevronDown size={14} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#565365' }} />
               </div>
             </div>
@@ -659,15 +666,20 @@ export default function ConsumptionTracking() {
 
                 <div>
                   <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Variance Alert Status</label>
-                  <select
+                  <Select
                     value={newStatusValue}
                     onChange={(e) => setNewStatusValue(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
-                  >
-                    <option value="IN RANGE">IN RANGE</option>
-                    <option value="OPTIMAL">OPTIMAL</option>
-                    <option value="CRITICAL">CRITICAL</option>
-                  </select>
+                    options={[{
+                      label: "IN RANGE",
+                      value: "IN RANGE"
+                    }, {
+                      label: "OPTIMAL",
+                      value: "OPTIMAL"
+                    }, {
+                      label: "CRITICAL",
+                      value: "CRITICAL"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
@@ -745,16 +757,23 @@ export default function ConsumptionTracking() {
                   </div>
                   <div>
                     <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Unit</label>
-                    <select
+                    <Select
                       value={newMaterialUnit}
                       onChange={(e) => setNewMaterialUnit(e.target.value)}
                       style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
-                    >
-                      <option value="kg">kg</option>
-                      <option value="units">units</option>
-                      <option value="L">L</option>
-                      <option value="m">m</option>
-                    </select>
+                      options={[{
+                        label: "kg",
+                        value: "kg"
+                      }, {
+                        label: "units",
+                        value: "units"
+                      }, {
+                        label: "L",
+                        value: "L"
+                      }, {
+                        label: "m",
+                        value: "m"
+                      }]} />
                   </div>
                 </div>
 
@@ -790,15 +809,20 @@ export default function ConsumptionTracking() {
 
                 <div>
                   <label style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', color: '#7a7688', display: 'block', marginBottom: '6px' }}>Variance Alert Status</label>
-                  <select
+                  <Select
                     value={newMaterialStatus}
                     onChange={(e) => setNewMaterialStatus(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '13px', outline: 'none', background: '#fff' }}
-                  >
-                    <option value="IN RANGE">IN RANGE</option>
-                    <option value="OPTIMAL">OPTIMAL</option>
-                    <option value="CRITICAL">CRITICAL</option>
-                  </select>
+                    options={[{
+                      label: "IN RANGE",
+                      value: "IN RANGE"
+                    }, {
+                      label: "OPTIMAL",
+                      value: "OPTIMAL"
+                    }, {
+                      label: "CRITICAL",
+                      value: "CRITICAL"
+                    }]} />
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>

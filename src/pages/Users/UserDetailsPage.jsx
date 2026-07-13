@@ -344,7 +344,8 @@ function BookingsTab({ user }) {
         </div>
       </div>
       <div className="table-wrap">
-        <table className="user-management-inner-table user-detail-wide-table">
+        <div className="table-responsive-wrapper">
+<table className="user-management-inner-table user-detail-wide-table">
           <thead>
             <tr>
               <th>BOOKING ID</th>
@@ -383,6 +384,7 @@ function BookingsTab({ user }) {
             )}
           </tbody>
         </table>
+</div>
       </div>
     </div>
   );
@@ -415,7 +417,8 @@ function WalletTab({ user }) {
           <span className="footer-results-text">{user.wallet.transactions.length} transactions</span>
         </div>
         <div className="table-wrap">
-          <table className="user-management-inner-table user-detail-wide-table">
+          <div className="table-responsive-wrapper">
+<table className="user-management-inner-table user-detail-wide-table">
             <thead>
               <tr>
                 <th>TRANSACTION ID</th>
@@ -441,6 +444,7 @@ function WalletTab({ user }) {
               ))}
             </tbody>
           </table>
+</div>
         </div>
       </div>
       {selectedTransaction && (
@@ -574,7 +578,8 @@ function ReferralsTab({ user }) {
           <span className="footer-results-text">Code {user.referrals.referralCode}</span>
         </div>
         <div className="table-wrap">
-          <table className="user-management-inner-table user-detail-wide-table">
+          <div className="table-responsive-wrapper">
+<table className="user-management-inner-table user-detail-wide-table">
             <thead>
               <tr>
                 <th>REFERRAL USER</th>
@@ -600,6 +605,7 @@ function ReferralsTab({ user }) {
               )}
             </tbody>
           </table>
+</div>
         </div>
       </div>
       {selectedReferral && (
@@ -744,7 +750,8 @@ function ReviewsTab({ user }) {
           <span className="footer-results-text">{reviews.length} reviews</span>
         </div>
         <div className="table-wrap">
-          <table className="user-management-inner-table user-detail-wide-table">
+          <div className="table-responsive-wrapper">
+<table className="user-management-inner-table user-detail-wide-table">
             <thead>
               <tr>
                 <th>BOOKING</th>
@@ -766,6 +773,7 @@ function ReviewsTab({ user }) {
               ))}
             </tbody>
           </table>
+</div>
         </div>
       </div>
     </>
@@ -789,7 +797,8 @@ function ComplaintsTab({ user }) {
           <span className="footer-results-text">{complaints.length} tickets</span>
         </div>
         <div className="table-wrap">
-          <table className="user-management-inner-table user-detail-wide-table">
+          <div className="table-responsive-wrapper">
+<table className="user-management-inner-table user-detail-wide-table">
             <thead>
               <tr>
                 <th>TICKET ID</th>
@@ -813,6 +822,7 @@ function ComplaintsTab({ user }) {
               ))}
             </tbody>
           </table>
+</div>
         </div>
       </div>
     </>
@@ -882,7 +892,8 @@ function AuditLogsTab({ user }) {
           <span className="footer-results-text">Showing 1-15 of 244 entries</span>
         </div>
         <div className="table-wrap">
-          <table className="user-management-inner-table user-detail-wide-table user-audit-table">
+          <div className="table-responsive-wrapper">
+<table className="user-management-inner-table user-detail-wide-table user-audit-table">
           <thead>
             <tr>
               <th>ACTION</th>
@@ -916,6 +927,7 @@ function AuditLogsTab({ user }) {
             ))}
           </tbody>
         </table>
+</div>
         </div>
         <div className="user-audit-footer">
           <span>15 rows per page</span>

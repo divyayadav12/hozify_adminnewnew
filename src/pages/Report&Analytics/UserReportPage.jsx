@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AdminShell from "../../components/layouts/AdminShell";
 
+import Select from "../../components/ui/Select";
+
 export default function SettlementReport() {
   const settlementLogs = [
     { id: "STL-01923-X", merchant: "Aura Zero Retail", initials: "AZ", avatarBg: "bg-[#1e1b4b]", date: "Oct 24, 2023 09:12 AM", amount: "$12,450.00", status: "SUCCESS", statusStyle: "bg-emerald-50 text-emerald-600 border border-emerald-100" },
@@ -40,16 +42,23 @@ export default function SettlementReport() {
           <div className="flex items-center gap-2 relative">
             {/* DATE PICKER */}
             <div className="relative group">
-              <select
+              <Select
                 className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold border border-gray-200 bg-white rounded text-slate-600 hover:bg-gray-50 shadow-sm cursor-pointer outline-none appearance-auto"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-              >
-                <option value="Last 30 Days">Last 30 Days</option>
-                <option value="Last 7 Days">Last 7 Days</option>
-                <option value="Today">Today</option>
-                <option value="All Time">All Time</option>
-              </select>
+                options={[{
+                  label: "Last 30 Days",
+                  value: "Last 30 Days"
+                }, {
+                  label: "Last 7 Days",
+                  value: "Last 7 Days"
+                }, {
+                  label: "Today",
+                  value: "Today"
+                }, {
+                  label: "All Time",
+                  value: "All Time"
+                }]} />
             </div>
 
             <div className="relative">
@@ -81,7 +90,8 @@ export default function SettlementReport() {
 
         {/* TABLE */}
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-          <table className="w-full text-left border-collapse text-xs">
+          <div className="table-responsive-wrapper">
+<table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="bg-[#f8fafd] border-b text-[10px] uppercase font-bold text-gray-400">
                 <th className="p-4">Settlement ID</th>
@@ -108,6 +118,7 @@ export default function SettlementReport() {
               ))}
             </tbody>
           </table>
+</div>
         </div>
 
         {/* POPUP MODAL (Fixes: Z-Index 9999) */}

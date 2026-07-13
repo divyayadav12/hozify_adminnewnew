@@ -12,6 +12,8 @@ import {
   Trash2
 } from 'lucide-react';
 
+import Select from "../../components/ui/Select";
+
 const initialServices = [
   { id: 'SVC-ACT-101', name: 'Premium HVAC Maintenance', provider: 'HVAC Pros Ltd', region: 'North America', status: 'PENDING_ACTIVATION', logs: 'System diagnostics initiated. Awaiting gateway response.' },
   { id: 'SVC-ACT-102', name: 'Enterprise IT Support', provider: 'Tech Solutions Inc', region: 'Europe', status: 'ACTIVATED', logs: 'Rollout complete. 24 clusters provisioned successfully.' },
@@ -177,7 +179,8 @@ export default function ServiceActivation() {
         {/* Table Section - Padding aur horizontal spacing standard fix kar di */}
         <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '16px 24px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '2px solid #e2e8f0' }}>
                   <th style={{ padding: '14px 12px', width: '50px', textAlign: 'center' }}>
@@ -256,6 +259,7 @@ export default function ServiceActivation() {
                 ))}
               </tbody>
             </table>
+</div>
           </div>
         </div>
 
@@ -267,15 +271,20 @@ export default function ServiceActivation() {
               <span style={{ fontSize: '13px', fontWeight: '700', letterSpacing: '0.5px' }}>ADMIN SYSTEM SHELL CORE</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <select 
-                value={logFilter} 
+              <Select
+                value={logFilter}
                 onChange={(e) => setLogFilter(e.target.value)}
                 style={{ background: '#1e293b', color: '#f8fafc', border: '1px solid #334155', borderRadius: '4px', padding: '4px 8px', fontSize: '11px', outline: 'none', cursor: 'pointer' }}
-              >
-                <option value="ALL">LOG LEVEL: ALL</option>
-                <option value="SUCCESS">LOG LEVEL: SUCCESS Only</option>
-                <option value="ERROR">LOG LEVEL: ERRORS Only</option>
-              </select>
+                options={[{
+                  label: "LOG LEVEL: ALL",
+                  value: "ALL"
+                }, {
+                  label: "LOG LEVEL: SUCCESS Only",
+                  value: "SUCCESS"
+                }, {
+                  label: "LOG LEVEL: ERRORS Only",
+                  value: "ERROR"
+                }]} />
               <button 
                 onClick={() => setShellLogs([])} 
                 style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '11px', cursor: 'pointer' }}

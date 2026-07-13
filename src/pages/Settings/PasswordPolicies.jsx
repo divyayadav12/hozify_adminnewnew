@@ -6,6 +6,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import toast from 'react-hot-toast';
 import Toggle from '../../components/common/Toggle';
 
+import Select from "../../components/ui/Select";
+
 export default function PasswordPolicies() {
   return (
     <AdminShell
@@ -126,11 +128,18 @@ export default function PasswordPolicies() {
 
               <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>LOCKOUT DURATION</label>
-                <select style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: 'var(--text)', outline: 'none', background: '#fff', cursor: 'pointer' }}>
-                  <option>1 Hour</option>
-                  <option>2 Hours</option>
-                  <option>24 Hours</option>
-                </select>
+                <Select
+                  style={{ width: '100%', height: '40px', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '0 12px', fontSize: '13px', color: 'var(--text)', outline: 'none', background: '#fff', cursor: 'pointer' }}
+                  options={[{
+                    label: "1 Hour",
+                    value: "1 Hour"
+                  }, {
+                    label: "2 Hours",
+                    value: "2 Hours"
+                  }, {
+                    label: "24 Hours",
+                    value: "24 Hours"
+                  }]} />
               </div>
 
               <p style={{ fontSize: '11px', color: 'var(--muted)', margin: 0, lineHeight: '1.5' }}>

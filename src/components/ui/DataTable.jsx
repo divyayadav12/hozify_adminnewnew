@@ -8,7 +8,8 @@ export default function DataTable({ columns, data, className = '', onRowClick, a
       boxShadow: 'var(--shadow-standard)',
       border: '1.5px solid #25108f'
     }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+      <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
         <thead style={{ background: '#f8fafc', borderBottom: '1.5px solid #25108f' }}>
           <tr>
             {columns.map((col, index) => (
@@ -68,6 +69,7 @@ export default function DataTable({ columns, data, className = '', onRowClick, a
           )}
         </tbody>
       </table>
+</div>
     </div>
   );
 }

@@ -5,6 +5,8 @@ import AdminShell from '../../components/layouts/AdminShell';
 import { ArrowLeft, User, MapPin, Calendar, CheckCircle2, ChevronRight, Briefcase } from 'lucide-react';
 import './CreateBooking.css';
 
+import Select from "../../components/ui/Select";
+
 export default function CreateBooking() {
   const { addToast } = useToast();
   const { navigate } = useApp();
@@ -116,34 +118,74 @@ export default function CreateBooking() {
                 <div className="cb-row">
                   <div className="cb-input-group">
                     <label>Service Category</label>
-                    <select name="serviceCategory" value={formData.serviceCategory} onChange={handleChange} required>
-                      <option value="">Select Category</option>
-                      <option value="cleaning">Premium Cleaning</option>
-                      <option value="maintenance">Maintenance & Repair</option>
-                      <option value="security">Security Services</option>
-                      <option value="logistics">Logistics & Delivery</option>
-                    </select>
+                    <Select
+                      name="serviceCategory"
+                      value={formData.serviceCategory}
+                      onChange={handleChange}
+                      required
+                      options={[{
+                        label: "Select Category",
+                        value: ""
+                      }, {
+                        label: "Premium Cleaning",
+                        value: "cleaning"
+                      }, {
+                        label: "Maintenance & Repair",
+                        value: "maintenance"
+                      }, {
+                        label: "Security Services",
+                        value: "security"
+                      }, {
+                        label: "Logistics & Delivery",
+                        value: "logistics"
+                      }]} />
                   </div>
                   <div className="cb-input-group">
                     <label>Specific Service</label>
-                    <select name="serviceType" value={formData.serviceType} onChange={handleChange} required>
-                      <option value="">Select Service</option>
-                      <option value="deep-clean">Deep Residential Clean</option>
-                      <option value="hvac">HVAC Maintenance</option>
-                      <option value="audit">Security Audit</option>
-                      <option value="express">Express Delivery</option>
-                    </select>
+                    <Select
+                      name="serviceType"
+                      value={formData.serviceType}
+                      onChange={handleChange}
+                      required
+                      options={[{
+                        label: "Select Service",
+                        value: ""
+                      }, {
+                        label: "Deep Residential Clean",
+                        value: "deep-clean"
+                      }, {
+                        label: "HVAC Maintenance",
+                        value: "hvac"
+                      }, {
+                        label: "Security Audit",
+                        value: "audit"
+                      }, {
+                        label: "Express Delivery",
+                        value: "express"
+                      }]} />
                   </div>
                 </div>
 
                 <div className="cb-input-group">
                   <label>Assign to Branch</label>
-                  <select name="branch" value={formData.branch} onChange={handleChange} required>
-                    <option value="">Select Branch</option>
-                    <option value="downtown">Downtown Hub (Central)</option>
-                    <option value="north">Riverview North</option>
-                    <option value="west">Liberty Peak</option>
-                  </select>
+                  <Select
+                    name="branch"
+                    value={formData.branch}
+                    onChange={handleChange}
+                    required
+                    options={[{
+                      label: "Select Branch",
+                      value: ""
+                    }, {
+                      label: "Downtown Hub (Central)",
+                      value: "downtown"
+                    }, {
+                      label: "Riverview North",
+                      value: "north"
+                    }, {
+                      label: "Liberty Peak",
+                      value: "west"
+                    }]} />
                 </div>
 
                 <div className="cb-form-actions">
@@ -167,13 +209,27 @@ export default function CreateBooking() {
                   </div>
                   <div className="cb-input-group">
                     <label>Time Slot</label>
-                    <select name="timeSlot" value={formData.timeSlot} onChange={handleChange} required>
-                      <option value="">Select Time</option>
-                      <option value="09:00">09:00 AM - 11:00 AM</option>
-                      <option value="11:00">11:00 AM - 01:00 PM</option>
-                      <option value="14:00">02:00 PM - 04:00 PM</option>
-                      <option value="16:00">04:00 PM - 06:00 PM</option>
-                    </select>
+                    <Select
+                      name="timeSlot"
+                      value={formData.timeSlot}
+                      onChange={handleChange}
+                      required
+                      options={[{
+                        label: "Select Time",
+                        value: ""
+                      }, {
+                        label: "09:00 AM - 11:00 AM",
+                        value: "09:00"
+                      }, {
+                        label: "11:00 AM - 01:00 PM",
+                        value: "11:00"
+                      }, {
+                        label: "02:00 PM - 04:00 PM",
+                        value: "14:00"
+                      }, {
+                        label: "04:00 PM - 06:00 PM",
+                        value: "16:00"
+                      }]} />
                   </div>
                 </div>
 

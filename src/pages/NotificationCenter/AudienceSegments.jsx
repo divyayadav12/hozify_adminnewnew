@@ -21,6 +21,8 @@ import {
   X
 } from "lucide-react";
 
+import Select from "../../components/ui/Select";
+
 // Initial Static Dataset
 const INITIAL_SEGMENTS = [
   { id: 1, name: "Power Users", description: "Spent > $500 total", size: 42805, growth: "▲ +5.2%", growthType: "pos", activity: "2 hours ago", iconType: "star" },
@@ -211,14 +213,17 @@ export default function AudienceSegments() {
             </div>
             
             <div className="relative self-end sm:self-auto">
-              <select 
+              <Select
                 value={filterStatus}
                 onChange={(e) => { setFilterStatus(e.target.value); setCurrentPage(1); }}
                 className="appearance-none pl-8 pr-10 py-1.5 rounded-md border border-slate-300 bg-white text-slate-700 text-xs font-semibold focus:outline-none focus:border-[#251fa3] min-w-[140px] cursor-pointer"
-              >
-                <option value="All">Status: All Rows</option>
-                <option value="Large">Size &gt; 15,000</option>
-              </select>
+                options={[{
+                  label: "Status: All Rows",
+                  value: "All"
+                }, {
+                  label: "Size > 15,000",
+                  value: "Large"
+                }]} />
               <SlidersHorizontal className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" size={12} />
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={12} />
             </div>
@@ -226,8 +231,8 @@ export default function AudienceSegments() {
 
           {/* Hardcore Grid-Border Excel Layout */}
           <div className="overflow-x-auto min-h-[150px]">
-            <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-              <table className="w-full border-collapse text-left text-sm min-w-[800px]">
+            <div className="table-responsive-wrapper">
+<table className="w-full border-collapse text-left text-sm min-w-[800px]">
                 <thead>
                   <tr className="bg-slate-200 text-slate-600 font-bold border-b border-slate-300 text-left select-none text-[10px]">
                     <th className="border border-slate-300 bg-slate-300/70 w-9 text-center text-slate-500 font-extrabold"></th>
@@ -317,7 +322,7 @@ export default function AudienceSegments() {
                   )}
                 </tbody>
               </table>
-            </div>
+</div>
           </div>
 
           {/* Excel Footer Index Status Meta Bar */}
@@ -421,7 +426,6 @@ export default function AudienceSegments() {
         </div>
 
       </div>
-
       {/* CREATE SEGMENT MODAL */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center p-4 z-[9999] backdrop-blur-sm">

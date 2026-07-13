@@ -23,6 +23,8 @@ import { useApp } from '../../hooks/useApp';
 import { ROUTES } from '../../config/routes';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function SupportKbArticle({ activeTab = 'Support Center' }) {
   const { navigate } = useApp();
   const [title, setTitle] = useState('Configuring SLA Escalation Rules');
@@ -206,16 +208,23 @@ Documentation should be precise, clear, and actionable. Use headers to break up 
                 {/* Category Dropdown */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Category</span>
-                  <select
+                  <Select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     style={{ border: '1.5px solid #25108f', padding: '10px 12px', borderRadius: '6px', background: '#fff', outline: 'none', fontSize: '13px', color: 'var(--text)', fontWeight: '600' }}
-                  >
-                    <option value="Product Documentation">Product Documentation</option>
-                    <option value="Troubleshooting Guides">Troubleshooting Guides</option>
-                    <option value="Security & Compliance">Security & Compliance</option>
-                    <option value="API Integration">API Integration</option>
-                  </select>
+                    options={[{
+                      label: "Product Documentation",
+                      value: "Product Documentation"
+                    }, {
+                      label: "Troubleshooting Guides",
+                      value: "Troubleshooting Guides"
+                    }, {
+                      label: "Security & Compliance",
+                      value: "Security & Compliance"
+                    }, {
+                      label: "API Integration",
+                      value: "API Integration"
+                    }]} />
                 </div>
 
                 {/* Visibility scope */}

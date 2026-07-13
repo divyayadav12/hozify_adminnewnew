@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import AdminShell from '../../components/layouts/AdminShell';
 
+import Select from "../../components/ui/Select";
+
 export default function AutomationDashboard({ activeTab = 'Notification Center' }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -232,7 +234,8 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
             </div>
 
             <div className="table-wrap">
-              <div className="table-responsive" style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+              <div className="table-responsive-wrapper">
+<table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ background: 'var(--soft)', borderBottom: '1.5px solid #25108f' }}>
                     <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Rule Name</th>
@@ -289,7 +292,8 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
                     );
                   })}
                 </tbody>
-              </table></div>
+              </table>
+</div>
             </div>
 
           </div>
@@ -467,7 +471,6 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
         </div>
 
       </div>
-
       {/* New Rule Dialog overlay */}
       {showNewRuleModal && (
         <div style={{
@@ -543,7 +546,7 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '750', color: 'var(--text)', marginBottom: '6px' }}>Icon Representation</label>
-                  <select
+                  <Select
                     value={newRule.iconType}
                     onChange={(e) => setNewRule({ ...newRule, iconType: e.target.value })}
                     style={{
@@ -555,17 +558,24 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
                       fontSize: '13px',
                       background: '#fff'
                     }}
-                  >
-                    <option value="Network">Flow (Network)</option>
-                    <option value="Mail">Communication (Mail)</option>
-                    <option value="Database">Data Sync (Database)</option>
-                    <option value="FileText">System Action (FileText)</option>
-                  </select>
+                    options={[{
+                      label: "Flow (Network)",
+                      value: "Network"
+                    }, {
+                      label: "Communication (Mail)",
+                      value: "Mail"
+                    }, {
+                      label: "Data Sync (Database)",
+                      value: "Database"
+                    }, {
+                      label: "System Action (FileText)",
+                      value: "FileText"
+                    }]} />
                 </div>
 
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '750', color: 'var(--text)', marginBottom: '6px' }}>Initial Status</label>
-                  <select
+                  <Select
                     value={newRule.status}
                     onChange={(e) => setNewRule({ ...newRule, status: e.target.value })}
                     style={{
@@ -577,11 +587,16 @@ export default function AutomationDashboard({ activeTab = 'Notification Center' 
                       fontSize: '13px',
                       background: '#fff'
                     }}
-                  >
-                    <option value="Operational">Operational</option>
-                    <option value="Warning">Warning</option>
-                    <option value="Disabled">Disabled</option>
-                  </select>
+                    options={[{
+                      label: "Operational",
+                      value: "Operational"
+                    }, {
+                      label: "Warning",
+                      value: "Warning"
+                    }, {
+                      label: "Disabled",
+                      value: "Disabled"
+                    }]} />
                 </div>
               </div>
 
