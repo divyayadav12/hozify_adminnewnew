@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronDown } from 'lucide-react';
 
 export default function Select({ 
@@ -15,20 +16,46 @@ export default function Select({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue || '');
+  const [coords, setCoords] = useState(null);
   const containerRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
+      if (containerRef.current && !containerRef.current.contains(event.target) && !event.target.closest('.select-portal-dropdown')) {
         setIsOpen(false);
       }
     };
+    
+    // Close on scroll or resize to prevent floating dropdowns
+    const handleScrollOrResize = () => {
+      setIsOpen(false);
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    window.addEventListener('resize', handleScrollOrResize);
+    window.addEventListener('scroll', handleScrollOrResize, true); // Use capture phase for scrolling elements
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('resize', handleScrollOrResize);
+      window.removeEventListener('scroll', handleScrollOrResize, true);
+    };
   }, []);
+
+  useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setCoords({
+        left: rect.left,
+        top: rect.bottom + window.scrollY + 4,
+        width: rect.width
+      });
+    }
+  }, [isOpen]);
 
   const selectedOption = options.find(opt => opt.value === currentValue) || 
                          (options.length > 0 && !placeholder ? options[0] : null);
@@ -46,6 +73,7 @@ export default function Select({
   return (
     <div ref={containerRef} style={{ position: 'relative', minWidth: '140px', opacity: disabled ? 0.6 : 1, ...style }} className={className}>
       <button
+        ref={buttonRef}
         type="button"
         id={id}
         name={name}
@@ -78,13 +106,13 @@ export default function Select({
         <ChevronDown size={14} style={{ color: '#64748b', flexShrink: 0, transition: 'transform 0.2s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
       </button>
 
-      {isOpen && !disabled && (
-        <div style={{
+      {isOpen && !disabled && coords && createPortal(
+        <div className="select-portal-dropdown" style={{
           position: 'absolute',
-          top: 'calc(100% + 4px)',
-          left: 0,
-          right: 0,
-          zIndex: 50,
+          top: `${coords.top}px`,
+          left: `${coords.left}px`,
+          width: `${coords.width}px`,
+          zIndex: 99999,
           backgroundColor: '#fff',
           border: '1px solid #e2e8f0',
           borderRadius: '8px',
@@ -127,7 +155,8 @@ export default function Select({
               {option.label}
             </button>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

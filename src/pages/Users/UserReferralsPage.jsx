@@ -62,7 +62,7 @@ export default function UserReferralsPage() {
       activeTab="User Management"
       searchPlaceholder="Search referrals or users..."
     >
-      <div style={{ paddingBottom: "40px" }} className="space-y-6">
+      <div style={{ paddingBottom: "40px" }} className="space-y-6 px-4 md:px-8 lg:px-10 max-w-7xl mx-auto w-full">
         
         {/* Header & Breadcrumbs */}
         <div style={{ marginBottom: "24px" }}>
@@ -75,30 +75,30 @@ export default function UserReferralsPage() {
         {/* PROFILE SUB-TABS */}
         <UserSubTabs />
 
-        <div className="grid grid-cols-12 gap-8">
+        <div className="flex flex-col md:flex-row gap-8">
           {/* Profile Card */}
-          <div className="col-span-4 bg-white border rounded-xl p-6 hover:shadow-md transition">
-            <div className="flex gap-5">
+          <div className="w-full md:w-[340px] lg:w-[400px] shrink-0 bg-white border rounded-xl p-6 hover:shadow-md transition">
+            <div className="flex gap-4 sm:gap-5">
               <img
                 src={user.avatar}
                 alt={user.name}
-                className="w-24 h-24 rounded-xl object-cover"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0"
               />
-              <div>
-                <h2 className="text-2xl font-bold">{user.name}</h2>
-                <p className="text-slate-500 mt-1" style={{ fontSize: "13px" }}>
+              <div className="min-w-0">
+                <h2 className="text-xl sm:text-2xl font-bold truncate">{user.name}</h2>
+                <p className="text-slate-500 mt-1 truncate" style={{ fontSize: "13px" }}>
                   {user.membershipType} • Joined {user.registrationDate}
                 </p>
-                <div className="flex gap-2 mt-3">
-                  <span className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">
+                <div className="flex flex-wrap gap-2 mt-3">
+                  <span className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold whitespace-nowrap">
                     Referral Hero
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
+                  <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap">
                     Top 1%
                   </span>
                 </div>
                 <div className="mt-3">
-                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 whitespace-nowrap">
                     {user.status}
                   </span>
                 </div>
@@ -107,8 +107,8 @@ export default function UserReferralsPage() {
           </div>
 
           {/* Stats */}
-          <div className="col-span-8 flex items-center">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4" style={{ width: "100%" }}>
+          <div className="w-full flex-1 flex items-center min-w-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" style={{ width: "100%" }}>
               <div className="bg-white border rounded-xl p-4 hover:shadow-md transition cursor-pointer" onClick={() => addToast("Total users referred: 9", "success")}>
                 <Users size={20} className="text-indigo-600 mb-2" />
                 <p className="text-xs text-slate-500">Referrals</p>
@@ -146,7 +146,7 @@ export default function UserReferralsPage() {
               <h3 className="text-lg font-bold">Referral History</h3>
               <p className="text-xs text-slate-500">Showing all users referred by {user.name}</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <Select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
@@ -177,12 +177,12 @@ export default function UserReferralsPage() {
             </div>
           </div>
 
-          <div className="table-responsive-wrapper">
-<table className="w-full" style={{ borderCollapse: 'collapse', textAlign: "left", fontSize: "13px" }}>
+          <div className="table-responsive-wrapper overflow-x-auto w-full">
+<table className="w-full min-w-[600px]" style={{ borderCollapse: 'collapse', textAlign: "left", fontSize: "13px" }}>
             <thead>
               <tr className="custom-table-header">
                 <th className="p-4" style={{ color: "#fff", fontWeight: "700" }}>User</th>
-                <th style={{ color: "#fff", fontWeight: "700" }}>Date Joined</th>
+                <th className="hidden md:table-cell" style={{ color: "#fff", fontWeight: "700" }}>Date Joined</th>
                 <th style={{ color: "#fff", fontWeight: "700" }}>Reward</th>
                 <th style={{ color: "#fff", fontWeight: "700" }}>Status</th>
                 <th style={{ color: "#fff", fontWeight: "700" }}>Action</th>
@@ -197,7 +197,7 @@ export default function UserReferralsPage() {
                       <p className="text-xs text-slate-400">{item.email}</p>
                     </div>
                   </td>
-                  <td>{item.joined}</td>
+                  <td className="hidden md:table-cell">{item.joined}</td>
                   <td style={{ fontWeight: "700", color: "#2A2454" }}>{item.reward}</td>
                   <td>
                     <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${
@@ -221,12 +221,12 @@ export default function UserReferralsPage() {
         </div>
 
         {/* Boost Banner */}
-        <div className="bg-gradient-to-r from-orange-50 to-amber-50 border rounded-xl p-6 flex justify-between items-center mt-6">
-          <div>
+        <div className="bg-gradient-to-r from-orange-50 to-amber-50 border rounded-xl p-6 flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
+          <div className="text-center md:text-left">
             <h3 className="text-lg font-bold text-amber-950">Boost {user.name}'s Referrals 🚀</h3>
             <p className="text-slate-600 text-sm mt-1">Enable a limited-time bonus campaign for this user's profile.</p>
           </div>
-          <button onClick={handleActivateBonus} className="primary-action-btn" style={{ background: "#d97706", boxShadow: "none" }}>
+          <button onClick={handleActivateBonus} className="primary-action-btn w-full md:w-auto mt-2 md:mt-0" style={{ background: "#d97706", boxShadow: "none" }}>
             Activate Bonus
           </button>
         </div>

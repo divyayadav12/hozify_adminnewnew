@@ -249,10 +249,10 @@ export default function BusinessRevenue() {
         </div>
 
         {/* TOP SECTION */}
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           {/* BAR CHART */}
-          <div className="col-span-8 bg-white border rounded-xl p-6">
+          <div className="col-span-1 lg:col-span-8 bg-white border rounded-xl p-6">
             <div className="flex justify-between items-start mb-8">
               <div>
                 <h2 className="text-3xl font-semibold">Earnings Overview</h2>
@@ -305,7 +305,7 @@ export default function BusinessRevenue() {
           </div>
 
           {/* RIGHT CARDS */}
-          <div className="col-span-4 space-y-4">
+          <div className="col-span-1 lg:col-span-4 space-y-4">
 
             {/* Total Earnings */}
             <div className="bg-white border rounded-xl p-6">
@@ -344,10 +344,10 @@ export default function BusinessRevenue() {
         </div>
 
         {/* MIDDLE SECTION */}
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           {/* RECENT PAYOUTS */}
-          <div className="col-span-8 bg-white border rounded-xl overflow-hidden">
+          <div className="col-span-1 lg:col-span-8 bg-white border rounded-xl overflow-hidden">
 
             <div className="flex items-center justify-between px-6 py-4 border-b">
               <h2 className="text-3xl font-semibold">Recent Payouts</h2>
@@ -360,9 +360,11 @@ export default function BusinessRevenue() {
               </button>
             </div>
 
-            {/* TABLE HEAD */}
-            <div className="grid grid-cols-5 px-6 py-4 bg-gray-50 border-b text-gray-500 text-sm font-semibold uppercase">
-              <div>Transaction ID</div>
+            <div className="overflow-x-auto">
+              <div className="min-w-[700px]">
+                {/* TABLE HEAD */}
+                <div className="grid grid-cols-5 px-6 py-4 bg-gray-50 border-b text-gray-500 text-sm font-semibold uppercase">
+                  <div>Transaction ID</div>
               <div>Recipient</div>
               <div>Date</div>
               <div>Amount</div>
@@ -396,10 +398,12 @@ export default function BusinessRevenue() {
                 </div>
               );
             })}
+              </div>
+            </div>
           </div>
 
           {/* REVENUE BY SERVICE */}
-          <div className="col-span-4 bg-white border rounded-xl p-6">
+          <div className="col-span-1 lg:col-span-4 bg-white border rounded-xl p-6">
             <h2 className="text-3xl font-semibold mb-8">Revenue by Service</h2>
 
             {d.services.map((svc, i) => {
@@ -439,10 +443,10 @@ export default function BusinessRevenue() {
 
         {/* GLOBAL REVENUE SECTION */}
         <div className="bg-white border rounded-xl overflow-hidden">
-          <div className="grid grid-cols-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
 
             {/* LEFT INFO */}
-            <div className="col-span-4 p-8 border-r">
+            <div className="col-span-1 lg:col-span-4 p-8 border-b lg:border-b-0 lg:border-r">
               <h2 className="text-2xl font-semibold mb-4">Global Revenue</h2>
               <p className="text-gray-500 text-lg leading-relaxed mb-8">
                 Regional distribution of earnings and contract density across primary hubs.
@@ -473,7 +477,7 @@ export default function BusinessRevenue() {
             </div>
 
             {/* MAP AREA */}
-            <div className="col-span-8 relative bg-gray-200 min-h-[380px] flex items-center justify-center">
+            <div className="col-span-1 lg:col-span-8 relative bg-gray-200 min-h-[380px] flex items-center justify-center">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
                 alt="World Map"
@@ -492,10 +496,10 @@ export default function BusinessRevenue() {
         </div>
 
         {/* FOOTER */}
-        <div className="border-t pt-6 mt-10">
-          <div className="flex items-center justify-between text-gray-500 text-sm">
-            <p>© 2023 Hozify Enterprise. Financial data is updated every 15 minutes.</p>
-            <div className="flex gap-8">
+        <div className="border-t pt-6 mt-10 pb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-sm">
+            <p className="text-center md:text-left">© 2023 Hozify Enterprise. Financial data is updated every 15 minutes.</p>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-8">
               <span>System Status: Operational</span>
               <span className="cursor-pointer hover:text-indigo-700 transition-colors active:scale-95">Privacy Policy</span>
               <span className="cursor-pointer hover:text-indigo-700 transition-colors active:scale-95">Support</span>

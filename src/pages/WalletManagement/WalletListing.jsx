@@ -68,7 +68,7 @@ export default function WalletListing({ defaultType = 'All' }) {
         </div>
 
         {/* Filter bar */}
-        <div className="panel" style={{ padding: '16px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div className="panel" style={{ padding: '16px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap', position: 'relative', zIndex: 10, overflow: 'visible' }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px', flex: 1, minWidth: '200px' }}>
             <Search size={14} style={{ color: 'var(--muted)' }} />
@@ -80,12 +80,12 @@ export default function WalletListing({ defaultType = 'All' }) {
             />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Type</span>
             <Select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+              style={{ minWidth: '160px' }}
               aria-label="Filter by wallet type"
               options={[{
                 label: "All Roles",
@@ -105,12 +105,12 @@ export default function WalletListing({ defaultType = 'All' }) {
               }]} />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1.5px solid #25108f', background: '#fff', height: '36px', padding: '0 12px', borderRadius: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase' }}>Status</span>
             <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+              style={{ minWidth: '160px' }}
               aria-label="Filter by wallet status"
               options={[{
                 label: "All Statuses",
@@ -132,16 +132,16 @@ export default function WalletListing({ defaultType = 'All' }) {
             <div className="table-responsive-wrapper">
 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
               <thead>
-                <tr style={{ background: '#f4eff8', borderBottom: '1.5px solid #25108f' }}>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Wallet ID</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Owner</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Entity Type</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Available Balance</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Frozen Balance</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Lifetime Earnings</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>KYC Status</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Status</th>
-                  <th style={{ padding: '12px 16px', color: 'var(--muted)', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', textAlign: 'right' }}>Actions</th>
+                <tr style={{ background: '#25108f', borderBottom: '1.5px solid #25108f' }}>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Wallet ID</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Owner</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Entity Type</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Available Balance</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Frozen Balance</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Lifetime Earnings</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>KYC Status</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px' }}>Status</th>
+                  <th style={{ padding: '12px 16px', color: '#fff', fontWeight: '800', textTransform: 'uppercase', fontSize: '10px', textAlign: 'right' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>

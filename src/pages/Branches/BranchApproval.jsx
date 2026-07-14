@@ -63,9 +63,9 @@ export default function BranchApproval() {
       </div>
 
       {/* KPI Summary Cards */}
-      <section className="kpi-grid" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginBottom: '24px', gap: '20px' }}>
+      <section className="kpi-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
         {/* Pending Branches */}
-        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
+        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
           <div>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Branches</span>
             <strong style={{ display: 'block', fontSize: '26px', margin: '4px 0 2px', color: 'var(--text)' }}>24</strong>
@@ -77,7 +77,7 @@ export default function BranchApproval() {
         </div>
 
         {/* Pending Documents */}
-        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
+        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
           <div>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Documents</span>
             <strong style={{ display: 'block', fontSize: '26px', margin: '4px 0 2px', color: 'var(--text)' }}>142</strong>
@@ -89,7 +89,7 @@ export default function BranchApproval() {
         </div>
 
         {/* Pending Services */}
-        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f' }}>
+        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
           <div>
             <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending Services</span>
             <strong style={{ display: 'block', fontSize: '26px', margin: '4px 0 2px', color: 'var(--text)' }}>18</strong>
@@ -100,15 +100,18 @@ export default function BranchApproval() {
           </span>
         </div>
 
-        {/* High Risk Cases (Dark Card) */}
-        <div className="kpi-card" style={{ backgroundColor: '#0f172a', color: '#fff', border: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px', minHeight: '110px' }}>
+        {/* High Risk Cases */}
+        <div className="kpi-card" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', minHeight: '110px', background: '#fff', border: '1.5px solid #25108f', borderRadius: '12px' }}>
           <div>
-            <span style={{ fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>High Risk Cases</span>
-            <strong style={{ display: 'block', fontSize: '28px', margin: '4px 0 2px' }}>05</strong>
+            <span style={{ fontSize: '10px', fontWeight: '800', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>High Risk Cases</span>
+            <strong style={{ display: 'block', fontSize: '26px', margin: '4px 0 2px', color: 'var(--text)' }}>05</strong>
+            <a href="#risk-cases" onClick={(e) => e.preventDefault()} style={{ fontSize: '11px', color: '#4f46e5', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              Review Flags →
+            </a>
           </div>
-          <a href="#risk-cases" onClick={(e) => e.preventDefault()} style={{ fontSize: '11px', color: '#38bdf8', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
-            Review Flags →
-          </a>
+          <span style={{ color: '#ef4444', width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <AlertCircle size={18} />
+          </span>
         </div>
       </section>
 
@@ -251,5 +254,3 @@ export default function BranchApproval() {
     </div>
   );
 }
-
-

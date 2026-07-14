@@ -1247,13 +1247,6 @@ export default function BookingManagement() {
       activeTab="Booking Management"
       headerTitle="Booking Management"
       searchPlaceholder="Search bookings, clients, or IDs..."
-      headerTabs={(
-        <>
-          <button className="booking-header-tab" type="button" onClick={() => navigate(ROUTES.bookingMap)}>Live Tracking</button>
-          <button className="booking-header-tab" type="button" onClick={() => toast('Communication center opened locally.')}>Communications</button>
-          <button className="booking-header-tab" type="button" onClick={() => navigate(ROUTES.bookingDisputed)}>Dispute Center</button>
-        </>
-      )}
     >
       {feedback && <div className="booking-feedback"><CheckCircle2 size={16} /> {feedback}</div>}
       <section className="booking-module">

@@ -924,7 +924,7 @@ button {
 .dashboard {
   background: var(--bg);
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 260px minmax(0, 1fr);
   min-height: 100vh;
 }
 
@@ -1153,6 +1153,7 @@ button {
 }
 
 .dash-content {
+  min-width: 0;
   padding: 24px;
 }
 
@@ -8425,7 +8426,7 @@ td:first-child strong {
 .booking-action.primary, .booking-price-card button { background: var(--primary); border-color: var(--primary); color: #fff; }
 .booking-action:hover { border-color: var(--primary); color: var(--primary); }
 .booking-action.primary:hover, .booking-price-card button:hover { background: var(--primary-2); color: #fff; }
-.booking-filter-panel { background: #fff; border: 1px solid #d9d4e4; border-radius: 7px; padding: 14px; }
+.booking-filter-panel { background: #fff; border: 1px solid #d9d4e4; border-radius: 7px; padding: 14px; position: relative; z-index: 90; }
 .booking-filter-title { align-items: center; color: #302b42; display: flex; font-size: 13px; font-weight: 900; gap: 8px; margin-bottom: 12px; }
 .booking-filter-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .booking-filter-grid input, .booking-filter-grid select, .booking-panel input { background: #fff; border: 1px solid #cfc8dc; border-radius: 4px; color: #201d2c; min-height: 38px; padding: 0 11px; width: 100%; }
@@ -8864,6 +8865,7 @@ td:first-child strong {
 .sos-action-split {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   justify-content: space-between;
 }
@@ -8933,8 +8935,14 @@ td:first-child strong {
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
   min-width: 0;
-  overflow: hidden;
+  overflow: clip;
   padding: 24px;
+}
+
+/* Card that contains a table - no padding so table fills edge-to-edge */
+.sos-card.has-table {
+  padding: 0;
+  overflow: hidden;
 }
 
 .sos-card h2,
@@ -9017,7 +9025,7 @@ td:first-child strong {
   align-items: start;
   display: grid;
   gap: 20px;
-  grid-template-columns: minmax(0, 2fr) minmax(280px, 0.95fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 0.95fr);
 }
 
 .sos-three,
@@ -9121,6 +9129,12 @@ td:first-child strong {
   padding: 18px;
 }
 
+.sos-filters label, 
+.sos-filters > button, 
+.sos-filters > div {
+  flex: 1 1 160px;
+}
+
 .sos-filters label,
 .sos-card label,
 .sos-modal label {
@@ -9156,15 +9170,25 @@ td:first-child strong {
 }
 
 .sos-table-wrap {
-  border: 1px solid #cbc9da;
-  border-radius: 8px;
   max-width: 100%;
+  width: 100%;
   overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd0d9 #f4f5f7;
+}
+
+/* Make table-wrap bleed edge-to-edge inside padded cards */
+.sos-card > .sos-table-wrap {
+  margin: 0 -24px;
+  width: calc(100% + 48px);
+  max-width: calc(100% + 48px);
 }
 
 .sos-table {
   border-collapse: collapse;
-  min-width: 860px;
+  min-width: max-content;
   width: 100%;
 }
 
@@ -9177,6 +9201,10 @@ td:first-child strong {
   padding: 16px;
   text-align: left;
   text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
 }
 
 .sos-table td {
@@ -9185,6 +9213,27 @@ td:first-child strong {
   font-size: 16px;
   padding: 18px 16px;
   vertical-align: middle;
+  white-space: nowrap;
+}
+
+.sos-table-wrap::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.sos-table-wrap::-webkit-scrollbar-track,
+.table-responsive::-webkit-scrollbar-track {
+  background: #f4f5f7; 
+  border-radius: 4px;
+}
+.sos-table-wrap::-webkit-scrollbar-thumb,
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #cbd0d9; 
+  border-radius: 4px;
+}
+.sos-table-wrap::-webkit-scrollbar-thumb:hover,
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #a9b0bc; 
 }
 
 .sos-row-actions {
@@ -9229,22 +9278,41 @@ td:first-child strong {
 
 .sos-pagination {
   align-items: center;
-  background: #eaf0fb;
+  background: #f7f9ff;
+  border-top: 1px solid #e5e7eb;
   display: flex;
-  gap: 18px;
-  justify-content: flex-end;
-  padding: 14px 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 14px 20px;
 }
 
 .sos-pagination span:first-child {
-  margin-right: auto;
+  color: #5b5b68;
+  font-size: 14px;
 }
 
 .sos-pagination b {
   background: #28118c;
   border-radius: 5px;
   color: #fff;
-  padding: 8px 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+}
+
+.sos-pagination span:not(:first-child) {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 12px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.sos-pagination span:not(:first-child):hover {
+  background: #eef2ff;
+  border-color: #28118c;
+  color: #28118c;
 }
 
 .sos-line-chart {
@@ -11038,3 +11106,8 @@ table thead th {
 }
 
 .table-responsive-wrapper { overflow-x: auto; width: 100%; }
+. p a n e l ,   . b a n k i n g - f i l t e r - p a n e l ,   [ c l a s s * = \ 
+ 
+ - p a n e l \ ] ,   . b o o k i n g s - p a n e l   {   o v e r f l o w :   v i s i b l e   ! i m p o r t a n t ;   z - i n d e x :   5 0   ! i m p o r t a n t ;   } 
+ 
+ 

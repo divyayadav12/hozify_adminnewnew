@@ -153,7 +153,7 @@ export default function UserAuditLog() {
             <p className="page-subtitle">Audit Logs</p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             <Select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}

@@ -209,7 +209,7 @@ export default function OwnershipVerification() {
       headerTabs={<BusinessHeaderTabs activeTab="Compliance" />}
       searchPlaceholder="Search registry..."
     >
-      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)', paddingBottom: '90px' }}>
+      <div className="business-doc-review-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-section)' }}>
         
         {/* Selection pills row */}
         <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
@@ -491,18 +491,17 @@ export default function OwnershipVerification() {
         {/* Bottom Verification Actions bar */}
         {overallStatus === 'approved' ? (
           <div style={{ 
-            position: 'fixed',
-            bottom: 0,
-            left: '260px',
-            right: 0,
+            marginTop: '20px',
             background: '#ecfdf5',
-            borderTop: '1px solid #a7f3d0',
-            padding: '16px 32px',
+            border: '1px solid #a7f3d0',
+            borderRadius: '12px',
+            padding: '16px 24px',
             display: 'flex',
+            flexWrap: 'wrap',
+            gap: '16px',
             justifyContent: 'space-between',
             alignItems: 'center',
-            zIndex: 900,
-            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#065f46' }}>
               <CheckCircle2 size={16} />
@@ -518,18 +517,17 @@ export default function OwnershipVerification() {
           </div>
         ) : overallStatus === 'rejected' ? (
           <div style={{ 
-            position: 'fixed',
-            bottom: 0,
-            left: '260px',
-            right: 0,
+            marginTop: '20px',
             background: '#fff5f5',
-            borderTop: '1px solid #fecaca',
-            padding: '16px 32px',
+            border: '1px solid #fecaca',
+            borderRadius: '12px',
+            padding: '16px 24px',
             display: 'flex',
+            flexWrap: 'wrap',
+            gap: '16px',
             justifyContent: 'space-between',
             alignItems: 'center',
-            zIndex: 900,
-            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#991b1b' }}>
               <AlertTriangle size={16} />
@@ -545,18 +543,17 @@ export default function OwnershipVerification() {
           </div>
         ) : overallStatus === 'flagged' ? (
           <div style={{ 
-            position: 'fixed',
-            bottom: 0,
-            left: '260px',
-            right: 0,
+            marginTop: '20px',
             background: '#eff6ff',
-            borderTop: '1px solid #bfdbfe',
-            padding: '16px 32px',
+            border: '1px solid #bfdbfe',
+            borderRadius: '12px',
+            padding: '16px 24px',
             display: 'flex',
+            flexWrap: 'wrap',
+            gap: '16px',
             justifyContent: 'space-between',
             alignItems: 'center',
-            zIndex: 900,
-            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '700', color: '#1e40af' }}>
               <AlertTriangle size={16} />
@@ -572,26 +569,24 @@ export default function OwnershipVerification() {
           </div>
         ) : (
           <div style={{ 
-            position: 'fixed',
-            bottom: 0,
-            left: '260px', // Matches sidebar width
-            right: 0,
-            background: 'rgba(255, 255, 255, 0.9)',
-            backdropFilter: 'blur(8px)',
-            borderTop: '1px solid #e2e8f0',
-            padding: '16px 32px',
+            marginTop: '20px',
+            background: '#fff',
+            border: '1px solid #e2e8f0',
+            borderRadius: '12px',
+            padding: '16px 24px',
             display: 'flex',
+            flexWrap: 'wrap',
+            gap: '16px',
             justifyContent: 'space-between',
             alignItems: 'center',
-            zIndex: 900,
-            boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)'
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: '#64748b' }}>
-              <AlertTriangle size={15} className="text-amber-500" />
+              <AlertTriangle size={15} className="text-amber-500 shrink-0" />
               <span>Awaiting final decision check. Click verify to register changes.</span>
             </div>
 
-            <div style={{ display: 'flex', gap: '12px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
               <button
                 style={{ border: '1px solid #cbd5e1', background: '#fff', color: '#475569', fontSize: '13px', fontWeight: '800', height: '40px', padding: '0 20px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
                 onClick={() => setFlagModalOpen(true)}

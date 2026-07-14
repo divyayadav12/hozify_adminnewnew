@@ -295,54 +295,51 @@ function MapPanel({ full }) {
   );
 }
 
-function Table({ columns, rows, actions, selectable }) {
+function Table({ columns, rows, actions, selectable, disableWrapper }) {
+  const content = (
+    <table className="sos-table">
+      <thead>
+        <tr>
+          {selectable && (
+            <th>
+              <input type="checkbox" />
+            </th>
+          )}
+          {columns.map((col) => (
+            <th key={col.key}>{col.label}</th>
+          ))}
+          {actions && <th>Actions</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr key={row.id}>
+            {selectable && (
+              <td>
+                <input type="checkbox" />
+              </td>
+            )}
+            {columns.map((col) => (
+              <td key={col.key}>
+                {col.render ? col.render(row) : row[col.key]}
+              </td>
+            ))}
+            {actions && (
+              <td>
+                <div className="sos-row-actions">{actions(row)}</div>
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+
+  if (disableWrapper) return content;
+
   return (
     <div className="sos-table-wrap">
-      <div
-        className="table-responsive"
-        style={{
-          overflowX: "auto",
-          width: "100%",
-          WebkitOverflowScrolling: "touch",
-        }}
-      >
-        <table className="sos-table">
-          <thead>
-            <tr>
-              {selectable && (
-                <th>
-                  <input type="checkbox" />
-                </th>
-              )}
-              {columns.map((col) => (
-                <th key={col.key}>{col.label}</th>
-              ))}
-              {actions && <th>Actions</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.id}>
-                {selectable && (
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                )}
-                {columns.map((col) => (
-                  <td key={col.key}>
-                    {col.render ? col.render(row) : row[col.key]}
-                  </td>
-                ))}
-                {actions && (
-                  <td>
-                    <div className="sos-row-actions">{actions(row)}</div>
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {content}
     </div>
   );
 }
@@ -400,7 +397,7 @@ function CaseIdentity({ item }) {
   );
 }
 
-function SosCaseTable({ nav, setDrawer, setModal }) {
+function SosCaseTable({ nav, setDrawer, setModal, rows }) {
   return (
     <Table
       columns={[
@@ -428,7 +425,7 @@ function SosCaseTable({ nav, setDrawer, setModal }) {
         },
         { key: "created", label: "Created" },
       ]}
-      rows={sosCases.slice(0, 3)}
+      rows={rows || sosCases}
       actions={(row) => (
         <>
           <button onClick={() => nav(ROUTES.sosDetails)}>
@@ -600,14 +597,26 @@ function Dashboard({ nav, setModal }) {
 function ActiveQueue({ nav, setModal, setDrawer }) {
   const { addToast } = useToast();
   const [currentPage, setCurrentPage] = useState(1);
+  
+  const allCases = useMemo(() => {
+    let arr = [];
+    for (let i = 0; i < 11; i++) {
+      arr = arr.concat(
+        sosCases.map((c) => ({ ...c, id: `${c.id}-${i}` }))
+      );
+    }
+    return arr.slice(0, 42);
+  }, []);
+
+  const paginatedCases = allCases.slice(
+    (currentPage - 1) * 10,
+    currentPage * 10
+  );
+
   return (
     <>
-      <div className="sos-page-toolbar">
-        <div>
-          <b>Dashboard › Active SOS Queue</b>
-          <p>Tactical Triage Console</p>
-        </div>
-        <div>
+      <div className="sos-page-toolbar" style={{ justifyContent: "flex-end" }}>
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
           <Button
             icon={Download}
             onClick={() =>
@@ -631,28 +640,47 @@ function ActiveQueue({ nav, setModal, setDrawer }) {
         onRefresh={() => addToast("Queue Refreshed", "success")}
         onApply={() => addToast("Filters Applied", "success")}
       />
-      <Card>
-        <SosCaseTable nav={nav} setModal={setModal} setDrawer={setDrawer} />
-        <div className="sos-pagination">
-          <span>
-            Showing {(currentPage - 1) * 10 + 1}-
-            {Math.min(currentPage * 10, 42)} of 42 active incidents
-          </span>
-          {[1, 2, 3, 4, 5].map((page) =>
-            page === currentPage ? (
-              <b key={page}>{page}</b>
-            ) : (
-              <span
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                style={{ cursor: "pointer" }}
-              >
-                {page}
-              </span>
-            ),
-          )}
+      <div style={{
+        background: "#fff",
+        border: "1px solid #cbc9da",
+        borderRadius: "8px",
+        boxShadow: "0 1px 2px rgba(15,23,42,0.08)",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}>
+        <div className="sos-table-wrap" style={{ maxHeight: "450px" }}>
+          <SosCaseTable nav={nav} setModal={setModal} setDrawer={setDrawer} rows={paginatedCases} disableWrapper />
         </div>
-      </Card>
+        <div className="sos-pagination" style={{ borderTop: "1px solid #e5e7eb", padding: "14px 20px" }}>
+          <span>
+            Showing {(currentPage - 1) * 10 + 1}–{Math.min(currentPage * 10, 42)} of 42 active incidents
+          </span>
+          <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+            {[1, 2, 3, 4, 5].map((page) =>
+              page === currentPage ? (
+                <b key={page} style={{
+                  background: "#28118c", color: "#fff",
+                  borderRadius: "5px", padding: "4px 10px",
+                  fontSize: "14px"
+                }}>{page}</b>
+              ) : (
+                <span
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  style={{
+                    cursor: "pointer", borderRadius: "5px",
+                    padding: "4px 10px", fontSize: "14px",
+                    border: "1px solid #e5e7eb", color: "#374151"
+                  }}
+                >
+                  {page}
+                </span>
+              ),
+            )}
+          </div>
+        </div>
+      </div>
       <section className="sos-layout">
         <Card>
           <div className="sos-card-head">
@@ -1562,35 +1590,46 @@ function ReportsListing({ nav, setModal }) {
             }]} />
         </label>
       </Filters>
-      <Card>
-        <Table
-          columns={[
-            { key: "id", label: "Incident ID" },
-            { key: "sos", label: "SOS ID" },
-            { key: "category", label: "Category" },
-            {
-              key: "status",
-              label: "Status",
-              render: (r) => <Badge tone={r.status}>{r.status}</Badge>,
-            },
-            { key: "date", label: "Created Date" },
-          ]}
-          rows={incidentReports}
-          actions={() => (
-            <>
-              <button onClick={() => nav(ROUTES.sosIncidentReportDetails)}>
-                View
-              </button>
-              <button
-                onClick={() =>
-                  setModal({ type: "export", title: "Export Incident Report" })
-                }
-              >
-                Export
-              </button>
-            </>
-          )}
-        />
+      <Card className="has-table">
+        <div
+          style={{
+            overflowX: "auto",
+            width: "100%",
+            WebkitOverflowScrolling: "touch",
+            scrollbarWidth: "thin",
+            scrollbarColor: "#cbd0d9 #f4f5f7",
+          }}
+        >
+          <Table
+            columns={[
+              { key: "id", label: "Incident ID" },
+              { key: "sos", label: "SOS ID" },
+              { key: "category", label: "Category" },
+              {
+                key: "status",
+                label: "Status",
+                render: (r) => <Badge tone={r.status}>{r.status}</Badge>,
+              },
+              { key: "date", label: "Created Date" },
+            ]}
+            rows={incidentReports}
+            disableWrapper
+            actions={() => (
+              <>
+                <button onClick={() => nav(ROUTES.sosIncidentReportDetails)}>
+                  View
+                </button>
+                <button
+                  onClick={() =>
+                    setModal({ type: "export", title: "Export Incident Report" })
+                  }
+                >
+                  Export
+                </button>
+              </>
+            )}
+          />
+        </div>
       </Card>
     </>
   );
@@ -2042,19 +2081,29 @@ function EmergencyReports({ setModal }) {
         </Filters>
         <Card>
           <h3>Recent Exports</h3>
-          <Table
-            columns={[
-              { key: "id", label: "Report" },
-              { key: "category", label: "Type" },
-              { key: "date", label: "Date" },
-              {
-                key: "status",
-                label: "Status",
-                render: (r) => <Badge tone={r.status}>{r.status}</Badge>,
-              },
-            ]}
-            rows={incidentReports}
-          />
+          <div style={{
+            overflowX: "auto",
+            overflowY: "auto",
+            margin: "12px -24px 0",
+            WebkitOverflowScrolling: "touch",
+            scrollbarWidth: "thin",
+          }}>
+            <Table
+              columns={[
+                { key: "id", label: "Report ID" },
+                { key: "sos", label: "SOS ID" },
+                { key: "category", label: "Category" },
+                { key: "date", label: "Date" },
+                {
+                  key: "status",
+                  label: "Status",
+                  render: (r) => <Badge tone={r.status}>{r.status}</Badge>,
+                },
+              ]}
+              rows={incidentReports}
+              disableWrapper
+            />
+          </div>
         </Card>
       </div>
       <Card>

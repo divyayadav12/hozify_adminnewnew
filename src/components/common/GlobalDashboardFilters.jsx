@@ -72,7 +72,9 @@ export default function GlobalDashboardFilters({ onFilterChange }) {
       borderRadius: '8px',
       border: '1px solid #e2e8f0',
       marginBottom: '20px',
-      alignItems: 'center'
+      alignItems: 'center',
+      position: 'relative',
+      zIndex: 100
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '8px' }}>
         <strong style={{ fontSize: '13px', color: '#1e293b' }}>Filters:</strong>
@@ -170,7 +172,12 @@ export default function GlobalDashboardFilters({ onFilterChange }) {
           style={getSelectStyleWithIcon()}
           value={filters.timeframe}
           onChange={(e) => updateFilter('timeframe', e.target.value)}
-          options={[]} />
+          options={[
+            { label: "Daily", value: "Daily" },
+            { label: "Weekly", value: "Weekly" },
+            { label: "Monthly", value: "Monthly" },
+            { label: "Yearly", value: "Yearly" }
+          ]} />
         <ChevronDown size={14} style={iconStyle} />
       </div>
     </div>

@@ -186,7 +186,7 @@ export default function UserComplaintsPage() {
             <h3 className="font-semibold text-lg">
               Complaint Tickets
             </h3>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <Select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
