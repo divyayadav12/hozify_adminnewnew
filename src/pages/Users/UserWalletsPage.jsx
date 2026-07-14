@@ -151,7 +151,7 @@ export default function UserWalletPage() {
               <h3 className="text-lg font-bold">Ledger Transactions</h3>
               <p className="text-xs text-slate-500">Real-time ledger list for all users</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <Select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}

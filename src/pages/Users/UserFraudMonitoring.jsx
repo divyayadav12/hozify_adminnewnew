@@ -108,73 +108,77 @@ export default function UserFraudMonitoring() {
 
         {/* TABLE */}
         <div className="bg-white border rounded-xl overflow-hidden shadow-sm">
-          {/* HEADER ROW */}
-          <div className="grid grid-cols-6 bg-red-50 p-3 text-xs font-semibold text-red-700">
-            <div>USER</div>
-            <div>RISK</div>
-            <div>IP ADDRESS</div>
-            <div>COUNTRY</div>
-            <div>STATUS</div>
-            <div>ACTION</div>
-          </div>
+          <div className="overflow-x-auto">
+            <div className="min-w-[800px]">
+              {/* HEADER ROW */}
+              <div className="grid grid-cols-6 bg-red-50 p-3 text-xs font-semibold text-red-700">
+                <div>USER</div>
+                <div>RISK</div>
+                <div>IP ADDRESS</div>
+                <div>COUNTRY</div>
+                <div>STATUS</div>
+                <div>ACTION</div>
+              </div>
 
-          {/* ROWS */}
-          {filteredUsers.map((user) => (
-            <div
-              key={user.id}
-              className="grid grid-cols-6 p-4 border-t hover:bg-red-50 items-center"
-            >
-              <div className="font-semibold text-slate-800">User #{user.id}</div>
-              <div>
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                    user.risk === "High"
-                      ? "bg-red-100 text-red-600"
-                      : user.risk === "Medium"
-                      ? "bg-yellow-100 text-yellow-600"
-                      : "bg-green-100 text-green-600"
-                  }`}
+              {/* ROWS */}
+              {filteredUsers.map((user) => (
+                <div
+                  key={user.id}
+                  className="grid grid-cols-6 p-4 border-t hover:bg-red-50 items-center"
                 >
-                  {user.risk}
-                </span>
-              </div>
-              <div className="text-sm text-slate-500 font-medium">{user.ip}</div>
-              <div className="text-sm text-slate-500 font-medium">{user.country}</div>
-              <div>
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                    user.status === "Blocked"
-                      ? "bg-red-200 text-red-700"
-                      : user.status === "Reviewing"
-                      ? "bg-yellow-200 text-yellow-700"
-                      : "bg-green-200 text-green-700"
-                  }`}
-                >
-                  {user.status}
-                </span>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleBlockUser(user.id)}
-                  disabled={user.status === "Blocked"}
-                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-xs rounded-md font-bold cursor-pointer disabled:opacity-50"
-                >
-                  Block
-                </button>
-                <button
-                  onClick={() => handleInspectUser(user)}
-                  className="bg-slate-800 hover:bg-black text-white px-3 py-1 text-xs rounded-md font-bold cursor-pointer"
-                >
-                  Inspect
-                </button>
-              </div>
+                  <div className="font-semibold text-slate-800">User #{user.id}</div>
+                  <div>
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                        user.risk === "High"
+                          ? "bg-red-100 text-red-600"
+                          : user.risk === "Medium"
+                          ? "bg-yellow-100 text-yellow-600"
+                          : "bg-green-100 text-green-600"
+                      }`}
+                    >
+                      {user.risk}
+                    </span>
+                  </div>
+                  <div className="text-sm text-slate-500 font-medium">{user.ip}</div>
+                  <div className="text-sm text-slate-500 font-medium">{user.country}</div>
+                  <div>
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                        user.status === "Blocked"
+                          ? "bg-red-200 text-red-700"
+                          : user.status === "Reviewing"
+                          ? "bg-yellow-200 text-yellow-700"
+                          : "bg-green-200 text-green-700"
+                      }`}
+                    >
+                      {user.status}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleBlockUser(user.id)}
+                      disabled={user.status === "Blocked"}
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-xs rounded-md font-bold cursor-pointer disabled:opacity-50"
+                    >
+                      Block
+                    </button>
+                    <button
+                      onClick={() => handleInspectUser(user)}
+                      className="bg-slate-800 hover:bg-black text-white px-3 py-1 text-xs rounded-md font-bold cursor-pointer"
+                    >
+                      Inspect
+                    </button>
+                  </div>
+                </div>
+              ))}
+              {filteredUsers.length === 0 && (
+                <div className="text-center py-6 text-slate-400">
+                  No telemetry alerts match current search query.
+                </div>
+              )}
             </div>
-          ))}
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-6 text-slate-400">
-              No telemetry alerts match current search query.
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </AdminShell>

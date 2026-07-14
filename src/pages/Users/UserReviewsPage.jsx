@@ -109,7 +109,7 @@ export default function UserReviewsPage() {
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <Select
               value={filterRating}
               onChange={(e) => setFilterRating(e.target.value)}
@@ -140,9 +140,9 @@ export default function UserReviewsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-6">
+        <div className="flex flex-col md:flex-row gap-6">
           {/* LEFT CARD */}
-          <div className="col-span-3">
+          <div className="w-full md:w-[280px] lg:w-[300px] shrink-0">
             <div className="bg-white border rounded-xl p-6 text-center hover:shadow-md transition">
               <img
                 src="https://i.pravatar.cc/150?img=12"
@@ -163,21 +163,21 @@ export default function UserReviewsPage() {
               <p className="mt-2 text-slate-500 font-semibold text-sm">
                 Premium User
               </p>
-              <div className="grid grid-cols-2 mt-8 border-t pt-4">
-                <div>
-                  <p className="text-slate-500 text-xs font-bold">TOTAL BOOKINGS</p>
-                  <p className="font-bold text-[#2A2454] text-lg">24</p>
+              <div className="grid grid-cols-2 gap-2 mt-8 border-t pt-4">
+                <div className="px-1">
+                  <p className="text-slate-500 text-[11px] sm:text-xs font-bold leading-tight break-words">TOTAL BOOKINGS</p>
+                  <p className="font-bold text-[#2A2454] text-lg mt-1">24</p>
                 </div>
-                <div>
-                  <p className="text-slate-500 text-xs font-bold">SPEND</p>
-                  <p className="font-bold text-[#2A2454] text-lg">₹1.2k</p>
+                <div className="px-1">
+                  <p className="text-slate-500 text-[11px] sm:text-xs font-bold leading-tight break-words">SPEND</p>
+                  <p className="font-bold text-[#2A2454] text-lg mt-1">₹1.2k</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="col-span-9 space-y-6">
+          <div className="w-full flex-1 space-y-6 min-w-0">
             {/* KPI CARDS */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="bg-white border rounded-xl p-5 hover:shadow-md transition cursor-pointer" onClick={() => addToast("Average rating is calculated dynamically.", "success")}>

@@ -202,18 +202,18 @@ export default function FraudInvestigation() {
       <div className="space-y-6">
 
         {/* HEADER */}
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
           <div>
             <div className="text-gray-500 text-base font-medium mb-3">
               Risk Center › Fraud Investigations ›
             </div>
             <h1 className="text-2xl font-bold text-gray-900">Fraud Investigation Case</h1>
-            <p className="text-gray-500 mt-2 text-lg">
+            <p className="text-gray-500 mt-2 text-lg max-w-2xl">
               Review evidence, analyze entity relationships, and manage escalation workflows.
             </p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
             {/* Flag as False Positive */}
             <button
               className={`h-12 px-6 border rounded-lg font-medium transition-all duration-200 flex items-center gap-2 active:scale-95 ${
@@ -261,10 +261,10 @@ export default function FraudInvestigation() {
         </div>
 
         {/* TOP SECTION */}
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           {/* RISK SCORE */}
-          <div className="col-span-3 bg-white border rounded-xl p-6">
+          <div className="col-span-1 lg:col-span-3 bg-white border rounded-xl p-6">
             <h3 className="text-center text-gray-500 uppercase tracking-[3px] text-xl leading-tight">
               COMPOSITE RISK<br />SCORE
             </h3>
@@ -301,15 +301,15 @@ export default function FraudInvestigation() {
           </div>
 
           {/* CASE INTELLIGENCE */}
-          <div className="col-span-6 bg-white border rounded-xl p-7">
-            <div className="flex items-center justify-between">
-              <h2 className="text-[38px] font-bold text-gray-900">Case Intelligence</h2>
+          <div className="col-span-1 lg:col-span-6 bg-white border rounded-xl p-7">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <h2 className="text-[38px] font-bold text-gray-900 leading-tight">Case Intelligence</h2>
               <span className={`px-4 py-2 rounded font-semibold transition-all duration-500 ${statusColorMap[caseStatus]}`}>
                 {caseStatus}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-10 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
               <div>
                 <p className="uppercase tracking-wider text-gray-500 text-sm font-medium">Subject Entity</p>
                 <div className="flex gap-4 mt-4">
@@ -341,7 +341,7 @@ export default function FraudInvestigation() {
           </div>
 
           {/* NETWORK GRAPH */}
-          <div className="col-span-3 bg-white border rounded-xl p-6">
+          <div className="col-span-1 lg:col-span-3 bg-white border rounded-xl p-6">
             <div
               className={`rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 ${networkExpanded ? "h-32 bg-indigo-50" : "h-56 bg-gray-50 hover:bg-gray-100"}`}
               onClick={() => setNetworkExpanded((v) => !v)}
@@ -391,14 +391,14 @@ export default function FraudInvestigation() {
         </div>
 
         {/* EVIDENCE LOGS + TIMELINE */}
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           {/* EVIDENCE LOGS */}
-          <div className="col-span-8 bg-white border rounded-xl overflow-hidden">
+          <div className="col-span-1 lg:col-span-8 bg-white border rounded-xl overflow-hidden">
 
-            <div className="flex items-center justify-between px-7 py-6 border-b">
-              <div className="flex items-center gap-3">
-                <h2 className="text-[32px] font-bold text-gray-900">Evidence Logs</h2>
+            <div className="flex flex-col sm:flex-row items-center justify-between px-7 py-6 border-b gap-4">
+              <div className="flex flex-wrap items-center gap-3 justify-center sm:justify-start">
+                <h2 className="text-[32px] font-bold text-gray-900 text-center sm:text-left">Evidence Logs</h2>
                 {reviewedCount > 0 && (
                   <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded">
                     {reviewedCount}/{evidence.length} reviewed
@@ -453,12 +453,12 @@ export default function FraudInvestigation() {
                       }`}
                       onClick={() => handleReviewEvidence(item.id)}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div className="flex items-start sm:items-center gap-3">
                           {item.reviewed ? (
-                            <CheckCircle2 size={18} className="text-green-500 shrink-0" />
+                            <CheckCircle2 size={18} className="text-green-500 shrink-0 mt-1 sm:mt-0" />
                           ) : (
-                            <div className={`w-4 h-4 rounded-full shrink-0 border-2 ${isSelected ? "border-indigo-500 bg-indigo-100" : "border-gray-300"}`} />
+                            <div className={`w-4 h-4 rounded-full shrink-0 border-2 mt-1 sm:mt-0 ${isSelected ? "border-indigo-500 bg-indigo-100" : "border-gray-300"}`} />
                           )}
                           <div>
                             <div className={`font-semibold transition-colors ${item.reviewed ? "line-through text-gray-400" : isSelected ? "text-indigo-700" : ""}`}>
@@ -467,7 +467,7 @@ export default function FraudInvestigation() {
                             <div className="text-gray-500 text-sm mt-0.5">{item.sub}</div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 self-end sm:self-auto">
                           <span className="text-xs text-gray-400">{item.time}</span>
                           <span className={`px-2 py-0.5 text-xs rounded font-semibold ${severityColor[item.severity]}`}>
                             {item.severity}
@@ -496,7 +496,7 @@ export default function FraudInvestigation() {
           </div>
 
           {/* TIMELINE + NOTES */}
-          <div className="col-span-4 bg-white border rounded-xl p-7">
+          <div className="col-span-1 lg:col-span-4 bg-white border rounded-xl p-7">
             <h2 className="text-[32px] font-bold text-gray-900 mb-8">Investigation Timeline</h2>
 
             <div className="space-y-5">

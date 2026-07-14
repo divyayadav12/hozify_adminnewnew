@@ -43,7 +43,7 @@ const ALL_EMPLOYEES = [
     permissions: ["SUPPORT", "CHAT"],
     performance: "RISING STAR",
     performanceColor: "bg-purple-100 text-purple-700",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1?w=200",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200",
   },
   {
     id: 4,
@@ -215,10 +215,10 @@ export default function BusinessEmployees() {
         </div>
 
         {/* TOP CARDS */}
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
 
           {/* CARD 1 — Total Headcount */}
-          <div className="col-span-3 bg-white border rounded-xl p-6">
+          <div className="col-span-1 md:col-span-1 lg:col-span-3 bg-white border rounded-xl p-6">
             <h4 className="uppercase tracking-widest text-gray-500 text-sm">
               Total Headcount
             </h4>
@@ -231,7 +231,7 @@ export default function BusinessEmployees() {
           </div>
 
           {/* CARD 2 — Retention Rate */}
-          <div className="col-span-3 bg-white border rounded-xl p-6">
+          <div className="col-span-1 md:col-span-1 lg:col-span-3 bg-white border rounded-xl p-6">
             <h4 className="uppercase tracking-widest text-gray-500 text-sm">
               Retention Rate
             </h4>
@@ -244,7 +244,7 @@ export default function BusinessEmployees() {
           </div>
 
           {/* CARD 3 — Performance Highlight */}
-          <div className="col-span-6 bg-indigo-950 text-white rounded-xl p-8">
+          <div className="col-span-1 md:col-span-2 lg:col-span-6 bg-indigo-950 text-white rounded-xl p-8">
             <h4 className="uppercase tracking-widest text-indigo-300 text-sm">
               Performance Highlight
             </h4>
@@ -261,9 +261,10 @@ export default function BusinessEmployees() {
 
         {/* EMPLOYEE TABLE */}
         <div className="bg-white border rounded-xl overflow-hidden">
-
-          {/* TABLE HEADER */}
-          <div className="grid grid-cols-12 px-8 py-5 bg-gray-50 border-b text-gray-500 font-semibold uppercase tracking-wide">
+          <div className="overflow-x-auto">
+            <div className="min-w-[1000px]">
+              {/* TABLE HEADER */}
+              <div className="grid grid-cols-12 px-8 py-5 bg-gray-50 border-b text-gray-500 font-semibold uppercase tracking-wide">
             <div className="col-span-3">Employee</div>
             <div className="col-span-4">Role & Dept</div>
             <div className="col-span-2">Permissions</div>
@@ -360,9 +361,11 @@ export default function BusinessEmployees() {
               </div>
             );
           })}
+            </div>
+          </div>
 
           {/* PAGINATION */}
-          <div className="flex items-center justify-between px-8 py-5">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 px-8 py-5">
             <p className="text-gray-500 text-lg transition-all duration-300">
               Showing {(currentPage - 1) * PAGE_SIZE + 1}–
               {Math.min(currentPage * PAGE_SIZE, headcount)} of{" "}
@@ -420,10 +423,10 @@ export default function BusinessEmployees() {
         </div>
 
         {/* BOTTOM SECTION */}
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           {/* HEALTH CARD */}
-          <div className="col-span-6 bg-white border rounded-xl p-8">
+          <div className="col-span-1 lg:col-span-6 bg-white border rounded-xl p-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
                 <Award className="text-white" size={26} />
@@ -449,7 +452,7 @@ export default function BusinessEmployees() {
           </div>
 
           {/* SECURITY CARD */}
-          <div className="col-span-6 bg-white border rounded-xl p-8">
+          <div className="col-span-1 lg:col-span-6 bg-white border rounded-xl p-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
                 <Shield className="text-orange-700" size={26} />
